@@ -1,6 +1,11 @@
 services:
   openclaw-gateway:
-    image: alpine/openclaw:latest
+    image: local/openclaw-gateway:${OPENCLAW_VERSION:-2026.6.8}
+    build:
+      context: .
+      dockerfile: Dockerfile.openclaw-gateway
+      args:
+        OPENCLAW_VERSION: ${OPENCLAW_VERSION:-2026.6.8}
     ports:
       - "${OPENCLAW_GATEWAY_PORT:-18789}:18789"
     environment:
