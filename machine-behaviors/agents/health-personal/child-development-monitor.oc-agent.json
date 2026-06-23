@@ -1,0 +1,345 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "oc-agent-template",
+  "role": "input-analyst",
+  "agentId": "child-development-monitor",
+  "displayName": "Child Development Monitor",
+  "machine": {
+    "id": "ChildDevelopmentMonitor",
+    "name": "Child Development Monitor",
+    "code": "childdevelopmentmonitor",
+    "machineClass": "risk-forecaster",
+    "domain": "health-personal",
+    "inputRegion": {
+      "offset": 1975,
+      "length": 4
+    },
+    "outputRegion": {
+      "offset": 2007,
+      "length": 4
+    }
+  },
+  "openclaw": {
+    "id": "openclaw-xacp",
+    "kind": "acp",
+    "platform": "OpenClaw",
+    "surface": "xACP",
+    "command": "openclaw acp",
+    "gatewayUrl": "ws://127.0.0.1:18789",
+    "sessionKey": "agent:main:main",
+    "targetAgent": "child-development-monitor",
+    "dispatchMode": "accepted-no-wait",
+    "completionMode": "pe-source-mapping",
+    "completionSourceMappingId": "acp-child-development-monitor-input-assessment"
+  },
+  "reasoning": {
+    "objective": "Produce the normalized input vector for \"Child Development Monitor\" from current observations so RE can evaluate its CES sequences.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Child Development Monitor\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Tracks developmental milestone progress, social-emotional engagement, language acquisition, and learning readiness for children ages 0\u201312 in low- and medium-income home care settings. Early identification of developmental delays in economically vulnerable households is critical because access to early intervention services (EI, speech therapy, occupational therapy) is income- and geography-dependent. Output at [2007:2011] feeds the Home Caregiver Burden Monitor alongside the Pediatric Nutrition Monitor.\n\nPOPULATION: Children ages 0\u201312; families in early intervention program gaps; low-income households with limited developmental support access\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- milestone_completion_norm (index 0):  0.0 = significant delay (>2 standard deviations behind age norms) | 0.5 = mild delay or age-appropriate borderline | 1.0 = meeting or exceeding age milestones\n- peer_interaction_norm (index 1):  0.0 = social withdrawal or isolation; no peer engagement | 0.5 = limited but functional peer interaction | 1.0 = age-appropriate social engagement\n- language_score_norm (index 2):  0.0 = non-verbal or severely limited expressive/receptive language for age | 0.5 = borderline language development | 1.0 = age-appropriate or advanced language\n- learning_engagement_norm (index 3):  0.0 = disengaged; unable to focus; school-readiness concerns | 0.5 = partial engagement with support needs | 1.0 = curious and engaged learner\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- REFERRAL_NEEDED (AMBER) -> action: Early intervention referral; developmental pediatrician evaluation; speech/OT/PT screening\n- SOCIAL_DEVELOPMENTAL_CONCERN (AMBER) -> action: Developmental-behavioral pediatrics referral; ACE screening; caregiver mental health check\n- DEVELOPMENT_OK (AMBER) -> action: Caregiver burden monitor registers healthy child developmental state",
+    "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
+    "inputAxes": [
+      {
+        "index": 0,
+        "key": "milestone_completion_norm",
+        "anchors": {
+          "low": "significant delay (>2 standard deviations behind age norms)",
+          "mid": "mild delay or age-appropriate borderline",
+          "high": "meeting or exceeding age milestones"
+        }
+      },
+      {
+        "index": 1,
+        "key": "peer_interaction_norm",
+        "anchors": {
+          "low": "social withdrawal or isolation; no peer engagement",
+          "mid": "limited but functional peer interaction",
+          "high": "age-appropriate social engagement"
+        }
+      },
+      {
+        "index": 2,
+        "key": "language_score_norm",
+        "anchors": {
+          "low": "non-verbal or severely limited expressive/receptive language for age",
+          "mid": "borderline language development",
+          "high": "age-appropriate or advanced language"
+        }
+      },
+      {
+        "index": 3,
+        "key": "learning_engagement_norm",
+        "anchors": {
+          "low": "disengaged; unable to focus; school-readiness concerns",
+          "mid": "partial engagement with support needs",
+          "high": "curious and engaged learner"
+        }
+      }
+    ],
+    "sequenceCatalog": [
+      {
+        "sequenceId": "child-dev-delay-escalation",
+        "label": "REFERRAL_NEEDED",
+        "rag": "AMBER",
+        "outputIndex": 0,
+        "action": "Early intervention referral; developmental pediatrician evaluation; speech/OT/PT screening"
+      },
+      {
+        "sequenceId": "child-dev-social-concern",
+        "label": "SOCIAL_DEVELOPMENTAL_CONCERN",
+        "rag": "AMBER",
+        "outputIndex": 1,
+        "action": "Developmental-behavioral pediatrics referral; ACE screening; caregiver mental health check"
+      },
+      {
+        "sequenceId": "child-dev-on-track",
+        "label": "DEVELOPMENT_OK",
+        "rag": "AMBER",
+        "outputIndex": 3,
+        "action": "Caregiver burden monitor registers healthy child developmental state"
+      }
+    ]
+  },
+  "agentBinding": {
+    "agent": "child-development-monitor",
+    "mode": "advise",
+    "trigger": "childdevelopmentmonitor-input-assessment",
+    "allowedActions": [
+      "Assess current \"Child Development Monitor\" state from available observations and write the normalized input vector to the PE input region [1975:1979] for RE to evaluate."
+    ],
+    "writeBack": {
+      "type": "pe-sensor",
+      "provider": "acp",
+      "sensorId": "acp.openclaw.childdevelopmentmonitor.input-analyst.assessment",
+      "name": "OpenClaw childdevelopmentmonitor input-analyst assessment",
+      "region": {
+        "offset": 1975,
+        "length": 4
+      },
+      "semantics": [
+        "milestone_completion_norm",
+        "peer_interaction_norm",
+        "language_score_norm",
+        "learning_engagement_norm"
+      ],
+      "ttlMs": 300000,
+      "normalization": "already-normalized-0-1",
+      "ingest": {
+        "endpoint": "/api/integrations/completions",
+        "method": "POST",
+        "triggerPush": false,
+        "compactPush": true
+      },
+      "sourceMapping": {
+        "id": "acp-childdevelopmentmonitor-input-assessment",
+        "sensorId": "acp.openclaw.childdevelopmentmonitor.input-analyst.assessment",
+        "name": "OpenClaw childdevelopmentmonitor input-analyst assessment",
+        "region": {
+          "offset": 1975,
+          "length": 4
+        },
+        "ttlMs": 300000
+      }
+    },
+    "autonomyPolicy": {
+      "mode": "advise",
+      "stage": 1,
+      "writeBackType": "pe-sensor",
+      "canWriteBack": true,
+      "canStageActions": false,
+      "canExecuteActions": false,
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "blockedWhenRag": []
+    },
+    "riskControls": {
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "maxAutonomy": "advise",
+      "blockedWhenRag": []
+    }
+  },
+  "responseMapping": {
+    "schemaVersion": "1.0.0",
+    "responseContract": "structured-keys-or-text",
+    "mode": "advise",
+    "fields": [
+      {
+        "semantic": "milestone_completion_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/milestone_completion_norm",
+          "responseKey": "milestone_completion_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.childdevelopmentmonitor.input-analyst.assessment",
+          "region": {
+            "offset": 1975,
+            "length": 4
+          },
+          "index": 0
+        }
+      },
+      {
+        "semantic": "peer_interaction_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/peer_interaction_norm",
+          "responseKey": "peer_interaction_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.childdevelopmentmonitor.input-analyst.assessment",
+          "region": {
+            "offset": 1975,
+            "length": 4
+          },
+          "index": 1
+        }
+      },
+      {
+        "semantic": "language_score_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/language_score_norm",
+          "responseKey": "language_score_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.childdevelopmentmonitor.input-analyst.assessment",
+          "region": {
+            "offset": 1975,
+            "length": 4
+          },
+          "index": 2
+        }
+      },
+      {
+        "semantic": "learning_engagement_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/learning_engagement_norm",
+          "responseKey": "learning_engagement_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.childdevelopmentmonitor.input-analyst.assessment",
+          "region": {
+            "offset": 1975,
+            "length": 4
+          },
+          "index": 3
+        }
+      }
+    ]
+  },
+  "diagnostics": {
+    "axisBasis": "sensorNormalization",
+    "warnings": [],
+    "inputLength": 4,
+    "sequenceCount": 3
+  }
+}

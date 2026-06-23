@@ -1,0 +1,234 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "oc-agent-template",
+  "role": "input-analyst",
+  "agentId": "rs-flipflop-trigger",
+  "displayName": "RS Flipflop Trigger",
+  "machine": {
+    "id": "RSFlipFlopTrigger",
+    "name": "RS Flipflop Trigger",
+    "code": "rs-flipflop-trigger",
+    "machineClass": "bridge",
+    "domain": "digital-logic",
+    "inputRegion": {
+      "offset": 3917,
+      "length": 2
+    },
+    "outputRegion": {
+      "offset": 3919,
+      "length": 2
+    }
+  },
+  "openclaw": {
+    "id": "openclaw-xacp",
+    "kind": "acp",
+    "platform": "OpenClaw",
+    "surface": "xACP",
+    "command": "openclaw acp",
+    "gatewayUrl": "ws://127.0.0.1:18789",
+    "sessionKey": "agent:main:main",
+    "targetAgent": "rs-flipflop-trigger",
+    "dispatchMode": "accepted-no-wait",
+    "completionMode": "pe-source-mapping",
+    "completionSourceMappingId": "acp-rs-flipflop-trigger-input-assessment"
+  },
+  "reasoning": {
+    "objective": "Produce the normalized input vector for \"RS Flipflop Trigger\" from current observations so RE can evaluate its CES sequences.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"RS Flipflop Trigger\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. RS flip-flop whose output transitions fire an upstream GraphQL trigger into the local AI stack. SET drives the machine output to [1,0] (AMBER), RESET drives it to [0,1] (GREEN). The trigger configuration in metadata.triggerConfig is consumed by the dispatcher template at examples/triggers/graphql_trigger_template.py.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- rs-flipflop-trigger-input-1 (index 0):\n- rs-flipflop-trigger-input-2 (index 1):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- rs-set-sequence (AMBER)\n- rs-reset-sequence (GREEN)",
+    "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
+    "inputAxes": [
+      {
+        "index": 0,
+        "key": "rs-flipflop-trigger-input-1",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 1,
+        "key": "rs-flipflop-trigger-input-2",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      }
+    ],
+    "sequenceCatalog": [
+      {
+        "sequenceId": "rs-set-sequence",
+        "label": "rs-set-sequence",
+        "rag": "AMBER",
+        "outputIndex": 0,
+        "action": ""
+      },
+      {
+        "sequenceId": "rs-reset-sequence",
+        "label": "rs-reset-sequence",
+        "rag": "GREEN",
+        "outputIndex": 1,
+        "action": ""
+      }
+    ]
+  },
+  "agentBinding": {
+    "agent": "rs-flipflop-trigger",
+    "mode": "advise",
+    "trigger": "rs-flipflop-trigger-input-assessment",
+    "allowedActions": [
+      "Assess current \"RS Flipflop Trigger\" state from available observations and write the normalized input vector to the PE input region [3917:3919] for RE to evaluate."
+    ],
+    "writeBack": {
+      "type": "pe-sensor",
+      "provider": "acp",
+      "sensorId": "acp.openclaw.rs-flipflop-trigger.input-analyst.assessment",
+      "name": "OpenClaw rs-flipflop-trigger input-analyst assessment",
+      "region": {
+        "offset": 3917,
+        "length": 2
+      },
+      "semantics": [
+        "rs-flipflop-trigger-input-1",
+        "rs-flipflop-trigger-input-2"
+      ],
+      "ttlMs": 300000,
+      "normalization": "already-normalized-0-1",
+      "ingest": {
+        "endpoint": "/api/integrations/completions",
+        "method": "POST",
+        "triggerPush": false,
+        "compactPush": true
+      },
+      "sourceMapping": {
+        "id": "acp-rs-flipflop-trigger-input-assessment",
+        "sensorId": "acp.openclaw.rs-flipflop-trigger.input-analyst.assessment",
+        "name": "OpenClaw rs-flipflop-trigger input-analyst assessment",
+        "region": {
+          "offset": 3917,
+          "length": 2
+        },
+        "ttlMs": 300000
+      }
+    },
+    "autonomyPolicy": {
+      "mode": "advise",
+      "stage": 1,
+      "writeBackType": "pe-sensor",
+      "canWriteBack": true,
+      "canStageActions": false,
+      "canExecuteActions": false,
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "blockedWhenRag": []
+    },
+    "riskControls": {
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "maxAutonomy": "advise",
+      "blockedWhenRag": []
+    }
+  },
+  "responseMapping": {
+    "schemaVersion": "1.0.0",
+    "responseContract": "structured-keys-or-text",
+    "mode": "advise",
+    "fields": [
+      {
+        "semantic": "rs-flipflop-trigger-input-1",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/rs-flipflop-trigger-input-1",
+          "responseKey": "rs-flipflop-trigger-input-1",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.rs-flipflop-trigger.input-analyst.assessment",
+          "region": {
+            "offset": 3917,
+            "length": 2
+          },
+          "index": 0
+        }
+      },
+      {
+        "semantic": "rs-flipflop-trigger-input-2",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/rs-flipflop-trigger-input-2",
+          "responseKey": "rs-flipflop-trigger-input-2",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.rs-flipflop-trigger.input-analyst.assessment",
+          "region": {
+            "offset": 3917,
+            "length": 2
+          },
+          "index": 1
+        }
+      }
+    ]
+  },
+  "diagnostics": {
+    "axisBasis": "inputSemantics",
+    "warnings": [
+      "input axes derived from inputSemantics (no length-matched sensorNormalization)"
+    ],
+    "inputLength": 2,
+    "sequenceCount": 2
+  }
+}

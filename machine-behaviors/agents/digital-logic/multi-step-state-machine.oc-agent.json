@@ -1,0 +1,287 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "oc-agent-template",
+  "role": "input-analyst",
+  "agentId": "multi-step-state-machine",
+  "displayName": "Multi-Step State Machine",
+  "machine": {
+    "id": "MultiStep",
+    "name": "Multi-Step State Machine",
+    "code": "multistep",
+    "machineClass": "signal-monitor",
+    "domain": "digital-logic",
+    "inputRegion": {
+      "offset": 3907,
+      "length": 3
+    },
+    "outputRegion": {
+      "offset": 3910,
+      "length": 2
+    }
+  },
+  "openclaw": {
+    "id": "openclaw-xacp",
+    "kind": "acp",
+    "platform": "OpenClaw",
+    "surface": "xACP",
+    "command": "openclaw acp",
+    "gatewayUrl": "ws://127.0.0.1:18789",
+    "sessionKey": "agent:main:main",
+    "targetAgent": "multi-step-state-machine",
+    "dispatchMode": "accepted-no-wait",
+    "completionMode": "pe-source-mapping",
+    "completionSourceMappingId": "acp-multi-step-state-machine-input-assessment"
+  },
+  "reasoning": {
+    "objective": "Produce the normalized input vector for \"Multi-Step State Machine\" from current observations so RE can evaluate its CES sequences.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Multi-Step State Machine\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Demonstrates 3-step critical event sequences with state transitions and binary outputs\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- multi-step-state-machine-input-1 (index 0):\n- multi-step-state-machine-input-2 (index 1):\n- multi-step-state-machine-input-3 (index 2):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Sequence 1 complete (GREEN)\n- Sequence 2 complete (GREEN)",
+    "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
+    "inputAxes": [
+      {
+        "index": 0,
+        "key": "multi-step-state-machine-input-1",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 1,
+        "key": "multi-step-state-machine-input-2",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 2,
+        "key": "multi-step-state-machine-input-3",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      }
+    ],
+    "sequenceCatalog": [
+      {
+        "sequenceId": "multi-step-seq1",
+        "label": "Sequence 1 complete",
+        "rag": "GREEN",
+        "outputIndex": 1,
+        "action": ""
+      },
+      {
+        "sequenceId": "multi-step-seq2",
+        "label": "Sequence 2 complete",
+        "rag": "GREEN",
+        "outputIndex": 0,
+        "action": ""
+      }
+    ]
+  },
+  "agentBinding": {
+    "agent": "multi-step-state-machine",
+    "mode": "advise",
+    "trigger": "multistep-input-assessment",
+    "allowedActions": [
+      "Assess current \"Multi-Step State Machine\" state from available observations and write the normalized input vector to the PE input region [3907:3910] for RE to evaluate."
+    ],
+    "writeBack": {
+      "type": "pe-sensor",
+      "provider": "acp",
+      "sensorId": "acp.openclaw.multistep.input-analyst.assessment",
+      "name": "OpenClaw multistep input-analyst assessment",
+      "region": {
+        "offset": 3907,
+        "length": 3
+      },
+      "semantics": [
+        "multi-step-state-machine-input-1",
+        "multi-step-state-machine-input-2",
+        "multi-step-state-machine-input-3"
+      ],
+      "ttlMs": 300000,
+      "normalization": "already-normalized-0-1",
+      "ingest": {
+        "endpoint": "/api/integrations/completions",
+        "method": "POST",
+        "triggerPush": false,
+        "compactPush": true
+      },
+      "sourceMapping": {
+        "id": "acp-multistep-input-assessment",
+        "sensorId": "acp.openclaw.multistep.input-analyst.assessment",
+        "name": "OpenClaw multistep input-analyst assessment",
+        "region": {
+          "offset": 3907,
+          "length": 3
+        },
+        "ttlMs": 300000
+      }
+    },
+    "autonomyPolicy": {
+      "mode": "advise",
+      "stage": 1,
+      "writeBackType": "pe-sensor",
+      "canWriteBack": true,
+      "canStageActions": false,
+      "canExecuteActions": false,
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "blockedWhenRag": []
+    },
+    "riskControls": {
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "maxAutonomy": "advise",
+      "blockedWhenRag": []
+    }
+  },
+  "responseMapping": {
+    "schemaVersion": "1.0.0",
+    "responseContract": "structured-keys-or-text",
+    "mode": "advise",
+    "fields": [
+      {
+        "semantic": "multi-step-state-machine-input-1",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/multi-step-state-machine-input-1",
+          "responseKey": "multi-step-state-machine-input-1",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.multistep.input-analyst.assessment",
+          "region": {
+            "offset": 3907,
+            "length": 3
+          },
+          "index": 0
+        }
+      },
+      {
+        "semantic": "multi-step-state-machine-input-2",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/multi-step-state-machine-input-2",
+          "responseKey": "multi-step-state-machine-input-2",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.multistep.input-analyst.assessment",
+          "region": {
+            "offset": 3907,
+            "length": 3
+          },
+          "index": 1
+        }
+      },
+      {
+        "semantic": "multi-step-state-machine-input-3",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/multi-step-state-machine-input-3",
+          "responseKey": "multi-step-state-machine-input-3",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.multistep.input-analyst.assessment",
+          "region": {
+            "offset": 3907,
+            "length": 3
+          },
+          "index": 2
+        }
+      }
+    ]
+  },
+  "diagnostics": {
+    "axisBasis": "inputSemantics",
+    "warnings": [
+      "input axes derived from inputSemantics (no length-matched sensorNormalization)"
+    ],
+    "inputLength": 3,
+    "sequenceCount": 2
+  }
+}

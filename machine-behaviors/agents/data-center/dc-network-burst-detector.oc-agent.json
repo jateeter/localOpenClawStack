@@ -1,0 +1,338 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "oc-agent-template",
+  "role": "input-analyst",
+  "agentId": "dc-network-burst-detector",
+  "displayName": "DC Network Burst Detector",
+  "machine": {
+    "id": "DCNetworkBurstDetector",
+    "name": "DC Network Burst Detector",
+    "code": "dcnetworkburstdetector",
+    "machineClass": "signal-monitor",
+    "domain": "data-center",
+    "inputRegion": {
+      "offset": 1348,
+      "length": 4
+    },
+    "outputRegion": {
+      "offset": 1365,
+      "length": 2
+    }
+  },
+  "openclaw": {
+    "id": "openclaw-xacp",
+    "kind": "acp",
+    "platform": "OpenClaw",
+    "surface": "xACP",
+    "command": "openclaw acp",
+    "gatewayUrl": "ws://127.0.0.1:18789",
+    "sessionKey": "agent:main:main",
+    "targetAgent": "dc-network-burst-detector",
+    "dispatchMode": "accepted-no-wait",
+    "completionMode": "pe-source-mapping",
+    "completionSourceMappingId": "acp-dc-network-burst-detector-input-assessment"
+  },
+  "reasoning": {
+    "objective": "Produce the normalized input vector for \"DC Network Burst Detector\" from current observations so RE can evaluate its CES sequences.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"DC Network Burst Detector\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Monitors network bandwidth utilization and packet loss to detect burst traffic and congestion events. Implements the regular expression BASELINE+ \u2192 ELEVATED+ \u2192 BURST \u2192 CONGESTION+ \u2192 OVERFLOW \u2192 [alarm]. A concurrent NORMAL_FLOW+ sequence fires the reset signal when network conditions are nominal.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- bandwidth_util_norm (index 0):\n- packet_loss_norm (index 1):\n- latency_norm (index 2):\n- queue_depth_norm (index 3):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- NETWORK OVERFLOW (RED) -> action: DCNetworkThrottleFF will SET; traffic shaping and rate limiting engaged\n- NETWORK NORMAL (GREEN) -> action: DCNetworkThrottleFF will RESET; normal traffic flow",
+    "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
+    "inputAxes": [
+      {
+        "index": 0,
+        "key": "bandwidth_util_norm",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 1,
+        "key": "packet_loss_norm",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 2,
+        "key": "latency_norm",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 3,
+        "key": "queue_depth_norm",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      }
+    ],
+    "sequenceCatalog": [
+      {
+        "sequenceId": "dc-network-escalation",
+        "label": "NETWORK OVERFLOW",
+        "rag": "RED",
+        "outputIndex": 0,
+        "action": "DCNetworkThrottleFF will SET; traffic shaping and rate limiting engaged"
+      },
+      {
+        "sequenceId": "dc-network-normal-flow",
+        "label": "NETWORK NORMAL",
+        "rag": "GREEN",
+        "outputIndex": 1,
+        "action": "DCNetworkThrottleFF will RESET; normal traffic flow"
+      }
+    ]
+  },
+  "agentBinding": {
+    "agent": "dc-network-burst-detector",
+    "mode": "advise",
+    "trigger": "dcnetworkburstdetector-input-assessment",
+    "allowedActions": [
+      "Assess current \"DC Network Burst Detector\" state from available observations and write the normalized input vector to the PE input region [1348:1352] for RE to evaluate."
+    ],
+    "writeBack": {
+      "type": "pe-sensor",
+      "provider": "acp",
+      "sensorId": "acp.openclaw.dcnetworkburstdetector.input-analyst.assessment",
+      "name": "OpenClaw dcnetworkburstdetector input-analyst assessment",
+      "region": {
+        "offset": 1348,
+        "length": 4
+      },
+      "semantics": [
+        "bandwidth_util_norm",
+        "packet_loss_norm",
+        "latency_norm",
+        "queue_depth_norm"
+      ],
+      "ttlMs": 300000,
+      "normalization": "already-normalized-0-1",
+      "ingest": {
+        "endpoint": "/api/integrations/completions",
+        "method": "POST",
+        "triggerPush": false,
+        "compactPush": true
+      },
+      "sourceMapping": {
+        "id": "acp-dcnetworkburstdetector-input-assessment",
+        "sensorId": "acp.openclaw.dcnetworkburstdetector.input-analyst.assessment",
+        "name": "OpenClaw dcnetworkburstdetector input-analyst assessment",
+        "region": {
+          "offset": 1348,
+          "length": 4
+        },
+        "ttlMs": 300000
+      }
+    },
+    "autonomyPolicy": {
+      "mode": "advise",
+      "stage": 1,
+      "writeBackType": "pe-sensor",
+      "canWriteBack": true,
+      "canStageActions": false,
+      "canExecuteActions": false,
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "blockedWhenRag": []
+    },
+    "riskControls": {
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "maxAutonomy": "advise",
+      "blockedWhenRag": []
+    }
+  },
+  "responseMapping": {
+    "schemaVersion": "1.0.0",
+    "responseContract": "structured-keys-or-text",
+    "mode": "advise",
+    "fields": [
+      {
+        "semantic": "bandwidth_util_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/bandwidth_util_norm",
+          "responseKey": "bandwidth_util_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.dcnetworkburstdetector.input-analyst.assessment",
+          "region": {
+            "offset": 1348,
+            "length": 4
+          },
+          "index": 0
+        }
+      },
+      {
+        "semantic": "packet_loss_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/packet_loss_norm",
+          "responseKey": "packet_loss_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.dcnetworkburstdetector.input-analyst.assessment",
+          "region": {
+            "offset": 1348,
+            "length": 4
+          },
+          "index": 1
+        }
+      },
+      {
+        "semantic": "latency_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/latency_norm",
+          "responseKey": "latency_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.dcnetworkburstdetector.input-analyst.assessment",
+          "region": {
+            "offset": 1348,
+            "length": 4
+          },
+          "index": 2
+        }
+      },
+      {
+        "semantic": "queue_depth_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/queue_depth_norm",
+          "responseKey": "queue_depth_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.dcnetworkburstdetector.input-analyst.assessment",
+          "region": {
+            "offset": 1348,
+            "length": 4
+          },
+          "index": 3
+        }
+      }
+    ]
+  },
+  "diagnostics": {
+    "axisBasis": "sensorNormalization",
+    "warnings": [],
+    "inputLength": 4,
+    "sequenceCount": 2
+  }
+}

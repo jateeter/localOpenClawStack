@@ -59,9 +59,24 @@ def _mapping_for(inst: dict[str, Any]) -> dict[str, Any]:
     }
 
 
-def collect(domain: str) -> dict[str, Any]:
+def _corpus_outputs(mdir: Path) -> list[tuple[str, int, int, str]]:
+    """(machineName, outOffset, outLength, fileStem) for every machine."""
+    out = []
+    for f in mdir.glob("*.json"):
+        try:
+            m = as_object(json.loads(f.read_text()).get("machine"))
+        except Exception:
+            continue
+        o = as_object(as_object(m.get("perceptualMapping")).get("output"))
+        if isinstance(o.get("offset"), int) and isinstance(o.get("length"), int):
+            out.append((str(m.get("name")), o["offset"], o["length"], f.stem))
+    return out
+
+
+def collect(domain: str, include_bridged: bool = False) -> dict[str, Any]:
     cfg = load_config()
     mdir = _abs(cfg["machinesDir"])
+    corpus_outputs = _corpus_outputs(mdir)
     selected: list[dict[str, Any]] = []
     skipped: list[dict[str, Any]] = []
     for f in sorted(mdir.glob("*.json")):
@@ -75,7 +90,7 @@ def collect(domain: str) -> dict[str, Any]:
         inst = tmpl.derive(f, cfg)
         region = as_object(inst["machine"]["inputRegion"])
         off, ln = region.get("offset"), region.get("length")
-        rec = {"code": inst["machine"]["code"], "agentId": inst["agentId"],
+        rec = {"code": inst["machine"]["code"], "agentId": inst["agentId"], "stem": f.stem,
                "machineClass": inst["machine"]["machineClass"],
                "offset": off, "length": ln, "instance": inst}
         if not isinstance(off, int) or not isinstance(ln, int) or ln < 1:
@@ -84,6 +99,12 @@ def collect(domain: str) -> dict[str, Any]:
         if any(_overlaps(off, ln, bo, bl) for bo, bl in INTEGRATION_BANDS):
             rec["reason"] = f"input region [{off}:{off+ln}] collides with integration band"
             skipped.append(rec); continue
+        # bridge-fed: input region IS another machine's output region. The input
+        # is produced by composition; an agent there would overwrite it.
+        producers = [nm for (nm, oo, ol, st) in corpus_outputs
+                     if st != f.stem and _overlaps(off, ln, oo, ol)]
+        if producers:
+            rec["bridgedBy"] = producers[:3]
         selected.append(rec)
 
     # intra-domain input-region collision check among the selected set
@@ -94,15 +115,32 @@ def collect(domain: str) -> dict[str, Any]:
                 a.setdefault("collidesWith", []).append(b["code"])
                 b.setdefault("collidesWith", []).append(a["code"])
 
-    mappings = [_mapping_for(r["instance"]) for r in selected if "collidesWith" not in r]
-    collided = [r for r in selected if "collidesWith" in r]
+    def eligible(r):
+        if "collidesWith" in r:
+            return False
+        if "bridgedBy" in r and not include_bridged:
+            return False
+        return True
+
+    leaf = [r for r in selected if eligible(r)]
+    bridged = [r for r in selected if "bridgedBy" in r and "collidesWith" not in r]
+    mappings = [_mapping_for(r["instance"]) for r in leaf]
+    # mapping ids for every health-personal machine (used to prune stale ones on write)
+    all_domain_ids = {f"acp-{r['code']}-input-assessment" for r in selected}
+    keep_ids = {m["id"] for m in mappings}
     return {"domain": domain, "selected": selected, "skipped": skipped,
-            "collided": collided, "mappings": mappings}
+            "collided": [r for r in selected if "collidesWith" in r],
+            "bridged": bridged, "leaf": leaf, "mappings": mappings,
+            "pruneIds": sorted(all_domain_ids - keep_ids)}
 
 
-def _merge_into(path: Path, mappings: list[dict[str, Any]]) -> tuple[int, int]:
+def _merge_into(path: Path, mappings: list[dict[str, Any]],
+                prune_ids: list[str]) -> tuple[int, int, int]:
     d = json.loads(path.read_text())
     sms = d.setdefault("sourceMappings", [])
+    prune = set(prune_ids)
+    pruned = len([m for m in sms if m.get("id") in prune])
+    sms = [m for m in sms if m.get("id") not in prune]
     ids = {m.get("id"): k for k, m in enumerate(sms)}
     added = updated = 0
     for m in mappings:
@@ -110,8 +148,9 @@ def _merge_into(path: Path, mappings: list[dict[str, Any]]) -> tuple[int, int]:
             sms[ids[m["id"]]] = m; updated += 1
         else:
             sms.append(m); added += 1
+    d["sourceMappings"] = sms
     path.write_text(json.dumps(d, indent=2) + "\n")
-    return added, updated
+    return added, updated, pruned
 
 
 # ── verification: deterministic firing input per machine ──────────────────────
@@ -147,10 +186,12 @@ def verify(report: dict[str, Any]) -> None:
     pe = as_object(cfg.get("pe")).get("baseUrl", "http://localhost:5100")
     mdir = _abs(cfg["machinesDir"])
 
+    leaf_codes = {r["code"] for r in report["leaf"]}
     posted = []
     for r in report["selected"]:
-        if "collidesWith" in r:
-            continue
+        if r["code"] not in leaf_codes:
+            posted.append({**r, "fire": None, "note": "not-registered",
+                           "kind": "bridge" if "bridgedBy" in r else "skip"}); continue
         inst = r["instance"]
         mpath = mdir / f"{inst['machine']['id']}.json"
         fire = _firing_input(mpath, r["length"])
@@ -181,26 +222,31 @@ def verify(report: dict[str, Any]) -> None:
         step = json.loads(resp.read()).get("step", {})
     ps = step.get("perceptualSpace", [])
 
-    fired = 0
-    print(f"\n=== verify: posted firing inputs for {report['domain']}, then 1 push ===")
-    print(f"{'machine':36s} {'in→out':>14s}  output-region  result")
+    leaf_fired = leaf_total = bridge_fired = bridge_total = 0
+    print(f"\n=== verify: posted firing inputs to {len(report['leaf'])} leaf machines, then 1 push ===")
+    print(f"{'machine':34s} {'role':6s} {'in→out':>12s}  output-region        result")
     for p in posted:
         inst = p["instance"]; outr = as_object(inst["machine"]["outputRegion"])
         oo, ol = outr.get("offset"), outr.get("length")
         outvals = [round(ps[oo + k], 2) for k in range(ol)] if isinstance(oo, int) and ps and oo + ol <= len(ps) else []
         nonzero = any(v for v in outvals)
-        if p.get("fire") is None:
-            res = "skip (" + p["note"] + ")" if p["note"] != "posted" else "skip (no single-step)"
+        kind = p.get("kind", "leaf")
+        if kind == "bridge":
+            bridge_total += 1; bridge_fired += 1 if nonzero else 0
+            res = "FIRED via composition ✓" if nonzero else "(awaiting upstream)"
+            role = "bridge"
+        elif kind == "skip":
+            res = "skipped (band collision)"; role = "—"
+        elif p.get("fire") is None:
+            res = "no single-step fire (multi-step seq)"; role = "leaf"
         elif "fail" in p["note"] or "non-200" in p["note"]:
-            res = "POST " + p["note"]
+            res = "POST " + p["note"]; role = "leaf"
         else:
-            res = "FIRED ✓" if nonzero else "no transition"
-            fired += 1 if nonzero else 0
-        io = f"{p['offset']}→{oo}"
-        print(f"{p['code']:36s} {io:>14s}  {str(outvals):14s} {res}")
-    eligible = [p for p in posted if p.get("fire")]
-    print(f"\ntransitioned: {fired}/{len(eligible)} machines with a single-step fire "
-          f"({len(posted)} registered, {len(posted)-len(eligible)} need a multi-step sequence)")
+            leaf_total += 1; leaf_fired += 1 if nonzero else 0
+            res = "FIRED direct ✓" if nonzero else "no transition"; role = "leaf"
+        print(f"{p['code']:34s} {role:6s} {p['offset']}→{str(oo):>6s}  {str(outvals):20s} {res}")
+    print(f"\nleaf (direct agent input): {leaf_fired}/{leaf_total} single-step machines fired")
+    print(f"bridge (composition-driven): {bridge_fired}/{bridge_total} aggregators fired from leaf outputs")
 
 
 def main() -> int:
@@ -208,17 +254,24 @@ def main() -> int:
     ap.add_argument("--domain", default="health-personal")
     ap.add_argument("--write", action="store_true", help="merge into CI integrations configs")
     ap.add_argument("--verify", action="store_true", help="post firing inputs and report transitions")
+    ap.add_argument("--include-bridged", action="store_true",
+                    help="also register machines whose input is another machine's output (default: exclude)")
     args = ap.parse_args()
 
-    report = collect(args.domain)
-    print(f"domain={args.domain}: {len(report['selected'])} selected, "
-          f"{len(report['skipped'])} skipped, {len(report['collided'])} collided → "
-          f"{len(report['mappings'])} mappings")
+    report = collect(args.domain, include_bridged=args.include_bridged)
+    print(f"domain={args.domain}: {len(report['selected'])} in-domain, "
+          f"{len(report['skipped'])} skipped, {len(report['collided'])} colliding, "
+          f"{len(report['bridged'])} bridge-fed → {len(report['mappings'])} leaf mappings"
+          f"{' (incl. bridged)' if args.include_bridged else ''}")
     for r in report["skipped"]:
-        print(f"  skip  {r['code']:34s} {r.get('reason')}")
+        print(f"  skip    {r['code']:34s} {r.get('reason')}")
     for r in report["collided"]:
         print(f"  COLLIDE {r['code']:32s} input [{r['offset']}:{r['offset']+r['length']}] "
               f"overlaps {r['collidesWith']}")
+    for r in report["bridged"]:
+        tag = "incl" if args.include_bridged else "excl"
+        print(f"  bridge[{tag}] {r['code']:30s} input [{r['offset']}:{r['offset']+r['length']}] "
+              f"<= output of {r['bridgedBy']}")
     if not (args.write or args.verify):
         print("\nmappings (dry-run; pass --write to register):")
         for m in report["mappings"]:
@@ -232,8 +285,10 @@ def main() -> int:
     if args.write:
         for name in ("integrations.json", "integrations.example.json"):
             p = CI_CONFIG_DIR / name
-            a, u = _merge_into(p, report["mappings"])
-            print(f"  {name}: +{a} added, {u} updated")
+            a, u, pr = _merge_into(p, report["mappings"], report["pruneIds"])
+            print(f"  {name}: +{a} added, {u} updated, -{pr} pruned")
+        if report["pruneIds"]:
+            print(f"  pruned (bridge-fed/ineligible): {report['pruneIds']}")
         print("Restart the PE to load the new mappings.")
 
     if args.verify:

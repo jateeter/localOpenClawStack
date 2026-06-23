@@ -1,0 +1,345 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "oc-agent-template",
+  "role": "input-analyst",
+  "agentId": "ag-nutrient-solution-monitor",
+  "displayName": "Ag Nutrient Solution Monitor",
+  "machine": {
+    "id": "AgNutrientSolutionMonitor",
+    "name": "Ag Nutrient Solution Monitor",
+    "code": "agnutrientsolutionmonitor",
+    "machineClass": "optimizer",
+    "domain": "agriculture",
+    "inputRegion": {
+      "offset": 8,
+      "length": 4
+    },
+    "outputRegion": {
+      "offset": 28,
+      "length": 4
+    }
+  },
+  "openclaw": {
+    "id": "openclaw-xacp",
+    "kind": "acp",
+    "platform": "OpenClaw",
+    "surface": "xACP",
+    "command": "openclaw acp",
+    "gatewayUrl": "ws://127.0.0.1:18789",
+    "sessionKey": "agent:main:main",
+    "targetAgent": "ag-nutrient-solution-monitor",
+    "dispatchMode": "accepted-no-wait",
+    "completionMode": "pe-source-mapping",
+    "completionSourceMappingId": "acp-ag-nutrient-solution-monitor-input-assessment"
+  },
+  "reasoning": {
+    "objective": "Produce the normalized input vector for \"Ag Nutrient Solution Monitor\" from current observations so RE can evaluate its CES sequences.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Ag Nutrient Solution Monitor\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Monitors hydroponic nutrient solution quality including pH, electrical conductivity, and nitrogen concentration. Three concurrent patterns detect: pH acidification drift, EC toxicity escalation, and macronutrient deficiency. Upstream: raw nutrient sensors at [8:12]. Downstream: AgNutrientCycleOptimizer reads output at [28:32].\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- ph_norm (index 0):  0.0 = pH3 (extreme acid) | 0.5 = pH6.5 (optimal) | 1.0 = pH10 (extreme base)\n- ec_norm (index 1):  0.0 = 0 mS/cm (distilled) | 0.5 = 2.0 mS/cm (target) | 1.0 = 4.0 mS/cm (toxic)\n- nitrogen_norm (index 2):  0.0 = severe N deficit | 0.5 = optimal N level | 1.0 = N excess/toxicity\n- micronutrient_norm (index 3):  0.0 = severe deficit | 0.5 = balanced trace minerals | 1.0 = excess/lockout\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- PH_ALERT (AMBER) -> action: Inject pH-up solution; flush reservoir; notify nutrient cycle optimizer\n- EC_ALERT (AMBER) -> action: Add fresh water to reservoir; reduce nutrient dosing; flush substrate\n- DEFICIENCY_ALERT (AMBER) -> action: Add concentrated A+B nutrient solution; check dosing pump function",
+    "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
+    "inputAxes": [
+      {
+        "index": 0,
+        "key": "ph_norm",
+        "anchors": {
+          "low": "pH3 (extreme acid)",
+          "mid": "pH6.5 (optimal)",
+          "high": "pH10 (extreme base)"
+        }
+      },
+      {
+        "index": 1,
+        "key": "ec_norm",
+        "anchors": {
+          "low": "0 mS/cm (distilled)",
+          "mid": "2.0 mS/cm (target)",
+          "high": "4.0 mS/cm (toxic)"
+        }
+      },
+      {
+        "index": 2,
+        "key": "nitrogen_norm",
+        "anchors": {
+          "low": "severe N deficit",
+          "mid": "optimal N level",
+          "high": "N excess/toxicity"
+        }
+      },
+      {
+        "index": 3,
+        "key": "micronutrient_norm",
+        "anchors": {
+          "low": "severe deficit",
+          "mid": "balanced trace minerals",
+          "high": "excess/lockout"
+        }
+      }
+    ],
+    "sequenceCatalog": [
+      {
+        "sequenceId": "ag-nutrient-ph-drift",
+        "label": "PH_ALERT",
+        "rag": "AMBER",
+        "outputIndex": 0,
+        "action": "Inject pH-up solution; flush reservoir; notify nutrient cycle optimizer"
+      },
+      {
+        "sequenceId": "ag-nutrient-ec-escalation",
+        "label": "EC_ALERT",
+        "rag": "AMBER",
+        "outputIndex": 1,
+        "action": "Add fresh water to reservoir; reduce nutrient dosing; flush substrate"
+      },
+      {
+        "sequenceId": "ag-nutrient-deficiency",
+        "label": "DEFICIENCY_ALERT",
+        "rag": "AMBER",
+        "outputIndex": 2,
+        "action": "Add concentrated A+B nutrient solution; check dosing pump function"
+      }
+    ]
+  },
+  "agentBinding": {
+    "agent": "ag-nutrient-solution-monitor",
+    "mode": "advise",
+    "trigger": "agnutrientsolutionmonitor-input-assessment",
+    "allowedActions": [
+      "Assess current \"Ag Nutrient Solution Monitor\" state from available observations and write the normalized input vector to the PE input region [8:12] for RE to evaluate."
+    ],
+    "writeBack": {
+      "type": "pe-sensor",
+      "provider": "acp",
+      "sensorId": "acp.openclaw.agnutrientsolutionmonitor.input-analyst.assessment",
+      "name": "OpenClaw agnutrientsolutionmonitor input-analyst assessment",
+      "region": {
+        "offset": 8,
+        "length": 4
+      },
+      "semantics": [
+        "ph_norm",
+        "ec_norm",
+        "nitrogen_norm",
+        "micronutrient_norm"
+      ],
+      "ttlMs": 300000,
+      "normalization": "already-normalized-0-1",
+      "ingest": {
+        "endpoint": "/api/integrations/completions",
+        "method": "POST",
+        "triggerPush": false,
+        "compactPush": true
+      },
+      "sourceMapping": {
+        "id": "acp-agnutrientsolutionmonitor-input-assessment",
+        "sensorId": "acp.openclaw.agnutrientsolutionmonitor.input-analyst.assessment",
+        "name": "OpenClaw agnutrientsolutionmonitor input-analyst assessment",
+        "region": {
+          "offset": 8,
+          "length": 4
+        },
+        "ttlMs": 300000
+      }
+    },
+    "autonomyPolicy": {
+      "mode": "advise",
+      "stage": 1,
+      "writeBackType": "pe-sensor",
+      "canWriteBack": true,
+      "canStageActions": false,
+      "canExecuteActions": false,
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "blockedWhenRag": []
+    },
+    "riskControls": {
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "maxAutonomy": "advise",
+      "blockedWhenRag": []
+    }
+  },
+  "responseMapping": {
+    "schemaVersion": "1.0.0",
+    "responseContract": "structured-keys-or-text",
+    "mode": "advise",
+    "fields": [
+      {
+        "semantic": "ph_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/ph_norm",
+          "responseKey": "ph_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agnutrientsolutionmonitor.input-analyst.assessment",
+          "region": {
+            "offset": 8,
+            "length": 4
+          },
+          "index": 0
+        }
+      },
+      {
+        "semantic": "ec_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/ec_norm",
+          "responseKey": "ec_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agnutrientsolutionmonitor.input-analyst.assessment",
+          "region": {
+            "offset": 8,
+            "length": 4
+          },
+          "index": 1
+        }
+      },
+      {
+        "semantic": "nitrogen_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/nitrogen_norm",
+          "responseKey": "nitrogen_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agnutrientsolutionmonitor.input-analyst.assessment",
+          "region": {
+            "offset": 8,
+            "length": 4
+          },
+          "index": 2
+        }
+      },
+      {
+        "semantic": "micronutrient_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/micronutrient_norm",
+          "responseKey": "micronutrient_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agnutrientsolutionmonitor.input-analyst.assessment",
+          "region": {
+            "offset": 8,
+            "length": 4
+          },
+          "index": 3
+        }
+      }
+    ]
+  },
+  "diagnostics": {
+    "axisBasis": "sensorNormalization",
+    "warnings": [],
+    "inputLength": 4,
+    "sequenceCount": 3
+  }
+}

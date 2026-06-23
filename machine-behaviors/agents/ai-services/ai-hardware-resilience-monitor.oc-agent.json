@@ -1,0 +1,389 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "oc-agent-template",
+  "role": "input-analyst",
+  "agentId": "ai-hardware-resilience-monitor",
+  "displayName": "AI Hardware Resilience Monitor",
+  "machine": {
+    "id": "ai-hardware-resilience",
+    "name": "AI Hardware Resilience Monitor",
+    "code": "aihardwareresilience",
+    "machineClass": "signal-monitor",
+    "domain": "ai-services",
+    "inputRegion": {
+      "offset": 276,
+      "length": 4
+    },
+    "outputRegion": {
+      "offset": 3923,
+      "length": 6
+    }
+  },
+  "openclaw": {
+    "id": "openclaw-xacp",
+    "kind": "acp",
+    "platform": "OpenClaw",
+    "surface": "xACP",
+    "command": "openclaw acp",
+    "gatewayUrl": "ws://127.0.0.1:18789",
+    "sessionKey": "agent:main:main",
+    "targetAgent": "ai-hardware-resilience-monitor",
+    "dispatchMode": "accepted-no-wait",
+    "completionMode": "pe-source-mapping",
+    "completionSourceMappingId": "acp-ai-hardware-resilience-monitor-input-assessment"
+  },
+  "reasoning": {
+    "objective": "Produce the normalized input vector for \"AI Hardware Resilience Monitor\" from current observations so RE can evaluate its CES sequences.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"AI Hardware Resilience Monitor\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Monitors AI infrastructure hardware health \u2014 detects disk SMART failures, GPU/CPU memory ECC errors, network packet loss, and hardware fault accumulation to trigger proactive workload evacuation before catastrophic failure.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- ai-hardware-resilience-monitor-input-1 (index 0):\n- ai-hardware-resilience-monitor-input-2 (index 1):\n- ai-hardware-resilience-monitor-input-3 (index 2):\n- ai-hardware-resilience-monitor-input-4 (index 3):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- aihr-hw-degradation (GREEN)\n- aihr-hw-degradation (AMBER)\n- aihr-hw-degradation (RED)\n- Action (GREEN)\n- aihr-hw-degradation (RED)\n- Action (GREEN)\n- Action (RED)\n- aihr-sudden-network-failure (AMBER)\n- Action (RED)",
+    "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
+    "inputAxes": [
+      {
+        "index": 0,
+        "key": "ai-hardware-resilience-monitor-input-1",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 1,
+        "key": "ai-hardware-resilience-monitor-input-2",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 2,
+        "key": "ai-hardware-resilience-monitor-input-3",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 3,
+        "key": "ai-hardware-resilience-monitor-input-4",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      }
+    ],
+    "sequenceCatalog": [
+      {
+        "sequenceId": "aihr-hw-degradation",
+        "label": "aihr-hw-degradation",
+        "rag": "GREEN",
+        "outputIndex": 0,
+        "action": ""
+      },
+      {
+        "sequenceId": "aihr-hw-degradation",
+        "label": "aihr-hw-degradation",
+        "rag": "AMBER",
+        "outputIndex": 1,
+        "action": ""
+      },
+      {
+        "sequenceId": "aihr-hw-degradation",
+        "label": "aihr-hw-degradation",
+        "rag": "RED",
+        "outputIndex": 2,
+        "action": ""
+      },
+      {
+        "sequenceId": "aihr-hw-degradation",
+        "label": "Action",
+        "rag": "GREEN",
+        "outputIndex": 5,
+        "action": ""
+      },
+      {
+        "sequenceId": "aihr-hw-degradation",
+        "label": "aihr-hw-degradation",
+        "rag": "RED",
+        "outputIndex": 3,
+        "action": ""
+      },
+      {
+        "sequenceId": "aihr-hw-degradation",
+        "label": "Action",
+        "rag": "GREEN",
+        "outputIndex": 4,
+        "action": ""
+      },
+      {
+        "sequenceId": "aihr-hw-degradation",
+        "label": "Action",
+        "rag": "RED",
+        "outputIndex": 5,
+        "action": ""
+      },
+      {
+        "sequenceId": "aihr-sudden-network-failure",
+        "label": "aihr-sudden-network-failure",
+        "rag": "AMBER",
+        "outputIndex": 1,
+        "action": ""
+      },
+      {
+        "sequenceId": "aihr-sudden-network-failure",
+        "label": "Action",
+        "rag": "RED",
+        "outputIndex": 4,
+        "action": ""
+      }
+    ]
+  },
+  "agentBinding": {
+    "agent": "ai-hardware-resilience-monitor",
+    "mode": "advise",
+    "trigger": "aihardwareresilience-input-assessment",
+    "allowedActions": [
+      "Assess current \"AI Hardware Resilience Monitor\" state from available observations and write the normalized input vector to the PE input region [276:280] for RE to evaluate."
+    ],
+    "writeBack": {
+      "type": "pe-sensor",
+      "provider": "acp",
+      "sensorId": "acp.openclaw.aihardwareresilience.input-analyst.assessment",
+      "name": "OpenClaw aihardwareresilience input-analyst assessment",
+      "region": {
+        "offset": 276,
+        "length": 4
+      },
+      "semantics": [
+        "ai-hardware-resilience-monitor-input-1",
+        "ai-hardware-resilience-monitor-input-2",
+        "ai-hardware-resilience-monitor-input-3",
+        "ai-hardware-resilience-monitor-input-4"
+      ],
+      "ttlMs": 300000,
+      "normalization": "already-normalized-0-1",
+      "ingest": {
+        "endpoint": "/api/integrations/completions",
+        "method": "POST",
+        "triggerPush": false,
+        "compactPush": true
+      },
+      "sourceMapping": {
+        "id": "acp-aihardwareresilience-input-assessment",
+        "sensorId": "acp.openclaw.aihardwareresilience.input-analyst.assessment",
+        "name": "OpenClaw aihardwareresilience input-analyst assessment",
+        "region": {
+          "offset": 276,
+          "length": 4
+        },
+        "ttlMs": 300000
+      }
+    },
+    "autonomyPolicy": {
+      "mode": "advise",
+      "stage": 1,
+      "writeBackType": "pe-sensor",
+      "canWriteBack": true,
+      "canStageActions": false,
+      "canExecuteActions": false,
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "blockedWhenRag": []
+    },
+    "riskControls": {
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "maxAutonomy": "advise",
+      "blockedWhenRag": []
+    }
+  },
+  "responseMapping": {
+    "schemaVersion": "1.0.0",
+    "responseContract": "structured-keys-or-text",
+    "mode": "advise",
+    "fields": [
+      {
+        "semantic": "ai-hardware-resilience-monitor-input-1",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/ai-hardware-resilience-monitor-input-1",
+          "responseKey": "ai-hardware-resilience-monitor-input-1",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.aihardwareresilience.input-analyst.assessment",
+          "region": {
+            "offset": 276,
+            "length": 4
+          },
+          "index": 0
+        }
+      },
+      {
+        "semantic": "ai-hardware-resilience-monitor-input-2",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/ai-hardware-resilience-monitor-input-2",
+          "responseKey": "ai-hardware-resilience-monitor-input-2",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.aihardwareresilience.input-analyst.assessment",
+          "region": {
+            "offset": 276,
+            "length": 4
+          },
+          "index": 1
+        }
+      },
+      {
+        "semantic": "ai-hardware-resilience-monitor-input-3",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/ai-hardware-resilience-monitor-input-3",
+          "responseKey": "ai-hardware-resilience-monitor-input-3",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.aihardwareresilience.input-analyst.assessment",
+          "region": {
+            "offset": 276,
+            "length": 4
+          },
+          "index": 2
+        }
+      },
+      {
+        "semantic": "ai-hardware-resilience-monitor-input-4",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/ai-hardware-resilience-monitor-input-4",
+          "responseKey": "ai-hardware-resilience-monitor-input-4",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.aihardwareresilience.input-analyst.assessment",
+          "region": {
+            "offset": 276,
+            "length": 4
+          },
+          "index": 3
+        }
+      }
+    ]
+  },
+  "diagnostics": {
+    "axisBasis": "inputSemantics",
+    "warnings": [
+      "input axes derived from inputSemantics (no length-matched sensorNormalization)"
+    ],
+    "inputLength": 4,
+    "sequenceCount": 9
+  }
+}

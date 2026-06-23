@@ -1,0 +1,345 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "oc-agent-template",
+  "role": "input-analyst",
+  "agentId": "ag-zone-temperature-controller",
+  "displayName": "Ag Zone Temperature Controller",
+  "machine": {
+    "id": "AgZoneTemperatureController",
+    "name": "Ag Zone Temperature Controller",
+    "code": "agzonetemperaturecontroller",
+    "machineClass": "risk-forecaster",
+    "domain": "agriculture",
+    "inputRegion": {
+      "offset": 0,
+      "length": 4
+    },
+    "outputRegion": {
+      "offset": 20,
+      "length": 4
+    }
+  },
+  "openclaw": {
+    "id": "openclaw-xacp",
+    "kind": "acp",
+    "platform": "OpenClaw",
+    "surface": "xACP",
+    "command": "openclaw acp",
+    "gatewayUrl": "ws://127.0.0.1:18789",
+    "sessionKey": "agent:main:main",
+    "targetAgent": "ag-zone-temperature-controller",
+    "dispatchMode": "accepted-no-wait",
+    "completionMode": "pe-source-mapping",
+    "completionSourceMappingId": "acp-ag-zone-temperature-controller-input-assessment"
+  },
+  "reasoning": {
+    "objective": "Produce the normalized input vector for \"Ag Zone Temperature Controller\" from current observations so RE can evaluate its CES sequences.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Ag Zone Temperature Controller\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Monitors air and root-zone temperature to detect overheating and frost risk in indoor growing zones. Implements two concurrent escalation patterns (OVERTEMP and UNDERTEMP) plus a continuous OPTIMAL signal. Upstream: raw zone sensors at [0:4]. Downstream: AgPlantGrowthCycleMonitor reads output at [20:24].\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- air_temp_norm (index 0):  0.0 = 15\u00b0C | 0.5 = 24\u00b0C (optimal) | 1.0 = 35\u00b0C\n- root_zone_temp_norm (index 1):  0.0 = 12\u00b0C | 0.5 = 22\u00b0C (optimal) | 1.0 = 32\u00b0C\n- heater_status (index 2):  0.0 = off | 0.5 =  | 1.0 = on (active heating)\n- cooler_status (index 3):  0.0 = off | 0.5 =  | 1.0 = on (active cooling)\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- COOLING_ON (RED) -> action: Enable cooling; downstream AgPlantGrowthCycleMonitor will register high-temp condition\n- HEATING_ON (AMBER) -> action: Enable heating; frost risk prevention mode\n- TEMP_OK (GREEN) -> action: Downstream AgPlantGrowthCycleMonitor registers healthy temp condition",
+    "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
+    "inputAxes": [
+      {
+        "index": 0,
+        "key": "air_temp_norm",
+        "anchors": {
+          "low": "15\u00b0C",
+          "mid": "24\u00b0C (optimal)",
+          "high": "35\u00b0C"
+        }
+      },
+      {
+        "index": 1,
+        "key": "root_zone_temp_norm",
+        "anchors": {
+          "low": "12\u00b0C",
+          "mid": "22\u00b0C (optimal)",
+          "high": "32\u00b0C"
+        }
+      },
+      {
+        "index": 2,
+        "key": "heater_status",
+        "anchors": {
+          "low": "off",
+          "mid": "",
+          "high": "on (active heating)"
+        }
+      },
+      {
+        "index": 3,
+        "key": "cooler_status",
+        "anchors": {
+          "low": "off",
+          "mid": "",
+          "high": "on (active cooling)"
+        }
+      }
+    ],
+    "sequenceCatalog": [
+      {
+        "sequenceId": "ag-zone-temp-overtemp",
+        "label": "COOLING_ON",
+        "rag": "RED",
+        "outputIndex": 1,
+        "action": "Enable cooling; downstream AgPlantGrowthCycleMonitor will register high-temp condition"
+      },
+      {
+        "sequenceId": "ag-zone-temp-undertemp",
+        "label": "HEATING_ON",
+        "rag": "AMBER",
+        "outputIndex": 0,
+        "action": "Enable heating; frost risk prevention mode"
+      },
+      {
+        "sequenceId": "ag-zone-temp-optimal",
+        "label": "TEMP_OK",
+        "rag": "GREEN",
+        "outputIndex": 3,
+        "action": "Downstream AgPlantGrowthCycleMonitor registers healthy temp condition"
+      }
+    ]
+  },
+  "agentBinding": {
+    "agent": "ag-zone-temperature-controller",
+    "mode": "advise",
+    "trigger": "agzonetemperaturecontroller-input-assessment",
+    "allowedActions": [
+      "Assess current \"Ag Zone Temperature Controller\" state from available observations and write the normalized input vector to the PE input region [0:4] for RE to evaluate."
+    ],
+    "writeBack": {
+      "type": "pe-sensor",
+      "provider": "acp",
+      "sensorId": "acp.openclaw.agzonetemperaturecontroller.input-analyst.assessment",
+      "name": "OpenClaw agzonetemperaturecontroller input-analyst assessment",
+      "region": {
+        "offset": 0,
+        "length": 4
+      },
+      "semantics": [
+        "air_temp_norm",
+        "root_zone_temp_norm",
+        "heater_status",
+        "cooler_status"
+      ],
+      "ttlMs": 300000,
+      "normalization": "already-normalized-0-1",
+      "ingest": {
+        "endpoint": "/api/integrations/completions",
+        "method": "POST",
+        "triggerPush": false,
+        "compactPush": true
+      },
+      "sourceMapping": {
+        "id": "acp-agzonetemperaturecontroller-input-assessment",
+        "sensorId": "acp.openclaw.agzonetemperaturecontroller.input-analyst.assessment",
+        "name": "OpenClaw agzonetemperaturecontroller input-analyst assessment",
+        "region": {
+          "offset": 0,
+          "length": 4
+        },
+        "ttlMs": 300000
+      }
+    },
+    "autonomyPolicy": {
+      "mode": "advise",
+      "stage": 1,
+      "writeBackType": "pe-sensor",
+      "canWriteBack": true,
+      "canStageActions": false,
+      "canExecuteActions": false,
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "blockedWhenRag": []
+    },
+    "riskControls": {
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "maxAutonomy": "advise",
+      "blockedWhenRag": []
+    }
+  },
+  "responseMapping": {
+    "schemaVersion": "1.0.0",
+    "responseContract": "structured-keys-or-text",
+    "mode": "advise",
+    "fields": [
+      {
+        "semantic": "air_temp_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/air_temp_norm",
+          "responseKey": "air_temp_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agzonetemperaturecontroller.input-analyst.assessment",
+          "region": {
+            "offset": 0,
+            "length": 4
+          },
+          "index": 0
+        }
+      },
+      {
+        "semantic": "root_zone_temp_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/root_zone_temp_norm",
+          "responseKey": "root_zone_temp_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agzonetemperaturecontroller.input-analyst.assessment",
+          "region": {
+            "offset": 0,
+            "length": 4
+          },
+          "index": 1
+        }
+      },
+      {
+        "semantic": "heater_status",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/heater_status",
+          "responseKey": "heater_status",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agzonetemperaturecontroller.input-analyst.assessment",
+          "region": {
+            "offset": 0,
+            "length": 4
+          },
+          "index": 2
+        }
+      },
+      {
+        "semantic": "cooler_status",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/cooler_status",
+          "responseKey": "cooler_status",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agzonetemperaturecontroller.input-analyst.assessment",
+          "region": {
+            "offset": 0,
+            "length": 4
+          },
+          "index": 3
+        }
+      }
+    ]
+  },
+  "diagnostics": {
+    "axisBasis": "sensorNormalization",
+    "warnings": [],
+    "inputLength": 4,
+    "sequenceCount": 3
+  }
+}

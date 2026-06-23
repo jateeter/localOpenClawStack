@@ -1,0 +1,345 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "oc-agent-template",
+  "role": "input-analyst",
+  "agentId": "service-intake-assessment-monitor",
+  "displayName": "Service Intake Assessment Monitor",
+  "machine": {
+    "id": "ServiceIntakeAssessmentMonitor",
+    "name": "Service Intake Assessment Monitor",
+    "code": "serviceintakeassessmentmonitor",
+    "machineClass": "risk-forecaster",
+    "domain": "community-services",
+    "inputRegion": {
+      "offset": 924,
+      "length": 4
+    },
+    "outputRegion": {
+      "offset": 956,
+      "length": 4
+    }
+  },
+  "openclaw": {
+    "id": "openclaw-xacp",
+    "kind": "acp",
+    "platform": "OpenClaw",
+    "surface": "xACP",
+    "command": "openclaw acp",
+    "gatewayUrl": "ws://127.0.0.1:18789",
+    "sessionKey": "agent:main:main",
+    "targetAgent": "service-intake-assessment-monitor",
+    "dispatchMode": "accepted-no-wait",
+    "completionMode": "pe-source-mapping",
+    "completionSourceMappingId": "acp-service-intake-assessment-monitor-input-assessment"
+  },
+  "reasoning": {
+    "objective": "Produce the normalized input vector for \"Service Intake Assessment Monitor\" from current observations so RE can evaluate its CES sequences.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Service Intake Assessment Monitor\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Monitors intake and needs assessment workflow for community service recipients \u2014 tracking need severity, functional status, safety risk, and support network adequacy. Determines intake priority and routing for case assignment. In community services, intake triage determines whether a person receives immediate crisis response, intensive case management, or standard program enrollment. Output at [956:960] feeds the Enrollment Coordination Monitor.\n\nPOPULATION: New community service applicants; crisis walk-ins; referrals from partner agencies; individuals experiencing housing, food, or safety crises\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- need_severity_norm (index 0):  0.0 = acute multi-domain crisis (shelter, food, safety all failing simultaneously) | 0.5 = significant need in one domain; manageable with standard services | 1.0 = moderate need with adequate existing support; standard enrollment appropriate\n- functional_status_norm (index 1):  0.0 = unable to complete intake independently; cognitive, physical, or psychiatric barriers to participation | 0.5 = needs assistance with parts of intake; low literacy or language barrier | 1.0 = fully capable of completing intake process independently\n- safety_risk_norm (index 2):  0.0 = imminent safety risk (DV, child abuse, elder abuse, suicidality reported) | 0.5 = elevated risk factors present but not acute (past DV, unstable housing, substance use) | 1.0 = no safety concerns identified during screening\n- support_network_norm (index 3):  0.0 = completely isolated; no family, friends, or existing services engaged | 0.5 = limited support (one informal contact; partial service engagement) | 1.0 = strong support network; family engaged; existing services active\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- PRIORITY_INTAKE (RED) -> action: Immediate caseworker assignment; safety plan activation; partner agency crisis notification; same-day service initiation\n- COMPLEX_INTAKE (GREEN) -> action: Complex case manager assignment; multi-agency coordination plan; functional capacity assessment; care plan development\n- INTAKE_COMPLETE (GREEN) -> action: Enrollment coordination monitor receives INTAKE_COMPLETE; case assignment queue populated",
+    "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
+    "inputAxes": [
+      {
+        "index": 0,
+        "key": "need_severity_norm",
+        "anchors": {
+          "low": "acute multi-domain crisis (shelter, food, safety all failing simultaneously)",
+          "mid": "significant need in one domain; manageable with standard services",
+          "high": "moderate need with adequate existing support; standard enrollment appropriate"
+        }
+      },
+      {
+        "index": 1,
+        "key": "functional_status_norm",
+        "anchors": {
+          "low": "unable to complete intake independently; cognitive, physical, or psychiatric barriers to participation",
+          "mid": "needs assistance with parts of intake; low literacy or language barrier",
+          "high": "fully capable of completing intake process independently"
+        }
+      },
+      {
+        "index": 2,
+        "key": "safety_risk_norm",
+        "anchors": {
+          "low": "imminent safety risk (DV, child abuse, elder abuse, suicidality reported)",
+          "mid": "elevated risk factors present but not acute (past DV, unstable housing, substance use)",
+          "high": "no safety concerns identified during screening"
+        }
+      },
+      {
+        "index": 3,
+        "key": "support_network_norm",
+        "anchors": {
+          "low": "completely isolated; no family, friends, or existing services engaged",
+          "mid": "limited support (one informal contact; partial service engagement)",
+          "high": "strong support network; family engaged; existing services active"
+        }
+      }
+    ],
+    "sequenceCatalog": [
+      {
+        "sequenceId": "intake-priority-escalation",
+        "label": "PRIORITY_INTAKE",
+        "rag": "RED",
+        "outputIndex": 0,
+        "action": "Immediate caseworker assignment; safety plan activation; partner agency crisis notification; same-day service initiation"
+      },
+      {
+        "sequenceId": "intake-complex-routing",
+        "label": "COMPLEX_INTAKE",
+        "rag": "GREEN",
+        "outputIndex": 1,
+        "action": "Complex case manager assignment; multi-agency coordination plan; functional capacity assessment; care plan development"
+      },
+      {
+        "sequenceId": "intake-complete",
+        "label": "INTAKE_COMPLETE",
+        "rag": "GREEN",
+        "outputIndex": 3,
+        "action": "Enrollment coordination monitor receives INTAKE_COMPLETE; case assignment queue populated"
+      }
+    ]
+  },
+  "agentBinding": {
+    "agent": "service-intake-assessment-monitor",
+    "mode": "advise",
+    "trigger": "serviceintakeassessmentmonitor-input-assessment",
+    "allowedActions": [
+      "Assess current \"Service Intake Assessment Monitor\" state from available observations and write the normalized input vector to the PE input region [924:928] for RE to evaluate."
+    ],
+    "writeBack": {
+      "type": "pe-sensor",
+      "provider": "acp",
+      "sensorId": "acp.openclaw.serviceintakeassessmentmonitor.input-analyst.assessment",
+      "name": "OpenClaw serviceintakeassessmentmonitor input-analyst assessment",
+      "region": {
+        "offset": 924,
+        "length": 4
+      },
+      "semantics": [
+        "need_severity_norm",
+        "functional_status_norm",
+        "safety_risk_norm",
+        "support_network_norm"
+      ],
+      "ttlMs": 300000,
+      "normalization": "already-normalized-0-1",
+      "ingest": {
+        "endpoint": "/api/integrations/completions",
+        "method": "POST",
+        "triggerPush": false,
+        "compactPush": true
+      },
+      "sourceMapping": {
+        "id": "acp-serviceintakeassessmentmonitor-input-assessment",
+        "sensorId": "acp.openclaw.serviceintakeassessmentmonitor.input-analyst.assessment",
+        "name": "OpenClaw serviceintakeassessmentmonitor input-analyst assessment",
+        "region": {
+          "offset": 924,
+          "length": 4
+        },
+        "ttlMs": 300000
+      }
+    },
+    "autonomyPolicy": {
+      "mode": "advise",
+      "stage": 1,
+      "writeBackType": "pe-sensor",
+      "canWriteBack": true,
+      "canStageActions": false,
+      "canExecuteActions": false,
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "blockedWhenRag": []
+    },
+    "riskControls": {
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "maxAutonomy": "advise",
+      "blockedWhenRag": []
+    }
+  },
+  "responseMapping": {
+    "schemaVersion": "1.0.0",
+    "responseContract": "structured-keys-or-text",
+    "mode": "advise",
+    "fields": [
+      {
+        "semantic": "need_severity_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/need_severity_norm",
+          "responseKey": "need_severity_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.serviceintakeassessmentmonitor.input-analyst.assessment",
+          "region": {
+            "offset": 924,
+            "length": 4
+          },
+          "index": 0
+        }
+      },
+      {
+        "semantic": "functional_status_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/functional_status_norm",
+          "responseKey": "functional_status_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.serviceintakeassessmentmonitor.input-analyst.assessment",
+          "region": {
+            "offset": 924,
+            "length": 4
+          },
+          "index": 1
+        }
+      },
+      {
+        "semantic": "safety_risk_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/safety_risk_norm",
+          "responseKey": "safety_risk_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.serviceintakeassessmentmonitor.input-analyst.assessment",
+          "region": {
+            "offset": 924,
+            "length": 4
+          },
+          "index": 2
+        }
+      },
+      {
+        "semantic": "support_network_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/support_network_norm",
+          "responseKey": "support_network_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.serviceintakeassessmentmonitor.input-analyst.assessment",
+          "region": {
+            "offset": 924,
+            "length": 4
+          },
+          "index": 3
+        }
+      }
+    ]
+  },
+  "diagnostics": {
+    "axisBasis": "sensorNormalization",
+    "warnings": [],
+    "inputLength": 4,
+    "sequenceCount": 3
+  }
+}

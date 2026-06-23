@@ -1,0 +1,340 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "oc-agent-template",
+  "role": "input-analyst",
+  "agentId": "dc-critical-synthesizer",
+  "displayName": "DC Critical Synthesizer",
+  "machine": {
+    "id": "DCCriticalSynthesizer",
+    "name": "DC Critical Synthesizer",
+    "code": "dccriticalsynthesizer",
+    "machineClass": "signal-monitor",
+    "domain": "data-center",
+    "inputRegion": {
+      "offset": 1371,
+      "length": 4
+    },
+    "outputRegion": {
+      "offset": 1369,
+      "length": 2
+    }
+  },
+  "openclaw": {
+    "id": "openclaw-xacp",
+    "kind": "acp",
+    "platform": "OpenClaw",
+    "surface": "xACP",
+    "command": "openclaw acp",
+    "gatewayUrl": "ws://127.0.0.1:18789",
+    "sessionKey": "agent:main:main",
+    "targetAgent": "dc-critical-synthesizer",
+    "dispatchMode": "accepted-no-wait",
+    "completionMode": "pe-source-mapping",
+    "completionSourceMappingId": "acp-dc-critical-synthesizer-input-assessment"
+  },
+  "reasoning": {
+    "objective": "Produce the normalized input vector for \"DC Critical Synthesizer\" from current observations so RE can evaluate its CES sequences.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"DC Critical Synthesizer\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Monitors the combined flip-flop states of CoolingControlFF and NetworkThrottleFF. When both thermal and network alarms are simultaneously active, fires a combined critical alert. Implements multi-dimensional failure correlation.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- dc-critical-synthesizer-input-1 (index 0):\n- dc-critical-synthesizer-input-2 (index 1):\n- dc-critical-synthesizer-input-3 (index 2):\n- dc-critical-synthesizer-input-4 (index 3):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- MULTI-SYSTEM CRITICAL (RED) -> action: Activate DCCriticalAlertFF; notify operators; consider workload migration\n- ALL SYSTEMS CLEAR (GREEN) -> action: Clear DCCriticalAlertFF; resume normal operations",
+    "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
+    "inputAxes": [
+      {
+        "index": 0,
+        "key": "dc-critical-synthesizer-input-1",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 1,
+        "key": "dc-critical-synthesizer-input-2",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 2,
+        "key": "dc-critical-synthesizer-input-3",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 3,
+        "key": "dc-critical-synthesizer-input-4",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      }
+    ],
+    "sequenceCatalog": [
+      {
+        "sequenceId": "dc-synth-multi-alarm-sequence",
+        "label": "MULTI-SYSTEM CRITICAL",
+        "rag": "RED",
+        "outputIndex": 0,
+        "action": "Activate DCCriticalAlertFF; notify operators; consider workload migration"
+      },
+      {
+        "sequenceId": "dc-synth-all-clear-sequence",
+        "label": "ALL SYSTEMS CLEAR",
+        "rag": "GREEN",
+        "outputIndex": 1,
+        "action": "Clear DCCriticalAlertFF; resume normal operations"
+      }
+    ]
+  },
+  "agentBinding": {
+    "agent": "dc-critical-synthesizer",
+    "mode": "advise",
+    "trigger": "dccriticalsynthesizer-input-assessment",
+    "allowedActions": [
+      "Assess current \"DC Critical Synthesizer\" state from available observations and write the normalized input vector to the PE input region [1371:1375] for RE to evaluate."
+    ],
+    "writeBack": {
+      "type": "pe-sensor",
+      "provider": "acp",
+      "sensorId": "acp.openclaw.dccriticalsynthesizer.input-analyst.assessment",
+      "name": "OpenClaw dccriticalsynthesizer input-analyst assessment",
+      "region": {
+        "offset": 1371,
+        "length": 4
+      },
+      "semantics": [
+        "dc-critical-synthesizer-input-1",
+        "dc-critical-synthesizer-input-2",
+        "dc-critical-synthesizer-input-3",
+        "dc-critical-synthesizer-input-4"
+      ],
+      "ttlMs": 300000,
+      "normalization": "already-normalized-0-1",
+      "ingest": {
+        "endpoint": "/api/integrations/completions",
+        "method": "POST",
+        "triggerPush": false,
+        "compactPush": true
+      },
+      "sourceMapping": {
+        "id": "acp-dccriticalsynthesizer-input-assessment",
+        "sensorId": "acp.openclaw.dccriticalsynthesizer.input-analyst.assessment",
+        "name": "OpenClaw dccriticalsynthesizer input-analyst assessment",
+        "region": {
+          "offset": 1371,
+          "length": 4
+        },
+        "ttlMs": 300000
+      }
+    },
+    "autonomyPolicy": {
+      "mode": "advise",
+      "stage": 1,
+      "writeBackType": "pe-sensor",
+      "canWriteBack": true,
+      "canStageActions": false,
+      "canExecuteActions": false,
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "blockedWhenRag": []
+    },
+    "riskControls": {
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "maxAutonomy": "advise",
+      "blockedWhenRag": []
+    }
+  },
+  "responseMapping": {
+    "schemaVersion": "1.0.0",
+    "responseContract": "structured-keys-or-text",
+    "mode": "advise",
+    "fields": [
+      {
+        "semantic": "dc-critical-synthesizer-input-1",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/dc-critical-synthesizer-input-1",
+          "responseKey": "dc-critical-synthesizer-input-1",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.dccriticalsynthesizer.input-analyst.assessment",
+          "region": {
+            "offset": 1371,
+            "length": 4
+          },
+          "index": 0
+        }
+      },
+      {
+        "semantic": "dc-critical-synthesizer-input-2",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/dc-critical-synthesizer-input-2",
+          "responseKey": "dc-critical-synthesizer-input-2",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.dccriticalsynthesizer.input-analyst.assessment",
+          "region": {
+            "offset": 1371,
+            "length": 4
+          },
+          "index": 1
+        }
+      },
+      {
+        "semantic": "dc-critical-synthesizer-input-3",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/dc-critical-synthesizer-input-3",
+          "responseKey": "dc-critical-synthesizer-input-3",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.dccriticalsynthesizer.input-analyst.assessment",
+          "region": {
+            "offset": 1371,
+            "length": 4
+          },
+          "index": 2
+        }
+      },
+      {
+        "semantic": "dc-critical-synthesizer-input-4",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/dc-critical-synthesizer-input-4",
+          "responseKey": "dc-critical-synthesizer-input-4",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.dccriticalsynthesizer.input-analyst.assessment",
+          "region": {
+            "offset": 1371,
+            "length": 4
+          },
+          "index": 3
+        }
+      }
+    ]
+  },
+  "diagnostics": {
+    "axisBasis": "inputSemantics",
+    "warnings": [
+      "input axes derived from inputSemantics (no length-matched sensorNormalization)"
+    ],
+    "inputLength": 4,
+    "sequenceCount": 2
+  }
+}

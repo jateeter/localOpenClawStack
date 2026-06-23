@@ -1,0 +1,354 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "oc-agent-template",
+  "role": "input-analyst",
+  "agentId": "community-services-health-and-human-services-intake-crisis-benefit-intake",
+  "displayName": "Community Services Health And Human Services Intake Crisis Benefit Intake",
+  "machine": {
+    "id": "CSX009_health-and-human-services-intake-crisis-benefit-intake",
+    "name": "Community Services Health And Human Services Intake Crisis Benefit Intake",
+    "code": "csx009_health_and_human_services_intake_crisis_benefit_intake",
+    "machineClass": "agent-dispatcher",
+    "domain": "community-services",
+    "inputRegion": {
+      "offset": 1032,
+      "length": 4
+    },
+    "outputRegion": {
+      "offset": 1036,
+      "length": 4
+    }
+  },
+  "openclaw": {
+    "id": "openclaw-xacp",
+    "kind": "acp",
+    "platform": "OpenClaw",
+    "surface": "xACP",
+    "command": "openclaw acp",
+    "gatewayUrl": "ws://127.0.0.1:18789",
+    "sessionKey": "agent:main:main",
+    "targetAgent": "community-services-health-and-human-services-intake-crisis-benefit-intake",
+    "dispatchMode": "accepted-no-wait",
+    "completionMode": "pe-source-mapping",
+    "completionSourceMappingId": "acp-community-services-health-and-human-services-intake-crisis-benefit-intake-input-assessment"
+  },
+  "reasoning": {
+    "objective": "Produce the normalized input vector for \"Community Services Health And Human Services Intake Crisis Benefit Intake\" from current observations so RE can evaluate its CES sequences.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Community Services Health And Human Services Intake Crisis Benefit Intake\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Community-services machine for crisis benefit intake in the health and human services intake workstream. It monitors utility shutoff, food insecurity, eviction risk, and immediate relief eligibility and emits AI-triggered actions for health and human services, law enforcement/public safety coordination, homelessness response, and city operations.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- resident-need-severity (index 0):\n- eligibility-and-documentation-readiness (index 1):\n- field-capacity-or-operational-readiness (index 2):\n- safety-mobility-and-health-risk (index 3):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Crisis Benefit Intake (RED) -> action: Dispatch community_command_agent for urgent community-services intervention on crisis benefit intake.\n- Crisis Benefit Intake (RED) -> action: Coordinate health, housing, public safety, transportation, or city service partners for crisis benefit intake.\n- Crisis Benefit Intake (RED) -> action: Create field work order or mobile team task for crisis benefit intake.\n- Crisis Benefit Intake (RED) -> action: Maintain monitored service path for crisis benefit intake.",
+    "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
+    "inputAxes": [
+      {
+        "index": 0,
+        "key": "resident-need-severity",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 1,
+        "key": "eligibility-and-documentation-readiness",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 2,
+        "key": "field-capacity-or-operational-readiness",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 3,
+        "key": "safety-mobility-and-health-risk",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      }
+    ],
+    "sequenceCatalog": [
+      {
+        "sequenceId": "csx-009-urgent-response",
+        "label": "Crisis Benefit Intake",
+        "rag": "RED",
+        "outputIndex": 0,
+        "action": "Dispatch community_command_agent for urgent community-services intervention on crisis benefit intake."
+      },
+      {
+        "sequenceId": "csx-009-coordinate-services",
+        "label": "Crisis Benefit Intake",
+        "rag": "RED",
+        "outputIndex": 1,
+        "action": "Coordinate health, housing, public safety, transportation, or city service partners for crisis benefit intake."
+      },
+      {
+        "sequenceId": "csx-009-field-work-order",
+        "label": "Crisis Benefit Intake",
+        "rag": "RED",
+        "outputIndex": 2,
+        "action": "Create field work order or mobile team task for crisis benefit intake."
+      },
+      {
+        "sequenceId": "csx-009-stable-service-path",
+        "label": "Crisis Benefit Intake",
+        "rag": "RED",
+        "outputIndex": 3,
+        "action": "Maintain monitored service path for crisis benefit intake."
+      }
+    ]
+  },
+  "agentBinding": {
+    "agent": "community-services-health-and-human-services-intake-crisis-benefit-intake",
+    "mode": "advise",
+    "trigger": "csx009_health_and_human_services_intake_crisis_benefit_intake-input-assessment",
+    "allowedActions": [
+      "Assess current \"Community Services Health And Human Services Intake Crisis Benefit Intake\" state from available observations and write the normalized input vector to the PE input region [1032:1036] for RE to evaluate."
+    ],
+    "writeBack": {
+      "type": "pe-sensor",
+      "provider": "acp",
+      "sensorId": "acp.openclaw.csx009_health_and_human_services_intake_crisis_benefit_intake.input-analyst.assessment",
+      "name": "OpenClaw csx009_health_and_human_services_intake_crisis_benefit_intake input-analyst assessment",
+      "region": {
+        "offset": 1032,
+        "length": 4
+      },
+      "semantics": [
+        "resident-need-severity",
+        "eligibility-and-documentation-readiness",
+        "field-capacity-or-operational-readiness",
+        "safety-mobility-and-health-risk"
+      ],
+      "ttlMs": 300000,
+      "normalization": "already-normalized-0-1",
+      "ingest": {
+        "endpoint": "/api/integrations/completions",
+        "method": "POST",
+        "triggerPush": false,
+        "compactPush": true
+      },
+      "sourceMapping": {
+        "id": "acp-csx009_health_and_human_services_intake_crisis_benefit_intake-input-assessment",
+        "sensorId": "acp.openclaw.csx009_health_and_human_services_intake_crisis_benefit_intake.input-analyst.assessment",
+        "name": "OpenClaw csx009_health_and_human_services_intake_crisis_benefit_intake input-analyst assessment",
+        "region": {
+          "offset": 1032,
+          "length": 4
+        },
+        "ttlMs": 300000
+      }
+    },
+    "autonomyPolicy": {
+      "mode": "advise",
+      "stage": 1,
+      "writeBackType": "pe-sensor",
+      "canWriteBack": true,
+      "canStageActions": false,
+      "canExecuteActions": false,
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "blockedWhenRag": []
+    },
+    "riskControls": {
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "maxAutonomy": "advise",
+      "blockedWhenRag": []
+    }
+  },
+  "responseMapping": {
+    "schemaVersion": "1.0.0",
+    "responseContract": "structured-keys-or-text",
+    "mode": "advise",
+    "fields": [
+      {
+        "semantic": "resident-need-severity",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/resident-need-severity",
+          "responseKey": "resident-need-severity",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.csx009_health_and_human_services_intake_crisis_benefit_intake.input-analyst.assessment",
+          "region": {
+            "offset": 1032,
+            "length": 4
+          },
+          "index": 0
+        }
+      },
+      {
+        "semantic": "eligibility-and-documentation-readiness",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/eligibility-and-documentation-readiness",
+          "responseKey": "eligibility-and-documentation-readiness",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.csx009_health_and_human_services_intake_crisis_benefit_intake.input-analyst.assessment",
+          "region": {
+            "offset": 1032,
+            "length": 4
+          },
+          "index": 1
+        }
+      },
+      {
+        "semantic": "field-capacity-or-operational-readiness",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/field-capacity-or-operational-readiness",
+          "responseKey": "field-capacity-or-operational-readiness",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.csx009_health_and_human_services_intake_crisis_benefit_intake.input-analyst.assessment",
+          "region": {
+            "offset": 1032,
+            "length": 4
+          },
+          "index": 2
+        }
+      },
+      {
+        "semantic": "safety-mobility-and-health-risk",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/safety-mobility-and-health-risk",
+          "responseKey": "safety-mobility-and-health-risk",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.csx009_health_and_human_services_intake_crisis_benefit_intake.input-analyst.assessment",
+          "region": {
+            "offset": 1032,
+            "length": 4
+          },
+          "index": 3
+        }
+      }
+    ]
+  },
+  "diagnostics": {
+    "axisBasis": "inputSemantics",
+    "warnings": [
+      "input axes derived from inputSemantics (no length-matched sensorNormalization)"
+    ],
+    "inputLength": 4,
+    "sequenceCount": 4
+  }
+}

@@ -1,0 +1,361 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "oc-agent-template",
+  "role": "input-analyst",
+  "agentId": "data-center-firmware-rollback-readiness",
+  "displayName": "Data Center Firmware Rollback Readiness",
+  "machine": {
+    "id": "DCX046_firmware-rollback-readiness",
+    "name": "Data Center Firmware Rollback Readiness",
+    "code": "dcx046_firmware_rollback_readiness",
+    "machineClass": "agent-dispatcher",
+    "domain": "data-center",
+    "inputRegion": {
+      "offset": 1545,
+      "length": 4
+    },
+    "outputRegion": {
+      "offset": 1549,
+      "length": 4
+    }
+  },
+  "openclaw": {
+    "id": "openclaw-xacp",
+    "kind": "acp",
+    "platform": "OpenClaw",
+    "surface": "xACP",
+    "command": "openclaw acp",
+    "gatewayUrl": "ws://127.0.0.1:18789",
+    "sessionKey": "agent:main:main",
+    "targetAgent": "data-center-firmware-rollback-readiness",
+    "dispatchMode": "accepted-no-wait",
+    "completionMode": "pe-source-mapping",
+    "completionSourceMappingId": "acp-data-center-firmware-rollback-readiness-input-assessment"
+  },
+  "reasoning": {
+    "objective": "Produce the normalized input vector for \"Data Center Firmware Rollback Readiness\" from current observations so RE can evaluate its CES sequences.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Data Center Firmware Rollback Readiness\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Data-center operations machine for firmware rollback readiness. It monitors golden image availability, config backup, out-of-band access, and validation state and emits operational outputs for 24/7 incident response, maintenance planning, upgrade readiness, and steady-state assurance.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- availability-margin (index 0):\n- maintenance-readiness (index 1):\n- upgrade-lifecycle-pressure (index 2):\n- operational-confidence (index 3):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Firmware Rollback Readiness (RED) -> action: Dispatch dc_storage_agent for immediate stabilization of firmware rollback readiness.\n- Firmware Rollback Readiness (GREEN) -> action: Schedule maintenance for firmware rollback readiness with rollback and staffing checks.\n- Firmware Rollback Readiness (GREEN) -> action: Plan upgrade or lifecycle change for firmware rollback readiness using risk-gated rollout.\n- Firmware Rollback Readiness (GREEN) -> action: Keep 24/7 monitoring active for firmware rollback readiness.\n- Firmware Rollback Readiness (GREEN) -> action: Project firmware rollback readiness forward over the next 24 hours and prescribe maintenance or upgrade work before the risk window opens.",
+    "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
+    "inputAxes": [
+      {
+        "index": 0,
+        "key": "availability-margin",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 1,
+        "key": "maintenance-readiness",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 2,
+        "key": "upgrade-lifecycle-pressure",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 3,
+        "key": "operational-confidence",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      }
+    ],
+    "sequenceCatalog": [
+      {
+        "sequenceId": "dcx-046-urgent",
+        "label": "Firmware Rollback Readiness",
+        "rag": "RED",
+        "outputIndex": 0,
+        "action": "Dispatch dc_storage_agent for immediate stabilization of firmware rollback readiness."
+      },
+      {
+        "sequenceId": "dcx-046-maintenance",
+        "label": "Firmware Rollback Readiness",
+        "rag": "GREEN",
+        "outputIndex": 1,
+        "action": "Schedule maintenance for firmware rollback readiness with rollback and staffing checks."
+      },
+      {
+        "sequenceId": "dcx-046-upgrade",
+        "label": "Firmware Rollback Readiness",
+        "rag": "GREEN",
+        "outputIndex": 2,
+        "action": "Plan upgrade or lifecycle change for firmware rollback readiness using risk-gated rollout."
+      },
+      {
+        "sequenceId": "dcx-046-nominal",
+        "label": "Firmware Rollback Readiness",
+        "rag": "GREEN",
+        "outputIndex": 3,
+        "action": "Keep 24/7 monitoring active for firmware rollback readiness."
+      },
+      {
+        "sequenceId": "dcx-046-24h-projection",
+        "label": "Firmware Rollback Readiness",
+        "rag": "GREEN",
+        "outputIndex": 1,
+        "action": "Project firmware rollback readiness forward over the next 24 hours and prescribe maintenance or upgrade work before the risk window opens."
+      }
+    ]
+  },
+  "agentBinding": {
+    "agent": "data-center-firmware-rollback-readiness",
+    "mode": "advise",
+    "trigger": "dcx046_firmware_rollback_readiness-input-assessment",
+    "allowedActions": [
+      "Assess current \"Data Center Firmware Rollback Readiness\" state from available observations and write the normalized input vector to the PE input region [1545:1549] for RE to evaluate."
+    ],
+    "writeBack": {
+      "type": "pe-sensor",
+      "provider": "acp",
+      "sensorId": "acp.openclaw.dcx046_firmware_rollback_readiness.input-analyst.assessment",
+      "name": "OpenClaw dcx046_firmware_rollback_readiness input-analyst assessment",
+      "region": {
+        "offset": 1545,
+        "length": 4
+      },
+      "semantics": [
+        "availability-margin",
+        "maintenance-readiness",
+        "upgrade-lifecycle-pressure",
+        "operational-confidence"
+      ],
+      "ttlMs": 300000,
+      "normalization": "already-normalized-0-1",
+      "ingest": {
+        "endpoint": "/api/integrations/completions",
+        "method": "POST",
+        "triggerPush": false,
+        "compactPush": true
+      },
+      "sourceMapping": {
+        "id": "acp-dcx046_firmware_rollback_readiness-input-assessment",
+        "sensorId": "acp.openclaw.dcx046_firmware_rollback_readiness.input-analyst.assessment",
+        "name": "OpenClaw dcx046_firmware_rollback_readiness input-analyst assessment",
+        "region": {
+          "offset": 1545,
+          "length": 4
+        },
+        "ttlMs": 300000
+      }
+    },
+    "autonomyPolicy": {
+      "mode": "advise",
+      "stage": 1,
+      "writeBackType": "pe-sensor",
+      "canWriteBack": true,
+      "canStageActions": false,
+      "canExecuteActions": false,
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "blockedWhenRag": []
+    },
+    "riskControls": {
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "maxAutonomy": "advise",
+      "blockedWhenRag": []
+    }
+  },
+  "responseMapping": {
+    "schemaVersion": "1.0.0",
+    "responseContract": "structured-keys-or-text",
+    "mode": "advise",
+    "fields": [
+      {
+        "semantic": "availability-margin",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/availability-margin",
+          "responseKey": "availability-margin",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.dcx046_firmware_rollback_readiness.input-analyst.assessment",
+          "region": {
+            "offset": 1545,
+            "length": 4
+          },
+          "index": 0
+        }
+      },
+      {
+        "semantic": "maintenance-readiness",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/maintenance-readiness",
+          "responseKey": "maintenance-readiness",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.dcx046_firmware_rollback_readiness.input-analyst.assessment",
+          "region": {
+            "offset": 1545,
+            "length": 4
+          },
+          "index": 1
+        }
+      },
+      {
+        "semantic": "upgrade-lifecycle-pressure",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/upgrade-lifecycle-pressure",
+          "responseKey": "upgrade-lifecycle-pressure",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.dcx046_firmware_rollback_readiness.input-analyst.assessment",
+          "region": {
+            "offset": 1545,
+            "length": 4
+          },
+          "index": 2
+        }
+      },
+      {
+        "semantic": "operational-confidence",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/operational-confidence",
+          "responseKey": "operational-confidence",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.dcx046_firmware_rollback_readiness.input-analyst.assessment",
+          "region": {
+            "offset": 1545,
+            "length": 4
+          },
+          "index": 3
+        }
+      }
+    ]
+  },
+  "diagnostics": {
+    "axisBasis": "inputSemantics",
+    "warnings": [
+      "input axes derived from inputSemantics (no length-matched sensorNormalization)"
+    ],
+    "inputLength": 4,
+    "sequenceCount": 5
+  }
+}

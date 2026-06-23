@@ -1,0 +1,587 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "oc-agent-template",
+  "role": "input-analyst",
+  "agentId": "dailypatientcare",
+  "displayName": "DailyPatientCare",
+  "machine": {
+    "id": "DailyPatientCare",
+    "name": "DailyPatientCare",
+    "code": "dailypatientcare",
+    "machineClass": "signal-monitor",
+    "domain": "health-personal",
+    "inputRegion": {
+      "offset": 3923,
+      "length": 8
+    },
+    "outputRegion": {
+      "offset": 1955,
+      "length": 8
+    }
+  },
+  "openclaw": {
+    "id": "openclaw-xacp",
+    "kind": "acp",
+    "platform": "OpenClaw",
+    "surface": "xACP",
+    "command": "openclaw acp",
+    "gatewayUrl": "ws://127.0.0.1:18789",
+    "sessionKey": "agent:main:main",
+    "targetAgent": "dailypatientcare",
+    "dispatchMode": "accepted-no-wait",
+    "completionMode": "pe-source-mapping",
+    "completionSourceMappingId": "acp-dailypatientcare-input-assessment"
+  },
+  "reasoning": {
+    "objective": "Produce the normalized input vector for \"DailyPatientCare\" from current observations so RE can evaluate its CES sequences.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"DailyPatientCare\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Ongoing daily patient care monitoring for an assisted living eldercare community. Recognizes normal daily routines (morning hygiene, meals, medications, evening wind-down) and detects anomalies including fall events, bathroom non-use, missed medications, and nighttime wandering.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- dailypatientcare-input-1 (index 0):\n- dailypatientcare-input-2 (index 1):\n- dailypatientcare-input-3 (index 2):\n- dailypatientcare-input-4 (index 3):\n- dailypatientcare-input-5 (index 4):\n- dailypatientcare-input-6 (index 5):\n- dailypatientcare-input-7 (index 6):\n- dailypatientcare-input-8 (index 7):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Event (GREEN)\n- Event (GREEN)\n- Alert (AMBER)\n- CRITICAL ALERT (RED)\n- Alert (AMBER)\n- Alert (AMBER)\n- Alert (AMBER)",
+    "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
+    "inputAxes": [
+      {
+        "index": 0,
+        "key": "dailypatientcare-input-1",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 1,
+        "key": "dailypatientcare-input-2",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 2,
+        "key": "dailypatientcare-input-3",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 3,
+        "key": "dailypatientcare-input-4",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 4,
+        "key": "dailypatientcare-input-5",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 5,
+        "key": "dailypatientcare-input-6",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 6,
+        "key": "dailypatientcare-input-7",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 7,
+        "key": "dailypatientcare-input-8",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      }
+    ],
+    "sequenceCatalog": [
+      {
+        "sequenceId": "daily-morning-routine",
+        "label": "Event",
+        "rag": "GREEN",
+        "outputIndex": 0,
+        "action": ""
+      },
+      {
+        "sequenceId": "daily-evening-routine",
+        "label": "Event",
+        "rag": "GREEN",
+        "outputIndex": 1,
+        "action": ""
+      },
+      {
+        "sequenceId": "daily-fall-response",
+        "label": "Alert",
+        "rag": "AMBER",
+        "outputIndex": 2,
+        "action": ""
+      },
+      {
+        "sequenceId": "daily-fall-unresponsive",
+        "label": "CRITICAL ALERT",
+        "rag": "RED",
+        "outputIndex": 3,
+        "action": ""
+      },
+      {
+        "sequenceId": "daily-bathroom-nonuse",
+        "label": "Alert",
+        "rag": "AMBER",
+        "outputIndex": 4,
+        "action": ""
+      },
+      {
+        "sequenceId": "daily-medication-miss",
+        "label": "Alert",
+        "rag": "AMBER",
+        "outputIndex": 5,
+        "action": ""
+      },
+      {
+        "sequenceId": "daily-night-wandering",
+        "label": "Alert",
+        "rag": "AMBER",
+        "outputIndex": 6,
+        "action": ""
+      }
+    ]
+  },
+  "agentBinding": {
+    "agent": "dailypatientcare",
+    "mode": "advise",
+    "trigger": "dailypatientcare-input-assessment",
+    "allowedActions": [
+      "Assess current \"DailyPatientCare\" state from available observations and write the normalized input vector to the PE input region [3923:3931] for RE to evaluate."
+    ],
+    "writeBack": {
+      "type": "pe-sensor",
+      "provider": "acp",
+      "sensorId": "acp.openclaw.dailypatientcare.input-analyst.assessment",
+      "name": "OpenClaw dailypatientcare input-analyst assessment",
+      "region": {
+        "offset": 3923,
+        "length": 8
+      },
+      "semantics": [
+        "dailypatientcare-input-1",
+        "dailypatientcare-input-2",
+        "dailypatientcare-input-3",
+        "dailypatientcare-input-4",
+        "dailypatientcare-input-5",
+        "dailypatientcare-input-6",
+        "dailypatientcare-input-7",
+        "dailypatientcare-input-8"
+      ],
+      "ttlMs": 300000,
+      "normalization": "already-normalized-0-1",
+      "ingest": {
+        "endpoint": "/api/integrations/completions",
+        "method": "POST",
+        "triggerPush": false,
+        "compactPush": true
+      },
+      "sourceMapping": {
+        "id": "acp-dailypatientcare-input-assessment",
+        "sensorId": "acp.openclaw.dailypatientcare.input-analyst.assessment",
+        "name": "OpenClaw dailypatientcare input-analyst assessment",
+        "region": {
+          "offset": 3923,
+          "length": 8
+        },
+        "ttlMs": 300000
+      }
+    },
+    "autonomyPolicy": {
+      "mode": "advise",
+      "stage": 1,
+      "writeBackType": "pe-sensor",
+      "canWriteBack": true,
+      "canStageActions": false,
+      "canExecuteActions": false,
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "blockedWhenRag": []
+    },
+    "riskControls": {
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "maxAutonomy": "advise",
+      "blockedWhenRag": []
+    }
+  },
+  "responseMapping": {
+    "schemaVersion": "1.0.0",
+    "responseContract": "structured-keys-or-text",
+    "mode": "advise",
+    "fields": [
+      {
+        "semantic": "dailypatientcare-input-1",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/dailypatientcare-input-1",
+          "responseKey": "dailypatientcare-input-1",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.dailypatientcare.input-analyst.assessment",
+          "region": {
+            "offset": 3923,
+            "length": 8
+          },
+          "index": 0
+        }
+      },
+      {
+        "semantic": "dailypatientcare-input-2",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/dailypatientcare-input-2",
+          "responseKey": "dailypatientcare-input-2",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.dailypatientcare.input-analyst.assessment",
+          "region": {
+            "offset": 3923,
+            "length": 8
+          },
+          "index": 1
+        }
+      },
+      {
+        "semantic": "dailypatientcare-input-3",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/dailypatientcare-input-3",
+          "responseKey": "dailypatientcare-input-3",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.dailypatientcare.input-analyst.assessment",
+          "region": {
+            "offset": 3923,
+            "length": 8
+          },
+          "index": 2
+        }
+      },
+      {
+        "semantic": "dailypatientcare-input-4",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/dailypatientcare-input-4",
+          "responseKey": "dailypatientcare-input-4",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.dailypatientcare.input-analyst.assessment",
+          "region": {
+            "offset": 3923,
+            "length": 8
+          },
+          "index": 3
+        }
+      },
+      {
+        "semantic": "dailypatientcare-input-5",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/dailypatientcare-input-5",
+          "responseKey": "dailypatientcare-input-5",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.dailypatientcare.input-analyst.assessment",
+          "region": {
+            "offset": 3923,
+            "length": 8
+          },
+          "index": 4
+        }
+      },
+      {
+        "semantic": "dailypatientcare-input-6",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/dailypatientcare-input-6",
+          "responseKey": "dailypatientcare-input-6",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.dailypatientcare.input-analyst.assessment",
+          "region": {
+            "offset": 3923,
+            "length": 8
+          },
+          "index": 5
+        }
+      },
+      {
+        "semantic": "dailypatientcare-input-7",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/dailypatientcare-input-7",
+          "responseKey": "dailypatientcare-input-7",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.dailypatientcare.input-analyst.assessment",
+          "region": {
+            "offset": 3923,
+            "length": 8
+          },
+          "index": 6
+        }
+      },
+      {
+        "semantic": "dailypatientcare-input-8",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/dailypatientcare-input-8",
+          "responseKey": "dailypatientcare-input-8",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.dailypatientcare.input-analyst.assessment",
+          "region": {
+            "offset": 3923,
+            "length": 8
+          },
+          "index": 7
+        }
+      }
+    ]
+  },
+  "diagnostics": {
+    "axisBasis": "inputSemantics",
+    "warnings": [
+      "input axes derived from inputSemantics (no length-matched sensorNormalization)"
+    ],
+    "inputLength": 8,
+    "sequenceCount": 7
+  }
+}

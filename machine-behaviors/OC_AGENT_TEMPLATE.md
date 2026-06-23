@@ -43,8 +43,9 @@ Both ride the same ACP transport and the same PE write-back contract.
 
 ## 2. Prototype specification — Home Chronic Pain Monitor input-analyst
 
-Generated artifact: [`agents/homechronicpainmonitor.oc-agent.json`](agents/homechronicpainmonitor.oc-agent.json)
-(schema-valid; regenerate with `python3 oc_agent_template.py HomeChronicPainMonitor.json --write`).
+Generated artifact: [`agents/health-personal/home-chronic-pain-monitor.oc-agent.json`](agents/health-personal/home-chronic-pain-monitor.oc-agent.json)
+(schema-valid; one of the full materialized corpus — see §8. Regenerate just this
+one with `python3 oc_agent_template.py HomeChronicPainMonitor.json --write`).
 
 | Field | Value |
 |---|---|
@@ -144,9 +145,11 @@ corpus change is required.
 | File | Role |
 |---|---|
 | `oc_agent_template.py` | deriver: machine JSON → input-analyst instance (`--write`, `--demo`) |
+| `materialize_agents.py` | batch: write the whole corpus to `agents/<domain>/` + index (§8) |
 | `templates/oc-agent.schema.json` | instance schema; `$ref`s the canonical `agent-binding.schema.json` |
-| `agents/homechronicpainmonitor.oc-agent.json` | the prototype instance |
+| `agents/<domain>/<agentId>.oc-agent.json` | materialized agent specs, one per machine |
 | `validate_oc_agents.py` | per-machine validation + domain/corpus coverage report |
+| `register_input_mappings.py` | register PE input source mappings for a domain's leaf machines |
 | `out/oc-agents.*.report.md` | generated coverage reports |
 
 Reuses the existing `config.json`, `minischema.py`, `openclaw_side.py`, and
@@ -186,9 +189,11 @@ improvement for analyst quality.
 ## 7. Roadmap
 
 - [x] Input-analyst template + schema + prototype instance.
-- [x] Domain + whole-corpus structural validation (1014/1014).
-- [ ] **Live PE loop** — post the completion to a running PE, confirm the input
-  sensor updates and a CES transition fires (reuse `--live` plumbing).
+- [x] Domain + whole-corpus structural validation (1015/1015).
+- [x] **Live PE loop (M6, Scala)** — input-analyst completion → input region →
+  CES fires (`out/M6_LIVE_SCALA.md`); generalized to health-personal leaf
+  machines (`out/HEALTH_PERSONAL_INPUT_MAPPINGS.md`).
+- [x] **Materialized corpus** — one agent spec per machine under `agents/<domain>/` (§8).
 - [ ] **Real OpenClaw turn** — replace the scripted demo with an `openclaw acp`
   session through the gateway (shared with actor-side M7).
 - [ ] **Anchor backfill** — drive `sensorNormalization` coverage from the linter
@@ -196,3 +201,26 @@ improvement for analyst quality.
 - [ ] **Promotion** — an analyst binding is schema-identical to a corpus
   `agentBinding`; offer an opt-in patch to promote stable ones into the machine
   file as an explicit, reviewed corpus change (never silently).
+
+---
+
+## 8. Materialized corpus
+
+`python3 materialize_agents.py --fresh` writes **one agent spec per machine**,
+named by `agentId` (slug of the machine name — unique corpus-wide, unlike the
+`triggerConfig.processId`-derived code), under `agents/<domain>/`:
+
+| domain | agents | | domain | agents |
+|---|---|---|---|---|
+| agriculture | 64 | | health-services | 200 |
+| ai-services | 8 | | legal-services | 100 |
+| built-space | 150 | | life-balance | 100 |
+| community-services | 103 | | transportation | 150 |
+| data-center | 59 | | digital-logic | 57 |
+| health-personal | 24 | | **total** | **1015** |
+
+Indexes: `agents/INDEX.json` (machine→agent→domain→path, axis basis, input region)
+and `agents/INDEX.md`. Axis grounding across the corpus: `sensorNormalization`
+279, `inputSemantics` 736. The specs are deterministic and regenerable — a spec
+exists for every machine, but only **leaf** machines get a *live* PE input mapping
+(§ bridge-fed exclusion in `register_input_mappings.py`).

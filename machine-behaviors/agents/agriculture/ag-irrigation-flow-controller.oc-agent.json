@@ -1,0 +1,345 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "oc-agent-template",
+  "role": "input-analyst",
+  "agentId": "ag-irrigation-flow-controller",
+  "displayName": "Ag Irrigation Flow Controller",
+  "machine": {
+    "id": "AgIrrigationFlowController",
+    "name": "Ag Irrigation Flow Controller",
+    "code": "agirrigationflowcontroller",
+    "machineClass": "signal-monitor",
+    "domain": "agriculture",
+    "inputRegion": {
+      "offset": 4,
+      "length": 4
+    },
+    "outputRegion": {
+      "offset": 24,
+      "length": 4
+    }
+  },
+  "openclaw": {
+    "id": "openclaw-xacp",
+    "kind": "acp",
+    "platform": "OpenClaw",
+    "surface": "xACP",
+    "command": "openclaw acp",
+    "gatewayUrl": "ws://127.0.0.1:18789",
+    "sessionKey": "agent:main:main",
+    "targetAgent": "ag-irrigation-flow-controller",
+    "dispatchMode": "accepted-no-wait",
+    "completionMode": "pe-source-mapping",
+    "completionSourceMappingId": "acp-ag-irrigation-flow-controller-input-assessment"
+  },
+  "reasoning": {
+    "objective": "Produce the normalized input vector for \"Ag Irrigation Flow Controller\" from current observations so RE can evaluate its CES sequences.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Ag Irrigation Flow Controller\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Monitors substrate moisture, flow rate, and electrical conductivity to detect irrigation deficits and waterlogging in hydroponic and soil-based indoor systems. Two escalation sequences (DRY_DOWN and WATERLOG) plus a BALANCED signal for optimal drainage cycles. Upstream: raw flow sensors at [4:8]. Downstream: AgPlantGrowthCycleMonitor reads output at [24:28].\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- soil_moisture_norm (index 0):  0.0 = bone dry | 0.5 = optimal field capacity (60% WHC) | 1.0 = fully saturated\n- flow_rate_norm (index 1):  0.0 = no flow | 0.5 = nominal irrigation rate | 1.0 = max pump capacity\n- substrate_ec_norm (index 2):  0.0 = distilled water | 0.5 = 2.0 mS/cm (target) | 1.0 = 4.0+ mS/cm (toxic)\n- runoff_ratio_norm (index 3):  0.0 = zero runoff | 0.5 = 15\u201320% (healthy drainage) | 1.0 = 100% runoff\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- IRRIGATE_ON (AMBER) -> action: Immediate irrigation; downstream growth monitor registers water-stress state\n- DRAIN_ALERT (AMBER) -> action: Emergency drain; downstream growth monitor registers waterlogging state\n- FLOW_OK (GREEN) -> action: Downstream AgPlantGrowthCycleMonitor registers healthy water state",
+    "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
+    "inputAxes": [
+      {
+        "index": 0,
+        "key": "soil_moisture_norm",
+        "anchors": {
+          "low": "bone dry",
+          "mid": "optimal field capacity (60% WHC)",
+          "high": "fully saturated"
+        }
+      },
+      {
+        "index": 1,
+        "key": "flow_rate_norm",
+        "anchors": {
+          "low": "no flow",
+          "mid": "nominal irrigation rate",
+          "high": "max pump capacity"
+        }
+      },
+      {
+        "index": 2,
+        "key": "substrate_ec_norm",
+        "anchors": {
+          "low": "distilled water",
+          "mid": "2.0 mS/cm (target)",
+          "high": "4.0+ mS/cm (toxic)"
+        }
+      },
+      {
+        "index": 3,
+        "key": "runoff_ratio_norm",
+        "anchors": {
+          "low": "zero runoff",
+          "mid": "15\u201320% (healthy drainage)",
+          "high": "100% runoff"
+        }
+      }
+    ],
+    "sequenceCatalog": [
+      {
+        "sequenceId": "ag-irrig-drydown",
+        "label": "IRRIGATE_ON",
+        "rag": "AMBER",
+        "outputIndex": 0,
+        "action": "Immediate irrigation; downstream growth monitor registers water-stress state"
+      },
+      {
+        "sequenceId": "ag-irrig-waterlog",
+        "label": "DRAIN_ALERT",
+        "rag": "AMBER",
+        "outputIndex": 1,
+        "action": "Emergency drain; downstream growth monitor registers waterlogging state"
+      },
+      {
+        "sequenceId": "ag-irrig-balanced",
+        "label": "FLOW_OK",
+        "rag": "GREEN",
+        "outputIndex": 3,
+        "action": "Downstream AgPlantGrowthCycleMonitor registers healthy water state"
+      }
+    ]
+  },
+  "agentBinding": {
+    "agent": "ag-irrigation-flow-controller",
+    "mode": "advise",
+    "trigger": "agirrigationflowcontroller-input-assessment",
+    "allowedActions": [
+      "Assess current \"Ag Irrigation Flow Controller\" state from available observations and write the normalized input vector to the PE input region [4:8] for RE to evaluate."
+    ],
+    "writeBack": {
+      "type": "pe-sensor",
+      "provider": "acp",
+      "sensorId": "acp.openclaw.agirrigationflowcontroller.input-analyst.assessment",
+      "name": "OpenClaw agirrigationflowcontroller input-analyst assessment",
+      "region": {
+        "offset": 4,
+        "length": 4
+      },
+      "semantics": [
+        "soil_moisture_norm",
+        "flow_rate_norm",
+        "substrate_ec_norm",
+        "runoff_ratio_norm"
+      ],
+      "ttlMs": 300000,
+      "normalization": "already-normalized-0-1",
+      "ingest": {
+        "endpoint": "/api/integrations/completions",
+        "method": "POST",
+        "triggerPush": false,
+        "compactPush": true
+      },
+      "sourceMapping": {
+        "id": "acp-agirrigationflowcontroller-input-assessment",
+        "sensorId": "acp.openclaw.agirrigationflowcontroller.input-analyst.assessment",
+        "name": "OpenClaw agirrigationflowcontroller input-analyst assessment",
+        "region": {
+          "offset": 4,
+          "length": 4
+        },
+        "ttlMs": 300000
+      }
+    },
+    "autonomyPolicy": {
+      "mode": "advise",
+      "stage": 1,
+      "writeBackType": "pe-sensor",
+      "canWriteBack": true,
+      "canStageActions": false,
+      "canExecuteActions": false,
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "blockedWhenRag": []
+    },
+    "riskControls": {
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "maxAutonomy": "advise",
+      "blockedWhenRag": []
+    }
+  },
+  "responseMapping": {
+    "schemaVersion": "1.0.0",
+    "responseContract": "structured-keys-or-text",
+    "mode": "advise",
+    "fields": [
+      {
+        "semantic": "soil_moisture_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/soil_moisture_norm",
+          "responseKey": "soil_moisture_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agirrigationflowcontroller.input-analyst.assessment",
+          "region": {
+            "offset": 4,
+            "length": 4
+          },
+          "index": 0
+        }
+      },
+      {
+        "semantic": "flow_rate_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/flow_rate_norm",
+          "responseKey": "flow_rate_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agirrigationflowcontroller.input-analyst.assessment",
+          "region": {
+            "offset": 4,
+            "length": 4
+          },
+          "index": 1
+        }
+      },
+      {
+        "semantic": "substrate_ec_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/substrate_ec_norm",
+          "responseKey": "substrate_ec_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agirrigationflowcontroller.input-analyst.assessment",
+          "region": {
+            "offset": 4,
+            "length": 4
+          },
+          "index": 2
+        }
+      },
+      {
+        "semantic": "runoff_ratio_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/runoff_ratio_norm",
+          "responseKey": "runoff_ratio_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agirrigationflowcontroller.input-analyst.assessment",
+          "region": {
+            "offset": 4,
+            "length": 4
+          },
+          "index": 3
+        }
+      }
+    ]
+  },
+  "diagnostics": {
+    "axisBasis": "sensorNormalization",
+    "warnings": [],
+    "inputLength": 4,
+    "sequenceCount": 3
+  }
+}

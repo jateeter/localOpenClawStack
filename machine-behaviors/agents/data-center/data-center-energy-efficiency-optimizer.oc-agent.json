@@ -1,0 +1,361 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "oc-agent-template",
+  "role": "input-analyst",
+  "agentId": "data-center-energy-efficiency-optimizer",
+  "displayName": "Data Center Energy Efficiency Optimizer",
+  "machine": {
+    "id": "DCX040_energy-efficiency-optimizer",
+    "name": "Data Center Energy Efficiency Optimizer",
+    "code": "dcx040_energy_efficiency_optimizer",
+    "machineClass": "agent-dispatcher",
+    "domain": "data-center",
+    "inputRegion": {
+      "offset": 4093,
+      "length": 4
+    },
+    "outputRegion": {
+      "offset": 1525,
+      "length": 4
+    }
+  },
+  "openclaw": {
+    "id": "openclaw-xacp",
+    "kind": "acp",
+    "platform": "OpenClaw",
+    "surface": "xACP",
+    "command": "openclaw acp",
+    "gatewayUrl": "ws://127.0.0.1:18789",
+    "sessionKey": "agent:main:main",
+    "targetAgent": "data-center-energy-efficiency-optimizer",
+    "dispatchMode": "accepted-no-wait",
+    "completionMode": "pe-source-mapping",
+    "completionSourceMappingId": "acp-data-center-energy-efficiency-optimizer-input-assessment"
+  },
+  "reasoning": {
+    "objective": "Produce the normalized input vector for \"Data Center Energy Efficiency Optimizer\" from current observations so RE can evaluate its CES sequences.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Data Center Energy Efficiency Optimizer\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Data-center operations machine for energy efficiency optimizer. It monitors PUE trend, server utilization, cooling efficiency, and demand-response signal and emits operational outputs for 24/7 incident response, maintenance planning, upgrade readiness, and steady-state assurance.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- availability-margin (index 0):\n- maintenance-readiness (index 1):\n- upgrade-lifecycle-pressure (index 2):\n- operational-confidence (index 3):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Energy Efficiency Optimizer (RED) -> action: Dispatch dc_capacity_planner_agent for immediate stabilization of energy efficiency optimizer.\n- Energy Efficiency Optimizer (GREEN) -> action: Schedule maintenance for energy efficiency optimizer with rollback and staffing checks.\n- Energy Efficiency Optimizer (GREEN) -> action: Plan upgrade or lifecycle change for energy efficiency optimizer using risk-gated rollout.\n- Energy Efficiency Optimizer (GREEN) -> action: Keep 24/7 monitoring active for energy efficiency optimizer.\n- Energy Efficiency Optimizer (GREEN) -> action: Project energy efficiency optimizer forward over the next 24 hours and prescribe maintenance or upgrade work before the risk window opens.",
+    "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
+    "inputAxes": [
+      {
+        "index": 0,
+        "key": "availability-margin",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 1,
+        "key": "maintenance-readiness",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 2,
+        "key": "upgrade-lifecycle-pressure",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 3,
+        "key": "operational-confidence",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      }
+    ],
+    "sequenceCatalog": [
+      {
+        "sequenceId": "dcx-040-urgent",
+        "label": "Energy Efficiency Optimizer",
+        "rag": "RED",
+        "outputIndex": 0,
+        "action": "Dispatch dc_capacity_planner_agent for immediate stabilization of energy efficiency optimizer."
+      },
+      {
+        "sequenceId": "dcx-040-maintenance",
+        "label": "Energy Efficiency Optimizer",
+        "rag": "GREEN",
+        "outputIndex": 1,
+        "action": "Schedule maintenance for energy efficiency optimizer with rollback and staffing checks."
+      },
+      {
+        "sequenceId": "dcx-040-upgrade",
+        "label": "Energy Efficiency Optimizer",
+        "rag": "GREEN",
+        "outputIndex": 2,
+        "action": "Plan upgrade or lifecycle change for energy efficiency optimizer using risk-gated rollout."
+      },
+      {
+        "sequenceId": "dcx-040-nominal",
+        "label": "Energy Efficiency Optimizer",
+        "rag": "GREEN",
+        "outputIndex": 3,
+        "action": "Keep 24/7 monitoring active for energy efficiency optimizer."
+      },
+      {
+        "sequenceId": "dcx-040-24h-projection",
+        "label": "Energy Efficiency Optimizer",
+        "rag": "GREEN",
+        "outputIndex": 1,
+        "action": "Project energy efficiency optimizer forward over the next 24 hours and prescribe maintenance or upgrade work before the risk window opens."
+      }
+    ]
+  },
+  "agentBinding": {
+    "agent": "data-center-energy-efficiency-optimizer",
+    "mode": "advise",
+    "trigger": "dcx040_energy_efficiency_optimizer-input-assessment",
+    "allowedActions": [
+      "Assess current \"Data Center Energy Efficiency Optimizer\" state from available observations and write the normalized input vector to the PE input region [4093:4097] for RE to evaluate."
+    ],
+    "writeBack": {
+      "type": "pe-sensor",
+      "provider": "acp",
+      "sensorId": "acp.openclaw.dcx040_energy_efficiency_optimizer.input-analyst.assessment",
+      "name": "OpenClaw dcx040_energy_efficiency_optimizer input-analyst assessment",
+      "region": {
+        "offset": 4093,
+        "length": 4
+      },
+      "semantics": [
+        "availability-margin",
+        "maintenance-readiness",
+        "upgrade-lifecycle-pressure",
+        "operational-confidence"
+      ],
+      "ttlMs": 300000,
+      "normalization": "already-normalized-0-1",
+      "ingest": {
+        "endpoint": "/api/integrations/completions",
+        "method": "POST",
+        "triggerPush": false,
+        "compactPush": true
+      },
+      "sourceMapping": {
+        "id": "acp-dcx040_energy_efficiency_optimizer-input-assessment",
+        "sensorId": "acp.openclaw.dcx040_energy_efficiency_optimizer.input-analyst.assessment",
+        "name": "OpenClaw dcx040_energy_efficiency_optimizer input-analyst assessment",
+        "region": {
+          "offset": 4093,
+          "length": 4
+        },
+        "ttlMs": 300000
+      }
+    },
+    "autonomyPolicy": {
+      "mode": "advise",
+      "stage": 1,
+      "writeBackType": "pe-sensor",
+      "canWriteBack": true,
+      "canStageActions": false,
+      "canExecuteActions": false,
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "blockedWhenRag": []
+    },
+    "riskControls": {
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "maxAutonomy": "advise",
+      "blockedWhenRag": []
+    }
+  },
+  "responseMapping": {
+    "schemaVersion": "1.0.0",
+    "responseContract": "structured-keys-or-text",
+    "mode": "advise",
+    "fields": [
+      {
+        "semantic": "availability-margin",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/availability-margin",
+          "responseKey": "availability-margin",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.dcx040_energy_efficiency_optimizer.input-analyst.assessment",
+          "region": {
+            "offset": 4093,
+            "length": 4
+          },
+          "index": 0
+        }
+      },
+      {
+        "semantic": "maintenance-readiness",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/maintenance-readiness",
+          "responseKey": "maintenance-readiness",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.dcx040_energy_efficiency_optimizer.input-analyst.assessment",
+          "region": {
+            "offset": 4093,
+            "length": 4
+          },
+          "index": 1
+        }
+      },
+      {
+        "semantic": "upgrade-lifecycle-pressure",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/upgrade-lifecycle-pressure",
+          "responseKey": "upgrade-lifecycle-pressure",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.dcx040_energy_efficiency_optimizer.input-analyst.assessment",
+          "region": {
+            "offset": 4093,
+            "length": 4
+          },
+          "index": 2
+        }
+      },
+      {
+        "semantic": "operational-confidence",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/operational-confidence",
+          "responseKey": "operational-confidence",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.dcx040_energy_efficiency_optimizer.input-analyst.assessment",
+          "region": {
+            "offset": 4093,
+            "length": 4
+          },
+          "index": 3
+        }
+      }
+    ]
+  },
+  "diagnostics": {
+    "axisBasis": "inputSemantics",
+    "warnings": [
+      "input axes derived from inputSemantics (no length-matched sensorNormalization)"
+    ],
+    "inputLength": 4,
+    "sequenceCount": 5
+  }
+}

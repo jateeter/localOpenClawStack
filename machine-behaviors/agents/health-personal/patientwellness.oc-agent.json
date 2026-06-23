@@ -1,0 +1,573 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "oc-agent-template",
+  "role": "input-analyst",
+  "agentId": "patientwellness",
+  "displayName": "PatientWellness",
+  "machine": {
+    "id": "PatientWellness",
+    "name": "PatientWellness",
+    "code": "patientwellness",
+    "machineClass": "signal-monitor",
+    "domain": "health-personal",
+    "inputRegion": {
+      "offset": 1955,
+      "length": 8
+    },
+    "outputRegion": {
+      "offset": 3931,
+      "length": 8
+    }
+  },
+  "openclaw": {
+    "id": "openclaw-xacp",
+    "kind": "acp",
+    "platform": "OpenClaw",
+    "surface": "xACP",
+    "command": "openclaw acp",
+    "gatewayUrl": "ws://127.0.0.1:18789",
+    "sessionKey": "agent:main:main",
+    "targetAgent": "patientwellness",
+    "dispatchMode": "accepted-no-wait",
+    "completionMode": "pe-source-mapping",
+    "completionSourceMappingId": "acp-patientwellness-input-assessment"
+  },
+  "reasoning": {
+    "objective": "Produce the normalized input vector for \"PatientWellness\" from current observations so RE can evaluate its CES sequences.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"PatientWellness\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Holistic wellness monitoring for assisted living residents across six dimensions: mental acuity, anxiety, stress, socialization, nutrition, and exercise. Produces a four-level wellness metric (OPTIMAL / GOOD / ALERT / CRITICAL) routed into the perceptual resolution space for longitudinal tracking and intervention planning. Sequences are calibrated to age-group norms for the 65-74, 75-84, and 85+ cohorts.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- patientwellness-input-1 (index 0):\n- patientwellness-input-2 (index 1):\n- patientwellness-input-3 (index 2):\n- patientwellness-input-4 (index 3):\n- patientwellness-input-5 (index 4):\n- patientwellness-input-6 (index 5):\n- patientwellness-input-7 (index 6):\n- patientwellness-input-8 (index 7):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Level 4 \u2014 OPTIMAL (AMBER) -> action: Continue current care plan. Document as reference baseline for future assessments.\n- Level 3 \u2014 GOOD (AMBER) -> action: Offer stress-reduction programming (mindfulness, pet therapy, chaplaincy). Reassess stress dimension at next cycle. No care plan change required at this time.\n- Level 2 \u2014 ALERT (AMBER) -> action: Schedule multidisciplinary care plan conference within 5 business days. Refer for: anxiety/stress counseling or psychiatric consultation, physical therapy for activity re-engagement, occupational therapy for lifestyle restructuring. Increase assessment frequency to weekly. Notify attending physician and family.\n- Level 1 \u2014 CRITICAL (RED) -> action: Notify attending physician immediately. Order comprehensive cognitive evaluation (neuropsychological testing, imaging if not recent). Review and revise care plan within 48 hours. Assess for reversible causes: UTI, dehydration, medication side effects, depression-related pseudodementia. Increase supervision level. Notify family and document in medical record. Consult social work for advanced care planning discussion.\n- Level 3 \u2014 GOOD (Age-Adjusted) (AMBER) -> action: Document age-adjusted wellness classification. Refer to physical or occupational therapy to explore any safe exercise option (even passive range-of-motion). Continue monitoring all five assessed dimensions at standard frequency. No urgent care plan change required.",
+    "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
+    "inputAxes": [
+      {
+        "index": 0,
+        "key": "patientwellness-input-1",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 1,
+        "key": "patientwellness-input-2",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 2,
+        "key": "patientwellness-input-3",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 3,
+        "key": "patientwellness-input-4",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 4,
+        "key": "patientwellness-input-5",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 5,
+        "key": "patientwellness-input-6",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 6,
+        "key": "patientwellness-input-7",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 7,
+        "key": "patientwellness-input-8",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      }
+    ],
+    "sequenceCatalog": [
+      {
+        "sequenceId": "wellness-level4-optimal",
+        "label": "Level 4 \u2014 OPTIMAL",
+        "rag": "AMBER",
+        "outputIndex": 0,
+        "action": "Continue current care plan. Document as reference baseline for future assessments."
+      },
+      {
+        "sequenceId": "wellness-level3-good",
+        "label": "Level 3 \u2014 GOOD",
+        "rag": "AMBER",
+        "outputIndex": 1,
+        "action": "Offer stress-reduction programming (mindfulness, pet therapy, chaplaincy). Reassess stress dimension at next cycle. No care plan change required at this time."
+      },
+      {
+        "sequenceId": "wellness-level2-alert",
+        "label": "Level 2 \u2014 ALERT",
+        "rag": "AMBER",
+        "outputIndex": 2,
+        "action": "Schedule multidisciplinary care plan conference within 5 business days. Refer for: anxiety/stress counseling or psychiatric consultation, physical therapy for activity re-engagement, occupational therapy for lifestyle restructuring. Increase assessment frequency to weekly. Notify attending physician and family."
+      },
+      {
+        "sequenceId": "wellness-level1-critical",
+        "label": "Level 1 \u2014 CRITICAL",
+        "rag": "RED",
+        "outputIndex": 3,
+        "action": "Notify attending physician immediately. Order comprehensive cognitive evaluation (neuropsychological testing, imaging if not recent). Review and revise care plan within 48 hours. Assess for reversible causes: UTI, dehydration, medication side effects, depression-related pseudodementia. Increase supervision level. Notify family and document in medical record. Consult social work for advanced care planning discussion."
+      },
+      {
+        "sequenceId": "wellness-level3-good-age-adjusted",
+        "label": "Level 3 \u2014 GOOD (Age-Adjusted)",
+        "rag": "AMBER",
+        "outputIndex": 1,
+        "action": "Document age-adjusted wellness classification. Refer to physical or occupational therapy to explore any safe exercise option (even passive range-of-motion). Continue monitoring all five assessed dimensions at standard frequency. No urgent care plan change required."
+      }
+    ]
+  },
+  "agentBinding": {
+    "agent": "patientwellness",
+    "mode": "advise",
+    "trigger": "patientwellness-input-assessment",
+    "allowedActions": [
+      "Assess current \"PatientWellness\" state from available observations and write the normalized input vector to the PE input region [1955:1963] for RE to evaluate."
+    ],
+    "writeBack": {
+      "type": "pe-sensor",
+      "provider": "acp",
+      "sensorId": "acp.openclaw.patientwellness.input-analyst.assessment",
+      "name": "OpenClaw patientwellness input-analyst assessment",
+      "region": {
+        "offset": 1955,
+        "length": 8
+      },
+      "semantics": [
+        "patientwellness-input-1",
+        "patientwellness-input-2",
+        "patientwellness-input-3",
+        "patientwellness-input-4",
+        "patientwellness-input-5",
+        "patientwellness-input-6",
+        "patientwellness-input-7",
+        "patientwellness-input-8"
+      ],
+      "ttlMs": 300000,
+      "normalization": "already-normalized-0-1",
+      "ingest": {
+        "endpoint": "/api/integrations/completions",
+        "method": "POST",
+        "triggerPush": false,
+        "compactPush": true
+      },
+      "sourceMapping": {
+        "id": "acp-patientwellness-input-assessment",
+        "sensorId": "acp.openclaw.patientwellness.input-analyst.assessment",
+        "name": "OpenClaw patientwellness input-analyst assessment",
+        "region": {
+          "offset": 1955,
+          "length": 8
+        },
+        "ttlMs": 300000
+      }
+    },
+    "autonomyPolicy": {
+      "mode": "advise",
+      "stage": 1,
+      "writeBackType": "pe-sensor",
+      "canWriteBack": true,
+      "canStageActions": false,
+      "canExecuteActions": false,
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "blockedWhenRag": []
+    },
+    "riskControls": {
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "maxAutonomy": "advise",
+      "blockedWhenRag": []
+    }
+  },
+  "responseMapping": {
+    "schemaVersion": "1.0.0",
+    "responseContract": "structured-keys-or-text",
+    "mode": "advise",
+    "fields": [
+      {
+        "semantic": "patientwellness-input-1",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/patientwellness-input-1",
+          "responseKey": "patientwellness-input-1",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.patientwellness.input-analyst.assessment",
+          "region": {
+            "offset": 1955,
+            "length": 8
+          },
+          "index": 0
+        }
+      },
+      {
+        "semantic": "patientwellness-input-2",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/patientwellness-input-2",
+          "responseKey": "patientwellness-input-2",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.patientwellness.input-analyst.assessment",
+          "region": {
+            "offset": 1955,
+            "length": 8
+          },
+          "index": 1
+        }
+      },
+      {
+        "semantic": "patientwellness-input-3",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/patientwellness-input-3",
+          "responseKey": "patientwellness-input-3",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.patientwellness.input-analyst.assessment",
+          "region": {
+            "offset": 1955,
+            "length": 8
+          },
+          "index": 2
+        }
+      },
+      {
+        "semantic": "patientwellness-input-4",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/patientwellness-input-4",
+          "responseKey": "patientwellness-input-4",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.patientwellness.input-analyst.assessment",
+          "region": {
+            "offset": 1955,
+            "length": 8
+          },
+          "index": 3
+        }
+      },
+      {
+        "semantic": "patientwellness-input-5",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/patientwellness-input-5",
+          "responseKey": "patientwellness-input-5",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.patientwellness.input-analyst.assessment",
+          "region": {
+            "offset": 1955,
+            "length": 8
+          },
+          "index": 4
+        }
+      },
+      {
+        "semantic": "patientwellness-input-6",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/patientwellness-input-6",
+          "responseKey": "patientwellness-input-6",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.patientwellness.input-analyst.assessment",
+          "region": {
+            "offset": 1955,
+            "length": 8
+          },
+          "index": 5
+        }
+      },
+      {
+        "semantic": "patientwellness-input-7",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/patientwellness-input-7",
+          "responseKey": "patientwellness-input-7",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.patientwellness.input-analyst.assessment",
+          "region": {
+            "offset": 1955,
+            "length": 8
+          },
+          "index": 6
+        }
+      },
+      {
+        "semantic": "patientwellness-input-8",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/patientwellness-input-8",
+          "responseKey": "patientwellness-input-8",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.patientwellness.input-analyst.assessment",
+          "region": {
+            "offset": 1955,
+            "length": 8
+          },
+          "index": 7
+        }
+      }
+    ]
+  },
+  "diagnostics": {
+    "axisBasis": "inputSemantics",
+    "warnings": [
+      "input axes derived from inputSemantics (no length-matched sensorNormalization)"
+    ],
+    "inputLength": 8,
+    "sequenceCount": 5
+  }
+}

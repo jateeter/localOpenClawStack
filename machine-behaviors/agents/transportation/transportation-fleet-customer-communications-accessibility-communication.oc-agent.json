@@ -1,0 +1,354 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "oc-agent-template",
+  "role": "input-analyst",
+  "agentId": "transportation-fleet-customer-communications-accessibility-communication",
+  "displayName": "Transportation Fleet Customer Communications Accessibility Communication",
+  "machine": {
+    "id": "TFX106_customer-communications-accessibility-communication",
+    "name": "Transportation Fleet Customer Communications Accessibility Communication",
+    "code": "tfx106_customer_communications_accessibility_communication",
+    "machineClass": "agent-dispatcher",
+    "domain": "transportation",
+    "inputRegion": {
+      "offset": 3643,
+      "length": 4
+    },
+    "outputRegion": {
+      "offset": 3647,
+      "length": 4
+    }
+  },
+  "openclaw": {
+    "id": "openclaw-xacp",
+    "kind": "acp",
+    "platform": "OpenClaw",
+    "surface": "xACP",
+    "command": "openclaw acp",
+    "gatewayUrl": "ws://127.0.0.1:18789",
+    "sessionKey": "agent:main:main",
+    "targetAgent": "transportation-fleet-customer-communications-accessibility-communication",
+    "dispatchMode": "accepted-no-wait",
+    "completionMode": "pe-source-mapping",
+    "completionSourceMappingId": "acp-transportation-fleet-customer-communications-accessibility-communication-input-assessment"
+  },
+  "reasoning": {
+    "objective": "Produce the normalized input vector for \"Transportation Fleet Customer Communications Accessibility Communication\" from current observations so RE can evaluate its CES sequences.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Transportation Fleet Customer Communications Accessibility Communication\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Public transportation fleet machine for accessibility communication in the customer communications workstream. It monitors elevator/ramp issue, accessible alternative, rider need, and confirmation for a 100-bus 24/7 operation and emits AI-triggered outputs for rider experience, operations, maintenance, cleaning, security, and predictive fleet-flow management.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- service-reliability (index 0):\n- rider-impact (index 1):\n- asset-readiness (index 2):\n- safety-security-risk (index 3):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Accessibility Communication (AMBER) -> action: Dispatch transit_rider_experience_agent for critical 100-bus fleet intervention on accessibility communication.\n- Accessibility Communication (GREEN) -> action: Trigger predictive flow management for accessibility communication using rider, vehicle, and route context.\n- Accessibility Communication (GREEN) -> action: Create maintenance, cleaning, security, or service task for accessibility communication.\n- Accessibility Communication (GREEN) -> action: Keep 24/7 monitoring active for accessibility communication.",
+    "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
+    "inputAxes": [
+      {
+        "index": 0,
+        "key": "service-reliability",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 1,
+        "key": "rider-impact",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 2,
+        "key": "asset-readiness",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 3,
+        "key": "safety-security-risk",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      }
+    ],
+    "sequenceCatalog": [
+      {
+        "sequenceId": "tfx-106-critical-event",
+        "label": "Accessibility Communication",
+        "rag": "AMBER",
+        "outputIndex": 0,
+        "action": "Dispatch transit_rider_experience_agent for critical 100-bus fleet intervention on accessibility communication."
+      },
+      {
+        "sequenceId": "tfx-106-predictive-flow",
+        "label": "Accessibility Communication",
+        "rag": "GREEN",
+        "outputIndex": 1,
+        "action": "Trigger predictive flow management for accessibility communication using rider, vehicle, and route context."
+      },
+      {
+        "sequenceId": "tfx-106-ops-task",
+        "label": "Accessibility Communication",
+        "rag": "GREEN",
+        "outputIndex": 2,
+        "action": "Create maintenance, cleaning, security, or service task for accessibility communication."
+      },
+      {
+        "sequenceId": "tfx-106-nominal",
+        "label": "Accessibility Communication",
+        "rag": "GREEN",
+        "outputIndex": 3,
+        "action": "Keep 24/7 monitoring active for accessibility communication."
+      }
+    ]
+  },
+  "agentBinding": {
+    "agent": "transportation-fleet-customer-communications-accessibility-communication",
+    "mode": "advise",
+    "trigger": "tfx106_customer_communications_accessibility_communication-input-assessment",
+    "allowedActions": [
+      "Assess current \"Transportation Fleet Customer Communications Accessibility Communication\" state from available observations and write the normalized input vector to the PE input region [3643:3647] for RE to evaluate."
+    ],
+    "writeBack": {
+      "type": "pe-sensor",
+      "provider": "acp",
+      "sensorId": "acp.openclaw.tfx106_customer_communications_accessibility_communication.input-analyst.assessment",
+      "name": "OpenClaw tfx106_customer_communications_accessibility_communication input-analyst assessment",
+      "region": {
+        "offset": 3643,
+        "length": 4
+      },
+      "semantics": [
+        "service-reliability",
+        "rider-impact",
+        "asset-readiness",
+        "safety-security-risk"
+      ],
+      "ttlMs": 300000,
+      "normalization": "already-normalized-0-1",
+      "ingest": {
+        "endpoint": "/api/integrations/completions",
+        "method": "POST",
+        "triggerPush": false,
+        "compactPush": true
+      },
+      "sourceMapping": {
+        "id": "acp-tfx106_customer_communications_accessibility_communication-input-assessment",
+        "sensorId": "acp.openclaw.tfx106_customer_communications_accessibility_communication.input-analyst.assessment",
+        "name": "OpenClaw tfx106_customer_communications_accessibility_communication input-analyst assessment",
+        "region": {
+          "offset": 3643,
+          "length": 4
+        },
+        "ttlMs": 300000
+      }
+    },
+    "autonomyPolicy": {
+      "mode": "advise",
+      "stage": 1,
+      "writeBackType": "pe-sensor",
+      "canWriteBack": true,
+      "canStageActions": false,
+      "canExecuteActions": false,
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "blockedWhenRag": []
+    },
+    "riskControls": {
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "maxAutonomy": "advise",
+      "blockedWhenRag": []
+    }
+  },
+  "responseMapping": {
+    "schemaVersion": "1.0.0",
+    "responseContract": "structured-keys-or-text",
+    "mode": "advise",
+    "fields": [
+      {
+        "semantic": "service-reliability",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/service-reliability",
+          "responseKey": "service-reliability",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.tfx106_customer_communications_accessibility_communication.input-analyst.assessment",
+          "region": {
+            "offset": 3643,
+            "length": 4
+          },
+          "index": 0
+        }
+      },
+      {
+        "semantic": "rider-impact",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/rider-impact",
+          "responseKey": "rider-impact",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.tfx106_customer_communications_accessibility_communication.input-analyst.assessment",
+          "region": {
+            "offset": 3643,
+            "length": 4
+          },
+          "index": 1
+        }
+      },
+      {
+        "semantic": "asset-readiness",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/asset-readiness",
+          "responseKey": "asset-readiness",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.tfx106_customer_communications_accessibility_communication.input-analyst.assessment",
+          "region": {
+            "offset": 3643,
+            "length": 4
+          },
+          "index": 2
+        }
+      },
+      {
+        "semantic": "safety-security-risk",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/safety-security-risk",
+          "responseKey": "safety-security-risk",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.tfx106_customer_communications_accessibility_communication.input-analyst.assessment",
+          "region": {
+            "offset": 3643,
+            "length": 4
+          },
+          "index": 3
+        }
+      }
+    ]
+  },
+  "diagnostics": {
+    "axisBasis": "inputSemantics",
+    "warnings": [
+      "input axes derived from inputSemantics (no length-matched sensorNormalization)"
+    ],
+    "inputLength": 4,
+    "sequenceCount": 4
+  }
+}

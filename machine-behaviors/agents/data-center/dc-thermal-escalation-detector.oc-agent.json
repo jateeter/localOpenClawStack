@@ -1,0 +1,338 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "oc-agent-template",
+  "role": "input-analyst",
+  "agentId": "dc-thermal-escalation-detector",
+  "displayName": "DC Thermal Escalation Detector",
+  "machine": {
+    "id": "DCThermalEscalation",
+    "name": "DC Thermal Escalation Detector",
+    "code": "dcthermalescalation",
+    "machineClass": "outcome-stabilizer",
+    "domain": "data-center",
+    "inputRegion": {
+      "offset": 3919,
+      "length": 4
+    },
+    "outputRegion": {
+      "offset": 1375,
+      "length": 2
+    }
+  },
+  "openclaw": {
+    "id": "openclaw-xacp",
+    "kind": "acp",
+    "platform": "OpenClaw",
+    "surface": "xACP",
+    "command": "openclaw acp",
+    "gatewayUrl": "ws://127.0.0.1:18789",
+    "sessionKey": "agent:main:main",
+    "targetAgent": "dc-thermal-escalation-detector",
+    "dispatchMode": "accepted-no-wait",
+    "completionMode": "pe-source-mapping",
+    "completionSourceMappingId": "acp-dc-thermal-escalation-detector-input-assessment"
+  },
+  "reasoning": {
+    "objective": "Produce the normalized input vector for \"DC Thermal Escalation Detector\" from current observations so RE can evaluate its CES sequences.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"DC Thermal Escalation Detector\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Monitors CPU temperature and load to detect thermal runaway. Implements the regular expression pattern NORMAL+ \u2192 WARM+ \u2192 HOT \u2192 CRITICAL+ \u2192 EMERGENCY \u2192 [alarm]. A concurrent SAFE+ sequence fires the reset signal whenever conditions return to normal, enabling RS flip-flop recovery.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- cpu_temp_norm (index 0):\n- cpu_load_norm (index 1):\n- cpu_throttle_norm (index 2):\n- cpu_efficiency_norm (index 3):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- THERMAL EMERGENCY (RED) -> action: DCCoolingControlFF will SET; emergency cooling activated\n- THERMAL SAFE (GREEN) -> action: DCCoolingControlFF will RESET; normal cooling sufficient",
+    "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
+    "inputAxes": [
+      {
+        "index": 0,
+        "key": "cpu_temp_norm",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 1,
+        "key": "cpu_load_norm",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 2,
+        "key": "cpu_throttle_norm",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 3,
+        "key": "cpu_efficiency_norm",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      }
+    ],
+    "sequenceCatalog": [
+      {
+        "sequenceId": "dc-thermal-escalation",
+        "label": "THERMAL EMERGENCY",
+        "rag": "RED",
+        "outputIndex": 0,
+        "action": "DCCoolingControlFF will SET; emergency cooling activated"
+      },
+      {
+        "sequenceId": "dc-thermal-safe-recovery",
+        "label": "THERMAL SAFE",
+        "rag": "GREEN",
+        "outputIndex": 1,
+        "action": "DCCoolingControlFF will RESET; normal cooling sufficient"
+      }
+    ]
+  },
+  "agentBinding": {
+    "agent": "dc-thermal-escalation-detector",
+    "mode": "advise",
+    "trigger": "dcthermalescalation-input-assessment",
+    "allowedActions": [
+      "Assess current \"DC Thermal Escalation Detector\" state from available observations and write the normalized input vector to the PE input region [3919:3923] for RE to evaluate."
+    ],
+    "writeBack": {
+      "type": "pe-sensor",
+      "provider": "acp",
+      "sensorId": "acp.openclaw.dcthermalescalation.input-analyst.assessment",
+      "name": "OpenClaw dcthermalescalation input-analyst assessment",
+      "region": {
+        "offset": 3919,
+        "length": 4
+      },
+      "semantics": [
+        "cpu_temp_norm",
+        "cpu_load_norm",
+        "cpu_throttle_norm",
+        "cpu_efficiency_norm"
+      ],
+      "ttlMs": 300000,
+      "normalization": "already-normalized-0-1",
+      "ingest": {
+        "endpoint": "/api/integrations/completions",
+        "method": "POST",
+        "triggerPush": false,
+        "compactPush": true
+      },
+      "sourceMapping": {
+        "id": "acp-dcthermalescalation-input-assessment",
+        "sensorId": "acp.openclaw.dcthermalescalation.input-analyst.assessment",
+        "name": "OpenClaw dcthermalescalation input-analyst assessment",
+        "region": {
+          "offset": 3919,
+          "length": 4
+        },
+        "ttlMs": 300000
+      }
+    },
+    "autonomyPolicy": {
+      "mode": "advise",
+      "stage": 1,
+      "writeBackType": "pe-sensor",
+      "canWriteBack": true,
+      "canStageActions": false,
+      "canExecuteActions": false,
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "blockedWhenRag": []
+    },
+    "riskControls": {
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "maxAutonomy": "advise",
+      "blockedWhenRag": []
+    }
+  },
+  "responseMapping": {
+    "schemaVersion": "1.0.0",
+    "responseContract": "structured-keys-or-text",
+    "mode": "advise",
+    "fields": [
+      {
+        "semantic": "cpu_temp_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/cpu_temp_norm",
+          "responseKey": "cpu_temp_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.dcthermalescalation.input-analyst.assessment",
+          "region": {
+            "offset": 3919,
+            "length": 4
+          },
+          "index": 0
+        }
+      },
+      {
+        "semantic": "cpu_load_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/cpu_load_norm",
+          "responseKey": "cpu_load_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.dcthermalescalation.input-analyst.assessment",
+          "region": {
+            "offset": 3919,
+            "length": 4
+          },
+          "index": 1
+        }
+      },
+      {
+        "semantic": "cpu_throttle_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/cpu_throttle_norm",
+          "responseKey": "cpu_throttle_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.dcthermalescalation.input-analyst.assessment",
+          "region": {
+            "offset": 3919,
+            "length": 4
+          },
+          "index": 2
+        }
+      },
+      {
+        "semantic": "cpu_efficiency_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/cpu_efficiency_norm",
+          "responseKey": "cpu_efficiency_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.dcthermalescalation.input-analyst.assessment",
+          "region": {
+            "offset": 3919,
+            "length": 4
+          },
+          "index": 3
+        }
+      }
+    ]
+  },
+  "diagnostics": {
+    "axisBasis": "sensorNormalization",
+    "warnings": [],
+    "inputLength": 4,
+    "sequenceCount": 2
+  }
+}

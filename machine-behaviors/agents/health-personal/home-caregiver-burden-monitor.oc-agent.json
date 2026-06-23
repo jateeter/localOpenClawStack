@@ -1,0 +1,559 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "oc-agent-template",
+  "role": "input-analyst",
+  "agentId": "home-caregiver-burden-monitor",
+  "displayName": "Home Caregiver Burden Monitor",
+  "machine": {
+    "id": "HomeCaregiverBurdenMonitor",
+    "name": "Home Caregiver Burden Monitor",
+    "code": "homecaregiverburdenmonitor",
+    "machineClass": "risk-forecaster",
+    "domain": "health-personal",
+    "inputRegion": {
+      "offset": 2003,
+      "length": 8
+    },
+    "outputRegion": {
+      "offset": 2031,
+      "length": 4
+    }
+  },
+  "openclaw": {
+    "id": "openclaw-xacp",
+    "kind": "acp",
+    "platform": "OpenClaw",
+    "surface": "xACP",
+    "command": "openclaw acp",
+    "gatewayUrl": "ws://127.0.0.1:18789",
+    "sessionKey": "agent:main:main",
+    "targetAgent": "home-caregiver-burden-monitor",
+    "dispatchMode": "accepted-no-wait",
+    "completionMode": "pe-source-mapping",
+    "completionSourceMappingId": "acp-home-caregiver-burden-monitor-input-assessment"
+  },
+  "reasoning": {
+    "objective": "Produce the normalized input vector for \"Home Caregiver Burden Monitor\" from current observations so RE can evaluate its CES sequences.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Home Caregiver Burden Monitor\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Integration machine that reads combined output signals from the Pediatric Nutrition Monitor [2003:2007] and the Child Development Monitor [2007:2011] to assess caregiver burden driven by child health challenges. Child nutritional problems and developmental delays are the primary pediatric-driven stressors for at-home caregivers in low-income settings. Caregiver burnout reduces care quality across all household members and is a leading predictor of preventable pediatric ED visits. Output at [2031:2035] is available to downstream care coordination systems.\n\nPOPULATION: Primary caregivers of children with health or developmental challenges; single parents; low-income households with limited respite support\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- home-caregiver-burden-monitor-input-1 (index 0):\n- home-caregiver-burden-monitor-input-2 (index 1):\n- home-caregiver-burden-monitor-input-3 (index 2):\n- home-caregiver-burden-monitor-input-4 (index 3):\n- home-caregiver-burden-monitor-input-5 (index 4):\n- home-caregiver-burden-monitor-input-6 (index 5):\n- home-caregiver-burden-monitor-input-7 (index 6):\n- home-caregiver-burden-monitor-input-8 (index 7):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- CAREGIVER_BURNOUT (AMBER) -> action: Caregiver respite referral; home visitor crisis support; behavioral health intake for caregiver; family services engagement\n- HIGH_BURDEN (AMBER) -> action: Care coordinator contact; respite options screening; caregiver coping assessment; CHW home visit\n- CAREGIVER_COPING (AMBER) -> action: No additional intervention needed; continue monitoring schedule",
+    "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
+    "inputAxes": [
+      {
+        "index": 0,
+        "key": "home-caregiver-burden-monitor-input-1",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 1,
+        "key": "home-caregiver-burden-monitor-input-2",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 2,
+        "key": "home-caregiver-burden-monitor-input-3",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 3,
+        "key": "home-caregiver-burden-monitor-input-4",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 4,
+        "key": "home-caregiver-burden-monitor-input-5",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 5,
+        "key": "home-caregiver-burden-monitor-input-6",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 6,
+        "key": "home-caregiver-burden-monitor-input-7",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 7,
+        "key": "home-caregiver-burden-monitor-input-8",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      }
+    ],
+    "sequenceCatalog": [
+      {
+        "sequenceId": "caregiver-burnout-escalation",
+        "label": "CAREGIVER_BURNOUT",
+        "rag": "AMBER",
+        "outputIndex": 0,
+        "action": "Caregiver respite referral; home visitor crisis support; behavioral health intake for caregiver; family services engagement"
+      },
+      {
+        "sequenceId": "caregiver-high-burden",
+        "label": "HIGH_BURDEN",
+        "rag": "AMBER",
+        "outputIndex": 1,
+        "action": "Care coordinator contact; respite options screening; caregiver coping assessment; CHW home visit"
+      },
+      {
+        "sequenceId": "caregiver-coping-ok",
+        "label": "CAREGIVER_COPING",
+        "rag": "AMBER",
+        "outputIndex": 3,
+        "action": "No additional intervention needed; continue monitoring schedule"
+      }
+    ]
+  },
+  "agentBinding": {
+    "agent": "home-caregiver-burden-monitor",
+    "mode": "advise",
+    "trigger": "homecaregiverburdenmonitor-input-assessment",
+    "allowedActions": [
+      "Assess current \"Home Caregiver Burden Monitor\" state from available observations and write the normalized input vector to the PE input region [2003:2011] for RE to evaluate."
+    ],
+    "writeBack": {
+      "type": "pe-sensor",
+      "provider": "acp",
+      "sensorId": "acp.openclaw.homecaregiverburdenmonitor.input-analyst.assessment",
+      "name": "OpenClaw homecaregiverburdenmonitor input-analyst assessment",
+      "region": {
+        "offset": 2003,
+        "length": 8
+      },
+      "semantics": [
+        "home-caregiver-burden-monitor-input-1",
+        "home-caregiver-burden-monitor-input-2",
+        "home-caregiver-burden-monitor-input-3",
+        "home-caregiver-burden-monitor-input-4",
+        "home-caregiver-burden-monitor-input-5",
+        "home-caregiver-burden-monitor-input-6",
+        "home-caregiver-burden-monitor-input-7",
+        "home-caregiver-burden-monitor-input-8"
+      ],
+      "ttlMs": 300000,
+      "normalization": "already-normalized-0-1",
+      "ingest": {
+        "endpoint": "/api/integrations/completions",
+        "method": "POST",
+        "triggerPush": false,
+        "compactPush": true
+      },
+      "sourceMapping": {
+        "id": "acp-homecaregiverburdenmonitor-input-assessment",
+        "sensorId": "acp.openclaw.homecaregiverburdenmonitor.input-analyst.assessment",
+        "name": "OpenClaw homecaregiverburdenmonitor input-analyst assessment",
+        "region": {
+          "offset": 2003,
+          "length": 8
+        },
+        "ttlMs": 300000
+      }
+    },
+    "autonomyPolicy": {
+      "mode": "advise",
+      "stage": 1,
+      "writeBackType": "pe-sensor",
+      "canWriteBack": true,
+      "canStageActions": false,
+      "canExecuteActions": false,
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "blockedWhenRag": []
+    },
+    "riskControls": {
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "maxAutonomy": "advise",
+      "blockedWhenRag": []
+    }
+  },
+  "responseMapping": {
+    "schemaVersion": "1.0.0",
+    "responseContract": "structured-keys-or-text",
+    "mode": "advise",
+    "fields": [
+      {
+        "semantic": "home-caregiver-burden-monitor-input-1",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/home-caregiver-burden-monitor-input-1",
+          "responseKey": "home-caregiver-burden-monitor-input-1",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.homecaregiverburdenmonitor.input-analyst.assessment",
+          "region": {
+            "offset": 2003,
+            "length": 8
+          },
+          "index": 0
+        }
+      },
+      {
+        "semantic": "home-caregiver-burden-monitor-input-2",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/home-caregiver-burden-monitor-input-2",
+          "responseKey": "home-caregiver-burden-monitor-input-2",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.homecaregiverburdenmonitor.input-analyst.assessment",
+          "region": {
+            "offset": 2003,
+            "length": 8
+          },
+          "index": 1
+        }
+      },
+      {
+        "semantic": "home-caregiver-burden-monitor-input-3",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/home-caregiver-burden-monitor-input-3",
+          "responseKey": "home-caregiver-burden-monitor-input-3",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.homecaregiverburdenmonitor.input-analyst.assessment",
+          "region": {
+            "offset": 2003,
+            "length": 8
+          },
+          "index": 2
+        }
+      },
+      {
+        "semantic": "home-caregiver-burden-monitor-input-4",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/home-caregiver-burden-monitor-input-4",
+          "responseKey": "home-caregiver-burden-monitor-input-4",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.homecaregiverburdenmonitor.input-analyst.assessment",
+          "region": {
+            "offset": 2003,
+            "length": 8
+          },
+          "index": 3
+        }
+      },
+      {
+        "semantic": "home-caregiver-burden-monitor-input-5",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/home-caregiver-burden-monitor-input-5",
+          "responseKey": "home-caregiver-burden-monitor-input-5",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.homecaregiverburdenmonitor.input-analyst.assessment",
+          "region": {
+            "offset": 2003,
+            "length": 8
+          },
+          "index": 4
+        }
+      },
+      {
+        "semantic": "home-caregiver-burden-monitor-input-6",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/home-caregiver-burden-monitor-input-6",
+          "responseKey": "home-caregiver-burden-monitor-input-6",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.homecaregiverburdenmonitor.input-analyst.assessment",
+          "region": {
+            "offset": 2003,
+            "length": 8
+          },
+          "index": 5
+        }
+      },
+      {
+        "semantic": "home-caregiver-burden-monitor-input-7",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/home-caregiver-burden-monitor-input-7",
+          "responseKey": "home-caregiver-burden-monitor-input-7",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.homecaregiverburdenmonitor.input-analyst.assessment",
+          "region": {
+            "offset": 2003,
+            "length": 8
+          },
+          "index": 6
+        }
+      },
+      {
+        "semantic": "home-caregiver-burden-monitor-input-8",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/home-caregiver-burden-monitor-input-8",
+          "responseKey": "home-caregiver-burden-monitor-input-8",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.homecaregiverburdenmonitor.input-analyst.assessment",
+          "region": {
+            "offset": 2003,
+            "length": 8
+          },
+          "index": 7
+        }
+      }
+    ]
+  },
+  "diagnostics": {
+    "axisBasis": "inputSemantics",
+    "warnings": [
+      "input axes derived from inputSemantics (no length-matched sensorNormalization)"
+    ],
+    "inputLength": 8,
+    "sequenceCount": 3
+  }
+}

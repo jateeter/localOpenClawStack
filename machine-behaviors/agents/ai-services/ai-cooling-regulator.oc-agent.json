@@ -1,0 +1,389 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "oc-agent-template",
+  "role": "input-analyst",
+  "agentId": "ai-cooling-regulator",
+  "displayName": "AI Cooling Regulator",
+  "machine": {
+    "id": "ai-cooling-regulator",
+    "name": "AI Cooling Regulator",
+    "code": "aicoolingregulator",
+    "machineClass": "signal-monitor",
+    "domain": "ai-services",
+    "inputRegion": {
+      "offset": 260,
+      "length": 4
+    },
+    "outputRegion": {
+      "offset": 286,
+      "length": 6
+    }
+  },
+  "openclaw": {
+    "id": "openclaw-xacp",
+    "kind": "acp",
+    "platform": "OpenClaw",
+    "surface": "xACP",
+    "command": "openclaw acp",
+    "gatewayUrl": "ws://127.0.0.1:18789",
+    "sessionKey": "agent:main:main",
+    "targetAgent": "ai-cooling-regulator",
+    "dispatchMode": "accepted-no-wait",
+    "completionMode": "pe-source-mapping",
+    "completionSourceMappingId": "acp-ai-cooling-regulator-input-assessment"
+  },
+  "reasoning": {
+    "objective": "Produce the normalized input vector for \"AI Cooling Regulator\" from current observations so RE can evaluate its CES sequences.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"AI Cooling Regulator\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Monitor AI datacenter liquid/air cooling systems. Detect thermal inefficiencies, cooling failures, and restricted coolant flow.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- ai-cooling-regulator-input-1 (index 0):\n- ai-cooling-regulator-input-2 (index 1):\n- ai-cooling-regulator-input-3 (index 2):\n- ai-cooling-regulator-input-4 (index 3):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- aicr-thermal-escalation (GREEN)\n- aicr-thermal-escalation (AMBER)\n- aicr-thermal-escalation (RED)\n- Action (AMBER)\n- aicr-thermal-escalation (RED)\n- Action (AMBER)\n- Action (RED)\n- aicr-flow-restriction (AMBER)\n- Action (AMBER)",
+    "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
+    "inputAxes": [
+      {
+        "index": 0,
+        "key": "ai-cooling-regulator-input-1",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 1,
+        "key": "ai-cooling-regulator-input-2",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 2,
+        "key": "ai-cooling-regulator-input-3",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 3,
+        "key": "ai-cooling-regulator-input-4",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      }
+    ],
+    "sequenceCatalog": [
+      {
+        "sequenceId": "aicr-thermal-escalation",
+        "label": "aicr-thermal-escalation",
+        "rag": "GREEN",
+        "outputIndex": 0,
+        "action": ""
+      },
+      {
+        "sequenceId": "aicr-thermal-escalation",
+        "label": "aicr-thermal-escalation",
+        "rag": "AMBER",
+        "outputIndex": 1,
+        "action": ""
+      },
+      {
+        "sequenceId": "aicr-thermal-escalation",
+        "label": "aicr-thermal-escalation",
+        "rag": "RED",
+        "outputIndex": 2,
+        "action": ""
+      },
+      {
+        "sequenceId": "aicr-thermal-escalation",
+        "label": "Action",
+        "rag": "AMBER",
+        "outputIndex": 4,
+        "action": ""
+      },
+      {
+        "sequenceId": "aicr-thermal-escalation",
+        "label": "aicr-thermal-escalation",
+        "rag": "RED",
+        "outputIndex": 3,
+        "action": ""
+      },
+      {
+        "sequenceId": "aicr-thermal-escalation",
+        "label": "Action",
+        "rag": "AMBER",
+        "outputIndex": 4,
+        "action": ""
+      },
+      {
+        "sequenceId": "aicr-thermal-escalation",
+        "label": "Action",
+        "rag": "RED",
+        "outputIndex": 5,
+        "action": ""
+      },
+      {
+        "sequenceId": "aicr-flow-restriction",
+        "label": "aicr-flow-restriction",
+        "rag": "AMBER",
+        "outputIndex": 1,
+        "action": ""
+      },
+      {
+        "sequenceId": "aicr-flow-restriction",
+        "label": "Action",
+        "rag": "AMBER",
+        "outputIndex": 4,
+        "action": ""
+      }
+    ]
+  },
+  "agentBinding": {
+    "agent": "ai-cooling-regulator",
+    "mode": "advise",
+    "trigger": "aicoolingregulator-input-assessment",
+    "allowedActions": [
+      "Assess current \"AI Cooling Regulator\" state from available observations and write the normalized input vector to the PE input region [260:264] for RE to evaluate."
+    ],
+    "writeBack": {
+      "type": "pe-sensor",
+      "provider": "acp",
+      "sensorId": "acp.openclaw.aicoolingregulator.input-analyst.assessment",
+      "name": "OpenClaw aicoolingregulator input-analyst assessment",
+      "region": {
+        "offset": 260,
+        "length": 4
+      },
+      "semantics": [
+        "ai-cooling-regulator-input-1",
+        "ai-cooling-regulator-input-2",
+        "ai-cooling-regulator-input-3",
+        "ai-cooling-regulator-input-4"
+      ],
+      "ttlMs": 300000,
+      "normalization": "already-normalized-0-1",
+      "ingest": {
+        "endpoint": "/api/integrations/completions",
+        "method": "POST",
+        "triggerPush": false,
+        "compactPush": true
+      },
+      "sourceMapping": {
+        "id": "acp-aicoolingregulator-input-assessment",
+        "sensorId": "acp.openclaw.aicoolingregulator.input-analyst.assessment",
+        "name": "OpenClaw aicoolingregulator input-analyst assessment",
+        "region": {
+          "offset": 260,
+          "length": 4
+        },
+        "ttlMs": 300000
+      }
+    },
+    "autonomyPolicy": {
+      "mode": "advise",
+      "stage": 1,
+      "writeBackType": "pe-sensor",
+      "canWriteBack": true,
+      "canStageActions": false,
+      "canExecuteActions": false,
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "blockedWhenRag": []
+    },
+    "riskControls": {
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "maxAutonomy": "advise",
+      "blockedWhenRag": []
+    }
+  },
+  "responseMapping": {
+    "schemaVersion": "1.0.0",
+    "responseContract": "structured-keys-or-text",
+    "mode": "advise",
+    "fields": [
+      {
+        "semantic": "ai-cooling-regulator-input-1",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/ai-cooling-regulator-input-1",
+          "responseKey": "ai-cooling-regulator-input-1",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.aicoolingregulator.input-analyst.assessment",
+          "region": {
+            "offset": 260,
+            "length": 4
+          },
+          "index": 0
+        }
+      },
+      {
+        "semantic": "ai-cooling-regulator-input-2",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/ai-cooling-regulator-input-2",
+          "responseKey": "ai-cooling-regulator-input-2",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.aicoolingregulator.input-analyst.assessment",
+          "region": {
+            "offset": 260,
+            "length": 4
+          },
+          "index": 1
+        }
+      },
+      {
+        "semantic": "ai-cooling-regulator-input-3",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/ai-cooling-regulator-input-3",
+          "responseKey": "ai-cooling-regulator-input-3",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.aicoolingregulator.input-analyst.assessment",
+          "region": {
+            "offset": 260,
+            "length": 4
+          },
+          "index": 2
+        }
+      },
+      {
+        "semantic": "ai-cooling-regulator-input-4",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/ai-cooling-regulator-input-4",
+          "responseKey": "ai-cooling-regulator-input-4",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.aicoolingregulator.input-analyst.assessment",
+          "region": {
+            "offset": 260,
+            "length": 4
+          },
+          "index": 3
+        }
+      }
+    ]
+  },
+  "diagnostics": {
+    "axisBasis": "inputSemantics",
+    "warnings": [
+      "input axes derived from inputSemantics (no length-matched sensorNormalization)"
+    ],
+    "inputLength": 4,
+    "sequenceCount": 9
+  }
+}

@@ -1,0 +1,361 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "oc-agent-template",
+  "role": "input-analyst",
+  "agentId": "built-space-well-design-and-biophilia-art-culture-integration",
+  "displayName": "Built Space WELL Design And Biophilia Art Culture Integration",
+  "machine": {
+    "id": "BSX016_design-and-biophilia-art-culture-integration",
+    "name": "Built Space WELL Design And Biophilia Art Culture Integration",
+    "code": "bsx016_design_and_biophilia_art_culture_integration",
+    "machineClass": "agent-dispatcher",
+    "domain": "built-space",
+    "inputRegion": {
+      "offset": 376,
+      "length": 4
+    },
+    "outputRegion": {
+      "offset": 380,
+      "length": 4
+    }
+  },
+  "openclaw": {
+    "id": "openclaw-xacp",
+    "kind": "acp",
+    "platform": "OpenClaw",
+    "surface": "xACP",
+    "command": "openclaw acp",
+    "gatewayUrl": "ws://127.0.0.1:18789",
+    "sessionKey": "agent:main:main",
+    "targetAgent": "built-space-well-design-and-biophilia-art-culture-integration",
+    "dispatchMode": "accepted-no-wait",
+    "completionMode": "pe-source-mapping",
+    "completionSourceMappingId": "acp-built-space-well-design-and-biophilia-art-culture-integration-input-assessment"
+  },
+  "reasoning": {
+    "objective": "Produce the normalized input vector for \"Built Space WELL Design And Biophilia Art Culture Integration\" from current observations so RE can evaluate its CES sequences.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Built Space WELL Design And Biophilia Art Culture Integration\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Built-Space domain machine for WELL-oriented art culture integration in the design and biophilia workstream. It monitors art presence, local culture representation, rotation cadence, and occupant feedback and emits AI-triggered outputs for verification, predictive optimization, operations work, and sustained compliant operation.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- health-performance-signal-stable (index 0):\n- evidence-or-policy-current (index 1):\n- maintenance-or-operational-drift-pressure (index 2):\n- occupant-impact-or-wellness-risk (index 3):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Art Culture Integration (AMBER) -> action: Dispatch well_integrative_agent to verify WELL operational conformance for art culture integration.\n- Art Culture Integration (AMBER) -> action: Run predictive optimization for art culture integration using occupant, system, and evidence trends.\n- Art Culture Integration (GREEN) -> action: Create an operations, maintenance, policy, or evidence work order for art culture integration.\n- Art Culture Integration (GREEN) -> action: Mark art culture integration in the current compliant operating window.\n- Art Culture Integration (GREEN) -> action: Run predictive optimization for art culture integration using occupant, system, and evidence trends.",
+    "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
+    "inputAxes": [
+      {
+        "index": 0,
+        "key": "health-performance-signal-stable",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 1,
+        "key": "evidence-or-policy-current",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 2,
+        "key": "maintenance-or-operational-drift-pressure",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 3,
+        "key": "occupant-impact-or-wellness-risk",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      }
+    ],
+    "sequenceCatalog": [
+      {
+        "sequenceId": "bsx-016-verify",
+        "label": "Art Culture Integration",
+        "rag": "AMBER",
+        "outputIndex": 0,
+        "action": "Dispatch well_integrative_agent to verify WELL operational conformance for art culture integration."
+      },
+      {
+        "sequenceId": "bsx-016-optimize",
+        "label": "Art Culture Integration",
+        "rag": "AMBER",
+        "outputIndex": 1,
+        "action": "Run predictive optimization for art culture integration using occupant, system, and evidence trends."
+      },
+      {
+        "sequenceId": "bsx-016-work-order",
+        "label": "Art Culture Integration",
+        "rag": "GREEN",
+        "outputIndex": 2,
+        "action": "Create an operations, maintenance, policy, or evidence work order for art culture integration."
+      },
+      {
+        "sequenceId": "bsx-016-compliant",
+        "label": "Art Culture Integration",
+        "rag": "GREEN",
+        "outputIndex": 3,
+        "action": "Mark art culture integration in the current compliant operating window."
+      },
+      {
+        "sequenceId": "bsx-016-predictive-24h",
+        "label": "Art Culture Integration",
+        "rag": "GREEN",
+        "outputIndex": 1,
+        "action": "Run predictive optimization for art culture integration using occupant, system, and evidence trends."
+      }
+    ]
+  },
+  "agentBinding": {
+    "agent": "built-space-well-design-and-biophilia-art-culture-integration",
+    "mode": "advise",
+    "trigger": "bsx016_design_and_biophilia_art_culture_integration-input-assessment",
+    "allowedActions": [
+      "Assess current \"Built Space WELL Design And Biophilia Art Culture Integration\" state from available observations and write the normalized input vector to the PE input region [376:380] for RE to evaluate."
+    ],
+    "writeBack": {
+      "type": "pe-sensor",
+      "provider": "acp",
+      "sensorId": "acp.openclaw.bsx016_design_and_biophilia_art_culture_integration.input-analyst.assessment",
+      "name": "OpenClaw bsx016_design_and_biophilia_art_culture_integration input-analyst assessment",
+      "region": {
+        "offset": 376,
+        "length": 4
+      },
+      "semantics": [
+        "health-performance-signal-stable",
+        "evidence-or-policy-current",
+        "maintenance-or-operational-drift-pressure",
+        "occupant-impact-or-wellness-risk"
+      ],
+      "ttlMs": 300000,
+      "normalization": "already-normalized-0-1",
+      "ingest": {
+        "endpoint": "/api/integrations/completions",
+        "method": "POST",
+        "triggerPush": false,
+        "compactPush": true
+      },
+      "sourceMapping": {
+        "id": "acp-bsx016_design_and_biophilia_art_culture_integration-input-assessment",
+        "sensorId": "acp.openclaw.bsx016_design_and_biophilia_art_culture_integration.input-analyst.assessment",
+        "name": "OpenClaw bsx016_design_and_biophilia_art_culture_integration input-analyst assessment",
+        "region": {
+          "offset": 376,
+          "length": 4
+        },
+        "ttlMs": 300000
+      }
+    },
+    "autonomyPolicy": {
+      "mode": "advise",
+      "stage": 1,
+      "writeBackType": "pe-sensor",
+      "canWriteBack": true,
+      "canStageActions": false,
+      "canExecuteActions": false,
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "blockedWhenRag": []
+    },
+    "riskControls": {
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "maxAutonomy": "advise",
+      "blockedWhenRag": []
+    }
+  },
+  "responseMapping": {
+    "schemaVersion": "1.0.0",
+    "responseContract": "structured-keys-or-text",
+    "mode": "advise",
+    "fields": [
+      {
+        "semantic": "health-performance-signal-stable",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/health-performance-signal-stable",
+          "responseKey": "health-performance-signal-stable",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.bsx016_design_and_biophilia_art_culture_integration.input-analyst.assessment",
+          "region": {
+            "offset": 376,
+            "length": 4
+          },
+          "index": 0
+        }
+      },
+      {
+        "semantic": "evidence-or-policy-current",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/evidence-or-policy-current",
+          "responseKey": "evidence-or-policy-current",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.bsx016_design_and_biophilia_art_culture_integration.input-analyst.assessment",
+          "region": {
+            "offset": 376,
+            "length": 4
+          },
+          "index": 1
+        }
+      },
+      {
+        "semantic": "maintenance-or-operational-drift-pressure",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/maintenance-or-operational-drift-pressure",
+          "responseKey": "maintenance-or-operational-drift-pressure",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.bsx016_design_and_biophilia_art_culture_integration.input-analyst.assessment",
+          "region": {
+            "offset": 376,
+            "length": 4
+          },
+          "index": 2
+        }
+      },
+      {
+        "semantic": "occupant-impact-or-wellness-risk",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/occupant-impact-or-wellness-risk",
+          "responseKey": "occupant-impact-or-wellness-risk",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.bsx016_design_and_biophilia_art_culture_integration.input-analyst.assessment",
+          "region": {
+            "offset": 376,
+            "length": 4
+          },
+          "index": 3
+        }
+      }
+    ]
+  },
+  "diagnostics": {
+    "axisBasis": "inputSemantics",
+    "warnings": [
+      "input axes derived from inputSemantics (no length-matched sensorNormalization)"
+    ],
+    "inputLength": 4,
+    "sequenceCount": 5
+  }
+}

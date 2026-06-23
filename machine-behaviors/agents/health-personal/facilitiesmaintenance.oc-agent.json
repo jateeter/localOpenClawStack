@@ -1,0 +1,580 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "oc-agent-template",
+  "role": "input-analyst",
+  "agentId": "facilitiesmaintenance",
+  "displayName": "FacilitiesMaintenance",
+  "machine": {
+    "id": "FacilitiesMaintenance",
+    "name": "FacilitiesMaintenance",
+    "code": "facilitiesmaintenance",
+    "machineClass": "signal-monitor",
+    "domain": "health-personal",
+    "inputRegion": {
+      "offset": 1931,
+      "length": 8
+    },
+    "outputRegion": {
+      "offset": 3925,
+      "length": 6
+    }
+  },
+  "openclaw": {
+    "id": "openclaw-xacp",
+    "kind": "acp",
+    "platform": "OpenClaw",
+    "surface": "xACP",
+    "command": "openclaw acp",
+    "gatewayUrl": "ws://127.0.0.1:18789",
+    "sessionKey": "agent:main:main",
+    "targetAgent": "facilitiesmaintenance",
+    "dispatchMode": "accepted-no-wait",
+    "completionMode": "pe-source-mapping",
+    "completionSourceMappingId": "acp-facilitiesmaintenance-input-assessment"
+  },
+  "reasoning": {
+    "objective": "Produce the normalized input vector for \"FacilitiesMaintenance\" from current observations so RE can evaluate its CES sequences.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"FacilitiesMaintenance\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Integrates facilities maintenance workflows into the eldercare patient health pipeline. Models janitorial, hygiene, and general living space maintenance activities as structured observational sequences. Each maintenance visit is an observational opportunity \u2014 facilities staff serve as a frontline sensing layer, reporting hygiene deficits, fall hazards, nutritional gaps, and patient wellness concerns to the clinical care workflow engines (DailyPatientCare, WellnessAnalytics). Produces six outputs: two completion signals (daily, weekly) and four clinical alert signals feeding downstream eldercare machines.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- facilitiesmaintenance-input-1 (index 0):\n- facilitiesmaintenance-input-2 (index 1):\n- facilitiesmaintenance-input-3 (index 2):\n- facilitiesmaintenance-input-4 (index 3):\n- facilitiesmaintenance-input-5 (index 4):\n- facilitiesmaintenance-input-6 (index 5):\n- facilitiesmaintenance-input-7 (index 6):\n- facilitiesmaintenance-input-8 (index 7):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- maint-daily-routine (GREEN) -> action: Log visit completion. No clinical alert generated. Supervisor review during standard shift handoff. Contributes to longitudinal visit pattern baseline.\n- maint-weekly-deep-clean (GREEN) -> action: Log weekly visit completion with nutrition assessment results. Submit to supervisor for weekly review. If nutrition indicators were marginal but within threshold, note in visit record for trending.\n- HYGIENE_ALERT \u2014 bathroom or linen hygiene deficit observed by facilities staff. Downstream (AMBER) -> action: Alert charge nurse immediately. CNA dispatched for hygiene assistance within 1 hour. Nurse assesses for incontinence, mobility decline, or cognitive factors. Document in care record. Integration layer writes BATHROOM/ALERT input to DailyPatientCare perceptual region.\n- SAFETY_ALERT \u2014 fall hazard or unsafe living space condition identified by facilities staff. Downstream (RED) -> action: Immediately mitigate hazard (wet floor sign, remove rug, clear pathway). Alert charge nurse with specific hazard description. Nurse assesses patient for evidence of prior fall or injury. Submit work order for permanent remediation. File incident report per facility policy.\n- WELLNESS_CONCERN \u2014 patient observation by facilities staff raised welfare flag. Downstream (AMBER) -> action: Immediately inform charge nurse. Worker documents specific observed behaviors (did not recognize worker, appeared tearful, was unable to state the day). Nurse assesses within 2 hours (immediately if acute). Integration layer evaluates patient context and writes to WellnessAnalytics input at offset 234.\n- INACCESSIBILITY_ALERT \u2014 unit inaccessible after multiple attempts by facilities staff. Welfare check protocol activated. Potential downstream (RED) -> action: Immediate: notify charge nurse and supervisor. Charge nurse accompanies facilities staff for emergency access (supervisor key or master key). Assess patient status on entry. If medical emergency: activate 911 and CareTransitionWorkflow Sequence 1. If not found: activate elopement protocol. If safe (sleeping, showering): document resolved incident. File incident report regardless.",
+    "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
+    "inputAxes": [
+      {
+        "index": 0,
+        "key": "facilitiesmaintenance-input-1",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 1,
+        "key": "facilitiesmaintenance-input-2",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 2,
+        "key": "facilitiesmaintenance-input-3",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 3,
+        "key": "facilitiesmaintenance-input-4",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 4,
+        "key": "facilitiesmaintenance-input-5",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 5,
+        "key": "facilitiesmaintenance-input-6",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 6,
+        "key": "facilitiesmaintenance-input-7",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 7,
+        "key": "facilitiesmaintenance-input-8",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      }
+    ],
+    "sequenceCatalog": [
+      {
+        "sequenceId": "maint-daily-routine",
+        "label": "maint-daily-routine",
+        "rag": "GREEN",
+        "outputIndex": 0,
+        "action": "Log visit completion. No clinical alert generated. Supervisor review during standard shift handoff. Contributes to longitudinal visit pattern baseline."
+      },
+      {
+        "sequenceId": "maint-weekly-deep-clean",
+        "label": "maint-weekly-deep-clean",
+        "rag": "GREEN",
+        "outputIndex": 1,
+        "action": "Log weekly visit completion with nutrition assessment results. Submit to supervisor for weekly review. If nutrition indicators were marginal but within threshold, note in visit record for trending."
+      },
+      {
+        "sequenceId": "maint-hygiene-concern",
+        "label": "HYGIENE_ALERT \u2014 bathroom or linen hygiene deficit observed by facilities staff. Downstream",
+        "rag": "AMBER",
+        "outputIndex": 2,
+        "action": "Alert charge nurse immediately. CNA dispatched for hygiene assistance within 1 hour. Nurse assesses for incontinence, mobility decline, or cognitive factors. Document in care record. Integration layer writes BATHROOM/ALERT input to DailyPatientCare perceptual region."
+      },
+      {
+        "sequenceId": "maint-safety-concern",
+        "label": "SAFETY_ALERT \u2014 fall hazard or unsafe living space condition identified by facilities staff. Downstream",
+        "rag": "RED",
+        "outputIndex": 3,
+        "action": "Immediately mitigate hazard (wet floor sign, remove rug, clear pathway). Alert charge nurse with specific hazard description. Nurse assesses patient for evidence of prior fall or injury. Submit work order for permanent remediation. File incident report per facility policy."
+      },
+      {
+        "sequenceId": "maint-wellness-concern",
+        "label": "WELLNESS_CONCERN \u2014 patient observation by facilities staff raised welfare flag. Downstream",
+        "rag": "AMBER",
+        "outputIndex": 4,
+        "action": "Immediately inform charge nurse. Worker documents specific observed behaviors (did not recognize worker, appeared tearful, was unable to state the day). Nurse assesses within 2 hours (immediately if acute). Integration layer evaluates patient context and writes to WellnessAnalytics input at offset 234."
+      },
+      {
+        "sequenceId": "maint-inaccessible",
+        "label": "INACCESSIBILITY_ALERT \u2014 unit inaccessible after multiple attempts by facilities staff. Welfare check protocol activated. Potential downstream",
+        "rag": "RED",
+        "outputIndex": 5,
+        "action": "Immediate: notify charge nurse and supervisor. Charge nurse accompanies facilities staff for emergency access (supervisor key or master key). Assess patient status on entry. If medical emergency: activate 911 and CareTransitionWorkflow Sequence 1. If not found: activate elopement protocol. If safe (sleeping, showering): document resolved incident. File incident report regardless."
+      }
+    ]
+  },
+  "agentBinding": {
+    "agent": "facilitiesmaintenance",
+    "mode": "advise",
+    "trigger": "facilitiesmaintenance-input-assessment",
+    "allowedActions": [
+      "Assess current \"FacilitiesMaintenance\" state from available observations and write the normalized input vector to the PE input region [1931:1939] for RE to evaluate."
+    ],
+    "writeBack": {
+      "type": "pe-sensor",
+      "provider": "acp",
+      "sensorId": "acp.openclaw.facilitiesmaintenance.input-analyst.assessment",
+      "name": "OpenClaw facilitiesmaintenance input-analyst assessment",
+      "region": {
+        "offset": 1931,
+        "length": 8
+      },
+      "semantics": [
+        "facilitiesmaintenance-input-1",
+        "facilitiesmaintenance-input-2",
+        "facilitiesmaintenance-input-3",
+        "facilitiesmaintenance-input-4",
+        "facilitiesmaintenance-input-5",
+        "facilitiesmaintenance-input-6",
+        "facilitiesmaintenance-input-7",
+        "facilitiesmaintenance-input-8"
+      ],
+      "ttlMs": 300000,
+      "normalization": "already-normalized-0-1",
+      "ingest": {
+        "endpoint": "/api/integrations/completions",
+        "method": "POST",
+        "triggerPush": false,
+        "compactPush": true
+      },
+      "sourceMapping": {
+        "id": "acp-facilitiesmaintenance-input-assessment",
+        "sensorId": "acp.openclaw.facilitiesmaintenance.input-analyst.assessment",
+        "name": "OpenClaw facilitiesmaintenance input-analyst assessment",
+        "region": {
+          "offset": 1931,
+          "length": 8
+        },
+        "ttlMs": 300000
+      }
+    },
+    "autonomyPolicy": {
+      "mode": "advise",
+      "stage": 1,
+      "writeBackType": "pe-sensor",
+      "canWriteBack": true,
+      "canStageActions": false,
+      "canExecuteActions": false,
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "blockedWhenRag": []
+    },
+    "riskControls": {
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "maxAutonomy": "advise",
+      "blockedWhenRag": []
+    }
+  },
+  "responseMapping": {
+    "schemaVersion": "1.0.0",
+    "responseContract": "structured-keys-or-text",
+    "mode": "advise",
+    "fields": [
+      {
+        "semantic": "facilitiesmaintenance-input-1",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/facilitiesmaintenance-input-1",
+          "responseKey": "facilitiesmaintenance-input-1",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.facilitiesmaintenance.input-analyst.assessment",
+          "region": {
+            "offset": 1931,
+            "length": 8
+          },
+          "index": 0
+        }
+      },
+      {
+        "semantic": "facilitiesmaintenance-input-2",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/facilitiesmaintenance-input-2",
+          "responseKey": "facilitiesmaintenance-input-2",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.facilitiesmaintenance.input-analyst.assessment",
+          "region": {
+            "offset": 1931,
+            "length": 8
+          },
+          "index": 1
+        }
+      },
+      {
+        "semantic": "facilitiesmaintenance-input-3",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/facilitiesmaintenance-input-3",
+          "responseKey": "facilitiesmaintenance-input-3",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.facilitiesmaintenance.input-analyst.assessment",
+          "region": {
+            "offset": 1931,
+            "length": 8
+          },
+          "index": 2
+        }
+      },
+      {
+        "semantic": "facilitiesmaintenance-input-4",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/facilitiesmaintenance-input-4",
+          "responseKey": "facilitiesmaintenance-input-4",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.facilitiesmaintenance.input-analyst.assessment",
+          "region": {
+            "offset": 1931,
+            "length": 8
+          },
+          "index": 3
+        }
+      },
+      {
+        "semantic": "facilitiesmaintenance-input-5",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/facilitiesmaintenance-input-5",
+          "responseKey": "facilitiesmaintenance-input-5",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.facilitiesmaintenance.input-analyst.assessment",
+          "region": {
+            "offset": 1931,
+            "length": 8
+          },
+          "index": 4
+        }
+      },
+      {
+        "semantic": "facilitiesmaintenance-input-6",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/facilitiesmaintenance-input-6",
+          "responseKey": "facilitiesmaintenance-input-6",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.facilitiesmaintenance.input-analyst.assessment",
+          "region": {
+            "offset": 1931,
+            "length": 8
+          },
+          "index": 5
+        }
+      },
+      {
+        "semantic": "facilitiesmaintenance-input-7",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/facilitiesmaintenance-input-7",
+          "responseKey": "facilitiesmaintenance-input-7",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.facilitiesmaintenance.input-analyst.assessment",
+          "region": {
+            "offset": 1931,
+            "length": 8
+          },
+          "index": 6
+        }
+      },
+      {
+        "semantic": "facilitiesmaintenance-input-8",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/facilitiesmaintenance-input-8",
+          "responseKey": "facilitiesmaintenance-input-8",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.facilitiesmaintenance.input-analyst.assessment",
+          "region": {
+            "offset": 1931,
+            "length": 8
+          },
+          "index": 7
+        }
+      }
+    ]
+  },
+  "diagnostics": {
+    "axisBasis": "inputSemantics",
+    "warnings": [
+      "input axes derived from inputSemantics (no length-matched sensorNormalization)"
+    ],
+    "inputLength": 8,
+    "sequenceCount": 6
+  }
+}

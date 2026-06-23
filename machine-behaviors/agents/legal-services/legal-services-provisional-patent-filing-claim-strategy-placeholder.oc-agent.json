@@ -1,0 +1,354 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "oc-agent-template",
+  "role": "input-analyst",
+  "agentId": "legal-services-provisional-patent-filing-claim-strategy-placeholder",
+  "displayName": "Legal Services Provisional Patent Filing Claim Strategy Placeholder",
+  "machine": {
+    "id": "LSX008_provisional-patent-filing-claim-strategy-placeholder",
+    "name": "Legal Services Provisional Patent Filing Claim Strategy Placeholder",
+    "code": "lsx008_provisional_patent_filing_claim_strategy_placeholder",
+    "machineClass": "agent-dispatcher",
+    "domain": "legal-services",
+    "inputRegion": {
+      "offset": 2099,
+      "length": 4
+    },
+    "outputRegion": {
+      "offset": 2107,
+      "length": 4
+    }
+  },
+  "openclaw": {
+    "id": "openclaw-xacp",
+    "kind": "acp",
+    "platform": "OpenClaw",
+    "surface": "xACP",
+    "command": "openclaw acp",
+    "gatewayUrl": "ws://127.0.0.1:18789",
+    "sessionKey": "agent:main:main",
+    "targetAgent": "legal-services-provisional-patent-filing-claim-strategy-placeholder",
+    "dispatchMode": "accepted-no-wait",
+    "completionMode": "pe-source-mapping",
+    "completionSourceMappingId": "acp-legal-services-provisional-patent-filing-claim-strategy-placeholder-input-assessment"
+  },
+  "reasoning": {
+    "objective": "Produce the normalized input vector for \"Legal Services Provisional Patent Filing Claim Strategy Placeholder\" from current observations so RE can evaluate its CES sequences.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Legal Services Provisional Patent Filing Claim Strategy Placeholder\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Legal services workflow machine for claim strategy placeholder in the provisional patent filing workstream. It monitors capture claim themes for later nonprovisional drafting without requiring formal provisional claims. This is an operational workflow example for individual and corporate legal services, not legal advice.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- facts-complete (index 0):\n- rights-ownership-clear (index 1):\n- deadline-or-filing-pressure (index 2):\n- commercialization-readiness (index 3):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Claim Strategy Placeholder (GREEN) -> action: Route claim strategy placeholder to attorney review for deadline, ownership, or rights-risk triage.\n- Claim Strategy Placeholder (GREEN) -> action: Dispatch legal_ops_agent to optimize the next workstep for claim strategy placeholder.\n- Claim Strategy Placeholder (GREEN) -> action: Create or update docket/checklist tasks for claim strategy placeholder.\n- Claim Strategy Placeholder (GREEN) -> action: Mark claim strategy placeholder ready for the next controlled workflow step.",
+    "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
+    "inputAxes": [
+      {
+        "index": 0,
+        "key": "facts-complete",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 1,
+        "key": "rights-ownership-clear",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 2,
+        "key": "deadline-or-filing-pressure",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 3,
+        "key": "commercialization-readiness",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      }
+    ],
+    "sequenceCatalog": [
+      {
+        "sequenceId": "lsx-008-attorney-review",
+        "label": "Claim Strategy Placeholder",
+        "rag": "GREEN",
+        "outputIndex": 0,
+        "action": "Route claim strategy placeholder to attorney review for deadline, ownership, or rights-risk triage."
+      },
+      {
+        "sequenceId": "lsx-008-optimize",
+        "label": "Claim Strategy Placeholder",
+        "rag": "GREEN",
+        "outputIndex": 1,
+        "action": "Dispatch legal_ops_agent to optimize the next workstep for claim strategy placeholder."
+      },
+      {
+        "sequenceId": "lsx-008-docket",
+        "label": "Claim Strategy Placeholder",
+        "rag": "GREEN",
+        "outputIndex": 2,
+        "action": "Create or update docket/checklist tasks for claim strategy placeholder."
+      },
+      {
+        "sequenceId": "lsx-008-ready",
+        "label": "Claim Strategy Placeholder",
+        "rag": "GREEN",
+        "outputIndex": 3,
+        "action": "Mark claim strategy placeholder ready for the next controlled workflow step."
+      }
+    ]
+  },
+  "agentBinding": {
+    "agent": "legal-services-provisional-patent-filing-claim-strategy-placeholder",
+    "mode": "advise",
+    "trigger": "lsx008_provisional_patent_filing_claim_strategy_placeholder-input-assessment",
+    "allowedActions": [
+      "Assess current \"Legal Services Provisional Patent Filing Claim Strategy Placeholder\" state from available observations and write the normalized input vector to the PE input region [2099:2103] for RE to evaluate."
+    ],
+    "writeBack": {
+      "type": "pe-sensor",
+      "provider": "acp",
+      "sensorId": "acp.openclaw.lsx008_provisional_patent_filing_claim_strategy_placeholder.input-analyst.assessment",
+      "name": "OpenClaw lsx008_provisional_patent_filing_claim_strategy_placeholder input-analyst assessment",
+      "region": {
+        "offset": 2099,
+        "length": 4
+      },
+      "semantics": [
+        "facts-complete",
+        "rights-ownership-clear",
+        "deadline-or-filing-pressure",
+        "commercialization-readiness"
+      ],
+      "ttlMs": 300000,
+      "normalization": "already-normalized-0-1",
+      "ingest": {
+        "endpoint": "/api/integrations/completions",
+        "method": "POST",
+        "triggerPush": false,
+        "compactPush": true
+      },
+      "sourceMapping": {
+        "id": "acp-lsx008_provisional_patent_filing_claim_strategy_placeholder-input-assessment",
+        "sensorId": "acp.openclaw.lsx008_provisional_patent_filing_claim_strategy_placeholder.input-analyst.assessment",
+        "name": "OpenClaw lsx008_provisional_patent_filing_claim_strategy_placeholder input-analyst assessment",
+        "region": {
+          "offset": 2099,
+          "length": 4
+        },
+        "ttlMs": 300000
+      }
+    },
+    "autonomyPolicy": {
+      "mode": "advise",
+      "stage": 1,
+      "writeBackType": "pe-sensor",
+      "canWriteBack": true,
+      "canStageActions": false,
+      "canExecuteActions": false,
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "blockedWhenRag": []
+    },
+    "riskControls": {
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "maxAutonomy": "advise",
+      "blockedWhenRag": []
+    }
+  },
+  "responseMapping": {
+    "schemaVersion": "1.0.0",
+    "responseContract": "structured-keys-or-text",
+    "mode": "advise",
+    "fields": [
+      {
+        "semantic": "facts-complete",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/facts-complete",
+          "responseKey": "facts-complete",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lsx008_provisional_patent_filing_claim_strategy_placeholder.input-analyst.assessment",
+          "region": {
+            "offset": 2099,
+            "length": 4
+          },
+          "index": 0
+        }
+      },
+      {
+        "semantic": "rights-ownership-clear",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/rights-ownership-clear",
+          "responseKey": "rights-ownership-clear",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lsx008_provisional_patent_filing_claim_strategy_placeholder.input-analyst.assessment",
+          "region": {
+            "offset": 2099,
+            "length": 4
+          },
+          "index": 1
+        }
+      },
+      {
+        "semantic": "deadline-or-filing-pressure",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/deadline-or-filing-pressure",
+          "responseKey": "deadline-or-filing-pressure",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lsx008_provisional_patent_filing_claim_strategy_placeholder.input-analyst.assessment",
+          "region": {
+            "offset": 2099,
+            "length": 4
+          },
+          "index": 2
+        }
+      },
+      {
+        "semantic": "commercialization-readiness",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/commercialization-readiness",
+          "responseKey": "commercialization-readiness",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lsx008_provisional_patent_filing_claim_strategy_placeholder.input-analyst.assessment",
+          "region": {
+            "offset": 2099,
+            "length": 4
+          },
+          "index": 3
+        }
+      }
+    ]
+  },
+  "diagnostics": {
+    "axisBasis": "inputSemantics",
+    "warnings": [
+      "input axes derived from inputSemantics (no length-matched sensorNormalization)"
+    ],
+    "inputLength": 4,
+    "sequenceCount": 4
+  }
+}

@@ -1,0 +1,352 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "oc-agent-template",
+  "role": "input-analyst",
+  "agentId": "home-chronic-disease-monitor",
+  "displayName": "Home Chronic Disease Monitor",
+  "machine": {
+    "id": "HomeChronicDiseaseMonitor",
+    "name": "Home Chronic Disease Monitor",
+    "code": "homechronicdiseasemonitor",
+    "machineClass": "safety-compliance-checker",
+    "domain": "health-personal",
+    "inputRegion": {
+      "offset": 1987,
+      "length": 4
+    },
+    "outputRegion": {
+      "offset": 2019,
+      "length": 4
+    }
+  },
+  "openclaw": {
+    "id": "openclaw-xacp",
+    "kind": "acp",
+    "platform": "OpenClaw",
+    "surface": "xACP",
+    "command": "openclaw acp",
+    "gatewayUrl": "ws://127.0.0.1:18789",
+    "sessionKey": "agent:main:main",
+    "targetAgent": "home-chronic-disease-monitor",
+    "dispatchMode": "accepted-no-wait",
+    "completionMode": "pe-source-mapping",
+    "completionSourceMappingId": "acp-home-chronic-disease-monitor-input-assessment"
+  },
+  "reasoning": {
+    "objective": "Produce the normalized input vector for \"Home Chronic Disease Monitor\" from current observations so RE can evaluate its CES sequences.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Home Chronic Disease Monitor\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Monitors primary biomarker control, symptom burden, self-management capacity, and lifestyle adherence for adults managing one or more chronic conditions (diabetes, hypertension, COPD, heart failure) at home in low- and medium-income settings. Poor chronic disease control in home care populations is driven by compounding social stressors rather than clinical non-compliance. Output at [2019:2023] feeds the Home Mental Health Access Monitor, reflecting the bidirectional chronic disease \u2014 depression comorbidity pathway.\n\nPOPULATION: Adults with one or more chronic conditions; patients in home-based care programs; low-income adults with limited specialist access\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- biomarker_control_norm (index 0):  0.0 = critical out-of-range (A1c>10, BP>180/120, O2 sat<88%) | 0.5 = borderline control (A1c 7.5\u20139, BP 140\u2013160/90\u2013100) | 1.0 = target range maintained (A1c<7, BP<130/80)\n- symptom_burden_norm (index 1):  0.0 = severe daily symptoms limiting function (daily dyspnea, chest pain, severe hypoglycemic episodes) | 0.5 = moderate but manageable with effort | 1.0 = asymptomatic or minimal symptoms\n- self_management_norm (index 2):  0.0 = unable to self-monitor or self-treat (no glucometer, no BP cuff, no inhaler technique) | 0.5 = partial self-management (monitoring inconsistently; some technique errors) | 1.0 = confident and consistent self-management\n- lifestyle_adherence_norm (index 3):  0.0 = no dietary modification or physical activity; smoking active; high-risk behaviors | 0.5 = partial lifestyle change with barriers (diet improved but exercise impossible due to pain/environment) | 1.0 = fully adherent to prescribed lifestyle plan\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- DISEASE_EXACERBATION (RED) -> action: Urgent nurse visit; physician notification; ER transport if critical; medication review; social barrier assessment\n- POOR_CONTROL (AMBER) -> action: Intensified home monitoring; medication review; nutrition counseling; CHW support for social barriers\n- BORDERLINE_CONTROL (AMBER) -> action: Medication titration review; DSMES referral; dietary counseling; home visit frequency increase\n- DISEASE_CONTROLLED (AMBER) -> action: Mental health access monitor registers chronic disease stable",
+    "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
+    "inputAxes": [
+      {
+        "index": 0,
+        "key": "biomarker_control_norm",
+        "anchors": {
+          "low": "critical out-of-range (A1c>10, BP>180/120, O2 sat<88%)",
+          "mid": "borderline control (A1c 7.5\u20139, BP 140\u2013160/90\u2013100)",
+          "high": "target range maintained (A1c<7, BP<130/80)"
+        }
+      },
+      {
+        "index": 1,
+        "key": "symptom_burden_norm",
+        "anchors": {
+          "low": "severe daily symptoms limiting function (daily dyspnea, chest pain, severe hypoglycemic episodes)",
+          "mid": "moderate but manageable with effort",
+          "high": "asymptomatic or minimal symptoms"
+        }
+      },
+      {
+        "index": 2,
+        "key": "self_management_norm",
+        "anchors": {
+          "low": "unable to self-monitor or self-treat (no glucometer, no BP cuff, no inhaler technique)",
+          "mid": "partial self-management (monitoring inconsistently; some technique errors)",
+          "high": "confident and consistent self-management"
+        }
+      },
+      {
+        "index": 3,
+        "key": "lifestyle_adherence_norm",
+        "anchors": {
+          "low": "no dietary modification or physical activity; smoking active; high-risk behaviors",
+          "mid": "partial lifestyle change with barriers (diet improved but exercise impossible due to pain/environment)",
+          "high": "fully adherent to prescribed lifestyle plan"
+        }
+      }
+    ],
+    "sequenceCatalog": [
+      {
+        "sequenceId": "chronic-disease-exacerbation",
+        "label": "DISEASE_EXACERBATION",
+        "rag": "RED",
+        "outputIndex": 0,
+        "action": "Urgent nurse visit; physician notification; ER transport if critical; medication review; social barrier assessment"
+      },
+      {
+        "sequenceId": "chronic-disease-poor-control",
+        "label": "POOR_CONTROL",
+        "rag": "AMBER",
+        "outputIndex": 1,
+        "action": "Intensified home monitoring; medication review; nutrition counseling; CHW support for social barriers"
+      },
+      {
+        "sequenceId": "chronic-disease-borderline",
+        "label": "BORDERLINE_CONTROL",
+        "rag": "AMBER",
+        "outputIndex": 2,
+        "action": "Medication titration review; DSMES referral; dietary counseling; home visit frequency increase"
+      },
+      {
+        "sequenceId": "chronic-disease-controlled-ok",
+        "label": "DISEASE_CONTROLLED",
+        "rag": "AMBER",
+        "outputIndex": 3,
+        "action": "Mental health access monitor registers chronic disease stable"
+      }
+    ]
+  },
+  "agentBinding": {
+    "agent": "home-chronic-disease-monitor",
+    "mode": "advise",
+    "trigger": "homechronicdiseasemonitor-input-assessment",
+    "allowedActions": [
+      "Assess current \"Home Chronic Disease Monitor\" state from available observations and write the normalized input vector to the PE input region [1987:1991] for RE to evaluate."
+    ],
+    "writeBack": {
+      "type": "pe-sensor",
+      "provider": "acp",
+      "sensorId": "acp.openclaw.homechronicdiseasemonitor.input-analyst.assessment",
+      "name": "OpenClaw homechronicdiseasemonitor input-analyst assessment",
+      "region": {
+        "offset": 1987,
+        "length": 4
+      },
+      "semantics": [
+        "biomarker_control_norm",
+        "symptom_burden_norm",
+        "self_management_norm",
+        "lifestyle_adherence_norm"
+      ],
+      "ttlMs": 300000,
+      "normalization": "already-normalized-0-1",
+      "ingest": {
+        "endpoint": "/api/integrations/completions",
+        "method": "POST",
+        "triggerPush": false,
+        "compactPush": true
+      },
+      "sourceMapping": {
+        "id": "acp-homechronicdiseasemonitor-input-assessment",
+        "sensorId": "acp.openclaw.homechronicdiseasemonitor.input-analyst.assessment",
+        "name": "OpenClaw homechronicdiseasemonitor input-analyst assessment",
+        "region": {
+          "offset": 1987,
+          "length": 4
+        },
+        "ttlMs": 300000
+      }
+    },
+    "autonomyPolicy": {
+      "mode": "advise",
+      "stage": 1,
+      "writeBackType": "pe-sensor",
+      "canWriteBack": true,
+      "canStageActions": false,
+      "canExecuteActions": false,
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "blockedWhenRag": []
+    },
+    "riskControls": {
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "maxAutonomy": "advise",
+      "blockedWhenRag": []
+    }
+  },
+  "responseMapping": {
+    "schemaVersion": "1.0.0",
+    "responseContract": "structured-keys-or-text",
+    "mode": "advise",
+    "fields": [
+      {
+        "semantic": "biomarker_control_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/biomarker_control_norm",
+          "responseKey": "biomarker_control_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.homechronicdiseasemonitor.input-analyst.assessment",
+          "region": {
+            "offset": 1987,
+            "length": 4
+          },
+          "index": 0
+        }
+      },
+      {
+        "semantic": "symptom_burden_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/symptom_burden_norm",
+          "responseKey": "symptom_burden_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.homechronicdiseasemonitor.input-analyst.assessment",
+          "region": {
+            "offset": 1987,
+            "length": 4
+          },
+          "index": 1
+        }
+      },
+      {
+        "semantic": "self_management_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/self_management_norm",
+          "responseKey": "self_management_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.homechronicdiseasemonitor.input-analyst.assessment",
+          "region": {
+            "offset": 1987,
+            "length": 4
+          },
+          "index": 2
+        }
+      },
+      {
+        "semantic": "lifestyle_adherence_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/lifestyle_adherence_norm",
+          "responseKey": "lifestyle_adherence_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.homechronicdiseasemonitor.input-analyst.assessment",
+          "region": {
+            "offset": 1987,
+            "length": 4
+          },
+          "index": 3
+        }
+      }
+    ]
+  },
+  "diagnostics": {
+    "axisBasis": "sensorNormalization",
+    "warnings": [],
+    "inputLength": 4,
+    "sequenceCount": 4
+  }
+}

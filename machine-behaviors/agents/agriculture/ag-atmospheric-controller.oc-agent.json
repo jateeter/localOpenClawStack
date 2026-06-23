@@ -1,0 +1,345 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "oc-agent-template",
+  "role": "input-analyst",
+  "agentId": "ag-atmospheric-controller",
+  "displayName": "Ag Atmospheric Controller",
+  "machine": {
+    "id": "AgAtmosphericController",
+    "name": "Ag Atmospheric Controller",
+    "code": "agatmosphericcontroller",
+    "machineClass": "risk-forecaster",
+    "domain": "agriculture",
+    "inputRegion": {
+      "offset": 16,
+      "length": 4
+    },
+    "outputRegion": {
+      "offset": 36,
+      "length": 4
+    }
+  },
+  "openclaw": {
+    "id": "openclaw-xacp",
+    "kind": "acp",
+    "platform": "OpenClaw",
+    "surface": "xACP",
+    "command": "openclaw acp",
+    "gatewayUrl": "ws://127.0.0.1:18789",
+    "sessionKey": "agent:main:main",
+    "targetAgent": "ag-atmospheric-controller",
+    "dispatchMode": "accepted-no-wait",
+    "completionMode": "pe-source-mapping",
+    "completionSourceMappingId": "acp-ag-atmospheric-controller-input-assessment"
+  },
+  "reasoning": {
+    "objective": "Produce the normalized input vector for \"Ag Atmospheric Controller\" from current observations so RE can evaluate its CES sequences.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Ag Atmospheric Controller\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Monitors CO2 concentration, relative humidity, and vapor pressure deficit (VPD) within indoor growing zones. Three concurrent patterns detect CO2 depletion during photosynthesis peaks, high-humidity fungal risk, and optimal atmospheric conditions. Upstream: atmospheric sensors at [16:20]. Downstream: AgIPMPestAlertMonitor reads output at [36:40].\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- co2_ppm_norm (index 0):  0.0 = 0 ppm | 0.5 = 800 ppm (enriched optimal) | 1.0 = 2000 ppm\n- rh_norm (index 1):  0.0 = 0% RH | 0.5 = 65% RH (vegetative optimal) | 1.0 = 100% RH\n- vpd_norm (index 2):  0.0 = 0.0 kPa (zero VPD, no transpiration) | 0.5 = 1.0 kPa (optimal) | 1.0 = 2.5 kPa (excessive)\n- air_exchange_norm (index 3):  0.0 = stagnant | 0.5 = nominal ACH | 1.0 = maximum ventilation\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- CO2_INJECT (AMBER) -> action: Open CO2 regulator; enrichment cycle begins; IPM monitor registers CO2 stress\n- HUMIDITY_ALERT (AMBER) -> action: Increase air exchange; IPM monitor registers elevated fungal pressure\n- ATMOS_OK (GREEN) -> action: IPM and plant monitors register clean atmospheric baseline",
+    "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
+    "inputAxes": [
+      {
+        "index": 0,
+        "key": "co2_ppm_norm",
+        "anchors": {
+          "low": "0 ppm",
+          "mid": "800 ppm (enriched optimal)",
+          "high": "2000 ppm"
+        }
+      },
+      {
+        "index": 1,
+        "key": "rh_norm",
+        "anchors": {
+          "low": "0% RH",
+          "mid": "65% RH (vegetative optimal)",
+          "high": "100% RH"
+        }
+      },
+      {
+        "index": 2,
+        "key": "vpd_norm",
+        "anchors": {
+          "low": "0.0 kPa (zero VPD, no transpiration)",
+          "mid": "1.0 kPa (optimal)",
+          "high": "2.5 kPa (excessive)"
+        }
+      },
+      {
+        "index": 3,
+        "key": "air_exchange_norm",
+        "anchors": {
+          "low": "stagnant",
+          "mid": "nominal ACH",
+          "high": "maximum ventilation"
+        }
+      }
+    ],
+    "sequenceCatalog": [
+      {
+        "sequenceId": "ag-atmos-co2-depletion",
+        "label": "CO2_INJECT",
+        "rag": "AMBER",
+        "outputIndex": 0,
+        "action": "Open CO2 regulator; enrichment cycle begins; IPM monitor registers CO2 stress"
+      },
+      {
+        "sequenceId": "ag-atmos-humidity-escalation",
+        "label": "HUMIDITY_ALERT",
+        "rag": "AMBER",
+        "outputIndex": 2,
+        "action": "Increase air exchange; IPM monitor registers elevated fungal pressure"
+      },
+      {
+        "sequenceId": "ag-atmos-optimal",
+        "label": "ATMOS_OK",
+        "rag": "GREEN",
+        "outputIndex": 3,
+        "action": "IPM and plant monitors register clean atmospheric baseline"
+      }
+    ]
+  },
+  "agentBinding": {
+    "agent": "ag-atmospheric-controller",
+    "mode": "advise",
+    "trigger": "agatmosphericcontroller-input-assessment",
+    "allowedActions": [
+      "Assess current \"Ag Atmospheric Controller\" state from available observations and write the normalized input vector to the PE input region [16:20] for RE to evaluate."
+    ],
+    "writeBack": {
+      "type": "pe-sensor",
+      "provider": "acp",
+      "sensorId": "acp.openclaw.agatmosphericcontroller.input-analyst.assessment",
+      "name": "OpenClaw agatmosphericcontroller input-analyst assessment",
+      "region": {
+        "offset": 16,
+        "length": 4
+      },
+      "semantics": [
+        "co2_ppm_norm",
+        "rh_norm",
+        "vpd_norm",
+        "air_exchange_norm"
+      ],
+      "ttlMs": 300000,
+      "normalization": "already-normalized-0-1",
+      "ingest": {
+        "endpoint": "/api/integrations/completions",
+        "method": "POST",
+        "triggerPush": false,
+        "compactPush": true
+      },
+      "sourceMapping": {
+        "id": "acp-agatmosphericcontroller-input-assessment",
+        "sensorId": "acp.openclaw.agatmosphericcontroller.input-analyst.assessment",
+        "name": "OpenClaw agatmosphericcontroller input-analyst assessment",
+        "region": {
+          "offset": 16,
+          "length": 4
+        },
+        "ttlMs": 300000
+      }
+    },
+    "autonomyPolicy": {
+      "mode": "advise",
+      "stage": 1,
+      "writeBackType": "pe-sensor",
+      "canWriteBack": true,
+      "canStageActions": false,
+      "canExecuteActions": false,
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "blockedWhenRag": []
+    },
+    "riskControls": {
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "maxAutonomy": "advise",
+      "blockedWhenRag": []
+    }
+  },
+  "responseMapping": {
+    "schemaVersion": "1.0.0",
+    "responseContract": "structured-keys-or-text",
+    "mode": "advise",
+    "fields": [
+      {
+        "semantic": "co2_ppm_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/co2_ppm_norm",
+          "responseKey": "co2_ppm_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agatmosphericcontroller.input-analyst.assessment",
+          "region": {
+            "offset": 16,
+            "length": 4
+          },
+          "index": 0
+        }
+      },
+      {
+        "semantic": "rh_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/rh_norm",
+          "responseKey": "rh_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agatmosphericcontroller.input-analyst.assessment",
+          "region": {
+            "offset": 16,
+            "length": 4
+          },
+          "index": 1
+        }
+      },
+      {
+        "semantic": "vpd_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/vpd_norm",
+          "responseKey": "vpd_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agatmosphericcontroller.input-analyst.assessment",
+          "region": {
+            "offset": 16,
+            "length": 4
+          },
+          "index": 2
+        }
+      },
+      {
+        "semantic": "air_exchange_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/air_exchange_norm",
+          "responseKey": "air_exchange_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agatmosphericcontroller.input-analyst.assessment",
+          "region": {
+            "offset": 16,
+            "length": 4
+          },
+          "index": 3
+        }
+      }
+    ]
+  },
+  "diagnostics": {
+    "axisBasis": "sensorNormalization",
+    "warnings": [],
+    "inputLength": 4,
+    "sequenceCount": 3
+  }
+}

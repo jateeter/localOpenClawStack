@@ -1,0 +1,345 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "oc-agent-template",
+  "role": "input-analyst",
+  "agentId": "referral-network-monitor",
+  "displayName": "Referral Network Monitor",
+  "machine": {
+    "id": "ReferralNetworkMonitor",
+    "name": "Referral Network Monitor",
+    "code": "referralnetworkmonitor",
+    "machineClass": "signal-monitor",
+    "domain": "community-services",
+    "inputRegion": {
+      "offset": 944,
+      "length": 4
+    },
+    "outputRegion": {
+      "offset": 976,
+      "length": 4
+    }
+  },
+  "openclaw": {
+    "id": "openclaw-xacp",
+    "kind": "acp",
+    "platform": "OpenClaw",
+    "surface": "xACP",
+    "command": "openclaw acp",
+    "gatewayUrl": "ws://127.0.0.1:18789",
+    "sessionKey": "agent:main:main",
+    "targetAgent": "referral-network-monitor",
+    "dispatchMode": "accepted-no-wait",
+    "completionMode": "pe-source-mapping",
+    "completionSourceMappingId": "acp-referral-network-monitor-input-assessment"
+  },
+  "reasoning": {
+    "objective": "Produce the normalized input vector for \"Referral Network Monitor\" from current observations so RE can evaluate its CES sequences.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Referral Network Monitor\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Monitors referral acceptance rates, wait time performance, warm handoff completion, and follow-through rates across community service referral partnerships. Referral networks are the connective tissue of community services \u2014 they route clients to specialized resources (food banks, legal aid, mental health, substance use treatment, housing) that the referring agency cannot provide directly. Network degradation (partner agencies at capacity, wait lists expanding, warm handoff failures) silently starves clients of services they were told they would receive. Output at [976:980] feeds the Community Access Monitor.\n\nPOPULATION: Community service agencies with referral partnerships; clients referred to partner organizations for specialized services; organizations participating in coordinated entry systems\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- referral_acceptance_norm (index 0):  0.0 = partners not accepting referrals (<20% acceptance rate); all partner agencies at capacity | 0.5 = partial acceptance (40\u201360% of referrals accepted within target timeframe) | 1.0 = >85% of referrals accepted within target timeframe\n- wait_time_norm (index 1):  0.0 = wait time for referred service >90 days or indefinite (waitlist closed) | 0.5 = wait time 30\u201360 days (acceptable for non-urgent; problematic for urgent need) | 1.0 = wait time <2 weeks for standard services; same-day or next-day for crisis\n- warm_handoff_completion_norm (index 2):  0.0 = warm handoffs not occurring; clients being given phone numbers and left to navigate alone | 0.5 = partial warm handoff (email introduction sent; no direct contact confirmation) | 1.0 = warm handoff confirmed \u2014 direct worker-to-worker contact; client acknowledged by receiving agency\n- follow_through_norm (index 3):  0.0 = <30% of referred clients confirmed to have connected with referred service | 0.5 = 40\u201365% of referred clients confirmed connected | 1.0 = >80% of referred clients confirmed connected within target timeframe\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- REFERRAL_BREAKDOWN (GREEN) -> action: Emergency partner network meeting; alternative resource identification; direct service expansion; funder notification; coordinated entry system escalation\n- REFERRAL_DELAYS (GREEN) -> action: Expedited referral pathways negotiation; crisis slot advocacy with partners; interim bridge service identification; peer support engagement while waiting\n- REFERRAL_FUNCTIONAL (GREEN) -> action: Community access monitor registers referral network healthy",
+    "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
+    "inputAxes": [
+      {
+        "index": 0,
+        "key": "referral_acceptance_norm",
+        "anchors": {
+          "low": "partners not accepting referrals (<20% acceptance rate); all partner agencies at capacity",
+          "mid": "partial acceptance (40\u201360% of referrals accepted within target timeframe)",
+          "high": ">85% of referrals accepted within target timeframe"
+        }
+      },
+      {
+        "index": 1,
+        "key": "wait_time_norm",
+        "anchors": {
+          "low": "wait time for referred service >90 days or indefinite (waitlist closed)",
+          "mid": "wait time 30\u201360 days (acceptable for non-urgent; problematic for urgent need)",
+          "high": "wait time <2 weeks for standard services; same-day or next-day for crisis"
+        }
+      },
+      {
+        "index": 2,
+        "key": "warm_handoff_completion_norm",
+        "anchors": {
+          "low": "warm handoffs not occurring; clients being given phone numbers and left to navigate alone",
+          "mid": "partial warm handoff (email introduction sent; no direct contact confirmation)",
+          "high": "warm handoff confirmed \u2014 direct worker-to-worker contact; client acknowledged by receiving agency"
+        }
+      },
+      {
+        "index": 3,
+        "key": "follow_through_norm",
+        "anchors": {
+          "low": "<30% of referred clients confirmed to have connected with referred service",
+          "mid": "40\u201365% of referred clients confirmed connected",
+          "high": ">80% of referred clients confirmed connected within target timeframe"
+        }
+      }
+    ],
+    "sequenceCatalog": [
+      {
+        "sequenceId": "referral-breakdown-escalation",
+        "label": "REFERRAL_BREAKDOWN",
+        "rag": "GREEN",
+        "outputIndex": 0,
+        "action": "Emergency partner network meeting; alternative resource identification; direct service expansion; funder notification; coordinated entry system escalation"
+      },
+      {
+        "sequenceId": "referral-delays",
+        "label": "REFERRAL_DELAYS",
+        "rag": "GREEN",
+        "outputIndex": 2,
+        "action": "Expedited referral pathways negotiation; crisis slot advocacy with partners; interim bridge service identification; peer support engagement while waiting"
+      },
+      {
+        "sequenceId": "referral-ok",
+        "label": "REFERRAL_FUNCTIONAL",
+        "rag": "GREEN",
+        "outputIndex": 3,
+        "action": "Community access monitor registers referral network healthy"
+      }
+    ]
+  },
+  "agentBinding": {
+    "agent": "referral-network-monitor",
+    "mode": "advise",
+    "trigger": "referralnetworkmonitor-input-assessment",
+    "allowedActions": [
+      "Assess current \"Referral Network Monitor\" state from available observations and write the normalized input vector to the PE input region [944:948] for RE to evaluate."
+    ],
+    "writeBack": {
+      "type": "pe-sensor",
+      "provider": "acp",
+      "sensorId": "acp.openclaw.referralnetworkmonitor.input-analyst.assessment",
+      "name": "OpenClaw referralnetworkmonitor input-analyst assessment",
+      "region": {
+        "offset": 944,
+        "length": 4
+      },
+      "semantics": [
+        "referral_acceptance_norm",
+        "wait_time_norm",
+        "warm_handoff_completion_norm",
+        "follow_through_norm"
+      ],
+      "ttlMs": 300000,
+      "normalization": "already-normalized-0-1",
+      "ingest": {
+        "endpoint": "/api/integrations/completions",
+        "method": "POST",
+        "triggerPush": false,
+        "compactPush": true
+      },
+      "sourceMapping": {
+        "id": "acp-referralnetworkmonitor-input-assessment",
+        "sensorId": "acp.openclaw.referralnetworkmonitor.input-analyst.assessment",
+        "name": "OpenClaw referralnetworkmonitor input-analyst assessment",
+        "region": {
+          "offset": 944,
+          "length": 4
+        },
+        "ttlMs": 300000
+      }
+    },
+    "autonomyPolicy": {
+      "mode": "advise",
+      "stage": 1,
+      "writeBackType": "pe-sensor",
+      "canWriteBack": true,
+      "canStageActions": false,
+      "canExecuteActions": false,
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "blockedWhenRag": []
+    },
+    "riskControls": {
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "maxAutonomy": "advise",
+      "blockedWhenRag": []
+    }
+  },
+  "responseMapping": {
+    "schemaVersion": "1.0.0",
+    "responseContract": "structured-keys-or-text",
+    "mode": "advise",
+    "fields": [
+      {
+        "semantic": "referral_acceptance_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/referral_acceptance_norm",
+          "responseKey": "referral_acceptance_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.referralnetworkmonitor.input-analyst.assessment",
+          "region": {
+            "offset": 944,
+            "length": 4
+          },
+          "index": 0
+        }
+      },
+      {
+        "semantic": "wait_time_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/wait_time_norm",
+          "responseKey": "wait_time_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.referralnetworkmonitor.input-analyst.assessment",
+          "region": {
+            "offset": 944,
+            "length": 4
+          },
+          "index": 1
+        }
+      },
+      {
+        "semantic": "warm_handoff_completion_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/warm_handoff_completion_norm",
+          "responseKey": "warm_handoff_completion_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.referralnetworkmonitor.input-analyst.assessment",
+          "region": {
+            "offset": 944,
+            "length": 4
+          },
+          "index": 2
+        }
+      },
+      {
+        "semantic": "follow_through_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/follow_through_norm",
+          "responseKey": "follow_through_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.referralnetworkmonitor.input-analyst.assessment",
+          "region": {
+            "offset": 944,
+            "length": 4
+          },
+          "index": 3
+        }
+      }
+    ]
+  },
+  "diagnostics": {
+    "axisBasis": "sensorNormalization",
+    "warnings": [],
+    "inputLength": 4,
+    "sequenceCount": 3
+  }
+}

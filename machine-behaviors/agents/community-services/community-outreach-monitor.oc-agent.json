@@ -1,0 +1,345 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "oc-agent-template",
+  "role": "input-analyst",
+  "agentId": "community-outreach-monitor",
+  "displayName": "Community Outreach Monitor",
+  "machine": {
+    "id": "CommunityOutreachMonitor",
+    "name": "Community Outreach Monitor",
+    "code": "communityoutreachmonitor",
+    "machineClass": "signal-monitor",
+    "domain": "community-services",
+    "inputRegion": {
+      "offset": 948,
+      "length": 4
+    },
+    "outputRegion": {
+      "offset": 980,
+      "length": 4
+    }
+  },
+  "openclaw": {
+    "id": "openclaw-xacp",
+    "kind": "acp",
+    "platform": "OpenClaw",
+    "surface": "xACP",
+    "command": "openclaw acp",
+    "gatewayUrl": "ws://127.0.0.1:18789",
+    "sessionKey": "agent:main:main",
+    "targetAgent": "community-outreach-monitor",
+    "dispatchMode": "accepted-no-wait",
+    "completionMode": "pe-source-mapping",
+    "completionSourceMappingId": "acp-community-outreach-monitor-input-assessment"
+  },
+  "reasoning": {
+    "objective": "Produce the normalized input vector for \"Community Outreach Monitor\" from current observations so RE can evaluate its CES sequences.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Community Outreach Monitor\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Monitors outreach engagement rates, unreached population coverage, outreach frequency, and community trust indicators for community service outreach programs. In community services, outreach is the first mile \u2014 without it, eligible populations remain unaware of or disconnected from available services. Outreach effectiveness is especially critical for immigrant communities, people experiencing homelessness, and individuals with prior negative government contact who distrust institutional services. Output at [980:984] feeds the Community Access Monitor.\n\nPOPULATION: Outreach-dependent service populations: immigrant communities, homeless individuals, returning citizens, domestic violence survivors, isolated elders; organizations running street outreach, community health worker programs, and peer outreach\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- engagement_rate_norm (index 0):  0.0 = <10% of outreach contacts result in service connection (contacts made but clients not engaging) | 0.5 = 30\u201350% engagement rate (moderate connection; trust barriers present) | 1.0 = >75% engagement rate (high trust; effective outreach messaging and worker relationships)\n- unreached_population_norm (index 1):  0.0 = target population almost entirely unreached (>80% of estimated eligible have not had contact) | 0.5 = partial coverage (30\u201360% reached; hard-to-reach subgroups untouched) | 1.0 = >80% of estimated target population has been contacted at least once\n- outreach_frequency_norm (index 2):  0.0 = no active outreach occurring (program paused, staff unavailable, funding lapsed) | 0.5 = intermittent outreach (monthly or less; insufficient for trust-building) | 1.0 = regular intensive outreach (weekly or more; consistent presence in target locations)\n- trust_score_norm (index 3):  0.0 = community actively avoiding outreach workers; prior incident damaging trust; fear of contact with services | 0.5 = neutral trust; some community members engaging; others avoidant | 1.0 = high trust; community initiating contact; peer referrals active\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- OUTREACH_FAILURE (AMBER) -> action: Community trust repair engagement; peer outreach worker recruitment; community needs assessment; messaging and approach overhaul; community advisory group convening\n- ENGAGEMENT_BUILDING (GREEN) -> action: Peer outreach ambassador program expansion; maintain consistent presence; track trust indicators; avoid disruptive program changes during relationship-building phase\n- OUTREACH_EFFECTIVE (GREEN) -> action: Community access monitor registers outreach functional; continue and document effective practices",
+    "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
+    "inputAxes": [
+      {
+        "index": 0,
+        "key": "engagement_rate_norm",
+        "anchors": {
+          "low": "<10% of outreach contacts result in service connection (contacts made but clients not engaging)",
+          "mid": "30\u201350% engagement rate (moderate connection; trust barriers present)",
+          "high": ">75% engagement rate (high trust; effective outreach messaging and worker relationships)"
+        }
+      },
+      {
+        "index": 1,
+        "key": "unreached_population_norm",
+        "anchors": {
+          "low": "target population almost entirely unreached (>80% of estimated eligible have not had contact)",
+          "mid": "partial coverage (30\u201360% reached; hard-to-reach subgroups untouched)",
+          "high": ">80% of estimated target population has been contacted at least once"
+        }
+      },
+      {
+        "index": 2,
+        "key": "outreach_frequency_norm",
+        "anchors": {
+          "low": "no active outreach occurring (program paused, staff unavailable, funding lapsed)",
+          "mid": "intermittent outreach (monthly or less; insufficient for trust-building)",
+          "high": "regular intensive outreach (weekly or more; consistent presence in target locations)"
+        }
+      },
+      {
+        "index": 3,
+        "key": "trust_score_norm",
+        "anchors": {
+          "low": "community actively avoiding outreach workers; prior incident damaging trust; fear of contact with services",
+          "mid": "neutral trust; some community members engaging; others avoidant",
+          "high": "high trust; community initiating contact; peer referrals active"
+        }
+      }
+    ],
+    "sequenceCatalog": [
+      {
+        "sequenceId": "outreach-failure-escalation",
+        "label": "OUTREACH_FAILURE",
+        "rag": "AMBER",
+        "outputIndex": 0,
+        "action": "Community trust repair engagement; peer outreach worker recruitment; community needs assessment; messaging and approach overhaul; community advisory group convening"
+      },
+      {
+        "sequenceId": "outreach-building",
+        "label": "ENGAGEMENT_BUILDING",
+        "rag": "GREEN",
+        "outputIndex": 2,
+        "action": "Peer outreach ambassador program expansion; maintain consistent presence; track trust indicators; avoid disruptive program changes during relationship-building phase"
+      },
+      {
+        "sequenceId": "outreach-effective-ok",
+        "label": "OUTREACH_EFFECTIVE",
+        "rag": "GREEN",
+        "outputIndex": 3,
+        "action": "Community access monitor registers outreach functional; continue and document effective practices"
+      }
+    ]
+  },
+  "agentBinding": {
+    "agent": "community-outreach-monitor",
+    "mode": "advise",
+    "trigger": "communityoutreachmonitor-input-assessment",
+    "allowedActions": [
+      "Assess current \"Community Outreach Monitor\" state from available observations and write the normalized input vector to the PE input region [948:952] for RE to evaluate."
+    ],
+    "writeBack": {
+      "type": "pe-sensor",
+      "provider": "acp",
+      "sensorId": "acp.openclaw.communityoutreachmonitor.input-analyst.assessment",
+      "name": "OpenClaw communityoutreachmonitor input-analyst assessment",
+      "region": {
+        "offset": 948,
+        "length": 4
+      },
+      "semantics": [
+        "engagement_rate_norm",
+        "unreached_population_norm",
+        "outreach_frequency_norm",
+        "trust_score_norm"
+      ],
+      "ttlMs": 300000,
+      "normalization": "already-normalized-0-1",
+      "ingest": {
+        "endpoint": "/api/integrations/completions",
+        "method": "POST",
+        "triggerPush": false,
+        "compactPush": true
+      },
+      "sourceMapping": {
+        "id": "acp-communityoutreachmonitor-input-assessment",
+        "sensorId": "acp.openclaw.communityoutreachmonitor.input-analyst.assessment",
+        "name": "OpenClaw communityoutreachmonitor input-analyst assessment",
+        "region": {
+          "offset": 948,
+          "length": 4
+        },
+        "ttlMs": 300000
+      }
+    },
+    "autonomyPolicy": {
+      "mode": "advise",
+      "stage": 1,
+      "writeBackType": "pe-sensor",
+      "canWriteBack": true,
+      "canStageActions": false,
+      "canExecuteActions": false,
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "blockedWhenRag": []
+    },
+    "riskControls": {
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "maxAutonomy": "advise",
+      "blockedWhenRag": []
+    }
+  },
+  "responseMapping": {
+    "schemaVersion": "1.0.0",
+    "responseContract": "structured-keys-or-text",
+    "mode": "advise",
+    "fields": [
+      {
+        "semantic": "engagement_rate_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/engagement_rate_norm",
+          "responseKey": "engagement_rate_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.communityoutreachmonitor.input-analyst.assessment",
+          "region": {
+            "offset": 948,
+            "length": 4
+          },
+          "index": 0
+        }
+      },
+      {
+        "semantic": "unreached_population_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/unreached_population_norm",
+          "responseKey": "unreached_population_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.communityoutreachmonitor.input-analyst.assessment",
+          "region": {
+            "offset": 948,
+            "length": 4
+          },
+          "index": 1
+        }
+      },
+      {
+        "semantic": "outreach_frequency_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/outreach_frequency_norm",
+          "responseKey": "outreach_frequency_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.communityoutreachmonitor.input-analyst.assessment",
+          "region": {
+            "offset": 948,
+            "length": 4
+          },
+          "index": 2
+        }
+      },
+      {
+        "semantic": "trust_score_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/trust_score_norm",
+          "responseKey": "trust_score_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.communityoutreachmonitor.input-analyst.assessment",
+          "region": {
+            "offset": 948,
+            "length": 4
+          },
+          "index": 3
+        }
+      }
+    ]
+  },
+  "diagnostics": {
+    "axisBasis": "sensorNormalization",
+    "warnings": [],
+    "inputLength": 4,
+    "sequenceCount": 3
+  }
+}

@@ -1,0 +1,345 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "oc-agent-template",
+  "role": "input-analyst",
+  "agentId": "pediatric-nutrition-monitor",
+  "displayName": "Pediatric Nutrition Monitor",
+  "machine": {
+    "id": "PediatricNutritionMonitor",
+    "name": "Pediatric Nutrition Monitor",
+    "code": "pediatricnutritionmonitor",
+    "machineClass": "signal-monitor",
+    "domain": "health-personal",
+    "inputRegion": {
+      "offset": 1971,
+      "length": 4
+    },
+    "outputRegion": {
+      "offset": 2003,
+      "length": 4
+    }
+  },
+  "openclaw": {
+    "id": "openclaw-xacp",
+    "kind": "acp",
+    "platform": "OpenClaw",
+    "surface": "xACP",
+    "command": "openclaw acp",
+    "gatewayUrl": "ws://127.0.0.1:18789",
+    "sessionKey": "agent:main:main",
+    "targetAgent": "pediatric-nutrition-monitor",
+    "dispatchMode": "accepted-no-wait",
+    "completionMode": "pe-source-mapping",
+    "completionSourceMappingId": "acp-pediatric-nutrition-monitor-input-assessment"
+  },
+  "reasoning": {
+    "objective": "Produce the normalized input vector for \"Pediatric Nutrition Monitor\" from current observations so RE can evaluate its CES sequences.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Pediatric Nutrition Monitor\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Tracks child nutrition adequacy, growth trajectory, and micronutrient status for children ages 0\u201312 in low- and medium-income home settings. Monitors growth percentile trends, caloric adequacy, iron/vitamin D/B12 micronutrient balance, and dietary diversity \u2014 the four dimensions most predictive of developmental outcomes in under-resourced households. Output at [2003:2007] feeds the Home Caregiver Burden Monitor, as child nutritional problems are a primary driver of caregiver stress and care coordination demand.\n\nPOPULATION: Children ages 0\u201312; WIC-eligible families; households with limited grocery access or food insecurity\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- growth_percentile_norm (index 0):  0.0 = <5th percentile (failure to thrive / significant underweight) | 0.5 = 25th\u201375th percentile (healthy range) | 1.0 = >95th percentile (overweight risk in low-income context)\n- caloric_adequacy_norm (index 1):  0.0 = severe caloric deficit (<50% daily requirement) | 0.5 = adequate (90\u2013110% daily requirement) | 1.0 = consistent surplus\n- micronutrient_score_norm (index 2):  0.0 = multiple confirmed deficiencies (Fe, Vit D, B12 all low) | 0.5 = borderline adequate | 1.0 = well-supplemented across all tracked nutrients\n- dietary_diversity_norm (index 3):  0.0 = single food group only (calorie-dense, low-nutrient) | 0.5 = moderate variety (3+ food groups) | 1.0 = high diversity (5+ food groups consistently)\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- GROWTH_ALERT (RED) -> action: WIC referral; pediatrician growth review; food prescription program screening\n- MICRONUTRIENT_CONCERN (AMBER) -> action: Lab screening referral; WIC food package review; supplement prescription; dietitian consult\n- NUTRITION_OK (GREEN) -> action: Caregiver burden monitor registers healthy child nutrition state",
+    "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
+    "inputAxes": [
+      {
+        "index": 0,
+        "key": "growth_percentile_norm",
+        "anchors": {
+          "low": "<5th percentile (failure to thrive / significant underweight)",
+          "mid": "25th\u201375th percentile (healthy range)",
+          "high": ">95th percentile (overweight risk in low-income context)"
+        }
+      },
+      {
+        "index": 1,
+        "key": "caloric_adequacy_norm",
+        "anchors": {
+          "low": "severe caloric deficit (<50% daily requirement)",
+          "mid": "adequate (90\u2013110% daily requirement)",
+          "high": "consistent surplus"
+        }
+      },
+      {
+        "index": 2,
+        "key": "micronutrient_score_norm",
+        "anchors": {
+          "low": "multiple confirmed deficiencies (Fe, Vit D, B12 all low)",
+          "mid": "borderline adequate",
+          "high": "well-supplemented across all tracked nutrients"
+        }
+      },
+      {
+        "index": 3,
+        "key": "dietary_diversity_norm",
+        "anchors": {
+          "low": "single food group only (calorie-dense, low-nutrient)",
+          "mid": "moderate variety (3+ food groups)",
+          "high": "high diversity (5+ food groups consistently)"
+        }
+      }
+    ],
+    "sequenceCatalog": [
+      {
+        "sequenceId": "ped-nut-growth-faltering",
+        "label": "GROWTH_ALERT",
+        "rag": "RED",
+        "outputIndex": 0,
+        "action": "WIC referral; pediatrician growth review; food prescription program screening"
+      },
+      {
+        "sequenceId": "ped-nut-micronutrient",
+        "label": "MICRONUTRIENT_CONCERN",
+        "rag": "AMBER",
+        "outputIndex": 2,
+        "action": "Lab screening referral; WIC food package review; supplement prescription; dietitian consult"
+      },
+      {
+        "sequenceId": "ped-nut-ok",
+        "label": "NUTRITION_OK",
+        "rag": "GREEN",
+        "outputIndex": 3,
+        "action": "Caregiver burden monitor registers healthy child nutrition state"
+      }
+    ]
+  },
+  "agentBinding": {
+    "agent": "pediatric-nutrition-monitor",
+    "mode": "advise",
+    "trigger": "pediatricnutritionmonitor-input-assessment",
+    "allowedActions": [
+      "Assess current \"Pediatric Nutrition Monitor\" state from available observations and write the normalized input vector to the PE input region [1971:1975] for RE to evaluate."
+    ],
+    "writeBack": {
+      "type": "pe-sensor",
+      "provider": "acp",
+      "sensorId": "acp.openclaw.pediatricnutritionmonitor.input-analyst.assessment",
+      "name": "OpenClaw pediatricnutritionmonitor input-analyst assessment",
+      "region": {
+        "offset": 1971,
+        "length": 4
+      },
+      "semantics": [
+        "growth_percentile_norm",
+        "caloric_adequacy_norm",
+        "micronutrient_score_norm",
+        "dietary_diversity_norm"
+      ],
+      "ttlMs": 300000,
+      "normalization": "already-normalized-0-1",
+      "ingest": {
+        "endpoint": "/api/integrations/completions",
+        "method": "POST",
+        "triggerPush": false,
+        "compactPush": true
+      },
+      "sourceMapping": {
+        "id": "acp-pediatricnutritionmonitor-input-assessment",
+        "sensorId": "acp.openclaw.pediatricnutritionmonitor.input-analyst.assessment",
+        "name": "OpenClaw pediatricnutritionmonitor input-analyst assessment",
+        "region": {
+          "offset": 1971,
+          "length": 4
+        },
+        "ttlMs": 300000
+      }
+    },
+    "autonomyPolicy": {
+      "mode": "advise",
+      "stage": 1,
+      "writeBackType": "pe-sensor",
+      "canWriteBack": true,
+      "canStageActions": false,
+      "canExecuteActions": false,
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "blockedWhenRag": []
+    },
+    "riskControls": {
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "maxAutonomy": "advise",
+      "blockedWhenRag": []
+    }
+  },
+  "responseMapping": {
+    "schemaVersion": "1.0.0",
+    "responseContract": "structured-keys-or-text",
+    "mode": "advise",
+    "fields": [
+      {
+        "semantic": "growth_percentile_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/growth_percentile_norm",
+          "responseKey": "growth_percentile_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.pediatricnutritionmonitor.input-analyst.assessment",
+          "region": {
+            "offset": 1971,
+            "length": 4
+          },
+          "index": 0
+        }
+      },
+      {
+        "semantic": "caloric_adequacy_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/caloric_adequacy_norm",
+          "responseKey": "caloric_adequacy_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.pediatricnutritionmonitor.input-analyst.assessment",
+          "region": {
+            "offset": 1971,
+            "length": 4
+          },
+          "index": 1
+        }
+      },
+      {
+        "semantic": "micronutrient_score_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/micronutrient_score_norm",
+          "responseKey": "micronutrient_score_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.pediatricnutritionmonitor.input-analyst.assessment",
+          "region": {
+            "offset": 1971,
+            "length": 4
+          },
+          "index": 2
+        }
+      },
+      {
+        "semantic": "dietary_diversity_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/dietary_diversity_norm",
+          "responseKey": "dietary_diversity_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.pediatricnutritionmonitor.input-analyst.assessment",
+          "region": {
+            "offset": 1971,
+            "length": 4
+          },
+          "index": 3
+        }
+      }
+    ]
+  },
+  "diagnostics": {
+    "axisBasis": "sensorNormalization",
+    "warnings": [],
+    "inputLength": 4,
+    "sequenceCount": 3
+  }
+}
