@@ -1,0 +1,354 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "oc-agent-template",
+  "role": "input-analyst",
+  "agentId": "community-services-benefits-and-eligibility-medicaid-renewal-watch",
+  "displayName": "Community Services Benefits And Eligibility Medicaid Renewal Watch",
+  "machine": {
+    "id": "CSX011_benefits-and-eligibility-medicaid-renewal-watch",
+    "name": "Community Services Benefits And Eligibility Medicaid Renewal Watch",
+    "code": "csx011_benefits_and_eligibility_medicaid_renewal_watch",
+    "machineClass": "agent-dispatcher",
+    "domain": "community-services",
+    "inputRegion": {
+      "offset": 1040,
+      "length": 4
+    },
+    "outputRegion": {
+      "offset": 1044,
+      "length": 4
+    }
+  },
+  "openclaw": {
+    "id": "openclaw-xacp",
+    "kind": "acp",
+    "platform": "OpenClaw",
+    "surface": "xACP",
+    "command": "openclaw acp",
+    "gatewayUrl": "ws://127.0.0.1:18789",
+    "sessionKey": "agent:main:main",
+    "targetAgent": "community-services-benefits-and-eligibility-medicaid-renewal-watch",
+    "dispatchMode": "accepted-no-wait",
+    "completionMode": "pe-source-mapping",
+    "completionSourceMappingId": "acp-community-services-benefits-and-eligibility-medicaid-renewal-watch-input-assessment"
+  },
+  "reasoning": {
+    "objective": "Produce the normalized input vector for \"Community Services Benefits And Eligibility Medicaid Renewal Watch\" from current observations so RE can evaluate its CES sequences.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Community Services Benefits And Eligibility Medicaid Renewal Watch\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Community-services machine for medicaid renewal watch in the benefits and eligibility workstream. It monitors renewal deadline, documentation readiness, coverage loss risk, and outreach status and emits AI-triggered actions for health and human services, law enforcement/public safety coordination, homelessness response, and city operations.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- resident-need-severity (index 0):\n- eligibility-and-documentation-readiness (index 1):\n- field-capacity-or-operational-readiness (index 2):\n- safety-mobility-and-health-risk (index 3):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Medicaid Renewal Watch (AMBER) -> action: Dispatch benefits_navigation_agent for urgent community-services intervention on medicaid renewal watch.\n- Medicaid Renewal Watch (AMBER) -> action: Coordinate health, housing, public safety, transportation, or city service partners for medicaid renewal watch.\n- Medicaid Renewal Watch (AMBER) -> action: Create field work order or mobile team task for medicaid renewal watch.\n- Medicaid Renewal Watch (AMBER) -> action: Maintain monitored service path for medicaid renewal watch.",
+    "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
+    "inputAxes": [
+      {
+        "index": 0,
+        "key": "resident-need-severity",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 1,
+        "key": "eligibility-and-documentation-readiness",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 2,
+        "key": "field-capacity-or-operational-readiness",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 3,
+        "key": "safety-mobility-and-health-risk",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      }
+    ],
+    "sequenceCatalog": [
+      {
+        "sequenceId": "csx-011-urgent-response",
+        "label": "Medicaid Renewal Watch",
+        "rag": "AMBER",
+        "outputIndex": 0,
+        "action": "Dispatch benefits_navigation_agent for urgent community-services intervention on medicaid renewal watch."
+      },
+      {
+        "sequenceId": "csx-011-coordinate-services",
+        "label": "Medicaid Renewal Watch",
+        "rag": "AMBER",
+        "outputIndex": 1,
+        "action": "Coordinate health, housing, public safety, transportation, or city service partners for medicaid renewal watch."
+      },
+      {
+        "sequenceId": "csx-011-field-work-order",
+        "label": "Medicaid Renewal Watch",
+        "rag": "AMBER",
+        "outputIndex": 2,
+        "action": "Create field work order or mobile team task for medicaid renewal watch."
+      },
+      {
+        "sequenceId": "csx-011-stable-service-path",
+        "label": "Medicaid Renewal Watch",
+        "rag": "AMBER",
+        "outputIndex": 3,
+        "action": "Maintain monitored service path for medicaid renewal watch."
+      }
+    ]
+  },
+  "agentBinding": {
+    "agent": "community-services-benefits-and-eligibility-medicaid-renewal-watch",
+    "mode": "advise",
+    "trigger": "csx011_benefits_and_eligibility_medicaid_renewal_watch-input-assessment",
+    "allowedActions": [
+      "Assess current \"Community Services Benefits And Eligibility Medicaid Renewal Watch\" state from available observations and write the normalized input vector to the PE input region [1040:1044] for RE to evaluate."
+    ],
+    "writeBack": {
+      "type": "pe-sensor",
+      "provider": "acp",
+      "sensorId": "acp.openclaw.csx011_benefits_and_eligibility_medicaid_renewal_watch.input-analyst.assessment",
+      "name": "OpenClaw csx011_benefits_and_eligibility_medicaid_renewal_watch input-analyst assessment",
+      "region": {
+        "offset": 1040,
+        "length": 4
+      },
+      "semantics": [
+        "resident-need-severity",
+        "eligibility-and-documentation-readiness",
+        "field-capacity-or-operational-readiness",
+        "safety-mobility-and-health-risk"
+      ],
+      "ttlMs": 300000,
+      "normalization": "already-normalized-0-1",
+      "ingest": {
+        "endpoint": "/api/integrations/completions",
+        "method": "POST",
+        "triggerPush": false,
+        "compactPush": true
+      },
+      "sourceMapping": {
+        "id": "acp-csx011_benefits_and_eligibility_medicaid_renewal_watch-input-assessment",
+        "sensorId": "acp.openclaw.csx011_benefits_and_eligibility_medicaid_renewal_watch.input-analyst.assessment",
+        "name": "OpenClaw csx011_benefits_and_eligibility_medicaid_renewal_watch input-analyst assessment",
+        "region": {
+          "offset": 1040,
+          "length": 4
+        },
+        "ttlMs": 300000
+      }
+    },
+    "autonomyPolicy": {
+      "mode": "advise",
+      "stage": 1,
+      "writeBackType": "pe-sensor",
+      "canWriteBack": true,
+      "canStageActions": false,
+      "canExecuteActions": false,
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "blockedWhenRag": []
+    },
+    "riskControls": {
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "maxAutonomy": "advise",
+      "blockedWhenRag": []
+    }
+  },
+  "responseMapping": {
+    "schemaVersion": "1.0.0",
+    "responseContract": "structured-keys-or-text",
+    "mode": "advise",
+    "fields": [
+      {
+        "semantic": "resident-need-severity",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/resident-need-severity",
+          "responseKey": "resident-need-severity",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.csx011_benefits_and_eligibility_medicaid_renewal_watch.input-analyst.assessment",
+          "region": {
+            "offset": 1040,
+            "length": 4
+          },
+          "index": 0
+        }
+      },
+      {
+        "semantic": "eligibility-and-documentation-readiness",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/eligibility-and-documentation-readiness",
+          "responseKey": "eligibility-and-documentation-readiness",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.csx011_benefits_and_eligibility_medicaid_renewal_watch.input-analyst.assessment",
+          "region": {
+            "offset": 1040,
+            "length": 4
+          },
+          "index": 1
+        }
+      },
+      {
+        "semantic": "field-capacity-or-operational-readiness",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/field-capacity-or-operational-readiness",
+          "responseKey": "field-capacity-or-operational-readiness",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.csx011_benefits_and_eligibility_medicaid_renewal_watch.input-analyst.assessment",
+          "region": {
+            "offset": 1040,
+            "length": 4
+          },
+          "index": 2
+        }
+      },
+      {
+        "semantic": "safety-mobility-and-health-risk",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/safety-mobility-and-health-risk",
+          "responseKey": "safety-mobility-and-health-risk",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.csx011_benefits_and_eligibility_medicaid_renewal_watch.input-analyst.assessment",
+          "region": {
+            "offset": 1040,
+            "length": 4
+          },
+          "index": 3
+        }
+      }
+    ]
+  },
+  "diagnostics": {
+    "axisBasis": "inputSemantics",
+    "warnings": [
+      "input axes derived from inputSemantics (no length-matched sensorNormalization)"
+    ],
+    "inputLength": 4,
+    "sequenceCount": 4
+  }
+}

@@ -1,0 +1,241 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "oc-agent-template",
+  "role": "input-analyst",
+  "agentId": "daily-activity-monitor",
+  "displayName": "Daily Activity Monitor",
+  "machine": {
+    "id": "DailyActivityMonitor",
+    "name": "Daily Activity Monitor",
+    "code": "activity-monitor",
+    "machineClass": "signal-monitor",
+    "domain": "health-personal",
+    "inputRegion": {
+      "offset": 1951,
+      "length": 2
+    },
+    "outputRegion": {
+      "offset": 1953,
+      "length": 2
+    }
+  },
+  "openclaw": {
+    "id": "openclaw-xacp",
+    "kind": "acp",
+    "platform": "OpenClaw",
+    "surface": "xACP",
+    "command": "openclaw acp",
+    "gatewayUrl": "ws://127.0.0.1:18789",
+    "sessionKey": "agent:main:main",
+    "targetAgent": "daily-activity-monitor",
+    "dispatchMode": "accepted-no-wait",
+    "completionMode": "pe-source-mapping",
+    "completionSourceMappingId": "acp-daily-activity-monitor-input-assessment"
+  },
+  "reasoning": {
+    "objective": "Produce the normalized input vector for \"Daily Activity Monitor\" from current observations so RE can evaluate its CES sequences.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Daily Activity Monitor\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Compares today's in-home movement against the patient's 7-day baseline. Flags sedentary days as AMBER and prolonged inactivity (multiple consecutive sedentary days) as RED so the local AI can escalate wellness outreach.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- daily-activity-monitor-input-1 (index 0):\n- daily-activity-monitor-input-2 (index 1):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- activity-active (GREEN)\n- activity-sedentary (AMBER)\n- activity-prolonged (RED)",
+    "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
+    "inputAxes": [
+      {
+        "index": 0,
+        "key": "daily-activity-monitor-input-1",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 1,
+        "key": "daily-activity-monitor-input-2",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      }
+    ],
+    "sequenceCatalog": [
+      {
+        "sequenceId": "activity-active",
+        "label": "activity-active",
+        "rag": "GREEN",
+        "outputIndex": 0,
+        "action": ""
+      },
+      {
+        "sequenceId": "activity-sedentary",
+        "label": "activity-sedentary",
+        "rag": "AMBER",
+        "outputIndex": 0,
+        "action": ""
+      },
+      {
+        "sequenceId": "activity-prolonged",
+        "label": "activity-prolonged",
+        "rag": "RED",
+        "outputIndex": 0,
+        "action": ""
+      }
+    ]
+  },
+  "agentBinding": {
+    "agent": "daily-activity-monitor",
+    "mode": "advise",
+    "trigger": "activity-monitor-input-assessment",
+    "allowedActions": [
+      "Assess current \"Daily Activity Monitor\" state from available observations and write the normalized input vector to the PE input region [1951:1953] for RE to evaluate."
+    ],
+    "writeBack": {
+      "type": "pe-sensor",
+      "provider": "acp",
+      "sensorId": "acp.openclaw.activity-monitor.input-analyst.assessment",
+      "name": "OpenClaw activity-monitor input-analyst assessment",
+      "region": {
+        "offset": 1951,
+        "length": 2
+      },
+      "semantics": [
+        "daily-activity-monitor-input-1",
+        "daily-activity-monitor-input-2"
+      ],
+      "ttlMs": 300000,
+      "normalization": "already-normalized-0-1",
+      "ingest": {
+        "endpoint": "/api/integrations/completions",
+        "method": "POST",
+        "triggerPush": false,
+        "compactPush": true
+      },
+      "sourceMapping": {
+        "id": "acp-activity-monitor-input-assessment",
+        "sensorId": "acp.openclaw.activity-monitor.input-analyst.assessment",
+        "name": "OpenClaw activity-monitor input-analyst assessment",
+        "region": {
+          "offset": 1951,
+          "length": 2
+        },
+        "ttlMs": 300000
+      }
+    },
+    "autonomyPolicy": {
+      "mode": "advise",
+      "stage": 1,
+      "writeBackType": "pe-sensor",
+      "canWriteBack": true,
+      "canStageActions": false,
+      "canExecuteActions": false,
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "blockedWhenRag": []
+    },
+    "riskControls": {
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "maxAutonomy": "advise",
+      "blockedWhenRag": []
+    }
+  },
+  "responseMapping": {
+    "schemaVersion": "1.0.0",
+    "responseContract": "structured-keys-or-text",
+    "mode": "advise",
+    "fields": [
+      {
+        "semantic": "daily-activity-monitor-input-1",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/daily-activity-monitor-input-1",
+          "responseKey": "daily-activity-monitor-input-1",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.activity-monitor.input-analyst.assessment",
+          "region": {
+            "offset": 1951,
+            "length": 2
+          },
+          "index": 0
+        }
+      },
+      {
+        "semantic": "daily-activity-monitor-input-2",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/daily-activity-monitor-input-2",
+          "responseKey": "daily-activity-monitor-input-2",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.activity-monitor.input-analyst.assessment",
+          "region": {
+            "offset": 1951,
+            "length": 2
+          },
+          "index": 1
+        }
+      }
+    ]
+  },
+  "diagnostics": {
+    "axisBasis": "inputSemantics",
+    "warnings": [
+      "input axes derived from inputSemantics (no length-matched sensorNormalization)"
+    ],
+    "inputLength": 2,
+    "sequenceCount": 3
+  }
+}

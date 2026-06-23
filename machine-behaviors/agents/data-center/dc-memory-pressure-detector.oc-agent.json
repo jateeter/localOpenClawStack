@@ -1,0 +1,338 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "oc-agent-template",
+  "role": "input-analyst",
+  "agentId": "dc-memory-pressure-detector",
+  "displayName": "DC Memory Pressure Detector",
+  "machine": {
+    "id": "DCMemoryPressure",
+    "name": "DC Memory Pressure Detector",
+    "code": "dcmemorypressure",
+    "machineClass": "signal-monitor",
+    "domain": "data-center",
+    "inputRegion": {
+      "offset": 1344,
+      "length": 4
+    },
+    "outputRegion": {
+      "offset": 1367,
+      "length": 2
+    }
+  },
+  "openclaw": {
+    "id": "openclaw-xacp",
+    "kind": "acp",
+    "platform": "OpenClaw",
+    "surface": "xACP",
+    "command": "openclaw acp",
+    "gatewayUrl": "ws://127.0.0.1:18789",
+    "sessionKey": "agent:main:main",
+    "targetAgent": "dc-memory-pressure-detector",
+    "dispatchMode": "accepted-no-wait",
+    "completionMode": "pe-source-mapping",
+    "completionSourceMappingId": "acp-dc-memory-pressure-detector-input-assessment"
+  },
+  "reasoning": {
+    "objective": "Produce the normalized input vector for \"DC Memory Pressure Detector\" from current observations so RE can evaluate its CES sequences.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"DC Memory Pressure Detector\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Monitors memory utilization and swap usage to detect memory pressure escalating to thrashing and cascading failure. Implements the regular expression NORMAL+ \u2192 PRESSURE+ \u2192 THRASHING \u2192 CASCADING+ \u2192 FAILURE \u2192 [alarm]. A concurrent HEALTHY+ sequence fires the reset signal when memory is within safe parameters.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- mem_usage_norm (index 0):\n- mem_page_fault_rate_norm (index 1):\n- mem_cache_miss_norm (index 2):\n- swap_usage_norm (index 3):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- MEMORY FAILURE (RED) -> action: DCMemoryAlertFF will SET; initiate process termination, workload shedding\n- MEMORY HEALTHY (GREEN) -> action: DCMemoryAlertFF will RESET; memory utilization normal",
+    "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
+    "inputAxes": [
+      {
+        "index": 0,
+        "key": "mem_usage_norm",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 1,
+        "key": "mem_page_fault_rate_norm",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 2,
+        "key": "mem_cache_miss_norm",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 3,
+        "key": "swap_usage_norm",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      }
+    ],
+    "sequenceCatalog": [
+      {
+        "sequenceId": "dc-memory-escalation",
+        "label": "MEMORY FAILURE",
+        "rag": "RED",
+        "outputIndex": 0,
+        "action": "DCMemoryAlertFF will SET; initiate process termination, workload shedding"
+      },
+      {
+        "sequenceId": "dc-memory-healthy",
+        "label": "MEMORY HEALTHY",
+        "rag": "GREEN",
+        "outputIndex": 1,
+        "action": "DCMemoryAlertFF will RESET; memory utilization normal"
+      }
+    ]
+  },
+  "agentBinding": {
+    "agent": "dc-memory-pressure-detector",
+    "mode": "advise",
+    "trigger": "dcmemorypressure-input-assessment",
+    "allowedActions": [
+      "Assess current \"DC Memory Pressure Detector\" state from available observations and write the normalized input vector to the PE input region [1344:1348] for RE to evaluate."
+    ],
+    "writeBack": {
+      "type": "pe-sensor",
+      "provider": "acp",
+      "sensorId": "acp.openclaw.dcmemorypressure.input-analyst.assessment",
+      "name": "OpenClaw dcmemorypressure input-analyst assessment",
+      "region": {
+        "offset": 1344,
+        "length": 4
+      },
+      "semantics": [
+        "mem_usage_norm",
+        "mem_page_fault_rate_norm",
+        "mem_cache_miss_norm",
+        "swap_usage_norm"
+      ],
+      "ttlMs": 300000,
+      "normalization": "already-normalized-0-1",
+      "ingest": {
+        "endpoint": "/api/integrations/completions",
+        "method": "POST",
+        "triggerPush": false,
+        "compactPush": true
+      },
+      "sourceMapping": {
+        "id": "acp-dcmemorypressure-input-assessment",
+        "sensorId": "acp.openclaw.dcmemorypressure.input-analyst.assessment",
+        "name": "OpenClaw dcmemorypressure input-analyst assessment",
+        "region": {
+          "offset": 1344,
+          "length": 4
+        },
+        "ttlMs": 300000
+      }
+    },
+    "autonomyPolicy": {
+      "mode": "advise",
+      "stage": 1,
+      "writeBackType": "pe-sensor",
+      "canWriteBack": true,
+      "canStageActions": false,
+      "canExecuteActions": false,
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "blockedWhenRag": []
+    },
+    "riskControls": {
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "maxAutonomy": "advise",
+      "blockedWhenRag": []
+    }
+  },
+  "responseMapping": {
+    "schemaVersion": "1.0.0",
+    "responseContract": "structured-keys-or-text",
+    "mode": "advise",
+    "fields": [
+      {
+        "semantic": "mem_usage_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/mem_usage_norm",
+          "responseKey": "mem_usage_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.dcmemorypressure.input-analyst.assessment",
+          "region": {
+            "offset": 1344,
+            "length": 4
+          },
+          "index": 0
+        }
+      },
+      {
+        "semantic": "mem_page_fault_rate_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/mem_page_fault_rate_norm",
+          "responseKey": "mem_page_fault_rate_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.dcmemorypressure.input-analyst.assessment",
+          "region": {
+            "offset": 1344,
+            "length": 4
+          },
+          "index": 1
+        }
+      },
+      {
+        "semantic": "mem_cache_miss_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/mem_cache_miss_norm",
+          "responseKey": "mem_cache_miss_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.dcmemorypressure.input-analyst.assessment",
+          "region": {
+            "offset": 1344,
+            "length": 4
+          },
+          "index": 2
+        }
+      },
+      {
+        "semantic": "swap_usage_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/swap_usage_norm",
+          "responseKey": "swap_usage_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.dcmemorypressure.input-analyst.assessment",
+          "region": {
+            "offset": 1344,
+            "length": 4
+          },
+          "index": 3
+        }
+      }
+    ]
+  },
+  "diagnostics": {
+    "axisBasis": "sensorNormalization",
+    "warnings": [],
+    "inputLength": 4,
+    "sequenceCount": 2
+  }
+}

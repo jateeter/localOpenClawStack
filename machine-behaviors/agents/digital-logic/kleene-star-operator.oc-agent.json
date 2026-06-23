@@ -1,0 +1,287 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "oc-agent-template",
+  "role": "input-analyst",
+  "agentId": "kleene-star-operator",
+  "displayName": "Kleene Star Operator",
+  "machine": {
+    "id": "KleeneStar",
+    "name": "Kleene Star Operator",
+    "code": "kleenestar",
+    "machineClass": "signal-monitor",
+    "domain": "digital-logic",
+    "inputRegion": {
+      "offset": 3913,
+      "length": 3
+    },
+    "outputRegion": {
+      "offset": 3917,
+      "length": 2
+    }
+  },
+  "openclaw": {
+    "id": "openclaw-xacp",
+    "kind": "acp",
+    "platform": "OpenClaw",
+    "surface": "xACP",
+    "command": "openclaw acp",
+    "gatewayUrl": "ws://127.0.0.1:18789",
+    "sessionKey": "agent:main:main",
+    "targetAgent": "kleene-star-operator",
+    "dispatchMode": "accepted-no-wait",
+    "completionMode": "pe-source-mapping",
+    "completionSourceMappingId": "acp-kleene-star-operator-input-assessment"
+  },
+  "reasoning": {
+    "objective": "Produce the normalized input vector for \"Kleene Star Operator\" from current observations so RE can evaluate its CES sequences.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Kleene Star Operator\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Demonstrates Kleene star (*) operator in critical event sequences - zero or more repetitions with alternation. Note: initial (isInitial) trigger vectors implement A*A = A+ semantics \u2014 at least one match of the trigger is required before successors are armed.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- kleene-star-operator-input-1 (index 0):\n- kleene-star-operator-input-2 (index 1):\n- kleene-star-operator-input-3 (index 2):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Sequence 1 complete (GREEN)\n- Sequence 2 complete (GREEN)",
+    "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
+    "inputAxes": [
+      {
+        "index": 0,
+        "key": "kleene-star-operator-input-1",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 1,
+        "key": "kleene-star-operator-input-2",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 2,
+        "key": "kleene-star-operator-input-3",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      }
+    ],
+    "sequenceCatalog": [
+      {
+        "sequenceId": "kleene-seq1",
+        "label": "Sequence 1 complete",
+        "rag": "GREEN",
+        "outputIndex": 1,
+        "action": ""
+      },
+      {
+        "sequenceId": "kleene-seq2",
+        "label": "Sequence 2 complete",
+        "rag": "GREEN",
+        "outputIndex": 0,
+        "action": ""
+      }
+    ]
+  },
+  "agentBinding": {
+    "agent": "kleene-star-operator",
+    "mode": "advise",
+    "trigger": "kleenestar-input-assessment",
+    "allowedActions": [
+      "Assess current \"Kleene Star Operator\" state from available observations and write the normalized input vector to the PE input region [3913:3916] for RE to evaluate."
+    ],
+    "writeBack": {
+      "type": "pe-sensor",
+      "provider": "acp",
+      "sensorId": "acp.openclaw.kleenestar.input-analyst.assessment",
+      "name": "OpenClaw kleenestar input-analyst assessment",
+      "region": {
+        "offset": 3913,
+        "length": 3
+      },
+      "semantics": [
+        "kleene-star-operator-input-1",
+        "kleene-star-operator-input-2",
+        "kleene-star-operator-input-3"
+      ],
+      "ttlMs": 300000,
+      "normalization": "already-normalized-0-1",
+      "ingest": {
+        "endpoint": "/api/integrations/completions",
+        "method": "POST",
+        "triggerPush": false,
+        "compactPush": true
+      },
+      "sourceMapping": {
+        "id": "acp-kleenestar-input-assessment",
+        "sensorId": "acp.openclaw.kleenestar.input-analyst.assessment",
+        "name": "OpenClaw kleenestar input-analyst assessment",
+        "region": {
+          "offset": 3913,
+          "length": 3
+        },
+        "ttlMs": 300000
+      }
+    },
+    "autonomyPolicy": {
+      "mode": "advise",
+      "stage": 1,
+      "writeBackType": "pe-sensor",
+      "canWriteBack": true,
+      "canStageActions": false,
+      "canExecuteActions": false,
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "blockedWhenRag": []
+    },
+    "riskControls": {
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "maxAutonomy": "advise",
+      "blockedWhenRag": []
+    }
+  },
+  "responseMapping": {
+    "schemaVersion": "1.0.0",
+    "responseContract": "structured-keys-or-text",
+    "mode": "advise",
+    "fields": [
+      {
+        "semantic": "kleene-star-operator-input-1",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/kleene-star-operator-input-1",
+          "responseKey": "kleene-star-operator-input-1",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.kleenestar.input-analyst.assessment",
+          "region": {
+            "offset": 3913,
+            "length": 3
+          },
+          "index": 0
+        }
+      },
+      {
+        "semantic": "kleene-star-operator-input-2",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/kleene-star-operator-input-2",
+          "responseKey": "kleene-star-operator-input-2",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.kleenestar.input-analyst.assessment",
+          "region": {
+            "offset": 3913,
+            "length": 3
+          },
+          "index": 1
+        }
+      },
+      {
+        "semantic": "kleene-star-operator-input-3",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/kleene-star-operator-input-3",
+          "responseKey": "kleene-star-operator-input-3",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.kleenestar.input-analyst.assessment",
+          "region": {
+            "offset": 3913,
+            "length": 3
+          },
+          "index": 2
+        }
+      }
+    ]
+  },
+  "diagnostics": {
+    "axisBasis": "inputSemantics",
+    "warnings": [
+      "input axes derived from inputSemantics (no length-matched sensorNormalization)"
+    ],
+    "inputLength": 3,
+    "sequenceCount": 2
+  }
+}

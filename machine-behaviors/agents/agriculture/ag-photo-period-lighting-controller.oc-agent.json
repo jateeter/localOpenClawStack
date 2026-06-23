@@ -1,0 +1,345 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "oc-agent-template",
+  "role": "input-analyst",
+  "agentId": "ag-photo-period-lighting-controller",
+  "displayName": "Ag Photo Period Lighting Controller",
+  "machine": {
+    "id": "AgPhotoPeriodLightingController",
+    "name": "Ag Photo Period Lighting Controller",
+    "code": "agphotoperiodlightingcontroller",
+    "machineClass": "optimizer",
+    "domain": "agriculture",
+    "inputRegion": {
+      "offset": 12,
+      "length": 4
+    },
+    "outputRegion": {
+      "offset": 32,
+      "length": 4
+    }
+  },
+  "openclaw": {
+    "id": "openclaw-xacp",
+    "kind": "acp",
+    "platform": "OpenClaw",
+    "surface": "xACP",
+    "command": "openclaw acp",
+    "gatewayUrl": "ws://127.0.0.1:18789",
+    "sessionKey": "agent:main:main",
+    "targetAgent": "ag-photo-period-lighting-controller",
+    "dispatchMode": "accepted-no-wait",
+    "completionMode": "pe-source-mapping",
+    "completionSourceMappingId": "acp-ag-photo-period-lighting-controller-input-assessment"
+  },
+  "reasoning": {
+    "objective": "Produce the normalized input vector for \"Ag Photo Period Lighting Controller\" from current observations so RE can evaluate its CES sequences.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Ag Photo Period Lighting Controller\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Controls photoperiod and light intensity for indoor growing zones. Monitors PAR (photosynthetically active radiation) intensity, accumulated daily light integral (DLI), and dark-period integrity. Fires LIGHTS_ON/OFF transitions and DLI insufficiency alerts. Upstream: light sensors at [12:16]. Downstream: AgNutrientCycleOptimizer and AgIPMPestAlertMonitor read output at [32:36].\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- par_intensity_norm (index 0):  0.0 = dark | 0.5 = 400 \u00b5mol/m\u00b2/s (vegetative optimal) | 1.0 = 1000 \u00b5mol/m\u00b2/s\n- photoperiod_elapsed_norm (index 1):  0.0 = start of light period | 0.5 = mid-period | 1.0 = full period complete\n- dli_accumulated_norm (index 2):  0.0 = 0 mol/m\u00b2/d | 0.5 = 20 mol/m\u00b2/d (vegetative target) | 1.0 = 40+ mol/m\u00b2/d\n- dark_period_integrity_norm (index 3):  0.0 = dark period fully satisfied | 0.5 = partial dark | 1.0 = no dark period (light leak)\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- LIGHTS_ON (GREEN) -> action: Downstream IPM and nutrient cycle monitors register active photoperiod\n- LIGHTS_OFF (GREEN) -> action: Power down grow lights; dark period timer starts\n- PHOTO_OK (GREEN) -> action: Downstream nutrient and IPM monitors register healthy light environment",
+    "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
+    "inputAxes": [
+      {
+        "index": 0,
+        "key": "par_intensity_norm",
+        "anchors": {
+          "low": "dark",
+          "mid": "400 \u00b5mol/m\u00b2/s (vegetative optimal)",
+          "high": "1000 \u00b5mol/m\u00b2/s"
+        }
+      },
+      {
+        "index": 1,
+        "key": "photoperiod_elapsed_norm",
+        "anchors": {
+          "low": "start of light period",
+          "mid": "mid-period",
+          "high": "full period complete"
+        }
+      },
+      {
+        "index": 2,
+        "key": "dli_accumulated_norm",
+        "anchors": {
+          "low": "0 mol/m\u00b2/d",
+          "mid": "20 mol/m\u00b2/d (vegetative target)",
+          "high": "40+ mol/m\u00b2/d"
+        }
+      },
+      {
+        "index": 3,
+        "key": "dark_period_integrity_norm",
+        "anchors": {
+          "low": "dark period fully satisfied",
+          "mid": "partial dark",
+          "high": "no dark period (light leak)"
+        }
+      }
+    ],
+    "sequenceCatalog": [
+      {
+        "sequenceId": "ag-photo-lights-on-cycle",
+        "label": "LIGHTS_ON",
+        "rag": "GREEN",
+        "outputIndex": 0,
+        "action": "Downstream IPM and nutrient cycle monitors register active photoperiod"
+      },
+      {
+        "sequenceId": "ag-photo-lights-off-cycle",
+        "label": "LIGHTS_OFF",
+        "rag": "GREEN",
+        "outputIndex": 1,
+        "action": "Power down grow lights; dark period timer starts"
+      },
+      {
+        "sequenceId": "ag-photo-ok",
+        "label": "PHOTO_OK",
+        "rag": "GREEN",
+        "outputIndex": 3,
+        "action": "Downstream nutrient and IPM monitors register healthy light environment"
+      }
+    ]
+  },
+  "agentBinding": {
+    "agent": "ag-photo-period-lighting-controller",
+    "mode": "advise",
+    "trigger": "agphotoperiodlightingcontroller-input-assessment",
+    "allowedActions": [
+      "Assess current \"Ag Photo Period Lighting Controller\" state from available observations and write the normalized input vector to the PE input region [12:16] for RE to evaluate."
+    ],
+    "writeBack": {
+      "type": "pe-sensor",
+      "provider": "acp",
+      "sensorId": "acp.openclaw.agphotoperiodlightingcontroller.input-analyst.assessment",
+      "name": "OpenClaw agphotoperiodlightingcontroller input-analyst assessment",
+      "region": {
+        "offset": 12,
+        "length": 4
+      },
+      "semantics": [
+        "par_intensity_norm",
+        "photoperiod_elapsed_norm",
+        "dli_accumulated_norm",
+        "dark_period_integrity_norm"
+      ],
+      "ttlMs": 300000,
+      "normalization": "already-normalized-0-1",
+      "ingest": {
+        "endpoint": "/api/integrations/completions",
+        "method": "POST",
+        "triggerPush": false,
+        "compactPush": true
+      },
+      "sourceMapping": {
+        "id": "acp-agphotoperiodlightingcontroller-input-assessment",
+        "sensorId": "acp.openclaw.agphotoperiodlightingcontroller.input-analyst.assessment",
+        "name": "OpenClaw agphotoperiodlightingcontroller input-analyst assessment",
+        "region": {
+          "offset": 12,
+          "length": 4
+        },
+        "ttlMs": 300000
+      }
+    },
+    "autonomyPolicy": {
+      "mode": "advise",
+      "stage": 1,
+      "writeBackType": "pe-sensor",
+      "canWriteBack": true,
+      "canStageActions": false,
+      "canExecuteActions": false,
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "blockedWhenRag": []
+    },
+    "riskControls": {
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "maxAutonomy": "advise",
+      "blockedWhenRag": []
+    }
+  },
+  "responseMapping": {
+    "schemaVersion": "1.0.0",
+    "responseContract": "structured-keys-or-text",
+    "mode": "advise",
+    "fields": [
+      {
+        "semantic": "par_intensity_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/par_intensity_norm",
+          "responseKey": "par_intensity_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agphotoperiodlightingcontroller.input-analyst.assessment",
+          "region": {
+            "offset": 12,
+            "length": 4
+          },
+          "index": 0
+        }
+      },
+      {
+        "semantic": "photoperiod_elapsed_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/photoperiod_elapsed_norm",
+          "responseKey": "photoperiod_elapsed_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agphotoperiodlightingcontroller.input-analyst.assessment",
+          "region": {
+            "offset": 12,
+            "length": 4
+          },
+          "index": 1
+        }
+      },
+      {
+        "semantic": "dli_accumulated_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/dli_accumulated_norm",
+          "responseKey": "dli_accumulated_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agphotoperiodlightingcontroller.input-analyst.assessment",
+          "region": {
+            "offset": 12,
+            "length": 4
+          },
+          "index": 2
+        }
+      },
+      {
+        "semantic": "dark_period_integrity_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/dark_period_integrity_norm",
+          "responseKey": "dark_period_integrity_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agphotoperiodlightingcontroller.input-analyst.assessment",
+          "region": {
+            "offset": 12,
+            "length": 4
+          },
+          "index": 3
+        }
+      }
+    ]
+  },
+  "diagnostics": {
+    "axisBasis": "sensorNormalization",
+    "warnings": [],
+    "inputLength": 4,
+    "sequenceCount": 3
+  }
+}

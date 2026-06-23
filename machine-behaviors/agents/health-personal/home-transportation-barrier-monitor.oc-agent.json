@@ -1,0 +1,345 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "oc-agent-template",
+  "role": "input-analyst",
+  "agentId": "home-transportation-barrier-monitor",
+  "displayName": "Home Transportation Barrier Monitor",
+  "machine": {
+    "id": "HomeTransportationBarrierMonitor",
+    "name": "Home Transportation Barrier Monitor",
+    "code": "hometransportationbarriermonitor",
+    "machineClass": "signal-monitor",
+    "domain": "health-personal",
+    "inputRegion": {
+      "offset": 1983,
+      "length": 4
+    },
+    "outputRegion": {
+      "offset": 2015,
+      "length": 4
+    }
+  },
+  "openclaw": {
+    "id": "openclaw-xacp",
+    "kind": "acp",
+    "platform": "OpenClaw",
+    "surface": "xACP",
+    "command": "openclaw acp",
+    "gatewayUrl": "ws://127.0.0.1:18789",
+    "sessionKey": "agent:main:main",
+    "targetAgent": "home-transportation-barrier-monitor",
+    "dispatchMode": "accepted-no-wait",
+    "completionMode": "pe-source-mapping",
+    "completionSourceMappingId": "acp-home-transportation-barrier-monitor-input-assessment"
+  },
+  "reasoning": {
+    "objective": "Produce the normalized input vector for \"Home Transportation Barrier Monitor\" from current observations so RE can evaluate its CES sequences.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Home Transportation Barrier Monitor\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Monitors transportation access barriers that prevent low- and medium-income home health patients from attending medical appointments, filling prescriptions, and accessing community services. Transportation is a top driver of missed care in rural and low-income urban settings \u2014 more predictive of care gaps than insurance status alone. Output at [2015:2019] feeds the Home Social Isolation Monitor alongside the Medication Cost Barrier Monitor.\n\nPOPULATION: Rural and low-income urban patients; elderly without vehicles; patients relying on public transit or ride programs in transit deserts\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- appointment_attendance_norm (index 0):  0.0 = no appointments attended in past period (complete care avoidance due to transport) | 0.5 = ~50% attendance (some missed due to transport) | 1.0 = all scheduled appointments attended\n- transit_access_norm (index 1):  0.0 = no viable transit options (rural transit desert; no car; no rideshare) | 0.5 = limited access (one-way possible, return uncertain; shared ride program with waitlist) | 1.0 = reliable transit or personal vehicle available\n- missed_critical_care_norm (index 2):  0.0 = critical care missed (dialysis, chemotherapy, specialty follow-up) due to transport | 0.5 = non-critical missed (primary care, routine labs) | 1.0 = no care missed due to transport\n- proximity_norm (index 3):  0.0 = >30 miles from nearest relevant provider with no transit | 0.5 = 10\u201330 miles with unreliable transit | 1.0 = within 5 miles or transport resolved\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- CRITICAL_ACCESS_FAILURE (RED) -> action: NEMT (non-emergency medical transport) referral; volunteer driver program; care coordination for telemedicine substitution where appropriate\n- TRANSIT_DEPENDENT_RISK (AMBER) -> action: Backup transportation plan; volunteer driver registration; identify family/neighbor support; telemedicine option assessment\n- TRANSPORTATION_ADEQUATE (AMBER) -> action: Social isolation monitor registers transportation stable",
+    "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
+    "inputAxes": [
+      {
+        "index": 0,
+        "key": "appointment_attendance_norm",
+        "anchors": {
+          "low": "no appointments attended in past period (complete care avoidance due to transport)",
+          "mid": "~50% attendance (some missed due to transport)",
+          "high": "all scheduled appointments attended"
+        }
+      },
+      {
+        "index": 1,
+        "key": "transit_access_norm",
+        "anchors": {
+          "low": "no viable transit options (rural transit desert; no car; no rideshare)",
+          "mid": "limited access (one-way possible, return uncertain; shared ride program with waitlist)",
+          "high": "reliable transit or personal vehicle available"
+        }
+      },
+      {
+        "index": 2,
+        "key": "missed_critical_care_norm",
+        "anchors": {
+          "low": "critical care missed (dialysis, chemotherapy, specialty follow-up) due to transport",
+          "mid": "non-critical missed (primary care, routine labs)",
+          "high": "no care missed due to transport"
+        }
+      },
+      {
+        "index": 3,
+        "key": "proximity_norm",
+        "anchors": {
+          "low": ">30 miles from nearest relevant provider with no transit",
+          "mid": "10\u201330 miles with unreliable transit",
+          "high": "within 5 miles or transport resolved"
+        }
+      }
+    ],
+    "sequenceCatalog": [
+      {
+        "sequenceId": "transport-critical-failure",
+        "label": "CRITICAL_ACCESS_FAILURE",
+        "rag": "RED",
+        "outputIndex": 0,
+        "action": "NEMT (non-emergency medical transport) referral; volunteer driver program; care coordination for telemedicine substitution where appropriate"
+      },
+      {
+        "sequenceId": "transport-transit-dependent-risk",
+        "label": "TRANSIT_DEPENDENT_RISK",
+        "rag": "AMBER",
+        "outputIndex": 2,
+        "action": "Backup transportation plan; volunteer driver registration; identify family/neighbor support; telemedicine option assessment"
+      },
+      {
+        "sequenceId": "transport-adequate",
+        "label": "TRANSPORTATION_ADEQUATE",
+        "rag": "AMBER",
+        "outputIndex": 3,
+        "action": "Social isolation monitor registers transportation stable"
+      }
+    ]
+  },
+  "agentBinding": {
+    "agent": "home-transportation-barrier-monitor",
+    "mode": "advise",
+    "trigger": "hometransportationbarriermonitor-input-assessment",
+    "allowedActions": [
+      "Assess current \"Home Transportation Barrier Monitor\" state from available observations and write the normalized input vector to the PE input region [1983:1987] for RE to evaluate."
+    ],
+    "writeBack": {
+      "type": "pe-sensor",
+      "provider": "acp",
+      "sensorId": "acp.openclaw.hometransportationbarriermonitor.input-analyst.assessment",
+      "name": "OpenClaw hometransportationbarriermonitor input-analyst assessment",
+      "region": {
+        "offset": 1983,
+        "length": 4
+      },
+      "semantics": [
+        "appointment_attendance_norm",
+        "transit_access_norm",
+        "missed_critical_care_norm",
+        "proximity_norm"
+      ],
+      "ttlMs": 300000,
+      "normalization": "already-normalized-0-1",
+      "ingest": {
+        "endpoint": "/api/integrations/completions",
+        "method": "POST",
+        "triggerPush": false,
+        "compactPush": true
+      },
+      "sourceMapping": {
+        "id": "acp-hometransportationbarriermonitor-input-assessment",
+        "sensorId": "acp.openclaw.hometransportationbarriermonitor.input-analyst.assessment",
+        "name": "OpenClaw hometransportationbarriermonitor input-analyst assessment",
+        "region": {
+          "offset": 1983,
+          "length": 4
+        },
+        "ttlMs": 300000
+      }
+    },
+    "autonomyPolicy": {
+      "mode": "advise",
+      "stage": 1,
+      "writeBackType": "pe-sensor",
+      "canWriteBack": true,
+      "canStageActions": false,
+      "canExecuteActions": false,
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "blockedWhenRag": []
+    },
+    "riskControls": {
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "maxAutonomy": "advise",
+      "blockedWhenRag": []
+    }
+  },
+  "responseMapping": {
+    "schemaVersion": "1.0.0",
+    "responseContract": "structured-keys-or-text",
+    "mode": "advise",
+    "fields": [
+      {
+        "semantic": "appointment_attendance_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/appointment_attendance_norm",
+          "responseKey": "appointment_attendance_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.hometransportationbarriermonitor.input-analyst.assessment",
+          "region": {
+            "offset": 1983,
+            "length": 4
+          },
+          "index": 0
+        }
+      },
+      {
+        "semantic": "transit_access_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/transit_access_norm",
+          "responseKey": "transit_access_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.hometransportationbarriermonitor.input-analyst.assessment",
+          "region": {
+            "offset": 1983,
+            "length": 4
+          },
+          "index": 1
+        }
+      },
+      {
+        "semantic": "missed_critical_care_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/missed_critical_care_norm",
+          "responseKey": "missed_critical_care_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.hometransportationbarriermonitor.input-analyst.assessment",
+          "region": {
+            "offset": 1983,
+            "length": 4
+          },
+          "index": 2
+        }
+      },
+      {
+        "semantic": "proximity_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/proximity_norm",
+          "responseKey": "proximity_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.hometransportationbarriermonitor.input-analyst.assessment",
+          "region": {
+            "offset": 1983,
+            "length": 4
+          },
+          "index": 3
+        }
+      }
+    ]
+  },
+  "diagnostics": {
+    "axisBasis": "sensorNormalization",
+    "warnings": [],
+    "inputLength": 4,
+    "sequenceCount": 3
+  }
+}

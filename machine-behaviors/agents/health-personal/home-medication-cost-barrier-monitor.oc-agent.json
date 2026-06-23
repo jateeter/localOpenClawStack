@@ -1,0 +1,345 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "oc-agent-template",
+  "role": "input-analyst",
+  "agentId": "home-medication-cost-barrier-monitor",
+  "displayName": "Home Medication Cost Barrier Monitor",
+  "machine": {
+    "id": "HomeMedicationCostBarrierMonitor",
+    "name": "Home Medication Cost Barrier Monitor",
+    "code": "homemedicationcostbarriermonitor",
+    "machineClass": "signal-monitor",
+    "domain": "health-personal",
+    "inputRegion": {
+      "offset": 1979,
+      "length": 4
+    },
+    "outputRegion": {
+      "offset": 2011,
+      "length": 4
+    }
+  },
+  "openclaw": {
+    "id": "openclaw-xacp",
+    "kind": "acp",
+    "platform": "OpenClaw",
+    "surface": "xACP",
+    "command": "openclaw acp",
+    "gatewayUrl": "ws://127.0.0.1:18789",
+    "sessionKey": "agent:main:main",
+    "targetAgent": "home-medication-cost-barrier-monitor",
+    "dispatchMode": "accepted-no-wait",
+    "completionMode": "pe-source-mapping",
+    "completionSourceMappingId": "acp-home-medication-cost-barrier-monitor-input-assessment"
+  },
+  "reasoning": {
+    "objective": "Produce the normalized input vector for \"Home Medication Cost Barrier Monitor\" from current observations so RE can evaluate its CES sequences.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Home Medication Cost Barrier Monitor\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Monitors prescription fill rates, dose adherence, cost-driven non-adherence, and generic/assistance program access for low- and medium-income adults managing chronic conditions at home. Medication cost barriers are a leading driver of avoidable hospitalization and disease progression in economically vulnerable populations. Output at [2011:2015] feeds the Home Social Isolation Monitor, capturing how pharmacy access barriers compound transportation and social barriers.\n\nPOPULATION: Adults on chronic medications; uninsured or underinsured patients; Medicare Part D gap patients; households below 200% FPL\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- fill_ratio_norm (index 0):  0.0 = no prescriptions filled (complete non-adherence) | 0.5 = ~50% of prescribed fills completed | 1.0 = all prescriptions filled on schedule\n- dose_adherence_norm (index 1):  0.0 = not taking medications (stopped or skipping >50% doses) | 0.5 = taking but rationing (splitting doses, skipping days) | 1.0 = full prescribed adherence\n- cost_barrier_norm (index 2):  0.0 = cost explicitly cited as reason for not filling (unaffordable even with insurance) | 0.5 = difficulty but managing with assistance | 1.0 = no cost barrier reported\n- generic_access_norm (index 3):  0.0 = no access to generic or assistance programs; paying full brand price or going without | 0.5 = partial program access (copay cards, one drug covered) | 1.0 = fully enrolled in PAP or full generic coverage\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- ADHERENCE_CRISIS (AMBER) -> action: Patient assistance program enrollment; 340B pharmacy referral; social worker outreach; emergency supply bridge\n- COST_BARRIER_ACTIVE (AMBER) -> action: Pharmacy assistance program review; GoodRx/NeedyMeds screening; formulary substitution review\n- MEDICATION_MANAGED (AMBER) -> action: Social isolation monitor registers medication access stable",
+    "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
+    "inputAxes": [
+      {
+        "index": 0,
+        "key": "fill_ratio_norm",
+        "anchors": {
+          "low": "no prescriptions filled (complete non-adherence)",
+          "mid": "~50% of prescribed fills completed",
+          "high": "all prescriptions filled on schedule"
+        }
+      },
+      {
+        "index": 1,
+        "key": "dose_adherence_norm",
+        "anchors": {
+          "low": "not taking medications (stopped or skipping >50% doses)",
+          "mid": "taking but rationing (splitting doses, skipping days)",
+          "high": "full prescribed adherence"
+        }
+      },
+      {
+        "index": 2,
+        "key": "cost_barrier_norm",
+        "anchors": {
+          "low": "cost explicitly cited as reason for not filling (unaffordable even with insurance)",
+          "mid": "difficulty but managing with assistance",
+          "high": "no cost barrier reported"
+        }
+      },
+      {
+        "index": 3,
+        "key": "generic_access_norm",
+        "anchors": {
+          "low": "no access to generic or assistance programs; paying full brand price or going without",
+          "mid": "partial program access (copay cards, one drug covered)",
+          "high": "fully enrolled in PAP or full generic coverage"
+        }
+      }
+    ],
+    "sequenceCatalog": [
+      {
+        "sequenceId": "med-cost-adherence-crisis",
+        "label": "ADHERENCE_CRISIS",
+        "rag": "AMBER",
+        "outputIndex": 0,
+        "action": "Patient assistance program enrollment; 340B pharmacy referral; social worker outreach; emergency supply bridge"
+      },
+      {
+        "sequenceId": "med-cost-barrier-active",
+        "label": "COST_BARRIER_ACTIVE",
+        "rag": "AMBER",
+        "outputIndex": 1,
+        "action": "Pharmacy assistance program review; GoodRx/NeedyMeds screening; formulary substitution review"
+      },
+      {
+        "sequenceId": "med-managed",
+        "label": "MEDICATION_MANAGED",
+        "rag": "AMBER",
+        "outputIndex": 3,
+        "action": "Social isolation monitor registers medication access stable"
+      }
+    ]
+  },
+  "agentBinding": {
+    "agent": "home-medication-cost-barrier-monitor",
+    "mode": "advise",
+    "trigger": "homemedicationcostbarriermonitor-input-assessment",
+    "allowedActions": [
+      "Assess current \"Home Medication Cost Barrier Monitor\" state from available observations and write the normalized input vector to the PE input region [1979:1983] for RE to evaluate."
+    ],
+    "writeBack": {
+      "type": "pe-sensor",
+      "provider": "acp",
+      "sensorId": "acp.openclaw.homemedicationcostbarriermonitor.input-analyst.assessment",
+      "name": "OpenClaw homemedicationcostbarriermonitor input-analyst assessment",
+      "region": {
+        "offset": 1979,
+        "length": 4
+      },
+      "semantics": [
+        "fill_ratio_norm",
+        "dose_adherence_norm",
+        "cost_barrier_norm",
+        "generic_access_norm"
+      ],
+      "ttlMs": 300000,
+      "normalization": "already-normalized-0-1",
+      "ingest": {
+        "endpoint": "/api/integrations/completions",
+        "method": "POST",
+        "triggerPush": false,
+        "compactPush": true
+      },
+      "sourceMapping": {
+        "id": "acp-homemedicationcostbarriermonitor-input-assessment",
+        "sensorId": "acp.openclaw.homemedicationcostbarriermonitor.input-analyst.assessment",
+        "name": "OpenClaw homemedicationcostbarriermonitor input-analyst assessment",
+        "region": {
+          "offset": 1979,
+          "length": 4
+        },
+        "ttlMs": 300000
+      }
+    },
+    "autonomyPolicy": {
+      "mode": "advise",
+      "stage": 1,
+      "writeBackType": "pe-sensor",
+      "canWriteBack": true,
+      "canStageActions": false,
+      "canExecuteActions": false,
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "blockedWhenRag": []
+    },
+    "riskControls": {
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "maxAutonomy": "advise",
+      "blockedWhenRag": []
+    }
+  },
+  "responseMapping": {
+    "schemaVersion": "1.0.0",
+    "responseContract": "structured-keys-or-text",
+    "mode": "advise",
+    "fields": [
+      {
+        "semantic": "fill_ratio_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/fill_ratio_norm",
+          "responseKey": "fill_ratio_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.homemedicationcostbarriermonitor.input-analyst.assessment",
+          "region": {
+            "offset": 1979,
+            "length": 4
+          },
+          "index": 0
+        }
+      },
+      {
+        "semantic": "dose_adherence_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/dose_adherence_norm",
+          "responseKey": "dose_adherence_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.homemedicationcostbarriermonitor.input-analyst.assessment",
+          "region": {
+            "offset": 1979,
+            "length": 4
+          },
+          "index": 1
+        }
+      },
+      {
+        "semantic": "cost_barrier_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/cost_barrier_norm",
+          "responseKey": "cost_barrier_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.homemedicationcostbarriermonitor.input-analyst.assessment",
+          "region": {
+            "offset": 1979,
+            "length": 4
+          },
+          "index": 2
+        }
+      },
+      {
+        "semantic": "generic_access_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/generic_access_norm",
+          "responseKey": "generic_access_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.homemedicationcostbarriermonitor.input-analyst.assessment",
+          "region": {
+            "offset": 1979,
+            "length": 4
+          },
+          "index": 3
+        }
+      }
+    ]
+  },
+  "diagnostics": {
+    "axisBasis": "sensorNormalization",
+    "warnings": [],
+    "inputLength": 4,
+    "sequenceCount": 3
+  }
+}

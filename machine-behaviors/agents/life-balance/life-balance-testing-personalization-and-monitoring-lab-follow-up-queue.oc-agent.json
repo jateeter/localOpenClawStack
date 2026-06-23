@@ -1,0 +1,354 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "oc-agent-template",
+  "role": "input-analyst",
+  "agentId": "life-balance-testing-personalization-and-monitoring-lab-follow-up-queue",
+  "displayName": "Life Balance Testing Personalization And Monitoring Lab Follow Up Queue",
+  "machine": {
+    "id": "LBL075_testing-personalization-and-monitoring-lab-follow-up-queue",
+    "name": "Life Balance Testing Personalization And Monitoring Lab Follow Up Queue",
+    "code": "lbl075_testing_personalization_and_monitoring_lab_follow_up_queue",
+    "machineClass": "agent-dispatcher",
+    "domain": "life-balance",
+    "inputRegion": {
+      "offset": 3139,
+      "length": 4
+    },
+    "outputRegion": {
+      "offset": 3143,
+      "length": 4
+    }
+  },
+  "openclaw": {
+    "id": "openclaw-xacp",
+    "kind": "acp",
+    "platform": "OpenClaw",
+    "surface": "xACP",
+    "command": "openclaw acp",
+    "gatewayUrl": "ws://127.0.0.1:18789",
+    "sessionKey": "agent:main:main",
+    "targetAgent": "life-balance-testing-personalization-and-monitoring-lab-follow-up-queue",
+    "dispatchMode": "accepted-no-wait",
+    "completionMode": "pe-source-mapping",
+    "completionSourceMappingId": "acp-life-balance-testing-personalization-and-monitoring-lab-follow-up-queue-input-assessment"
+  },
+  "reasoning": {
+    "objective": "Produce the normalized input vector for \"Life Balance Testing Personalization And Monitoring Lab Follow Up Queue\" from current observations so RE can evaluate its CES sequences.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Life Balance Testing Personalization And Monitoring Lab Follow Up Queue\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Life-balance machine for lab follow up queue in the testing personalization and monitoring workstream. It monitors ordered labs, completed labs, abnormal flags, and clinician review deadline to support lifestyle-psychiatry workflows spanning psychiatric care, nutrition, sleep, movement, stress resilience, monitoring, and projection. Example only; not medical advice.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- symptom-or-functional-concern (index 0):\n- lifestyle-barrier-or-preference (index 1):\n- monitoring-data-quality-or-readiness (index 2):\n- risk-safety-or-care-team-urgency (index 3):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Lab Follow Up Queue (AMBER) -> action: Route lab follow up queue concern to licensed care-team review.\n- Lab Follow Up Queue (GREEN) -> action: Adjust the life-balance plan for lab follow up queue using patient goals, barriers, and preferences.\n- Lab Follow Up Queue (GREEN) -> action: Create monitoring or follow-up task for lab follow up queue.\n- Lab Follow Up Queue (GREEN) -> action: Continue stable life-balance monitoring for lab follow up queue.",
+    "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
+    "inputAxes": [
+      {
+        "index": 0,
+        "key": "symptom-or-functional-concern",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 1,
+        "key": "lifestyle-barrier-or-preference",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 2,
+        "key": "monitoring-data-quality-or-readiness",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 3,
+        "key": "risk-safety-or-care-team-urgency",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      }
+    ],
+    "sequenceCatalog": [
+      {
+        "sequenceId": "lbl-075-care-team-review",
+        "label": "Lab Follow Up Queue",
+        "rag": "AMBER",
+        "outputIndex": 0,
+        "action": "Route lab follow up queue concern to licensed care-team review."
+      },
+      {
+        "sequenceId": "lbl-075-plan-adjust",
+        "label": "Lab Follow Up Queue",
+        "rag": "GREEN",
+        "outputIndex": 1,
+        "action": "Adjust the life-balance plan for lab follow up queue using patient goals, barriers, and preferences."
+      },
+      {
+        "sequenceId": "lbl-075-monitoring-task",
+        "label": "Lab Follow Up Queue",
+        "rag": "GREEN",
+        "outputIndex": 2,
+        "action": "Create monitoring or follow-up task for lab follow up queue."
+      },
+      {
+        "sequenceId": "lbl-075-stable-balance",
+        "label": "Lab Follow Up Queue",
+        "rag": "GREEN",
+        "outputIndex": 3,
+        "action": "Continue stable life-balance monitoring for lab follow up queue."
+      }
+    ]
+  },
+  "agentBinding": {
+    "agent": "life-balance-testing-personalization-and-monitoring-lab-follow-up-queue",
+    "mode": "advise",
+    "trigger": "lbl075_testing_personalization_and_monitoring_lab_follow_up_queue-input-assessment",
+    "allowedActions": [
+      "Assess current \"Life Balance Testing Personalization And Monitoring Lab Follow Up Queue\" state from available observations and write the normalized input vector to the PE input region [3139:3143] for RE to evaluate."
+    ],
+    "writeBack": {
+      "type": "pe-sensor",
+      "provider": "acp",
+      "sensorId": "acp.openclaw.lbl075_testing_personalization_and_monitoring_lab_follow_up_queue.input-analyst.assessment",
+      "name": "OpenClaw lbl075_testing_personalization_and_monitoring_lab_follow_up_queue input-analyst assessment",
+      "region": {
+        "offset": 3139,
+        "length": 4
+      },
+      "semantics": [
+        "symptom-or-functional-concern",
+        "lifestyle-barrier-or-preference",
+        "monitoring-data-quality-or-readiness",
+        "risk-safety-or-care-team-urgency"
+      ],
+      "ttlMs": 300000,
+      "normalization": "already-normalized-0-1",
+      "ingest": {
+        "endpoint": "/api/integrations/completions",
+        "method": "POST",
+        "triggerPush": false,
+        "compactPush": true
+      },
+      "sourceMapping": {
+        "id": "acp-lbl075_testing_personalization_and_monitoring_lab_follow_up_queue-input-assessment",
+        "sensorId": "acp.openclaw.lbl075_testing_personalization_and_monitoring_lab_follow_up_queue.input-analyst.assessment",
+        "name": "OpenClaw lbl075_testing_personalization_and_monitoring_lab_follow_up_queue input-analyst assessment",
+        "region": {
+          "offset": 3139,
+          "length": 4
+        },
+        "ttlMs": 300000
+      }
+    },
+    "autonomyPolicy": {
+      "mode": "advise",
+      "stage": 1,
+      "writeBackType": "pe-sensor",
+      "canWriteBack": true,
+      "canStageActions": false,
+      "canExecuteActions": false,
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "blockedWhenRag": []
+    },
+    "riskControls": {
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "maxAutonomy": "advise",
+      "blockedWhenRag": []
+    }
+  },
+  "responseMapping": {
+    "schemaVersion": "1.0.0",
+    "responseContract": "structured-keys-or-text",
+    "mode": "advise",
+    "fields": [
+      {
+        "semantic": "symptom-or-functional-concern",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/symptom-or-functional-concern",
+          "responseKey": "symptom-or-functional-concern",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lbl075_testing_personalization_and_monitoring_lab_follow_up_queue.input-analyst.assessment",
+          "region": {
+            "offset": 3139,
+            "length": 4
+          },
+          "index": 0
+        }
+      },
+      {
+        "semantic": "lifestyle-barrier-or-preference",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/lifestyle-barrier-or-preference",
+          "responseKey": "lifestyle-barrier-or-preference",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lbl075_testing_personalization_and_monitoring_lab_follow_up_queue.input-analyst.assessment",
+          "region": {
+            "offset": 3139,
+            "length": 4
+          },
+          "index": 1
+        }
+      },
+      {
+        "semantic": "monitoring-data-quality-or-readiness",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/monitoring-data-quality-or-readiness",
+          "responseKey": "monitoring-data-quality-or-readiness",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lbl075_testing_personalization_and_monitoring_lab_follow_up_queue.input-analyst.assessment",
+          "region": {
+            "offset": 3139,
+            "length": 4
+          },
+          "index": 2
+        }
+      },
+      {
+        "semantic": "risk-safety-or-care-team-urgency",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/risk-safety-or-care-team-urgency",
+          "responseKey": "risk-safety-or-care-team-urgency",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lbl075_testing_personalization_and_monitoring_lab_follow_up_queue.input-analyst.assessment",
+          "region": {
+            "offset": 3139,
+            "length": 4
+          },
+          "index": 3
+        }
+      }
+    ]
+  },
+  "diagnostics": {
+    "axisBasis": "inputSemantics",
+    "warnings": [
+      "input axes derived from inputSemantics (no length-matched sensorNormalization)"
+    ],
+    "inputLength": 4,
+    "sequenceCount": 4
+  }
+}

@@ -1,0 +1,338 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "oc-agent-template",
+  "role": "input-analyst",
+  "agentId": "openclaw-completion-e2e",
+  "displayName": "OpenClaw Completion E2E",
+  "machine": {
+    "id": "OpenClawCompletionE2E",
+    "name": "OpenClaw Completion E2E",
+    "code": "openclaw_completion_e2e",
+    "machineClass": "agent-dispatcher",
+    "domain": "digital-logic",
+    "inputRegion": {
+      "offset": 4210,
+      "length": 4
+    },
+    "outputRegion": {
+      "offset": 4214,
+      "length": 4
+    }
+  },
+  "openclaw": {
+    "id": "openclaw-xacp",
+    "kind": "acp",
+    "platform": "OpenClaw",
+    "surface": "xACP",
+    "command": "openclaw acp",
+    "gatewayUrl": "ws://127.0.0.1:18789",
+    "sessionKey": "agent:main:main",
+    "targetAgent": "openclaw-completion-e2e",
+    "dispatchMode": "accepted-no-wait",
+    "completionMode": "pe-source-mapping",
+    "completionSourceMappingId": "acp-openclaw-completion-e2e-input-assessment"
+  },
+  "reasoning": {
+    "objective": "Produce the normalized input vector for \"OpenClaw Completion E2E\" from current observations so RE can evaluate its CES sequences.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"OpenClaw Completion E2E\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Deterministic integration fixture for proving an ACP dispatch handoff followed by OpenClaw completion ingestion through the Perception Engine.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- completed (index 0):  0.0 = pending | 0.5 =  | 1.0 = completed\n- failed (index 1):  0.0 = not failed | 0.5 =  | 1.0 = failed\n- confidence (index 2):  0.0 = no confidence | 0.5 =  | 1.0 = maximum confidence\n- actionClass (index 3):  0.0 = no action | 0.5 =  | 1.0 = action required\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- openclaw-e2e-dispatch-seed (AMBER)\n- openclaw-e2e-completion-accepted (GREEN)",
+    "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
+    "inputAxes": [
+      {
+        "index": 0,
+        "key": "completed",
+        "anchors": {
+          "low": "pending",
+          "mid": "",
+          "high": "completed"
+        }
+      },
+      {
+        "index": 1,
+        "key": "failed",
+        "anchors": {
+          "low": "not failed",
+          "mid": "",
+          "high": "failed"
+        }
+      },
+      {
+        "index": 2,
+        "key": "confidence",
+        "anchors": {
+          "low": "no confidence",
+          "mid": "",
+          "high": "maximum confidence"
+        }
+      },
+      {
+        "index": 3,
+        "key": "actionClass",
+        "anchors": {
+          "low": "no action",
+          "mid": "",
+          "high": "action required"
+        }
+      }
+    ],
+    "sequenceCatalog": [
+      {
+        "sequenceId": "openclaw-e2e-dispatch-seed",
+        "label": "openclaw-e2e-dispatch-seed",
+        "rag": "AMBER",
+        "outputIndex": 0,
+        "action": ""
+      },
+      {
+        "sequenceId": "openclaw-e2e-completion-accepted",
+        "label": "openclaw-e2e-completion-accepted",
+        "rag": "GREEN",
+        "outputIndex": 3,
+        "action": ""
+      }
+    ]
+  },
+  "agentBinding": {
+    "agent": "openclaw-completion-e2e",
+    "mode": "advise",
+    "trigger": "openclaw_completion_e2e-input-assessment",
+    "allowedActions": [
+      "Assess current \"OpenClaw Completion E2E\" state from available observations and write the normalized input vector to the PE input region [4210:4214] for RE to evaluate."
+    ],
+    "writeBack": {
+      "type": "pe-sensor",
+      "provider": "acp",
+      "sensorId": "acp.openclaw.openclaw_completion_e2e.input-analyst.assessment",
+      "name": "OpenClaw openclaw_completion_e2e input-analyst assessment",
+      "region": {
+        "offset": 4210,
+        "length": 4
+      },
+      "semantics": [
+        "completed",
+        "failed",
+        "confidence",
+        "actionClass"
+      ],
+      "ttlMs": 300000,
+      "normalization": "already-normalized-0-1",
+      "ingest": {
+        "endpoint": "/api/integrations/completions",
+        "method": "POST",
+        "triggerPush": false,
+        "compactPush": true
+      },
+      "sourceMapping": {
+        "id": "acp-openclaw_completion_e2e-input-assessment",
+        "sensorId": "acp.openclaw.openclaw_completion_e2e.input-analyst.assessment",
+        "name": "OpenClaw openclaw_completion_e2e input-analyst assessment",
+        "region": {
+          "offset": 4210,
+          "length": 4
+        },
+        "ttlMs": 300000
+      }
+    },
+    "autonomyPolicy": {
+      "mode": "advise",
+      "stage": 1,
+      "writeBackType": "pe-sensor",
+      "canWriteBack": true,
+      "canStageActions": false,
+      "canExecuteActions": false,
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "blockedWhenRag": []
+    },
+    "riskControls": {
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "maxAutonomy": "advise",
+      "blockedWhenRag": []
+    }
+  },
+  "responseMapping": {
+    "schemaVersion": "1.0.0",
+    "responseContract": "structured-keys-or-text",
+    "mode": "advise",
+    "fields": [
+      {
+        "semantic": "completed",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/completed",
+          "responseKey": "completed",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.openclaw_completion_e2e.input-analyst.assessment",
+          "region": {
+            "offset": 4210,
+            "length": 4
+          },
+          "index": 0
+        }
+      },
+      {
+        "semantic": "failed",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/failed",
+          "responseKey": "failed",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.openclaw_completion_e2e.input-analyst.assessment",
+          "region": {
+            "offset": 4210,
+            "length": 4
+          },
+          "index": 1
+        }
+      },
+      {
+        "semantic": "confidence",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/confidence",
+          "responseKey": "confidence",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.openclaw_completion_e2e.input-analyst.assessment",
+          "region": {
+            "offset": 4210,
+            "length": 4
+          },
+          "index": 2
+        }
+      },
+      {
+        "semantic": "actionClass",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/actionClass",
+          "responseKey": "actionClass",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.openclaw_completion_e2e.input-analyst.assessment",
+          "region": {
+            "offset": 4210,
+            "length": 4
+          },
+          "index": 3
+        }
+      }
+    ]
+  },
+  "diagnostics": {
+    "axisBasis": "sensorNormalization",
+    "warnings": [],
+    "inputLength": 4,
+    "sequenceCount": 2
+  }
+}

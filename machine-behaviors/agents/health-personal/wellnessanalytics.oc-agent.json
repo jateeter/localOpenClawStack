@@ -1,0 +1,580 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "oc-agent-template",
+  "role": "input-analyst",
+  "agentId": "wellnessanalytics",
+  "displayName": "WellnessAnalytics",
+  "machine": {
+    "id": "WellnessAnalytics",
+    "name": "WellnessAnalytics",
+    "code": "wellnessanalytics",
+    "machineClass": "outcome-stabilizer",
+    "domain": "health-personal",
+    "inputRegion": {
+      "offset": 3931,
+      "length": 8
+    },
+    "outputRegion": {
+      "offset": 3939,
+      "length": 8
+    }
+  },
+  "openclaw": {
+    "id": "openclaw-xacp",
+    "kind": "acp",
+    "platform": "OpenClaw",
+    "surface": "xACP",
+    "command": "openclaw acp",
+    "gatewayUrl": "ws://127.0.0.1:18789",
+    "sessionKey": "agent:main:main",
+    "targetAgent": "wellnessanalytics",
+    "dispatchMode": "accepted-no-wait",
+    "completionMode": "pe-source-mapping",
+    "completionSourceMappingId": "acp-wellnessanalytics-input-assessment"
+  },
+  "reasoning": {
+    "objective": "Produce the normalized input vector for \"WellnessAnalytics\" from current observations so RE can evaluate its CES sequences.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"WellnessAnalytics\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Analytics layer that consumes PatientWellness four-level metric outputs and detects longitudinal anomaly patterns \u2014 sustained deterioration, rapid decline, and recovery. Routes clinical decisions to downstream machines: NewPatientInflow (for community-dwelling patients requiring initial assisted living evaluation) and CareTransitionWorkflow (for facility residents requiring care level changes). Produces six routing outputs covering both community and facility escalation paths.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- wellnessanalytics-input-1 (index 0):\n- wellnessanalytics-input-2 (index 1):\n- wellnessanalytics-input-3 (index 2):\n- wellnessanalytics-input-4 (index 3):\n- wellnessanalytics-input-5 (index 4):\n- wellnessanalytics-input-6 (index 5):\n- wellnessanalytics-input-7 (index 6):\n- wellnessanalytics-input-8 (index 7):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- wa-sustained-alert-community (AMBER) -> action: Initiate NewPatientInflow evaluation. Schedule intake appointment. Inform family of evaluation recommendation. Begin prescreening checklist. Patient retains full autonomy \u2014 evaluation is a recommendation, not a mandate.\n- wa-critical-community (RED) -> action: Initiate urgent NewPatientInflow evaluation. Notify family immediately. Physician or NP assessment within 24 hours to assess for concurrent clinical emergency. If life-threatening condition present: activate CareTransitionWorkflow Scenario 1 first, then INFLOW_URGENT upon stabilization.\n- wa-sustained-alert-facility (AMBER) -> action: Convene interdisciplinary team meeting within 5 days. Assess whether current facility level of care can address identified wellness deficits with care plan modification, or whether a higher level of care (SNF, memory care, hospital) is clinically indicated. Initiate CareTransitionWorkflow planned transition sequences if care level change is warranted.\n- wa-critical-facility (RED) -> action: Notify attending physician immediately. Activate CareTransitionWorkflow Sequence 5 (emergency escalation). Assess for reversible CRITICAL causes (UTI, dehydration, medication toxicity, acute depression) before activating hospital transfer \u2014 if reversible cause identified and treatable in facility, physician may elect to treat in place and re-assess. Family notification mandatory within 24 hours.\n- wa-rapid-decline (RED) -> action: Physician or NP assessment within 24 hours. Investigate cause of rapid decline: new diagnosis, medication change, acute illness, environmental disruption, significant loss event. If clinical cause identified and reversible in current setting: treat in place and re-assess at next cycle. If cause requires higher level of care: activate CareTransitionWorkflow planned or emergency transition. Do not wait for Sequence 3 two-cycle confirmation \u2014 TRANSITION_URGENT is the velocity-triggered parallel path.\n- wa-wellness-improving (AMBER) -> action: Notify care team of wellness improvement. Do NOT cancel any pending TRANSITION_REVIEW meetings \u2014 confirm recovery holds at next assessment cycle before closing the ALERT episode. Document which interventions correlated with the improvement. Maintain increased monitoring frequency for 2 more cycles. If recovery is confirmed at next cycle, de-escalate to standard bi-weekly monitoring.",
+    "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
+    "inputAxes": [
+      {
+        "index": 0,
+        "key": "wellnessanalytics-input-1",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 1,
+        "key": "wellnessanalytics-input-2",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 2,
+        "key": "wellnessanalytics-input-3",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 3,
+        "key": "wellnessanalytics-input-4",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 4,
+        "key": "wellnessanalytics-input-5",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 5,
+        "key": "wellnessanalytics-input-6",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 6,
+        "key": "wellnessanalytics-input-7",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 7,
+        "key": "wellnessanalytics-input-8",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      }
+    ],
+    "sequenceCatalog": [
+      {
+        "sequenceId": "wa-sustained-alert-community",
+        "label": "wa-sustained-alert-community",
+        "rag": "AMBER",
+        "outputIndex": 0,
+        "action": "Initiate NewPatientInflow evaluation. Schedule intake appointment. Inform family of evaluation recommendation. Begin prescreening checklist. Patient retains full autonomy \u2014 evaluation is a recommendation, not a mandate."
+      },
+      {
+        "sequenceId": "wa-critical-community",
+        "label": "wa-critical-community",
+        "rag": "RED",
+        "outputIndex": 1,
+        "action": "Initiate urgent NewPatientInflow evaluation. Notify family immediately. Physician or NP assessment within 24 hours to assess for concurrent clinical emergency. If life-threatening condition present: activate CareTransitionWorkflow Scenario 1 first, then INFLOW_URGENT upon stabilization."
+      },
+      {
+        "sequenceId": "wa-sustained-alert-facility",
+        "label": "wa-sustained-alert-facility",
+        "rag": "AMBER",
+        "outputIndex": 2,
+        "action": "Convene interdisciplinary team meeting within 5 days. Assess whether current facility level of care can address identified wellness deficits with care plan modification, or whether a higher level of care (SNF, memory care, hospital) is clinically indicated. Initiate CareTransitionWorkflow planned transition sequences if care level change is warranted."
+      },
+      {
+        "sequenceId": "wa-critical-facility",
+        "label": "wa-critical-facility",
+        "rag": "RED",
+        "outputIndex": 3,
+        "action": "Notify attending physician immediately. Activate CareTransitionWorkflow Sequence 5 (emergency escalation). Assess for reversible CRITICAL causes (UTI, dehydration, medication toxicity, acute depression) before activating hospital transfer \u2014 if reversible cause identified and treatable in facility, physician may elect to treat in place and re-assess. Family notification mandatory within 24 hours."
+      },
+      {
+        "sequenceId": "wa-rapid-decline",
+        "label": "wa-rapid-decline",
+        "rag": "RED",
+        "outputIndex": 4,
+        "action": "Physician or NP assessment within 24 hours. Investigate cause of rapid decline: new diagnosis, medication change, acute illness, environmental disruption, significant loss event. If clinical cause identified and reversible in current setting: treat in place and re-assess at next cycle. If cause requires higher level of care: activate CareTransitionWorkflow planned or emergency transition. Do not wait for Sequence 3 two-cycle confirmation \u2014 TRANSITION_URGENT is the velocity-triggered parallel path."
+      },
+      {
+        "sequenceId": "wa-wellness-improving",
+        "label": "wa-wellness-improving",
+        "rag": "AMBER",
+        "outputIndex": 5,
+        "action": "Notify care team of wellness improvement. Do NOT cancel any pending TRANSITION_REVIEW meetings \u2014 confirm recovery holds at next assessment cycle before closing the ALERT episode. Document which interventions correlated with the improvement. Maintain increased monitoring frequency for 2 more cycles. If recovery is confirmed at next cycle, de-escalate to standard bi-weekly monitoring."
+      }
+    ]
+  },
+  "agentBinding": {
+    "agent": "wellnessanalytics",
+    "mode": "advise",
+    "trigger": "wellnessanalytics-input-assessment",
+    "allowedActions": [
+      "Assess current \"WellnessAnalytics\" state from available observations and write the normalized input vector to the PE input region [3931:3939] for RE to evaluate."
+    ],
+    "writeBack": {
+      "type": "pe-sensor",
+      "provider": "acp",
+      "sensorId": "acp.openclaw.wellnessanalytics.input-analyst.assessment",
+      "name": "OpenClaw wellnessanalytics input-analyst assessment",
+      "region": {
+        "offset": 3931,
+        "length": 8
+      },
+      "semantics": [
+        "wellnessanalytics-input-1",
+        "wellnessanalytics-input-2",
+        "wellnessanalytics-input-3",
+        "wellnessanalytics-input-4",
+        "wellnessanalytics-input-5",
+        "wellnessanalytics-input-6",
+        "wellnessanalytics-input-7",
+        "wellnessanalytics-input-8"
+      ],
+      "ttlMs": 300000,
+      "normalization": "already-normalized-0-1",
+      "ingest": {
+        "endpoint": "/api/integrations/completions",
+        "method": "POST",
+        "triggerPush": false,
+        "compactPush": true
+      },
+      "sourceMapping": {
+        "id": "acp-wellnessanalytics-input-assessment",
+        "sensorId": "acp.openclaw.wellnessanalytics.input-analyst.assessment",
+        "name": "OpenClaw wellnessanalytics input-analyst assessment",
+        "region": {
+          "offset": 3931,
+          "length": 8
+        },
+        "ttlMs": 300000
+      }
+    },
+    "autonomyPolicy": {
+      "mode": "advise",
+      "stage": 1,
+      "writeBackType": "pe-sensor",
+      "canWriteBack": true,
+      "canStageActions": false,
+      "canExecuteActions": false,
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "blockedWhenRag": []
+    },
+    "riskControls": {
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "maxAutonomy": "advise",
+      "blockedWhenRag": []
+    }
+  },
+  "responseMapping": {
+    "schemaVersion": "1.0.0",
+    "responseContract": "structured-keys-or-text",
+    "mode": "advise",
+    "fields": [
+      {
+        "semantic": "wellnessanalytics-input-1",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/wellnessanalytics-input-1",
+          "responseKey": "wellnessanalytics-input-1",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.wellnessanalytics.input-analyst.assessment",
+          "region": {
+            "offset": 3931,
+            "length": 8
+          },
+          "index": 0
+        }
+      },
+      {
+        "semantic": "wellnessanalytics-input-2",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/wellnessanalytics-input-2",
+          "responseKey": "wellnessanalytics-input-2",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.wellnessanalytics.input-analyst.assessment",
+          "region": {
+            "offset": 3931,
+            "length": 8
+          },
+          "index": 1
+        }
+      },
+      {
+        "semantic": "wellnessanalytics-input-3",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/wellnessanalytics-input-3",
+          "responseKey": "wellnessanalytics-input-3",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.wellnessanalytics.input-analyst.assessment",
+          "region": {
+            "offset": 3931,
+            "length": 8
+          },
+          "index": 2
+        }
+      },
+      {
+        "semantic": "wellnessanalytics-input-4",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/wellnessanalytics-input-4",
+          "responseKey": "wellnessanalytics-input-4",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.wellnessanalytics.input-analyst.assessment",
+          "region": {
+            "offset": 3931,
+            "length": 8
+          },
+          "index": 3
+        }
+      },
+      {
+        "semantic": "wellnessanalytics-input-5",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/wellnessanalytics-input-5",
+          "responseKey": "wellnessanalytics-input-5",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.wellnessanalytics.input-analyst.assessment",
+          "region": {
+            "offset": 3931,
+            "length": 8
+          },
+          "index": 4
+        }
+      },
+      {
+        "semantic": "wellnessanalytics-input-6",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/wellnessanalytics-input-6",
+          "responseKey": "wellnessanalytics-input-6",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.wellnessanalytics.input-analyst.assessment",
+          "region": {
+            "offset": 3931,
+            "length": 8
+          },
+          "index": 5
+        }
+      },
+      {
+        "semantic": "wellnessanalytics-input-7",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/wellnessanalytics-input-7",
+          "responseKey": "wellnessanalytics-input-7",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.wellnessanalytics.input-analyst.assessment",
+          "region": {
+            "offset": 3931,
+            "length": 8
+          },
+          "index": 6
+        }
+      },
+      {
+        "semantic": "wellnessanalytics-input-8",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/wellnessanalytics-input-8",
+          "responseKey": "wellnessanalytics-input-8",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.wellnessanalytics.input-analyst.assessment",
+          "region": {
+            "offset": 3931,
+            "length": 8
+          },
+          "index": 7
+        }
+      }
+    ]
+  },
+  "diagnostics": {
+    "axisBasis": "inputSemantics",
+    "warnings": [
+      "input axes derived from inputSemantics (no length-matched sensorNormalization)"
+    ],
+    "inputLength": 8,
+    "sequenceCount": 6
+  }
+}

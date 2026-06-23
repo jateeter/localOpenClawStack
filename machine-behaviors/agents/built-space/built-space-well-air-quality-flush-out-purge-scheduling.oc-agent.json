@@ -1,0 +1,361 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "oc-agent-template",
+  "role": "input-analyst",
+  "agentId": "built-space-well-air-quality-flush-out-purge-scheduling",
+  "displayName": "Built Space WELL Air Quality Flush Out Purge Scheduling",
+  "machine": {
+    "id": "BSX027_air-quality-flush-out-purge-scheduling",
+    "name": "Built Space WELL Air Quality Flush Out Purge Scheduling",
+    "code": "bsx027_air_quality_flush_out_purge_scheduling",
+    "machineClass": "agent-dispatcher",
+    "domain": "built-space",
+    "inputRegion": {
+      "offset": 420,
+      "length": 4
+    },
+    "outputRegion": {
+      "offset": 424,
+      "length": 4
+    }
+  },
+  "openclaw": {
+    "id": "openclaw-xacp",
+    "kind": "acp",
+    "platform": "OpenClaw",
+    "surface": "xACP",
+    "command": "openclaw acp",
+    "gatewayUrl": "ws://127.0.0.1:18789",
+    "sessionKey": "agent:main:main",
+    "targetAgent": "built-space-well-air-quality-flush-out-purge-scheduling",
+    "dispatchMode": "accepted-no-wait",
+    "completionMode": "pe-source-mapping",
+    "completionSourceMappingId": "acp-built-space-well-air-quality-flush-out-purge-scheduling-input-assessment"
+  },
+  "reasoning": {
+    "objective": "Produce the normalized input vector for \"Built Space WELL Air Quality Flush Out Purge Scheduling\" from current observations so RE can evaluate its CES sequences.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Built Space WELL Air Quality Flush Out Purge Scheduling\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Built-Space domain machine for WELL-oriented flush out purge scheduling in the air quality workstream. It monitors post-cleaning purge, high-occupancy purge, IAQ complaints, and recovery time and emits AI-triggered outputs for verification, predictive optimization, operations work, and sustained compliant operation.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- health-performance-signal-stable (index 0):\n- evidence-or-policy-current (index 1):\n- maintenance-or-operational-drift-pressure (index 2):\n- occupant-impact-or-wellness-risk (index 3):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Flush Out Purge Scheduling (AMBER) -> action: Dispatch well_feedback_agent to verify WELL operational conformance for flush out purge scheduling.\n- Flush Out Purge Scheduling (AMBER) -> action: Run predictive optimization for flush out purge scheduling using occupant, system, and evidence trends.\n- Flush Out Purge Scheduling (GREEN) -> action: Create an operations, maintenance, policy, or evidence work order for flush out purge scheduling.\n- Flush Out Purge Scheduling (GREEN) -> action: Mark flush out purge scheduling in the current compliant operating window.\n- Flush Out Purge Scheduling (GREEN) -> action: Run predictive optimization for flush out purge scheduling using occupant, system, and evidence trends.",
+    "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
+    "inputAxes": [
+      {
+        "index": 0,
+        "key": "health-performance-signal-stable",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 1,
+        "key": "evidence-or-policy-current",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 2,
+        "key": "maintenance-or-operational-drift-pressure",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 3,
+        "key": "occupant-impact-or-wellness-risk",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      }
+    ],
+    "sequenceCatalog": [
+      {
+        "sequenceId": "bsx-027-verify",
+        "label": "Flush Out Purge Scheduling",
+        "rag": "AMBER",
+        "outputIndex": 0,
+        "action": "Dispatch well_feedback_agent to verify WELL operational conformance for flush out purge scheduling."
+      },
+      {
+        "sequenceId": "bsx-027-optimize",
+        "label": "Flush Out Purge Scheduling",
+        "rag": "AMBER",
+        "outputIndex": 1,
+        "action": "Run predictive optimization for flush out purge scheduling using occupant, system, and evidence trends."
+      },
+      {
+        "sequenceId": "bsx-027-work-order",
+        "label": "Flush Out Purge Scheduling",
+        "rag": "GREEN",
+        "outputIndex": 2,
+        "action": "Create an operations, maintenance, policy, or evidence work order for flush out purge scheduling."
+      },
+      {
+        "sequenceId": "bsx-027-compliant",
+        "label": "Flush Out Purge Scheduling",
+        "rag": "GREEN",
+        "outputIndex": 3,
+        "action": "Mark flush out purge scheduling in the current compliant operating window."
+      },
+      {
+        "sequenceId": "bsx-027-predictive-24h",
+        "label": "Flush Out Purge Scheduling",
+        "rag": "GREEN",
+        "outputIndex": 1,
+        "action": "Run predictive optimization for flush out purge scheduling using occupant, system, and evidence trends."
+      }
+    ]
+  },
+  "agentBinding": {
+    "agent": "built-space-well-air-quality-flush-out-purge-scheduling",
+    "mode": "advise",
+    "trigger": "bsx027_air_quality_flush_out_purge_scheduling-input-assessment",
+    "allowedActions": [
+      "Assess current \"Built Space WELL Air Quality Flush Out Purge Scheduling\" state from available observations and write the normalized input vector to the PE input region [420:424] for RE to evaluate."
+    ],
+    "writeBack": {
+      "type": "pe-sensor",
+      "provider": "acp",
+      "sensorId": "acp.openclaw.bsx027_air_quality_flush_out_purge_scheduling.input-analyst.assessment",
+      "name": "OpenClaw bsx027_air_quality_flush_out_purge_scheduling input-analyst assessment",
+      "region": {
+        "offset": 420,
+        "length": 4
+      },
+      "semantics": [
+        "health-performance-signal-stable",
+        "evidence-or-policy-current",
+        "maintenance-or-operational-drift-pressure",
+        "occupant-impact-or-wellness-risk"
+      ],
+      "ttlMs": 300000,
+      "normalization": "already-normalized-0-1",
+      "ingest": {
+        "endpoint": "/api/integrations/completions",
+        "method": "POST",
+        "triggerPush": false,
+        "compactPush": true
+      },
+      "sourceMapping": {
+        "id": "acp-bsx027_air_quality_flush_out_purge_scheduling-input-assessment",
+        "sensorId": "acp.openclaw.bsx027_air_quality_flush_out_purge_scheduling.input-analyst.assessment",
+        "name": "OpenClaw bsx027_air_quality_flush_out_purge_scheduling input-analyst assessment",
+        "region": {
+          "offset": 420,
+          "length": 4
+        },
+        "ttlMs": 300000
+      }
+    },
+    "autonomyPolicy": {
+      "mode": "advise",
+      "stage": 1,
+      "writeBackType": "pe-sensor",
+      "canWriteBack": true,
+      "canStageActions": false,
+      "canExecuteActions": false,
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "blockedWhenRag": []
+    },
+    "riskControls": {
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "maxAutonomy": "advise",
+      "blockedWhenRag": []
+    }
+  },
+  "responseMapping": {
+    "schemaVersion": "1.0.0",
+    "responseContract": "structured-keys-or-text",
+    "mode": "advise",
+    "fields": [
+      {
+        "semantic": "health-performance-signal-stable",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/health-performance-signal-stable",
+          "responseKey": "health-performance-signal-stable",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.bsx027_air_quality_flush_out_purge_scheduling.input-analyst.assessment",
+          "region": {
+            "offset": 420,
+            "length": 4
+          },
+          "index": 0
+        }
+      },
+      {
+        "semantic": "evidence-or-policy-current",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/evidence-or-policy-current",
+          "responseKey": "evidence-or-policy-current",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.bsx027_air_quality_flush_out_purge_scheduling.input-analyst.assessment",
+          "region": {
+            "offset": 420,
+            "length": 4
+          },
+          "index": 1
+        }
+      },
+      {
+        "semantic": "maintenance-or-operational-drift-pressure",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/maintenance-or-operational-drift-pressure",
+          "responseKey": "maintenance-or-operational-drift-pressure",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.bsx027_air_quality_flush_out_purge_scheduling.input-analyst.assessment",
+          "region": {
+            "offset": 420,
+            "length": 4
+          },
+          "index": 2
+        }
+      },
+      {
+        "semantic": "occupant-impact-or-wellness-risk",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/occupant-impact-or-wellness-risk",
+          "responseKey": "occupant-impact-or-wellness-risk",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.bsx027_air_quality_flush_out_purge_scheduling.input-analyst.assessment",
+          "region": {
+            "offset": 420,
+            "length": 4
+          },
+          "index": 3
+        }
+      }
+    ]
+  },
+  "diagnostics": {
+    "axisBasis": "inputSemantics",
+    "warnings": [
+      "input axes derived from inputSemantics (no length-matched sensorNormalization)"
+    ],
+    "inputLength": 4,
+    "sequenceCount": 5
+  }
+}

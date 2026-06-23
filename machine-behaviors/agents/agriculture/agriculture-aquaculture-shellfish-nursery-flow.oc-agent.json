@@ -1,0 +1,352 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "oc-agent-template",
+  "role": "input-analyst",
+  "agentId": "agriculture-aquaculture-shellfish-nursery-flow",
+  "displayName": "Agriculture Aquaculture Shellfish Nursery Flow",
+  "machine": {
+    "id": "AGX014_aquaculture-shellfish-nursery-flow",
+    "name": "Agriculture Aquaculture Shellfish Nursery Flow",
+    "code": "agx014_aquaculture_shellfish_nursery_flow",
+    "machineClass": "agent-dispatcher",
+    "domain": "agriculture",
+    "inputRegion": {
+      "offset": 116,
+      "length": 4
+    },
+    "outputRegion": {
+      "offset": 120,
+      "length": 4
+    }
+  },
+  "openclaw": {
+    "id": "openclaw-xacp",
+    "kind": "acp",
+    "platform": "OpenClaw",
+    "surface": "xACP",
+    "command": "openclaw acp",
+    "gatewayUrl": "ws://127.0.0.1:18789",
+    "sessionKey": "agent:main:main",
+    "targetAgent": "agriculture-aquaculture-shellfish-nursery-flow",
+    "dispatchMode": "accepted-no-wait",
+    "completionMode": "pe-source-mapping",
+    "completionSourceMappingId": "acp-agriculture-aquaculture-shellfish-nursery-flow-input-assessment"
+  },
+  "reasoning": {
+    "objective": "Produce the normalized input vector for \"Agriculture Aquaculture Shellfish Nursery Flow\" from current observations so RE can evaluate its CES sequences.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Agriculture Aquaculture Shellfish Nursery Flow\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Agriculture domain machine for aquaculture operations focused on shellfish nursery flow. It monitors upweller flow, food availability, density, and fouling pressure and emits AI-dispatchable outputs at [120:124] for automation, maintenance, and optimization workflows.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- process_stability_norm (index 0):  0.0 = unstable or outside safe operating band; | 0.5 = watch band; | 1.0 = stable in target band\n- resource_efficiency_norm (index 1):  0.0 = wasteful or constrained; | 0.5 = acceptable; | 1.0 = efficient and available\n- biosecurity_or_ipm_norm (index 2):  0.0 = active biological threat; | 0.5 = mitigated watch state; | 1.0 = controlled and documented\n- maintenance_readiness_norm (index 3):  0.0 = overdue or faulted; | 0.5 = service due soon; | 1.0 = maintained and verified\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- agx-014-urgent-stabilize (RED) -> action: Dispatch aquaculture_feed_optimization_agent to stabilize shellfish nursery flow and record corrective action.\n- agx-014-optimize-operation (GREEN) -> action: Run AI optimization for shellfish nursery flow using the latest operating window and production targets.\n- agx-014-preventive-maintenance (GREEN) -> action: Create preventive-maintenance work for shellfish nursery flow and verify completion telemetry.\n- agx-014-operating-window-ok (GREEN) -> action: Continue automated monitoring for shellfish nursery flow while preserving current setpoints.",
+    "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
+    "inputAxes": [
+      {
+        "index": 0,
+        "key": "process_stability_norm",
+        "anchors": {
+          "low": "unstable or outside safe operating band;",
+          "mid": "watch band;",
+          "high": "stable in target band"
+        }
+      },
+      {
+        "index": 1,
+        "key": "resource_efficiency_norm",
+        "anchors": {
+          "low": "wasteful or constrained;",
+          "mid": "acceptable;",
+          "high": "efficient and available"
+        }
+      },
+      {
+        "index": 2,
+        "key": "biosecurity_or_ipm_norm",
+        "anchors": {
+          "low": "active biological threat;",
+          "mid": "mitigated watch state;",
+          "high": "controlled and documented"
+        }
+      },
+      {
+        "index": 3,
+        "key": "maintenance_readiness_norm",
+        "anchors": {
+          "low": "overdue or faulted;",
+          "mid": "service due soon;",
+          "high": "maintained and verified"
+        }
+      }
+    ],
+    "sequenceCatalog": [
+      {
+        "sequenceId": "agx-014-urgent-stabilize",
+        "label": "agx-014-urgent-stabilize",
+        "rag": "RED",
+        "outputIndex": 0,
+        "action": "Dispatch aquaculture_feed_optimization_agent to stabilize shellfish nursery flow and record corrective action."
+      },
+      {
+        "sequenceId": "agx-014-optimize-operation",
+        "label": "agx-014-optimize-operation",
+        "rag": "GREEN",
+        "outputIndex": 1,
+        "action": "Run AI optimization for shellfish nursery flow using the latest operating window and production targets."
+      },
+      {
+        "sequenceId": "agx-014-preventive-maintenance",
+        "label": "agx-014-preventive-maintenance",
+        "rag": "GREEN",
+        "outputIndex": 2,
+        "action": "Create preventive-maintenance work for shellfish nursery flow and verify completion telemetry."
+      },
+      {
+        "sequenceId": "agx-014-operating-window-ok",
+        "label": "agx-014-operating-window-ok",
+        "rag": "GREEN",
+        "outputIndex": 3,
+        "action": "Continue automated monitoring for shellfish nursery flow while preserving current setpoints."
+      }
+    ]
+  },
+  "agentBinding": {
+    "agent": "agriculture-aquaculture-shellfish-nursery-flow",
+    "mode": "advise",
+    "trigger": "agx014_aquaculture_shellfish_nursery_flow-input-assessment",
+    "allowedActions": [
+      "Assess current \"Agriculture Aquaculture Shellfish Nursery Flow\" state from available observations and write the normalized input vector to the PE input region [116:120] for RE to evaluate."
+    ],
+    "writeBack": {
+      "type": "pe-sensor",
+      "provider": "acp",
+      "sensorId": "acp.openclaw.agx014_aquaculture_shellfish_nursery_flow.input-analyst.assessment",
+      "name": "OpenClaw agx014_aquaculture_shellfish_nursery_flow input-analyst assessment",
+      "region": {
+        "offset": 116,
+        "length": 4
+      },
+      "semantics": [
+        "process_stability_norm",
+        "resource_efficiency_norm",
+        "biosecurity_or_ipm_norm",
+        "maintenance_readiness_norm"
+      ],
+      "ttlMs": 300000,
+      "normalization": "already-normalized-0-1",
+      "ingest": {
+        "endpoint": "/api/integrations/completions",
+        "method": "POST",
+        "triggerPush": false,
+        "compactPush": true
+      },
+      "sourceMapping": {
+        "id": "acp-agx014_aquaculture_shellfish_nursery_flow-input-assessment",
+        "sensorId": "acp.openclaw.agx014_aquaculture_shellfish_nursery_flow.input-analyst.assessment",
+        "name": "OpenClaw agx014_aquaculture_shellfish_nursery_flow input-analyst assessment",
+        "region": {
+          "offset": 116,
+          "length": 4
+        },
+        "ttlMs": 300000
+      }
+    },
+    "autonomyPolicy": {
+      "mode": "advise",
+      "stage": 1,
+      "writeBackType": "pe-sensor",
+      "canWriteBack": true,
+      "canStageActions": false,
+      "canExecuteActions": false,
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "blockedWhenRag": []
+    },
+    "riskControls": {
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "maxAutonomy": "advise",
+      "blockedWhenRag": []
+    }
+  },
+  "responseMapping": {
+    "schemaVersion": "1.0.0",
+    "responseContract": "structured-keys-or-text",
+    "mode": "advise",
+    "fields": [
+      {
+        "semantic": "process_stability_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/process_stability_norm",
+          "responseKey": "process_stability_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agx014_aquaculture_shellfish_nursery_flow.input-analyst.assessment",
+          "region": {
+            "offset": 116,
+            "length": 4
+          },
+          "index": 0
+        }
+      },
+      {
+        "semantic": "resource_efficiency_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/resource_efficiency_norm",
+          "responseKey": "resource_efficiency_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agx014_aquaculture_shellfish_nursery_flow.input-analyst.assessment",
+          "region": {
+            "offset": 116,
+            "length": 4
+          },
+          "index": 1
+        }
+      },
+      {
+        "semantic": "biosecurity_or_ipm_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/biosecurity_or_ipm_norm",
+          "responseKey": "biosecurity_or_ipm_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agx014_aquaculture_shellfish_nursery_flow.input-analyst.assessment",
+          "region": {
+            "offset": 116,
+            "length": 4
+          },
+          "index": 2
+        }
+      },
+      {
+        "semantic": "maintenance_readiness_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/maintenance_readiness_norm",
+          "responseKey": "maintenance_readiness_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agx014_aquaculture_shellfish_nursery_flow.input-analyst.assessment",
+          "region": {
+            "offset": 116,
+            "length": 4
+          },
+          "index": 3
+        }
+      }
+    ]
+  },
+  "diagnostics": {
+    "axisBasis": "sensorNormalization",
+    "warnings": [],
+    "inputLength": 4,
+    "sequenceCount": 4
+  }
+}

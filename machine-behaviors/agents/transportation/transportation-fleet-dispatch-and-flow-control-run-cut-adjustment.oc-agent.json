@@ -1,0 +1,354 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "oc-agent-template",
+  "role": "input-analyst",
+  "agentId": "transportation-fleet-dispatch-and-flow-control-run-cut-adjustment",
+  "displayName": "Transportation Fleet Dispatch And Flow Control Run Cut Adjustment",
+  "machine": {
+    "id": "TFX059_dispatch-and-flow-control-run-cut-adjustment",
+    "name": "Transportation Fleet Dispatch And Flow Control Run Cut Adjustment",
+    "code": "tfx059_dispatch_and_flow_control_run_cut_adjustment",
+    "machineClass": "agent-dispatcher",
+    "domain": "transportation",
+    "inputRegion": {
+      "offset": 3459,
+      "length": 4
+    },
+    "outputRegion": {
+      "offset": 3463,
+      "length": 4
+    }
+  },
+  "openclaw": {
+    "id": "openclaw-xacp",
+    "kind": "acp",
+    "platform": "OpenClaw",
+    "surface": "xACP",
+    "command": "openclaw acp",
+    "gatewayUrl": "ws://127.0.0.1:18789",
+    "sessionKey": "agent:main:main",
+    "targetAgent": "transportation-fleet-dispatch-and-flow-control-run-cut-adjustment",
+    "dispatchMode": "accepted-no-wait",
+    "completionMode": "pe-source-mapping",
+    "completionSourceMappingId": "acp-transportation-fleet-dispatch-and-flow-control-run-cut-adjustment-input-assessment"
+  },
+  "reasoning": {
+    "objective": "Produce the normalized input vector for \"Transportation Fleet Dispatch And Flow Control Run Cut Adjustment\" from current observations so RE can evaluate its CES sequences.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Transportation Fleet Dispatch And Flow Control Run Cut Adjustment\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Public transportation fleet machine for run cut adjustment in the dispatch and flow control workstream. It monitors operator availability, vehicle availability, route priority, and overtime exposure for a 100-bus 24/7 operation and emits AI-triggered outputs for rider experience, operations, maintenance, cleaning, security, and predictive fleet-flow management.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- service-reliability (index 0):\n- rider-impact (index 1):\n- asset-readiness (index 2):\n- safety-security-risk (index 3):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Run Cut Adjustment (AMBER) -> action: Dispatch transit_finance_agent for critical 100-bus fleet intervention on run cut adjustment.\n- Run Cut Adjustment (GREEN) -> action: Trigger predictive flow management for run cut adjustment using rider, vehicle, and route context.\n- Run Cut Adjustment (GREEN) -> action: Create maintenance, cleaning, security, or service task for run cut adjustment.\n- Run Cut Adjustment (GREEN) -> action: Keep 24/7 monitoring active for run cut adjustment.",
+    "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
+    "inputAxes": [
+      {
+        "index": 0,
+        "key": "service-reliability",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 1,
+        "key": "rider-impact",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 2,
+        "key": "asset-readiness",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 3,
+        "key": "safety-security-risk",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      }
+    ],
+    "sequenceCatalog": [
+      {
+        "sequenceId": "tfx-059-critical-event",
+        "label": "Run Cut Adjustment",
+        "rag": "AMBER",
+        "outputIndex": 0,
+        "action": "Dispatch transit_finance_agent for critical 100-bus fleet intervention on run cut adjustment."
+      },
+      {
+        "sequenceId": "tfx-059-predictive-flow",
+        "label": "Run Cut Adjustment",
+        "rag": "GREEN",
+        "outputIndex": 1,
+        "action": "Trigger predictive flow management for run cut adjustment using rider, vehicle, and route context."
+      },
+      {
+        "sequenceId": "tfx-059-ops-task",
+        "label": "Run Cut Adjustment",
+        "rag": "GREEN",
+        "outputIndex": 2,
+        "action": "Create maintenance, cleaning, security, or service task for run cut adjustment."
+      },
+      {
+        "sequenceId": "tfx-059-nominal",
+        "label": "Run Cut Adjustment",
+        "rag": "GREEN",
+        "outputIndex": 3,
+        "action": "Keep 24/7 monitoring active for run cut adjustment."
+      }
+    ]
+  },
+  "agentBinding": {
+    "agent": "transportation-fleet-dispatch-and-flow-control-run-cut-adjustment",
+    "mode": "advise",
+    "trigger": "tfx059_dispatch_and_flow_control_run_cut_adjustment-input-assessment",
+    "allowedActions": [
+      "Assess current \"Transportation Fleet Dispatch And Flow Control Run Cut Adjustment\" state from available observations and write the normalized input vector to the PE input region [3459:3463] for RE to evaluate."
+    ],
+    "writeBack": {
+      "type": "pe-sensor",
+      "provider": "acp",
+      "sensorId": "acp.openclaw.tfx059_dispatch_and_flow_control_run_cut_adjustment.input-analyst.assessment",
+      "name": "OpenClaw tfx059_dispatch_and_flow_control_run_cut_adjustment input-analyst assessment",
+      "region": {
+        "offset": 3459,
+        "length": 4
+      },
+      "semantics": [
+        "service-reliability",
+        "rider-impact",
+        "asset-readiness",
+        "safety-security-risk"
+      ],
+      "ttlMs": 300000,
+      "normalization": "already-normalized-0-1",
+      "ingest": {
+        "endpoint": "/api/integrations/completions",
+        "method": "POST",
+        "triggerPush": false,
+        "compactPush": true
+      },
+      "sourceMapping": {
+        "id": "acp-tfx059_dispatch_and_flow_control_run_cut_adjustment-input-assessment",
+        "sensorId": "acp.openclaw.tfx059_dispatch_and_flow_control_run_cut_adjustment.input-analyst.assessment",
+        "name": "OpenClaw tfx059_dispatch_and_flow_control_run_cut_adjustment input-analyst assessment",
+        "region": {
+          "offset": 3459,
+          "length": 4
+        },
+        "ttlMs": 300000
+      }
+    },
+    "autonomyPolicy": {
+      "mode": "advise",
+      "stage": 1,
+      "writeBackType": "pe-sensor",
+      "canWriteBack": true,
+      "canStageActions": false,
+      "canExecuteActions": false,
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "blockedWhenRag": []
+    },
+    "riskControls": {
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "maxAutonomy": "advise",
+      "blockedWhenRag": []
+    }
+  },
+  "responseMapping": {
+    "schemaVersion": "1.0.0",
+    "responseContract": "structured-keys-or-text",
+    "mode": "advise",
+    "fields": [
+      {
+        "semantic": "service-reliability",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/service-reliability",
+          "responseKey": "service-reliability",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.tfx059_dispatch_and_flow_control_run_cut_adjustment.input-analyst.assessment",
+          "region": {
+            "offset": 3459,
+            "length": 4
+          },
+          "index": 0
+        }
+      },
+      {
+        "semantic": "rider-impact",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/rider-impact",
+          "responseKey": "rider-impact",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.tfx059_dispatch_and_flow_control_run_cut_adjustment.input-analyst.assessment",
+          "region": {
+            "offset": 3459,
+            "length": 4
+          },
+          "index": 1
+        }
+      },
+      {
+        "semantic": "asset-readiness",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/asset-readiness",
+          "responseKey": "asset-readiness",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.tfx059_dispatch_and_flow_control_run_cut_adjustment.input-analyst.assessment",
+          "region": {
+            "offset": 3459,
+            "length": 4
+          },
+          "index": 2
+        }
+      },
+      {
+        "semantic": "safety-security-risk",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/safety-security-risk",
+          "responseKey": "safety-security-risk",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.tfx059_dispatch_and_flow_control_run_cut_adjustment.input-analyst.assessment",
+          "region": {
+            "offset": 3459,
+            "length": 4
+          },
+          "index": 3
+        }
+      }
+    ]
+  },
+  "diagnostics": {
+    "axisBasis": "inputSemantics",
+    "warnings": [
+      "input axes derived from inputSemantics (no length-matched sensorNormalization)"
+    ],
+    "inputLength": 4,
+    "sequenceCount": 4
+  }
+}

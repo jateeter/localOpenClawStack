@@ -1,0 +1,333 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "oc-agent-template",
+  "role": "input-analyst",
+  "agentId": "logical-infrastructure-clock-gate-open-close",
+  "displayName": "Logical Infrastructure Clock Gate Open Close",
+  "machine": {
+    "id": "DLX024_clock-gate-open-close",
+    "name": "Logical Infrastructure Clock Gate Open Close",
+    "code": "dlx024_clock_gate_open_close",
+    "machineClass": "signal-monitor",
+    "domain": "digital-logic",
+    "inputRegion": {
+      "offset": 1621,
+      "length": 4
+    },
+    "outputRegion": {
+      "offset": 1625,
+      "length": 2
+    }
+  },
+  "openclaw": {
+    "id": "openclaw-xacp",
+    "kind": "acp",
+    "platform": "OpenClaw",
+    "surface": "xACP",
+    "command": "openclaw acp",
+    "gatewayUrl": "ws://127.0.0.1:18789",
+    "sessionKey": "agent:main:main",
+    "targetAgent": "logical-infrastructure-clock-gate-open-close",
+    "dispatchMode": "accepted-no-wait",
+    "completionMode": "pe-source-mapping",
+    "completionSourceMappingId": "acp-logical-infrastructure-clock-gate-open-close-input-assessment"
+  },
+  "reasoning": {
+    "objective": "Produce the normalized input vector for \"Logical Infrastructure Clock Gate Open Close\" from current observations so RE can evaluate its CES sequences.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Logical Infrastructure Clock Gate Open Close\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Reusable digital-logic infrastructure machine for ASIC-style connective tissue. It implements the temporal regular expression `OPEN+ CLOSE`. Detects clock gate open interval then close. Reads a 4D control/status lane at [1621:1625] and emits a 2D match lane at [1625:1627].\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- primary (index 0):\n- secondary (index 1):\n- tertiary (index 2):\n- qualifier (index 3):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- dlx-024-match (GREEN)",
+    "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
+    "inputAxes": [
+      {
+        "index": 0,
+        "key": "primary",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 1,
+        "key": "secondary",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 2,
+        "key": "tertiary",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 3,
+        "key": "qualifier",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      }
+    ],
+    "sequenceCatalog": [
+      {
+        "sequenceId": "dlx-024-match",
+        "label": "dlx-024-match",
+        "rag": "GREEN",
+        "outputIndex": 0,
+        "action": ""
+      }
+    ]
+  },
+  "agentBinding": {
+    "agent": "logical-infrastructure-clock-gate-open-close",
+    "mode": "advise",
+    "trigger": "dlx024_clock_gate_open_close-input-assessment",
+    "allowedActions": [
+      "Assess current \"Logical Infrastructure Clock Gate Open Close\" state from available observations and write the normalized input vector to the PE input region [1621:1625] for RE to evaluate."
+    ],
+    "writeBack": {
+      "type": "pe-sensor",
+      "provider": "acp",
+      "sensorId": "acp.openclaw.dlx024_clock_gate_open_close.input-analyst.assessment",
+      "name": "OpenClaw dlx024_clock_gate_open_close input-analyst assessment",
+      "region": {
+        "offset": 1621,
+        "length": 4
+      },
+      "semantics": [
+        "primary",
+        "secondary",
+        "tertiary",
+        "qualifier"
+      ],
+      "ttlMs": 300000,
+      "normalization": "already-normalized-0-1",
+      "ingest": {
+        "endpoint": "/api/integrations/completions",
+        "method": "POST",
+        "triggerPush": false,
+        "compactPush": true
+      },
+      "sourceMapping": {
+        "id": "acp-dlx024_clock_gate_open_close-input-assessment",
+        "sensorId": "acp.openclaw.dlx024_clock_gate_open_close.input-analyst.assessment",
+        "name": "OpenClaw dlx024_clock_gate_open_close input-analyst assessment",
+        "region": {
+          "offset": 1621,
+          "length": 4
+        },
+        "ttlMs": 300000
+      }
+    },
+    "autonomyPolicy": {
+      "mode": "advise",
+      "stage": 1,
+      "writeBackType": "pe-sensor",
+      "canWriteBack": true,
+      "canStageActions": false,
+      "canExecuteActions": false,
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "blockedWhenRag": []
+    },
+    "riskControls": {
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "maxAutonomy": "advise",
+      "blockedWhenRag": []
+    }
+  },
+  "responseMapping": {
+    "schemaVersion": "1.0.0",
+    "responseContract": "structured-keys-or-text",
+    "mode": "advise",
+    "fields": [
+      {
+        "semantic": "primary",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/primary",
+          "responseKey": "primary",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.dlx024_clock_gate_open_close.input-analyst.assessment",
+          "region": {
+            "offset": 1621,
+            "length": 4
+          },
+          "index": 0
+        }
+      },
+      {
+        "semantic": "secondary",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/secondary",
+          "responseKey": "secondary",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.dlx024_clock_gate_open_close.input-analyst.assessment",
+          "region": {
+            "offset": 1621,
+            "length": 4
+          },
+          "index": 1
+        }
+      },
+      {
+        "semantic": "tertiary",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/tertiary",
+          "responseKey": "tertiary",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.dlx024_clock_gate_open_close.input-analyst.assessment",
+          "region": {
+            "offset": 1621,
+            "length": 4
+          },
+          "index": 2
+        }
+      },
+      {
+        "semantic": "qualifier",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/qualifier",
+          "responseKey": "qualifier",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.dlx024_clock_gate_open_close.input-analyst.assessment",
+          "region": {
+            "offset": 1621,
+            "length": 4
+          },
+          "index": 3
+        }
+      }
+    ]
+  },
+  "diagnostics": {
+    "axisBasis": "inputSemantics",
+    "warnings": [
+      "input axes derived from inputSemantics (no length-matched sensorNormalization)"
+    ],
+    "inputLength": 4,
+    "sequenceCount": 1
+  }
+}

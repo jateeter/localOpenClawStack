@@ -1,0 +1,345 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "oc-agent-template",
+  "role": "input-analyst",
+  "agentId": "qualification-verification-monitor",
+  "displayName": "Qualification Verification Monitor",
+  "machine": {
+    "id": "QualificationVerificationMonitor",
+    "name": "Qualification Verification Monitor",
+    "code": "qualificationverificationmonitor",
+    "machineClass": "signal-monitor",
+    "domain": "community-services",
+    "inputRegion": {
+      "offset": 932,
+      "length": 4
+    },
+    "outputRegion": {
+      "offset": 964,
+      "length": 4
+    }
+  },
+  "openclaw": {
+    "id": "openclaw-xacp",
+    "kind": "acp",
+    "platform": "OpenClaw",
+    "surface": "xACP",
+    "command": "openclaw acp",
+    "gatewayUrl": "ws://127.0.0.1:18789",
+    "sessionKey": "agent:main:main",
+    "targetAgent": "qualification-verification-monitor",
+    "dispatchMode": "accepted-no-wait",
+    "completionMode": "pe-source-mapping",
+    "completionSourceMappingId": "acp-qualification-verification-monitor-input-assessment"
+  },
+  "reasoning": {
+    "objective": "Produce the normalized input vector for \"Qualification Verification Monitor\" from current observations so RE can evaluate its CES sequences.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Qualification Verification Monitor\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Tracks identity verification, income verification, program-specific qualification criteria, and active enrollment status for community service participants. Qualification verification is the formal determination layer sitting between eligibility screening and active benefit delivery \u2014 it catches identity mismatches, income discrepancies, and program-specific rules (residency duration, asset limits, household composition) that screening tools miss. Output at [964:968] feeds the Workflow Completion Monitor.\n\nPOPULATION: Benefits program enrollees requiring formal qualification determination; participants at annual redetermination; newly enrolled individuals with pending verification holds\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- identity_verification_norm (index 0):  0.0 = identity cannot be verified (no SSN, no acceptable ID, data mismatch with DMV or SSA records) | 0.5 = identity partially verified (one of two factors confirmed) | 1.0 = identity fully verified through authoritative source\n- income_verification_norm (index 1):  0.0 = income cannot be verified (self-employment undocumented, cash income only, employer unresponsive) | 0.5 = income partially verified (one income source confirmed; second source pending) | 1.0 = all income sources verified against pay stubs, tax records, or benefit award letters\n- program_qualification_norm (index 2):  0.0 = program-specific rules not met (asset limit exceeded, residency duration insufficient, household composition mismatch) | 0.5 = program rules met but one qualifier requires additional documentation | 1.0 = all program-specific qualification criteria confirmed\n- enrollment_active_norm (index 3):  0.0 = enrollment lapsed, suspended, or terminated; benefits not flowing | 0.5 = enrollment conditionally active (provisional benefits; verification hold) | 1.0 = enrollment fully active; benefits flowing without restriction\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- QUALIFICATION_FAILED (RED) -> action: Formal adverse action notice; fair hearing rights notification; appeal process initiation; navigator assistance for documentation cure\n- REVERIFICATION_REQUIRED (GREEN) -> action: Redetermination appointment scheduling; document collection checklist; proactive outreach to prevent gap in benefits\n- FULLY_QUALIFIED (GREEN) -> action: Workflow completion monitor registers qualification confirmed; unrestricted service delivery authorized",
+    "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
+    "inputAxes": [
+      {
+        "index": 0,
+        "key": "identity_verification_norm",
+        "anchors": {
+          "low": "identity cannot be verified (no SSN, no acceptable ID, data mismatch with DMV or SSA records)",
+          "mid": "identity partially verified (one of two factors confirmed)",
+          "high": "identity fully verified through authoritative source"
+        }
+      },
+      {
+        "index": 1,
+        "key": "income_verification_norm",
+        "anchors": {
+          "low": "income cannot be verified (self-employment undocumented, cash income only, employer unresponsive)",
+          "mid": "income partially verified (one income source confirmed; second source pending)",
+          "high": "all income sources verified against pay stubs, tax records, or benefit award letters"
+        }
+      },
+      {
+        "index": 2,
+        "key": "program_qualification_norm",
+        "anchors": {
+          "low": "program-specific rules not met (asset limit exceeded, residency duration insufficient, household composition mismatch)",
+          "mid": "program rules met but one qualifier requires additional documentation",
+          "high": "all program-specific qualification criteria confirmed"
+        }
+      },
+      {
+        "index": 3,
+        "key": "enrollment_active_norm",
+        "anchors": {
+          "low": "enrollment lapsed, suspended, or terminated; benefits not flowing",
+          "mid": "enrollment conditionally active (provisional benefits; verification hold)",
+          "high": "enrollment fully active; benefits flowing without restriction"
+        }
+      }
+    ],
+    "sequenceCatalog": [
+      {
+        "sequenceId": "qualification-failure-escalation",
+        "label": "QUALIFICATION_FAILED",
+        "rag": "RED",
+        "outputIndex": 0,
+        "action": "Formal adverse action notice; fair hearing rights notification; appeal process initiation; navigator assistance for documentation cure"
+      },
+      {
+        "sequenceId": "qualification-reverification",
+        "label": "REVERIFICATION_REQUIRED",
+        "rag": "GREEN",
+        "outputIndex": 1,
+        "action": "Redetermination appointment scheduling; document collection checklist; proactive outreach to prevent gap in benefits"
+      },
+      {
+        "sequenceId": "qualification-confirmed",
+        "label": "FULLY_QUALIFIED",
+        "rag": "GREEN",
+        "outputIndex": 3,
+        "action": "Workflow completion monitor registers qualification confirmed; unrestricted service delivery authorized"
+      }
+    ]
+  },
+  "agentBinding": {
+    "agent": "qualification-verification-monitor",
+    "mode": "advise",
+    "trigger": "qualificationverificationmonitor-input-assessment",
+    "allowedActions": [
+      "Assess current \"Qualification Verification Monitor\" state from available observations and write the normalized input vector to the PE input region [932:936] for RE to evaluate."
+    ],
+    "writeBack": {
+      "type": "pe-sensor",
+      "provider": "acp",
+      "sensorId": "acp.openclaw.qualificationverificationmonitor.input-analyst.assessment",
+      "name": "OpenClaw qualificationverificationmonitor input-analyst assessment",
+      "region": {
+        "offset": 932,
+        "length": 4
+      },
+      "semantics": [
+        "identity_verification_norm",
+        "income_verification_norm",
+        "program_qualification_norm",
+        "enrollment_active_norm"
+      ],
+      "ttlMs": 300000,
+      "normalization": "already-normalized-0-1",
+      "ingest": {
+        "endpoint": "/api/integrations/completions",
+        "method": "POST",
+        "triggerPush": false,
+        "compactPush": true
+      },
+      "sourceMapping": {
+        "id": "acp-qualificationverificationmonitor-input-assessment",
+        "sensorId": "acp.openclaw.qualificationverificationmonitor.input-analyst.assessment",
+        "name": "OpenClaw qualificationverificationmonitor input-analyst assessment",
+        "region": {
+          "offset": 932,
+          "length": 4
+        },
+        "ttlMs": 300000
+      }
+    },
+    "autonomyPolicy": {
+      "mode": "advise",
+      "stage": 1,
+      "writeBackType": "pe-sensor",
+      "canWriteBack": true,
+      "canStageActions": false,
+      "canExecuteActions": false,
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "blockedWhenRag": []
+    },
+    "riskControls": {
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "maxAutonomy": "advise",
+      "blockedWhenRag": []
+    }
+  },
+  "responseMapping": {
+    "schemaVersion": "1.0.0",
+    "responseContract": "structured-keys-or-text",
+    "mode": "advise",
+    "fields": [
+      {
+        "semantic": "identity_verification_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/identity_verification_norm",
+          "responseKey": "identity_verification_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.qualificationverificationmonitor.input-analyst.assessment",
+          "region": {
+            "offset": 932,
+            "length": 4
+          },
+          "index": 0
+        }
+      },
+      {
+        "semantic": "income_verification_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/income_verification_norm",
+          "responseKey": "income_verification_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.qualificationverificationmonitor.input-analyst.assessment",
+          "region": {
+            "offset": 932,
+            "length": 4
+          },
+          "index": 1
+        }
+      },
+      {
+        "semantic": "program_qualification_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/program_qualification_norm",
+          "responseKey": "program_qualification_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.qualificationverificationmonitor.input-analyst.assessment",
+          "region": {
+            "offset": 932,
+            "length": 4
+          },
+          "index": 2
+        }
+      },
+      {
+        "semantic": "enrollment_active_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/enrollment_active_norm",
+          "responseKey": "enrollment_active_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.qualificationverificationmonitor.input-analyst.assessment",
+          "region": {
+            "offset": 932,
+            "length": 4
+          },
+          "index": 3
+        }
+      }
+    ]
+  },
+  "diagnostics": {
+    "axisBasis": "sensorNormalization",
+    "warnings": [],
+    "inputLength": 4,
+    "sequenceCount": 3
+  }
+}

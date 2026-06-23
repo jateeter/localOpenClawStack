@@ -1,0 +1,389 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "oc-agent-template",
+  "role": "input-analyst",
+  "agentId": "ai-model-wellness-monitor",
+  "displayName": "AI Model Wellness Monitor",
+  "machine": {
+    "id": "ai-model-wellness",
+    "name": "AI Model Wellness Monitor",
+    "code": "aimodelwellness",
+    "machineClass": "safety-compliance-checker",
+    "domain": "ai-services",
+    "inputRegion": {
+      "offset": 272,
+      "length": 4
+    },
+    "outputRegion": {
+      "offset": 304,
+      "length": 6
+    }
+  },
+  "openclaw": {
+    "id": "openclaw-xacp",
+    "kind": "acp",
+    "platform": "OpenClaw",
+    "surface": "xACP",
+    "command": "openclaw acp",
+    "gatewayUrl": "ws://127.0.0.1:18789",
+    "sessionKey": "agent:main:main",
+    "targetAgent": "ai-model-wellness-monitor",
+    "dispatchMode": "accepted-no-wait",
+    "completionMode": "pe-source-mapping",
+    "completionSourceMappingId": "acp-ai-model-wellness-monitor-input-assessment"
+  },
+  "reasoning": {
+    "objective": "Produce the normalized input vector for \"AI Model Wellness Monitor\" from current observations so RE can evaluate its CES sequences.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"AI Model Wellness Monitor\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Monitors AI model serving health \u2014 tracks inference error rate, latency SLO compliance, model accuracy drift, and memory leak indicators to detect model degradation before user impact.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- ai-model-wellness-monitor-input-1 (index 0):\n- ai-model-wellness-monitor-input-2 (index 1):\n- ai-model-wellness-monitor-input-3 (index 2):\n- ai-model-wellness-monitor-input-4 (index 3):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- aimw-model-degradation (AMBER)\n- aimw-model-degradation (AMBER)\n- aimw-model-degradation (RED)\n- Action (RED)\n- aimw-model-degradation (RED)\n- Action (RED)\n- Action (GREEN)\n- aimw-latency-breach (AMBER)\n- Action (RED)",
+    "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
+    "inputAxes": [
+      {
+        "index": 0,
+        "key": "ai-model-wellness-monitor-input-1",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 1,
+        "key": "ai-model-wellness-monitor-input-2",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 2,
+        "key": "ai-model-wellness-monitor-input-3",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 3,
+        "key": "ai-model-wellness-monitor-input-4",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      }
+    ],
+    "sequenceCatalog": [
+      {
+        "sequenceId": "aimw-model-degradation",
+        "label": "aimw-model-degradation",
+        "rag": "AMBER",
+        "outputIndex": 0,
+        "action": ""
+      },
+      {
+        "sequenceId": "aimw-model-degradation",
+        "label": "aimw-model-degradation",
+        "rag": "AMBER",
+        "outputIndex": 1,
+        "action": ""
+      },
+      {
+        "sequenceId": "aimw-model-degradation",
+        "label": "aimw-model-degradation",
+        "rag": "RED",
+        "outputIndex": 2,
+        "action": ""
+      },
+      {
+        "sequenceId": "aimw-model-degradation",
+        "label": "Action",
+        "rag": "RED",
+        "outputIndex": 4,
+        "action": ""
+      },
+      {
+        "sequenceId": "aimw-model-degradation",
+        "label": "aimw-model-degradation",
+        "rag": "RED",
+        "outputIndex": 3,
+        "action": ""
+      },
+      {
+        "sequenceId": "aimw-model-degradation",
+        "label": "Action",
+        "rag": "RED",
+        "outputIndex": 4,
+        "action": ""
+      },
+      {
+        "sequenceId": "aimw-model-degradation",
+        "label": "Action",
+        "rag": "GREEN",
+        "outputIndex": 5,
+        "action": ""
+      },
+      {
+        "sequenceId": "aimw-latency-breach",
+        "label": "aimw-latency-breach",
+        "rag": "AMBER",
+        "outputIndex": 1,
+        "action": ""
+      },
+      {
+        "sequenceId": "aimw-latency-breach",
+        "label": "Action",
+        "rag": "RED",
+        "outputIndex": 4,
+        "action": ""
+      }
+    ]
+  },
+  "agentBinding": {
+    "agent": "ai-model-wellness-monitor",
+    "mode": "advise",
+    "trigger": "aimodelwellness-input-assessment",
+    "allowedActions": [
+      "Assess current \"AI Model Wellness Monitor\" state from available observations and write the normalized input vector to the PE input region [272:276] for RE to evaluate."
+    ],
+    "writeBack": {
+      "type": "pe-sensor",
+      "provider": "acp",
+      "sensorId": "acp.openclaw.aimodelwellness.input-analyst.assessment",
+      "name": "OpenClaw aimodelwellness input-analyst assessment",
+      "region": {
+        "offset": 272,
+        "length": 4
+      },
+      "semantics": [
+        "ai-model-wellness-monitor-input-1",
+        "ai-model-wellness-monitor-input-2",
+        "ai-model-wellness-monitor-input-3",
+        "ai-model-wellness-monitor-input-4"
+      ],
+      "ttlMs": 300000,
+      "normalization": "already-normalized-0-1",
+      "ingest": {
+        "endpoint": "/api/integrations/completions",
+        "method": "POST",
+        "triggerPush": false,
+        "compactPush": true
+      },
+      "sourceMapping": {
+        "id": "acp-aimodelwellness-input-assessment",
+        "sensorId": "acp.openclaw.aimodelwellness.input-analyst.assessment",
+        "name": "OpenClaw aimodelwellness input-analyst assessment",
+        "region": {
+          "offset": 272,
+          "length": 4
+        },
+        "ttlMs": 300000
+      }
+    },
+    "autonomyPolicy": {
+      "mode": "advise",
+      "stage": 1,
+      "writeBackType": "pe-sensor",
+      "canWriteBack": true,
+      "canStageActions": false,
+      "canExecuteActions": false,
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "blockedWhenRag": []
+    },
+    "riskControls": {
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "maxAutonomy": "advise",
+      "blockedWhenRag": []
+    }
+  },
+  "responseMapping": {
+    "schemaVersion": "1.0.0",
+    "responseContract": "structured-keys-or-text",
+    "mode": "advise",
+    "fields": [
+      {
+        "semantic": "ai-model-wellness-monitor-input-1",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/ai-model-wellness-monitor-input-1",
+          "responseKey": "ai-model-wellness-monitor-input-1",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.aimodelwellness.input-analyst.assessment",
+          "region": {
+            "offset": 272,
+            "length": 4
+          },
+          "index": 0
+        }
+      },
+      {
+        "semantic": "ai-model-wellness-monitor-input-2",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/ai-model-wellness-monitor-input-2",
+          "responseKey": "ai-model-wellness-monitor-input-2",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.aimodelwellness.input-analyst.assessment",
+          "region": {
+            "offset": 272,
+            "length": 4
+          },
+          "index": 1
+        }
+      },
+      {
+        "semantic": "ai-model-wellness-monitor-input-3",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/ai-model-wellness-monitor-input-3",
+          "responseKey": "ai-model-wellness-monitor-input-3",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.aimodelwellness.input-analyst.assessment",
+          "region": {
+            "offset": 272,
+            "length": 4
+          },
+          "index": 2
+        }
+      },
+      {
+        "semantic": "ai-model-wellness-monitor-input-4",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/ai-model-wellness-monitor-input-4",
+          "responseKey": "ai-model-wellness-monitor-input-4",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.aimodelwellness.input-analyst.assessment",
+          "region": {
+            "offset": 272,
+            "length": 4
+          },
+          "index": 3
+        }
+      }
+    ]
+  },
+  "diagnostics": {
+    "axisBasis": "inputSemantics",
+    "warnings": [
+      "input axes derived from inputSemantics (no length-matched sensorNormalization)"
+    ],
+    "inputLength": 4,
+    "sequenceCount": 9
+  }
+}

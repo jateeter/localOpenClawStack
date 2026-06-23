@@ -1,0 +1,345 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "oc-agent-template",
+  "role": "input-analyst",
+  "agentId": "service-delivery-compliance-monitor",
+  "displayName": "Service Delivery Compliance Monitor",
+  "machine": {
+    "id": "ServiceDeliveryComplianceMonitor",
+    "name": "Service Delivery Compliance Monitor",
+    "code": "servicedeliverycompliancemonitor",
+    "machineClass": "safety-compliance-checker",
+    "domain": "community-services",
+    "inputRegion": {
+      "offset": 940,
+      "length": 4
+    },
+    "outputRegion": {
+      "offset": 972,
+      "length": 4
+    }
+  },
+  "openclaw": {
+    "id": "openclaw-xacp",
+    "kind": "acp",
+    "platform": "OpenClaw",
+    "surface": "xACP",
+    "command": "openclaw acp",
+    "gatewayUrl": "ws://127.0.0.1:18789",
+    "sessionKey": "agent:main:main",
+    "targetAgent": "service-delivery-compliance-monitor",
+    "dispatchMode": "accepted-no-wait",
+    "completionMode": "pe-source-mapping",
+    "completionSourceMappingId": "acp-service-delivery-compliance-monitor-input-assessment"
+  },
+  "reasoning": {
+    "objective": "Produce the normalized input vector for \"Service Delivery Compliance Monitor\" from current observations so RE can evaluate its CES sequences.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Service Delivery Compliance Monitor\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Monitors delivery timeliness, service quality metrics, regulatory adherence, and documentation completeness for community service programs subject to federal, state, or contract compliance requirements. Community services organizations that receive public funding operate under strict delivery timelines \u2014 SNAP must be issued within 30 days of application, housing assistance waitlist notifications have required timeframes, and case documentation must be current for billing and audit purposes. Output at [972:976] feeds the Service Delivery Integrity Monitor.\n\nPOPULATION: Publicly funded community service programs; agencies with federal grant compliance requirements; organizations subject to state licensing and performance contracts\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- delivery_timeliness_norm (index 0):  0.0 = regulatory timeline violated (>30-day SNAP determination, missed housing notification, overdue benefit issuance) | 0.5 = timeliness borderline (meeting minimum but not target) | 1.0 = timeliness targets met or exceeded across all service types\n- service_quality_norm (index 1):  0.0 = multiple service quality failures (grievances unresolved, required contacts missed, service plans not updated) | 0.5 = quality borderline (most metrics met; one or two failures open) | 1.0 = all quality indicators meeting or exceeding contract standards\n- regulatory_adherence_norm (index 2):  0.0 = active regulatory violation (corrective action plan open, audit finding unresolved, licensing condition triggered) | 0.5 = no active violation but risk factors present (past finding; new regulation not yet implemented) | 1.0 = all regulatory requirements current; no open findings\n- documentation_completeness_norm (index 3):  0.0 = case files critically deficient (missing required assessments, unsigned plans, billing documentation absent) | 0.5 = partial documentation (non-critical items outstanding; no billing impact) | 1.0 = all documentation current and complete; audit-ready\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- COMPLIANCE_VIOLATION (RED) -> action: Corrective action plan submission; funder notification; compliance officer engagement; process audit; case file remediation\n- MONITORING_REQUIRED (GREEN) -> action: Internal compliance review; supervisor audit; process improvement plan; staff training on documentation requirements\n- COMPLIANT (GREEN) -> action: Service delivery integrity monitor registers compliance confirmed",
+    "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
+    "inputAxes": [
+      {
+        "index": 0,
+        "key": "delivery_timeliness_norm",
+        "anchors": {
+          "low": "regulatory timeline violated (>30-day SNAP determination, missed housing notification, overdue benefit issuance)",
+          "mid": "timeliness borderline (meeting minimum but not target)",
+          "high": "timeliness targets met or exceeded across all service types"
+        }
+      },
+      {
+        "index": 1,
+        "key": "service_quality_norm",
+        "anchors": {
+          "low": "multiple service quality failures (grievances unresolved, required contacts missed, service plans not updated)",
+          "mid": "quality borderline (most metrics met; one or two failures open)",
+          "high": "all quality indicators meeting or exceeding contract standards"
+        }
+      },
+      {
+        "index": 2,
+        "key": "regulatory_adherence_norm",
+        "anchors": {
+          "low": "active regulatory violation (corrective action plan open, audit finding unresolved, licensing condition triggered)",
+          "mid": "no active violation but risk factors present (past finding; new regulation not yet implemented)",
+          "high": "all regulatory requirements current; no open findings"
+        }
+      },
+      {
+        "index": 3,
+        "key": "documentation_completeness_norm",
+        "anchors": {
+          "low": "case files critically deficient (missing required assessments, unsigned plans, billing documentation absent)",
+          "mid": "partial documentation (non-critical items outstanding; no billing impact)",
+          "high": "all documentation current and complete; audit-ready"
+        }
+      }
+    ],
+    "sequenceCatalog": [
+      {
+        "sequenceId": "compliance-violation-escalation",
+        "label": "COMPLIANCE_VIOLATION",
+        "rag": "RED",
+        "outputIndex": 0,
+        "action": "Corrective action plan submission; funder notification; compliance officer engagement; process audit; case file remediation"
+      },
+      {
+        "sequenceId": "compliance-monitoring-required",
+        "label": "MONITORING_REQUIRED",
+        "rag": "GREEN",
+        "outputIndex": 2,
+        "action": "Internal compliance review; supervisor audit; process improvement plan; staff training on documentation requirements"
+      },
+      {
+        "sequenceId": "compliance-ok",
+        "label": "COMPLIANT",
+        "rag": "GREEN",
+        "outputIndex": 3,
+        "action": "Service delivery integrity monitor registers compliance confirmed"
+      }
+    ]
+  },
+  "agentBinding": {
+    "agent": "service-delivery-compliance-monitor",
+    "mode": "advise",
+    "trigger": "servicedeliverycompliancemonitor-input-assessment",
+    "allowedActions": [
+      "Assess current \"Service Delivery Compliance Monitor\" state from available observations and write the normalized input vector to the PE input region [940:944] for RE to evaluate."
+    ],
+    "writeBack": {
+      "type": "pe-sensor",
+      "provider": "acp",
+      "sensorId": "acp.openclaw.servicedeliverycompliancemonitor.input-analyst.assessment",
+      "name": "OpenClaw servicedeliverycompliancemonitor input-analyst assessment",
+      "region": {
+        "offset": 940,
+        "length": 4
+      },
+      "semantics": [
+        "delivery_timeliness_norm",
+        "service_quality_norm",
+        "regulatory_adherence_norm",
+        "documentation_completeness_norm"
+      ],
+      "ttlMs": 300000,
+      "normalization": "already-normalized-0-1",
+      "ingest": {
+        "endpoint": "/api/integrations/completions",
+        "method": "POST",
+        "triggerPush": false,
+        "compactPush": true
+      },
+      "sourceMapping": {
+        "id": "acp-servicedeliverycompliancemonitor-input-assessment",
+        "sensorId": "acp.openclaw.servicedeliverycompliancemonitor.input-analyst.assessment",
+        "name": "OpenClaw servicedeliverycompliancemonitor input-analyst assessment",
+        "region": {
+          "offset": 940,
+          "length": 4
+        },
+        "ttlMs": 300000
+      }
+    },
+    "autonomyPolicy": {
+      "mode": "advise",
+      "stage": 1,
+      "writeBackType": "pe-sensor",
+      "canWriteBack": true,
+      "canStageActions": false,
+      "canExecuteActions": false,
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "blockedWhenRag": []
+    },
+    "riskControls": {
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "maxAutonomy": "advise",
+      "blockedWhenRag": []
+    }
+  },
+  "responseMapping": {
+    "schemaVersion": "1.0.0",
+    "responseContract": "structured-keys-or-text",
+    "mode": "advise",
+    "fields": [
+      {
+        "semantic": "delivery_timeliness_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/delivery_timeliness_norm",
+          "responseKey": "delivery_timeliness_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.servicedeliverycompliancemonitor.input-analyst.assessment",
+          "region": {
+            "offset": 940,
+            "length": 4
+          },
+          "index": 0
+        }
+      },
+      {
+        "semantic": "service_quality_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/service_quality_norm",
+          "responseKey": "service_quality_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.servicedeliverycompliancemonitor.input-analyst.assessment",
+          "region": {
+            "offset": 940,
+            "length": 4
+          },
+          "index": 1
+        }
+      },
+      {
+        "semantic": "regulatory_adherence_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/regulatory_adherence_norm",
+          "responseKey": "regulatory_adherence_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.servicedeliverycompliancemonitor.input-analyst.assessment",
+          "region": {
+            "offset": 940,
+            "length": 4
+          },
+          "index": 2
+        }
+      },
+      {
+        "semantic": "documentation_completeness_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/documentation_completeness_norm",
+          "responseKey": "documentation_completeness_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.servicedeliverycompliancemonitor.input-analyst.assessment",
+          "region": {
+            "offset": 940,
+            "length": 4
+          },
+          "index": 3
+        }
+      }
+    ]
+  },
+  "diagnostics": {
+    "axisBasis": "sensorNormalization",
+    "warnings": [],
+    "inputLength": 4,
+    "sequenceCount": 3
+  }
+}

@@ -1,0 +1,354 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "oc-agent-template",
+  "role": "input-analyst",
+  "agentId": "legal-services-copyright-workflow-group-registration-eligibility",
+  "displayName": "Legal Services Copyright Workflow Group Registration Eligibility",
+  "machine": {
+    "id": "LSX026_copyright-workflow-group-registration-eligibility",
+    "name": "Legal Services Copyright Workflow Group Registration Eligibility",
+    "code": "lsx026_copyright_workflow_group_registration_eligibility",
+    "machineClass": "agent-dispatcher",
+    "domain": "legal-services",
+    "inputRegion": {
+      "offset": 2243,
+      "length": 4
+    },
+    "outputRegion": {
+      "offset": 2251,
+      "length": 4
+    }
+  },
+  "openclaw": {
+    "id": "openclaw-xacp",
+    "kind": "acp",
+    "platform": "OpenClaw",
+    "surface": "xACP",
+    "command": "openclaw acp",
+    "gatewayUrl": "ws://127.0.0.1:18789",
+    "sessionKey": "agent:main:main",
+    "targetAgent": "legal-services-copyright-workflow-group-registration-eligibility",
+    "dispatchMode": "accepted-no-wait",
+    "completionMode": "pe-source-mapping",
+    "completionSourceMappingId": "acp-legal-services-copyright-workflow-group-registration-eligibility-input-assessment"
+  },
+  "reasoning": {
+    "objective": "Produce the normalized input vector for \"Legal Services Copyright Workflow Group Registration Eligibility\" from current observations so RE can evaluate its CES sequences.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Legal Services Copyright Workflow Group Registration Eligibility\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Legal services workflow machine for group registration eligibility in the copyright workflow workstream. It monitors evaluate group unpublished works, photographs, updates, and other group application options. This is an operational workflow example for individual and corporate legal services, not legal advice.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- facts-complete (index 0):\n- rights-ownership-clear (index 1):\n- deadline-or-filing-pressure (index 2):\n- commercialization-readiness (index 3):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Group Registration Eligibility (GREEN) -> action: Route group registration eligibility to attorney review for deadline, ownership, or rights-risk triage.\n- Group Registration Eligibility (GREEN) -> action: Dispatch filing_portal_agent to optimize the next workstep for group registration eligibility.\n- Group Registration Eligibility (GREEN) -> action: Create or update docket/checklist tasks for group registration eligibility.\n- Group Registration Eligibility (GREEN) -> action: Mark group registration eligibility ready for the next controlled workflow step.",
+    "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
+    "inputAxes": [
+      {
+        "index": 0,
+        "key": "facts-complete",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 1,
+        "key": "rights-ownership-clear",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 2,
+        "key": "deadline-or-filing-pressure",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 3,
+        "key": "commercialization-readiness",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      }
+    ],
+    "sequenceCatalog": [
+      {
+        "sequenceId": "lsx-026-attorney-review",
+        "label": "Group Registration Eligibility",
+        "rag": "GREEN",
+        "outputIndex": 0,
+        "action": "Route group registration eligibility to attorney review for deadline, ownership, or rights-risk triage."
+      },
+      {
+        "sequenceId": "lsx-026-optimize",
+        "label": "Group Registration Eligibility",
+        "rag": "GREEN",
+        "outputIndex": 1,
+        "action": "Dispatch filing_portal_agent to optimize the next workstep for group registration eligibility."
+      },
+      {
+        "sequenceId": "lsx-026-docket",
+        "label": "Group Registration Eligibility",
+        "rag": "GREEN",
+        "outputIndex": 2,
+        "action": "Create or update docket/checklist tasks for group registration eligibility."
+      },
+      {
+        "sequenceId": "lsx-026-ready",
+        "label": "Group Registration Eligibility",
+        "rag": "GREEN",
+        "outputIndex": 3,
+        "action": "Mark group registration eligibility ready for the next controlled workflow step."
+      }
+    ]
+  },
+  "agentBinding": {
+    "agent": "legal-services-copyright-workflow-group-registration-eligibility",
+    "mode": "advise",
+    "trigger": "lsx026_copyright_workflow_group_registration_eligibility-input-assessment",
+    "allowedActions": [
+      "Assess current \"Legal Services Copyright Workflow Group Registration Eligibility\" state from available observations and write the normalized input vector to the PE input region [2243:2247] for RE to evaluate."
+    ],
+    "writeBack": {
+      "type": "pe-sensor",
+      "provider": "acp",
+      "sensorId": "acp.openclaw.lsx026_copyright_workflow_group_registration_eligibility.input-analyst.assessment",
+      "name": "OpenClaw lsx026_copyright_workflow_group_registration_eligibility input-analyst assessment",
+      "region": {
+        "offset": 2243,
+        "length": 4
+      },
+      "semantics": [
+        "facts-complete",
+        "rights-ownership-clear",
+        "deadline-or-filing-pressure",
+        "commercialization-readiness"
+      ],
+      "ttlMs": 300000,
+      "normalization": "already-normalized-0-1",
+      "ingest": {
+        "endpoint": "/api/integrations/completions",
+        "method": "POST",
+        "triggerPush": false,
+        "compactPush": true
+      },
+      "sourceMapping": {
+        "id": "acp-lsx026_copyright_workflow_group_registration_eligibility-input-assessment",
+        "sensorId": "acp.openclaw.lsx026_copyright_workflow_group_registration_eligibility.input-analyst.assessment",
+        "name": "OpenClaw lsx026_copyright_workflow_group_registration_eligibility input-analyst assessment",
+        "region": {
+          "offset": 2243,
+          "length": 4
+        },
+        "ttlMs": 300000
+      }
+    },
+    "autonomyPolicy": {
+      "mode": "advise",
+      "stage": 1,
+      "writeBackType": "pe-sensor",
+      "canWriteBack": true,
+      "canStageActions": false,
+      "canExecuteActions": false,
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "blockedWhenRag": []
+    },
+    "riskControls": {
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "maxAutonomy": "advise",
+      "blockedWhenRag": []
+    }
+  },
+  "responseMapping": {
+    "schemaVersion": "1.0.0",
+    "responseContract": "structured-keys-or-text",
+    "mode": "advise",
+    "fields": [
+      {
+        "semantic": "facts-complete",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/facts-complete",
+          "responseKey": "facts-complete",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lsx026_copyright_workflow_group_registration_eligibility.input-analyst.assessment",
+          "region": {
+            "offset": 2243,
+            "length": 4
+          },
+          "index": 0
+        }
+      },
+      {
+        "semantic": "rights-ownership-clear",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/rights-ownership-clear",
+          "responseKey": "rights-ownership-clear",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lsx026_copyright_workflow_group_registration_eligibility.input-analyst.assessment",
+          "region": {
+            "offset": 2243,
+            "length": 4
+          },
+          "index": 1
+        }
+      },
+      {
+        "semantic": "deadline-or-filing-pressure",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/deadline-or-filing-pressure",
+          "responseKey": "deadline-or-filing-pressure",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lsx026_copyright_workflow_group_registration_eligibility.input-analyst.assessment",
+          "region": {
+            "offset": 2243,
+            "length": 4
+          },
+          "index": 2
+        }
+      },
+      {
+        "semantic": "commercialization-readiness",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/commercialization-readiness",
+          "responseKey": "commercialization-readiness",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lsx026_copyright_workflow_group_registration_eligibility.input-analyst.assessment",
+          "region": {
+            "offset": 2243,
+            "length": 4
+          },
+          "index": 3
+        }
+      }
+    ]
+  },
+  "diagnostics": {
+    "axisBasis": "inputSemantics",
+    "warnings": [
+      "input axes derived from inputSemantics (no length-matched sensorNormalization)"
+    ],
+    "inputLength": 4,
+    "sequenceCount": 4
+  }
+}

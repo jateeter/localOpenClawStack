@@ -339,7 +339,8 @@ def main() -> int:
         path = _abs(cfg["machinesDir"]) / args.machine_file
     instance = derive(path, cfg)
     if args.write:
-        out = HERE / "agents" / f"{instance['machine']['code']}.oc-agent.json"
+        dom = re.sub(r"[^a-z0-9]+", "-", str(instance["machine"]["domain"]).lower()).strip("-") or "uncategorized"
+        out = HERE / "agents" / dom / f"{instance['agentId']}.oc-agent.json"
         out.parent.mkdir(parents=True, exist_ok=True)
         out.write_text(json.dumps(instance, indent=2) + "\n")
         print(f"wrote {out.relative_to(HERE)}")

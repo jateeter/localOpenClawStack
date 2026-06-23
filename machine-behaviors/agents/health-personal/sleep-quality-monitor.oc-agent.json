@@ -1,0 +1,241 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "oc-agent-template",
+  "role": "input-analyst",
+  "agentId": "sleep-quality-monitor",
+  "displayName": "Sleep Quality Monitor",
+  "machine": {
+    "id": "SleepQualityMonitor",
+    "name": "Sleep Quality Monitor",
+    "code": "sleep-quality",
+    "machineClass": "signal-monitor",
+    "domain": "health-personal",
+    "inputRegion": {
+      "offset": 1943,
+      "length": 2
+    },
+    "outputRegion": {
+      "offset": 1945,
+      "length": 2
+    }
+  },
+  "openclaw": {
+    "id": "openclaw-xacp",
+    "kind": "acp",
+    "platform": "OpenClaw",
+    "surface": "xACP",
+    "command": "openclaw acp",
+    "gatewayUrl": "ws://127.0.0.1:18789",
+    "sessionKey": "agent:main:main",
+    "targetAgent": "sleep-quality-monitor",
+    "dispatchMode": "accepted-no-wait",
+    "completionMode": "pe-source-mapping",
+    "completionSourceMappingId": "acp-sleep-quality-monitor-input-assessment"
+  },
+  "reasoning": {
+    "objective": "Produce the normalized input vector for \"Sleep Quality Monitor\" from current observations so RE can evaluate its CES sequences.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Sleep Quality Monitor\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Classifies nightly sleep into RESTFUL, DISTURBED, or POOR based on bed-sensor-derived signals (duration, fragmentation). Triggers the local AI when sleep degrades so it can surface trends, adjust reminders, or notify caregivers.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- sleep-quality-monitor-input-1 (index 0):\n- sleep-quality-monitor-input-2 (index 1):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- sleep-restful (GREEN)\n- sleep-disturbed (AMBER)\n- sleep-poor (RED)",
+    "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
+    "inputAxes": [
+      {
+        "index": 0,
+        "key": "sleep-quality-monitor-input-1",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 1,
+        "key": "sleep-quality-monitor-input-2",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      }
+    ],
+    "sequenceCatalog": [
+      {
+        "sequenceId": "sleep-restful",
+        "label": "sleep-restful",
+        "rag": "GREEN",
+        "outputIndex": 0,
+        "action": ""
+      },
+      {
+        "sequenceId": "sleep-disturbed",
+        "label": "sleep-disturbed",
+        "rag": "AMBER",
+        "outputIndex": 1,
+        "action": ""
+      },
+      {
+        "sequenceId": "sleep-poor",
+        "label": "sleep-poor",
+        "rag": "RED",
+        "outputIndex": 0,
+        "action": ""
+      }
+    ]
+  },
+  "agentBinding": {
+    "agent": "sleep-quality-monitor",
+    "mode": "advise",
+    "trigger": "sleep-quality-input-assessment",
+    "allowedActions": [
+      "Assess current \"Sleep Quality Monitor\" state from available observations and write the normalized input vector to the PE input region [1943:1945] for RE to evaluate."
+    ],
+    "writeBack": {
+      "type": "pe-sensor",
+      "provider": "acp",
+      "sensorId": "acp.openclaw.sleep-quality.input-analyst.assessment",
+      "name": "OpenClaw sleep-quality input-analyst assessment",
+      "region": {
+        "offset": 1943,
+        "length": 2
+      },
+      "semantics": [
+        "sleep-quality-monitor-input-1",
+        "sleep-quality-monitor-input-2"
+      ],
+      "ttlMs": 300000,
+      "normalization": "already-normalized-0-1",
+      "ingest": {
+        "endpoint": "/api/integrations/completions",
+        "method": "POST",
+        "triggerPush": false,
+        "compactPush": true
+      },
+      "sourceMapping": {
+        "id": "acp-sleep-quality-input-assessment",
+        "sensorId": "acp.openclaw.sleep-quality.input-analyst.assessment",
+        "name": "OpenClaw sleep-quality input-analyst assessment",
+        "region": {
+          "offset": 1943,
+          "length": 2
+        },
+        "ttlMs": 300000
+      }
+    },
+    "autonomyPolicy": {
+      "mode": "advise",
+      "stage": 1,
+      "writeBackType": "pe-sensor",
+      "canWriteBack": true,
+      "canStageActions": false,
+      "canExecuteActions": false,
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "blockedWhenRag": []
+    },
+    "riskControls": {
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "maxAutonomy": "advise",
+      "blockedWhenRag": []
+    }
+  },
+  "responseMapping": {
+    "schemaVersion": "1.0.0",
+    "responseContract": "structured-keys-or-text",
+    "mode": "advise",
+    "fields": [
+      {
+        "semantic": "sleep-quality-monitor-input-1",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/sleep-quality-monitor-input-1",
+          "responseKey": "sleep-quality-monitor-input-1",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.sleep-quality.input-analyst.assessment",
+          "region": {
+            "offset": 1943,
+            "length": 2
+          },
+          "index": 0
+        }
+      },
+      {
+        "semantic": "sleep-quality-monitor-input-2",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/sleep-quality-monitor-input-2",
+          "responseKey": "sleep-quality-monitor-input-2",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.sleep-quality.input-analyst.assessment",
+          "region": {
+            "offset": 1943,
+            "length": 2
+          },
+          "index": 1
+        }
+      }
+    ]
+  },
+  "diagnostics": {
+    "axisBasis": "inputSemantics",
+    "warnings": [
+      "input axes derived from inputSemantics (no length-matched sensorNormalization)"
+    ],
+    "inputLength": 2,
+    "sequenceCount": 3
+  }
+}

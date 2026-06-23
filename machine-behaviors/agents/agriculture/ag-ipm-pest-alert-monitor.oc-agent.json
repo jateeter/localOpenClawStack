@@ -1,0 +1,559 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "oc-agent-template",
+  "role": "input-analyst",
+  "agentId": "ag-ipm-pest-alert-monitor",
+  "displayName": "Ag IPM Pest Alert Monitor",
+  "machine": {
+    "id": "AgIPMPestAlertMonitor",
+    "name": "Ag IPM Pest Alert Monitor",
+    "code": "agipmpestalertmonitor",
+    "machineClass": "risk-forecaster",
+    "domain": "agriculture",
+    "inputRegion": {
+      "offset": 32,
+      "length": 8
+    },
+    "outputRegion": {
+      "offset": 3963,
+      "length": 4
+    }
+  },
+  "openclaw": {
+    "id": "openclaw-xacp",
+    "kind": "acp",
+    "platform": "OpenClaw",
+    "surface": "xACP",
+    "command": "openclaw acp",
+    "gatewayUrl": "ws://127.0.0.1:18789",
+    "sessionKey": "agent:main:main",
+    "targetAgent": "ag-ipm-pest-alert-monitor",
+    "dispatchMode": "accepted-no-wait",
+    "completionMode": "pe-source-mapping",
+    "completionSourceMappingId": "acp-ag-ipm-pest-alert-monitor-input-assessment"
+  },
+  "reasoning": {
+    "objective": "Produce the normalized input vector for \"Ag IPM Pest Alert Monitor\" from current observations so RE can evaluate its CES sequences.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Ag IPM Pest Alert Monitor\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Integrated Pest Management monitor that correlates lighting and atmospheric conditions to assess pest and disease pressure. High humidity during dark periods creates botrytis risk; poor air circulation during active light cycles creates spider mite and aphid habitat. Reads outputs from AgPhotoPeriodLightingController [32:36] and AgAtmosphericController [36:40]. Output feeds AgYieldOptimizationAI at [3963:3967].\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- ag-ipm-pest-alert-monitor-input-1 (index 0):\n- ag-ipm-pest-alert-monitor-input-2 (index 1):\n- ag-ipm-pest-alert-monitor-input-3 (index 2):\n- ag-ipm-pest-alert-monitor-input-4 (index 3):\n- ag-ipm-pest-alert-monitor-input-5 (index 4):\n- ag-ipm-pest-alert-monitor-input-6 (index 5):\n- ag-ipm-pest-alert-monitor-input-7 (index 6):\n- ag-ipm-pest-alert-monitor-input-8 (index 7):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- FUNGAL_ALERT (RED) -> action: Inspect canopy; apply preventive fungicide; increase airflow; AI optimizer extends dark-period VPD monitoring\n- INSECT_ALERT (GREEN) -> action: Inspect undersides of leaves; deploy sticky traps; increase circulation fan speed\n- IPM_OK (GREEN) -> action: AI optimizer registers clean IPM baseline; no interventions required",
+    "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
+    "inputAxes": [
+      {
+        "index": 0,
+        "key": "ag-ipm-pest-alert-monitor-input-1",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 1,
+        "key": "ag-ipm-pest-alert-monitor-input-2",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 2,
+        "key": "ag-ipm-pest-alert-monitor-input-3",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 3,
+        "key": "ag-ipm-pest-alert-monitor-input-4",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 4,
+        "key": "ag-ipm-pest-alert-monitor-input-5",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 5,
+        "key": "ag-ipm-pest-alert-monitor-input-6",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 6,
+        "key": "ag-ipm-pest-alert-monitor-input-7",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 7,
+        "key": "ag-ipm-pest-alert-monitor-input-8",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      }
+    ],
+    "sequenceCatalog": [
+      {
+        "sequenceId": "ag-ipm-fungal-escalation",
+        "label": "FUNGAL_ALERT",
+        "rag": "RED",
+        "outputIndex": 0,
+        "action": "Inspect canopy; apply preventive fungicide; increase airflow; AI optimizer extends dark-period VPD monitoring"
+      },
+      {
+        "sequenceId": "ag-ipm-insect-pressure",
+        "label": "INSECT_ALERT",
+        "rag": "GREEN",
+        "outputIndex": 1,
+        "action": "Inspect undersides of leaves; deploy sticky traps; increase circulation fan speed"
+      },
+      {
+        "sequenceId": "ag-ipm-clear",
+        "label": "IPM_OK",
+        "rag": "GREEN",
+        "outputIndex": 3,
+        "action": "AI optimizer registers clean IPM baseline; no interventions required"
+      }
+    ]
+  },
+  "agentBinding": {
+    "agent": "ag-ipm-pest-alert-monitor",
+    "mode": "advise",
+    "trigger": "agipmpestalertmonitor-input-assessment",
+    "allowedActions": [
+      "Assess current \"Ag IPM Pest Alert Monitor\" state from available observations and write the normalized input vector to the PE input region [32:40] for RE to evaluate."
+    ],
+    "writeBack": {
+      "type": "pe-sensor",
+      "provider": "acp",
+      "sensorId": "acp.openclaw.agipmpestalertmonitor.input-analyst.assessment",
+      "name": "OpenClaw agipmpestalertmonitor input-analyst assessment",
+      "region": {
+        "offset": 32,
+        "length": 8
+      },
+      "semantics": [
+        "ag-ipm-pest-alert-monitor-input-1",
+        "ag-ipm-pest-alert-monitor-input-2",
+        "ag-ipm-pest-alert-monitor-input-3",
+        "ag-ipm-pest-alert-monitor-input-4",
+        "ag-ipm-pest-alert-monitor-input-5",
+        "ag-ipm-pest-alert-monitor-input-6",
+        "ag-ipm-pest-alert-monitor-input-7",
+        "ag-ipm-pest-alert-monitor-input-8"
+      ],
+      "ttlMs": 300000,
+      "normalization": "already-normalized-0-1",
+      "ingest": {
+        "endpoint": "/api/integrations/completions",
+        "method": "POST",
+        "triggerPush": false,
+        "compactPush": true
+      },
+      "sourceMapping": {
+        "id": "acp-agipmpestalertmonitor-input-assessment",
+        "sensorId": "acp.openclaw.agipmpestalertmonitor.input-analyst.assessment",
+        "name": "OpenClaw agipmpestalertmonitor input-analyst assessment",
+        "region": {
+          "offset": 32,
+          "length": 8
+        },
+        "ttlMs": 300000
+      }
+    },
+    "autonomyPolicy": {
+      "mode": "advise",
+      "stage": 1,
+      "writeBackType": "pe-sensor",
+      "canWriteBack": true,
+      "canStageActions": false,
+      "canExecuteActions": false,
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "blockedWhenRag": []
+    },
+    "riskControls": {
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "maxAutonomy": "advise",
+      "blockedWhenRag": []
+    }
+  },
+  "responseMapping": {
+    "schemaVersion": "1.0.0",
+    "responseContract": "structured-keys-or-text",
+    "mode": "advise",
+    "fields": [
+      {
+        "semantic": "ag-ipm-pest-alert-monitor-input-1",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/ag-ipm-pest-alert-monitor-input-1",
+          "responseKey": "ag-ipm-pest-alert-monitor-input-1",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agipmpestalertmonitor.input-analyst.assessment",
+          "region": {
+            "offset": 32,
+            "length": 8
+          },
+          "index": 0
+        }
+      },
+      {
+        "semantic": "ag-ipm-pest-alert-monitor-input-2",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/ag-ipm-pest-alert-monitor-input-2",
+          "responseKey": "ag-ipm-pest-alert-monitor-input-2",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agipmpestalertmonitor.input-analyst.assessment",
+          "region": {
+            "offset": 32,
+            "length": 8
+          },
+          "index": 1
+        }
+      },
+      {
+        "semantic": "ag-ipm-pest-alert-monitor-input-3",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/ag-ipm-pest-alert-monitor-input-3",
+          "responseKey": "ag-ipm-pest-alert-monitor-input-3",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agipmpestalertmonitor.input-analyst.assessment",
+          "region": {
+            "offset": 32,
+            "length": 8
+          },
+          "index": 2
+        }
+      },
+      {
+        "semantic": "ag-ipm-pest-alert-monitor-input-4",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/ag-ipm-pest-alert-monitor-input-4",
+          "responseKey": "ag-ipm-pest-alert-monitor-input-4",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agipmpestalertmonitor.input-analyst.assessment",
+          "region": {
+            "offset": 32,
+            "length": 8
+          },
+          "index": 3
+        }
+      },
+      {
+        "semantic": "ag-ipm-pest-alert-monitor-input-5",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/ag-ipm-pest-alert-monitor-input-5",
+          "responseKey": "ag-ipm-pest-alert-monitor-input-5",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agipmpestalertmonitor.input-analyst.assessment",
+          "region": {
+            "offset": 32,
+            "length": 8
+          },
+          "index": 4
+        }
+      },
+      {
+        "semantic": "ag-ipm-pest-alert-monitor-input-6",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/ag-ipm-pest-alert-monitor-input-6",
+          "responseKey": "ag-ipm-pest-alert-monitor-input-6",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agipmpestalertmonitor.input-analyst.assessment",
+          "region": {
+            "offset": 32,
+            "length": 8
+          },
+          "index": 5
+        }
+      },
+      {
+        "semantic": "ag-ipm-pest-alert-monitor-input-7",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/ag-ipm-pest-alert-monitor-input-7",
+          "responseKey": "ag-ipm-pest-alert-monitor-input-7",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agipmpestalertmonitor.input-analyst.assessment",
+          "region": {
+            "offset": 32,
+            "length": 8
+          },
+          "index": 6
+        }
+      },
+      {
+        "semantic": "ag-ipm-pest-alert-monitor-input-8",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/ag-ipm-pest-alert-monitor-input-8",
+          "responseKey": "ag-ipm-pest-alert-monitor-input-8",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agipmpestalertmonitor.input-analyst.assessment",
+          "region": {
+            "offset": 32,
+            "length": 8
+          },
+          "index": 7
+        }
+      }
+    ]
+  },
+  "diagnostics": {
+    "axisBasis": "inputSemantics",
+    "warnings": [
+      "input axes derived from inputSemantics (no length-matched sensorNormalization)"
+    ],
+    "inputLength": 8,
+    "sequenceCount": 3
+  }
+}

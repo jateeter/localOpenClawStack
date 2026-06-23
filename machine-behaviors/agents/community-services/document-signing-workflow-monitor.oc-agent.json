@@ -1,0 +1,345 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "oc-agent-template",
+  "role": "input-analyst",
+  "agentId": "document-signing-workflow-monitor",
+  "displayName": "Document Signing Workflow Monitor",
+  "machine": {
+    "id": "DocumentSigningWorkflowMonitor",
+    "name": "Document Signing Workflow Monitor",
+    "code": "documentsigningworkflowmonitor",
+    "machineClass": "signal-monitor",
+    "domain": "community-services",
+    "inputRegion": {
+      "offset": 928,
+      "length": 4
+    },
+    "outputRegion": {
+      "offset": 960,
+      "length": 4
+    }
+  },
+  "openclaw": {
+    "id": "openclaw-xacp",
+    "kind": "acp",
+    "platform": "OpenClaw",
+    "surface": "xACP",
+    "command": "openclaw acp",
+    "gatewayUrl": "ws://127.0.0.1:18789",
+    "sessionKey": "agent:main:main",
+    "targetAgent": "document-signing-workflow-monitor",
+    "dispatchMode": "accepted-no-wait",
+    "completionMode": "pe-source-mapping",
+    "completionSourceMappingId": "acp-document-signing-workflow-monitor-input-assessment"
+  },
+  "reasoning": {
+    "objective": "Produce the normalized input vector for \"Document Signing Workflow Monitor\" from current observations so RE can evaluate its CES sequences.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Document Signing Workflow Monitor\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Tracks document collection completeness, signature status, witness verification, and legal validity for community service enrollment agreements, consent forms, release of information authorizations, and benefit assignment documents. Document signing is a critical gating step in community services \u2014 unsigned consent forms block care coordination, unsigned ROIs prevent inter-agency data sharing, and missing program agreements delay benefit issuance by days or weeks. Output at [960:964] feeds the Workflow Completion Monitor.\n\nPOPULATION: Community service enrollees requiring consent forms, ROI authorizations, program agreements; applicants with limited digital access; participants with cognitive or literacy barriers\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- documents_received_norm (index 0):  0.0 = no required documents collected (zero of required set) | 0.5 = half of required documents collected | 1.0 = all required documents collected and on file\n- signature_completeness_norm (index 1):  0.0 = no signatures obtained (client unreachable or refusing) | 0.5 = partial signatures (some forms signed; key forms unsigned) | 1.0 = all required signatures obtained\n- witness_verification_norm (index 2):  0.0 = witness signature required but not obtained; notarization missing; co-signer absent | 0.5 = witness present but verification pending (identity check in progress) | 1.0 = all witness and notarization requirements satisfied\n- legal_validity_norm (index 3):  0.0 = documents legally invalid (expired forms, wrong version, jurisdiction mismatch, capacity concern) | 0.5 = documents submitted but legal review pending | 1.0 = all documents legally valid and accepted by receiving program\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- SIGNING_BLOCKED (RED) -> action: Outreach worker escalation; alternative signing method assessment (in-person, paper); legal capacity evaluation referral; guardian/POA contact\n- PARTIAL_SIGNING (GREEN) -> action: Initiate services on signed agreements; schedule follow-up for remaining forms; limit cross-agency data sharing until ROI obtained\n- SIGNING_COMPLETE (GREEN) -> action: Workflow completion monitor registers signing complete; full inter-agency coordination authorized",
+    "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
+    "inputAxes": [
+      {
+        "index": 0,
+        "key": "documents_received_norm",
+        "anchors": {
+          "low": "no required documents collected (zero of required set)",
+          "mid": "half of required documents collected",
+          "high": "all required documents collected and on file"
+        }
+      },
+      {
+        "index": 1,
+        "key": "signature_completeness_norm",
+        "anchors": {
+          "low": "no signatures obtained (client unreachable or refusing)",
+          "mid": "partial signatures (some forms signed; key forms unsigned)",
+          "high": "all required signatures obtained"
+        }
+      },
+      {
+        "index": 2,
+        "key": "witness_verification_norm",
+        "anchors": {
+          "low": "witness signature required but not obtained; notarization missing; co-signer absent",
+          "mid": "witness present but verification pending (identity check in progress)",
+          "high": "all witness and notarization requirements satisfied"
+        }
+      },
+      {
+        "index": 3,
+        "key": "legal_validity_norm",
+        "anchors": {
+          "low": "documents legally invalid (expired forms, wrong version, jurisdiction mismatch, capacity concern)",
+          "mid": "documents submitted but legal review pending",
+          "high": "all documents legally valid and accepted by receiving program"
+        }
+      }
+    ],
+    "sequenceCatalog": [
+      {
+        "sequenceId": "signing-blocked-escalation",
+        "label": "SIGNING_BLOCKED",
+        "rag": "RED",
+        "outputIndex": 0,
+        "action": "Outreach worker escalation; alternative signing method assessment (in-person, paper); legal capacity evaluation referral; guardian/POA contact"
+      },
+      {
+        "sequenceId": "signing-partial",
+        "label": "PARTIAL_SIGNING",
+        "rag": "GREEN",
+        "outputIndex": 2,
+        "action": "Initiate services on signed agreements; schedule follow-up for remaining forms; limit cross-agency data sharing until ROI obtained"
+      },
+      {
+        "sequenceId": "signing-complete",
+        "label": "SIGNING_COMPLETE",
+        "rag": "GREEN",
+        "outputIndex": 3,
+        "action": "Workflow completion monitor registers signing complete; full inter-agency coordination authorized"
+      }
+    ]
+  },
+  "agentBinding": {
+    "agent": "document-signing-workflow-monitor",
+    "mode": "advise",
+    "trigger": "documentsigningworkflowmonitor-input-assessment",
+    "allowedActions": [
+      "Assess current \"Document Signing Workflow Monitor\" state from available observations and write the normalized input vector to the PE input region [928:932] for RE to evaluate."
+    ],
+    "writeBack": {
+      "type": "pe-sensor",
+      "provider": "acp",
+      "sensorId": "acp.openclaw.documentsigningworkflowmonitor.input-analyst.assessment",
+      "name": "OpenClaw documentsigningworkflowmonitor input-analyst assessment",
+      "region": {
+        "offset": 928,
+        "length": 4
+      },
+      "semantics": [
+        "documents_received_norm",
+        "signature_completeness_norm",
+        "witness_verification_norm",
+        "legal_validity_norm"
+      ],
+      "ttlMs": 300000,
+      "normalization": "already-normalized-0-1",
+      "ingest": {
+        "endpoint": "/api/integrations/completions",
+        "method": "POST",
+        "triggerPush": false,
+        "compactPush": true
+      },
+      "sourceMapping": {
+        "id": "acp-documentsigningworkflowmonitor-input-assessment",
+        "sensorId": "acp.openclaw.documentsigningworkflowmonitor.input-analyst.assessment",
+        "name": "OpenClaw documentsigningworkflowmonitor input-analyst assessment",
+        "region": {
+          "offset": 928,
+          "length": 4
+        },
+        "ttlMs": 300000
+      }
+    },
+    "autonomyPolicy": {
+      "mode": "advise",
+      "stage": 1,
+      "writeBackType": "pe-sensor",
+      "canWriteBack": true,
+      "canStageActions": false,
+      "canExecuteActions": false,
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "blockedWhenRag": []
+    },
+    "riskControls": {
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "maxAutonomy": "advise",
+      "blockedWhenRag": []
+    }
+  },
+  "responseMapping": {
+    "schemaVersion": "1.0.0",
+    "responseContract": "structured-keys-or-text",
+    "mode": "advise",
+    "fields": [
+      {
+        "semantic": "documents_received_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/documents_received_norm",
+          "responseKey": "documents_received_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.documentsigningworkflowmonitor.input-analyst.assessment",
+          "region": {
+            "offset": 928,
+            "length": 4
+          },
+          "index": 0
+        }
+      },
+      {
+        "semantic": "signature_completeness_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/signature_completeness_norm",
+          "responseKey": "signature_completeness_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.documentsigningworkflowmonitor.input-analyst.assessment",
+          "region": {
+            "offset": 928,
+            "length": 4
+          },
+          "index": 1
+        }
+      },
+      {
+        "semantic": "witness_verification_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/witness_verification_norm",
+          "responseKey": "witness_verification_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.documentsigningworkflowmonitor.input-analyst.assessment",
+          "region": {
+            "offset": 928,
+            "length": 4
+          },
+          "index": 2
+        }
+      },
+      {
+        "semantic": "legal_validity_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/legal_validity_norm",
+          "responseKey": "legal_validity_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.documentsigningworkflowmonitor.input-analyst.assessment",
+          "region": {
+            "offset": 928,
+            "length": 4
+          },
+          "index": 3
+        }
+      }
+    ]
+  },
+  "diagnostics": {
+    "axisBasis": "sensorNormalization",
+    "warnings": [],
+    "inputLength": 4,
+    "sequenceCount": 3
+  }
+}

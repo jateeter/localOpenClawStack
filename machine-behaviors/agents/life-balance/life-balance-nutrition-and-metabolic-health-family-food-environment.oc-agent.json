@@ -1,0 +1,354 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "oc-agent-template",
+  "role": "input-analyst",
+  "agentId": "life-balance-nutrition-and-metabolic-health-family-food-environment",
+  "displayName": "Life Balance Nutrition And Metabolic Health Family Food Environment",
+  "machine": {
+    "id": "LBL018_nutrition-and-metabolic-health-family-food-environment",
+    "name": "Life Balance Nutrition And Metabolic Health Family Food Environment",
+    "code": "lbl018_nutrition_and_metabolic_health_family_food_environment",
+    "machineClass": "agent-dispatcher",
+    "domain": "life-balance",
+    "inputRegion": {
+      "offset": 2911,
+      "length": 4
+    },
+    "outputRegion": {
+      "offset": 2915,
+      "length": 4
+    }
+  },
+  "openclaw": {
+    "id": "openclaw-xacp",
+    "kind": "acp",
+    "platform": "OpenClaw",
+    "surface": "xACP",
+    "command": "openclaw acp",
+    "gatewayUrl": "ws://127.0.0.1:18789",
+    "sessionKey": "agent:main:main",
+    "targetAgent": "life-balance-nutrition-and-metabolic-health-family-food-environment",
+    "dispatchMode": "accepted-no-wait",
+    "completionMode": "pe-source-mapping",
+    "completionSourceMappingId": "acp-life-balance-nutrition-and-metabolic-health-family-food-environment-input-assessment"
+  },
+  "reasoning": {
+    "objective": "Produce the normalized input vector for \"Life Balance Nutrition And Metabolic Health Family Food Environment\" from current observations so RE can evaluate its CES sequences.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Life Balance Nutrition And Metabolic Health Family Food Environment\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Life-balance machine for family food environment in the nutrition and metabolic health workstream. It monitors shopping pattern, meal prep capacity, school meals, budget, and family support to support lifestyle-psychiatry workflows spanning psychiatric care, nutrition, sleep, movement, stress resilience, monitoring, and projection. Example only; not medical advice.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- symptom-or-functional-concern (index 0):\n- lifestyle-barrier-or-preference (index 1):\n- monitoring-data-quality-or-readiness (index 2):\n- risk-safety-or-care-team-urgency (index 3):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Family Food Environment (AMBER) -> action: Route family food environment concern to licensed care-team review.\n- Family Food Environment (GREEN) -> action: Adjust the life-balance plan for family food environment using patient goals, barriers, and preferences.\n- Family Food Environment (GREEN) -> action: Create monitoring or follow-up task for family food environment.\n- Family Food Environment (GREEN) -> action: Continue stable life-balance monitoring for family food environment.",
+    "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
+    "inputAxes": [
+      {
+        "index": 0,
+        "key": "symptom-or-functional-concern",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 1,
+        "key": "lifestyle-barrier-or-preference",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 2,
+        "key": "monitoring-data-quality-or-readiness",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 3,
+        "key": "risk-safety-or-care-team-urgency",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      }
+    ],
+    "sequenceCatalog": [
+      {
+        "sequenceId": "lbl-018-care-team-review",
+        "label": "Family Food Environment",
+        "rag": "AMBER",
+        "outputIndex": 0,
+        "action": "Route family food environment concern to licensed care-team review."
+      },
+      {
+        "sequenceId": "lbl-018-plan-adjust",
+        "label": "Family Food Environment",
+        "rag": "GREEN",
+        "outputIndex": 1,
+        "action": "Adjust the life-balance plan for family food environment using patient goals, barriers, and preferences."
+      },
+      {
+        "sequenceId": "lbl-018-monitoring-task",
+        "label": "Family Food Environment",
+        "rag": "GREEN",
+        "outputIndex": 2,
+        "action": "Create monitoring or follow-up task for family food environment."
+      },
+      {
+        "sequenceId": "lbl-018-stable-balance",
+        "label": "Family Food Environment",
+        "rag": "GREEN",
+        "outputIndex": 3,
+        "action": "Continue stable life-balance monitoring for family food environment."
+      }
+    ]
+  },
+  "agentBinding": {
+    "agent": "life-balance-nutrition-and-metabolic-health-family-food-environment",
+    "mode": "advise",
+    "trigger": "lbl018_nutrition_and_metabolic_health_family_food_environment-input-assessment",
+    "allowedActions": [
+      "Assess current \"Life Balance Nutrition And Metabolic Health Family Food Environment\" state from available observations and write the normalized input vector to the PE input region [2911:2915] for RE to evaluate."
+    ],
+    "writeBack": {
+      "type": "pe-sensor",
+      "provider": "acp",
+      "sensorId": "acp.openclaw.lbl018_nutrition_and_metabolic_health_family_food_environment.input-analyst.assessment",
+      "name": "OpenClaw lbl018_nutrition_and_metabolic_health_family_food_environment input-analyst assessment",
+      "region": {
+        "offset": 2911,
+        "length": 4
+      },
+      "semantics": [
+        "symptom-or-functional-concern",
+        "lifestyle-barrier-or-preference",
+        "monitoring-data-quality-or-readiness",
+        "risk-safety-or-care-team-urgency"
+      ],
+      "ttlMs": 300000,
+      "normalization": "already-normalized-0-1",
+      "ingest": {
+        "endpoint": "/api/integrations/completions",
+        "method": "POST",
+        "triggerPush": false,
+        "compactPush": true
+      },
+      "sourceMapping": {
+        "id": "acp-lbl018_nutrition_and_metabolic_health_family_food_environment-input-assessment",
+        "sensorId": "acp.openclaw.lbl018_nutrition_and_metabolic_health_family_food_environment.input-analyst.assessment",
+        "name": "OpenClaw lbl018_nutrition_and_metabolic_health_family_food_environment input-analyst assessment",
+        "region": {
+          "offset": 2911,
+          "length": 4
+        },
+        "ttlMs": 300000
+      }
+    },
+    "autonomyPolicy": {
+      "mode": "advise",
+      "stage": 1,
+      "writeBackType": "pe-sensor",
+      "canWriteBack": true,
+      "canStageActions": false,
+      "canExecuteActions": false,
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "blockedWhenRag": []
+    },
+    "riskControls": {
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "maxAutonomy": "advise",
+      "blockedWhenRag": []
+    }
+  },
+  "responseMapping": {
+    "schemaVersion": "1.0.0",
+    "responseContract": "structured-keys-or-text",
+    "mode": "advise",
+    "fields": [
+      {
+        "semantic": "symptom-or-functional-concern",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/symptom-or-functional-concern",
+          "responseKey": "symptom-or-functional-concern",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lbl018_nutrition_and_metabolic_health_family_food_environment.input-analyst.assessment",
+          "region": {
+            "offset": 2911,
+            "length": 4
+          },
+          "index": 0
+        }
+      },
+      {
+        "semantic": "lifestyle-barrier-or-preference",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/lifestyle-barrier-or-preference",
+          "responseKey": "lifestyle-barrier-or-preference",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lbl018_nutrition_and_metabolic_health_family_food_environment.input-analyst.assessment",
+          "region": {
+            "offset": 2911,
+            "length": 4
+          },
+          "index": 1
+        }
+      },
+      {
+        "semantic": "monitoring-data-quality-or-readiness",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/monitoring-data-quality-or-readiness",
+          "responseKey": "monitoring-data-quality-or-readiness",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lbl018_nutrition_and_metabolic_health_family_food_environment.input-analyst.assessment",
+          "region": {
+            "offset": 2911,
+            "length": 4
+          },
+          "index": 2
+        }
+      },
+      {
+        "semantic": "risk-safety-or-care-team-urgency",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/risk-safety-or-care-team-urgency",
+          "responseKey": "risk-safety-or-care-team-urgency",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lbl018_nutrition_and_metabolic_health_family_food_environment.input-analyst.assessment",
+          "region": {
+            "offset": 2911,
+            "length": 4
+          },
+          "index": 3
+        }
+      }
+    ]
+  },
+  "diagnostics": {
+    "axisBasis": "inputSemantics",
+    "warnings": [
+      "input axes derived from inputSemantics (no length-matched sensorNormalization)"
+    ],
+    "inputLength": 4,
+    "sequenceCount": 4
+  }
+}

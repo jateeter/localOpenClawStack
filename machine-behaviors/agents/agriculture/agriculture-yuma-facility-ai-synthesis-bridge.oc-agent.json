@@ -1,0 +1,997 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "oc-agent-template",
+  "role": "input-analyst",
+  "agentId": "agriculture-yuma-facility-ai-synthesis-bridge",
+  "displayName": "Agriculture Yuma Facility AI Synthesis Bridge",
+  "machine": {
+    "id": "AGX055_yuma-facility-ai-synthesis-bridge",
+    "name": "Agriculture Yuma Facility AI Synthesis Bridge",
+    "code": "agx055_yuma_facility_ai_synthesis_bridge",
+    "machineClass": "agent-dispatcher",
+    "domain": "agriculture",
+    "inputRegion": {
+      "offset": 256,
+      "length": 16
+    },
+    "outputRegion": {
+      "offset": 3959,
+      "length": 12
+    }
+  },
+  "openclaw": {
+    "id": "openclaw-xacp",
+    "kind": "acp",
+    "platform": "OpenClaw",
+    "surface": "xACP",
+    "command": "openclaw acp",
+    "gatewayUrl": "ws://127.0.0.1:18789",
+    "sessionKey": "agent:main:main",
+    "targetAgent": "agriculture-yuma-facility-ai-synthesis-bridge",
+    "dispatchMode": "accepted-no-wait",
+    "completionMode": "pe-source-mapping",
+    "completionSourceMappingId": "acp-agriculture-yuma-facility-ai-synthesis-bridge-input-assessment"
+  },
+  "reasoning": {
+    "objective": "Produce the normalized input vector for \"Agriculture Yuma Facility AI Synthesis Bridge\" from current observations so RE can evaluate its CES sequences.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Agriculture Yuma Facility AI Synthesis Bridge\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Yuma MQTT \u2192 AI Synthesis Bridge. Aggregates the four Yuma MQTT-driven maintenance machines (AGX051-054) at offsets [256:272) and projects a 12-cell synthesis vector onto AgYieldOptimizationAI's input window at offsets [3959:3971], completing the path from live broker sensors through domain-specific maintenance machines into the cross-domain yield AI.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- agx051-aquaculture-maintenance-forecast-bit-1 (index 0):\n- agx051-aquaculture-maintenance-forecast-bit-2 (index 1):\n- agx051-aquaculture-maintenance-forecast-bit-3 (index 2):\n- agx051-aquaculture-maintenance-forecast-bit-4 (index 3):\n- agx052-dissolved-oxygen-probe-reliability-bit-1 (index 4):\n- agx052-dissolved-oxygen-probe-reliability-bit-2 (index 5):\n- agx052-dissolved-oxygen-probe-reliability-bit-3 (index 6):\n- agx052-dissolved-oxygen-probe-reliability-bit-4 (index 7):\n- agx053-hvac-service-plan-bit-1 (index 8):\n- agx053-hvac-service-plan-bit-2 (index 9):\n- agx053-hvac-service-plan-bit-3 (index 10):\n- agx053-hvac-service-plan-bit-4 (index 11):\n- agx054-co2-safety-compliance-bit-1 (index 12):\n- agx054-co2-safety-compliance-bit-2 (index 13):\n- agx054-co2-safety-compliance-bit-3 (index 14):\n- agx054-co2-safety-compliance-bit-4 (index 15):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- agx-055-aqua-urgent (RED) -> action: Project synthesis vector onto AgYieldOptimizationAI input window at [3959:3971]; AI dispatches cross-domain optimization.\n- agx-055-do-urgent (RED) -> action: Project synthesis vector onto AgYieldOptimizationAI input window at [3959:3971]; AI dispatches cross-domain optimization.\n- agx-055-climate-urgent (RED) -> action: Project synthesis vector onto AgYieldOptimizationAI input window at [3959:3971]; AI dispatches cross-domain optimization.\n- agx-055-safety-urgent (RED) -> action: Project synthesis vector onto AgYieldOptimizationAI input window at [3959:3971]; AI dispatches cross-domain optimization.\n- agx-055-facility-stable (GREEN) -> action: Project synthesis vector onto AgYieldOptimizationAI input window at [3959:3971]; AI dispatches cross-domain optimization.",
+    "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
+    "inputAxes": [
+      {
+        "index": 0,
+        "key": "agx051-aquaculture-maintenance-forecast-bit-1",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 1,
+        "key": "agx051-aquaculture-maintenance-forecast-bit-2",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 2,
+        "key": "agx051-aquaculture-maintenance-forecast-bit-3",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 3,
+        "key": "agx051-aquaculture-maintenance-forecast-bit-4",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 4,
+        "key": "agx052-dissolved-oxygen-probe-reliability-bit-1",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 5,
+        "key": "agx052-dissolved-oxygen-probe-reliability-bit-2",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 6,
+        "key": "agx052-dissolved-oxygen-probe-reliability-bit-3",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 7,
+        "key": "agx052-dissolved-oxygen-probe-reliability-bit-4",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 8,
+        "key": "agx053-hvac-service-plan-bit-1",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 9,
+        "key": "agx053-hvac-service-plan-bit-2",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 10,
+        "key": "agx053-hvac-service-plan-bit-3",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 11,
+        "key": "agx053-hvac-service-plan-bit-4",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 12,
+        "key": "agx054-co2-safety-compliance-bit-1",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 13,
+        "key": "agx054-co2-safety-compliance-bit-2",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 14,
+        "key": "agx054-co2-safety-compliance-bit-3",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 15,
+        "key": "agx054-co2-safety-compliance-bit-4",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      }
+    ],
+    "sequenceCatalog": [
+      {
+        "sequenceId": "agx-055-aqua-urgent",
+        "label": "agx-055-aqua-urgent",
+        "rag": "RED",
+        "outputIndex": 0,
+        "action": "Project synthesis vector onto AgYieldOptimizationAI input window at [3959:3971]; AI dispatches cross-domain optimization."
+      },
+      {
+        "sequenceId": "agx-055-do-urgent",
+        "label": "agx-055-do-urgent",
+        "rag": "RED",
+        "outputIndex": 3,
+        "action": "Project synthesis vector onto AgYieldOptimizationAI input window at [3959:3971]; AI dispatches cross-domain optimization."
+      },
+      {
+        "sequenceId": "agx-055-climate-urgent",
+        "label": "agx-055-climate-urgent",
+        "rag": "RED",
+        "outputIndex": 6,
+        "action": "Project synthesis vector onto AgYieldOptimizationAI input window at [3959:3971]; AI dispatches cross-domain optimization."
+      },
+      {
+        "sequenceId": "agx-055-safety-urgent",
+        "label": "agx-055-safety-urgent",
+        "rag": "RED",
+        "outputIndex": 9,
+        "action": "Project synthesis vector onto AgYieldOptimizationAI input window at [3959:3971]; AI dispatches cross-domain optimization."
+      },
+      {
+        "sequenceId": "agx-055-facility-stable",
+        "label": "agx-055-facility-stable",
+        "rag": "GREEN",
+        "outputIndex": 11,
+        "action": "Project synthesis vector onto AgYieldOptimizationAI input window at [3959:3971]; AI dispatches cross-domain optimization."
+      }
+    ]
+  },
+  "agentBinding": {
+    "agent": "agriculture-yuma-facility-ai-synthesis-bridge",
+    "mode": "advise",
+    "trigger": "agx055_yuma_facility_ai_synthesis_bridge-input-assessment",
+    "allowedActions": [
+      "Assess current \"Agriculture Yuma Facility AI Synthesis Bridge\" state from available observations and write the normalized input vector to the PE input region [256:272] for RE to evaluate."
+    ],
+    "writeBack": {
+      "type": "pe-sensor",
+      "provider": "acp",
+      "sensorId": "acp.openclaw.agx055_yuma_facility_ai_synthesis_bridge.input-analyst.assessment",
+      "name": "OpenClaw agx055_yuma_facility_ai_synthesis_bridge input-analyst assessment",
+      "region": {
+        "offset": 256,
+        "length": 16
+      },
+      "semantics": [
+        "agx051-aquaculture-maintenance-forecast-bit-1",
+        "agx051-aquaculture-maintenance-forecast-bit-2",
+        "agx051-aquaculture-maintenance-forecast-bit-3",
+        "agx051-aquaculture-maintenance-forecast-bit-4",
+        "agx052-dissolved-oxygen-probe-reliability-bit-1",
+        "agx052-dissolved-oxygen-probe-reliability-bit-2",
+        "agx052-dissolved-oxygen-probe-reliability-bit-3",
+        "agx052-dissolved-oxygen-probe-reliability-bit-4",
+        "agx053-hvac-service-plan-bit-1",
+        "agx053-hvac-service-plan-bit-2",
+        "agx053-hvac-service-plan-bit-3",
+        "agx053-hvac-service-plan-bit-4",
+        "agx054-co2-safety-compliance-bit-1",
+        "agx054-co2-safety-compliance-bit-2",
+        "agx054-co2-safety-compliance-bit-3",
+        "agx054-co2-safety-compliance-bit-4"
+      ],
+      "ttlMs": 300000,
+      "normalization": "already-normalized-0-1",
+      "ingest": {
+        "endpoint": "/api/integrations/completions",
+        "method": "POST",
+        "triggerPush": false,
+        "compactPush": true
+      },
+      "sourceMapping": {
+        "id": "acp-agx055_yuma_facility_ai_synthesis_bridge-input-assessment",
+        "sensorId": "acp.openclaw.agx055_yuma_facility_ai_synthesis_bridge.input-analyst.assessment",
+        "name": "OpenClaw agx055_yuma_facility_ai_synthesis_bridge input-analyst assessment",
+        "region": {
+          "offset": 256,
+          "length": 16
+        },
+        "ttlMs": 300000
+      }
+    },
+    "autonomyPolicy": {
+      "mode": "advise",
+      "stage": 1,
+      "writeBackType": "pe-sensor",
+      "canWriteBack": true,
+      "canStageActions": false,
+      "canExecuteActions": false,
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "blockedWhenRag": []
+    },
+    "riskControls": {
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "maxAutonomy": "advise",
+      "blockedWhenRag": []
+    }
+  },
+  "responseMapping": {
+    "schemaVersion": "1.0.0",
+    "responseContract": "structured-keys-or-text",
+    "mode": "advise",
+    "fields": [
+      {
+        "semantic": "agx051-aquaculture-maintenance-forecast-bit-1",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/agx051-aquaculture-maintenance-forecast-bit-1",
+          "responseKey": "agx051-aquaculture-maintenance-forecast-bit-1",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agx055_yuma_facility_ai_synthesis_bridge.input-analyst.assessment",
+          "region": {
+            "offset": 256,
+            "length": 16
+          },
+          "index": 0
+        }
+      },
+      {
+        "semantic": "agx051-aquaculture-maintenance-forecast-bit-2",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/agx051-aquaculture-maintenance-forecast-bit-2",
+          "responseKey": "agx051-aquaculture-maintenance-forecast-bit-2",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agx055_yuma_facility_ai_synthesis_bridge.input-analyst.assessment",
+          "region": {
+            "offset": 256,
+            "length": 16
+          },
+          "index": 1
+        }
+      },
+      {
+        "semantic": "agx051-aquaculture-maintenance-forecast-bit-3",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/agx051-aquaculture-maintenance-forecast-bit-3",
+          "responseKey": "agx051-aquaculture-maintenance-forecast-bit-3",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agx055_yuma_facility_ai_synthesis_bridge.input-analyst.assessment",
+          "region": {
+            "offset": 256,
+            "length": 16
+          },
+          "index": 2
+        }
+      },
+      {
+        "semantic": "agx051-aquaculture-maintenance-forecast-bit-4",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/agx051-aquaculture-maintenance-forecast-bit-4",
+          "responseKey": "agx051-aquaculture-maintenance-forecast-bit-4",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agx055_yuma_facility_ai_synthesis_bridge.input-analyst.assessment",
+          "region": {
+            "offset": 256,
+            "length": 16
+          },
+          "index": 3
+        }
+      },
+      {
+        "semantic": "agx052-dissolved-oxygen-probe-reliability-bit-1",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/agx052-dissolved-oxygen-probe-reliability-bit-1",
+          "responseKey": "agx052-dissolved-oxygen-probe-reliability-bit-1",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agx055_yuma_facility_ai_synthesis_bridge.input-analyst.assessment",
+          "region": {
+            "offset": 256,
+            "length": 16
+          },
+          "index": 4
+        }
+      },
+      {
+        "semantic": "agx052-dissolved-oxygen-probe-reliability-bit-2",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/agx052-dissolved-oxygen-probe-reliability-bit-2",
+          "responseKey": "agx052-dissolved-oxygen-probe-reliability-bit-2",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agx055_yuma_facility_ai_synthesis_bridge.input-analyst.assessment",
+          "region": {
+            "offset": 256,
+            "length": 16
+          },
+          "index": 5
+        }
+      },
+      {
+        "semantic": "agx052-dissolved-oxygen-probe-reliability-bit-3",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/agx052-dissolved-oxygen-probe-reliability-bit-3",
+          "responseKey": "agx052-dissolved-oxygen-probe-reliability-bit-3",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agx055_yuma_facility_ai_synthesis_bridge.input-analyst.assessment",
+          "region": {
+            "offset": 256,
+            "length": 16
+          },
+          "index": 6
+        }
+      },
+      {
+        "semantic": "agx052-dissolved-oxygen-probe-reliability-bit-4",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/agx052-dissolved-oxygen-probe-reliability-bit-4",
+          "responseKey": "agx052-dissolved-oxygen-probe-reliability-bit-4",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agx055_yuma_facility_ai_synthesis_bridge.input-analyst.assessment",
+          "region": {
+            "offset": 256,
+            "length": 16
+          },
+          "index": 7
+        }
+      },
+      {
+        "semantic": "agx053-hvac-service-plan-bit-1",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/agx053-hvac-service-plan-bit-1",
+          "responseKey": "agx053-hvac-service-plan-bit-1",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agx055_yuma_facility_ai_synthesis_bridge.input-analyst.assessment",
+          "region": {
+            "offset": 256,
+            "length": 16
+          },
+          "index": 8
+        }
+      },
+      {
+        "semantic": "agx053-hvac-service-plan-bit-2",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/agx053-hvac-service-plan-bit-2",
+          "responseKey": "agx053-hvac-service-plan-bit-2",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agx055_yuma_facility_ai_synthesis_bridge.input-analyst.assessment",
+          "region": {
+            "offset": 256,
+            "length": 16
+          },
+          "index": 9
+        }
+      },
+      {
+        "semantic": "agx053-hvac-service-plan-bit-3",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/agx053-hvac-service-plan-bit-3",
+          "responseKey": "agx053-hvac-service-plan-bit-3",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agx055_yuma_facility_ai_synthesis_bridge.input-analyst.assessment",
+          "region": {
+            "offset": 256,
+            "length": 16
+          },
+          "index": 10
+        }
+      },
+      {
+        "semantic": "agx053-hvac-service-plan-bit-4",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/agx053-hvac-service-plan-bit-4",
+          "responseKey": "agx053-hvac-service-plan-bit-4",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agx055_yuma_facility_ai_synthesis_bridge.input-analyst.assessment",
+          "region": {
+            "offset": 256,
+            "length": 16
+          },
+          "index": 11
+        }
+      },
+      {
+        "semantic": "agx054-co2-safety-compliance-bit-1",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/agx054-co2-safety-compliance-bit-1",
+          "responseKey": "agx054-co2-safety-compliance-bit-1",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agx055_yuma_facility_ai_synthesis_bridge.input-analyst.assessment",
+          "region": {
+            "offset": 256,
+            "length": 16
+          },
+          "index": 12
+        }
+      },
+      {
+        "semantic": "agx054-co2-safety-compliance-bit-2",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/agx054-co2-safety-compliance-bit-2",
+          "responseKey": "agx054-co2-safety-compliance-bit-2",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agx055_yuma_facility_ai_synthesis_bridge.input-analyst.assessment",
+          "region": {
+            "offset": 256,
+            "length": 16
+          },
+          "index": 13
+        }
+      },
+      {
+        "semantic": "agx054-co2-safety-compliance-bit-3",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/agx054-co2-safety-compliance-bit-3",
+          "responseKey": "agx054-co2-safety-compliance-bit-3",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agx055_yuma_facility_ai_synthesis_bridge.input-analyst.assessment",
+          "region": {
+            "offset": 256,
+            "length": 16
+          },
+          "index": 14
+        }
+      },
+      {
+        "semantic": "agx054-co2-safety-compliance-bit-4",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/agx054-co2-safety-compliance-bit-4",
+          "responseKey": "agx054-co2-safety-compliance-bit-4",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agx055_yuma_facility_ai_synthesis_bridge.input-analyst.assessment",
+          "region": {
+            "offset": 256,
+            "length": 16
+          },
+          "index": 15
+        }
+      }
+    ]
+  },
+  "diagnostics": {
+    "axisBasis": "inputSemantics",
+    "warnings": [
+      "input axes derived from inputSemantics (no length-matched sensorNormalization)"
+    ],
+    "inputLength": 16,
+    "sequenceCount": 5
+  }
+}

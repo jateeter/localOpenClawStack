@@ -1,0 +1,345 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "oc-agent-template",
+  "role": "input-analyst",
+  "agentId": "home-environment-safety-monitor",
+  "displayName": "Home Environment Safety Monitor",
+  "machine": {
+    "id": "HomeEnvironmentSafetyMonitor",
+    "name": "Home Environment Safety Monitor",
+    "code": "homeenvironmentsafetymonitor",
+    "machineClass": "risk-forecaster",
+    "domain": "health-personal",
+    "inputRegion": {
+      "offset": 1967,
+      "length": 4
+    },
+    "outputRegion": {
+      "offset": 1999,
+      "length": 4
+    }
+  },
+  "openclaw": {
+    "id": "openclaw-xacp",
+    "kind": "acp",
+    "platform": "OpenClaw",
+    "surface": "xACP",
+    "command": "openclaw acp",
+    "gatewayUrl": "ws://127.0.0.1:18789",
+    "sessionKey": "agent:main:main",
+    "targetAgent": "home-environment-safety-monitor",
+    "dispatchMode": "accepted-no-wait",
+    "completionMode": "pe-source-mapping",
+    "completionSourceMappingId": "acp-home-environment-safety-monitor-input-assessment"
+  },
+  "reasoning": {
+    "objective": "Produce the normalized input vector for \"Home Environment Safety Monitor\" from current observations so RE can evaluate its CES sequences.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Home Environment Safety Monitor\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Monitors housing quality conditions that directly affect resident health in low- and medium-income households. Tracks temperature stability (heating/cooling reliability), air quality (mold, lead, particulates), structural hazards, and utility shutoff risk. These social determinants of health are disproportionately present in aging rental housing stock occupied by economically vulnerable families. Output at [1999:2003] feeds the Adolescent Mental Health Monitor.\n\nPOPULATION: Renters in aging housing stock; low-income families; households in utility shutoff risk zones\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- temp_stability_norm (index 0):  0.0 = habitability crisis (chronic <55\u00b0F winter or >95\u00b0F summer) | 0.5 = livable but uncomfortable | 1.0 = stable comfortable range\n- air_quality_norm (index 1):  0.0 = severe mold/lead/particulate contamination confirmed | 0.5 = detectable but manageable | 1.0 = clean tested air\n- structural_safety_norm (index 2):  0.0 = multiple active structural hazards (roof leak, electrical, falling plaster) | 0.5 = minor deferred maintenance | 1.0 = structurally sound\n- utility_reliability_norm (index 3):  0.0 = active shutoff notice or disconnected | 0.5 = past-due balance with shutoff risk | 1.0 = current and reliable service\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- UNSAFE_HOUSING (RED) -> action: Housing code complaint; emergency shelter referral; children's services notification if children present\n- UTILITY_FAILURE (RED) -> action: LIHEAP/utility assistance referral; emergency fund application; health impacts assessment for vulnerable residents\n- ENVIRONMENT_SAFE (GREEN) -> action: Downstream adolescent mental health monitor registers stable home environment",
+    "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
+    "inputAxes": [
+      {
+        "index": 0,
+        "key": "temp_stability_norm",
+        "anchors": {
+          "low": "habitability crisis (chronic <55\u00b0F winter or >95\u00b0F summer)",
+          "mid": "livable but uncomfortable",
+          "high": "stable comfortable range"
+        }
+      },
+      {
+        "index": 1,
+        "key": "air_quality_norm",
+        "anchors": {
+          "low": "severe mold/lead/particulate contamination confirmed",
+          "mid": "detectable but manageable",
+          "high": "clean tested air"
+        }
+      },
+      {
+        "index": 2,
+        "key": "structural_safety_norm",
+        "anchors": {
+          "low": "multiple active structural hazards (roof leak, electrical, falling plaster)",
+          "mid": "minor deferred maintenance",
+          "high": "structurally sound"
+        }
+      },
+      {
+        "index": 3,
+        "key": "utility_reliability_norm",
+        "anchors": {
+          "low": "active shutoff notice or disconnected",
+          "mid": "past-due balance with shutoff risk",
+          "high": "current and reliable service"
+        }
+      }
+    ],
+    "sequenceCatalog": [
+      {
+        "sequenceId": "home-env-hazard-escalation",
+        "label": "UNSAFE_HOUSING",
+        "rag": "RED",
+        "outputIndex": 0,
+        "action": "Housing code complaint; emergency shelter referral; children's services notification if children present"
+      },
+      {
+        "sequenceId": "home-env-utility-failure",
+        "label": "UTILITY_FAILURE",
+        "rag": "RED",
+        "outputIndex": 1,
+        "action": "LIHEAP/utility assistance referral; emergency fund application; health impacts assessment for vulnerable residents"
+      },
+      {
+        "sequenceId": "home-env-safe",
+        "label": "ENVIRONMENT_SAFE",
+        "rag": "GREEN",
+        "outputIndex": 3,
+        "action": "Downstream adolescent mental health monitor registers stable home environment"
+      }
+    ]
+  },
+  "agentBinding": {
+    "agent": "home-environment-safety-monitor",
+    "mode": "advise",
+    "trigger": "homeenvironmentsafetymonitor-input-assessment",
+    "allowedActions": [
+      "Assess current \"Home Environment Safety Monitor\" state from available observations and write the normalized input vector to the PE input region [1967:1971] for RE to evaluate."
+    ],
+    "writeBack": {
+      "type": "pe-sensor",
+      "provider": "acp",
+      "sensorId": "acp.openclaw.homeenvironmentsafetymonitor.input-analyst.assessment",
+      "name": "OpenClaw homeenvironmentsafetymonitor input-analyst assessment",
+      "region": {
+        "offset": 1967,
+        "length": 4
+      },
+      "semantics": [
+        "temp_stability_norm",
+        "air_quality_norm",
+        "structural_safety_norm",
+        "utility_reliability_norm"
+      ],
+      "ttlMs": 300000,
+      "normalization": "already-normalized-0-1",
+      "ingest": {
+        "endpoint": "/api/integrations/completions",
+        "method": "POST",
+        "triggerPush": false,
+        "compactPush": true
+      },
+      "sourceMapping": {
+        "id": "acp-homeenvironmentsafetymonitor-input-assessment",
+        "sensorId": "acp.openclaw.homeenvironmentsafetymonitor.input-analyst.assessment",
+        "name": "OpenClaw homeenvironmentsafetymonitor input-analyst assessment",
+        "region": {
+          "offset": 1967,
+          "length": 4
+        },
+        "ttlMs": 300000
+      }
+    },
+    "autonomyPolicy": {
+      "mode": "advise",
+      "stage": 1,
+      "writeBackType": "pe-sensor",
+      "canWriteBack": true,
+      "canStageActions": false,
+      "canExecuteActions": false,
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "blockedWhenRag": []
+    },
+    "riskControls": {
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "maxAutonomy": "advise",
+      "blockedWhenRag": []
+    }
+  },
+  "responseMapping": {
+    "schemaVersion": "1.0.0",
+    "responseContract": "structured-keys-or-text",
+    "mode": "advise",
+    "fields": [
+      {
+        "semantic": "temp_stability_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/temp_stability_norm",
+          "responseKey": "temp_stability_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.homeenvironmentsafetymonitor.input-analyst.assessment",
+          "region": {
+            "offset": 1967,
+            "length": 4
+          },
+          "index": 0
+        }
+      },
+      {
+        "semantic": "air_quality_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/air_quality_norm",
+          "responseKey": "air_quality_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.homeenvironmentsafetymonitor.input-analyst.assessment",
+          "region": {
+            "offset": 1967,
+            "length": 4
+          },
+          "index": 1
+        }
+      },
+      {
+        "semantic": "structural_safety_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/structural_safety_norm",
+          "responseKey": "structural_safety_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.homeenvironmentsafetymonitor.input-analyst.assessment",
+          "region": {
+            "offset": 1967,
+            "length": 4
+          },
+          "index": 2
+        }
+      },
+      {
+        "semantic": "utility_reliability_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/utility_reliability_norm",
+          "responseKey": "utility_reliability_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.homeenvironmentsafetymonitor.input-analyst.assessment",
+          "region": {
+            "offset": 1967,
+            "length": 4
+          },
+          "index": 3
+        }
+      }
+    ]
+  },
+  "diagnostics": {
+    "axisBasis": "sensorNormalization",
+    "warnings": [],
+    "inputLength": 4,
+    "sequenceCount": 3
+  }
+}
