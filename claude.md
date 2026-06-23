@@ -23,7 +23,10 @@ This repo provides the local OpenClaw ACP/xACP gateway and Open WebUI stack used
 ```bash
 docker compose config
 docker compose ps
+./scripts/init-secrets.sh
+./scripts/update-versions.sh
 ./scripts/start.sh
+./scripts/verify-deployment.sh
 ./scripts/stop.sh
 ```
 
@@ -33,6 +36,9 @@ Use the repo's actual scripts when present; Docker Compose state is time-sensiti
 
 - OpenClaw gateway is expected at `http://localhost:18789`.
 - WebUI is expected at `http://localhost:8080`.
+- Published ports are loopback-only, and `.env` must carry immutable digest pins for the Node base, Open WebUI, and browser images.
+- Release refresh is explicit through `update-versions.sh` or `start.sh --update`; ordinary startup consumes the existing pins without mutating versions.
+- `start.sh` owns persisted gateway hardening, WebUI administrator synchronization, and live deployment verification. CI delegates to this entrypoint.
 - RealityEngine PE tests should use `ACP_ENABLED=true`, gateway URL, session key, target agent, and `ACP_COMPLETION_SOURCE_MAPPING_ID=acp-openclaw-completion`.
 - Treat upstream version freshness as time-sensitive; re-check before claiming current release status.
 

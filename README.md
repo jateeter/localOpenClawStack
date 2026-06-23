@@ -13,11 +13,24 @@ A local Docker-based deployment stack for OpenClaw (OpenClay) development.
    ```bash
    cp .env.example .env
    ```
-2. Edit `.env` and set a secure `OPENCLAW_GATEWAY_TOKEN`.
-3. Start the stack:
+2. Generate secure local credentials:
    ```bash
-   docker compose up -d
+   ./scripts/init-secrets.sh
    ```
+3. Resolve stable releases and immutable image pins:
+   ```bash
+   ./scripts/update-versions.sh
+   ```
+4. Start the stack:
+   ```bash
+   ./scripts/start.sh
+   ```
+
+`start.sh` refreshes current non-prerelease versions, records immutable image
+pins in `.env`, hardens the persisted gateway configuration, and verifies the
+running image identities. Use `start.sh --no-update` only for an offline restart
+with existing pins. WebUI credentials remain in the owner-only `.env` file and
+are never committed.
 
 ## Services
 
@@ -28,7 +41,17 @@ A local Docker-based deployment stack for OpenClaw (OpenClay) development.
 
 Start:
 ```bash
-docker compose up -d
+./scripts/start.sh
+```
+
+Verify versions, digests, health, and authentication:
+```bash
+./scripts/verify-deployment.sh
+```
+
+Compare two clean gateway builds for identical root filesystem layers:
+```bash
+./scripts/verify-image-reproduction.sh
 ```
 
 Stop:
@@ -72,7 +95,7 @@ never blocks on the external agent.
 
 | Variable | Description |
 |---|---|
-| `OPENCLAW_VERSION` | OpenClaw npm package version used to build the gateway image (default: `2026.6.8`) |
+| `OPENCLAW_VERSION` | OpenClaw npm package version used to build the gateway image (default: `2026.6.9`) |
 | `OPENCLAW_GATEWAY_URL` | Base URL for the OpenClaw gateway (e.g. `http://localhost:18789`) |
 | `ACP_SESSION_KEY` | Shared secret used when dispatching to the gateway |
 
