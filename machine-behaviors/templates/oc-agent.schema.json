@@ -1,0 +1,160 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://realityengine.example.org/schemas/oc-agent-template-1.0.0.json",
+  "title": "OpenClaw OC-Agent-Template Instance (input-analyst)",
+  "description": "A reusable OpenClaw agent specification derived from a RealityEngine machine. The input-analyst role reasons over current domain observations and writes the machine's NORMALIZED INPUT VECTOR back to the PE input region, so RE's deterministic CES logic fires on agent-supplied inputs. One agent per machine, named after the machine. Reuses the canonical corpus agentBinding contract so a derived instance is promotion-ready.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "templateId",
+    "role",
+    "agentId",
+    "machine",
+    "openclaw",
+    "reasoning",
+    "agentBinding",
+    "responseMapping"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "1.0.0" },
+    "templateId": { "const": "oc-agent-template" },
+    "role": { "enum": ["input-analyst"] },
+    "agentId": { "type": "string", "minLength": 1 },
+    "displayName": { "type": "string", "minLength": 1 },
+    "machine": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "name", "code", "machineClass", "domain", "inputRegion", "outputRegion"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "name": { "type": "string", "minLength": 1 },
+        "code": { "type": "string", "minLength": 1 },
+        "machineClass": { "type": "string", "minLength": 1 },
+        "domain": { "type": "string", "minLength": 1 },
+        "inputRegion": { "$ref": "#/$defs/region" },
+        "outputRegion": { "$ref": "#/$defs/region" }
+      }
+    },
+    "openclaw": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "kind", "platform", "surface", "command", "gatewayUrl", "sessionKey", "targetAgent", "dispatchMode", "completionMode", "completionSourceMappingId"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "kind": { "type": "string", "minLength": 1 },
+        "platform": { "type": "string", "minLength": 1 },
+        "surface": { "type": "string", "minLength": 1 },
+        "command": { "type": "string", "minLength": 1 },
+        "gatewayUrl": { "type": "string", "minLength": 1 },
+        "sessionKey": { "type": "string", "minLength": 1 },
+        "targetAgent": { "type": "string", "minLength": 1 },
+        "dispatchMode": { "type": "string", "minLength": 1 },
+        "completionMode": { "type": "string", "minLength": 1 },
+        "completionSourceMappingId": { "type": "string", "minLength": 1 }
+      }
+    },
+    "reasoning": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["objective", "inputAxes", "sequenceCatalog", "systemPrompt", "outputContract"],
+      "properties": {
+        "objective": { "type": "string", "minLength": 1 },
+        "systemPrompt": { "type": "string", "minLength": 1 },
+        "outputContract": { "type": "string", "minLength": 1 },
+        "inputAxes": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["index", "key", "anchors"],
+            "properties": {
+              "index": { "type": "integer", "minimum": 0 },
+              "key": { "type": "string", "minLength": 1 },
+              "anchors": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["low", "mid", "high"],
+                "properties": {
+                  "low": { "type": "string" },
+                  "mid": { "type": "string" },
+                  "high": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "sequenceCatalog": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["sequenceId", "label", "rag", "outputIndex", "action"],
+            "properties": {
+              "sequenceId": { "type": "string", "minLength": 1 },
+              "label": { "type": "string", "minLength": 1 },
+              "rag": { "type": "string", "enum": ["GREEN", "AMBER", "RED", ""] },
+              "outputIndex": { "type": "integer", "minimum": 0 },
+              "action": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "agentBinding": {
+      "$ref": "../../../RealityEngine_Machines/schemas/agent-binding.schema.json"
+    },
+    "responseMapping": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["schemaVersion", "responseContract", "mode", "fields"],
+      "properties": {
+        "schemaVersion": { "const": "1.0.0" },
+        "responseContract": { "type": "string", "minLength": 1 },
+        "mode": { "enum": ["observe", "advise", "supervised-act", "automated-act"] },
+        "fields": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["semantic", "valueType", "normalization", "extract", "target"],
+            "properties": {
+              "semantic": { "type": "string", "minLength": 1 },
+              "valueType": { "enum": ["scalar", "binary"] },
+              "normalization": { "type": "string", "minLength": 1 },
+              "extract": { "type": "object" },
+              "target": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["sensorId", "region", "index"],
+                "properties": {
+                  "sensorId": { "type": "string", "minLength": 1 },
+                  "region": { "$ref": "#/$defs/region" },
+                  "index": { "type": "integer", "minimum": 0 }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "diagnostics": {
+      "type": "object",
+      "additionalProperties": true
+    }
+  },
+  "$defs": {
+    "region": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["offset", "length"],
+      "properties": {
+        "offset": { "type": "integer", "minimum": 0 },
+        "length": { "type": "integer", "minimum": 1 }
+      }
+    }
+  }
+}

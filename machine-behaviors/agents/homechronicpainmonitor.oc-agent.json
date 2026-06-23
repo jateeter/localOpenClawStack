@@ -1,0 +1,352 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "oc-agent-template",
+  "role": "input-analyst",
+  "agentId": "home-chronic-pain-monitor",
+  "displayName": "Home Chronic Pain Monitor",
+  "machine": {
+    "id": "HomeChronicPainMonitor",
+    "name": "Home Chronic Pain Monitor",
+    "code": "homechronicpainmonitor",
+    "machineClass": "risk-forecaster",
+    "domain": "health-personal",
+    "inputRegion": {
+      "offset": 1991,
+      "length": 4
+    },
+    "outputRegion": {
+      "offset": 2023,
+      "length": 4
+    }
+  },
+  "openclaw": {
+    "id": "openclaw-xacp",
+    "kind": "acp",
+    "platform": "OpenClaw",
+    "surface": "xACP",
+    "command": "openclaw acp",
+    "gatewayUrl": "ws://127.0.0.1:18789",
+    "sessionKey": "agent:main:main",
+    "targetAgent": "home-chronic-pain-monitor",
+    "dispatchMode": "accepted-no-wait",
+    "completionMode": "pe-source-mapping",
+    "completionSourceMappingId": "acp-home-chronic-pain-monitor-input-assessment"
+  },
+  "reasoning": {
+    "objective": "Produce the normalized input vector for \"Home Chronic Pain Monitor\" from current observations so RE can evaluate its CES sequences.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Home Chronic Pain Monitor\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Monitors pain intensity, functional impairment, opioid risk indicators, and physical activity for adults managing chronic pain at home in low- and medium-income settings. Chronic pain is disproportionately prevalent in low-income populations due to occupational injury, inadequate early treatment, and limited access to non-pharmacological interventions. Unmanaged chronic pain is a primary driver of depression and social isolation. Output at [2023:2027] feeds the Home Mental Health Access Monitor alongside the Chronic Disease Monitor.\n\nPOPULATION: Adults with chronic pain from occupational injury, musculoskeletal conditions, fibromyalgia; opioid-prescribed patients in home care; low-income adults with limited PT/pain clinic access\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- pain_scale_norm (index 0):  0.0 = pain 9\u201310/10 constant, unable to function | 0.5 = pain 4\u20136/10 manageable with medication | 1.0 = pain 0\u20132/10 minimal or absent\n- functional_impairment_norm (index 1):  0.0 = bedbound or homebound due to pain; unable to perform basic ADLs | 0.5 = significantly limited but managing key daily activities with help | 1.0 = fully functional with minimal pain interference\n- opioid_risk_norm (index 2):  0.0 = multiple opioid risk flags (early refills, sedation signs, diversion indicators, dose escalation without consult) | 0.5 = one risk factor present (borderline early refill; PRN overuse) | 1.0 = no opioid risk indicators; stable prescribed use or non-opioid pain management\n- physical_activity_norm (index 3):  0.0 = zero physical activity; complete deconditioning | 0.5 = minimal movement with assistance; ADL-level activity only | 1.0 = regular therapeutic activity; walking program or PT adherent\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- PAIN_CRISIS (RED) -> action: Urgent nurse visit; physician pain consult; medication adjustment; crisis pain plan activation\n- OPIOID_RISK_ELEVATED (AMBER) -> action: ORT/DIRE risk re-screening; physician medication review; urine drug screen; PDMP check; non-opioid alternative assessment\n- FUNCTIONAL_IMPAIRMENT (AMBER) -> action: PT referral; pain management plan review; occupational therapy for adaptive function; depression screening\n- PAIN_MANAGED (AMBER) -> action: Mental health access monitor registers pain management stable",
+    "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
+    "inputAxes": [
+      {
+        "index": 0,
+        "key": "pain_scale_norm",
+        "anchors": {
+          "low": "pain 9\u201310/10 constant, unable to function",
+          "mid": "pain 4\u20136/10 manageable with medication",
+          "high": "pain 0\u20132/10 minimal or absent"
+        }
+      },
+      {
+        "index": 1,
+        "key": "functional_impairment_norm",
+        "anchors": {
+          "low": "bedbound or homebound due to pain; unable to perform basic ADLs",
+          "mid": "significantly limited but managing key daily activities with help",
+          "high": "fully functional with minimal pain interference"
+        }
+      },
+      {
+        "index": 2,
+        "key": "opioid_risk_norm",
+        "anchors": {
+          "low": "multiple opioid risk flags (early refills, sedation signs, diversion indicators, dose escalation without consult)",
+          "mid": "one risk factor present (borderline early refill; PRN overuse)",
+          "high": "no opioid risk indicators; stable prescribed use or non-opioid pain management"
+        }
+      },
+      {
+        "index": 3,
+        "key": "physical_activity_norm",
+        "anchors": {
+          "low": "zero physical activity; complete deconditioning",
+          "mid": "minimal movement with assistance; ADL-level activity only",
+          "high": "regular therapeutic activity; walking program or PT adherent"
+        }
+      }
+    ],
+    "sequenceCatalog": [
+      {
+        "sequenceId": "chronic-pain-crisis",
+        "label": "PAIN_CRISIS",
+        "rag": "RED",
+        "outputIndex": 0,
+        "action": "Urgent nurse visit; physician pain consult; medication adjustment; crisis pain plan activation"
+      },
+      {
+        "sequenceId": "chronic-pain-opioid-risk",
+        "label": "OPIOID_RISK_ELEVATED",
+        "rag": "AMBER",
+        "outputIndex": 1,
+        "action": "ORT/DIRE risk re-screening; physician medication review; urine drug screen; PDMP check; non-opioid alternative assessment"
+      },
+      {
+        "sequenceId": "chronic-pain-functional-impairment",
+        "label": "FUNCTIONAL_IMPAIRMENT",
+        "rag": "AMBER",
+        "outputIndex": 2,
+        "action": "PT referral; pain management plan review; occupational therapy for adaptive function; depression screening"
+      },
+      {
+        "sequenceId": "chronic-pain-managed-ok",
+        "label": "PAIN_MANAGED",
+        "rag": "AMBER",
+        "outputIndex": 3,
+        "action": "Mental health access monitor registers pain management stable"
+      }
+    ]
+  },
+  "agentBinding": {
+    "agent": "home-chronic-pain-monitor",
+    "mode": "advise",
+    "trigger": "homechronicpainmonitor-input-assessment",
+    "allowedActions": [
+      "Assess current \"Home Chronic Pain Monitor\" state from available observations and write the normalized input vector to the PE input region [1991:1995] for RE to evaluate."
+    ],
+    "writeBack": {
+      "type": "pe-sensor",
+      "provider": "acp",
+      "sensorId": "acp.openclaw.homechronicpainmonitor.input-analyst.assessment",
+      "name": "OpenClaw homechronicpainmonitor input-analyst assessment",
+      "region": {
+        "offset": 1991,
+        "length": 4
+      },
+      "semantics": [
+        "pain_scale_norm",
+        "functional_impairment_norm",
+        "opioid_risk_norm",
+        "physical_activity_norm"
+      ],
+      "ttlMs": 300000,
+      "normalization": "already-normalized-0-1",
+      "ingest": {
+        "endpoint": "/api/integrations/completions",
+        "method": "POST",
+        "triggerPush": false,
+        "compactPush": true
+      },
+      "sourceMapping": {
+        "id": "acp-homechronicpainmonitor-input-assessment",
+        "sensorId": "acp.openclaw.homechronicpainmonitor.input-analyst.assessment",
+        "name": "OpenClaw homechronicpainmonitor input-analyst assessment",
+        "region": {
+          "offset": 1991,
+          "length": 4
+        },
+        "ttlMs": 300000
+      }
+    },
+    "autonomyPolicy": {
+      "mode": "advise",
+      "stage": 1,
+      "writeBackType": "pe-sensor",
+      "canWriteBack": true,
+      "canStageActions": false,
+      "canExecuteActions": false,
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "blockedWhenRag": []
+    },
+    "riskControls": {
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "maxAutonomy": "advise",
+      "blockedWhenRag": []
+    }
+  },
+  "responseMapping": {
+    "schemaVersion": "1.0.0",
+    "responseContract": "structured-keys-or-text",
+    "mode": "advise",
+    "fields": [
+      {
+        "semantic": "pain_scale_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/pain_scale_norm",
+          "responseKey": "pain_scale_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.homechronicpainmonitor.input-analyst.assessment",
+          "region": {
+            "offset": 1991,
+            "length": 4
+          },
+          "index": 0
+        }
+      },
+      {
+        "semantic": "functional_impairment_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/functional_impairment_norm",
+          "responseKey": "functional_impairment_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.homechronicpainmonitor.input-analyst.assessment",
+          "region": {
+            "offset": 1991,
+            "length": 4
+          },
+          "index": 1
+        }
+      },
+      {
+        "semantic": "opioid_risk_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/opioid_risk_norm",
+          "responseKey": "opioid_risk_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.homechronicpainmonitor.input-analyst.assessment",
+          "region": {
+            "offset": 1991,
+            "length": 4
+          },
+          "index": 2
+        }
+      },
+      {
+        "semantic": "physical_activity_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/physical_activity_norm",
+          "responseKey": "physical_activity_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.homechronicpainmonitor.input-analyst.assessment",
+          "region": {
+            "offset": 1991,
+            "length": 4
+          },
+          "index": 3
+        }
+      }
+    ]
+  },
+  "diagnostics": {
+    "axisBasis": "sensorNormalization",
+    "warnings": [],
+    "inputLength": 4,
+    "sequenceCount": 4
+  }
+}

@@ -1,0 +1,82 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://realityengine.example.org/schemas/agent-response-mapping-1.0.0.json",
+  "title": "OpenClaw Agent Response Mapping",
+  "description": "Round-trip contract: how an agent's (textual or JSON) response is mapped into one or more PE perceptual-space vector positions. Sidecar to the corpus agent-binding (which forbids additionalProperties); the corpus writeBack region/semantics stay in lock-step with the fields here.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "responseContract", "mode", "fields"],
+  "properties": {
+    "schemaVersion": { "const": "1.0.0" },
+    "responseContract": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Expected response shape, e.g. 'structured-keys-or-text'."
+    },
+    "mode": { "enum": ["observe", "advise", "supervised-act", "automated-act"] },
+    "fields": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/field" }
+    }
+  },
+  "$defs": {
+    "field": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["semantic", "valueType", "normalization", "extract", "target"],
+      "properties": {
+        "semantic": { "type": "string", "minLength": 1 },
+        "valueType": { "enum": ["binary", "scalar", "enum"] },
+        "normalization": { "enum": ["binary", "scalar-0-1", "one-hot", "enum-scalar"] },
+        "extract": { "$ref": "#/$defs/extract" },
+        "target": {
+          "type": ["object", "null"],
+          "additionalProperties": false,
+          "required": ["sensorId", "region", "index"],
+          "properties": {
+            "sensorId": { "type": "string", "minLength": 1 },
+            "region": { "$ref": "#/$defs/region" },
+            "index": { "type": "integer", "minimum": 0 }
+          }
+        }
+      }
+    },
+    "extract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["jsonPointer", "responseKey", "textFallback"],
+      "properties": {
+        "jsonPointer": {
+          "type": "string",
+          "description": "Tried first when the agent returns JSON."
+        },
+        "responseKey": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Key name in a structured-keys text turn (may differ from semantic, e.g. 'verdict' feeds 'actionClass')."
+        },
+        "textFallback": {
+          "type": "object",
+          "required": ["type"],
+          "properties": {
+            "type": { "enum": ["enum-keyword", "scalar-phrase"] },
+            "default": { "type": "number" },
+            "keywords": { "type": "object" },
+            "phrases": { "type": "object" },
+            "numberRegex": { "type": "string" }
+          }
+        }
+      }
+    },
+    "region": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["offset", "length"],
+      "properties": {
+        "offset": { "type": "integer", "minimum": 0 },
+        "length": { "type": "integer", "minimum": 1 }
+      }
+    }
+  }
+}

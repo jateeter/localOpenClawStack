@@ -1,0 +1,6 @@
+# runtime artifacts — do not commit (per repo hygiene rules)
+logs/
+out/
+config.json
+__pycache__/
+*.pyc
