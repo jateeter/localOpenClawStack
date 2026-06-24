@@ -120,8 +120,9 @@ for i in $(seq 1 20); do
   fi
 done
 
-# ── Banner ────────────────────────────────────────────────────────────────────
-"$ROOT_DIR/scripts/sync-webui-admin.sh"
+# ── Sync WebUI admin credentials ─────────────────────────────────────────────
+"$ROOT_DIR/scripts/sync-webui-admin.sh" || \
+  warn "sync-webui-admin did not complete — run ./scripts/sync-webui-admin.sh manually if login fails"
 
 echo ""
 echo -e "${GREEN}localOpenClawStack running.${NC}"
