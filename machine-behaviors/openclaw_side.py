@@ -43,6 +43,10 @@ def _clamp01(x: float) -> float:
     return 0.0 if x < 0 else (1.0 if x > 1 else x)
 
 
+def _round_value(x: float) -> float:
+    return round(float(x), 4)
+
+
 # --- textual -> value extraction ---------------------------------------------
 
 def _json_pointer(obj: Any, pointer: str) -> Any:
@@ -67,7 +71,7 @@ def _structured_value(response: str, key: str) -> str | None:
     return None
 
 
-def _match_rule(value_text: str, rule: dict[str, Any]) -> float:
+def _match_rule(value_text: str, rule: dict[str, Any], *, preserve_number: bool = False) -> float:
     """Apply a textFallback rule to a (short) value string -> normalized value."""
     vt = value_text.lower()
     vtokens = set(re.findall(r"[a-z0-9]+", vt))
@@ -80,6 +84,9 @@ def _match_rule(value_text: str, rule: dict[str, Any]) -> float:
         for kw, val in rule["keywords"].items():
             if hit(kw):
                 return float(val)
+        m = re.search(rule.get("numberRegex", r"\b([01](?:\.0+)?)\b"), vt)
+        if m:
+            return float(m.group(1))
         return float(rule.get("default", 0.0))
     if kind == "scalar-phrase":
         for ph, val in rule["phrases"].items():
@@ -88,41 +95,66 @@ def _match_rule(value_text: str, rule: dict[str, Any]) -> float:
         m = re.search(rule.get("numberRegex", r"(\d+(?:\.\d+)?)"), vt)
         if m:
             num = float(m.group(1))
+            if preserve_number:
+                return num
             return _clamp01(num / 100.0 if num > 1 else num)
         return float(rule.get("default", 0.5))
     return float(rule.get("default", 0.0))
 
 
-def _coerce_number(v: Any, rule: dict[str, Any]) -> float:
+def _coerce_number(v: Any, rule: dict[str, Any], *, preserve_number: bool = False) -> float:
     if isinstance(v, bool):
         return 1.0 if v else 0.0
     if isinstance(v, (int, float)):
         x = float(v)
+        if preserve_number:
+            return x
         return _clamp01(x / 100.0 if x > 1 else x)
-    return _match_rule(str(v), rule)
+    return _match_rule(str(v), rule, preserve_number=preserve_number)
 
 
 def _looks_structured(text: str) -> bool:
     return bool(re.search(r"(?m)^\s*[A-Za-z_][\w ]*:\s", text))
 
 
+def _field_preserves_number(field: dict[str, Any]) -> bool:
+    return str(field.get("normalization", "")).startswith("machine-native-")
+
+
+def _normalize_field_value(value: float, field: dict[str, Any]) -> float:
+    normalization = field.get("normalization")
+    if normalization in {"binary", "one-hot", "machine-native-binary"}:
+        return 1.0 if value >= 0.5 else 0.0
+    if normalization in {"scalar-0-1", "enum-scalar"}:
+        return _clamp01(value)
+    if normalization in {"machine-native-ordinal", "machine-native-count"}:
+        return float(round(value))
+    if normalization == "machine-native-scalar":
+        return value
+    return _clamp01(value)
+
+
 def _extract_field(response: Any, full_text: str, field: dict[str, Any]) -> float:
     ex = field["extract"]
     rule = ex.get("textFallback", {})
+    preserve_number = _field_preserves_number(field)
     if isinstance(response, dict):
         v = _json_pointer(response, ex.get("jsonPointer", ""))
         if v is not None:
-            return _coerce_number(v, rule)
-        return _match_rule(json.dumps(response).lower(), rule)
+            return _normalize_field_value(_coerce_number(v, rule, preserve_number=preserve_number), field)
+        return _normalize_field_value(
+            _match_rule(json.dumps(response).lower(), rule, preserve_number=preserve_number), field)
     key = ex.get("responseKey") or field["semantic"]
     value_text = _structured_value(response, key)
     if value_text is not None:
-        return _match_rule(value_text, rule)
+        return _normalize_field_value(
+            _match_rule(value_text, rule, preserve_number=preserve_number), field)
     # contracted key absent: in a structured turn that means "default", not a
     # whole-text scan (which would cross-contaminate from other fields' values).
     if _looks_structured(response):
-        return float(rule.get("default", 0.0))
-    return _match_rule(full_text, rule)  # pure free-text turn: best-effort scan
+        return _normalize_field_value(float(rule.get("default", 0.0)), field)
+    return _normalize_field_value(
+        _match_rule(full_text, rule, preserve_number=preserve_number), field)  # pure free-text turn: best-effort scan
 
 
 def apply_response_mapping(response: Any, mapping: dict[str, Any]):
@@ -147,9 +179,11 @@ def apply_response_mapping(response: Any, mapping: dict[str, Any]):
         slot = targets.setdefault(key, {
             "sensorId": target["sensorId"], "region": dict(region),
             "values": [0.0] * region["length"], "semantics": [None] * region["length"],
+            "normalizations": [None] * region["length"],
         })
         slot["values"][target["index"]] = value
         slot["semantics"][target["index"]] = field["semantic"]
+        slot["normalizations"][target["index"]] = field.get("normalization")
     return list(targets.values()), extracted
 
 
@@ -199,13 +233,14 @@ def _build_completion(envelope: dict[str, Any], agent_rec: dict[str, Any],
         "name": wb.get("name", target["sensorId"]),
         "region": dict(target["region"]),
         "sourceMapping": wb.get("sourceMapping", {}),
-        "values": [round(_clamp01(v), 4) for v in target["values"]],
+        "values": [_round_value(v) for v in target["values"]],
         "ttlMs": wb["ttlMs"],
         "metadata": {
             "machineCode": envelope["ces"]["machineCode"],
             "sequenceId": envelope["ces"]["sequenceId"],
             "autonomyMode": envelope["dispatch"]["autonomyMode"],
             "semantics": target["semantics"],
+            "normalizations": target.get("normalizations", []),
         },
         "triggerPush": wb["ingest"]["triggerPush"],
         "compactPush": wb["ingest"]["compactPush"],

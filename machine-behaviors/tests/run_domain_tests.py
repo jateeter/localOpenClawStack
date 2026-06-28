@@ -42,7 +42,7 @@ s = summarize(result)
 # D1: discovery / coverage
 machines_dir = _abs(CFG["machinesDir"])
 discovered = discover(machines_dir, DOMAIN)
-check("D1.1 discovered the full domain (24 machines)", len(discovered) == 24, str(len(discovered)))
+check("D1.1 discovered the full domain (42 machines)", len(discovered) == 42, str(len(discovered)))
 check("D1.2 every discovered machine produced a plan", len(result["plans"]) == len(discovered))
 check("D1.3 every machine yields >=1 agent",
       all(len(p["agents"]) >= 1 for p in result["plans"]),

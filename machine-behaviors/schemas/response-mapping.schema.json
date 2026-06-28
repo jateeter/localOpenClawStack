@@ -27,8 +27,19 @@
       "required": ["semantic", "valueType", "normalization", "extract", "target"],
       "properties": {
         "semantic": { "type": "string", "minLength": 1 },
-        "valueType": { "enum": ["binary", "scalar", "enum"] },
-        "normalization": { "enum": ["binary", "scalar-0-1", "one-hot", "enum-scalar"] },
+        "valueType": { "enum": ["binary", "scalar", "enum", "ordinal", "count"] },
+        "normalization": {
+          "enum": [
+            "binary",
+            "scalar-0-1",
+            "one-hot",
+            "enum-scalar",
+            "machine-native-binary",
+            "machine-native-count",
+            "machine-native-ordinal",
+            "machine-native-scalar"
+          ]
+        },
         "extract": { "$ref": "#/$defs/extract" },
         "target": {
           "type": ["object", "null"],

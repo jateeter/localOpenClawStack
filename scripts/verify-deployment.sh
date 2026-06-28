@@ -52,4 +52,4 @@ login_status="$(curl --silent --max-time 10 --output /dev/null --write-out '%{ht
 [[ "$login_status" == "200" ]] || fail "WebUI admin sign-in returned HTTP $login_status"
 pass "WebUI admin credentials authenticate successfully"
 
-docker compose exec -T openclaw-gateway openclaw security audit --deep
+docker compose exec -T openclaw-gateway sh -lc 'chmod 700 "$HOME/.openclaw" && openclaw security audit --deep'
