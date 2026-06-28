@@ -70,10 +70,14 @@ for IMAGE_VAR in NODE_IMAGE OPEN_WEBUI_IMAGE BROWSER_IMAGE; do
 done
 
 "$ROOT_DIR/scripts/harden-config.sh"
+"$ROOT_DIR/scripts/sync-machine-agents.sh"
+chmod 700 "$ROOT_DIR/openclaw" "$ROOT_DIR/openwebui-data" "$ROOT_DIR/browser-config" 2>/dev/null || true
+EXPECTED_AGENT_COUNT="$(( $(jq -r '.total' "$ROOT_DIR/machine-behaviors/agents/INDEX.json") + 1 ))"
 
 # ── Port pre-flight ───────────────────────────────────────────────────────────
 GW_PORT="${OPENCLAW_GATEWAY_PORT:-18789}"
 UI_PORT="${OPEN_WEBUI_PORT:-8080}"
+EXISTING_GATEWAY_CID="$(docker compose ps -q openclaw-gateway 2>/dev/null || true)"
 
 if [[ -z "$(docker compose ps -q 2>/dev/null)" ]]; then
   for PORT in "$GW_PORT" "$UI_PORT"; do
@@ -91,6 +95,10 @@ info "Starting Docker services (browser, openclaw-gateway, open-webui)..."
 docker compose pull --quiet browser open-webui
 docker compose build --pull openclaw-gateway
 docker compose up -d --remove-orphans
+if [[ -n "$EXISTING_GATEWAY_CID" ]]; then
+  info "Restarting openclaw-gateway to reload synced machine agents..."
+  docker compose restart openclaw-gateway >/dev/null
+fi
 ok "Containers started"
 
 # ── Wait for openclaw-gateway ─────────────────────────────────────────────────
@@ -106,23 +114,35 @@ for i in $(seq 1 30); do
   fi
 done
 
+LIVE_AGENT_COUNT="$(docker compose exec -T openclaw-gateway sh -lc 'node -e '"'"'
+const fs = require("fs");
+const cfg = JSON.parse(fs.readFileSync("/home/node/.openclaw/openclaw.json", "utf8"));
+console.log((cfg.agents?.list || []).length);
+'"'"'' | tr -d '\r')"
+if [[ "$LIVE_AGENT_COUNT" -lt "$EXPECTED_AGENT_COUNT" ]]; then
+  die "OpenClaw loaded $LIVE_AGENT_COUNT agents, expected at least $EXPECTED_AGENT_COUNT"
+fi
+ok "OpenClaw machine agents loaded ($LIVE_AGENT_COUNT total)"
+
 # ── Wait for open-webui ───────────────────────────────────────────────────────
 info "Waiting for open-webui (port $UI_PORT)..."
-for i in $(seq 1 20); do
-  HTTP_STATUS=$(curl -so /dev/null -w "%{http_code}" "http://localhost:${UI_PORT}/" 2>/dev/null || true)
-  if [[ "$HTTP_STATUS" =~ ^(200|302)$ ]]; then
+for i in $(seq 1 60); do
+  HTTP_STATUS=$(curl -so /dev/null -w "%{http_code}" "http://localhost:${UI_PORT}/health" 2>/dev/null || true)
+  if [[ "$HTTP_STATUS" == "200" ]]; then
     ok "open-webui ready"
     break
   fi
   sleep 3
-  if [[ $i -eq 20 ]]; then
-    die "open-webui not ready after 60s; check docker compose logs open-webui"
+  if [[ $i -eq 60 ]]; then
+    die "open-webui not ready after 180s; check docker compose logs open-webui"
   fi
 done
 
 # ── Sync WebUI admin credentials ─────────────────────────────────────────────
 "$ROOT_DIR/scripts/sync-webui-admin.sh" || \
   warn "sync-webui-admin did not complete — run ./scripts/sync-webui-admin.sh manually if login fails"
+
+docker compose exec -T openclaw-gateway chmod 700 /home/node/.openclaw
 
 echo ""
 echo -e "${GREEN}localOpenClawStack running.${NC}"

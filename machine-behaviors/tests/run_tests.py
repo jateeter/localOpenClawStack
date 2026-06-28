@@ -11,6 +11,7 @@ import os
 import sys
 from pathlib import Path
 from uuid import uuid4
+import importlib.util
 
 os.environ.setdefault("MB_DEBUG", "0")
 HERE = Path(__file__).parent
@@ -210,6 +211,57 @@ multi = {"schemaVersion": "1.0.0", "responseContract": "structured-keys-or-text"
 mt, _ = apply_response_mapping("completed: yes\nescalate: yes", multi)
 check("T9.13 response fans out to multiple non-contiguous regions",
       len(mt) == 2 and {t["sensorId"] for t in mt} == {"s.a", "s.b"}, str([t["sensorId"] for t in mt]))
+
+# --- T10: patient-safety transport OpenClaw proof-of-concept -----------------
+health_agents = [
+    "fall-sensor-motion-pre-aggregator.oc-agent.json",
+    "fall-detection.oc-agent.json",
+    "home-transportation-barrier-monitor.oc-agent.json",
+    "home-social-isolation-monitor.oc-agent.json",
+]
+oc_schema = minischema.load_schema(ROOT / "templates" / "oc-agent.schema.json")
+rm_schema = minischema.load_schema(ROOT / "schemas" / "response-mapping.schema.json")
+for fname in health_agents:
+    rec = json.loads((ROOT / "agents" / "health-personal" / fname).read_text())
+    errs = minischema.validate(rec, oc_schema)
+    check(f"T10 oc-agent valid: {fname}", not errs, "; ".join(errs[:3]))
+    errs = minischema.validate(rec["responseMapping"], rm_schema)
+    check(f"T10 responseMapping valid: {fname}", not errs, "; ".join(errs[:3]))
+
+spec = importlib.util.spec_from_file_location(
+    "patient_safety_transport_poc",
+    ROOT / "pe-integration" / "patient_safety_transport_poc.py")
+poc_mod = importlib.util.module_from_spec(spec)
+assert spec.loader is not None
+spec.loader.exec_module(poc_mod)
+poc = poc_mod.run(ROOT / "pe-integration" / "patient_safety_transport_openclaw_transform.json")
+by_agent = {c["agent"]: c for c in poc["openclawCompletions"]}
+check("T10.1 POC emits four OpenClaw PE completions", len(by_agent) == 4, list(by_agent))
+check("T10.2 pre-aggregator preserves native count 6",
+      by_agent["fall-sensor-motion-pre-aggregator"]["values"] == [6.0],
+      str(by_agent["fall-sensor-motion-pre-aggregator"]["values"]))
+check("T10.3 fall detection preserves native ordinal [3,3]",
+      by_agent["fall-detection"]["values"] == [3.0, 3.0],
+      str(by_agent["fall-detection"]["values"]))
+check("T10.4 social isolation projects upstream binary bits",
+      by_agent["home-social-isolation-monitor"]["values"] == [0.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 0.0],
+      str(by_agent["home-social-isolation-monitor"]["values"]))
+check("T10.5 PE-composed patient-safety bus vector matches narrative",
+      poc["peComposition"]["inputValues"] == [1, 0, 1, 1, 0, 0, 0, 0, 0, 1],
+      str(poc["peComposition"]["inputValues"]))
+check("T10.6 final resolver handoff returns through PE source region [4320:4324]",
+      poc["peResolutionCompletion"]["region"] == {"offset": 4320, "length": 4}
+      and poc["peResolutionCompletion"]["values"] == [1, 1, 1, 1],
+      str(poc["peResolutionCompletion"]))
+check("T10.7 localAIStack trigger uses updateProcessState",
+      poc["localAIStackGraphQLTrigger"]["operation"] == "updateProcessState")
+
+completion_schema = "localai-completion-writeback.schema.json"
+for name, completion in by_agent.items():
+    errs = schema_errors(completion, completion_schema)
+    check(f"T10 PE completion valid: {name}", not errs, "; ".join(errs[:3]))
+errs = schema_errors(poc["peResolutionCompletion"], completion_schema)
+check("T10 PE resolution completion valid", not errs, "; ".join(errs[:3]))
 
 print(f"\n{_PASS} passed, {_FAIL} failed")
 sys.exit(1 if _FAIL else 0)

@@ -1,7 +1,7 @@
 ARG NODE_IMAGE=node:24-bookworm-slim
 FROM ${NODE_IMAGE}
 
-ARG OPENCLAW_VERSION=2026.6.9
+ARG OPENCLAW_VERSION=2026.6.10
 
 LABEL org.opencontainers.image.title="OpenClaw Gateway"
 LABEL org.opencontainers.image.description="Pinned OpenClaw gateway runtime"

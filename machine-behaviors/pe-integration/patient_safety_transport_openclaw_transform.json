@@ -1,0 +1,143 @@
+{
+  "schemaVersion": "1.0.0",
+  "transformId": "health-personal.patient-safety-transport.openclaw-pe-handoff",
+  "description": "Configurable OpenClaw-to-PE proof transform for the fall-detection, transportation, and patient-safety transport narrative. OpenClaw agents produce machine-native PE source vectors; RE remains authoritative for CES evaluation; PE composes the published domain bus and returns the final localAIStack/Ollama resolution as a PE source.",
+  "dispatch": {
+    "mode": "accepted-no-wait",
+    "completionMode": "pe-source-mapping",
+    "peCompletionsEndpoint": "/api/integrations/completions"
+  },
+  "providers": {
+    "openclaw": {
+      "gatewayUrl": "ws://127.0.0.1:18789",
+      "command": "openclaw acp",
+      "sessionKey": "agent:main:main"
+    },
+    "localAIStack": {
+      "baseUrl": "http://localhost:4000",
+      "graphqlEndpoint": "/graphql",
+      "chatEndpoint": "/chat"
+    },
+    "ollama": {
+      "baseUrl": "http://localhost:11434",
+      "model": "llama3.1:8b-q4_K_M"
+    }
+  },
+  "agents": [
+    {
+      "agentId": "fall-sensor-motion-pre-aggregator",
+      "agentFile": "../agents/health-personal/fall-sensor-motion-pre-aggregator.oc-agent.json",
+      "completionSourceMappingId": "acp-fall_sensor_motion_preaggregator-input-assessment",
+      "targetRegion": { "offset": 4300, "length": 1 },
+      "normalization": "machine-native-count",
+      "proofResponseText": "active-accelerometer-sample-count: 6\nasserted_sequence: motion-severe\nconfidence: high\nrationale: Six above-threshold accelerometer samples indicate severe motion.",
+      "expectedCompletionValues": [6]
+    },
+    {
+      "agentId": "fall-detection",
+      "agentFile": "../agents/health-personal/fall-detection.oc-agent.json",
+      "completionSourceMappingId": "acp-fall-detection-input-assessment",
+      "targetRegion": { "offset": 3813, "length": 2 },
+      "normalization": "machine-native-ordinal",
+      "proofResponseText": "motion-progression-ordinal: 3\nstillness-progression-ordinal: 3\nasserted_sequence: fall-confirmed\nconfidence: high\nrationale: Severe motion followed by very sustained stillness matches the confirmed-fall input.",
+      "expectedCompletionValues": [3, 3]
+    },
+    {
+      "agentId": "home-transportation-barrier-monitor",
+      "agentFile": "../agents/health-personal/home-transportation-barrier-monitor.oc-agent.json",
+      "completionSourceMappingId": "acp-home-transportation-barrier-monitor-input-assessment",
+      "targetRegion": { "offset": 1983, "length": 4 },
+      "normalization": "scalar-0-1",
+      "proofResponseText": "appointment_attendance_norm: 0.10\ntransit_access_norm: 0.05\nmissed_critical_care_norm: 0.12\nproximity_norm: 0.08\nasserted_sequence: transport-critical-failure\nconfidence: high\nrationale: Missed critical care and no viable transit indicate critical access failure.",
+      "expectedCompletionValues": [0.1, 0.05, 0.12, 0.08]
+    },
+    {
+      "agentId": "home-social-isolation-monitor",
+      "agentFile": "../agents/health-personal/home-social-isolation-monitor.oc-agent.json",
+      "completionSourceMappingId": "acp-home-social-isolation-monitor-input-assessment",
+      "targetRegion": { "offset": 2011, "length": 8 },
+      "normalization": "machine-native-binary",
+      "proofResponseText": "medication-adherence-crisis-bit: 0\nmedication-cost-barrier-active-bit: 0\npartial-medication-adherence-bit: 0\nmedication-managed-bit: 1\ntransport-critical-access-failure-bit: 1\ntransport-appointment-barrier-bit: 0\ntransport-transit-dependent-risk-bit: 0\ntransportation-adequate-bit: 0\nasserted_sequence: social-connected-ok\nconfidence: moderate\nrationale: Medication is managed, but transportation failure is present for downstream patient-safety composition.",
+      "expectedCompletionValues": [0, 0, 0, 1, 1, 0, 0, 0]
+    }
+  ],
+  "deterministicMachineOutputs": {
+    "FallDetection": {
+      "region": { "offset": 1941, "length": 2 },
+      "values": [4, 3],
+      "sequenceId": "fall-confirmed"
+    },
+    "HomeTransportationBarrierMonitor": {
+      "region": { "offset": 2015, "length": 4 },
+      "values": [1, 0, 0, 0],
+      "sequenceId": "transport-critical-failure"
+    },
+    "HomeSocialIsolationMonitor": {
+      "region": { "offset": 2035, "length": 4 },
+      "values": [0, 0, 0, 1],
+      "sequenceId": "social-connected-ok"
+    }
+  },
+  "peComposition": {
+    "busId": "health-personal.patient-safety-transport",
+    "busTag": "published-bus-health-personal-patient-safety-transport",
+    "targetMachine": "PatientSafetyTransportInterconnect",
+    "inputRegion": { "offset": 4310, "length": 10 },
+    "inputValues": [1, 0, 1, 1, 0, 0, 0, 0, 0, 1],
+    "inputElements": [
+      "fall_red_tier_bit",
+      "fall_amber_high_tier_bit",
+      "fall_high_confidence_bit",
+      "transport_critical_access_failure_bit",
+      "transport_appointment_barrier_bit",
+      "transport_transit_dependent_risk_bit",
+      "transportation_adequate_bit",
+      "severe_isolation_bit",
+      "isolation_risk_bit",
+      "socially_connected_bit"
+    ],
+    "publishedOutputRegion": { "offset": 3827, "length": 4 },
+    "publishedOutputValues": [1, 0, 0, 0],
+    "publishedSequenceId": "patient-safety-transport-fall-critical"
+  },
+  "finalResolverHandoff": {
+    "trigger": {
+      "provider": "localAIStack",
+      "endpoint": "/graphql",
+      "operation": "updateProcessState",
+      "processId": "PATIENT_SAFETY_TRANSPORT",
+      "processName": "Patient Safety Transport",
+      "ragStatusCode": "RED",
+      "status": "error"
+    },
+    "resolver": {
+      "provider": "localAIStack",
+      "endpoint": "/chat",
+      "modelProvider": "ollama",
+      "model": "llama3.1:8b-q4_K_M",
+      "systemPrompt": "Resolve the patient-safety transport event into a concise care-coordination handoff. Do not change PE or RE state directly; return a completion suitable for PE source ingestion."
+    },
+    "peWriteBack": {
+      "provider": "localai",
+      "sensorId": "localai.ollama.patient_safety_transport.resolution",
+      "name": "localAIStack/Ollama patient safety transport resolution",
+      "sourceMapping": {
+        "id": "localai-patient-safety-transport-resolution",
+        "sensorId": "localai.ollama.patient_safety_transport.resolution",
+        "name": "localAIStack/Ollama patient safety transport resolution",
+        "region": { "offset": 4320, "length": 4 },
+        "ttlMs": 300000
+      },
+      "region": { "offset": 4320, "length": 4 },
+      "semantics": [
+        "resolution_ready",
+        "care_coordination_required",
+        "transport_dispatch_required",
+        "human_review_required"
+      ],
+      "values": [1, 1, 1, 1],
+      "ttlMs": 300000,
+      "normalization": "machine-native-binary"
+    }
+  }
+}

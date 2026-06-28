@@ -123,7 +123,7 @@
             "required": ["semantic", "valueType", "normalization", "extract", "target"],
             "properties": {
               "semantic": { "type": "string", "minLength": 1 },
-              "valueType": { "enum": ["scalar", "binary"] },
+              "valueType": { "enum": ["scalar", "binary", "enum", "ordinal", "count"] },
               "normalization": { "type": "string", "minLength": 1 },
               "extract": { "type": "object" },
               "target": {

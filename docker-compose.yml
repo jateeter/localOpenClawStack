@@ -1,11 +1,11 @@
 services:
   openclaw-gateway:
-    image: local/openclaw-gateway:${OPENCLAW_VERSION:-2026.6.9}
+    image: local/openclaw-gateway:${OPENCLAW_VERSION:-2026.6.10}
     build:
       context: .
       dockerfile: Dockerfile.openclaw-gateway
       args:
-        OPENCLAW_VERSION: ${OPENCLAW_VERSION:-2026.6.9}
+        OPENCLAW_VERSION: ${OPENCLAW_VERSION:-2026.6.10}
         NODE_IMAGE: ${NODE_IMAGE:-node:24-bookworm-slim}
     ports:
       - "127.0.0.1:${OPENCLAW_GATEWAY_PORT:-18789}:18789"
@@ -17,6 +17,8 @@ services:
       CLAUDE_AI_SESSION_KEY: ${CLAUDE_AI_SESSION_KEY:-}
       CLAUDE_WEB_SESSION_KEY: ${CLAUDE_WEB_SESSION_KEY:-}
       CLAUDE_WEB_COOKIE: ${CLAUDE_WEB_COOKIE:-}
+      OLLAMA_API_KEY: ${OLLAMA_API_KEY:-ollama-local}
+      OLLAMA_BASE_URL: ${OLLAMA_BASE_URL:-http://host.docker.internal:11434}
       OPENCLAW_GATEWAY_BIND: "lan"
       OPENCLAW_HTTP_ENDPOINTS_CHATCOMPLETIONS_ENABLED: "true"
       OPENCLAW_HTTP_ENDPOINTS_MODELS_ENABLED: "true"
@@ -33,6 +35,8 @@ services:
     depends_on:
       browser:
         condition: service_started
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     healthcheck:
       test:
         [
@@ -56,6 +60,7 @@ services:
     environment:
       OPENAI_API_BASE_URL: http://openclaw-gateway:18789/v1
       OPENAI_API_KEY: ${OPENCLAW_GATEWAY_TOKEN}
+      OLLAMA_BASE_URL: ${OLLAMA_BASE_URL:-http://host.docker.internal:11434}
       ENABLE_OPENAI_API: "true"
       WEBUI_AUTH: "true"
       WEBUI_NAME: OpenClaw-WebUI
@@ -70,6 +75,8 @@ services:
     depends_on:
       openclaw-gateway:
         condition: service_healthy
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     volumes:
       - ./openwebui-data:/app/backend/data
     restart: unless-stopped

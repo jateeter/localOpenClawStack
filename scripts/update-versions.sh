@@ -33,6 +33,16 @@ latest_release() {
   printf '%s' "$tag"
 }
 
+latest_npm_version() {
+  local package="$1" version
+  version="$(curl --fail --silent --show-error --retry 3 \
+    --connect-timeout 10 --max-time 30 \
+    "https://registry.npmjs.org/${package}/latest" | \
+    jq -er '.version')"
+  [[ "$version" != *-* ]] || { echo "Refusing prerelease version: $version" >&2; exit 1; }
+  printf '%s' "$version"
+}
+
 pin_image() {
   local key="$1" ref="$2" digest
   docker pull "$ref"
@@ -41,9 +51,8 @@ pin_image() {
   upsert_env "$key" "$digest"
 }
 
-openclaw_tag="$(latest_release openclaw/openclaw)"
+openclaw_version="$(latest_npm_version openclaw)"
 openwebui_tag="$(latest_release open-webui/open-webui)"
-openclaw_version="${openclaw_tag#v}"
 
 upsert_env OPENCLAW_VERSION "$openclaw_version"
 pin_image NODE_IMAGE "node:24-bookworm-slim"
