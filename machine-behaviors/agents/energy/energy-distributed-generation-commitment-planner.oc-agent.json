@@ -1,0 +1,670 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "oc-agent-template",
+  "role": "input-analyst",
+  "agentId": "energy-distributed-generation-commitment-planner",
+  "displayName": "Energy Distributed Generation Commitment Planner",
+  "machine": {
+    "id": "ENX204_distributed-generation-commitment-planner",
+    "name": "Energy Distributed Generation Commitment Planner",
+    "code": "enx204_distributed_generation_commitment_planner",
+    "machineClass": "risk-forecaster",
+    "domain": "energy",
+    "inputRegion": {
+      "offset": 16638,
+      "length": 10
+    },
+    "outputRegion": {
+      "offset": 16648,
+      "length": 4
+    }
+  },
+  "openclaw": {
+    "id": "openclaw-xacp",
+    "kind": "acp",
+    "platform": "OpenClaw",
+    "surface": "xACP",
+    "command": "openclaw acp",
+    "gatewayUrl": "ws://127.0.0.1:18789",
+    "sessionKey": "agent:main:main",
+    "targetAgent": "energy-distributed-generation-commitment-planner",
+    "dispatchMode": "accepted-no-wait",
+    "completionMode": "pe-source-mapping",
+    "completionSourceMappingId": "acp-energy-distributed-generation-commitment-planner-input-assessment"
+  },
+  "reasoning": {
+    "objective": "Produce the normalized input vector for \"Energy Distributed Generation Commitment Planner\" from current observations so RE can evaluate its CES sequences.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Energy Distributed Generation Commitment Planner\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Combines solar, inverter, weather, backup generation, maintenance restriction, and power quality signals into a generation commitment posture.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- rooftop_solar_available_norm (index 0):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- carport_solar_available_norm (index 1):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- school_campus_solar_available_norm (index 2):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- community_center_solar_available_norm (index 3):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- ground_mount_solar_available_norm (index 4):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- inverter_bank_healthy_norm (index 5):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- irradiance_forecast_favorable_norm (index 6):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- backup_generation_available_norm (index 7):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- generation_maintenance_restriction_active_norm (index 8):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- power_quality_limit_active_norm (index 9):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Distributed Generation Commitment Planner (RED) -> action: GENERATION_CONSTRAINED for resilient community microgrid operations.\n- Distributed Generation Commitment Planner (AMBER) -> action: COMMIT_LOCAL_GENERATION for resilient community microgrid operations.\n- Distributed Generation Commitment Planner (AMBER) -> action: USE_BACKUP_GENERATION for resilient community microgrid operations.\n- Distributed Generation Commitment Planner (GREEN) -> action: GENERATION_STABLE for resilient community microgrid operations.",
+    "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
+    "inputAxes": [
+      {
+        "index": 0,
+        "key": "rooftop_solar_available_norm",
+        "anchors": {
+          "low": "false/inactive",
+          "mid": "",
+          "high": "true/active after PE source normalization"
+        }
+      },
+      {
+        "index": 1,
+        "key": "carport_solar_available_norm",
+        "anchors": {
+          "low": "false/inactive",
+          "mid": "",
+          "high": "true/active after PE source normalization"
+        }
+      },
+      {
+        "index": 2,
+        "key": "school_campus_solar_available_norm",
+        "anchors": {
+          "low": "false/inactive",
+          "mid": "",
+          "high": "true/active after PE source normalization"
+        }
+      },
+      {
+        "index": 3,
+        "key": "community_center_solar_available_norm",
+        "anchors": {
+          "low": "false/inactive",
+          "mid": "",
+          "high": "true/active after PE source normalization"
+        }
+      },
+      {
+        "index": 4,
+        "key": "ground_mount_solar_available_norm",
+        "anchors": {
+          "low": "false/inactive",
+          "mid": "",
+          "high": "true/active after PE source normalization"
+        }
+      },
+      {
+        "index": 5,
+        "key": "inverter_bank_healthy_norm",
+        "anchors": {
+          "low": "false/inactive",
+          "mid": "",
+          "high": "true/active after PE source normalization"
+        }
+      },
+      {
+        "index": 6,
+        "key": "irradiance_forecast_favorable_norm",
+        "anchors": {
+          "low": "false/inactive",
+          "mid": "",
+          "high": "true/active after PE source normalization"
+        }
+      },
+      {
+        "index": 7,
+        "key": "backup_generation_available_norm",
+        "anchors": {
+          "low": "false/inactive",
+          "mid": "",
+          "high": "true/active after PE source normalization"
+        }
+      },
+      {
+        "index": 8,
+        "key": "generation_maintenance_restriction_active_norm",
+        "anchors": {
+          "low": "false/inactive",
+          "mid": "",
+          "high": "true/active after PE source normalization"
+        }
+      },
+      {
+        "index": 9,
+        "key": "power_quality_limit_active_norm",
+        "anchors": {
+          "low": "false/inactive",
+          "mid": "",
+          "high": "true/active after PE source normalization"
+        }
+      }
+    ],
+    "sequenceCatalog": [
+      {
+        "sequenceId": "enx204-generation-constrained",
+        "label": "Distributed Generation Commitment Planner",
+        "rag": "RED",
+        "outputIndex": 0,
+        "action": "GENERATION_CONSTRAINED for resilient community microgrid operations."
+      },
+      {
+        "sequenceId": "enx204-commit-local-generation",
+        "label": "Distributed Generation Commitment Planner",
+        "rag": "AMBER",
+        "outputIndex": 1,
+        "action": "COMMIT_LOCAL_GENERATION for resilient community microgrid operations."
+      },
+      {
+        "sequenceId": "enx204-use-backup-generation",
+        "label": "Distributed Generation Commitment Planner",
+        "rag": "AMBER",
+        "outputIndex": 2,
+        "action": "USE_BACKUP_GENERATION for resilient community microgrid operations."
+      },
+      {
+        "sequenceId": "enx204-generation-stable",
+        "label": "Distributed Generation Commitment Planner",
+        "rag": "GREEN",
+        "outputIndex": 3,
+        "action": "GENERATION_STABLE for resilient community microgrid operations."
+      }
+    ]
+  },
+  "agentBinding": {
+    "agent": "energy-distributed-generation-commitment-planner",
+    "mode": "advise",
+    "trigger": "enx204_distributed_generation_commitment_planner-input-assessment",
+    "allowedActions": [
+      "Assess current \"Energy Distributed Generation Commitment Planner\" state from available observations and write the normalized input vector to the PE input region [16638:16648] for RE to evaluate."
+    ],
+    "writeBack": {
+      "type": "pe-sensor",
+      "provider": "acp",
+      "sensorId": "acp.openclaw.enx204_distributed_generation_commitment_planner.input-analyst.assessment",
+      "name": "OpenClaw enx204_distributed_generation_commitment_planner input-analyst assessment",
+      "region": {
+        "offset": 16638,
+        "length": 10
+      },
+      "semantics": [
+        "rooftop_solar_available_norm",
+        "carport_solar_available_norm",
+        "school_campus_solar_available_norm",
+        "community_center_solar_available_norm",
+        "ground_mount_solar_available_norm",
+        "inverter_bank_healthy_norm",
+        "irradiance_forecast_favorable_norm",
+        "backup_generation_available_norm",
+        "generation_maintenance_restriction_active_norm",
+        "power_quality_limit_active_norm"
+      ],
+      "ttlMs": 300000,
+      "normalization": "already-normalized-0-1",
+      "ingest": {
+        "endpoint": "/api/integrations/completions",
+        "method": "POST",
+        "triggerPush": false,
+        "compactPush": true
+      },
+      "sourceMapping": {
+        "id": "acp-enx204_distributed_generation_commitment_planner-input-assessment",
+        "sensorId": "acp.openclaw.enx204_distributed_generation_commitment_planner.input-analyst.assessment",
+        "name": "OpenClaw enx204_distributed_generation_commitment_planner input-analyst assessment",
+        "region": {
+          "offset": 16638,
+          "length": 10
+        },
+        "ttlMs": 300000
+      }
+    },
+    "autonomyPolicy": {
+      "mode": "advise",
+      "stage": 1,
+      "writeBackType": "pe-sensor",
+      "canWriteBack": true,
+      "canStageActions": false,
+      "canExecuteActions": false,
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "blockedWhenRag": []
+    },
+    "riskControls": {
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "maxAutonomy": "advise",
+      "blockedWhenRag": []
+    }
+  },
+  "responseMapping": {
+    "schemaVersion": "1.0.0",
+    "responseContract": "structured-keys-or-text",
+    "mode": "advise",
+    "fields": [
+      {
+        "semantic": "rooftop_solar_available_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/rooftop_solar_available_norm",
+          "responseKey": "rooftop_solar_available_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.enx204_distributed_generation_commitment_planner.input-analyst.assessment",
+          "region": {
+            "offset": 16638,
+            "length": 10
+          },
+          "index": 0
+        }
+      },
+      {
+        "semantic": "carport_solar_available_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/carport_solar_available_norm",
+          "responseKey": "carport_solar_available_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.enx204_distributed_generation_commitment_planner.input-analyst.assessment",
+          "region": {
+            "offset": 16638,
+            "length": 10
+          },
+          "index": 1
+        }
+      },
+      {
+        "semantic": "school_campus_solar_available_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/school_campus_solar_available_norm",
+          "responseKey": "school_campus_solar_available_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.enx204_distributed_generation_commitment_planner.input-analyst.assessment",
+          "region": {
+            "offset": 16638,
+            "length": 10
+          },
+          "index": 2
+        }
+      },
+      {
+        "semantic": "community_center_solar_available_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/community_center_solar_available_norm",
+          "responseKey": "community_center_solar_available_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.enx204_distributed_generation_commitment_planner.input-analyst.assessment",
+          "region": {
+            "offset": 16638,
+            "length": 10
+          },
+          "index": 3
+        }
+      },
+      {
+        "semantic": "ground_mount_solar_available_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/ground_mount_solar_available_norm",
+          "responseKey": "ground_mount_solar_available_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.enx204_distributed_generation_commitment_planner.input-analyst.assessment",
+          "region": {
+            "offset": 16638,
+            "length": 10
+          },
+          "index": 4
+        }
+      },
+      {
+        "semantic": "inverter_bank_healthy_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/inverter_bank_healthy_norm",
+          "responseKey": "inverter_bank_healthy_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.enx204_distributed_generation_commitment_planner.input-analyst.assessment",
+          "region": {
+            "offset": 16638,
+            "length": 10
+          },
+          "index": 5
+        }
+      },
+      {
+        "semantic": "irradiance_forecast_favorable_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/irradiance_forecast_favorable_norm",
+          "responseKey": "irradiance_forecast_favorable_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.enx204_distributed_generation_commitment_planner.input-analyst.assessment",
+          "region": {
+            "offset": 16638,
+            "length": 10
+          },
+          "index": 6
+        }
+      },
+      {
+        "semantic": "backup_generation_available_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/backup_generation_available_norm",
+          "responseKey": "backup_generation_available_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.enx204_distributed_generation_commitment_planner.input-analyst.assessment",
+          "region": {
+            "offset": 16638,
+            "length": 10
+          },
+          "index": 7
+        }
+      },
+      {
+        "semantic": "generation_maintenance_restriction_active_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/generation_maintenance_restriction_active_norm",
+          "responseKey": "generation_maintenance_restriction_active_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.enx204_distributed_generation_commitment_planner.input-analyst.assessment",
+          "region": {
+            "offset": 16638,
+            "length": 10
+          },
+          "index": 8
+        }
+      },
+      {
+        "semantic": "power_quality_limit_active_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/power_quality_limit_active_norm",
+          "responseKey": "power_quality_limit_active_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.enx204_distributed_generation_commitment_planner.input-analyst.assessment",
+          "region": {
+            "offset": 16638,
+            "length": 10
+          },
+          "index": 9
+        }
+      }
+    ]
+  },
+  "diagnostics": {
+    "axisBasis": "sensorNormalization",
+    "warnings": [],
+    "inputLength": 10,
+    "sequenceCount": 4
+  }
+}

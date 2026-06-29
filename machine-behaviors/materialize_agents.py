@@ -56,7 +56,7 @@ def main() -> int:
     written = 0
     seen_paths: dict[str, str] = {}  # output path -> machine stem, to catch collisions
 
-    for f in sorted(mdir.glob("*.json")):
+    for f in sorted(mdir.rglob("*.json")):  # rglob: cover machines/domains/** subdirs
         try:
             data = json.loads(f.read_text())
         except Exception as exc:

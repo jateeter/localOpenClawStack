@@ -1,0 +1,1732 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "oc-agent-template",
+  "role": "input-analyst",
+  "agentId": "life-balance-medication-psychiatric-care-interconnect",
+  "displayName": "Life Balance Medication Psychiatric Care Interconnect",
+  "machine": {
+    "id": "LifeBalanceMedicationPsychiatricCareInterconnect",
+    "name": "Life Balance Medication Psychiatric Care Interconnect",
+    "code": "lifebalancemedicationpsychiatriccareinterconnect",
+    "machineClass": "bridge",
+    "domain": "life-balance",
+    "inputRegion": {
+      "offset": 4790,
+      "length": 30
+    },
+    "outputRegion": {
+      "offset": 4820,
+      "length": 4
+    }
+  },
+  "openclaw": {
+    "id": "openclaw-xacp",
+    "kind": "acp",
+    "platform": "OpenClaw",
+    "surface": "xACP",
+    "command": "openclaw acp",
+    "gatewayUrl": "ws://127.0.0.1:18789",
+    "sessionKey": "agent:main:main",
+    "targetAgent": "life-balance-medication-psychiatric-care-interconnect",
+    "dispatchMode": "accepted-no-wait",
+    "completionMode": "pe-source-mapping",
+    "completionSourceMappingId": "acp-life-balance-medication-psychiatric-care-interconnect-input-assessment"
+  },
+  "reasoning": {
+    "objective": "Produce the normalized input vector for \"Life Balance Medication Psychiatric Care Interconnect\" from current observations so RE can evaluate its CES sequences.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Life Balance Medication Psychiatric Care Interconnect\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Published life-balance bridge bus that composes the Medication Psychiatric Care family into a compact response lane. PE owns source composition and writes the compact input lane; RE evaluates this machine as ordinary vector state.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- life-balance-medication-and-psychiatric-care-medication-response-tracker-care-team-review-bit (index 0):\n- life-balance-medication-and-psychiatric-care-medication-response-tracker-lifestyle-plan-adjust-bit (index 1):\n- life-balance-medication-and-psychiatric-care-medication-response-tracker-monitoring-task-bit (index 2):\n- life-balance-medication-and-psychiatric-care-adverse-effect-watch-care-team-review-bit (index 3):\n- life-balance-medication-and-psychiatric-care-adverse-effect-watch-lifestyle-plan-adjust-bit (index 4):\n- life-balance-medication-and-psychiatric-care-adverse-effect-watch-monitoring-task-bit (index 5):\n- life-balance-medication-and-psychiatric-care-medication-nutrition-interaction-care-team-review-bit (index 6):\n- life-balance-medication-and-psychiatric-care-medication-nutrition-interaction-lifestyle-plan-adjust-bit (index 7):\n- life-balance-medication-and-psychiatric-care-medication-nutrition-interaction-monitoring-task-bit (index 8):\n- life-balance-medication-and-psychiatric-care-medication-sleep-interaction-care-team-review-bit (index 9):\n- life-balance-medication-and-psychiatric-care-medication-sleep-interaction-lifestyle-plan-adjust-bit (index 10):\n- life-balance-medication-and-psychiatric-care-medication-sleep-interaction-monitoring-task-bit (index 11):\n- life-balance-medication-and-psychiatric-care-stimulant-appetite-sleep-balance-care-team-review-bit (index 12):\n- life-balance-medication-and-psychiatric-care-stimulant-appetite-sleep-balance-lifestyle-plan-adjust-bit (index 13):\n- life-balance-medication-and-psychiatric-care-stimulant-appetite-sleep-balance-monitoring-task-bit (index 14):\n- life-balance-medication-and-psychiatric-care-mood-stabilization-monitor-care-team-review-bit (index 15):\n- life-balance-medication-and-psychiatric-care-mood-stabilization-monitor-lifestyle-plan-adjust-bit (index 16):\n- life-balance-medication-and-psychiatric-care-mood-stabilization-monitor-monitoring-task-bit (index 17):\n- life-balance-medication-and-psychiatric-care-anxiety-treatment-response-care-team-review-bit (index 18):\n- life-balance-medication-and-psychiatric-care-anxiety-treatment-response-lifestyle-plan-adjust-bit (index 19):\n- life-balance-medication-and-psychiatric-care-anxiety-treatment-response-monitoring-task-bit (index 20):\n- life-balance-medication-and-psychiatric-care-depression-recovery-response-care-team-review-bit (index 21):\n- life-balance-medication-and-psychiatric-care-depression-recovery-response-lifestyle-plan-adjust-bit (index 22):\n- life-balance-medication-and-psychiatric-care-depression-recovery-response-monitoring-task-bit (index 23):\n- life-balance-medication-and-psychiatric-care-care-visit-preparation-care-team-review-bit (index 24):\n- life-balance-medication-and-psychiatric-care-care-visit-preparation-lifestyle-plan-adjust-bit (index 25):\n- life-balance-medication-and-psychiatric-care-care-visit-preparation-monitoring-task-bit (index 26):\n- life-balance-medication-and-psychiatric-care-psychiatric-care-executive-care-team-review-bit (index 27):\n- life-balance-medication-and-psychiatric-care-psychiatric-care-executive-lifestyle-plan-adjust-bit (index 28):\n- life-balance-medication-and-psychiatric-care-psychiatric-care-executive-monitoring-task-bit (index 29):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Medication Psychiatric Care care team review at [4820 (RED) -> action: Route family care-team review, risk escalation, and resolver summary.\n- Medication Psychiatric Care lifestyle plan adjustment at [4820 (AMBER) -> action: Route family lifestyle plan adjustment and coaching update.\n- Medication Psychiatric Care monitoring task at [4820 (AMBER) -> action: Route family monitoring task and data-quality follow-up.\n- Medication Psychiatric Care stable balance at [4820 (GREEN) -> action: Record stable family state and keep baseline cadence.",
+    "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
+    "inputAxes": [
+      {
+        "index": 0,
+        "key": "life-balance-medication-and-psychiatric-care-medication-response-tracker-care-team-review-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 1,
+        "key": "life-balance-medication-and-psychiatric-care-medication-response-tracker-lifestyle-plan-adjust-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 2,
+        "key": "life-balance-medication-and-psychiatric-care-medication-response-tracker-monitoring-task-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 3,
+        "key": "life-balance-medication-and-psychiatric-care-adverse-effect-watch-care-team-review-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 4,
+        "key": "life-balance-medication-and-psychiatric-care-adverse-effect-watch-lifestyle-plan-adjust-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 5,
+        "key": "life-balance-medication-and-psychiatric-care-adverse-effect-watch-monitoring-task-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 6,
+        "key": "life-balance-medication-and-psychiatric-care-medication-nutrition-interaction-care-team-review-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 7,
+        "key": "life-balance-medication-and-psychiatric-care-medication-nutrition-interaction-lifestyle-plan-adjust-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 8,
+        "key": "life-balance-medication-and-psychiatric-care-medication-nutrition-interaction-monitoring-task-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 9,
+        "key": "life-balance-medication-and-psychiatric-care-medication-sleep-interaction-care-team-review-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 10,
+        "key": "life-balance-medication-and-psychiatric-care-medication-sleep-interaction-lifestyle-plan-adjust-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 11,
+        "key": "life-balance-medication-and-psychiatric-care-medication-sleep-interaction-monitoring-task-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 12,
+        "key": "life-balance-medication-and-psychiatric-care-stimulant-appetite-sleep-balance-care-team-review-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 13,
+        "key": "life-balance-medication-and-psychiatric-care-stimulant-appetite-sleep-balance-lifestyle-plan-adjust-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 14,
+        "key": "life-balance-medication-and-psychiatric-care-stimulant-appetite-sleep-balance-monitoring-task-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 15,
+        "key": "life-balance-medication-and-psychiatric-care-mood-stabilization-monitor-care-team-review-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 16,
+        "key": "life-balance-medication-and-psychiatric-care-mood-stabilization-monitor-lifestyle-plan-adjust-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 17,
+        "key": "life-balance-medication-and-psychiatric-care-mood-stabilization-monitor-monitoring-task-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 18,
+        "key": "life-balance-medication-and-psychiatric-care-anxiety-treatment-response-care-team-review-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 19,
+        "key": "life-balance-medication-and-psychiatric-care-anxiety-treatment-response-lifestyle-plan-adjust-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 20,
+        "key": "life-balance-medication-and-psychiatric-care-anxiety-treatment-response-monitoring-task-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 21,
+        "key": "life-balance-medication-and-psychiatric-care-depression-recovery-response-care-team-review-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 22,
+        "key": "life-balance-medication-and-psychiatric-care-depression-recovery-response-lifestyle-plan-adjust-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 23,
+        "key": "life-balance-medication-and-psychiatric-care-depression-recovery-response-monitoring-task-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 24,
+        "key": "life-balance-medication-and-psychiatric-care-care-visit-preparation-care-team-review-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 25,
+        "key": "life-balance-medication-and-psychiatric-care-care-visit-preparation-lifestyle-plan-adjust-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 26,
+        "key": "life-balance-medication-and-psychiatric-care-care-visit-preparation-monitoring-task-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 27,
+        "key": "life-balance-medication-and-psychiatric-care-psychiatric-care-executive-care-team-review-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 28,
+        "key": "life-balance-medication-and-psychiatric-care-psychiatric-care-executive-lifestyle-plan-adjust-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 29,
+        "key": "life-balance-medication-and-psychiatric-care-psychiatric-care-executive-monitoring-task-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      }
+    ],
+    "sequenceCatalog": [
+      {
+        "sequenceId": "medication-psychiatric-care-care-team-review",
+        "label": "Medication Psychiatric Care care team review at [4820",
+        "rag": "RED",
+        "outputIndex": 0,
+        "action": "Route family care-team review, risk escalation, and resolver summary."
+      },
+      {
+        "sequenceId": "medication-psychiatric-care-plan-adjustment",
+        "label": "Medication Psychiatric Care lifestyle plan adjustment at [4820",
+        "rag": "AMBER",
+        "outputIndex": 1,
+        "action": "Route family lifestyle plan adjustment and coaching update."
+      },
+      {
+        "sequenceId": "medication-psychiatric-care-monitoring-task",
+        "label": "Medication Psychiatric Care monitoring task at [4820",
+        "rag": "AMBER",
+        "outputIndex": 2,
+        "action": "Route family monitoring task and data-quality follow-up."
+      },
+      {
+        "sequenceId": "medication-psychiatric-care-stable",
+        "label": "Medication Psychiatric Care stable balance at [4820",
+        "rag": "GREEN",
+        "outputIndex": 3,
+        "action": "Record stable family state and keep baseline cadence."
+      }
+    ]
+  },
+  "agentBinding": {
+    "agent": "life-balance-medication-psychiatric-care-interconnect",
+    "mode": "advise",
+    "trigger": "lifebalancemedicationpsychiatriccareinterconnect-input-assessment",
+    "allowedActions": [
+      "Assess current \"Life Balance Medication Psychiatric Care Interconnect\" state from available observations and write the normalized input vector to the PE input region [4790:4820] for RE to evaluate."
+    ],
+    "writeBack": {
+      "type": "pe-sensor",
+      "provider": "acp",
+      "sensorId": "acp.openclaw.lifebalancemedicationpsychiatriccareinterconnect.input-analyst.assessment",
+      "name": "OpenClaw lifebalancemedicationpsychiatriccareinterconnect input-analyst assessment",
+      "region": {
+        "offset": 4790,
+        "length": 30
+      },
+      "semantics": [
+        "life-balance-medication-and-psychiatric-care-medication-response-tracker-care-team-review-bit",
+        "life-balance-medication-and-psychiatric-care-medication-response-tracker-lifestyle-plan-adjust-bit",
+        "life-balance-medication-and-psychiatric-care-medication-response-tracker-monitoring-task-bit",
+        "life-balance-medication-and-psychiatric-care-adverse-effect-watch-care-team-review-bit",
+        "life-balance-medication-and-psychiatric-care-adverse-effect-watch-lifestyle-plan-adjust-bit",
+        "life-balance-medication-and-psychiatric-care-adverse-effect-watch-monitoring-task-bit",
+        "life-balance-medication-and-psychiatric-care-medication-nutrition-interaction-care-team-review-bit",
+        "life-balance-medication-and-psychiatric-care-medication-nutrition-interaction-lifestyle-plan-adjust-bit",
+        "life-balance-medication-and-psychiatric-care-medication-nutrition-interaction-monitoring-task-bit",
+        "life-balance-medication-and-psychiatric-care-medication-sleep-interaction-care-team-review-bit",
+        "life-balance-medication-and-psychiatric-care-medication-sleep-interaction-lifestyle-plan-adjust-bit",
+        "life-balance-medication-and-psychiatric-care-medication-sleep-interaction-monitoring-task-bit",
+        "life-balance-medication-and-psychiatric-care-stimulant-appetite-sleep-balance-care-team-review-bit",
+        "life-balance-medication-and-psychiatric-care-stimulant-appetite-sleep-balance-lifestyle-plan-adjust-bit",
+        "life-balance-medication-and-psychiatric-care-stimulant-appetite-sleep-balance-monitoring-task-bit",
+        "life-balance-medication-and-psychiatric-care-mood-stabilization-monitor-care-team-review-bit",
+        "life-balance-medication-and-psychiatric-care-mood-stabilization-monitor-lifestyle-plan-adjust-bit",
+        "life-balance-medication-and-psychiatric-care-mood-stabilization-monitor-monitoring-task-bit",
+        "life-balance-medication-and-psychiatric-care-anxiety-treatment-response-care-team-review-bit",
+        "life-balance-medication-and-psychiatric-care-anxiety-treatment-response-lifestyle-plan-adjust-bit",
+        "life-balance-medication-and-psychiatric-care-anxiety-treatment-response-monitoring-task-bit",
+        "life-balance-medication-and-psychiatric-care-depression-recovery-response-care-team-review-bit",
+        "life-balance-medication-and-psychiatric-care-depression-recovery-response-lifestyle-plan-adjust-bit",
+        "life-balance-medication-and-psychiatric-care-depression-recovery-response-monitoring-task-bit",
+        "life-balance-medication-and-psychiatric-care-care-visit-preparation-care-team-review-bit",
+        "life-balance-medication-and-psychiatric-care-care-visit-preparation-lifestyle-plan-adjust-bit",
+        "life-balance-medication-and-psychiatric-care-care-visit-preparation-monitoring-task-bit",
+        "life-balance-medication-and-psychiatric-care-psychiatric-care-executive-care-team-review-bit",
+        "life-balance-medication-and-psychiatric-care-psychiatric-care-executive-lifestyle-plan-adjust-bit",
+        "life-balance-medication-and-psychiatric-care-psychiatric-care-executive-monitoring-task-bit"
+      ],
+      "ttlMs": 300000,
+      "normalization": "already-normalized-0-1",
+      "ingest": {
+        "endpoint": "/api/integrations/completions",
+        "method": "POST",
+        "triggerPush": false,
+        "compactPush": true
+      },
+      "sourceMapping": {
+        "id": "acp-lifebalancemedicationpsychiatriccareinterconnect-input-assessment",
+        "sensorId": "acp.openclaw.lifebalancemedicationpsychiatriccareinterconnect.input-analyst.assessment",
+        "name": "OpenClaw lifebalancemedicationpsychiatriccareinterconnect input-analyst assessment",
+        "region": {
+          "offset": 4790,
+          "length": 30
+        },
+        "ttlMs": 300000
+      }
+    },
+    "autonomyPolicy": {
+      "mode": "advise",
+      "stage": 1,
+      "writeBackType": "pe-sensor",
+      "canWriteBack": true,
+      "canStageActions": false,
+      "canExecuteActions": false,
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "blockedWhenRag": []
+    },
+    "riskControls": {
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "maxAutonomy": "advise",
+      "blockedWhenRag": []
+    }
+  },
+  "responseMapping": {
+    "schemaVersion": "1.0.0",
+    "responseContract": "structured-keys-or-text",
+    "mode": "advise",
+    "fields": [
+      {
+        "semantic": "life-balance-medication-and-psychiatric-care-medication-response-tracker-care-team-review-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-medication-and-psychiatric-care-medication-response-tracker-care-team-review-bit",
+          "responseKey": "life-balance-medication-and-psychiatric-care-medication-response-tracker-care-team-review-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancemedicationpsychiatriccareinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4790,
+            "length": 30
+          },
+          "index": 0
+        }
+      },
+      {
+        "semantic": "life-balance-medication-and-psychiatric-care-medication-response-tracker-lifestyle-plan-adjust-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-medication-and-psychiatric-care-medication-response-tracker-lifestyle-plan-adjust-bit",
+          "responseKey": "life-balance-medication-and-psychiatric-care-medication-response-tracker-lifestyle-plan-adjust-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancemedicationpsychiatriccareinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4790,
+            "length": 30
+          },
+          "index": 1
+        }
+      },
+      {
+        "semantic": "life-balance-medication-and-psychiatric-care-medication-response-tracker-monitoring-task-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-medication-and-psychiatric-care-medication-response-tracker-monitoring-task-bit",
+          "responseKey": "life-balance-medication-and-psychiatric-care-medication-response-tracker-monitoring-task-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancemedicationpsychiatriccareinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4790,
+            "length": 30
+          },
+          "index": 2
+        }
+      },
+      {
+        "semantic": "life-balance-medication-and-psychiatric-care-adverse-effect-watch-care-team-review-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-medication-and-psychiatric-care-adverse-effect-watch-care-team-review-bit",
+          "responseKey": "life-balance-medication-and-psychiatric-care-adverse-effect-watch-care-team-review-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancemedicationpsychiatriccareinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4790,
+            "length": 30
+          },
+          "index": 3
+        }
+      },
+      {
+        "semantic": "life-balance-medication-and-psychiatric-care-adverse-effect-watch-lifestyle-plan-adjust-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-medication-and-psychiatric-care-adverse-effect-watch-lifestyle-plan-adjust-bit",
+          "responseKey": "life-balance-medication-and-psychiatric-care-adverse-effect-watch-lifestyle-plan-adjust-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancemedicationpsychiatriccareinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4790,
+            "length": 30
+          },
+          "index": 4
+        }
+      },
+      {
+        "semantic": "life-balance-medication-and-psychiatric-care-adverse-effect-watch-monitoring-task-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-medication-and-psychiatric-care-adverse-effect-watch-monitoring-task-bit",
+          "responseKey": "life-balance-medication-and-psychiatric-care-adverse-effect-watch-monitoring-task-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancemedicationpsychiatriccareinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4790,
+            "length": 30
+          },
+          "index": 5
+        }
+      },
+      {
+        "semantic": "life-balance-medication-and-psychiatric-care-medication-nutrition-interaction-care-team-review-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-medication-and-psychiatric-care-medication-nutrition-interaction-care-team-review-bit",
+          "responseKey": "life-balance-medication-and-psychiatric-care-medication-nutrition-interaction-care-team-review-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancemedicationpsychiatriccareinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4790,
+            "length": 30
+          },
+          "index": 6
+        }
+      },
+      {
+        "semantic": "life-balance-medication-and-psychiatric-care-medication-nutrition-interaction-lifestyle-plan-adjust-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-medication-and-psychiatric-care-medication-nutrition-interaction-lifestyle-plan-adjust-bit",
+          "responseKey": "life-balance-medication-and-psychiatric-care-medication-nutrition-interaction-lifestyle-plan-adjust-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancemedicationpsychiatriccareinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4790,
+            "length": 30
+          },
+          "index": 7
+        }
+      },
+      {
+        "semantic": "life-balance-medication-and-psychiatric-care-medication-nutrition-interaction-monitoring-task-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-medication-and-psychiatric-care-medication-nutrition-interaction-monitoring-task-bit",
+          "responseKey": "life-balance-medication-and-psychiatric-care-medication-nutrition-interaction-monitoring-task-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancemedicationpsychiatriccareinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4790,
+            "length": 30
+          },
+          "index": 8
+        }
+      },
+      {
+        "semantic": "life-balance-medication-and-psychiatric-care-medication-sleep-interaction-care-team-review-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-medication-and-psychiatric-care-medication-sleep-interaction-care-team-review-bit",
+          "responseKey": "life-balance-medication-and-psychiatric-care-medication-sleep-interaction-care-team-review-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancemedicationpsychiatriccareinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4790,
+            "length": 30
+          },
+          "index": 9
+        }
+      },
+      {
+        "semantic": "life-balance-medication-and-psychiatric-care-medication-sleep-interaction-lifestyle-plan-adjust-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-medication-and-psychiatric-care-medication-sleep-interaction-lifestyle-plan-adjust-bit",
+          "responseKey": "life-balance-medication-and-psychiatric-care-medication-sleep-interaction-lifestyle-plan-adjust-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancemedicationpsychiatriccareinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4790,
+            "length": 30
+          },
+          "index": 10
+        }
+      },
+      {
+        "semantic": "life-balance-medication-and-psychiatric-care-medication-sleep-interaction-monitoring-task-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-medication-and-psychiatric-care-medication-sleep-interaction-monitoring-task-bit",
+          "responseKey": "life-balance-medication-and-psychiatric-care-medication-sleep-interaction-monitoring-task-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancemedicationpsychiatriccareinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4790,
+            "length": 30
+          },
+          "index": 11
+        }
+      },
+      {
+        "semantic": "life-balance-medication-and-psychiatric-care-stimulant-appetite-sleep-balance-care-team-review-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-medication-and-psychiatric-care-stimulant-appetite-sleep-balance-care-team-review-bit",
+          "responseKey": "life-balance-medication-and-psychiatric-care-stimulant-appetite-sleep-balance-care-team-review-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancemedicationpsychiatriccareinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4790,
+            "length": 30
+          },
+          "index": 12
+        }
+      },
+      {
+        "semantic": "life-balance-medication-and-psychiatric-care-stimulant-appetite-sleep-balance-lifestyle-plan-adjust-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-medication-and-psychiatric-care-stimulant-appetite-sleep-balance-lifestyle-plan-adjust-bit",
+          "responseKey": "life-balance-medication-and-psychiatric-care-stimulant-appetite-sleep-balance-lifestyle-plan-adjust-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancemedicationpsychiatriccareinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4790,
+            "length": 30
+          },
+          "index": 13
+        }
+      },
+      {
+        "semantic": "life-balance-medication-and-psychiatric-care-stimulant-appetite-sleep-balance-monitoring-task-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-medication-and-psychiatric-care-stimulant-appetite-sleep-balance-monitoring-task-bit",
+          "responseKey": "life-balance-medication-and-psychiatric-care-stimulant-appetite-sleep-balance-monitoring-task-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancemedicationpsychiatriccareinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4790,
+            "length": 30
+          },
+          "index": 14
+        }
+      },
+      {
+        "semantic": "life-balance-medication-and-psychiatric-care-mood-stabilization-monitor-care-team-review-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-medication-and-psychiatric-care-mood-stabilization-monitor-care-team-review-bit",
+          "responseKey": "life-balance-medication-and-psychiatric-care-mood-stabilization-monitor-care-team-review-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancemedicationpsychiatriccareinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4790,
+            "length": 30
+          },
+          "index": 15
+        }
+      },
+      {
+        "semantic": "life-balance-medication-and-psychiatric-care-mood-stabilization-monitor-lifestyle-plan-adjust-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-medication-and-psychiatric-care-mood-stabilization-monitor-lifestyle-plan-adjust-bit",
+          "responseKey": "life-balance-medication-and-psychiatric-care-mood-stabilization-monitor-lifestyle-plan-adjust-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancemedicationpsychiatriccareinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4790,
+            "length": 30
+          },
+          "index": 16
+        }
+      },
+      {
+        "semantic": "life-balance-medication-and-psychiatric-care-mood-stabilization-monitor-monitoring-task-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-medication-and-psychiatric-care-mood-stabilization-monitor-monitoring-task-bit",
+          "responseKey": "life-balance-medication-and-psychiatric-care-mood-stabilization-monitor-monitoring-task-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancemedicationpsychiatriccareinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4790,
+            "length": 30
+          },
+          "index": 17
+        }
+      },
+      {
+        "semantic": "life-balance-medication-and-psychiatric-care-anxiety-treatment-response-care-team-review-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-medication-and-psychiatric-care-anxiety-treatment-response-care-team-review-bit",
+          "responseKey": "life-balance-medication-and-psychiatric-care-anxiety-treatment-response-care-team-review-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancemedicationpsychiatriccareinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4790,
+            "length": 30
+          },
+          "index": 18
+        }
+      },
+      {
+        "semantic": "life-balance-medication-and-psychiatric-care-anxiety-treatment-response-lifestyle-plan-adjust-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-medication-and-psychiatric-care-anxiety-treatment-response-lifestyle-plan-adjust-bit",
+          "responseKey": "life-balance-medication-and-psychiatric-care-anxiety-treatment-response-lifestyle-plan-adjust-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancemedicationpsychiatriccareinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4790,
+            "length": 30
+          },
+          "index": 19
+        }
+      },
+      {
+        "semantic": "life-balance-medication-and-psychiatric-care-anxiety-treatment-response-monitoring-task-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-medication-and-psychiatric-care-anxiety-treatment-response-monitoring-task-bit",
+          "responseKey": "life-balance-medication-and-psychiatric-care-anxiety-treatment-response-monitoring-task-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancemedicationpsychiatriccareinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4790,
+            "length": 30
+          },
+          "index": 20
+        }
+      },
+      {
+        "semantic": "life-balance-medication-and-psychiatric-care-depression-recovery-response-care-team-review-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-medication-and-psychiatric-care-depression-recovery-response-care-team-review-bit",
+          "responseKey": "life-balance-medication-and-psychiatric-care-depression-recovery-response-care-team-review-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancemedicationpsychiatriccareinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4790,
+            "length": 30
+          },
+          "index": 21
+        }
+      },
+      {
+        "semantic": "life-balance-medication-and-psychiatric-care-depression-recovery-response-lifestyle-plan-adjust-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-medication-and-psychiatric-care-depression-recovery-response-lifestyle-plan-adjust-bit",
+          "responseKey": "life-balance-medication-and-psychiatric-care-depression-recovery-response-lifestyle-plan-adjust-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancemedicationpsychiatriccareinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4790,
+            "length": 30
+          },
+          "index": 22
+        }
+      },
+      {
+        "semantic": "life-balance-medication-and-psychiatric-care-depression-recovery-response-monitoring-task-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-medication-and-psychiatric-care-depression-recovery-response-monitoring-task-bit",
+          "responseKey": "life-balance-medication-and-psychiatric-care-depression-recovery-response-monitoring-task-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancemedicationpsychiatriccareinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4790,
+            "length": 30
+          },
+          "index": 23
+        }
+      },
+      {
+        "semantic": "life-balance-medication-and-psychiatric-care-care-visit-preparation-care-team-review-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-medication-and-psychiatric-care-care-visit-preparation-care-team-review-bit",
+          "responseKey": "life-balance-medication-and-psychiatric-care-care-visit-preparation-care-team-review-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancemedicationpsychiatriccareinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4790,
+            "length": 30
+          },
+          "index": 24
+        }
+      },
+      {
+        "semantic": "life-balance-medication-and-psychiatric-care-care-visit-preparation-lifestyle-plan-adjust-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-medication-and-psychiatric-care-care-visit-preparation-lifestyle-plan-adjust-bit",
+          "responseKey": "life-balance-medication-and-psychiatric-care-care-visit-preparation-lifestyle-plan-adjust-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancemedicationpsychiatriccareinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4790,
+            "length": 30
+          },
+          "index": 25
+        }
+      },
+      {
+        "semantic": "life-balance-medication-and-psychiatric-care-care-visit-preparation-monitoring-task-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-medication-and-psychiatric-care-care-visit-preparation-monitoring-task-bit",
+          "responseKey": "life-balance-medication-and-psychiatric-care-care-visit-preparation-monitoring-task-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancemedicationpsychiatriccareinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4790,
+            "length": 30
+          },
+          "index": 26
+        }
+      },
+      {
+        "semantic": "life-balance-medication-and-psychiatric-care-psychiatric-care-executive-care-team-review-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-medication-and-psychiatric-care-psychiatric-care-executive-care-team-review-bit",
+          "responseKey": "life-balance-medication-and-psychiatric-care-psychiatric-care-executive-care-team-review-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancemedicationpsychiatriccareinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4790,
+            "length": 30
+          },
+          "index": 27
+        }
+      },
+      {
+        "semantic": "life-balance-medication-and-psychiatric-care-psychiatric-care-executive-lifestyle-plan-adjust-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-medication-and-psychiatric-care-psychiatric-care-executive-lifestyle-plan-adjust-bit",
+          "responseKey": "life-balance-medication-and-psychiatric-care-psychiatric-care-executive-lifestyle-plan-adjust-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancemedicationpsychiatriccareinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4790,
+            "length": 30
+          },
+          "index": 28
+        }
+      },
+      {
+        "semantic": "life-balance-medication-and-psychiatric-care-psychiatric-care-executive-monitoring-task-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-medication-and-psychiatric-care-psychiatric-care-executive-monitoring-task-bit",
+          "responseKey": "life-balance-medication-and-psychiatric-care-psychiatric-care-executive-monitoring-task-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancemedicationpsychiatriccareinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4790,
+            "length": 30
+          },
+          "index": 29
+        }
+      }
+    ]
+  },
+  "diagnostics": {
+    "axisBasis": "inputSemantics",
+    "warnings": [
+      "input axes derived from inputSemantics (no length-matched sensorNormalization)"
+    ],
+    "inputLength": 30,
+    "sequenceCount": 4
+  }
+}

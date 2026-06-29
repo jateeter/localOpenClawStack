@@ -1,0 +1,1732 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "oc-agent-template",
+  "role": "input-analyst",
+  "agentId": "life-balance-movement-physical-health-interconnect",
+  "displayName": "Life Balance Movement Physical Health Interconnect",
+  "machine": {
+    "id": "LifeBalanceMovementPhysicalHealthInterconnect",
+    "name": "Life Balance Movement Physical Health Interconnect",
+    "code": "lifebalancemovementphysicalhealthinterconnect",
+    "machineClass": "bridge",
+    "domain": "life-balance",
+    "inputRegion": {
+      "offset": 4722,
+      "length": 30
+    },
+    "outputRegion": {
+      "offset": 4752,
+      "length": 4
+    }
+  },
+  "openclaw": {
+    "id": "openclaw-xacp",
+    "kind": "acp",
+    "platform": "OpenClaw",
+    "surface": "xACP",
+    "command": "openclaw acp",
+    "gatewayUrl": "ws://127.0.0.1:18789",
+    "sessionKey": "agent:main:main",
+    "targetAgent": "life-balance-movement-physical-health-interconnect",
+    "dispatchMode": "accepted-no-wait",
+    "completionMode": "pe-source-mapping",
+    "completionSourceMappingId": "acp-life-balance-movement-physical-health-interconnect-input-assessment"
+  },
+  "reasoning": {
+    "objective": "Produce the normalized input vector for \"Life Balance Movement Physical Health Interconnect\" from current observations so RE can evaluate its CES sequences.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Life Balance Movement Physical Health Interconnect\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Published life-balance bridge bus that composes the Movement Physical Health family into a compact response lane. PE owns source composition and writes the compact input lane; RE evaluates this machine as ordinary vector state.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- life-balance-movement-and-physical-health-movement-baseline-care-team-review-bit (index 0):\n- life-balance-movement-and-physical-health-movement-baseline-lifestyle-plan-adjust-bit (index 1):\n- life-balance-movement-and-physical-health-movement-baseline-monitoring-task-bit (index 2):\n- life-balance-movement-and-physical-health-strength-training-routine-care-team-review-bit (index 3):\n- life-balance-movement-and-physical-health-strength-training-routine-lifestyle-plan-adjust-bit (index 4):\n- life-balance-movement-and-physical-health-strength-training-routine-monitoring-task-bit (index 5):\n- life-balance-movement-and-physical-health-zone-two-activity-plan-care-team-review-bit (index 6):\n- life-balance-movement-and-physical-health-zone-two-activity-plan-lifestyle-plan-adjust-bit (index 7):\n- life-balance-movement-and-physical-health-zone-two-activity-plan-monitoring-task-bit (index 8):\n- life-balance-movement-and-physical-health-outdoor-activity-exposure-care-team-review-bit (index 9):\n- life-balance-movement-and-physical-health-outdoor-activity-exposure-lifestyle-plan-adjust-bit (index 10):\n- life-balance-movement-and-physical-health-outdoor-activity-exposure-monitoring-task-bit (index 11):\n- life-balance-movement-and-physical-health-mobility-pain-constraint-care-team-review-bit (index 12):\n- life-balance-movement-and-physical-health-mobility-pain-constraint-lifestyle-plan-adjust-bit (index 13):\n- life-balance-movement-and-physical-health-mobility-pain-constraint-monitoring-task-bit (index 14):\n- life-balance-movement-and-physical-health-adolescent-sports-balance-care-team-review-bit (index 15):\n- life-balance-movement-and-physical-health-adolescent-sports-balance-lifestyle-plan-adjust-bit (index 16):\n- life-balance-movement-and-physical-health-adolescent-sports-balance-monitoring-task-bit (index 17):\n- life-balance-movement-and-physical-health-medication-movement-effects-care-team-review-bit (index 18):\n- life-balance-movement-and-physical-health-medication-movement-effects-lifestyle-plan-adjust-bit (index 19):\n- life-balance-movement-and-physical-health-medication-movement-effects-monitoring-task-bit (index 20):\n- life-balance-movement-and-physical-health-exercise-anxiety-depression-response-care-team-review-bit (index 21):\n- life-balance-movement-and-physical-health-exercise-anxiety-depression-response-lifestyle-plan-adjust-bit (index 22):\n- life-balance-movement-and-physical-health-exercise-anxiety-depression-response-monitoring-task-bit (index 23):\n- life-balance-movement-and-physical-health-movement-habit-adherence-care-team-review-bit (index 24):\n- life-balance-movement-and-physical-health-movement-habit-adherence-lifestyle-plan-adjust-bit (index 25):\n- life-balance-movement-and-physical-health-movement-habit-adherence-monitoring-task-bit (index 26):\n- life-balance-movement-and-physical-health-movement-executive-optimizer-care-team-review-bit (index 27):\n- life-balance-movement-and-physical-health-movement-executive-optimizer-lifestyle-plan-adjust-bit (index 28):\n- life-balance-movement-and-physical-health-movement-executive-optimizer-monitoring-task-bit (index 29):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Movement Physical Health care team review at [4752 (RED) -> action: Route family care-team review, risk escalation, and resolver summary.\n- Movement Physical Health lifestyle plan adjustment at [4752 (AMBER) -> action: Route family lifestyle plan adjustment and coaching update.\n- Movement Physical Health monitoring task at [4752 (AMBER) -> action: Route family monitoring task and data-quality follow-up.\n- Movement Physical Health stable balance at [4752 (GREEN) -> action: Record stable family state and keep baseline cadence.",
+    "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
+    "inputAxes": [
+      {
+        "index": 0,
+        "key": "life-balance-movement-and-physical-health-movement-baseline-care-team-review-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 1,
+        "key": "life-balance-movement-and-physical-health-movement-baseline-lifestyle-plan-adjust-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 2,
+        "key": "life-balance-movement-and-physical-health-movement-baseline-monitoring-task-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 3,
+        "key": "life-balance-movement-and-physical-health-strength-training-routine-care-team-review-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 4,
+        "key": "life-balance-movement-and-physical-health-strength-training-routine-lifestyle-plan-adjust-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 5,
+        "key": "life-balance-movement-and-physical-health-strength-training-routine-monitoring-task-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 6,
+        "key": "life-balance-movement-and-physical-health-zone-two-activity-plan-care-team-review-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 7,
+        "key": "life-balance-movement-and-physical-health-zone-two-activity-plan-lifestyle-plan-adjust-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 8,
+        "key": "life-balance-movement-and-physical-health-zone-two-activity-plan-monitoring-task-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 9,
+        "key": "life-balance-movement-and-physical-health-outdoor-activity-exposure-care-team-review-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 10,
+        "key": "life-balance-movement-and-physical-health-outdoor-activity-exposure-lifestyle-plan-adjust-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 11,
+        "key": "life-balance-movement-and-physical-health-outdoor-activity-exposure-monitoring-task-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 12,
+        "key": "life-balance-movement-and-physical-health-mobility-pain-constraint-care-team-review-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 13,
+        "key": "life-balance-movement-and-physical-health-mobility-pain-constraint-lifestyle-plan-adjust-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 14,
+        "key": "life-balance-movement-and-physical-health-mobility-pain-constraint-monitoring-task-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 15,
+        "key": "life-balance-movement-and-physical-health-adolescent-sports-balance-care-team-review-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 16,
+        "key": "life-balance-movement-and-physical-health-adolescent-sports-balance-lifestyle-plan-adjust-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 17,
+        "key": "life-balance-movement-and-physical-health-adolescent-sports-balance-monitoring-task-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 18,
+        "key": "life-balance-movement-and-physical-health-medication-movement-effects-care-team-review-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 19,
+        "key": "life-balance-movement-and-physical-health-medication-movement-effects-lifestyle-plan-adjust-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 20,
+        "key": "life-balance-movement-and-physical-health-medication-movement-effects-monitoring-task-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 21,
+        "key": "life-balance-movement-and-physical-health-exercise-anxiety-depression-response-care-team-review-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 22,
+        "key": "life-balance-movement-and-physical-health-exercise-anxiety-depression-response-lifestyle-plan-adjust-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 23,
+        "key": "life-balance-movement-and-physical-health-exercise-anxiety-depression-response-monitoring-task-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 24,
+        "key": "life-balance-movement-and-physical-health-movement-habit-adherence-care-team-review-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 25,
+        "key": "life-balance-movement-and-physical-health-movement-habit-adherence-lifestyle-plan-adjust-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 26,
+        "key": "life-balance-movement-and-physical-health-movement-habit-adherence-monitoring-task-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 27,
+        "key": "life-balance-movement-and-physical-health-movement-executive-optimizer-care-team-review-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 28,
+        "key": "life-balance-movement-and-physical-health-movement-executive-optimizer-lifestyle-plan-adjust-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 29,
+        "key": "life-balance-movement-and-physical-health-movement-executive-optimizer-monitoring-task-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      }
+    ],
+    "sequenceCatalog": [
+      {
+        "sequenceId": "movement-physical-health-care-team-review",
+        "label": "Movement Physical Health care team review at [4752",
+        "rag": "RED",
+        "outputIndex": 0,
+        "action": "Route family care-team review, risk escalation, and resolver summary."
+      },
+      {
+        "sequenceId": "movement-physical-health-plan-adjustment",
+        "label": "Movement Physical Health lifestyle plan adjustment at [4752",
+        "rag": "AMBER",
+        "outputIndex": 1,
+        "action": "Route family lifestyle plan adjustment and coaching update."
+      },
+      {
+        "sequenceId": "movement-physical-health-monitoring-task",
+        "label": "Movement Physical Health monitoring task at [4752",
+        "rag": "AMBER",
+        "outputIndex": 2,
+        "action": "Route family monitoring task and data-quality follow-up."
+      },
+      {
+        "sequenceId": "movement-physical-health-stable",
+        "label": "Movement Physical Health stable balance at [4752",
+        "rag": "GREEN",
+        "outputIndex": 3,
+        "action": "Record stable family state and keep baseline cadence."
+      }
+    ]
+  },
+  "agentBinding": {
+    "agent": "life-balance-movement-physical-health-interconnect",
+    "mode": "advise",
+    "trigger": "lifebalancemovementphysicalhealthinterconnect-input-assessment",
+    "allowedActions": [
+      "Assess current \"Life Balance Movement Physical Health Interconnect\" state from available observations and write the normalized input vector to the PE input region [4722:4752] for RE to evaluate."
+    ],
+    "writeBack": {
+      "type": "pe-sensor",
+      "provider": "acp",
+      "sensorId": "acp.openclaw.lifebalancemovementphysicalhealthinterconnect.input-analyst.assessment",
+      "name": "OpenClaw lifebalancemovementphysicalhealthinterconnect input-analyst assessment",
+      "region": {
+        "offset": 4722,
+        "length": 30
+      },
+      "semantics": [
+        "life-balance-movement-and-physical-health-movement-baseline-care-team-review-bit",
+        "life-balance-movement-and-physical-health-movement-baseline-lifestyle-plan-adjust-bit",
+        "life-balance-movement-and-physical-health-movement-baseline-monitoring-task-bit",
+        "life-balance-movement-and-physical-health-strength-training-routine-care-team-review-bit",
+        "life-balance-movement-and-physical-health-strength-training-routine-lifestyle-plan-adjust-bit",
+        "life-balance-movement-and-physical-health-strength-training-routine-monitoring-task-bit",
+        "life-balance-movement-and-physical-health-zone-two-activity-plan-care-team-review-bit",
+        "life-balance-movement-and-physical-health-zone-two-activity-plan-lifestyle-plan-adjust-bit",
+        "life-balance-movement-and-physical-health-zone-two-activity-plan-monitoring-task-bit",
+        "life-balance-movement-and-physical-health-outdoor-activity-exposure-care-team-review-bit",
+        "life-balance-movement-and-physical-health-outdoor-activity-exposure-lifestyle-plan-adjust-bit",
+        "life-balance-movement-and-physical-health-outdoor-activity-exposure-monitoring-task-bit",
+        "life-balance-movement-and-physical-health-mobility-pain-constraint-care-team-review-bit",
+        "life-balance-movement-and-physical-health-mobility-pain-constraint-lifestyle-plan-adjust-bit",
+        "life-balance-movement-and-physical-health-mobility-pain-constraint-monitoring-task-bit",
+        "life-balance-movement-and-physical-health-adolescent-sports-balance-care-team-review-bit",
+        "life-balance-movement-and-physical-health-adolescent-sports-balance-lifestyle-plan-adjust-bit",
+        "life-balance-movement-and-physical-health-adolescent-sports-balance-monitoring-task-bit",
+        "life-balance-movement-and-physical-health-medication-movement-effects-care-team-review-bit",
+        "life-balance-movement-and-physical-health-medication-movement-effects-lifestyle-plan-adjust-bit",
+        "life-balance-movement-and-physical-health-medication-movement-effects-monitoring-task-bit",
+        "life-balance-movement-and-physical-health-exercise-anxiety-depression-response-care-team-review-bit",
+        "life-balance-movement-and-physical-health-exercise-anxiety-depression-response-lifestyle-plan-adjust-bit",
+        "life-balance-movement-and-physical-health-exercise-anxiety-depression-response-monitoring-task-bit",
+        "life-balance-movement-and-physical-health-movement-habit-adherence-care-team-review-bit",
+        "life-balance-movement-and-physical-health-movement-habit-adherence-lifestyle-plan-adjust-bit",
+        "life-balance-movement-and-physical-health-movement-habit-adherence-monitoring-task-bit",
+        "life-balance-movement-and-physical-health-movement-executive-optimizer-care-team-review-bit",
+        "life-balance-movement-and-physical-health-movement-executive-optimizer-lifestyle-plan-adjust-bit",
+        "life-balance-movement-and-physical-health-movement-executive-optimizer-monitoring-task-bit"
+      ],
+      "ttlMs": 300000,
+      "normalization": "already-normalized-0-1",
+      "ingest": {
+        "endpoint": "/api/integrations/completions",
+        "method": "POST",
+        "triggerPush": false,
+        "compactPush": true
+      },
+      "sourceMapping": {
+        "id": "acp-lifebalancemovementphysicalhealthinterconnect-input-assessment",
+        "sensorId": "acp.openclaw.lifebalancemovementphysicalhealthinterconnect.input-analyst.assessment",
+        "name": "OpenClaw lifebalancemovementphysicalhealthinterconnect input-analyst assessment",
+        "region": {
+          "offset": 4722,
+          "length": 30
+        },
+        "ttlMs": 300000
+      }
+    },
+    "autonomyPolicy": {
+      "mode": "advise",
+      "stage": 1,
+      "writeBackType": "pe-sensor",
+      "canWriteBack": true,
+      "canStageActions": false,
+      "canExecuteActions": false,
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "blockedWhenRag": []
+    },
+    "riskControls": {
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "maxAutonomy": "advise",
+      "blockedWhenRag": []
+    }
+  },
+  "responseMapping": {
+    "schemaVersion": "1.0.0",
+    "responseContract": "structured-keys-or-text",
+    "mode": "advise",
+    "fields": [
+      {
+        "semantic": "life-balance-movement-and-physical-health-movement-baseline-care-team-review-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-movement-and-physical-health-movement-baseline-care-team-review-bit",
+          "responseKey": "life-balance-movement-and-physical-health-movement-baseline-care-team-review-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancemovementphysicalhealthinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4722,
+            "length": 30
+          },
+          "index": 0
+        }
+      },
+      {
+        "semantic": "life-balance-movement-and-physical-health-movement-baseline-lifestyle-plan-adjust-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-movement-and-physical-health-movement-baseline-lifestyle-plan-adjust-bit",
+          "responseKey": "life-balance-movement-and-physical-health-movement-baseline-lifestyle-plan-adjust-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancemovementphysicalhealthinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4722,
+            "length": 30
+          },
+          "index": 1
+        }
+      },
+      {
+        "semantic": "life-balance-movement-and-physical-health-movement-baseline-monitoring-task-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-movement-and-physical-health-movement-baseline-monitoring-task-bit",
+          "responseKey": "life-balance-movement-and-physical-health-movement-baseline-monitoring-task-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancemovementphysicalhealthinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4722,
+            "length": 30
+          },
+          "index": 2
+        }
+      },
+      {
+        "semantic": "life-balance-movement-and-physical-health-strength-training-routine-care-team-review-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-movement-and-physical-health-strength-training-routine-care-team-review-bit",
+          "responseKey": "life-balance-movement-and-physical-health-strength-training-routine-care-team-review-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancemovementphysicalhealthinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4722,
+            "length": 30
+          },
+          "index": 3
+        }
+      },
+      {
+        "semantic": "life-balance-movement-and-physical-health-strength-training-routine-lifestyle-plan-adjust-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-movement-and-physical-health-strength-training-routine-lifestyle-plan-adjust-bit",
+          "responseKey": "life-balance-movement-and-physical-health-strength-training-routine-lifestyle-plan-adjust-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancemovementphysicalhealthinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4722,
+            "length": 30
+          },
+          "index": 4
+        }
+      },
+      {
+        "semantic": "life-balance-movement-and-physical-health-strength-training-routine-monitoring-task-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-movement-and-physical-health-strength-training-routine-monitoring-task-bit",
+          "responseKey": "life-balance-movement-and-physical-health-strength-training-routine-monitoring-task-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancemovementphysicalhealthinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4722,
+            "length": 30
+          },
+          "index": 5
+        }
+      },
+      {
+        "semantic": "life-balance-movement-and-physical-health-zone-two-activity-plan-care-team-review-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-movement-and-physical-health-zone-two-activity-plan-care-team-review-bit",
+          "responseKey": "life-balance-movement-and-physical-health-zone-two-activity-plan-care-team-review-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancemovementphysicalhealthinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4722,
+            "length": 30
+          },
+          "index": 6
+        }
+      },
+      {
+        "semantic": "life-balance-movement-and-physical-health-zone-two-activity-plan-lifestyle-plan-adjust-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-movement-and-physical-health-zone-two-activity-plan-lifestyle-plan-adjust-bit",
+          "responseKey": "life-balance-movement-and-physical-health-zone-two-activity-plan-lifestyle-plan-adjust-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancemovementphysicalhealthinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4722,
+            "length": 30
+          },
+          "index": 7
+        }
+      },
+      {
+        "semantic": "life-balance-movement-and-physical-health-zone-two-activity-plan-monitoring-task-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-movement-and-physical-health-zone-two-activity-plan-monitoring-task-bit",
+          "responseKey": "life-balance-movement-and-physical-health-zone-two-activity-plan-monitoring-task-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancemovementphysicalhealthinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4722,
+            "length": 30
+          },
+          "index": 8
+        }
+      },
+      {
+        "semantic": "life-balance-movement-and-physical-health-outdoor-activity-exposure-care-team-review-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-movement-and-physical-health-outdoor-activity-exposure-care-team-review-bit",
+          "responseKey": "life-balance-movement-and-physical-health-outdoor-activity-exposure-care-team-review-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancemovementphysicalhealthinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4722,
+            "length": 30
+          },
+          "index": 9
+        }
+      },
+      {
+        "semantic": "life-balance-movement-and-physical-health-outdoor-activity-exposure-lifestyle-plan-adjust-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-movement-and-physical-health-outdoor-activity-exposure-lifestyle-plan-adjust-bit",
+          "responseKey": "life-balance-movement-and-physical-health-outdoor-activity-exposure-lifestyle-plan-adjust-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancemovementphysicalhealthinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4722,
+            "length": 30
+          },
+          "index": 10
+        }
+      },
+      {
+        "semantic": "life-balance-movement-and-physical-health-outdoor-activity-exposure-monitoring-task-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-movement-and-physical-health-outdoor-activity-exposure-monitoring-task-bit",
+          "responseKey": "life-balance-movement-and-physical-health-outdoor-activity-exposure-monitoring-task-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancemovementphysicalhealthinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4722,
+            "length": 30
+          },
+          "index": 11
+        }
+      },
+      {
+        "semantic": "life-balance-movement-and-physical-health-mobility-pain-constraint-care-team-review-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-movement-and-physical-health-mobility-pain-constraint-care-team-review-bit",
+          "responseKey": "life-balance-movement-and-physical-health-mobility-pain-constraint-care-team-review-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancemovementphysicalhealthinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4722,
+            "length": 30
+          },
+          "index": 12
+        }
+      },
+      {
+        "semantic": "life-balance-movement-and-physical-health-mobility-pain-constraint-lifestyle-plan-adjust-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-movement-and-physical-health-mobility-pain-constraint-lifestyle-plan-adjust-bit",
+          "responseKey": "life-balance-movement-and-physical-health-mobility-pain-constraint-lifestyle-plan-adjust-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancemovementphysicalhealthinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4722,
+            "length": 30
+          },
+          "index": 13
+        }
+      },
+      {
+        "semantic": "life-balance-movement-and-physical-health-mobility-pain-constraint-monitoring-task-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-movement-and-physical-health-mobility-pain-constraint-monitoring-task-bit",
+          "responseKey": "life-balance-movement-and-physical-health-mobility-pain-constraint-monitoring-task-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancemovementphysicalhealthinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4722,
+            "length": 30
+          },
+          "index": 14
+        }
+      },
+      {
+        "semantic": "life-balance-movement-and-physical-health-adolescent-sports-balance-care-team-review-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-movement-and-physical-health-adolescent-sports-balance-care-team-review-bit",
+          "responseKey": "life-balance-movement-and-physical-health-adolescent-sports-balance-care-team-review-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancemovementphysicalhealthinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4722,
+            "length": 30
+          },
+          "index": 15
+        }
+      },
+      {
+        "semantic": "life-balance-movement-and-physical-health-adolescent-sports-balance-lifestyle-plan-adjust-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-movement-and-physical-health-adolescent-sports-balance-lifestyle-plan-adjust-bit",
+          "responseKey": "life-balance-movement-and-physical-health-adolescent-sports-balance-lifestyle-plan-adjust-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancemovementphysicalhealthinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4722,
+            "length": 30
+          },
+          "index": 16
+        }
+      },
+      {
+        "semantic": "life-balance-movement-and-physical-health-adolescent-sports-balance-monitoring-task-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-movement-and-physical-health-adolescent-sports-balance-monitoring-task-bit",
+          "responseKey": "life-balance-movement-and-physical-health-adolescent-sports-balance-monitoring-task-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancemovementphysicalhealthinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4722,
+            "length": 30
+          },
+          "index": 17
+        }
+      },
+      {
+        "semantic": "life-balance-movement-and-physical-health-medication-movement-effects-care-team-review-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-movement-and-physical-health-medication-movement-effects-care-team-review-bit",
+          "responseKey": "life-balance-movement-and-physical-health-medication-movement-effects-care-team-review-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancemovementphysicalhealthinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4722,
+            "length": 30
+          },
+          "index": 18
+        }
+      },
+      {
+        "semantic": "life-balance-movement-and-physical-health-medication-movement-effects-lifestyle-plan-adjust-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-movement-and-physical-health-medication-movement-effects-lifestyle-plan-adjust-bit",
+          "responseKey": "life-balance-movement-and-physical-health-medication-movement-effects-lifestyle-plan-adjust-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancemovementphysicalhealthinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4722,
+            "length": 30
+          },
+          "index": 19
+        }
+      },
+      {
+        "semantic": "life-balance-movement-and-physical-health-medication-movement-effects-monitoring-task-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-movement-and-physical-health-medication-movement-effects-monitoring-task-bit",
+          "responseKey": "life-balance-movement-and-physical-health-medication-movement-effects-monitoring-task-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancemovementphysicalhealthinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4722,
+            "length": 30
+          },
+          "index": 20
+        }
+      },
+      {
+        "semantic": "life-balance-movement-and-physical-health-exercise-anxiety-depression-response-care-team-review-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-movement-and-physical-health-exercise-anxiety-depression-response-care-team-review-bit",
+          "responseKey": "life-balance-movement-and-physical-health-exercise-anxiety-depression-response-care-team-review-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancemovementphysicalhealthinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4722,
+            "length": 30
+          },
+          "index": 21
+        }
+      },
+      {
+        "semantic": "life-balance-movement-and-physical-health-exercise-anxiety-depression-response-lifestyle-plan-adjust-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-movement-and-physical-health-exercise-anxiety-depression-response-lifestyle-plan-adjust-bit",
+          "responseKey": "life-balance-movement-and-physical-health-exercise-anxiety-depression-response-lifestyle-plan-adjust-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancemovementphysicalhealthinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4722,
+            "length": 30
+          },
+          "index": 22
+        }
+      },
+      {
+        "semantic": "life-balance-movement-and-physical-health-exercise-anxiety-depression-response-monitoring-task-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-movement-and-physical-health-exercise-anxiety-depression-response-monitoring-task-bit",
+          "responseKey": "life-balance-movement-and-physical-health-exercise-anxiety-depression-response-monitoring-task-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancemovementphysicalhealthinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4722,
+            "length": 30
+          },
+          "index": 23
+        }
+      },
+      {
+        "semantic": "life-balance-movement-and-physical-health-movement-habit-adherence-care-team-review-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-movement-and-physical-health-movement-habit-adherence-care-team-review-bit",
+          "responseKey": "life-balance-movement-and-physical-health-movement-habit-adherence-care-team-review-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancemovementphysicalhealthinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4722,
+            "length": 30
+          },
+          "index": 24
+        }
+      },
+      {
+        "semantic": "life-balance-movement-and-physical-health-movement-habit-adherence-lifestyle-plan-adjust-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-movement-and-physical-health-movement-habit-adherence-lifestyle-plan-adjust-bit",
+          "responseKey": "life-balance-movement-and-physical-health-movement-habit-adherence-lifestyle-plan-adjust-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancemovementphysicalhealthinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4722,
+            "length": 30
+          },
+          "index": 25
+        }
+      },
+      {
+        "semantic": "life-balance-movement-and-physical-health-movement-habit-adherence-monitoring-task-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-movement-and-physical-health-movement-habit-adherence-monitoring-task-bit",
+          "responseKey": "life-balance-movement-and-physical-health-movement-habit-adherence-monitoring-task-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancemovementphysicalhealthinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4722,
+            "length": 30
+          },
+          "index": 26
+        }
+      },
+      {
+        "semantic": "life-balance-movement-and-physical-health-movement-executive-optimizer-care-team-review-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-movement-and-physical-health-movement-executive-optimizer-care-team-review-bit",
+          "responseKey": "life-balance-movement-and-physical-health-movement-executive-optimizer-care-team-review-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancemovementphysicalhealthinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4722,
+            "length": 30
+          },
+          "index": 27
+        }
+      },
+      {
+        "semantic": "life-balance-movement-and-physical-health-movement-executive-optimizer-lifestyle-plan-adjust-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-movement-and-physical-health-movement-executive-optimizer-lifestyle-plan-adjust-bit",
+          "responseKey": "life-balance-movement-and-physical-health-movement-executive-optimizer-lifestyle-plan-adjust-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancemovementphysicalhealthinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4722,
+            "length": 30
+          },
+          "index": 28
+        }
+      },
+      {
+        "semantic": "life-balance-movement-and-physical-health-movement-executive-optimizer-monitoring-task-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-movement-and-physical-health-movement-executive-optimizer-monitoring-task-bit",
+          "responseKey": "life-balance-movement-and-physical-health-movement-executive-optimizer-monitoring-task-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancemovementphysicalhealthinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4722,
+            "length": 30
+          },
+          "index": 29
+        }
+      }
+    ]
+  },
+  "diagnostics": {
+    "axisBasis": "inputSemantics",
+    "warnings": [
+      "input axes derived from inputSemantics (no length-matched sensorNormalization)"
+    ],
+    "inputLength": 30,
+    "sequenceCount": 4
+  }
+}

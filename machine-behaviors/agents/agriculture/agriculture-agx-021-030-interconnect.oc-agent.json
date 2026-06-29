@@ -1,0 +1,1732 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "oc-agent-template",
+  "role": "input-analyst",
+  "agentId": "agriculture-agx-021-030-interconnect",
+  "displayName": "Agriculture AGX-021-030 Interconnect",
+  "machine": {
+    "id": "AgricultureAgx021030Interconnect",
+    "name": "Agriculture AGX-021-030 Interconnect",
+    "code": "agricultureagx021030interconnect",
+    "machineClass": "bridge",
+    "domain": "agriculture",
+    "inputRegion": {
+      "offset": 13099,
+      "length": 30
+    },
+    "outputRegion": {
+      "offset": 13129,
+      "length": 4
+    }
+  },
+  "openclaw": {
+    "id": "openclaw-xacp",
+    "kind": "acp",
+    "platform": "OpenClaw",
+    "surface": "xACP",
+    "command": "openclaw acp",
+    "gatewayUrl": "ws://127.0.0.1:18789",
+    "sessionKey": "agent:main:main",
+    "targetAgent": "agriculture-agx-021-030-interconnect",
+    "dispatchMode": "accepted-no-wait",
+    "completionMode": "pe-source-mapping",
+    "completionSourceMappingId": "acp-agriculture-agx-021-030-interconnect-input-assessment"
+  },
+  "reasoning": {
+    "objective": "Produce the normalized input vector for \"Agriculture AGX-021-030 Interconnect\" from current observations so RE can evaluate its CES sequences.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Agriculture AGX-021-030 Interconnect\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Published agriculture bridge bus that composes Agriculture AGX-021-030 into a compact domain family response lane. PE owns source composition and writes the compact input lane; RE evaluates this machine as ordinary vector state.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- agriculture-aquaculture-probiotic-treatment-tracking-active-output-0-bit (index 0):\n- agriculture-aquaculture-probiotic-treatment-tracking-active-output-1-bit (index 1):\n- agriculture-aquaculture-probiotic-treatment-tracking-active-output-2-bit (index 2):\n- agriculture-aquaculture-pond-turnover-prevention-active-output-0-bit (index 3):\n- agriculture-aquaculture-pond-turnover-prevention-active-output-1-bit (index 4):\n- agriculture-aquaculture-pond-turnover-prevention-active-output-2-bit (index 5):\n- agriculture-aquaculture-predator-exclusion-active-output-0-bit (index 6):\n- agriculture-aquaculture-predator-exclusion-active-output-1-bit (index 7):\n- agriculture-aquaculture-predator-exclusion-active-output-2-bit (index 8):\n- agriculture-aquaculture-larval-survival-optimization-active-output-0-bit (index 9):\n- agriculture-aquaculture-larval-survival-optimization-active-output-1-bit (index 10):\n- agriculture-aquaculture-larval-survival-optimization-active-output-2-bit (index 11):\n- agriculture-aquaculture-aquaponic-nutrient-coupling-active-output-0-bit (index 12):\n- agriculture-aquaculture-aquaponic-nutrient-coupling-active-output-1-bit (index 13):\n- agriculture-aquaculture-aquaponic-nutrient-coupling-active-output-2-bit (index 14):\n- agriculture-indoor-grow-house-vpd-climate-management-active-output-0-bit (index 15):\n- agriculture-indoor-grow-house-vpd-climate-management-active-output-1-bit (index 16):\n- agriculture-indoor-grow-house-vpd-climate-management-active-output-2-bit (index 17):\n- agriculture-indoor-grow-house-lighting-schedule-integrity-active-output-0-bit (index 18):\n- agriculture-indoor-grow-house-lighting-schedule-integrity-active-output-1-bit (index 19):\n- agriculture-indoor-grow-house-lighting-schedule-integrity-active-output-2-bit (index 20):\n- agriculture-indoor-grow-house-nutrient-reservoir-balance-active-output-0-bit (index 21):\n- agriculture-indoor-grow-house-nutrient-reservoir-balance-active-output-1-bit (index 22):\n- agriculture-indoor-grow-house-nutrient-reservoir-balance-active-output-2-bit (index 23):\n- agriculture-indoor-grow-house-irrigation-line-maintenance-active-output-0-bit (index 24):\n- agriculture-indoor-grow-house-irrigation-line-maintenance-active-output-1-bit (index 25):\n- agriculture-indoor-grow-house-irrigation-line-maintenance-active-output-2-bit (index 26):\n- agriculture-indoor-grow-house-integrated-pest-management-active-output-0-bit (index 27):\n- agriculture-indoor-grow-house-integrated-pest-management-active-output-1-bit (index 28):\n- agriculture-indoor-grow-house-integrated-pest-management-active-output-2-bit (index 29):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Agriculture AGX-021-030 domain family review at [13129 (RED) -> action: Route domain family review, escalation, and resolver summary.\n- Agriculture AGX-021-030 domain family optimization at [13129 (AMBER) -> action: Route domain family optimization or plan adjustment.\n- Agriculture AGX-021-030 domain family monitoring at [13129 (AMBER) -> action: Route monitoring, evidence, or data-quality follow-up.\n- Agriculture AGX-021-030 domain family stable at [13129 (GREEN) -> action: Record stable family state and keep baseline cadence.",
+    "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
+    "inputAxes": [
+      {
+        "index": 0,
+        "key": "agriculture-aquaculture-probiotic-treatment-tracking-active-output-0-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 1,
+        "key": "agriculture-aquaculture-probiotic-treatment-tracking-active-output-1-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 2,
+        "key": "agriculture-aquaculture-probiotic-treatment-tracking-active-output-2-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 3,
+        "key": "agriculture-aquaculture-pond-turnover-prevention-active-output-0-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 4,
+        "key": "agriculture-aquaculture-pond-turnover-prevention-active-output-1-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 5,
+        "key": "agriculture-aquaculture-pond-turnover-prevention-active-output-2-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 6,
+        "key": "agriculture-aquaculture-predator-exclusion-active-output-0-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 7,
+        "key": "agriculture-aquaculture-predator-exclusion-active-output-1-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 8,
+        "key": "agriculture-aquaculture-predator-exclusion-active-output-2-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 9,
+        "key": "agriculture-aquaculture-larval-survival-optimization-active-output-0-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 10,
+        "key": "agriculture-aquaculture-larval-survival-optimization-active-output-1-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 11,
+        "key": "agriculture-aquaculture-larval-survival-optimization-active-output-2-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 12,
+        "key": "agriculture-aquaculture-aquaponic-nutrient-coupling-active-output-0-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 13,
+        "key": "agriculture-aquaculture-aquaponic-nutrient-coupling-active-output-1-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 14,
+        "key": "agriculture-aquaculture-aquaponic-nutrient-coupling-active-output-2-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 15,
+        "key": "agriculture-indoor-grow-house-vpd-climate-management-active-output-0-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 16,
+        "key": "agriculture-indoor-grow-house-vpd-climate-management-active-output-1-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 17,
+        "key": "agriculture-indoor-grow-house-vpd-climate-management-active-output-2-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 18,
+        "key": "agriculture-indoor-grow-house-lighting-schedule-integrity-active-output-0-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 19,
+        "key": "agriculture-indoor-grow-house-lighting-schedule-integrity-active-output-1-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 20,
+        "key": "agriculture-indoor-grow-house-lighting-schedule-integrity-active-output-2-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 21,
+        "key": "agriculture-indoor-grow-house-nutrient-reservoir-balance-active-output-0-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 22,
+        "key": "agriculture-indoor-grow-house-nutrient-reservoir-balance-active-output-1-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 23,
+        "key": "agriculture-indoor-grow-house-nutrient-reservoir-balance-active-output-2-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 24,
+        "key": "agriculture-indoor-grow-house-irrigation-line-maintenance-active-output-0-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 25,
+        "key": "agriculture-indoor-grow-house-irrigation-line-maintenance-active-output-1-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 26,
+        "key": "agriculture-indoor-grow-house-irrigation-line-maintenance-active-output-2-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 27,
+        "key": "agriculture-indoor-grow-house-integrated-pest-management-active-output-0-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 28,
+        "key": "agriculture-indoor-grow-house-integrated-pest-management-active-output-1-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 29,
+        "key": "agriculture-indoor-grow-house-integrated-pest-management-active-output-2-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      }
+    ],
+    "sequenceCatalog": [
+      {
+        "sequenceId": "agx-021-030-domain-family-review",
+        "label": "Agriculture AGX-021-030 domain family review at [13129",
+        "rag": "RED",
+        "outputIndex": 0,
+        "action": "Route domain family review, escalation, and resolver summary."
+      },
+      {
+        "sequenceId": "agx-021-030-domain-family-optimization",
+        "label": "Agriculture AGX-021-030 domain family optimization at [13129",
+        "rag": "AMBER",
+        "outputIndex": 1,
+        "action": "Route domain family optimization or plan adjustment."
+      },
+      {
+        "sequenceId": "agx-021-030-domain-family-monitoring",
+        "label": "Agriculture AGX-021-030 domain family monitoring at [13129",
+        "rag": "AMBER",
+        "outputIndex": 2,
+        "action": "Route monitoring, evidence, or data-quality follow-up."
+      },
+      {
+        "sequenceId": "agx-021-030-domain-family-stable",
+        "label": "Agriculture AGX-021-030 domain family stable at [13129",
+        "rag": "GREEN",
+        "outputIndex": 3,
+        "action": "Record stable family state and keep baseline cadence."
+      }
+    ]
+  },
+  "agentBinding": {
+    "agent": "agriculture-agx-021-030-interconnect",
+    "mode": "advise",
+    "trigger": "agricultureagx021030interconnect-input-assessment",
+    "allowedActions": [
+      "Assess current \"Agriculture AGX-021-030 Interconnect\" state from available observations and write the normalized input vector to the PE input region [13099:13129] for RE to evaluate."
+    ],
+    "writeBack": {
+      "type": "pe-sensor",
+      "provider": "acp",
+      "sensorId": "acp.openclaw.agricultureagx021030interconnect.input-analyst.assessment",
+      "name": "OpenClaw agricultureagx021030interconnect input-analyst assessment",
+      "region": {
+        "offset": 13099,
+        "length": 30
+      },
+      "semantics": [
+        "agriculture-aquaculture-probiotic-treatment-tracking-active-output-0-bit",
+        "agriculture-aquaculture-probiotic-treatment-tracking-active-output-1-bit",
+        "agriculture-aquaculture-probiotic-treatment-tracking-active-output-2-bit",
+        "agriculture-aquaculture-pond-turnover-prevention-active-output-0-bit",
+        "agriculture-aquaculture-pond-turnover-prevention-active-output-1-bit",
+        "agriculture-aquaculture-pond-turnover-prevention-active-output-2-bit",
+        "agriculture-aquaculture-predator-exclusion-active-output-0-bit",
+        "agriculture-aquaculture-predator-exclusion-active-output-1-bit",
+        "agriculture-aquaculture-predator-exclusion-active-output-2-bit",
+        "agriculture-aquaculture-larval-survival-optimization-active-output-0-bit",
+        "agriculture-aquaculture-larval-survival-optimization-active-output-1-bit",
+        "agriculture-aquaculture-larval-survival-optimization-active-output-2-bit",
+        "agriculture-aquaculture-aquaponic-nutrient-coupling-active-output-0-bit",
+        "agriculture-aquaculture-aquaponic-nutrient-coupling-active-output-1-bit",
+        "agriculture-aquaculture-aquaponic-nutrient-coupling-active-output-2-bit",
+        "agriculture-indoor-grow-house-vpd-climate-management-active-output-0-bit",
+        "agriculture-indoor-grow-house-vpd-climate-management-active-output-1-bit",
+        "agriculture-indoor-grow-house-vpd-climate-management-active-output-2-bit",
+        "agriculture-indoor-grow-house-lighting-schedule-integrity-active-output-0-bit",
+        "agriculture-indoor-grow-house-lighting-schedule-integrity-active-output-1-bit",
+        "agriculture-indoor-grow-house-lighting-schedule-integrity-active-output-2-bit",
+        "agriculture-indoor-grow-house-nutrient-reservoir-balance-active-output-0-bit",
+        "agriculture-indoor-grow-house-nutrient-reservoir-balance-active-output-1-bit",
+        "agriculture-indoor-grow-house-nutrient-reservoir-balance-active-output-2-bit",
+        "agriculture-indoor-grow-house-irrigation-line-maintenance-active-output-0-bit",
+        "agriculture-indoor-grow-house-irrigation-line-maintenance-active-output-1-bit",
+        "agriculture-indoor-grow-house-irrigation-line-maintenance-active-output-2-bit",
+        "agriculture-indoor-grow-house-integrated-pest-management-active-output-0-bit",
+        "agriculture-indoor-grow-house-integrated-pest-management-active-output-1-bit",
+        "agriculture-indoor-grow-house-integrated-pest-management-active-output-2-bit"
+      ],
+      "ttlMs": 300000,
+      "normalization": "already-normalized-0-1",
+      "ingest": {
+        "endpoint": "/api/integrations/completions",
+        "method": "POST",
+        "triggerPush": false,
+        "compactPush": true
+      },
+      "sourceMapping": {
+        "id": "acp-agricultureagx021030interconnect-input-assessment",
+        "sensorId": "acp.openclaw.agricultureagx021030interconnect.input-analyst.assessment",
+        "name": "OpenClaw agricultureagx021030interconnect input-analyst assessment",
+        "region": {
+          "offset": 13099,
+          "length": 30
+        },
+        "ttlMs": 300000
+      }
+    },
+    "autonomyPolicy": {
+      "mode": "advise",
+      "stage": 1,
+      "writeBackType": "pe-sensor",
+      "canWriteBack": true,
+      "canStageActions": false,
+      "canExecuteActions": false,
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "blockedWhenRag": []
+    },
+    "riskControls": {
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "maxAutonomy": "advise",
+      "blockedWhenRag": []
+    }
+  },
+  "responseMapping": {
+    "schemaVersion": "1.0.0",
+    "responseContract": "structured-keys-or-text",
+    "mode": "advise",
+    "fields": [
+      {
+        "semantic": "agriculture-aquaculture-probiotic-treatment-tracking-active-output-0-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/agriculture-aquaculture-probiotic-treatment-tracking-active-output-0-bit",
+          "responseKey": "agriculture-aquaculture-probiotic-treatment-tracking-active-output-0-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agricultureagx021030interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 13099,
+            "length": 30
+          },
+          "index": 0
+        }
+      },
+      {
+        "semantic": "agriculture-aquaculture-probiotic-treatment-tracking-active-output-1-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/agriculture-aquaculture-probiotic-treatment-tracking-active-output-1-bit",
+          "responseKey": "agriculture-aquaculture-probiotic-treatment-tracking-active-output-1-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agricultureagx021030interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 13099,
+            "length": 30
+          },
+          "index": 1
+        }
+      },
+      {
+        "semantic": "agriculture-aquaculture-probiotic-treatment-tracking-active-output-2-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/agriculture-aquaculture-probiotic-treatment-tracking-active-output-2-bit",
+          "responseKey": "agriculture-aquaculture-probiotic-treatment-tracking-active-output-2-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agricultureagx021030interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 13099,
+            "length": 30
+          },
+          "index": 2
+        }
+      },
+      {
+        "semantic": "agriculture-aquaculture-pond-turnover-prevention-active-output-0-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/agriculture-aquaculture-pond-turnover-prevention-active-output-0-bit",
+          "responseKey": "agriculture-aquaculture-pond-turnover-prevention-active-output-0-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agricultureagx021030interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 13099,
+            "length": 30
+          },
+          "index": 3
+        }
+      },
+      {
+        "semantic": "agriculture-aquaculture-pond-turnover-prevention-active-output-1-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/agriculture-aquaculture-pond-turnover-prevention-active-output-1-bit",
+          "responseKey": "agriculture-aquaculture-pond-turnover-prevention-active-output-1-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agricultureagx021030interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 13099,
+            "length": 30
+          },
+          "index": 4
+        }
+      },
+      {
+        "semantic": "agriculture-aquaculture-pond-turnover-prevention-active-output-2-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/agriculture-aquaculture-pond-turnover-prevention-active-output-2-bit",
+          "responseKey": "agriculture-aquaculture-pond-turnover-prevention-active-output-2-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agricultureagx021030interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 13099,
+            "length": 30
+          },
+          "index": 5
+        }
+      },
+      {
+        "semantic": "agriculture-aquaculture-predator-exclusion-active-output-0-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/agriculture-aquaculture-predator-exclusion-active-output-0-bit",
+          "responseKey": "agriculture-aquaculture-predator-exclusion-active-output-0-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agricultureagx021030interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 13099,
+            "length": 30
+          },
+          "index": 6
+        }
+      },
+      {
+        "semantic": "agriculture-aquaculture-predator-exclusion-active-output-1-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/agriculture-aquaculture-predator-exclusion-active-output-1-bit",
+          "responseKey": "agriculture-aquaculture-predator-exclusion-active-output-1-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agricultureagx021030interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 13099,
+            "length": 30
+          },
+          "index": 7
+        }
+      },
+      {
+        "semantic": "agriculture-aquaculture-predator-exclusion-active-output-2-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/agriculture-aquaculture-predator-exclusion-active-output-2-bit",
+          "responseKey": "agriculture-aquaculture-predator-exclusion-active-output-2-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agricultureagx021030interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 13099,
+            "length": 30
+          },
+          "index": 8
+        }
+      },
+      {
+        "semantic": "agriculture-aquaculture-larval-survival-optimization-active-output-0-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/agriculture-aquaculture-larval-survival-optimization-active-output-0-bit",
+          "responseKey": "agriculture-aquaculture-larval-survival-optimization-active-output-0-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agricultureagx021030interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 13099,
+            "length": 30
+          },
+          "index": 9
+        }
+      },
+      {
+        "semantic": "agriculture-aquaculture-larval-survival-optimization-active-output-1-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/agriculture-aquaculture-larval-survival-optimization-active-output-1-bit",
+          "responseKey": "agriculture-aquaculture-larval-survival-optimization-active-output-1-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agricultureagx021030interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 13099,
+            "length": 30
+          },
+          "index": 10
+        }
+      },
+      {
+        "semantic": "agriculture-aquaculture-larval-survival-optimization-active-output-2-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/agriculture-aquaculture-larval-survival-optimization-active-output-2-bit",
+          "responseKey": "agriculture-aquaculture-larval-survival-optimization-active-output-2-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agricultureagx021030interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 13099,
+            "length": 30
+          },
+          "index": 11
+        }
+      },
+      {
+        "semantic": "agriculture-aquaculture-aquaponic-nutrient-coupling-active-output-0-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/agriculture-aquaculture-aquaponic-nutrient-coupling-active-output-0-bit",
+          "responseKey": "agriculture-aquaculture-aquaponic-nutrient-coupling-active-output-0-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agricultureagx021030interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 13099,
+            "length": 30
+          },
+          "index": 12
+        }
+      },
+      {
+        "semantic": "agriculture-aquaculture-aquaponic-nutrient-coupling-active-output-1-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/agriculture-aquaculture-aquaponic-nutrient-coupling-active-output-1-bit",
+          "responseKey": "agriculture-aquaculture-aquaponic-nutrient-coupling-active-output-1-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agricultureagx021030interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 13099,
+            "length": 30
+          },
+          "index": 13
+        }
+      },
+      {
+        "semantic": "agriculture-aquaculture-aquaponic-nutrient-coupling-active-output-2-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/agriculture-aquaculture-aquaponic-nutrient-coupling-active-output-2-bit",
+          "responseKey": "agriculture-aquaculture-aquaponic-nutrient-coupling-active-output-2-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agricultureagx021030interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 13099,
+            "length": 30
+          },
+          "index": 14
+        }
+      },
+      {
+        "semantic": "agriculture-indoor-grow-house-vpd-climate-management-active-output-0-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/agriculture-indoor-grow-house-vpd-climate-management-active-output-0-bit",
+          "responseKey": "agriculture-indoor-grow-house-vpd-climate-management-active-output-0-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agricultureagx021030interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 13099,
+            "length": 30
+          },
+          "index": 15
+        }
+      },
+      {
+        "semantic": "agriculture-indoor-grow-house-vpd-climate-management-active-output-1-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/agriculture-indoor-grow-house-vpd-climate-management-active-output-1-bit",
+          "responseKey": "agriculture-indoor-grow-house-vpd-climate-management-active-output-1-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agricultureagx021030interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 13099,
+            "length": 30
+          },
+          "index": 16
+        }
+      },
+      {
+        "semantic": "agriculture-indoor-grow-house-vpd-climate-management-active-output-2-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/agriculture-indoor-grow-house-vpd-climate-management-active-output-2-bit",
+          "responseKey": "agriculture-indoor-grow-house-vpd-climate-management-active-output-2-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agricultureagx021030interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 13099,
+            "length": 30
+          },
+          "index": 17
+        }
+      },
+      {
+        "semantic": "agriculture-indoor-grow-house-lighting-schedule-integrity-active-output-0-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/agriculture-indoor-grow-house-lighting-schedule-integrity-active-output-0-bit",
+          "responseKey": "agriculture-indoor-grow-house-lighting-schedule-integrity-active-output-0-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agricultureagx021030interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 13099,
+            "length": 30
+          },
+          "index": 18
+        }
+      },
+      {
+        "semantic": "agriculture-indoor-grow-house-lighting-schedule-integrity-active-output-1-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/agriculture-indoor-grow-house-lighting-schedule-integrity-active-output-1-bit",
+          "responseKey": "agriculture-indoor-grow-house-lighting-schedule-integrity-active-output-1-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agricultureagx021030interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 13099,
+            "length": 30
+          },
+          "index": 19
+        }
+      },
+      {
+        "semantic": "agriculture-indoor-grow-house-lighting-schedule-integrity-active-output-2-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/agriculture-indoor-grow-house-lighting-schedule-integrity-active-output-2-bit",
+          "responseKey": "agriculture-indoor-grow-house-lighting-schedule-integrity-active-output-2-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agricultureagx021030interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 13099,
+            "length": 30
+          },
+          "index": 20
+        }
+      },
+      {
+        "semantic": "agriculture-indoor-grow-house-nutrient-reservoir-balance-active-output-0-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/agriculture-indoor-grow-house-nutrient-reservoir-balance-active-output-0-bit",
+          "responseKey": "agriculture-indoor-grow-house-nutrient-reservoir-balance-active-output-0-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agricultureagx021030interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 13099,
+            "length": 30
+          },
+          "index": 21
+        }
+      },
+      {
+        "semantic": "agriculture-indoor-grow-house-nutrient-reservoir-balance-active-output-1-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/agriculture-indoor-grow-house-nutrient-reservoir-balance-active-output-1-bit",
+          "responseKey": "agriculture-indoor-grow-house-nutrient-reservoir-balance-active-output-1-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agricultureagx021030interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 13099,
+            "length": 30
+          },
+          "index": 22
+        }
+      },
+      {
+        "semantic": "agriculture-indoor-grow-house-nutrient-reservoir-balance-active-output-2-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/agriculture-indoor-grow-house-nutrient-reservoir-balance-active-output-2-bit",
+          "responseKey": "agriculture-indoor-grow-house-nutrient-reservoir-balance-active-output-2-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agricultureagx021030interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 13099,
+            "length": 30
+          },
+          "index": 23
+        }
+      },
+      {
+        "semantic": "agriculture-indoor-grow-house-irrigation-line-maintenance-active-output-0-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/agriculture-indoor-grow-house-irrigation-line-maintenance-active-output-0-bit",
+          "responseKey": "agriculture-indoor-grow-house-irrigation-line-maintenance-active-output-0-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agricultureagx021030interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 13099,
+            "length": 30
+          },
+          "index": 24
+        }
+      },
+      {
+        "semantic": "agriculture-indoor-grow-house-irrigation-line-maintenance-active-output-1-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/agriculture-indoor-grow-house-irrigation-line-maintenance-active-output-1-bit",
+          "responseKey": "agriculture-indoor-grow-house-irrigation-line-maintenance-active-output-1-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agricultureagx021030interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 13099,
+            "length": 30
+          },
+          "index": 25
+        }
+      },
+      {
+        "semantic": "agriculture-indoor-grow-house-irrigation-line-maintenance-active-output-2-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/agriculture-indoor-grow-house-irrigation-line-maintenance-active-output-2-bit",
+          "responseKey": "agriculture-indoor-grow-house-irrigation-line-maintenance-active-output-2-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agricultureagx021030interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 13099,
+            "length": 30
+          },
+          "index": 26
+        }
+      },
+      {
+        "semantic": "agriculture-indoor-grow-house-integrated-pest-management-active-output-0-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/agriculture-indoor-grow-house-integrated-pest-management-active-output-0-bit",
+          "responseKey": "agriculture-indoor-grow-house-integrated-pest-management-active-output-0-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agricultureagx021030interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 13099,
+            "length": 30
+          },
+          "index": 27
+        }
+      },
+      {
+        "semantic": "agriculture-indoor-grow-house-integrated-pest-management-active-output-1-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/agriculture-indoor-grow-house-integrated-pest-management-active-output-1-bit",
+          "responseKey": "agriculture-indoor-grow-house-integrated-pest-management-active-output-1-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agricultureagx021030interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 13099,
+            "length": 30
+          },
+          "index": 28
+        }
+      },
+      {
+        "semantic": "agriculture-indoor-grow-house-integrated-pest-management-active-output-2-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/agriculture-indoor-grow-house-integrated-pest-management-active-output-2-bit",
+          "responseKey": "agriculture-indoor-grow-house-integrated-pest-management-active-output-2-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agricultureagx021030interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 13099,
+            "length": 30
+          },
+          "index": 29
+        }
+      }
+    ]
+  },
+  "diagnostics": {
+    "axisBasis": "inputSemantics",
+    "warnings": [
+      "input axes derived from inputSemantics (no length-matched sensorNormalization)"
+    ],
+    "inputLength": 30,
+    "sequenceCount": 4
+  }
+}

@@ -1,0 +1,564 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "oc-agent-template",
+  "role": "input-analyst",
+  "agentId": "energy-islanding-readiness-coordinator",
+  "displayName": "Energy Islanding Readiness Coordinator",
+  "machine": {
+    "id": "ENX202_islanding-readiness-coordinator",
+    "name": "Energy Islanding Readiness Coordinator",
+    "code": "enx202_islanding_readiness_coordinator",
+    "machineClass": "safety-compliance-checker",
+    "domain": "energy",
+    "inputRegion": {
+      "offset": 16614,
+      "length": 8
+    },
+    "outputRegion": {
+      "offset": 16622,
+      "length": 4
+    }
+  },
+  "openclaw": {
+    "id": "openclaw-xacp",
+    "kind": "acp",
+    "platform": "OpenClaw",
+    "surface": "xACP",
+    "command": "openclaw acp",
+    "gatewayUrl": "ws://127.0.0.1:18789",
+    "sessionKey": "agent:main:main",
+    "targetAgent": "energy-islanding-readiness-coordinator",
+    "dispatchMode": "accepted-no-wait",
+    "completionMode": "pe-source-mapping",
+    "completionSourceMappingId": "acp-energy-islanding-readiness-coordinator-input-assessment"
+  },
+  "reasoning": {
+    "objective": "Produce the normalized input vector for \"Energy Islanding Readiness Coordinator\" from current observations so RE can evaluate its CES sequences.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Energy Islanding Readiness Coordinator\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Determines whether the microgrid should island, prepare to island, reconnect, or remain grid-connected stable.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- pcc_instability_or_utility_outage_indicated_norm (index 0):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- feeder_sectionalizer_route_available_norm (index 1):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- inverter_grid_forming_capability_available_norm (index 2):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- storage_reserve_above_island_threshold_norm (index 3):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- black_start_sequence_available_norm (index 4):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- frequency_and_voltage_stability_acceptable_norm (index 5):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- protection_settings_synchronized_norm (index 6):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- resynchronization_window_available_norm (index 7):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Islanding Readiness Coordinator (RED) -> action: ISLAND_NOW for resilient community microgrid operations.\n- Islanding Readiness Coordinator (AMBER) -> action: PREPARE_ISLANDING for resilient community microgrid operations.\n- Islanding Readiness Coordinator (AMBER) -> action: RECONNECT_READY for resilient community microgrid operations.\n- Islanding Readiness Coordinator (GREEN) -> action: GRID_CONNECTED_STABLE for resilient community microgrid operations.",
+    "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
+    "inputAxes": [
+      {
+        "index": 0,
+        "key": "pcc_instability_or_utility_outage_indicated_norm",
+        "anchors": {
+          "low": "false/inactive",
+          "mid": "",
+          "high": "true/active after PE source normalization"
+        }
+      },
+      {
+        "index": 1,
+        "key": "feeder_sectionalizer_route_available_norm",
+        "anchors": {
+          "low": "false/inactive",
+          "mid": "",
+          "high": "true/active after PE source normalization"
+        }
+      },
+      {
+        "index": 2,
+        "key": "inverter_grid_forming_capability_available_norm",
+        "anchors": {
+          "low": "false/inactive",
+          "mid": "",
+          "high": "true/active after PE source normalization"
+        }
+      },
+      {
+        "index": 3,
+        "key": "storage_reserve_above_island_threshold_norm",
+        "anchors": {
+          "low": "false/inactive",
+          "mid": "",
+          "high": "true/active after PE source normalization"
+        }
+      },
+      {
+        "index": 4,
+        "key": "black_start_sequence_available_norm",
+        "anchors": {
+          "low": "false/inactive",
+          "mid": "",
+          "high": "true/active after PE source normalization"
+        }
+      },
+      {
+        "index": 5,
+        "key": "frequency_and_voltage_stability_acceptable_norm",
+        "anchors": {
+          "low": "false/inactive",
+          "mid": "",
+          "high": "true/active after PE source normalization"
+        }
+      },
+      {
+        "index": 6,
+        "key": "protection_settings_synchronized_norm",
+        "anchors": {
+          "low": "false/inactive",
+          "mid": "",
+          "high": "true/active after PE source normalization"
+        }
+      },
+      {
+        "index": 7,
+        "key": "resynchronization_window_available_norm",
+        "anchors": {
+          "low": "false/inactive",
+          "mid": "",
+          "high": "true/active after PE source normalization"
+        }
+      }
+    ],
+    "sequenceCatalog": [
+      {
+        "sequenceId": "enx202-island-now",
+        "label": "Islanding Readiness Coordinator",
+        "rag": "RED",
+        "outputIndex": 0,
+        "action": "ISLAND_NOW for resilient community microgrid operations."
+      },
+      {
+        "sequenceId": "enx202-prepare-islanding",
+        "label": "Islanding Readiness Coordinator",
+        "rag": "AMBER",
+        "outputIndex": 1,
+        "action": "PREPARE_ISLANDING for resilient community microgrid operations."
+      },
+      {
+        "sequenceId": "enx202-reconnect-ready",
+        "label": "Islanding Readiness Coordinator",
+        "rag": "AMBER",
+        "outputIndex": 2,
+        "action": "RECONNECT_READY for resilient community microgrid operations."
+      },
+      {
+        "sequenceId": "enx202-grid-connected-stable",
+        "label": "Islanding Readiness Coordinator",
+        "rag": "GREEN",
+        "outputIndex": 3,
+        "action": "GRID_CONNECTED_STABLE for resilient community microgrid operations."
+      }
+    ]
+  },
+  "agentBinding": {
+    "agent": "energy-islanding-readiness-coordinator",
+    "mode": "advise",
+    "trigger": "enx202_islanding_readiness_coordinator-input-assessment",
+    "allowedActions": [
+      "Assess current \"Energy Islanding Readiness Coordinator\" state from available observations and write the normalized input vector to the PE input region [16614:16622] for RE to evaluate."
+    ],
+    "writeBack": {
+      "type": "pe-sensor",
+      "provider": "acp",
+      "sensorId": "acp.openclaw.enx202_islanding_readiness_coordinator.input-analyst.assessment",
+      "name": "OpenClaw enx202_islanding_readiness_coordinator input-analyst assessment",
+      "region": {
+        "offset": 16614,
+        "length": 8
+      },
+      "semantics": [
+        "pcc_instability_or_utility_outage_indicated_norm",
+        "feeder_sectionalizer_route_available_norm",
+        "inverter_grid_forming_capability_available_norm",
+        "storage_reserve_above_island_threshold_norm",
+        "black_start_sequence_available_norm",
+        "frequency_and_voltage_stability_acceptable_norm",
+        "protection_settings_synchronized_norm",
+        "resynchronization_window_available_norm"
+      ],
+      "ttlMs": 300000,
+      "normalization": "already-normalized-0-1",
+      "ingest": {
+        "endpoint": "/api/integrations/completions",
+        "method": "POST",
+        "triggerPush": false,
+        "compactPush": true
+      },
+      "sourceMapping": {
+        "id": "acp-enx202_islanding_readiness_coordinator-input-assessment",
+        "sensorId": "acp.openclaw.enx202_islanding_readiness_coordinator.input-analyst.assessment",
+        "name": "OpenClaw enx202_islanding_readiness_coordinator input-analyst assessment",
+        "region": {
+          "offset": 16614,
+          "length": 8
+        },
+        "ttlMs": 300000
+      }
+    },
+    "autonomyPolicy": {
+      "mode": "advise",
+      "stage": 1,
+      "writeBackType": "pe-sensor",
+      "canWriteBack": true,
+      "canStageActions": false,
+      "canExecuteActions": false,
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "blockedWhenRag": []
+    },
+    "riskControls": {
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "maxAutonomy": "advise",
+      "blockedWhenRag": []
+    }
+  },
+  "responseMapping": {
+    "schemaVersion": "1.0.0",
+    "responseContract": "structured-keys-or-text",
+    "mode": "advise",
+    "fields": [
+      {
+        "semantic": "pcc_instability_or_utility_outage_indicated_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/pcc_instability_or_utility_outage_indicated_norm",
+          "responseKey": "pcc_instability_or_utility_outage_indicated_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.enx202_islanding_readiness_coordinator.input-analyst.assessment",
+          "region": {
+            "offset": 16614,
+            "length": 8
+          },
+          "index": 0
+        }
+      },
+      {
+        "semantic": "feeder_sectionalizer_route_available_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/feeder_sectionalizer_route_available_norm",
+          "responseKey": "feeder_sectionalizer_route_available_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.enx202_islanding_readiness_coordinator.input-analyst.assessment",
+          "region": {
+            "offset": 16614,
+            "length": 8
+          },
+          "index": 1
+        }
+      },
+      {
+        "semantic": "inverter_grid_forming_capability_available_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/inverter_grid_forming_capability_available_norm",
+          "responseKey": "inverter_grid_forming_capability_available_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.enx202_islanding_readiness_coordinator.input-analyst.assessment",
+          "region": {
+            "offset": 16614,
+            "length": 8
+          },
+          "index": 2
+        }
+      },
+      {
+        "semantic": "storage_reserve_above_island_threshold_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/storage_reserve_above_island_threshold_norm",
+          "responseKey": "storage_reserve_above_island_threshold_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.enx202_islanding_readiness_coordinator.input-analyst.assessment",
+          "region": {
+            "offset": 16614,
+            "length": 8
+          },
+          "index": 3
+        }
+      },
+      {
+        "semantic": "black_start_sequence_available_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/black_start_sequence_available_norm",
+          "responseKey": "black_start_sequence_available_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.enx202_islanding_readiness_coordinator.input-analyst.assessment",
+          "region": {
+            "offset": 16614,
+            "length": 8
+          },
+          "index": 4
+        }
+      },
+      {
+        "semantic": "frequency_and_voltage_stability_acceptable_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/frequency_and_voltage_stability_acceptable_norm",
+          "responseKey": "frequency_and_voltage_stability_acceptable_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.enx202_islanding_readiness_coordinator.input-analyst.assessment",
+          "region": {
+            "offset": 16614,
+            "length": 8
+          },
+          "index": 5
+        }
+      },
+      {
+        "semantic": "protection_settings_synchronized_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/protection_settings_synchronized_norm",
+          "responseKey": "protection_settings_synchronized_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.enx202_islanding_readiness_coordinator.input-analyst.assessment",
+          "region": {
+            "offset": 16614,
+            "length": 8
+          },
+          "index": 6
+        }
+      },
+      {
+        "semantic": "resynchronization_window_available_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/resynchronization_window_available_norm",
+          "responseKey": "resynchronization_window_available_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.enx202_islanding_readiness_coordinator.input-analyst.assessment",
+          "region": {
+            "offset": 16614,
+            "length": 8
+          },
+          "index": 7
+        }
+      }
+    ]
+  },
+  "diagnostics": {
+    "axisBasis": "sensorNormalization",
+    "warnings": [],
+    "inputLength": 8,
+    "sequenceCount": 4
+  }
+}

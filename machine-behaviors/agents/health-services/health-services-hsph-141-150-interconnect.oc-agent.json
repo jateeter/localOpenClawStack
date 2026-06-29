@@ -1,0 +1,1732 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "oc-agent-template",
+  "role": "input-analyst",
+  "agentId": "health-services-hsph-141-150-interconnect",
+  "displayName": "Health Services HSPH-141-150 Interconnect",
+  "machine": {
+    "id": "HealthServicesHsph141150Interconnect",
+    "name": "Health Services HSPH-141-150 Interconnect",
+    "code": "healthserviceshsph141150interconnect",
+    "machineClass": "bridge",
+    "domain": "health-services",
+    "inputRegion": {
+      "offset": 15456,
+      "length": 30
+    },
+    "outputRegion": {
+      "offset": 15486,
+      "length": 4
+    }
+  },
+  "openclaw": {
+    "id": "openclaw-xacp",
+    "kind": "acp",
+    "platform": "OpenClaw",
+    "surface": "xACP",
+    "command": "openclaw acp",
+    "gatewayUrl": "ws://127.0.0.1:18789",
+    "sessionKey": "agent:main:main",
+    "targetAgent": "health-services-hsph-141-150-interconnect",
+    "dispatchMode": "accepted-no-wait",
+    "completionMode": "pe-source-mapping",
+    "completionSourceMappingId": "acp-health-services-hsph-141-150-interconnect-input-assessment"
+  },
+  "reasoning": {
+    "objective": "Produce the normalized input vector for \"Health Services HSPH-141-150 Interconnect\" from current observations so RE can evaluate its CES sequences.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Health Services HSPH-141-150 Interconnect\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Published health-services bridge bus that composes Health Services HSPH-141-150 into a compact domain family response lane. PE owns source composition and writes the compact input lane; RE evaluates this machine as ordinary vector state.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- health-services-behavioral-health-integration-signal-monitor-active-output-0-bit (index 0):\n- health-services-behavioral-health-integration-signal-monitor-active-output-1-bit (index 1):\n- health-services-behavioral-health-integration-signal-monitor-active-output-2-bit (index 2):\n- health-services-behavioral-health-integration-resource-router-active-output-0-bit (index 3):\n- health-services-behavioral-health-integration-resource-router-active-output-1-bit (index 4):\n- health-services-behavioral-health-integration-resource-router-active-output-2-bit (index 5):\n- health-services-behavioral-health-integration-equity-guardrail-active-output-0-bit (index 6):\n- health-services-behavioral-health-integration-equity-guardrail-active-output-1-bit (index 7):\n- health-services-behavioral-health-integration-equity-guardrail-active-output-2-bit (index 8):\n- health-services-behavioral-health-integration-capacity-balancer-active-output-0-bit (index 9):\n- health-services-behavioral-health-integration-capacity-balancer-active-output-1-bit (index 10):\n- health-services-behavioral-health-integration-capacity-balancer-active-output-2-bit (index 11):\n- health-services-behavioral-health-integration-referral-optimizer-active-output-0-bit (index 12):\n- health-services-behavioral-health-integration-referral-optimizer-active-output-1-bit (index 13):\n- health-services-behavioral-health-integration-referral-optimizer-active-output-2-bit (index 14):\n- health-services-behavioral-health-integration-measure-tracker-active-output-0-bit (index 15):\n- health-services-behavioral-health-integration-measure-tracker-active-output-1-bit (index 16):\n- health-services-behavioral-health-integration-measure-tracker-active-output-2-bit (index 17):\n- health-services-behavioral-health-integration-agent-dispatcher-active-output-0-bit (index 18):\n- health-services-behavioral-health-integration-agent-dispatcher-active-output-1-bit (index 19):\n- health-services-behavioral-health-integration-agent-dispatcher-active-output-2-bit (index 20):\n- health-services-behavioral-health-integration-governance-escalator-active-output-0-bit (index 21):\n- health-services-behavioral-health-integration-governance-escalator-active-output-1-bit (index 22):\n- health-services-behavioral-health-integration-governance-escalator-active-output-2-bit (index 23):\n- health-services-behavioral-health-integration-learning-loop-active-output-0-bit (index 24):\n- health-services-behavioral-health-integration-learning-loop-active-output-1-bit (index 25):\n- health-services-behavioral-health-integration-learning-loop-active-output-2-bit (index 26):\n- health-services-behavioral-health-integration-outcome-stabilizer-active-output-0-bit (index 27):\n- health-services-behavioral-health-integration-outcome-stabilizer-active-output-1-bit (index 28):\n- health-services-behavioral-health-integration-outcome-stabilizer-active-output-2-bit (index 29):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Health Services HSPH-141-150 domain family review at [15486 (RED) -> action: Route domain family review, escalation, and resolver summary.\n- Health Services HSPH-141-150 domain family optimization at [15486 (AMBER) -> action: Route domain family optimization or plan adjustment.\n- Health Services HSPH-141-150 domain family monitoring at [15486 (AMBER) -> action: Route monitoring, evidence, or data-quality follow-up.\n- Health Services HSPH-141-150 domain family stable at [15486 (GREEN) -> action: Record stable family state and keep baseline cadence.",
+    "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
+    "inputAxes": [
+      {
+        "index": 0,
+        "key": "health-services-behavioral-health-integration-signal-monitor-active-output-0-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 1,
+        "key": "health-services-behavioral-health-integration-signal-monitor-active-output-1-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 2,
+        "key": "health-services-behavioral-health-integration-signal-monitor-active-output-2-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 3,
+        "key": "health-services-behavioral-health-integration-resource-router-active-output-0-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 4,
+        "key": "health-services-behavioral-health-integration-resource-router-active-output-1-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 5,
+        "key": "health-services-behavioral-health-integration-resource-router-active-output-2-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 6,
+        "key": "health-services-behavioral-health-integration-equity-guardrail-active-output-0-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 7,
+        "key": "health-services-behavioral-health-integration-equity-guardrail-active-output-1-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 8,
+        "key": "health-services-behavioral-health-integration-equity-guardrail-active-output-2-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 9,
+        "key": "health-services-behavioral-health-integration-capacity-balancer-active-output-0-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 10,
+        "key": "health-services-behavioral-health-integration-capacity-balancer-active-output-1-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 11,
+        "key": "health-services-behavioral-health-integration-capacity-balancer-active-output-2-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 12,
+        "key": "health-services-behavioral-health-integration-referral-optimizer-active-output-0-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 13,
+        "key": "health-services-behavioral-health-integration-referral-optimizer-active-output-1-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 14,
+        "key": "health-services-behavioral-health-integration-referral-optimizer-active-output-2-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 15,
+        "key": "health-services-behavioral-health-integration-measure-tracker-active-output-0-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 16,
+        "key": "health-services-behavioral-health-integration-measure-tracker-active-output-1-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 17,
+        "key": "health-services-behavioral-health-integration-measure-tracker-active-output-2-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 18,
+        "key": "health-services-behavioral-health-integration-agent-dispatcher-active-output-0-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 19,
+        "key": "health-services-behavioral-health-integration-agent-dispatcher-active-output-1-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 20,
+        "key": "health-services-behavioral-health-integration-agent-dispatcher-active-output-2-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 21,
+        "key": "health-services-behavioral-health-integration-governance-escalator-active-output-0-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 22,
+        "key": "health-services-behavioral-health-integration-governance-escalator-active-output-1-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 23,
+        "key": "health-services-behavioral-health-integration-governance-escalator-active-output-2-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 24,
+        "key": "health-services-behavioral-health-integration-learning-loop-active-output-0-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 25,
+        "key": "health-services-behavioral-health-integration-learning-loop-active-output-1-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 26,
+        "key": "health-services-behavioral-health-integration-learning-loop-active-output-2-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 27,
+        "key": "health-services-behavioral-health-integration-outcome-stabilizer-active-output-0-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 28,
+        "key": "health-services-behavioral-health-integration-outcome-stabilizer-active-output-1-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 29,
+        "key": "health-services-behavioral-health-integration-outcome-stabilizer-active-output-2-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      }
+    ],
+    "sequenceCatalog": [
+      {
+        "sequenceId": "hsph-141-150-domain-family-review",
+        "label": "Health Services HSPH-141-150 domain family review at [15486",
+        "rag": "RED",
+        "outputIndex": 0,
+        "action": "Route domain family review, escalation, and resolver summary."
+      },
+      {
+        "sequenceId": "hsph-141-150-domain-family-optimization",
+        "label": "Health Services HSPH-141-150 domain family optimization at [15486",
+        "rag": "AMBER",
+        "outputIndex": 1,
+        "action": "Route domain family optimization or plan adjustment."
+      },
+      {
+        "sequenceId": "hsph-141-150-domain-family-monitoring",
+        "label": "Health Services HSPH-141-150 domain family monitoring at [15486",
+        "rag": "AMBER",
+        "outputIndex": 2,
+        "action": "Route monitoring, evidence, or data-quality follow-up."
+      },
+      {
+        "sequenceId": "hsph-141-150-domain-family-stable",
+        "label": "Health Services HSPH-141-150 domain family stable at [15486",
+        "rag": "GREEN",
+        "outputIndex": 3,
+        "action": "Record stable family state and keep baseline cadence."
+      }
+    ]
+  },
+  "agentBinding": {
+    "agent": "health-services-hsph-141-150-interconnect",
+    "mode": "advise",
+    "trigger": "healthserviceshsph141150interconnect-input-assessment",
+    "allowedActions": [
+      "Assess current \"Health Services HSPH-141-150 Interconnect\" state from available observations and write the normalized input vector to the PE input region [15456:15486] for RE to evaluate."
+    ],
+    "writeBack": {
+      "type": "pe-sensor",
+      "provider": "acp",
+      "sensorId": "acp.openclaw.healthserviceshsph141150interconnect.input-analyst.assessment",
+      "name": "OpenClaw healthserviceshsph141150interconnect input-analyst assessment",
+      "region": {
+        "offset": 15456,
+        "length": 30
+      },
+      "semantics": [
+        "health-services-behavioral-health-integration-signal-monitor-active-output-0-bit",
+        "health-services-behavioral-health-integration-signal-monitor-active-output-1-bit",
+        "health-services-behavioral-health-integration-signal-monitor-active-output-2-bit",
+        "health-services-behavioral-health-integration-resource-router-active-output-0-bit",
+        "health-services-behavioral-health-integration-resource-router-active-output-1-bit",
+        "health-services-behavioral-health-integration-resource-router-active-output-2-bit",
+        "health-services-behavioral-health-integration-equity-guardrail-active-output-0-bit",
+        "health-services-behavioral-health-integration-equity-guardrail-active-output-1-bit",
+        "health-services-behavioral-health-integration-equity-guardrail-active-output-2-bit",
+        "health-services-behavioral-health-integration-capacity-balancer-active-output-0-bit",
+        "health-services-behavioral-health-integration-capacity-balancer-active-output-1-bit",
+        "health-services-behavioral-health-integration-capacity-balancer-active-output-2-bit",
+        "health-services-behavioral-health-integration-referral-optimizer-active-output-0-bit",
+        "health-services-behavioral-health-integration-referral-optimizer-active-output-1-bit",
+        "health-services-behavioral-health-integration-referral-optimizer-active-output-2-bit",
+        "health-services-behavioral-health-integration-measure-tracker-active-output-0-bit",
+        "health-services-behavioral-health-integration-measure-tracker-active-output-1-bit",
+        "health-services-behavioral-health-integration-measure-tracker-active-output-2-bit",
+        "health-services-behavioral-health-integration-agent-dispatcher-active-output-0-bit",
+        "health-services-behavioral-health-integration-agent-dispatcher-active-output-1-bit",
+        "health-services-behavioral-health-integration-agent-dispatcher-active-output-2-bit",
+        "health-services-behavioral-health-integration-governance-escalator-active-output-0-bit",
+        "health-services-behavioral-health-integration-governance-escalator-active-output-1-bit",
+        "health-services-behavioral-health-integration-governance-escalator-active-output-2-bit",
+        "health-services-behavioral-health-integration-learning-loop-active-output-0-bit",
+        "health-services-behavioral-health-integration-learning-loop-active-output-1-bit",
+        "health-services-behavioral-health-integration-learning-loop-active-output-2-bit",
+        "health-services-behavioral-health-integration-outcome-stabilizer-active-output-0-bit",
+        "health-services-behavioral-health-integration-outcome-stabilizer-active-output-1-bit",
+        "health-services-behavioral-health-integration-outcome-stabilizer-active-output-2-bit"
+      ],
+      "ttlMs": 300000,
+      "normalization": "already-normalized-0-1",
+      "ingest": {
+        "endpoint": "/api/integrations/completions",
+        "method": "POST",
+        "triggerPush": false,
+        "compactPush": true
+      },
+      "sourceMapping": {
+        "id": "acp-healthserviceshsph141150interconnect-input-assessment",
+        "sensorId": "acp.openclaw.healthserviceshsph141150interconnect.input-analyst.assessment",
+        "name": "OpenClaw healthserviceshsph141150interconnect input-analyst assessment",
+        "region": {
+          "offset": 15456,
+          "length": 30
+        },
+        "ttlMs": 300000
+      }
+    },
+    "autonomyPolicy": {
+      "mode": "advise",
+      "stage": 1,
+      "writeBackType": "pe-sensor",
+      "canWriteBack": true,
+      "canStageActions": false,
+      "canExecuteActions": false,
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "blockedWhenRag": []
+    },
+    "riskControls": {
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "maxAutonomy": "advise",
+      "blockedWhenRag": []
+    }
+  },
+  "responseMapping": {
+    "schemaVersion": "1.0.0",
+    "responseContract": "structured-keys-or-text",
+    "mode": "advise",
+    "fields": [
+      {
+        "semantic": "health-services-behavioral-health-integration-signal-monitor-active-output-0-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/health-services-behavioral-health-integration-signal-monitor-active-output-0-bit",
+          "responseKey": "health-services-behavioral-health-integration-signal-monitor-active-output-0-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.healthserviceshsph141150interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 15456,
+            "length": 30
+          },
+          "index": 0
+        }
+      },
+      {
+        "semantic": "health-services-behavioral-health-integration-signal-monitor-active-output-1-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/health-services-behavioral-health-integration-signal-monitor-active-output-1-bit",
+          "responseKey": "health-services-behavioral-health-integration-signal-monitor-active-output-1-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.healthserviceshsph141150interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 15456,
+            "length": 30
+          },
+          "index": 1
+        }
+      },
+      {
+        "semantic": "health-services-behavioral-health-integration-signal-monitor-active-output-2-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/health-services-behavioral-health-integration-signal-monitor-active-output-2-bit",
+          "responseKey": "health-services-behavioral-health-integration-signal-monitor-active-output-2-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.healthserviceshsph141150interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 15456,
+            "length": 30
+          },
+          "index": 2
+        }
+      },
+      {
+        "semantic": "health-services-behavioral-health-integration-resource-router-active-output-0-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/health-services-behavioral-health-integration-resource-router-active-output-0-bit",
+          "responseKey": "health-services-behavioral-health-integration-resource-router-active-output-0-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.healthserviceshsph141150interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 15456,
+            "length": 30
+          },
+          "index": 3
+        }
+      },
+      {
+        "semantic": "health-services-behavioral-health-integration-resource-router-active-output-1-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/health-services-behavioral-health-integration-resource-router-active-output-1-bit",
+          "responseKey": "health-services-behavioral-health-integration-resource-router-active-output-1-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.healthserviceshsph141150interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 15456,
+            "length": 30
+          },
+          "index": 4
+        }
+      },
+      {
+        "semantic": "health-services-behavioral-health-integration-resource-router-active-output-2-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/health-services-behavioral-health-integration-resource-router-active-output-2-bit",
+          "responseKey": "health-services-behavioral-health-integration-resource-router-active-output-2-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.healthserviceshsph141150interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 15456,
+            "length": 30
+          },
+          "index": 5
+        }
+      },
+      {
+        "semantic": "health-services-behavioral-health-integration-equity-guardrail-active-output-0-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/health-services-behavioral-health-integration-equity-guardrail-active-output-0-bit",
+          "responseKey": "health-services-behavioral-health-integration-equity-guardrail-active-output-0-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.healthserviceshsph141150interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 15456,
+            "length": 30
+          },
+          "index": 6
+        }
+      },
+      {
+        "semantic": "health-services-behavioral-health-integration-equity-guardrail-active-output-1-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/health-services-behavioral-health-integration-equity-guardrail-active-output-1-bit",
+          "responseKey": "health-services-behavioral-health-integration-equity-guardrail-active-output-1-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.healthserviceshsph141150interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 15456,
+            "length": 30
+          },
+          "index": 7
+        }
+      },
+      {
+        "semantic": "health-services-behavioral-health-integration-equity-guardrail-active-output-2-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/health-services-behavioral-health-integration-equity-guardrail-active-output-2-bit",
+          "responseKey": "health-services-behavioral-health-integration-equity-guardrail-active-output-2-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.healthserviceshsph141150interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 15456,
+            "length": 30
+          },
+          "index": 8
+        }
+      },
+      {
+        "semantic": "health-services-behavioral-health-integration-capacity-balancer-active-output-0-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/health-services-behavioral-health-integration-capacity-balancer-active-output-0-bit",
+          "responseKey": "health-services-behavioral-health-integration-capacity-balancer-active-output-0-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.healthserviceshsph141150interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 15456,
+            "length": 30
+          },
+          "index": 9
+        }
+      },
+      {
+        "semantic": "health-services-behavioral-health-integration-capacity-balancer-active-output-1-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/health-services-behavioral-health-integration-capacity-balancer-active-output-1-bit",
+          "responseKey": "health-services-behavioral-health-integration-capacity-balancer-active-output-1-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.healthserviceshsph141150interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 15456,
+            "length": 30
+          },
+          "index": 10
+        }
+      },
+      {
+        "semantic": "health-services-behavioral-health-integration-capacity-balancer-active-output-2-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/health-services-behavioral-health-integration-capacity-balancer-active-output-2-bit",
+          "responseKey": "health-services-behavioral-health-integration-capacity-balancer-active-output-2-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.healthserviceshsph141150interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 15456,
+            "length": 30
+          },
+          "index": 11
+        }
+      },
+      {
+        "semantic": "health-services-behavioral-health-integration-referral-optimizer-active-output-0-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/health-services-behavioral-health-integration-referral-optimizer-active-output-0-bit",
+          "responseKey": "health-services-behavioral-health-integration-referral-optimizer-active-output-0-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.healthserviceshsph141150interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 15456,
+            "length": 30
+          },
+          "index": 12
+        }
+      },
+      {
+        "semantic": "health-services-behavioral-health-integration-referral-optimizer-active-output-1-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/health-services-behavioral-health-integration-referral-optimizer-active-output-1-bit",
+          "responseKey": "health-services-behavioral-health-integration-referral-optimizer-active-output-1-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.healthserviceshsph141150interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 15456,
+            "length": 30
+          },
+          "index": 13
+        }
+      },
+      {
+        "semantic": "health-services-behavioral-health-integration-referral-optimizer-active-output-2-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/health-services-behavioral-health-integration-referral-optimizer-active-output-2-bit",
+          "responseKey": "health-services-behavioral-health-integration-referral-optimizer-active-output-2-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.healthserviceshsph141150interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 15456,
+            "length": 30
+          },
+          "index": 14
+        }
+      },
+      {
+        "semantic": "health-services-behavioral-health-integration-measure-tracker-active-output-0-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/health-services-behavioral-health-integration-measure-tracker-active-output-0-bit",
+          "responseKey": "health-services-behavioral-health-integration-measure-tracker-active-output-0-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.healthserviceshsph141150interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 15456,
+            "length": 30
+          },
+          "index": 15
+        }
+      },
+      {
+        "semantic": "health-services-behavioral-health-integration-measure-tracker-active-output-1-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/health-services-behavioral-health-integration-measure-tracker-active-output-1-bit",
+          "responseKey": "health-services-behavioral-health-integration-measure-tracker-active-output-1-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.healthserviceshsph141150interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 15456,
+            "length": 30
+          },
+          "index": 16
+        }
+      },
+      {
+        "semantic": "health-services-behavioral-health-integration-measure-tracker-active-output-2-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/health-services-behavioral-health-integration-measure-tracker-active-output-2-bit",
+          "responseKey": "health-services-behavioral-health-integration-measure-tracker-active-output-2-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.healthserviceshsph141150interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 15456,
+            "length": 30
+          },
+          "index": 17
+        }
+      },
+      {
+        "semantic": "health-services-behavioral-health-integration-agent-dispatcher-active-output-0-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/health-services-behavioral-health-integration-agent-dispatcher-active-output-0-bit",
+          "responseKey": "health-services-behavioral-health-integration-agent-dispatcher-active-output-0-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.healthserviceshsph141150interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 15456,
+            "length": 30
+          },
+          "index": 18
+        }
+      },
+      {
+        "semantic": "health-services-behavioral-health-integration-agent-dispatcher-active-output-1-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/health-services-behavioral-health-integration-agent-dispatcher-active-output-1-bit",
+          "responseKey": "health-services-behavioral-health-integration-agent-dispatcher-active-output-1-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.healthserviceshsph141150interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 15456,
+            "length": 30
+          },
+          "index": 19
+        }
+      },
+      {
+        "semantic": "health-services-behavioral-health-integration-agent-dispatcher-active-output-2-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/health-services-behavioral-health-integration-agent-dispatcher-active-output-2-bit",
+          "responseKey": "health-services-behavioral-health-integration-agent-dispatcher-active-output-2-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.healthserviceshsph141150interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 15456,
+            "length": 30
+          },
+          "index": 20
+        }
+      },
+      {
+        "semantic": "health-services-behavioral-health-integration-governance-escalator-active-output-0-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/health-services-behavioral-health-integration-governance-escalator-active-output-0-bit",
+          "responseKey": "health-services-behavioral-health-integration-governance-escalator-active-output-0-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.healthserviceshsph141150interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 15456,
+            "length": 30
+          },
+          "index": 21
+        }
+      },
+      {
+        "semantic": "health-services-behavioral-health-integration-governance-escalator-active-output-1-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/health-services-behavioral-health-integration-governance-escalator-active-output-1-bit",
+          "responseKey": "health-services-behavioral-health-integration-governance-escalator-active-output-1-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.healthserviceshsph141150interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 15456,
+            "length": 30
+          },
+          "index": 22
+        }
+      },
+      {
+        "semantic": "health-services-behavioral-health-integration-governance-escalator-active-output-2-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/health-services-behavioral-health-integration-governance-escalator-active-output-2-bit",
+          "responseKey": "health-services-behavioral-health-integration-governance-escalator-active-output-2-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.healthserviceshsph141150interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 15456,
+            "length": 30
+          },
+          "index": 23
+        }
+      },
+      {
+        "semantic": "health-services-behavioral-health-integration-learning-loop-active-output-0-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/health-services-behavioral-health-integration-learning-loop-active-output-0-bit",
+          "responseKey": "health-services-behavioral-health-integration-learning-loop-active-output-0-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.healthserviceshsph141150interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 15456,
+            "length": 30
+          },
+          "index": 24
+        }
+      },
+      {
+        "semantic": "health-services-behavioral-health-integration-learning-loop-active-output-1-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/health-services-behavioral-health-integration-learning-loop-active-output-1-bit",
+          "responseKey": "health-services-behavioral-health-integration-learning-loop-active-output-1-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.healthserviceshsph141150interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 15456,
+            "length": 30
+          },
+          "index": 25
+        }
+      },
+      {
+        "semantic": "health-services-behavioral-health-integration-learning-loop-active-output-2-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/health-services-behavioral-health-integration-learning-loop-active-output-2-bit",
+          "responseKey": "health-services-behavioral-health-integration-learning-loop-active-output-2-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.healthserviceshsph141150interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 15456,
+            "length": 30
+          },
+          "index": 26
+        }
+      },
+      {
+        "semantic": "health-services-behavioral-health-integration-outcome-stabilizer-active-output-0-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/health-services-behavioral-health-integration-outcome-stabilizer-active-output-0-bit",
+          "responseKey": "health-services-behavioral-health-integration-outcome-stabilizer-active-output-0-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.healthserviceshsph141150interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 15456,
+            "length": 30
+          },
+          "index": 27
+        }
+      },
+      {
+        "semantic": "health-services-behavioral-health-integration-outcome-stabilizer-active-output-1-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/health-services-behavioral-health-integration-outcome-stabilizer-active-output-1-bit",
+          "responseKey": "health-services-behavioral-health-integration-outcome-stabilizer-active-output-1-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.healthserviceshsph141150interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 15456,
+            "length": 30
+          },
+          "index": 28
+        }
+      },
+      {
+        "semantic": "health-services-behavioral-health-integration-outcome-stabilizer-active-output-2-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/health-services-behavioral-health-integration-outcome-stabilizer-active-output-2-bit",
+          "responseKey": "health-services-behavioral-health-integration-outcome-stabilizer-active-output-2-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.healthserviceshsph141150interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 15456,
+            "length": 30
+          },
+          "index": 29
+        }
+      }
+    ]
+  },
+  "diagnostics": {
+    "axisBasis": "inputSemantics",
+    "warnings": [
+      "input axes derived from inputSemantics (no length-matched sensorNormalization)"
+    ],
+    "inputLength": 30,
+    "sequenceCount": 4
+  }
+}

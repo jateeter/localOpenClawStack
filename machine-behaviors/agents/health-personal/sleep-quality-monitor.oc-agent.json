@@ -34,12 +34,12 @@
   },
   "reasoning": {
     "objective": "Produce the normalized input vector for \"Sleep Quality Monitor\" from current observations so RE can evaluate its CES sequences.",
-    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Sleep Quality Monitor\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Classifies nightly sleep into RESTFUL, DISTURBED, or POOR based on bed-sensor-derived signals (duration, fragmentation). Triggers the local AI when sleep degrades so it can surface trends, adjust reminders, or notify caregivers.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- sleep-quality-monitor-input-1 (index 0):\n- sleep-quality-monitor-input-2 (index 1):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- sleep-restful (GREEN)\n- sleep-disturbed (AMBER)\n- sleep-poor (RED)",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Sleep Quality Monitor\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Classifies nightly sleep into RESTFUL, DISTURBED, or POOR based on bed-sensor-derived signals (duration, fragmentation). Triggers the local AI when sleep degrades so it can surface trends, adjust reminders, or notify caregivers.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- adequate-sleep-duration-bit (index 0):\n- fragmented-sleep-bit (index 1):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- sleep-restful (GREEN)\n- sleep-disturbed (AMBER)\n- sleep-poor (RED)",
     "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
     "inputAxes": [
       {
         "index": 0,
-        "key": "sleep-quality-monitor-input-1",
+        "key": "adequate-sleep-duration-bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -48,7 +48,7 @@
       },
       {
         "index": 1,
-        "key": "sleep-quality-monitor-input-2",
+        "key": "fragmented-sleep-bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -97,8 +97,8 @@
         "length": 2
       },
       "semantics": [
-        "sleep-quality-monitor-input-1",
-        "sleep-quality-monitor-input-2"
+        "adequate-sleep-duration-bit",
+        "fragmented-sleep-bit"
       ],
       "ttlMs": 300000,
       "normalization": "already-normalized-0-1",
@@ -143,12 +143,12 @@
     "mode": "advise",
     "fields": [
       {
-        "semantic": "sleep-quality-monitor-input-1",
+        "semantic": "adequate-sleep-duration-bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/sleep-quality-monitor-input-1",
-          "responseKey": "sleep-quality-monitor-input-1",
+          "jsonPointer": "/adequate-sleep-duration-bit",
+          "responseKey": "adequate-sleep-duration-bit",
           "textFallback": {
             "type": "scalar-phrase",
             "default": 0.5,
@@ -186,12 +186,12 @@
         }
       },
       {
-        "semantic": "sleep-quality-monitor-input-2",
+        "semantic": "fragmented-sleep-bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/sleep-quality-monitor-input-2",
-          "responseKey": "sleep-quality-monitor-input-2",
+          "jsonPointer": "/fragmented-sleep-bit",
+          "responseKey": "fragmented-sleep-bit",
           "textFallback": {
             "type": "scalar-phrase",
             "default": 0.5,

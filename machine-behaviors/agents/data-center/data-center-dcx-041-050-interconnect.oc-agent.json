@@ -1,0 +1,1732 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "oc-agent-template",
+  "role": "input-analyst",
+  "agentId": "data-center-dcx-041-050-interconnect",
+  "displayName": "Data Center DCX-041-050 Interconnect",
+  "machine": {
+    "id": "DataCenterDcx041050Interconnect",
+    "name": "Data Center DCX-041-050 Interconnect",
+    "code": "datacenterdcx041050interconnect",
+    "machineClass": "bridge",
+    "domain": "data-center",
+    "inputRegion": {
+      "offset": 14263,
+      "length": 30
+    },
+    "outputRegion": {
+      "offset": 14293,
+      "length": 4
+    }
+  },
+  "openclaw": {
+    "id": "openclaw-xacp",
+    "kind": "acp",
+    "platform": "OpenClaw",
+    "surface": "xACP",
+    "command": "openclaw acp",
+    "gatewayUrl": "ws://127.0.0.1:18789",
+    "sessionKey": "agent:main:main",
+    "targetAgent": "data-center-dcx-041-050-interconnect",
+    "dispatchMode": "accepted-no-wait",
+    "completionMode": "pe-source-mapping",
+    "completionSourceMappingId": "acp-data-center-dcx-041-050-interconnect-input-assessment"
+  },
+  "reasoning": {
+    "objective": "Produce the normalized input vector for \"Data Center DCX-041-050 Interconnect\" from current observations so RE can evaluate its CES sequences.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Data Center DCX-041-050 Interconnect\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Published data-center bridge bus that composes Data Center DCX-041-050 into a compact domain family response lane. PE owns source composition and writes the compact input lane; RE evaluates this machine as ordinary vector state.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- data-center-carbon-aware-workload-scheduler-active-output-0-bit (index 0):\n- data-center-carbon-aware-workload-scheduler-active-output-1-bit (index 1):\n- data-center-carbon-aware-workload-scheduler-active-output-2-bit (index 2):\n- data-center-tenant-capacity-guard-active-output-0-bit (index 3):\n- data-center-tenant-capacity-guard-active-output-1-bit (index 4):\n- data-center-tenant-capacity-guard-active-output-2-bit (index 5):\n- data-center-sre-handoff-completeness-active-output-0-bit (index 6):\n- data-center-sre-handoff-completeness-active-output-1-bit (index 7):\n- data-center-sre-handoff-completeness-active-output-2-bit (index 8):\n- data-center-maintenance-blackout-guard-active-output-0-bit (index 9):\n- data-center-maintenance-blackout-guard-active-output-1-bit (index 10):\n- data-center-maintenance-blackout-guard-active-output-2-bit (index 11):\n- data-center-upgrade-wave-planner-active-output-0-bit (index 12):\n- data-center-upgrade-wave-planner-active-output-1-bit (index 13):\n- data-center-upgrade-wave-planner-active-output-2-bit (index 14):\n- data-center-firmware-rollback-readiness-active-output-0-bit (index 15):\n- data-center-firmware-rollback-readiness-active-output-1-bit (index 16):\n- data-center-firmware-rollback-readiness-active-output-2-bit (index 17):\n- data-center-spine-leaf-expansion-planner-active-output-0-bit (index 18):\n- data-center-spine-leaf-expansion-planner-active-output-1-bit (index 19):\n- data-center-spine-leaf-expansion-planner-active-output-2-bit (index 20):\n- data-center-storage-migration-coordinator-active-output-0-bit (index 21):\n- data-center-storage-migration-coordinator-active-output-1-bit (index 22):\n- data-center-storage-migration-coordinator-active-output-2-bit (index 23):\n- data-center-decommission-safety-controller-active-output-0-bit (index 24):\n- data-center-decommission-safety-controller-active-output-1-bit (index 25):\n- data-center-decommission-safety-controller-active-output-2-bit (index 26):\n- data-center-24x7-operations-executive-summary-active-output-0-bit (index 27):\n- data-center-24x7-operations-executive-summary-active-output-1-bit (index 28):\n- data-center-24x7-operations-executive-summary-active-output-2-bit (index 29):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Data Center DCX-041-050 domain family review at [14293 (RED) -> action: Route domain family review, escalation, and resolver summary.\n- Data Center DCX-041-050 domain family optimization at [14293 (AMBER) -> action: Route domain family optimization or plan adjustment.\n- Data Center DCX-041-050 domain family monitoring at [14293 (AMBER) -> action: Route monitoring, evidence, or data-quality follow-up.\n- Data Center DCX-041-050 domain family stable at [14293 (GREEN) -> action: Record stable family state and keep baseline cadence.",
+    "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
+    "inputAxes": [
+      {
+        "index": 0,
+        "key": "data-center-carbon-aware-workload-scheduler-active-output-0-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 1,
+        "key": "data-center-carbon-aware-workload-scheduler-active-output-1-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 2,
+        "key": "data-center-carbon-aware-workload-scheduler-active-output-2-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 3,
+        "key": "data-center-tenant-capacity-guard-active-output-0-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 4,
+        "key": "data-center-tenant-capacity-guard-active-output-1-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 5,
+        "key": "data-center-tenant-capacity-guard-active-output-2-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 6,
+        "key": "data-center-sre-handoff-completeness-active-output-0-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 7,
+        "key": "data-center-sre-handoff-completeness-active-output-1-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 8,
+        "key": "data-center-sre-handoff-completeness-active-output-2-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 9,
+        "key": "data-center-maintenance-blackout-guard-active-output-0-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 10,
+        "key": "data-center-maintenance-blackout-guard-active-output-1-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 11,
+        "key": "data-center-maintenance-blackout-guard-active-output-2-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 12,
+        "key": "data-center-upgrade-wave-planner-active-output-0-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 13,
+        "key": "data-center-upgrade-wave-planner-active-output-1-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 14,
+        "key": "data-center-upgrade-wave-planner-active-output-2-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 15,
+        "key": "data-center-firmware-rollback-readiness-active-output-0-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 16,
+        "key": "data-center-firmware-rollback-readiness-active-output-1-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 17,
+        "key": "data-center-firmware-rollback-readiness-active-output-2-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 18,
+        "key": "data-center-spine-leaf-expansion-planner-active-output-0-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 19,
+        "key": "data-center-spine-leaf-expansion-planner-active-output-1-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 20,
+        "key": "data-center-spine-leaf-expansion-planner-active-output-2-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 21,
+        "key": "data-center-storage-migration-coordinator-active-output-0-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 22,
+        "key": "data-center-storage-migration-coordinator-active-output-1-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 23,
+        "key": "data-center-storage-migration-coordinator-active-output-2-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 24,
+        "key": "data-center-decommission-safety-controller-active-output-0-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 25,
+        "key": "data-center-decommission-safety-controller-active-output-1-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 26,
+        "key": "data-center-decommission-safety-controller-active-output-2-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 27,
+        "key": "data-center-24x7-operations-executive-summary-active-output-0-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 28,
+        "key": "data-center-24x7-operations-executive-summary-active-output-1-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 29,
+        "key": "data-center-24x7-operations-executive-summary-active-output-2-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      }
+    ],
+    "sequenceCatalog": [
+      {
+        "sequenceId": "dcx-041-050-domain-family-review",
+        "label": "Data Center DCX-041-050 domain family review at [14293",
+        "rag": "RED",
+        "outputIndex": 0,
+        "action": "Route domain family review, escalation, and resolver summary."
+      },
+      {
+        "sequenceId": "dcx-041-050-domain-family-optimization",
+        "label": "Data Center DCX-041-050 domain family optimization at [14293",
+        "rag": "AMBER",
+        "outputIndex": 1,
+        "action": "Route domain family optimization or plan adjustment."
+      },
+      {
+        "sequenceId": "dcx-041-050-domain-family-monitoring",
+        "label": "Data Center DCX-041-050 domain family monitoring at [14293",
+        "rag": "AMBER",
+        "outputIndex": 2,
+        "action": "Route monitoring, evidence, or data-quality follow-up."
+      },
+      {
+        "sequenceId": "dcx-041-050-domain-family-stable",
+        "label": "Data Center DCX-041-050 domain family stable at [14293",
+        "rag": "GREEN",
+        "outputIndex": 3,
+        "action": "Record stable family state and keep baseline cadence."
+      }
+    ]
+  },
+  "agentBinding": {
+    "agent": "data-center-dcx-041-050-interconnect",
+    "mode": "advise",
+    "trigger": "datacenterdcx041050interconnect-input-assessment",
+    "allowedActions": [
+      "Assess current \"Data Center DCX-041-050 Interconnect\" state from available observations and write the normalized input vector to the PE input region [14263:14293] for RE to evaluate."
+    ],
+    "writeBack": {
+      "type": "pe-sensor",
+      "provider": "acp",
+      "sensorId": "acp.openclaw.datacenterdcx041050interconnect.input-analyst.assessment",
+      "name": "OpenClaw datacenterdcx041050interconnect input-analyst assessment",
+      "region": {
+        "offset": 14263,
+        "length": 30
+      },
+      "semantics": [
+        "data-center-carbon-aware-workload-scheduler-active-output-0-bit",
+        "data-center-carbon-aware-workload-scheduler-active-output-1-bit",
+        "data-center-carbon-aware-workload-scheduler-active-output-2-bit",
+        "data-center-tenant-capacity-guard-active-output-0-bit",
+        "data-center-tenant-capacity-guard-active-output-1-bit",
+        "data-center-tenant-capacity-guard-active-output-2-bit",
+        "data-center-sre-handoff-completeness-active-output-0-bit",
+        "data-center-sre-handoff-completeness-active-output-1-bit",
+        "data-center-sre-handoff-completeness-active-output-2-bit",
+        "data-center-maintenance-blackout-guard-active-output-0-bit",
+        "data-center-maintenance-blackout-guard-active-output-1-bit",
+        "data-center-maintenance-blackout-guard-active-output-2-bit",
+        "data-center-upgrade-wave-planner-active-output-0-bit",
+        "data-center-upgrade-wave-planner-active-output-1-bit",
+        "data-center-upgrade-wave-planner-active-output-2-bit",
+        "data-center-firmware-rollback-readiness-active-output-0-bit",
+        "data-center-firmware-rollback-readiness-active-output-1-bit",
+        "data-center-firmware-rollback-readiness-active-output-2-bit",
+        "data-center-spine-leaf-expansion-planner-active-output-0-bit",
+        "data-center-spine-leaf-expansion-planner-active-output-1-bit",
+        "data-center-spine-leaf-expansion-planner-active-output-2-bit",
+        "data-center-storage-migration-coordinator-active-output-0-bit",
+        "data-center-storage-migration-coordinator-active-output-1-bit",
+        "data-center-storage-migration-coordinator-active-output-2-bit",
+        "data-center-decommission-safety-controller-active-output-0-bit",
+        "data-center-decommission-safety-controller-active-output-1-bit",
+        "data-center-decommission-safety-controller-active-output-2-bit",
+        "data-center-24x7-operations-executive-summary-active-output-0-bit",
+        "data-center-24x7-operations-executive-summary-active-output-1-bit",
+        "data-center-24x7-operations-executive-summary-active-output-2-bit"
+      ],
+      "ttlMs": 300000,
+      "normalization": "already-normalized-0-1",
+      "ingest": {
+        "endpoint": "/api/integrations/completions",
+        "method": "POST",
+        "triggerPush": false,
+        "compactPush": true
+      },
+      "sourceMapping": {
+        "id": "acp-datacenterdcx041050interconnect-input-assessment",
+        "sensorId": "acp.openclaw.datacenterdcx041050interconnect.input-analyst.assessment",
+        "name": "OpenClaw datacenterdcx041050interconnect input-analyst assessment",
+        "region": {
+          "offset": 14263,
+          "length": 30
+        },
+        "ttlMs": 300000
+      }
+    },
+    "autonomyPolicy": {
+      "mode": "advise",
+      "stage": 1,
+      "writeBackType": "pe-sensor",
+      "canWriteBack": true,
+      "canStageActions": false,
+      "canExecuteActions": false,
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "blockedWhenRag": []
+    },
+    "riskControls": {
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "maxAutonomy": "advise",
+      "blockedWhenRag": []
+    }
+  },
+  "responseMapping": {
+    "schemaVersion": "1.0.0",
+    "responseContract": "structured-keys-or-text",
+    "mode": "advise",
+    "fields": [
+      {
+        "semantic": "data-center-carbon-aware-workload-scheduler-active-output-0-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/data-center-carbon-aware-workload-scheduler-active-output-0-bit",
+          "responseKey": "data-center-carbon-aware-workload-scheduler-active-output-0-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.datacenterdcx041050interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 14263,
+            "length": 30
+          },
+          "index": 0
+        }
+      },
+      {
+        "semantic": "data-center-carbon-aware-workload-scheduler-active-output-1-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/data-center-carbon-aware-workload-scheduler-active-output-1-bit",
+          "responseKey": "data-center-carbon-aware-workload-scheduler-active-output-1-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.datacenterdcx041050interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 14263,
+            "length": 30
+          },
+          "index": 1
+        }
+      },
+      {
+        "semantic": "data-center-carbon-aware-workload-scheduler-active-output-2-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/data-center-carbon-aware-workload-scheduler-active-output-2-bit",
+          "responseKey": "data-center-carbon-aware-workload-scheduler-active-output-2-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.datacenterdcx041050interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 14263,
+            "length": 30
+          },
+          "index": 2
+        }
+      },
+      {
+        "semantic": "data-center-tenant-capacity-guard-active-output-0-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/data-center-tenant-capacity-guard-active-output-0-bit",
+          "responseKey": "data-center-tenant-capacity-guard-active-output-0-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.datacenterdcx041050interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 14263,
+            "length": 30
+          },
+          "index": 3
+        }
+      },
+      {
+        "semantic": "data-center-tenant-capacity-guard-active-output-1-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/data-center-tenant-capacity-guard-active-output-1-bit",
+          "responseKey": "data-center-tenant-capacity-guard-active-output-1-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.datacenterdcx041050interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 14263,
+            "length": 30
+          },
+          "index": 4
+        }
+      },
+      {
+        "semantic": "data-center-tenant-capacity-guard-active-output-2-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/data-center-tenant-capacity-guard-active-output-2-bit",
+          "responseKey": "data-center-tenant-capacity-guard-active-output-2-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.datacenterdcx041050interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 14263,
+            "length": 30
+          },
+          "index": 5
+        }
+      },
+      {
+        "semantic": "data-center-sre-handoff-completeness-active-output-0-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/data-center-sre-handoff-completeness-active-output-0-bit",
+          "responseKey": "data-center-sre-handoff-completeness-active-output-0-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.datacenterdcx041050interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 14263,
+            "length": 30
+          },
+          "index": 6
+        }
+      },
+      {
+        "semantic": "data-center-sre-handoff-completeness-active-output-1-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/data-center-sre-handoff-completeness-active-output-1-bit",
+          "responseKey": "data-center-sre-handoff-completeness-active-output-1-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.datacenterdcx041050interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 14263,
+            "length": 30
+          },
+          "index": 7
+        }
+      },
+      {
+        "semantic": "data-center-sre-handoff-completeness-active-output-2-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/data-center-sre-handoff-completeness-active-output-2-bit",
+          "responseKey": "data-center-sre-handoff-completeness-active-output-2-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.datacenterdcx041050interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 14263,
+            "length": 30
+          },
+          "index": 8
+        }
+      },
+      {
+        "semantic": "data-center-maintenance-blackout-guard-active-output-0-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/data-center-maintenance-blackout-guard-active-output-0-bit",
+          "responseKey": "data-center-maintenance-blackout-guard-active-output-0-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.datacenterdcx041050interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 14263,
+            "length": 30
+          },
+          "index": 9
+        }
+      },
+      {
+        "semantic": "data-center-maintenance-blackout-guard-active-output-1-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/data-center-maintenance-blackout-guard-active-output-1-bit",
+          "responseKey": "data-center-maintenance-blackout-guard-active-output-1-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.datacenterdcx041050interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 14263,
+            "length": 30
+          },
+          "index": 10
+        }
+      },
+      {
+        "semantic": "data-center-maintenance-blackout-guard-active-output-2-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/data-center-maintenance-blackout-guard-active-output-2-bit",
+          "responseKey": "data-center-maintenance-blackout-guard-active-output-2-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.datacenterdcx041050interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 14263,
+            "length": 30
+          },
+          "index": 11
+        }
+      },
+      {
+        "semantic": "data-center-upgrade-wave-planner-active-output-0-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/data-center-upgrade-wave-planner-active-output-0-bit",
+          "responseKey": "data-center-upgrade-wave-planner-active-output-0-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.datacenterdcx041050interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 14263,
+            "length": 30
+          },
+          "index": 12
+        }
+      },
+      {
+        "semantic": "data-center-upgrade-wave-planner-active-output-1-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/data-center-upgrade-wave-planner-active-output-1-bit",
+          "responseKey": "data-center-upgrade-wave-planner-active-output-1-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.datacenterdcx041050interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 14263,
+            "length": 30
+          },
+          "index": 13
+        }
+      },
+      {
+        "semantic": "data-center-upgrade-wave-planner-active-output-2-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/data-center-upgrade-wave-planner-active-output-2-bit",
+          "responseKey": "data-center-upgrade-wave-planner-active-output-2-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.datacenterdcx041050interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 14263,
+            "length": 30
+          },
+          "index": 14
+        }
+      },
+      {
+        "semantic": "data-center-firmware-rollback-readiness-active-output-0-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/data-center-firmware-rollback-readiness-active-output-0-bit",
+          "responseKey": "data-center-firmware-rollback-readiness-active-output-0-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.datacenterdcx041050interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 14263,
+            "length": 30
+          },
+          "index": 15
+        }
+      },
+      {
+        "semantic": "data-center-firmware-rollback-readiness-active-output-1-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/data-center-firmware-rollback-readiness-active-output-1-bit",
+          "responseKey": "data-center-firmware-rollback-readiness-active-output-1-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.datacenterdcx041050interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 14263,
+            "length": 30
+          },
+          "index": 16
+        }
+      },
+      {
+        "semantic": "data-center-firmware-rollback-readiness-active-output-2-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/data-center-firmware-rollback-readiness-active-output-2-bit",
+          "responseKey": "data-center-firmware-rollback-readiness-active-output-2-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.datacenterdcx041050interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 14263,
+            "length": 30
+          },
+          "index": 17
+        }
+      },
+      {
+        "semantic": "data-center-spine-leaf-expansion-planner-active-output-0-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/data-center-spine-leaf-expansion-planner-active-output-0-bit",
+          "responseKey": "data-center-spine-leaf-expansion-planner-active-output-0-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.datacenterdcx041050interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 14263,
+            "length": 30
+          },
+          "index": 18
+        }
+      },
+      {
+        "semantic": "data-center-spine-leaf-expansion-planner-active-output-1-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/data-center-spine-leaf-expansion-planner-active-output-1-bit",
+          "responseKey": "data-center-spine-leaf-expansion-planner-active-output-1-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.datacenterdcx041050interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 14263,
+            "length": 30
+          },
+          "index": 19
+        }
+      },
+      {
+        "semantic": "data-center-spine-leaf-expansion-planner-active-output-2-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/data-center-spine-leaf-expansion-planner-active-output-2-bit",
+          "responseKey": "data-center-spine-leaf-expansion-planner-active-output-2-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.datacenterdcx041050interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 14263,
+            "length": 30
+          },
+          "index": 20
+        }
+      },
+      {
+        "semantic": "data-center-storage-migration-coordinator-active-output-0-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/data-center-storage-migration-coordinator-active-output-0-bit",
+          "responseKey": "data-center-storage-migration-coordinator-active-output-0-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.datacenterdcx041050interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 14263,
+            "length": 30
+          },
+          "index": 21
+        }
+      },
+      {
+        "semantic": "data-center-storage-migration-coordinator-active-output-1-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/data-center-storage-migration-coordinator-active-output-1-bit",
+          "responseKey": "data-center-storage-migration-coordinator-active-output-1-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.datacenterdcx041050interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 14263,
+            "length": 30
+          },
+          "index": 22
+        }
+      },
+      {
+        "semantic": "data-center-storage-migration-coordinator-active-output-2-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/data-center-storage-migration-coordinator-active-output-2-bit",
+          "responseKey": "data-center-storage-migration-coordinator-active-output-2-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.datacenterdcx041050interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 14263,
+            "length": 30
+          },
+          "index": 23
+        }
+      },
+      {
+        "semantic": "data-center-decommission-safety-controller-active-output-0-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/data-center-decommission-safety-controller-active-output-0-bit",
+          "responseKey": "data-center-decommission-safety-controller-active-output-0-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.datacenterdcx041050interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 14263,
+            "length": 30
+          },
+          "index": 24
+        }
+      },
+      {
+        "semantic": "data-center-decommission-safety-controller-active-output-1-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/data-center-decommission-safety-controller-active-output-1-bit",
+          "responseKey": "data-center-decommission-safety-controller-active-output-1-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.datacenterdcx041050interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 14263,
+            "length": 30
+          },
+          "index": 25
+        }
+      },
+      {
+        "semantic": "data-center-decommission-safety-controller-active-output-2-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/data-center-decommission-safety-controller-active-output-2-bit",
+          "responseKey": "data-center-decommission-safety-controller-active-output-2-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.datacenterdcx041050interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 14263,
+            "length": 30
+          },
+          "index": 26
+        }
+      },
+      {
+        "semantic": "data-center-24x7-operations-executive-summary-active-output-0-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/data-center-24x7-operations-executive-summary-active-output-0-bit",
+          "responseKey": "data-center-24x7-operations-executive-summary-active-output-0-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.datacenterdcx041050interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 14263,
+            "length": 30
+          },
+          "index": 27
+        }
+      },
+      {
+        "semantic": "data-center-24x7-operations-executive-summary-active-output-1-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/data-center-24x7-operations-executive-summary-active-output-1-bit",
+          "responseKey": "data-center-24x7-operations-executive-summary-active-output-1-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.datacenterdcx041050interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 14263,
+            "length": 30
+          },
+          "index": 28
+        }
+      },
+      {
+        "semantic": "data-center-24x7-operations-executive-summary-active-output-2-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/data-center-24x7-operations-executive-summary-active-output-2-bit",
+          "responseKey": "data-center-24x7-operations-executive-summary-active-output-2-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.datacenterdcx041050interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 14263,
+            "length": 30
+          },
+          "index": 29
+        }
+      }
+    ]
+  },
+  "diagnostics": {
+    "axisBasis": "inputSemantics",
+    "warnings": [
+      "input axes derived from inputSemantics (no length-matched sensorNormalization)"
+    ],
+    "inputLength": 30,
+    "sequenceCount": 4
+  }
+}

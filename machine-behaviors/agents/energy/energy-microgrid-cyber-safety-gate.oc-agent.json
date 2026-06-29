@@ -1,0 +1,564 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "oc-agent-template",
+  "role": "input-analyst",
+  "agentId": "energy-microgrid-cyber-safety-gate",
+  "displayName": "Energy Microgrid Cyber Safety Gate",
+  "machine": {
+    "id": "ENX209_microgrid-cyber-safety-gate",
+    "name": "Energy Microgrid Cyber Safety Gate",
+    "code": "enx209_microgrid_cyber_safety_gate",
+    "machineClass": "safety-compliance-checker",
+    "domain": "energy",
+    "inputRegion": {
+      "offset": 16705,
+      "length": 8
+    },
+    "outputRegion": {
+      "offset": 16713,
+      "length": 4
+    }
+  },
+  "openclaw": {
+    "id": "openclaw-xacp",
+    "kind": "acp",
+    "platform": "OpenClaw",
+    "surface": "xACP",
+    "command": "openclaw acp",
+    "gatewayUrl": "ws://127.0.0.1:18789",
+    "sessionKey": "agent:main:main",
+    "targetAgent": "energy-microgrid-cyber-safety-gate",
+    "dispatchMode": "accepted-no-wait",
+    "completionMode": "pe-source-mapping",
+    "completionSourceMappingId": "acp-energy-microgrid-cyber-safety-gate-input-assessment"
+  },
+  "reasoning": {
+    "objective": "Produce the normalized input vector for \"Energy Microgrid Cyber Safety Gate\" from current observations so RE can evaluate its CES sequences.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Energy Microgrid Cyber Safety Gate\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Gates actuation when protocol identity, command replay, approved envelopes, SCADA or DERMS integrity, operator approval, rollback, firmware/configuration, or emergency override state is unsafe.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- protocol_identity_invalid_norm (index 0):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- command_replay_risk_active_norm (index 1):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- der_command_outside_approved_envelope_norm (index 2):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- scada_or_derms_anomaly_active_norm (index 3):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- operator_approval_missing_norm (index 4):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- rollback_path_unavailable_norm (index 5):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- firmware_or_configuration_drift_active_norm (index 6):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- emergency_override_active_norm (index 7):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Microgrid Cyber Safety Gate (RED) -> action: BLOCK_ACTUATION for resilient community microgrid operations.\n- Microgrid Cyber Safety Gate (AMBER) -> action: REQUIRE_HUMAN_APPROVAL for resilient community microgrid operations.\n- Microgrid Cyber Safety Gate (AMBER) -> action: ALLOW_LIMITED_COMMANDS for resilient community microgrid operations.\n- Microgrid Cyber Safety Gate (GREEN) -> action: CYBER_SAFE for resilient community microgrid operations.",
+    "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
+    "inputAxes": [
+      {
+        "index": 0,
+        "key": "protocol_identity_invalid_norm",
+        "anchors": {
+          "low": "false/inactive",
+          "mid": "",
+          "high": "true/active after PE source normalization"
+        }
+      },
+      {
+        "index": 1,
+        "key": "command_replay_risk_active_norm",
+        "anchors": {
+          "low": "false/inactive",
+          "mid": "",
+          "high": "true/active after PE source normalization"
+        }
+      },
+      {
+        "index": 2,
+        "key": "der_command_outside_approved_envelope_norm",
+        "anchors": {
+          "low": "false/inactive",
+          "mid": "",
+          "high": "true/active after PE source normalization"
+        }
+      },
+      {
+        "index": 3,
+        "key": "scada_or_derms_anomaly_active_norm",
+        "anchors": {
+          "low": "false/inactive",
+          "mid": "",
+          "high": "true/active after PE source normalization"
+        }
+      },
+      {
+        "index": 4,
+        "key": "operator_approval_missing_norm",
+        "anchors": {
+          "low": "false/inactive",
+          "mid": "",
+          "high": "true/active after PE source normalization"
+        }
+      },
+      {
+        "index": 5,
+        "key": "rollback_path_unavailable_norm",
+        "anchors": {
+          "low": "false/inactive",
+          "mid": "",
+          "high": "true/active after PE source normalization"
+        }
+      },
+      {
+        "index": 6,
+        "key": "firmware_or_configuration_drift_active_norm",
+        "anchors": {
+          "low": "false/inactive",
+          "mid": "",
+          "high": "true/active after PE source normalization"
+        }
+      },
+      {
+        "index": 7,
+        "key": "emergency_override_active_norm",
+        "anchors": {
+          "low": "false/inactive",
+          "mid": "",
+          "high": "true/active after PE source normalization"
+        }
+      }
+    ],
+    "sequenceCatalog": [
+      {
+        "sequenceId": "enx209-block-actuation",
+        "label": "Microgrid Cyber Safety Gate",
+        "rag": "RED",
+        "outputIndex": 0,
+        "action": "BLOCK_ACTUATION for resilient community microgrid operations."
+      },
+      {
+        "sequenceId": "enx209-require-human-approval",
+        "label": "Microgrid Cyber Safety Gate",
+        "rag": "AMBER",
+        "outputIndex": 1,
+        "action": "REQUIRE_HUMAN_APPROVAL for resilient community microgrid operations."
+      },
+      {
+        "sequenceId": "enx209-allow-limited-commands",
+        "label": "Microgrid Cyber Safety Gate",
+        "rag": "AMBER",
+        "outputIndex": 2,
+        "action": "ALLOW_LIMITED_COMMANDS for resilient community microgrid operations."
+      },
+      {
+        "sequenceId": "enx209-cyber-safe",
+        "label": "Microgrid Cyber Safety Gate",
+        "rag": "GREEN",
+        "outputIndex": 3,
+        "action": "CYBER_SAFE for resilient community microgrid operations."
+      }
+    ]
+  },
+  "agentBinding": {
+    "agent": "energy-microgrid-cyber-safety-gate",
+    "mode": "advise",
+    "trigger": "enx209_microgrid_cyber_safety_gate-input-assessment",
+    "allowedActions": [
+      "Assess current \"Energy Microgrid Cyber Safety Gate\" state from available observations and write the normalized input vector to the PE input region [16705:16713] for RE to evaluate."
+    ],
+    "writeBack": {
+      "type": "pe-sensor",
+      "provider": "acp",
+      "sensorId": "acp.openclaw.enx209_microgrid_cyber_safety_gate.input-analyst.assessment",
+      "name": "OpenClaw enx209_microgrid_cyber_safety_gate input-analyst assessment",
+      "region": {
+        "offset": 16705,
+        "length": 8
+      },
+      "semantics": [
+        "protocol_identity_invalid_norm",
+        "command_replay_risk_active_norm",
+        "der_command_outside_approved_envelope_norm",
+        "scada_or_derms_anomaly_active_norm",
+        "operator_approval_missing_norm",
+        "rollback_path_unavailable_norm",
+        "firmware_or_configuration_drift_active_norm",
+        "emergency_override_active_norm"
+      ],
+      "ttlMs": 300000,
+      "normalization": "already-normalized-0-1",
+      "ingest": {
+        "endpoint": "/api/integrations/completions",
+        "method": "POST",
+        "triggerPush": false,
+        "compactPush": true
+      },
+      "sourceMapping": {
+        "id": "acp-enx209_microgrid_cyber_safety_gate-input-assessment",
+        "sensorId": "acp.openclaw.enx209_microgrid_cyber_safety_gate.input-analyst.assessment",
+        "name": "OpenClaw enx209_microgrid_cyber_safety_gate input-analyst assessment",
+        "region": {
+          "offset": 16705,
+          "length": 8
+        },
+        "ttlMs": 300000
+      }
+    },
+    "autonomyPolicy": {
+      "mode": "advise",
+      "stage": 1,
+      "writeBackType": "pe-sensor",
+      "canWriteBack": true,
+      "canStageActions": false,
+      "canExecuteActions": false,
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "blockedWhenRag": []
+    },
+    "riskControls": {
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "maxAutonomy": "advise",
+      "blockedWhenRag": []
+    }
+  },
+  "responseMapping": {
+    "schemaVersion": "1.0.0",
+    "responseContract": "structured-keys-or-text",
+    "mode": "advise",
+    "fields": [
+      {
+        "semantic": "protocol_identity_invalid_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/protocol_identity_invalid_norm",
+          "responseKey": "protocol_identity_invalid_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.enx209_microgrid_cyber_safety_gate.input-analyst.assessment",
+          "region": {
+            "offset": 16705,
+            "length": 8
+          },
+          "index": 0
+        }
+      },
+      {
+        "semantic": "command_replay_risk_active_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/command_replay_risk_active_norm",
+          "responseKey": "command_replay_risk_active_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.enx209_microgrid_cyber_safety_gate.input-analyst.assessment",
+          "region": {
+            "offset": 16705,
+            "length": 8
+          },
+          "index": 1
+        }
+      },
+      {
+        "semantic": "der_command_outside_approved_envelope_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/der_command_outside_approved_envelope_norm",
+          "responseKey": "der_command_outside_approved_envelope_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.enx209_microgrid_cyber_safety_gate.input-analyst.assessment",
+          "region": {
+            "offset": 16705,
+            "length": 8
+          },
+          "index": 2
+        }
+      },
+      {
+        "semantic": "scada_or_derms_anomaly_active_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/scada_or_derms_anomaly_active_norm",
+          "responseKey": "scada_or_derms_anomaly_active_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.enx209_microgrid_cyber_safety_gate.input-analyst.assessment",
+          "region": {
+            "offset": 16705,
+            "length": 8
+          },
+          "index": 3
+        }
+      },
+      {
+        "semantic": "operator_approval_missing_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/operator_approval_missing_norm",
+          "responseKey": "operator_approval_missing_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.enx209_microgrid_cyber_safety_gate.input-analyst.assessment",
+          "region": {
+            "offset": 16705,
+            "length": 8
+          },
+          "index": 4
+        }
+      },
+      {
+        "semantic": "rollback_path_unavailable_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/rollback_path_unavailable_norm",
+          "responseKey": "rollback_path_unavailable_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.enx209_microgrid_cyber_safety_gate.input-analyst.assessment",
+          "region": {
+            "offset": 16705,
+            "length": 8
+          },
+          "index": 5
+        }
+      },
+      {
+        "semantic": "firmware_or_configuration_drift_active_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/firmware_or_configuration_drift_active_norm",
+          "responseKey": "firmware_or_configuration_drift_active_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.enx209_microgrid_cyber_safety_gate.input-analyst.assessment",
+          "region": {
+            "offset": 16705,
+            "length": 8
+          },
+          "index": 6
+        }
+      },
+      {
+        "semantic": "emergency_override_active_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/emergency_override_active_norm",
+          "responseKey": "emergency_override_active_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.enx209_microgrid_cyber_safety_gate.input-analyst.assessment",
+          "region": {
+            "offset": 16705,
+            "length": 8
+          },
+          "index": 7
+        }
+      }
+    ]
+  },
+  "diagnostics": {
+    "axisBasis": "sensorNormalization",
+    "warnings": [],
+    "inputLength": 8,
+    "sequenceCount": 4
+  }
+}

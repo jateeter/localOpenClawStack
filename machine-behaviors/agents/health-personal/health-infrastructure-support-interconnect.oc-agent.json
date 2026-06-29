@@ -1,0 +1,988 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "oc-agent-template",
+  "role": "input-analyst",
+  "agentId": "health-infrastructure-support-interconnect",
+  "displayName": "Health Infrastructure Support Interconnect",
+  "machine": {
+    "id": "HealthInfrastructureSupportInterconnect",
+    "name": "Health Infrastructure Support Interconnect",
+    "code": "health_infrastructure_support",
+    "machineClass": "outcome-stabilizer",
+    "domain": "health-personal",
+    "inputRegion": {
+      "offset": 16900,
+      "length": 16
+    },
+    "outputRegion": {
+      "offset": 16916,
+      "length": 4
+    }
+  },
+  "openclaw": {
+    "id": "openclaw-xacp",
+    "kind": "acp",
+    "platform": "OpenClaw",
+    "surface": "xACP",
+    "command": "openclaw acp",
+    "gatewayUrl": "ws://127.0.0.1:18789",
+    "sessionKey": "agent:main:main",
+    "targetAgent": "health-infrastructure-support-interconnect",
+    "dispatchMode": "accepted-no-wait",
+    "completionMode": "pe-source-mapping",
+    "completionSourceMappingId": "acp-health-infrastructure-support-interconnect-input-assessment"
+  },
+  "reasoning": {
+    "objective": "Produce the normalized input vector for \"Health Infrastructure Support Interconnect\" from current observations so RE can evaluate its CES sequences.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Health Infrastructure Support Interconnect\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Cross-domain PE-published bus connecting transportation, built-space, and community-service operations to personal-health and care-coordination workflows.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- transportation_ada_service_access (index 0):  0.0 = no active support risk from source output[0] | 0.5 =  | 1.0 = active support risk after PE composition\n- transportation_rider_alert_reliability (index 1):  0.0 = no active support risk from source output[0] | 0.5 =  | 1.0 = active support risk after PE composition\n- transportation_stop_shelter_condition (index 2):  0.0 = no active support risk from source output[0] | 0.5 =  | 1.0 = active support risk after PE composition\n- transportation_vertical_access (index 3):  0.0 = no active support risk from source output[0] | 0.5 =  | 1.0 = active support risk after PE composition\n- built_space_air_filtration (index 4):  0.0 = no active support risk from source output[0] | 0.5 =  | 1.0 = active support risk after PE composition\n- built_space_humidity_mold_risk (index 5):  0.0 = no active support risk from source output[0] | 0.5 =  | 1.0 = active support risk after PE composition\n- built_space_water_pathogen_control (index 6):  0.0 = no active support risk from source output[0] | 0.5 =  | 1.0 = active support risk after PE composition\n- built_space_circadian_lighting (index 7):  0.0 = no active support risk from source output[0] | 0.5 =  | 1.0 = active support risk after PE composition\n- built_space_accessible_movement_paths (index 8):  0.0 = no active support risk from source output[0] | 0.5 =  | 1.0 = active support risk after PE composition\n- built_space_behavioral_support_access (index 9):  0.0 = no active support risk from source output[0] | 0.5 =  | 1.0 = active support risk after PE composition\n- community_services_hhs_intake (index 10):  0.0 = no active support risk from source output[0] | 0.5 =  | 1.0 = active support risk after PE composition\n- community_services_utility_assistance (index 11):  0.0 = no active support risk from source output[0] | 0.5 =  | 1.0 = active support risk after PE composition\n- community_services_meal_outreach (index 12):  0.0 = no active support risk from source output[0] | 0.5 =  | 1.0 = active support risk after PE composition\n- community_services_housing_navigation (index 13):  0.0 = no active support risk from source output[0] | 0.5 =  | 1.0 = active support risk after PE composition\n- community_services_local_access_hub (index 14):  0.0 = no active support risk from source output[0] | 0.5 =  | 1.0 = active support risk after PE composition\n- community_services_predictive_prevention (index 15):  0.0 = no active support risk from source output[0] | 0.5 =  | 1.0 = active support risk after PE composition\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- health-infrastructure-infrastructure-emergency (RED) -> action: Escalate cross-domain infrastructure response for personal-health risk.\n- health-infrastructure-coordinated-support-required (AMBER) -> action: Coordinate transportation, built-space, and community-service supports.\n- health-infrastructure-support-continuity-monitoring (AMBER) -> action: Continue monitoring support continuity and keep PE sources fresh.\n- health-infrastructure-infrastructure-support-stable (GREEN) -> action: Infrastructure support state is stable for personal health workflows.",
+    "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
+    "inputAxes": [
+      {
+        "index": 0,
+        "key": "transportation_ada_service_access",
+        "anchors": {
+          "low": "no active support risk from source output[0]",
+          "mid": "",
+          "high": "active support risk after PE composition"
+        }
+      },
+      {
+        "index": 1,
+        "key": "transportation_rider_alert_reliability",
+        "anchors": {
+          "low": "no active support risk from source output[0]",
+          "mid": "",
+          "high": "active support risk after PE composition"
+        }
+      },
+      {
+        "index": 2,
+        "key": "transportation_stop_shelter_condition",
+        "anchors": {
+          "low": "no active support risk from source output[0]",
+          "mid": "",
+          "high": "active support risk after PE composition"
+        }
+      },
+      {
+        "index": 3,
+        "key": "transportation_vertical_access",
+        "anchors": {
+          "low": "no active support risk from source output[0]",
+          "mid": "",
+          "high": "active support risk after PE composition"
+        }
+      },
+      {
+        "index": 4,
+        "key": "built_space_air_filtration",
+        "anchors": {
+          "low": "no active support risk from source output[0]",
+          "mid": "",
+          "high": "active support risk after PE composition"
+        }
+      },
+      {
+        "index": 5,
+        "key": "built_space_humidity_mold_risk",
+        "anchors": {
+          "low": "no active support risk from source output[0]",
+          "mid": "",
+          "high": "active support risk after PE composition"
+        }
+      },
+      {
+        "index": 6,
+        "key": "built_space_water_pathogen_control",
+        "anchors": {
+          "low": "no active support risk from source output[0]",
+          "mid": "",
+          "high": "active support risk after PE composition"
+        }
+      },
+      {
+        "index": 7,
+        "key": "built_space_circadian_lighting",
+        "anchors": {
+          "low": "no active support risk from source output[0]",
+          "mid": "",
+          "high": "active support risk after PE composition"
+        }
+      },
+      {
+        "index": 8,
+        "key": "built_space_accessible_movement_paths",
+        "anchors": {
+          "low": "no active support risk from source output[0]",
+          "mid": "",
+          "high": "active support risk after PE composition"
+        }
+      },
+      {
+        "index": 9,
+        "key": "built_space_behavioral_support_access",
+        "anchors": {
+          "low": "no active support risk from source output[0]",
+          "mid": "",
+          "high": "active support risk after PE composition"
+        }
+      },
+      {
+        "index": 10,
+        "key": "community_services_hhs_intake",
+        "anchors": {
+          "low": "no active support risk from source output[0]",
+          "mid": "",
+          "high": "active support risk after PE composition"
+        }
+      },
+      {
+        "index": 11,
+        "key": "community_services_utility_assistance",
+        "anchors": {
+          "low": "no active support risk from source output[0]",
+          "mid": "",
+          "high": "active support risk after PE composition"
+        }
+      },
+      {
+        "index": 12,
+        "key": "community_services_meal_outreach",
+        "anchors": {
+          "low": "no active support risk from source output[0]",
+          "mid": "",
+          "high": "active support risk after PE composition"
+        }
+      },
+      {
+        "index": 13,
+        "key": "community_services_housing_navigation",
+        "anchors": {
+          "low": "no active support risk from source output[0]",
+          "mid": "",
+          "high": "active support risk after PE composition"
+        }
+      },
+      {
+        "index": 14,
+        "key": "community_services_local_access_hub",
+        "anchors": {
+          "low": "no active support risk from source output[0]",
+          "mid": "",
+          "high": "active support risk after PE composition"
+        }
+      },
+      {
+        "index": 15,
+        "key": "community_services_predictive_prevention",
+        "anchors": {
+          "low": "no active support risk from source output[0]",
+          "mid": "",
+          "high": "active support risk after PE composition"
+        }
+      }
+    ],
+    "sequenceCatalog": [
+      {
+        "sequenceId": "health-infrastructure-infrastructure-emergency",
+        "label": "health-infrastructure-infrastructure-emergency",
+        "rag": "RED",
+        "outputIndex": 0,
+        "action": "Escalate cross-domain infrastructure response for personal-health risk."
+      },
+      {
+        "sequenceId": "health-infrastructure-coordinated-support-required",
+        "label": "health-infrastructure-coordinated-support-required",
+        "rag": "AMBER",
+        "outputIndex": 1,
+        "action": "Coordinate transportation, built-space, and community-service supports."
+      },
+      {
+        "sequenceId": "health-infrastructure-support-continuity-monitoring",
+        "label": "health-infrastructure-support-continuity-monitoring",
+        "rag": "AMBER",
+        "outputIndex": 2,
+        "action": "Continue monitoring support continuity and keep PE sources fresh."
+      },
+      {
+        "sequenceId": "health-infrastructure-infrastructure-support-stable",
+        "label": "health-infrastructure-infrastructure-support-stable",
+        "rag": "GREEN",
+        "outputIndex": 3,
+        "action": "Infrastructure support state is stable for personal health workflows."
+      }
+    ]
+  },
+  "agentBinding": {
+    "agent": "health-infrastructure-support-interconnect",
+    "mode": "advise",
+    "trigger": "health_infrastructure_support-input-assessment",
+    "allowedActions": [
+      "Assess current \"Health Infrastructure Support Interconnect\" state from available observations and write the normalized input vector to the PE input region [16900:16916] for RE to evaluate."
+    ],
+    "writeBack": {
+      "type": "pe-sensor",
+      "provider": "acp",
+      "sensorId": "acp.openclaw.health_infrastructure_support.input-analyst.assessment",
+      "name": "OpenClaw health_infrastructure_support input-analyst assessment",
+      "region": {
+        "offset": 16900,
+        "length": 16
+      },
+      "semantics": [
+        "transportation_ada_service_access",
+        "transportation_rider_alert_reliability",
+        "transportation_stop_shelter_condition",
+        "transportation_vertical_access",
+        "built_space_air_filtration",
+        "built_space_humidity_mold_risk",
+        "built_space_water_pathogen_control",
+        "built_space_circadian_lighting",
+        "built_space_accessible_movement_paths",
+        "built_space_behavioral_support_access",
+        "community_services_hhs_intake",
+        "community_services_utility_assistance",
+        "community_services_meal_outreach",
+        "community_services_housing_navigation",
+        "community_services_local_access_hub",
+        "community_services_predictive_prevention"
+      ],
+      "ttlMs": 300000,
+      "normalization": "already-normalized-0-1",
+      "ingest": {
+        "endpoint": "/api/integrations/completions",
+        "method": "POST",
+        "triggerPush": false,
+        "compactPush": true
+      },
+      "sourceMapping": {
+        "id": "acp-health_infrastructure_support-input-assessment",
+        "sensorId": "acp.openclaw.health_infrastructure_support.input-analyst.assessment",
+        "name": "OpenClaw health_infrastructure_support input-analyst assessment",
+        "region": {
+          "offset": 16900,
+          "length": 16
+        },
+        "ttlMs": 300000
+      }
+    },
+    "autonomyPolicy": {
+      "mode": "advise",
+      "stage": 1,
+      "writeBackType": "pe-sensor",
+      "canWriteBack": true,
+      "canStageActions": false,
+      "canExecuteActions": false,
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "blockedWhenRag": []
+    },
+    "riskControls": {
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "maxAutonomy": "advise",
+      "blockedWhenRag": []
+    }
+  },
+  "responseMapping": {
+    "schemaVersion": "1.0.0",
+    "responseContract": "structured-keys-or-text",
+    "mode": "advise",
+    "fields": [
+      {
+        "semantic": "transportation_ada_service_access",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/transportation_ada_service_access",
+          "responseKey": "transportation_ada_service_access",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.health_infrastructure_support.input-analyst.assessment",
+          "region": {
+            "offset": 16900,
+            "length": 16
+          },
+          "index": 0
+        }
+      },
+      {
+        "semantic": "transportation_rider_alert_reliability",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/transportation_rider_alert_reliability",
+          "responseKey": "transportation_rider_alert_reliability",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.health_infrastructure_support.input-analyst.assessment",
+          "region": {
+            "offset": 16900,
+            "length": 16
+          },
+          "index": 1
+        }
+      },
+      {
+        "semantic": "transportation_stop_shelter_condition",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/transportation_stop_shelter_condition",
+          "responseKey": "transportation_stop_shelter_condition",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.health_infrastructure_support.input-analyst.assessment",
+          "region": {
+            "offset": 16900,
+            "length": 16
+          },
+          "index": 2
+        }
+      },
+      {
+        "semantic": "transportation_vertical_access",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/transportation_vertical_access",
+          "responseKey": "transportation_vertical_access",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.health_infrastructure_support.input-analyst.assessment",
+          "region": {
+            "offset": 16900,
+            "length": 16
+          },
+          "index": 3
+        }
+      },
+      {
+        "semantic": "built_space_air_filtration",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/built_space_air_filtration",
+          "responseKey": "built_space_air_filtration",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.health_infrastructure_support.input-analyst.assessment",
+          "region": {
+            "offset": 16900,
+            "length": 16
+          },
+          "index": 4
+        }
+      },
+      {
+        "semantic": "built_space_humidity_mold_risk",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/built_space_humidity_mold_risk",
+          "responseKey": "built_space_humidity_mold_risk",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.health_infrastructure_support.input-analyst.assessment",
+          "region": {
+            "offset": 16900,
+            "length": 16
+          },
+          "index": 5
+        }
+      },
+      {
+        "semantic": "built_space_water_pathogen_control",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/built_space_water_pathogen_control",
+          "responseKey": "built_space_water_pathogen_control",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.health_infrastructure_support.input-analyst.assessment",
+          "region": {
+            "offset": 16900,
+            "length": 16
+          },
+          "index": 6
+        }
+      },
+      {
+        "semantic": "built_space_circadian_lighting",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/built_space_circadian_lighting",
+          "responseKey": "built_space_circadian_lighting",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.health_infrastructure_support.input-analyst.assessment",
+          "region": {
+            "offset": 16900,
+            "length": 16
+          },
+          "index": 7
+        }
+      },
+      {
+        "semantic": "built_space_accessible_movement_paths",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/built_space_accessible_movement_paths",
+          "responseKey": "built_space_accessible_movement_paths",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.health_infrastructure_support.input-analyst.assessment",
+          "region": {
+            "offset": 16900,
+            "length": 16
+          },
+          "index": 8
+        }
+      },
+      {
+        "semantic": "built_space_behavioral_support_access",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/built_space_behavioral_support_access",
+          "responseKey": "built_space_behavioral_support_access",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.health_infrastructure_support.input-analyst.assessment",
+          "region": {
+            "offset": 16900,
+            "length": 16
+          },
+          "index": 9
+        }
+      },
+      {
+        "semantic": "community_services_hhs_intake",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/community_services_hhs_intake",
+          "responseKey": "community_services_hhs_intake",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.health_infrastructure_support.input-analyst.assessment",
+          "region": {
+            "offset": 16900,
+            "length": 16
+          },
+          "index": 10
+        }
+      },
+      {
+        "semantic": "community_services_utility_assistance",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/community_services_utility_assistance",
+          "responseKey": "community_services_utility_assistance",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.health_infrastructure_support.input-analyst.assessment",
+          "region": {
+            "offset": 16900,
+            "length": 16
+          },
+          "index": 11
+        }
+      },
+      {
+        "semantic": "community_services_meal_outreach",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/community_services_meal_outreach",
+          "responseKey": "community_services_meal_outreach",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.health_infrastructure_support.input-analyst.assessment",
+          "region": {
+            "offset": 16900,
+            "length": 16
+          },
+          "index": 12
+        }
+      },
+      {
+        "semantic": "community_services_housing_navigation",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/community_services_housing_navigation",
+          "responseKey": "community_services_housing_navigation",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.health_infrastructure_support.input-analyst.assessment",
+          "region": {
+            "offset": 16900,
+            "length": 16
+          },
+          "index": 13
+        }
+      },
+      {
+        "semantic": "community_services_local_access_hub",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/community_services_local_access_hub",
+          "responseKey": "community_services_local_access_hub",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.health_infrastructure_support.input-analyst.assessment",
+          "region": {
+            "offset": 16900,
+            "length": 16
+          },
+          "index": 14
+        }
+      },
+      {
+        "semantic": "community_services_predictive_prevention",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/community_services_predictive_prevention",
+          "responseKey": "community_services_predictive_prevention",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.health_infrastructure_support.input-analyst.assessment",
+          "region": {
+            "offset": 16900,
+            "length": 16
+          },
+          "index": 15
+        }
+      }
+    ]
+  },
+  "diagnostics": {
+    "axisBasis": "sensorNormalization",
+    "warnings": [],
+    "inputLength": 16,
+    "sequenceCount": 4
+  }
+}

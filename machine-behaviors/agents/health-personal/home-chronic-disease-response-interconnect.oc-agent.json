@@ -1,0 +1,1096 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "oc-agent-template",
+  "role": "input-analyst",
+  "agentId": "home-chronic-disease-response-interconnect",
+  "displayName": "Home Chronic Disease Response Interconnect",
+  "machine": {
+    "id": "HomeChronicDiseaseResponseInterconnect",
+    "name": "Home Chronic Disease Response Interconnect",
+    "code": "homechronicdiseaseresponseinterconnect",
+    "machineClass": "bridge",
+    "domain": "health-personal",
+    "inputRegion": {
+      "offset": 4368,
+      "length": 18
+    },
+    "outputRegion": {
+      "offset": 4386,
+      "length": 4
+    }
+  },
+  "openclaw": {
+    "id": "openclaw-xacp",
+    "kind": "acp",
+    "platform": "OpenClaw",
+    "surface": "xACP",
+    "command": "openclaw acp",
+    "gatewayUrl": "ws://127.0.0.1:18789",
+    "sessionKey": "agent:main:main",
+    "targetAgent": "home-chronic-disease-response-interconnect",
+    "dispatchMode": "accepted-no-wait",
+    "completionMode": "pe-source-mapping",
+    "completionSourceMappingId": "acp-home-chronic-disease-response-interconnect-input-assessment"
+  },
+  "reasoning": {
+    "objective": "Produce the normalized input vector for \"Home Chronic Disease Response Interconnect\" from current observations so RE can evaluate its CES sequences.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Home Chronic Disease Response Interconnect\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Published personal-health bridge bus that composes chronic disease control, medication access, transportation access, food security, and activity tolerance into a compact fan-out lane for urgent disease response, access/adherence support, preventive intensification, and stable monitoring. PE owns source composition and writes the compact input lane; RE evaluates this machine as ordinary vector state.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- disease-exacerbation-bit (index 0):\n- poor-chronic-disease-control-bit (index 1):\n- borderline-chronic-disease-control-bit (index 2):\n- disease-controlled-bit (index 3):\n- medication-adherence-crisis-bit (index 4):\n- medication-cost-barrier-active-bit (index 5):\n- partial-medication-adherence-bit (index 6):\n- medication-managed-bit (index 7):\n- critical-transportation-access-failure-bit (index 8):\n- appointment-transportation-barrier-bit (index 9):\n- transit-dependent-risk-bit (index 10):\n- transportation-adequate-bit (index 11):\n- food-crisis-bit (index 12):\n- food-insecure-bit (index 13):\n- food-assistance-needed-bit (index 14):\n- food-secure-bit (index 15):\n- below-baseline-activity-bit (index 16):\n- sedentary-streak-active-bit (index 17):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- URGENT_DISEASE_RESPONSE (RED) -> action: Route urgent chronic disease response, care coordination, benefits continuity, and clinical escalation review.\n- ACCESS_ADHERENCE_SUPPORT (AMBER) -> action: Route medication access, transportation, benefits, and care-resource support.\n- PREVENTIVE_INTENSIFICATION (AMBER) -> action: Route preventive intensification and chronic disease program follow-up before acute escalation.\n- STABLE_CHRONIC_DISEASE_MONITORING (GREEN) -> action: Continue lightweight monitoring and outcome stabilization.",
+    "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
+    "inputAxes": [
+      {
+        "index": 0,
+        "key": "disease-exacerbation-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 1,
+        "key": "poor-chronic-disease-control-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 2,
+        "key": "borderline-chronic-disease-control-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 3,
+        "key": "disease-controlled-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 4,
+        "key": "medication-adherence-crisis-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 5,
+        "key": "medication-cost-barrier-active-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 6,
+        "key": "partial-medication-adherence-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 7,
+        "key": "medication-managed-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 8,
+        "key": "critical-transportation-access-failure-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 9,
+        "key": "appointment-transportation-barrier-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 10,
+        "key": "transit-dependent-risk-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 11,
+        "key": "transportation-adequate-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 12,
+        "key": "food-crisis-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 13,
+        "key": "food-insecure-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 14,
+        "key": "food-assistance-needed-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 15,
+        "key": "food-secure-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 16,
+        "key": "below-baseline-activity-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 17,
+        "key": "sedentary-streak-active-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      }
+    ],
+    "sequenceCatalog": [
+      {
+        "sequenceId": "chronic-disease-urgent-response",
+        "label": "URGENT_DISEASE_RESPONSE",
+        "rag": "RED",
+        "outputIndex": 0,
+        "action": "Route urgent chronic disease response, care coordination, benefits continuity, and clinical escalation review."
+      },
+      {
+        "sequenceId": "chronic-disease-access-adherence-support",
+        "label": "ACCESS_ADHERENCE_SUPPORT",
+        "rag": "AMBER",
+        "outputIndex": 1,
+        "action": "Route medication access, transportation, benefits, and care-resource support."
+      },
+      {
+        "sequenceId": "chronic-disease-preventive-intensification",
+        "label": "PREVENTIVE_INTENSIFICATION",
+        "rag": "AMBER",
+        "outputIndex": 2,
+        "action": "Route preventive intensification and chronic disease program follow-up before acute escalation."
+      },
+      {
+        "sequenceId": "chronic-disease-stable-monitoring",
+        "label": "STABLE_CHRONIC_DISEASE_MONITORING",
+        "rag": "GREEN",
+        "outputIndex": 3,
+        "action": "Continue lightweight monitoring and outcome stabilization."
+      }
+    ]
+  },
+  "agentBinding": {
+    "agent": "home-chronic-disease-response-interconnect",
+    "mode": "advise",
+    "trigger": "homechronicdiseaseresponseinterconnect-input-assessment",
+    "allowedActions": [
+      "Assess current \"Home Chronic Disease Response Interconnect\" state from available observations and write the normalized input vector to the PE input region [4368:4386] for RE to evaluate."
+    ],
+    "writeBack": {
+      "type": "pe-sensor",
+      "provider": "acp",
+      "sensorId": "acp.openclaw.homechronicdiseaseresponseinterconnect.input-analyst.assessment",
+      "name": "OpenClaw homechronicdiseaseresponseinterconnect input-analyst assessment",
+      "region": {
+        "offset": 4368,
+        "length": 18
+      },
+      "semantics": [
+        "disease-exacerbation-bit",
+        "poor-chronic-disease-control-bit",
+        "borderline-chronic-disease-control-bit",
+        "disease-controlled-bit",
+        "medication-adherence-crisis-bit",
+        "medication-cost-barrier-active-bit",
+        "partial-medication-adherence-bit",
+        "medication-managed-bit",
+        "critical-transportation-access-failure-bit",
+        "appointment-transportation-barrier-bit",
+        "transit-dependent-risk-bit",
+        "transportation-adequate-bit",
+        "food-crisis-bit",
+        "food-insecure-bit",
+        "food-assistance-needed-bit",
+        "food-secure-bit",
+        "below-baseline-activity-bit",
+        "sedentary-streak-active-bit"
+      ],
+      "ttlMs": 300000,
+      "normalization": "already-normalized-0-1",
+      "ingest": {
+        "endpoint": "/api/integrations/completions",
+        "method": "POST",
+        "triggerPush": false,
+        "compactPush": true
+      },
+      "sourceMapping": {
+        "id": "acp-homechronicdiseaseresponseinterconnect-input-assessment",
+        "sensorId": "acp.openclaw.homechronicdiseaseresponseinterconnect.input-analyst.assessment",
+        "name": "OpenClaw homechronicdiseaseresponseinterconnect input-analyst assessment",
+        "region": {
+          "offset": 4368,
+          "length": 18
+        },
+        "ttlMs": 300000
+      }
+    },
+    "autonomyPolicy": {
+      "mode": "advise",
+      "stage": 1,
+      "writeBackType": "pe-sensor",
+      "canWriteBack": true,
+      "canStageActions": false,
+      "canExecuteActions": false,
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "blockedWhenRag": []
+    },
+    "riskControls": {
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "maxAutonomy": "advise",
+      "blockedWhenRag": []
+    }
+  },
+  "responseMapping": {
+    "schemaVersion": "1.0.0",
+    "responseContract": "structured-keys-or-text",
+    "mode": "advise",
+    "fields": [
+      {
+        "semantic": "disease-exacerbation-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/disease-exacerbation-bit",
+          "responseKey": "disease-exacerbation-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.homechronicdiseaseresponseinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4368,
+            "length": 18
+          },
+          "index": 0
+        }
+      },
+      {
+        "semantic": "poor-chronic-disease-control-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/poor-chronic-disease-control-bit",
+          "responseKey": "poor-chronic-disease-control-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.homechronicdiseaseresponseinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4368,
+            "length": 18
+          },
+          "index": 1
+        }
+      },
+      {
+        "semantic": "borderline-chronic-disease-control-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/borderline-chronic-disease-control-bit",
+          "responseKey": "borderline-chronic-disease-control-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.homechronicdiseaseresponseinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4368,
+            "length": 18
+          },
+          "index": 2
+        }
+      },
+      {
+        "semantic": "disease-controlled-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/disease-controlled-bit",
+          "responseKey": "disease-controlled-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.homechronicdiseaseresponseinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4368,
+            "length": 18
+          },
+          "index": 3
+        }
+      },
+      {
+        "semantic": "medication-adherence-crisis-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/medication-adherence-crisis-bit",
+          "responseKey": "medication-adherence-crisis-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.homechronicdiseaseresponseinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4368,
+            "length": 18
+          },
+          "index": 4
+        }
+      },
+      {
+        "semantic": "medication-cost-barrier-active-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/medication-cost-barrier-active-bit",
+          "responseKey": "medication-cost-barrier-active-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.homechronicdiseaseresponseinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4368,
+            "length": 18
+          },
+          "index": 5
+        }
+      },
+      {
+        "semantic": "partial-medication-adherence-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/partial-medication-adherence-bit",
+          "responseKey": "partial-medication-adherence-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.homechronicdiseaseresponseinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4368,
+            "length": 18
+          },
+          "index": 6
+        }
+      },
+      {
+        "semantic": "medication-managed-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/medication-managed-bit",
+          "responseKey": "medication-managed-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.homechronicdiseaseresponseinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4368,
+            "length": 18
+          },
+          "index": 7
+        }
+      },
+      {
+        "semantic": "critical-transportation-access-failure-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/critical-transportation-access-failure-bit",
+          "responseKey": "critical-transportation-access-failure-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.homechronicdiseaseresponseinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4368,
+            "length": 18
+          },
+          "index": 8
+        }
+      },
+      {
+        "semantic": "appointment-transportation-barrier-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/appointment-transportation-barrier-bit",
+          "responseKey": "appointment-transportation-barrier-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.homechronicdiseaseresponseinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4368,
+            "length": 18
+          },
+          "index": 9
+        }
+      },
+      {
+        "semantic": "transit-dependent-risk-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/transit-dependent-risk-bit",
+          "responseKey": "transit-dependent-risk-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.homechronicdiseaseresponseinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4368,
+            "length": 18
+          },
+          "index": 10
+        }
+      },
+      {
+        "semantic": "transportation-adequate-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/transportation-adequate-bit",
+          "responseKey": "transportation-adequate-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.homechronicdiseaseresponseinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4368,
+            "length": 18
+          },
+          "index": 11
+        }
+      },
+      {
+        "semantic": "food-crisis-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/food-crisis-bit",
+          "responseKey": "food-crisis-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.homechronicdiseaseresponseinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4368,
+            "length": 18
+          },
+          "index": 12
+        }
+      },
+      {
+        "semantic": "food-insecure-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/food-insecure-bit",
+          "responseKey": "food-insecure-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.homechronicdiseaseresponseinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4368,
+            "length": 18
+          },
+          "index": 13
+        }
+      },
+      {
+        "semantic": "food-assistance-needed-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/food-assistance-needed-bit",
+          "responseKey": "food-assistance-needed-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.homechronicdiseaseresponseinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4368,
+            "length": 18
+          },
+          "index": 14
+        }
+      },
+      {
+        "semantic": "food-secure-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/food-secure-bit",
+          "responseKey": "food-secure-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.homechronicdiseaseresponseinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4368,
+            "length": 18
+          },
+          "index": 15
+        }
+      },
+      {
+        "semantic": "below-baseline-activity-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/below-baseline-activity-bit",
+          "responseKey": "below-baseline-activity-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.homechronicdiseaseresponseinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4368,
+            "length": 18
+          },
+          "index": 16
+        }
+      },
+      {
+        "semantic": "sedentary-streak-active-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/sedentary-streak-active-bit",
+          "responseKey": "sedentary-streak-active-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.homechronicdiseaseresponseinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4368,
+            "length": 18
+          },
+          "index": 17
+        }
+      }
+    ]
+  },
+  "diagnostics": {
+    "axisBasis": "inputSemantics",
+    "warnings": [
+      "input axes derived from inputSemantics (no length-matched sensorNormalization)"
+    ],
+    "inputLength": 18,
+    "sequenceCount": 4
+  }
+}

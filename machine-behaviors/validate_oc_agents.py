@@ -42,7 +42,8 @@ SCHEMA_PATH = HERE / "templates" / "oc-agent.schema.json"
 
 
 def _machine_files(cfg: dict[str, Any]) -> list[Path]:
-    return sorted(_abs(cfg["machinesDir"]).glob("*.json"))
+    # rglob so subdirectory corpora (e.g. machines/domains/energy/) are covered
+    return sorted(_abs(cfg["machinesDir"]).rglob("*.json"))
 
 
 def _machine_domain(path: Path) -> str:

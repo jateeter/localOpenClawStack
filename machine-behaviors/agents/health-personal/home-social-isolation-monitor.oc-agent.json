@@ -33,80 +33,80 @@
     "completionSourceMappingId": "acp-home-social-isolation-monitor-input-assessment"
   },
   "reasoning": {
-    "objective": "Produce the machine-native binary integration input vector for \"Home Social Isolation Monitor\" from upstream medication and transportation machine outputs so RE can evaluate its CES sequences.",
-    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Home Social Isolation Monitor\".\n\nOBJECTIVE\nTransform upstream machine outputs into the eight machine-native binary inputs consumed by Home Social Isolation Monitor. This agent does not infer social isolation from raw prose alone. It projects the Medication Cost Barrier and Transportation Barrier output bits into PE region [2011:2019], then RE evaluates the social-isolation CES deterministically.\n\nNARRATIVE ACTIVATION\nIn the patient-safety transport example, transportation emits CRITICAL_ACCESS_FAILURE while medication access remains managed. The PE-visible vector for this machine is medication bits [0,0,0,1] followed by transportation bits [1,0,0,0]. This gives HomeSocialIsolationMonitor[2011:2019]=[0,0,0,1,1,0,0,0]. RE then emits the social-context output used by the published patient-safety transport bus.\n\nINPUT AXES (return machine-native 0/1 bits):\n- medication-adherence-crisis-bit (index 0): 1=complete medication non-adherence due to cost barrier\n- medication-cost-barrier-active-bit (index 1): 1=cost barrier still active\n- partial-medication-adherence-bit (index 2): 1=medication access fragile\n- medication-managed-bit (index 3): 1=prescription access and adherence adequate\n- transport-critical-access-failure-bit (index 4): 1=critical care access failed due to transportation\n- transport-appointment-barrier-bit (index 5): 1=appointments are being missed due to transportation\n- transport-transit-dependent-risk-bit (index 6): 1=care access depends on fragile transit or ride program\n- transportation-adequate-bit (index 7): 1=transportation access adequate\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- SEVERE_ISOLATION (RED) -> action: Emergency home visit; welfare check; emergency medication delivery; NEMT enrollment; adult protective services consideration\n- ISOLATION_RISK (AMBER) -> action: Proactive home visitor contact; multi-barrier resolution plan; phone/telehealth setup; community resource navigator\n- SOCIALLY_CONNECTED (GREEN) -> action: No isolation intervention required; continue monitoring",
-    "outputContract": "Return one structured line per input axis as `<axis_key>: <0|1>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
+    "objective": "Produce the normalized input vector for \"Home Social Isolation Monitor\" from current observations so RE can evaluate its CES sequences.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Home Social Isolation Monitor\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Integration machine that reads combined output signals from the Home Medication Cost Barrier Monitor [2011:2015] and the Home Transportation Barrier Monitor [2015:2019] to detect social isolation driven by access barriers. For low- and medium-income adults managing chronic conditions at home, the combination of medication cost barriers and transportation failures systematically restricts social participation, community connection, and human contact \u2014 accelerating depression, cognitive decline, and self-neglect. Output at [2035:2039] is available to downstream care coordination systems.\n\nPOPULATION: Home-bound adults managing chronic illness; elderly patients without transportation; low-income adults in medication or transport deserts\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- medication-adherence-crisis-bit (index 0):\n- medication-cost-barrier-active-bit (index 1):\n- medication-access-risk-bit (index 2):\n- medication-managed-bit (index 3):\n- transport-critical-access-failure-bit (index 4):\n- transport-appointment-barrier-bit (index 5):\n- transport-dependent-risk-bit (index 6):\n- transportation-adequate-bit (index 7):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- SEVERE_ISOLATION (RED) -> action: Emergency home visit; welfare check; emergency medication delivery; NEMT enrollment; adult protective services consideration\n- ISOLATION_RISK (AMBER) -> action: Proactive home visitor contact; multi-barrier resolution plan; phone/telehealth setup; community resource navigator\n- SOCIALLY_CONNECTED (GREEN) -> action: No isolation intervention required; continue monitoring",
+    "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
     "inputAxes": [
       {
         "index": 0,
         "key": "medication-adherence-crisis-bit",
         "anchors": {
-          "low": "0=no adherence crisis",
-          "mid": "1=upstream Medication Cost Barrier emitted ADHERENCE_CRISIS",
-          "high": "1=complete medication non-adherence due to cost barrier"
+          "low": "",
+          "mid": "",
+          "high": ""
         }
       },
       {
         "index": 1,
         "key": "medication-cost-barrier-active-bit",
         "anchors": {
-          "low": "0=no active cost barrier",
-          "mid": "1=upstream Medication Cost Barrier emitted COST_BARRIER_ACTIVE",
-          "high": "1=cost barrier still active"
+          "low": "",
+          "mid": "",
+          "high": ""
         }
       },
       {
         "index": 2,
-        "key": "partial-medication-adherence-bit",
+        "key": "medication-access-risk-bit",
         "anchors": {
-          "low": "0=no partial-adherence warning",
-          "mid": "1=partial adherence/rationing present",
-          "high": "1=medication access fragile"
+          "low": "",
+          "mid": "",
+          "high": ""
         }
       },
       {
         "index": 3,
         "key": "medication-managed-bit",
         "anchors": {
-          "low": "0=medication access unresolved",
-          "mid": "1=upstream Medication Cost Barrier emitted MEDICATION_MANAGED",
-          "high": "1=prescription access and adherence adequate"
+          "low": "",
+          "mid": "",
+          "high": ""
         }
       },
       {
         "index": 4,
         "key": "transport-critical-access-failure-bit",
         "anchors": {
-          "low": "0=no critical transport failure",
-          "mid": "1=upstream Transportation Barrier emitted CRITICAL_ACCESS_FAILURE",
-          "high": "1=critical care access failed due to transportation"
+          "low": "",
+          "mid": "",
+          "high": ""
         }
       },
       {
         "index": 5,
         "key": "transport-appointment-barrier-bit",
         "anchors": {
-          "low": "0=no appointment attendance barrier",
-          "mid": "1=appointment barrier present",
-          "high": "1=appointments are being missed due to transportation"
+          "low": "",
+          "mid": "",
+          "high": ""
         }
       },
       {
         "index": 6,
-        "key": "transport-transit-dependent-risk-bit",
+        "key": "transport-dependent-risk-bit",
         "anchors": {
-          "low": "0=no fragile transit dependency",
-          "mid": "1=upstream Transportation Barrier emitted TRANSIT_DEPENDENT_RISK",
-          "high": "1=care access depends on fragile transit or ride program"
+          "low": "",
+          "mid": "",
+          "high": ""
         }
       },
       {
         "index": 7,
         "key": "transportation-adequate-bit",
         "anchors": {
-          "low": "0=transportation unresolved",
-          "mid": "1=upstream Transportation Barrier emitted TRANSPORTATION_ADEQUATE",
-          "high": "1=transportation access adequate"
+          "low": "",
+          "mid": "",
+          "high": ""
         }
       }
     ],
@@ -139,7 +139,7 @@
     "mode": "advise",
     "trigger": "homesocialisolationmonitor-input-assessment",
     "allowedActions": [
-      "Project upstream medication and transportation machine outputs into the machine-native binary PE input region [2011:2019] for RE to evaluate Home Social Isolation Monitor."
+      "Assess current \"Home Social Isolation Monitor\" state from available observations and write the normalized input vector to the PE input region [2011:2019] for RE to evaluate."
     ],
     "writeBack": {
       "type": "pe-sensor",
@@ -153,15 +153,15 @@
       "semantics": [
         "medication-adherence-crisis-bit",
         "medication-cost-barrier-active-bit",
-        "partial-medication-adherence-bit",
+        "medication-access-risk-bit",
         "medication-managed-bit",
         "transport-critical-access-failure-bit",
         "transport-appointment-barrier-bit",
-        "transport-transit-dependent-risk-bit",
+        "transport-dependent-risk-bit",
         "transportation-adequate-bit"
       ],
       "ttlMs": 300000,
-      "normalization": "machine-native-binary",
+      "normalization": "already-normalized-0-1",
       "ingest": {
         "endpoint": "/api/integrations/completions",
         "method": "POST",
@@ -204,28 +204,36 @@
     "fields": [
       {
         "semantic": "medication-adherence-crisis-bit",
-        "valueType": "binary",
-        "normalization": "machine-native-binary",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
         "extract": {
           "jsonPointer": "/medication-adherence-crisis-bit",
           "responseKey": "medication-adherence-crisis-bit",
           "textFallback": {
-            "type": "enum-keyword",
-            "default": 0,
-            "keywords": {
-              "yes": 1,
-              "true": 1,
-              "active": 1,
-              "present": 1,
-              "critical": 1,
-              "managed": 1,
-              "adequate": 1,
-              "no": 0,
-              "false": 0,
-              "inactive": 0,
-              "absent": 0,
-              "none": 0
-            }
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
           }
         },
         "target": {
@@ -239,28 +247,36 @@
       },
       {
         "semantic": "medication-cost-barrier-active-bit",
-        "valueType": "binary",
-        "normalization": "machine-native-binary",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
         "extract": {
           "jsonPointer": "/medication-cost-barrier-active-bit",
           "responseKey": "medication-cost-barrier-active-bit",
           "textFallback": {
-            "type": "enum-keyword",
-            "default": 0,
-            "keywords": {
-              "yes": 1,
-              "true": 1,
-              "active": 1,
-              "present": 1,
-              "critical": 1,
-              "managed": 1,
-              "adequate": 1,
-              "no": 0,
-              "false": 0,
-              "inactive": 0,
-              "absent": 0,
-              "none": 0
-            }
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
           }
         },
         "target": {
@@ -273,29 +289,37 @@
         }
       },
       {
-        "semantic": "partial-medication-adherence-bit",
-        "valueType": "binary",
-        "normalization": "machine-native-binary",
+        "semantic": "medication-access-risk-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/partial-medication-adherence-bit",
-          "responseKey": "partial-medication-adherence-bit",
+          "jsonPointer": "/medication-access-risk-bit",
+          "responseKey": "medication-access-risk-bit",
           "textFallback": {
-            "type": "enum-keyword",
-            "default": 0,
-            "keywords": {
-              "yes": 1,
-              "true": 1,
-              "active": 1,
-              "present": 1,
-              "critical": 1,
-              "managed": 1,
-              "adequate": 1,
-              "no": 0,
-              "false": 0,
-              "inactive": 0,
-              "absent": 0,
-              "none": 0
-            }
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
           }
         },
         "target": {
@@ -309,28 +333,36 @@
       },
       {
         "semantic": "medication-managed-bit",
-        "valueType": "binary",
-        "normalization": "machine-native-binary",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
         "extract": {
           "jsonPointer": "/medication-managed-bit",
           "responseKey": "medication-managed-bit",
           "textFallback": {
-            "type": "enum-keyword",
-            "default": 0,
-            "keywords": {
-              "yes": 1,
-              "true": 1,
-              "active": 1,
-              "present": 1,
-              "critical": 1,
-              "managed": 1,
-              "adequate": 1,
-              "no": 0,
-              "false": 0,
-              "inactive": 0,
-              "absent": 0,
-              "none": 0
-            }
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
           }
         },
         "target": {
@@ -344,28 +376,36 @@
       },
       {
         "semantic": "transport-critical-access-failure-bit",
-        "valueType": "binary",
-        "normalization": "machine-native-binary",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
         "extract": {
           "jsonPointer": "/transport-critical-access-failure-bit",
           "responseKey": "transport-critical-access-failure-bit",
           "textFallback": {
-            "type": "enum-keyword",
-            "default": 0,
-            "keywords": {
-              "yes": 1,
-              "true": 1,
-              "active": 1,
-              "present": 1,
-              "critical": 1,
-              "managed": 1,
-              "adequate": 1,
-              "no": 0,
-              "false": 0,
-              "inactive": 0,
-              "absent": 0,
-              "none": 0
-            }
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
           }
         },
         "target": {
@@ -379,28 +419,36 @@
       },
       {
         "semantic": "transport-appointment-barrier-bit",
-        "valueType": "binary",
-        "normalization": "machine-native-binary",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
         "extract": {
           "jsonPointer": "/transport-appointment-barrier-bit",
           "responseKey": "transport-appointment-barrier-bit",
           "textFallback": {
-            "type": "enum-keyword",
-            "default": 0,
-            "keywords": {
-              "yes": 1,
-              "true": 1,
-              "active": 1,
-              "present": 1,
-              "critical": 1,
-              "managed": 1,
-              "adequate": 1,
-              "no": 0,
-              "false": 0,
-              "inactive": 0,
-              "absent": 0,
-              "none": 0
-            }
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
           }
         },
         "target": {
@@ -413,29 +461,37 @@
         }
       },
       {
-        "semantic": "transport-transit-dependent-risk-bit",
-        "valueType": "binary",
-        "normalization": "machine-native-binary",
+        "semantic": "transport-dependent-risk-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/transport-transit-dependent-risk-bit",
-          "responseKey": "transport-transit-dependent-risk-bit",
+          "jsonPointer": "/transport-dependent-risk-bit",
+          "responseKey": "transport-dependent-risk-bit",
           "textFallback": {
-            "type": "enum-keyword",
-            "default": 0,
-            "keywords": {
-              "yes": 1,
-              "true": 1,
-              "active": 1,
-              "present": 1,
-              "critical": 1,
-              "managed": 1,
-              "adequate": 1,
-              "no": 0,
-              "false": 0,
-              "inactive": 0,
-              "absent": 0,
-              "none": 0
-            }
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
           }
         },
         "target": {
@@ -449,28 +505,36 @@
       },
       {
         "semantic": "transportation-adequate-bit",
-        "valueType": "binary",
-        "normalization": "machine-native-binary",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
         "extract": {
           "jsonPointer": "/transportation-adequate-bit",
           "responseKey": "transportation-adequate-bit",
           "textFallback": {
-            "type": "enum-keyword",
-            "default": 0,
-            "keywords": {
-              "yes": 1,
-              "true": 1,
-              "active": 1,
-              "present": 1,
-              "critical": 1,
-              "managed": 1,
-              "adequate": 1,
-              "no": 0,
-              "false": 0,
-              "inactive": 0,
-              "absent": 0,
-              "none": 0
-            }
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
           }
         },
         "target": {
@@ -485,25 +549,11 @@
     ]
   },
   "diagnostics": {
-    "axisBasis": "upstreamOutputSemantics",
-    "warnings": [],
+    "axisBasis": "inputSemantics",
+    "warnings": [
+      "input axes derived from inputSemantics (no length-matched sensorNormalization)"
+    ],
     "inputLength": 8,
-    "sequenceCount": 3,
-    "upstreamOutputRegions": [
-      {
-        "machine": "HomeMedicationCostBarrierMonitor",
-        "region": {
-          "offset": 2011,
-          "length": 4
-        }
-      },
-      {
-        "machine": "HomeTransportationBarrierMonitor",
-        "region": {
-          "offset": 2015,
-          "length": 4
-        }
-      }
-    ]
+    "sequenceCount": 3
   }
 }

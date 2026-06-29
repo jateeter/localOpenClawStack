@@ -1,0 +1,1096 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "oc-agent-template",
+  "role": "input-analyst",
+  "agentId": "facilities-maintenance-response-interconnect",
+  "displayName": "Facilities Maintenance Response Interconnect",
+  "machine": {
+    "id": "FacilitiesMaintenanceResponseInterconnect",
+    "name": "Facilities Maintenance Response Interconnect",
+    "code": "facilitiesmaintenanceresponseinterconnect",
+    "machineClass": "bridge",
+    "domain": "health-personal",
+    "inputRegion": {
+      "offset": 4502,
+      "length": 18
+    },
+    "outputRegion": {
+      "offset": 4520,
+      "length": 4
+    }
+  },
+  "openclaw": {
+    "id": "openclaw-xacp",
+    "kind": "acp",
+    "platform": "OpenClaw",
+    "surface": "xACP",
+    "command": "openclaw acp",
+    "gatewayUrl": "ws://127.0.0.1:18789",
+    "sessionKey": "agent:main:main",
+    "targetAgent": "facilities-maintenance-response-interconnect",
+    "dispatchMode": "accepted-no-wait",
+    "completionMode": "pe-source-mapping",
+    "completionSourceMappingId": "acp-facilities-maintenance-response-interconnect-input-assessment"
+  },
+  "reasoning": {
+    "objective": "Produce the normalized input vector for \"Facilities Maintenance Response Interconnect\" from current observations so RE can evaluate its CES sequences.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Facilities Maintenance Response Interconnect\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Published personal-health bridge bus that composes facilities maintenance observations, environment safety, food access, transportation access, social isolation, daily care anomalies, and wellness escalation into a compact facilities response lane. PE owns source composition and writes the compact input lane; RE evaluates this machine as ordinary vector state.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- facilities-daily-complete-bit (index 0):\n- facilities-weekly-complete-bit (index 1):\n- facilities-hygiene-alert-bit (index 2):\n- facilities-safety-alert-bit (index 3):\n- facilities-wellness-concern-bit (index 4):\n- facilities-inaccessibility-alert-bit (index 5):\n- environment-unsafe-housing-bit (index 6):\n- environment-utility-failure-bit (index 7):\n- environment-health-hazard-risk-bit (index 8):\n- food-crisis-bit (index 9):\n- food-insecure-bit (index 10):\n- food-assistance-needed-bit (index 11):\n- transport-critical-access-failure-bit (index 12):\n- transport-appointment-barrier-bit (index 13):\n- severe-social-isolation-bit (index 14):\n- daily-care-unresponsive-fall-bit (index 15):\n- daily-care-bathroom-alert-bit (index 16):\n- wellness-transition-urgent-or-escalated-bit (index 17):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- IMMEDIATE_WELFARE_CHECK (RED) -> action: Route welfare check, care coordination, emergency escalation, transport support, and governance review.\n- ENVIRONMENT_REMEDIATION_RESPONSE (AMBER) -> action: Route maintenance remediation, housing utility support, safety review, and care visit preparation.\n- SERVICE_ACCESS_STABILIZATION (AMBER) -> action: Route nutrition assistance, transportation support, social connection review, and care coordination.\n- ROUTINE_MAINTENANCE_COMPLETE (GREEN) -> action: Record routine maintenance completion and keep monitoring at baseline cadence.",
+    "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
+    "inputAxes": [
+      {
+        "index": 0,
+        "key": "facilities-daily-complete-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 1,
+        "key": "facilities-weekly-complete-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 2,
+        "key": "facilities-hygiene-alert-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 3,
+        "key": "facilities-safety-alert-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 4,
+        "key": "facilities-wellness-concern-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 5,
+        "key": "facilities-inaccessibility-alert-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 6,
+        "key": "environment-unsafe-housing-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 7,
+        "key": "environment-utility-failure-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 8,
+        "key": "environment-health-hazard-risk-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 9,
+        "key": "food-crisis-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 10,
+        "key": "food-insecure-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 11,
+        "key": "food-assistance-needed-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 12,
+        "key": "transport-critical-access-failure-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 13,
+        "key": "transport-appointment-barrier-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 14,
+        "key": "severe-social-isolation-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 15,
+        "key": "daily-care-unresponsive-fall-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 16,
+        "key": "daily-care-bathroom-alert-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 17,
+        "key": "wellness-transition-urgent-or-escalated-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      }
+    ],
+    "sequenceCatalog": [
+      {
+        "sequenceId": "facilities-maintenance-immediate-welfare-check",
+        "label": "IMMEDIATE_WELFARE_CHECK",
+        "rag": "RED",
+        "outputIndex": 0,
+        "action": "Route welfare check, care coordination, emergency escalation, transport support, and governance review."
+      },
+      {
+        "sequenceId": "facilities-maintenance-environment-remediation",
+        "label": "ENVIRONMENT_REMEDIATION_RESPONSE",
+        "rag": "AMBER",
+        "outputIndex": 1,
+        "action": "Route maintenance remediation, housing utility support, safety review, and care visit preparation."
+      },
+      {
+        "sequenceId": "facilities-maintenance-service-access-stabilization",
+        "label": "SERVICE_ACCESS_STABILIZATION",
+        "rag": "AMBER",
+        "outputIndex": 2,
+        "action": "Route nutrition assistance, transportation support, social connection review, and care coordination."
+      },
+      {
+        "sequenceId": "facilities-maintenance-routine-complete",
+        "label": "ROUTINE_MAINTENANCE_COMPLETE",
+        "rag": "GREEN",
+        "outputIndex": 3,
+        "action": "Record routine maintenance completion and keep monitoring at baseline cadence."
+      }
+    ]
+  },
+  "agentBinding": {
+    "agent": "facilities-maintenance-response-interconnect",
+    "mode": "advise",
+    "trigger": "facilitiesmaintenanceresponseinterconnect-input-assessment",
+    "allowedActions": [
+      "Assess current \"Facilities Maintenance Response Interconnect\" state from available observations and write the normalized input vector to the PE input region [4502:4520] for RE to evaluate."
+    ],
+    "writeBack": {
+      "type": "pe-sensor",
+      "provider": "acp",
+      "sensorId": "acp.openclaw.facilitiesmaintenanceresponseinterconnect.input-analyst.assessment",
+      "name": "OpenClaw facilitiesmaintenanceresponseinterconnect input-analyst assessment",
+      "region": {
+        "offset": 4502,
+        "length": 18
+      },
+      "semantics": [
+        "facilities-daily-complete-bit",
+        "facilities-weekly-complete-bit",
+        "facilities-hygiene-alert-bit",
+        "facilities-safety-alert-bit",
+        "facilities-wellness-concern-bit",
+        "facilities-inaccessibility-alert-bit",
+        "environment-unsafe-housing-bit",
+        "environment-utility-failure-bit",
+        "environment-health-hazard-risk-bit",
+        "food-crisis-bit",
+        "food-insecure-bit",
+        "food-assistance-needed-bit",
+        "transport-critical-access-failure-bit",
+        "transport-appointment-barrier-bit",
+        "severe-social-isolation-bit",
+        "daily-care-unresponsive-fall-bit",
+        "daily-care-bathroom-alert-bit",
+        "wellness-transition-urgent-or-escalated-bit"
+      ],
+      "ttlMs": 300000,
+      "normalization": "already-normalized-0-1",
+      "ingest": {
+        "endpoint": "/api/integrations/completions",
+        "method": "POST",
+        "triggerPush": false,
+        "compactPush": true
+      },
+      "sourceMapping": {
+        "id": "acp-facilitiesmaintenanceresponseinterconnect-input-assessment",
+        "sensorId": "acp.openclaw.facilitiesmaintenanceresponseinterconnect.input-analyst.assessment",
+        "name": "OpenClaw facilitiesmaintenanceresponseinterconnect input-analyst assessment",
+        "region": {
+          "offset": 4502,
+          "length": 18
+        },
+        "ttlMs": 300000
+      }
+    },
+    "autonomyPolicy": {
+      "mode": "advise",
+      "stage": 1,
+      "writeBackType": "pe-sensor",
+      "canWriteBack": true,
+      "canStageActions": false,
+      "canExecuteActions": false,
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "blockedWhenRag": []
+    },
+    "riskControls": {
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "maxAutonomy": "advise",
+      "blockedWhenRag": []
+    }
+  },
+  "responseMapping": {
+    "schemaVersion": "1.0.0",
+    "responseContract": "structured-keys-or-text",
+    "mode": "advise",
+    "fields": [
+      {
+        "semantic": "facilities-daily-complete-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/facilities-daily-complete-bit",
+          "responseKey": "facilities-daily-complete-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.facilitiesmaintenanceresponseinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4502,
+            "length": 18
+          },
+          "index": 0
+        }
+      },
+      {
+        "semantic": "facilities-weekly-complete-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/facilities-weekly-complete-bit",
+          "responseKey": "facilities-weekly-complete-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.facilitiesmaintenanceresponseinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4502,
+            "length": 18
+          },
+          "index": 1
+        }
+      },
+      {
+        "semantic": "facilities-hygiene-alert-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/facilities-hygiene-alert-bit",
+          "responseKey": "facilities-hygiene-alert-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.facilitiesmaintenanceresponseinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4502,
+            "length": 18
+          },
+          "index": 2
+        }
+      },
+      {
+        "semantic": "facilities-safety-alert-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/facilities-safety-alert-bit",
+          "responseKey": "facilities-safety-alert-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.facilitiesmaintenanceresponseinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4502,
+            "length": 18
+          },
+          "index": 3
+        }
+      },
+      {
+        "semantic": "facilities-wellness-concern-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/facilities-wellness-concern-bit",
+          "responseKey": "facilities-wellness-concern-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.facilitiesmaintenanceresponseinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4502,
+            "length": 18
+          },
+          "index": 4
+        }
+      },
+      {
+        "semantic": "facilities-inaccessibility-alert-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/facilities-inaccessibility-alert-bit",
+          "responseKey": "facilities-inaccessibility-alert-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.facilitiesmaintenanceresponseinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4502,
+            "length": 18
+          },
+          "index": 5
+        }
+      },
+      {
+        "semantic": "environment-unsafe-housing-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/environment-unsafe-housing-bit",
+          "responseKey": "environment-unsafe-housing-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.facilitiesmaintenanceresponseinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4502,
+            "length": 18
+          },
+          "index": 6
+        }
+      },
+      {
+        "semantic": "environment-utility-failure-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/environment-utility-failure-bit",
+          "responseKey": "environment-utility-failure-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.facilitiesmaintenanceresponseinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4502,
+            "length": 18
+          },
+          "index": 7
+        }
+      },
+      {
+        "semantic": "environment-health-hazard-risk-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/environment-health-hazard-risk-bit",
+          "responseKey": "environment-health-hazard-risk-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.facilitiesmaintenanceresponseinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4502,
+            "length": 18
+          },
+          "index": 8
+        }
+      },
+      {
+        "semantic": "food-crisis-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/food-crisis-bit",
+          "responseKey": "food-crisis-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.facilitiesmaintenanceresponseinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4502,
+            "length": 18
+          },
+          "index": 9
+        }
+      },
+      {
+        "semantic": "food-insecure-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/food-insecure-bit",
+          "responseKey": "food-insecure-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.facilitiesmaintenanceresponseinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4502,
+            "length": 18
+          },
+          "index": 10
+        }
+      },
+      {
+        "semantic": "food-assistance-needed-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/food-assistance-needed-bit",
+          "responseKey": "food-assistance-needed-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.facilitiesmaintenanceresponseinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4502,
+            "length": 18
+          },
+          "index": 11
+        }
+      },
+      {
+        "semantic": "transport-critical-access-failure-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/transport-critical-access-failure-bit",
+          "responseKey": "transport-critical-access-failure-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.facilitiesmaintenanceresponseinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4502,
+            "length": 18
+          },
+          "index": 12
+        }
+      },
+      {
+        "semantic": "transport-appointment-barrier-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/transport-appointment-barrier-bit",
+          "responseKey": "transport-appointment-barrier-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.facilitiesmaintenanceresponseinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4502,
+            "length": 18
+          },
+          "index": 13
+        }
+      },
+      {
+        "semantic": "severe-social-isolation-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/severe-social-isolation-bit",
+          "responseKey": "severe-social-isolation-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.facilitiesmaintenanceresponseinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4502,
+            "length": 18
+          },
+          "index": 14
+        }
+      },
+      {
+        "semantic": "daily-care-unresponsive-fall-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/daily-care-unresponsive-fall-bit",
+          "responseKey": "daily-care-unresponsive-fall-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.facilitiesmaintenanceresponseinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4502,
+            "length": 18
+          },
+          "index": 15
+        }
+      },
+      {
+        "semantic": "daily-care-bathroom-alert-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/daily-care-bathroom-alert-bit",
+          "responseKey": "daily-care-bathroom-alert-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.facilitiesmaintenanceresponseinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4502,
+            "length": 18
+          },
+          "index": 16
+        }
+      },
+      {
+        "semantic": "wellness-transition-urgent-or-escalated-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/wellness-transition-urgent-or-escalated-bit",
+          "responseKey": "wellness-transition-urgent-or-escalated-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.facilitiesmaintenanceresponseinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4502,
+            "length": 18
+          },
+          "index": 17
+        }
+      }
+    ]
+  },
+  "diagnostics": {
+    "axisBasis": "inputSemantics",
+    "warnings": [
+      "input axes derived from inputSemantics (no length-matched sensorNormalization)"
+    ],
+    "inputLength": 18,
+    "sequenceCount": 4
+  }
+}

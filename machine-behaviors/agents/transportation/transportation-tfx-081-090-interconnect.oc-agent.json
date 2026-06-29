@@ -1,0 +1,1732 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "oc-agent-template",
+  "role": "input-analyst",
+  "agentId": "transportation-tfx-081-090-interconnect",
+  "displayName": "Transportation TFX-081-090 Interconnect",
+  "machine": {
+    "id": "TransportationTfx081090Interconnect",
+    "name": "Transportation TFX-081-090 Interconnect",
+    "code": "transportationtfx081090interconnect",
+    "machineClass": "bridge",
+    "domain": "transportation",
+    "inputRegion": {
+      "offset": 16272,
+      "length": 30
+    },
+    "outputRegion": {
+      "offset": 16302,
+      "length": 4
+    }
+  },
+  "openclaw": {
+    "id": "openclaw-xacp",
+    "kind": "acp",
+    "platform": "OpenClaw",
+    "surface": "xACP",
+    "command": "openclaw acp",
+    "gatewayUrl": "ws://127.0.0.1:18789",
+    "sessionKey": "agent:main:main",
+    "targetAgent": "transportation-tfx-081-090-interconnect",
+    "dispatchMode": "accepted-no-wait",
+    "completionMode": "pe-source-mapping",
+    "completionSourceMappingId": "acp-transportation-tfx-081-090-interconnect-input-assessment"
+  },
+  "reasoning": {
+    "objective": "Produce the normalized input vector for \"Transportation TFX-081-090 Interconnect\" from current observations so RE can evaluate its CES sequences.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Transportation TFX-081-090 Interconnect\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Published transportation bridge bus that composes Transportation TFX-081-090 into a compact domain family response lane. PE owns source composition and writes the compact input lane; RE evaluates this machine as ordinary vector state.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- transportation-fleet-workforce-operations-operator-availability-active-output-0-bit (index 0):\n- transportation-fleet-workforce-operations-operator-availability-active-output-1-bit (index 1):\n- transportation-fleet-workforce-operations-operator-availability-active-output-2-bit (index 2):\n- transportation-fleet-workforce-operations-fatigue-risk-monitor-active-output-0-bit (index 3):\n- transportation-fleet-workforce-operations-fatigue-risk-monitor-active-output-1-bit (index 4):\n- transportation-fleet-workforce-operations-fatigue-risk-monitor-active-output-2-bit (index 5):\n- transportation-fleet-workforce-operations-training-certification-monitor-active-output-0-bit (index 6):\n- transportation-fleet-workforce-operations-training-certification-monitor-active-output-1-bit (index 7):\n- transportation-fleet-workforce-operations-training-certification-monitor-active-output-2-bit (index 8):\n- transportation-fleet-workforce-operations-mechanic-skill-routing-active-output-0-bit (index 9):\n- transportation-fleet-workforce-operations-mechanic-skill-routing-active-output-1-bit (index 10):\n- transportation-fleet-workforce-operations-mechanic-skill-routing-active-output-2-bit (index 11):\n- transportation-fleet-workforce-operations-cleaning-crew-coverage-active-output-0-bit (index 12):\n- transportation-fleet-workforce-operations-cleaning-crew-coverage-active-output-1-bit (index 13):\n- transportation-fleet-workforce-operations-cleaning-crew-coverage-active-output-2-bit (index 14):\n- transportation-fleet-workforce-operations-supervisor-field-coverage-active-output-0-bit (index 15):\n- transportation-fleet-workforce-operations-supervisor-field-coverage-active-output-1-bit (index 16):\n- transportation-fleet-workforce-operations-supervisor-field-coverage-active-output-2-bit (index 17):\n- transportation-fleet-workforce-operations-labor-rule-compliance-active-output-0-bit (index 18):\n- transportation-fleet-workforce-operations-labor-rule-compliance-active-output-1-bit (index 19):\n- transportation-fleet-workforce-operations-labor-rule-compliance-active-output-2-bit (index 20):\n- transportation-fleet-workforce-operations-operator-communications-active-output-0-bit (index 21):\n- transportation-fleet-workforce-operations-operator-communications-active-output-1-bit (index 22):\n- transportation-fleet-workforce-operations-operator-communications-active-output-2-bit (index 23):\n- transportation-fleet-workforce-operations-shift-handoff-integrity-active-output-0-bit (index 24):\n- transportation-fleet-workforce-operations-shift-handoff-integrity-active-output-1-bit (index 25):\n- transportation-fleet-workforce-operations-shift-handoff-integrity-active-output-2-bit (index 26):\n- transportation-fleet-workforce-operations-workforce-executive-risk-active-output-0-bit (index 27):\n- transportation-fleet-workforce-operations-workforce-executive-risk-active-output-1-bit (index 28):\n- transportation-fleet-workforce-operations-workforce-executive-risk-active-output-2-bit (index 29):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Transportation TFX-081-090 domain family review at [16302 (RED) -> action: Route domain family review, escalation, and resolver summary.\n- Transportation TFX-081-090 domain family optimization at [16302 (AMBER) -> action: Route domain family optimization or plan adjustment.\n- Transportation TFX-081-090 domain family monitoring at [16302 (AMBER) -> action: Route monitoring, evidence, or data-quality follow-up.\n- Transportation TFX-081-090 domain family stable at [16302 (GREEN) -> action: Record stable family state and keep baseline cadence.",
+    "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
+    "inputAxes": [
+      {
+        "index": 0,
+        "key": "transportation-fleet-workforce-operations-operator-availability-active-output-0-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 1,
+        "key": "transportation-fleet-workforce-operations-operator-availability-active-output-1-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 2,
+        "key": "transportation-fleet-workforce-operations-operator-availability-active-output-2-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 3,
+        "key": "transportation-fleet-workforce-operations-fatigue-risk-monitor-active-output-0-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 4,
+        "key": "transportation-fleet-workforce-operations-fatigue-risk-monitor-active-output-1-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 5,
+        "key": "transportation-fleet-workforce-operations-fatigue-risk-monitor-active-output-2-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 6,
+        "key": "transportation-fleet-workforce-operations-training-certification-monitor-active-output-0-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 7,
+        "key": "transportation-fleet-workforce-operations-training-certification-monitor-active-output-1-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 8,
+        "key": "transportation-fleet-workforce-operations-training-certification-monitor-active-output-2-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 9,
+        "key": "transportation-fleet-workforce-operations-mechanic-skill-routing-active-output-0-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 10,
+        "key": "transportation-fleet-workforce-operations-mechanic-skill-routing-active-output-1-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 11,
+        "key": "transportation-fleet-workforce-operations-mechanic-skill-routing-active-output-2-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 12,
+        "key": "transportation-fleet-workforce-operations-cleaning-crew-coverage-active-output-0-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 13,
+        "key": "transportation-fleet-workforce-operations-cleaning-crew-coverage-active-output-1-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 14,
+        "key": "transportation-fleet-workforce-operations-cleaning-crew-coverage-active-output-2-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 15,
+        "key": "transportation-fleet-workforce-operations-supervisor-field-coverage-active-output-0-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 16,
+        "key": "transportation-fleet-workforce-operations-supervisor-field-coverage-active-output-1-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 17,
+        "key": "transportation-fleet-workforce-operations-supervisor-field-coverage-active-output-2-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 18,
+        "key": "transportation-fleet-workforce-operations-labor-rule-compliance-active-output-0-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 19,
+        "key": "transportation-fleet-workforce-operations-labor-rule-compliance-active-output-1-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 20,
+        "key": "transportation-fleet-workforce-operations-labor-rule-compliance-active-output-2-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 21,
+        "key": "transportation-fleet-workforce-operations-operator-communications-active-output-0-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 22,
+        "key": "transportation-fleet-workforce-operations-operator-communications-active-output-1-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 23,
+        "key": "transportation-fleet-workforce-operations-operator-communications-active-output-2-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 24,
+        "key": "transportation-fleet-workforce-operations-shift-handoff-integrity-active-output-0-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 25,
+        "key": "transportation-fleet-workforce-operations-shift-handoff-integrity-active-output-1-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 26,
+        "key": "transportation-fleet-workforce-operations-shift-handoff-integrity-active-output-2-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 27,
+        "key": "transportation-fleet-workforce-operations-workforce-executive-risk-active-output-0-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 28,
+        "key": "transportation-fleet-workforce-operations-workforce-executive-risk-active-output-1-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 29,
+        "key": "transportation-fleet-workforce-operations-workforce-executive-risk-active-output-2-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      }
+    ],
+    "sequenceCatalog": [
+      {
+        "sequenceId": "tfx-081-090-domain-family-review",
+        "label": "Transportation TFX-081-090 domain family review at [16302",
+        "rag": "RED",
+        "outputIndex": 0,
+        "action": "Route domain family review, escalation, and resolver summary."
+      },
+      {
+        "sequenceId": "tfx-081-090-domain-family-optimization",
+        "label": "Transportation TFX-081-090 domain family optimization at [16302",
+        "rag": "AMBER",
+        "outputIndex": 1,
+        "action": "Route domain family optimization or plan adjustment."
+      },
+      {
+        "sequenceId": "tfx-081-090-domain-family-monitoring",
+        "label": "Transportation TFX-081-090 domain family monitoring at [16302",
+        "rag": "AMBER",
+        "outputIndex": 2,
+        "action": "Route monitoring, evidence, or data-quality follow-up."
+      },
+      {
+        "sequenceId": "tfx-081-090-domain-family-stable",
+        "label": "Transportation TFX-081-090 domain family stable at [16302",
+        "rag": "GREEN",
+        "outputIndex": 3,
+        "action": "Record stable family state and keep baseline cadence."
+      }
+    ]
+  },
+  "agentBinding": {
+    "agent": "transportation-tfx-081-090-interconnect",
+    "mode": "advise",
+    "trigger": "transportationtfx081090interconnect-input-assessment",
+    "allowedActions": [
+      "Assess current \"Transportation TFX-081-090 Interconnect\" state from available observations and write the normalized input vector to the PE input region [16272:16302] for RE to evaluate."
+    ],
+    "writeBack": {
+      "type": "pe-sensor",
+      "provider": "acp",
+      "sensorId": "acp.openclaw.transportationtfx081090interconnect.input-analyst.assessment",
+      "name": "OpenClaw transportationtfx081090interconnect input-analyst assessment",
+      "region": {
+        "offset": 16272,
+        "length": 30
+      },
+      "semantics": [
+        "transportation-fleet-workforce-operations-operator-availability-active-output-0-bit",
+        "transportation-fleet-workforce-operations-operator-availability-active-output-1-bit",
+        "transportation-fleet-workforce-operations-operator-availability-active-output-2-bit",
+        "transportation-fleet-workforce-operations-fatigue-risk-monitor-active-output-0-bit",
+        "transportation-fleet-workforce-operations-fatigue-risk-monitor-active-output-1-bit",
+        "transportation-fleet-workforce-operations-fatigue-risk-monitor-active-output-2-bit",
+        "transportation-fleet-workforce-operations-training-certification-monitor-active-output-0-bit",
+        "transportation-fleet-workforce-operations-training-certification-monitor-active-output-1-bit",
+        "transportation-fleet-workforce-operations-training-certification-monitor-active-output-2-bit",
+        "transportation-fleet-workforce-operations-mechanic-skill-routing-active-output-0-bit",
+        "transportation-fleet-workforce-operations-mechanic-skill-routing-active-output-1-bit",
+        "transportation-fleet-workforce-operations-mechanic-skill-routing-active-output-2-bit",
+        "transportation-fleet-workforce-operations-cleaning-crew-coverage-active-output-0-bit",
+        "transportation-fleet-workforce-operations-cleaning-crew-coverage-active-output-1-bit",
+        "transportation-fleet-workforce-operations-cleaning-crew-coverage-active-output-2-bit",
+        "transportation-fleet-workforce-operations-supervisor-field-coverage-active-output-0-bit",
+        "transportation-fleet-workforce-operations-supervisor-field-coverage-active-output-1-bit",
+        "transportation-fleet-workforce-operations-supervisor-field-coverage-active-output-2-bit",
+        "transportation-fleet-workforce-operations-labor-rule-compliance-active-output-0-bit",
+        "transportation-fleet-workforce-operations-labor-rule-compliance-active-output-1-bit",
+        "transportation-fleet-workforce-operations-labor-rule-compliance-active-output-2-bit",
+        "transportation-fleet-workforce-operations-operator-communications-active-output-0-bit",
+        "transportation-fleet-workforce-operations-operator-communications-active-output-1-bit",
+        "transportation-fleet-workforce-operations-operator-communications-active-output-2-bit",
+        "transportation-fleet-workforce-operations-shift-handoff-integrity-active-output-0-bit",
+        "transportation-fleet-workforce-operations-shift-handoff-integrity-active-output-1-bit",
+        "transportation-fleet-workforce-operations-shift-handoff-integrity-active-output-2-bit",
+        "transportation-fleet-workforce-operations-workforce-executive-risk-active-output-0-bit",
+        "transportation-fleet-workforce-operations-workforce-executive-risk-active-output-1-bit",
+        "transportation-fleet-workforce-operations-workforce-executive-risk-active-output-2-bit"
+      ],
+      "ttlMs": 300000,
+      "normalization": "already-normalized-0-1",
+      "ingest": {
+        "endpoint": "/api/integrations/completions",
+        "method": "POST",
+        "triggerPush": false,
+        "compactPush": true
+      },
+      "sourceMapping": {
+        "id": "acp-transportationtfx081090interconnect-input-assessment",
+        "sensorId": "acp.openclaw.transportationtfx081090interconnect.input-analyst.assessment",
+        "name": "OpenClaw transportationtfx081090interconnect input-analyst assessment",
+        "region": {
+          "offset": 16272,
+          "length": 30
+        },
+        "ttlMs": 300000
+      }
+    },
+    "autonomyPolicy": {
+      "mode": "advise",
+      "stage": 1,
+      "writeBackType": "pe-sensor",
+      "canWriteBack": true,
+      "canStageActions": false,
+      "canExecuteActions": false,
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "blockedWhenRag": []
+    },
+    "riskControls": {
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "maxAutonomy": "advise",
+      "blockedWhenRag": []
+    }
+  },
+  "responseMapping": {
+    "schemaVersion": "1.0.0",
+    "responseContract": "structured-keys-or-text",
+    "mode": "advise",
+    "fields": [
+      {
+        "semantic": "transportation-fleet-workforce-operations-operator-availability-active-output-0-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/transportation-fleet-workforce-operations-operator-availability-active-output-0-bit",
+          "responseKey": "transportation-fleet-workforce-operations-operator-availability-active-output-0-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.transportationtfx081090interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 16272,
+            "length": 30
+          },
+          "index": 0
+        }
+      },
+      {
+        "semantic": "transportation-fleet-workforce-operations-operator-availability-active-output-1-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/transportation-fleet-workforce-operations-operator-availability-active-output-1-bit",
+          "responseKey": "transportation-fleet-workforce-operations-operator-availability-active-output-1-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.transportationtfx081090interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 16272,
+            "length": 30
+          },
+          "index": 1
+        }
+      },
+      {
+        "semantic": "transportation-fleet-workforce-operations-operator-availability-active-output-2-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/transportation-fleet-workforce-operations-operator-availability-active-output-2-bit",
+          "responseKey": "transportation-fleet-workforce-operations-operator-availability-active-output-2-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.transportationtfx081090interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 16272,
+            "length": 30
+          },
+          "index": 2
+        }
+      },
+      {
+        "semantic": "transportation-fleet-workforce-operations-fatigue-risk-monitor-active-output-0-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/transportation-fleet-workforce-operations-fatigue-risk-monitor-active-output-0-bit",
+          "responseKey": "transportation-fleet-workforce-operations-fatigue-risk-monitor-active-output-0-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.transportationtfx081090interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 16272,
+            "length": 30
+          },
+          "index": 3
+        }
+      },
+      {
+        "semantic": "transportation-fleet-workforce-operations-fatigue-risk-monitor-active-output-1-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/transportation-fleet-workforce-operations-fatigue-risk-monitor-active-output-1-bit",
+          "responseKey": "transportation-fleet-workforce-operations-fatigue-risk-monitor-active-output-1-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.transportationtfx081090interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 16272,
+            "length": 30
+          },
+          "index": 4
+        }
+      },
+      {
+        "semantic": "transportation-fleet-workforce-operations-fatigue-risk-monitor-active-output-2-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/transportation-fleet-workforce-operations-fatigue-risk-monitor-active-output-2-bit",
+          "responseKey": "transportation-fleet-workforce-operations-fatigue-risk-monitor-active-output-2-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.transportationtfx081090interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 16272,
+            "length": 30
+          },
+          "index": 5
+        }
+      },
+      {
+        "semantic": "transportation-fleet-workforce-operations-training-certification-monitor-active-output-0-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/transportation-fleet-workforce-operations-training-certification-monitor-active-output-0-bit",
+          "responseKey": "transportation-fleet-workforce-operations-training-certification-monitor-active-output-0-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.transportationtfx081090interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 16272,
+            "length": 30
+          },
+          "index": 6
+        }
+      },
+      {
+        "semantic": "transportation-fleet-workforce-operations-training-certification-monitor-active-output-1-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/transportation-fleet-workforce-operations-training-certification-monitor-active-output-1-bit",
+          "responseKey": "transportation-fleet-workforce-operations-training-certification-monitor-active-output-1-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.transportationtfx081090interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 16272,
+            "length": 30
+          },
+          "index": 7
+        }
+      },
+      {
+        "semantic": "transportation-fleet-workforce-operations-training-certification-monitor-active-output-2-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/transportation-fleet-workforce-operations-training-certification-monitor-active-output-2-bit",
+          "responseKey": "transportation-fleet-workforce-operations-training-certification-monitor-active-output-2-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.transportationtfx081090interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 16272,
+            "length": 30
+          },
+          "index": 8
+        }
+      },
+      {
+        "semantic": "transportation-fleet-workforce-operations-mechanic-skill-routing-active-output-0-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/transportation-fleet-workforce-operations-mechanic-skill-routing-active-output-0-bit",
+          "responseKey": "transportation-fleet-workforce-operations-mechanic-skill-routing-active-output-0-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.transportationtfx081090interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 16272,
+            "length": 30
+          },
+          "index": 9
+        }
+      },
+      {
+        "semantic": "transportation-fleet-workforce-operations-mechanic-skill-routing-active-output-1-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/transportation-fleet-workforce-operations-mechanic-skill-routing-active-output-1-bit",
+          "responseKey": "transportation-fleet-workforce-operations-mechanic-skill-routing-active-output-1-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.transportationtfx081090interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 16272,
+            "length": 30
+          },
+          "index": 10
+        }
+      },
+      {
+        "semantic": "transportation-fleet-workforce-operations-mechanic-skill-routing-active-output-2-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/transportation-fleet-workforce-operations-mechanic-skill-routing-active-output-2-bit",
+          "responseKey": "transportation-fleet-workforce-operations-mechanic-skill-routing-active-output-2-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.transportationtfx081090interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 16272,
+            "length": 30
+          },
+          "index": 11
+        }
+      },
+      {
+        "semantic": "transportation-fleet-workforce-operations-cleaning-crew-coverage-active-output-0-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/transportation-fleet-workforce-operations-cleaning-crew-coverage-active-output-0-bit",
+          "responseKey": "transportation-fleet-workforce-operations-cleaning-crew-coverage-active-output-0-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.transportationtfx081090interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 16272,
+            "length": 30
+          },
+          "index": 12
+        }
+      },
+      {
+        "semantic": "transportation-fleet-workforce-operations-cleaning-crew-coverage-active-output-1-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/transportation-fleet-workforce-operations-cleaning-crew-coverage-active-output-1-bit",
+          "responseKey": "transportation-fleet-workforce-operations-cleaning-crew-coverage-active-output-1-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.transportationtfx081090interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 16272,
+            "length": 30
+          },
+          "index": 13
+        }
+      },
+      {
+        "semantic": "transportation-fleet-workforce-operations-cleaning-crew-coverage-active-output-2-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/transportation-fleet-workforce-operations-cleaning-crew-coverage-active-output-2-bit",
+          "responseKey": "transportation-fleet-workforce-operations-cleaning-crew-coverage-active-output-2-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.transportationtfx081090interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 16272,
+            "length": 30
+          },
+          "index": 14
+        }
+      },
+      {
+        "semantic": "transportation-fleet-workforce-operations-supervisor-field-coverage-active-output-0-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/transportation-fleet-workforce-operations-supervisor-field-coverage-active-output-0-bit",
+          "responseKey": "transportation-fleet-workforce-operations-supervisor-field-coverage-active-output-0-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.transportationtfx081090interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 16272,
+            "length": 30
+          },
+          "index": 15
+        }
+      },
+      {
+        "semantic": "transportation-fleet-workforce-operations-supervisor-field-coverage-active-output-1-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/transportation-fleet-workforce-operations-supervisor-field-coverage-active-output-1-bit",
+          "responseKey": "transportation-fleet-workforce-operations-supervisor-field-coverage-active-output-1-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.transportationtfx081090interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 16272,
+            "length": 30
+          },
+          "index": 16
+        }
+      },
+      {
+        "semantic": "transportation-fleet-workforce-operations-supervisor-field-coverage-active-output-2-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/transportation-fleet-workforce-operations-supervisor-field-coverage-active-output-2-bit",
+          "responseKey": "transportation-fleet-workforce-operations-supervisor-field-coverage-active-output-2-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.transportationtfx081090interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 16272,
+            "length": 30
+          },
+          "index": 17
+        }
+      },
+      {
+        "semantic": "transportation-fleet-workforce-operations-labor-rule-compliance-active-output-0-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/transportation-fleet-workforce-operations-labor-rule-compliance-active-output-0-bit",
+          "responseKey": "transportation-fleet-workforce-operations-labor-rule-compliance-active-output-0-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.transportationtfx081090interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 16272,
+            "length": 30
+          },
+          "index": 18
+        }
+      },
+      {
+        "semantic": "transportation-fleet-workforce-operations-labor-rule-compliance-active-output-1-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/transportation-fleet-workforce-operations-labor-rule-compliance-active-output-1-bit",
+          "responseKey": "transportation-fleet-workforce-operations-labor-rule-compliance-active-output-1-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.transportationtfx081090interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 16272,
+            "length": 30
+          },
+          "index": 19
+        }
+      },
+      {
+        "semantic": "transportation-fleet-workforce-operations-labor-rule-compliance-active-output-2-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/transportation-fleet-workforce-operations-labor-rule-compliance-active-output-2-bit",
+          "responseKey": "transportation-fleet-workforce-operations-labor-rule-compliance-active-output-2-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.transportationtfx081090interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 16272,
+            "length": 30
+          },
+          "index": 20
+        }
+      },
+      {
+        "semantic": "transportation-fleet-workforce-operations-operator-communications-active-output-0-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/transportation-fleet-workforce-operations-operator-communications-active-output-0-bit",
+          "responseKey": "transportation-fleet-workforce-operations-operator-communications-active-output-0-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.transportationtfx081090interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 16272,
+            "length": 30
+          },
+          "index": 21
+        }
+      },
+      {
+        "semantic": "transportation-fleet-workforce-operations-operator-communications-active-output-1-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/transportation-fleet-workforce-operations-operator-communications-active-output-1-bit",
+          "responseKey": "transportation-fleet-workforce-operations-operator-communications-active-output-1-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.transportationtfx081090interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 16272,
+            "length": 30
+          },
+          "index": 22
+        }
+      },
+      {
+        "semantic": "transportation-fleet-workforce-operations-operator-communications-active-output-2-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/transportation-fleet-workforce-operations-operator-communications-active-output-2-bit",
+          "responseKey": "transportation-fleet-workforce-operations-operator-communications-active-output-2-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.transportationtfx081090interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 16272,
+            "length": 30
+          },
+          "index": 23
+        }
+      },
+      {
+        "semantic": "transportation-fleet-workforce-operations-shift-handoff-integrity-active-output-0-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/transportation-fleet-workforce-operations-shift-handoff-integrity-active-output-0-bit",
+          "responseKey": "transportation-fleet-workforce-operations-shift-handoff-integrity-active-output-0-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.transportationtfx081090interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 16272,
+            "length": 30
+          },
+          "index": 24
+        }
+      },
+      {
+        "semantic": "transportation-fleet-workforce-operations-shift-handoff-integrity-active-output-1-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/transportation-fleet-workforce-operations-shift-handoff-integrity-active-output-1-bit",
+          "responseKey": "transportation-fleet-workforce-operations-shift-handoff-integrity-active-output-1-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.transportationtfx081090interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 16272,
+            "length": 30
+          },
+          "index": 25
+        }
+      },
+      {
+        "semantic": "transportation-fleet-workforce-operations-shift-handoff-integrity-active-output-2-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/transportation-fleet-workforce-operations-shift-handoff-integrity-active-output-2-bit",
+          "responseKey": "transportation-fleet-workforce-operations-shift-handoff-integrity-active-output-2-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.transportationtfx081090interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 16272,
+            "length": 30
+          },
+          "index": 26
+        }
+      },
+      {
+        "semantic": "transportation-fleet-workforce-operations-workforce-executive-risk-active-output-0-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/transportation-fleet-workforce-operations-workforce-executive-risk-active-output-0-bit",
+          "responseKey": "transportation-fleet-workforce-operations-workforce-executive-risk-active-output-0-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.transportationtfx081090interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 16272,
+            "length": 30
+          },
+          "index": 27
+        }
+      },
+      {
+        "semantic": "transportation-fleet-workforce-operations-workforce-executive-risk-active-output-1-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/transportation-fleet-workforce-operations-workforce-executive-risk-active-output-1-bit",
+          "responseKey": "transportation-fleet-workforce-operations-workforce-executive-risk-active-output-1-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.transportationtfx081090interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 16272,
+            "length": 30
+          },
+          "index": 28
+        }
+      },
+      {
+        "semantic": "transportation-fleet-workforce-operations-workforce-executive-risk-active-output-2-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/transportation-fleet-workforce-operations-workforce-executive-risk-active-output-2-bit",
+          "responseKey": "transportation-fleet-workforce-operations-workforce-executive-risk-active-output-2-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.transportationtfx081090interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 16272,
+            "length": 30
+          },
+          "index": 29
+        }
+      }
+    ]
+  },
+  "diagnostics": {
+    "axisBasis": "inputSemantics",
+    "warnings": [
+      "input axes derived from inputSemantics (no length-matched sensorNormalization)"
+    ],
+    "inputLength": 30,
+    "sequenceCount": 4
+  }
+}

@@ -1,0 +1,1732 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "oc-agent-template",
+  "role": "input-analyst",
+  "agentId": "life-balance-social-connection-harm-reduction-interconnect",
+  "displayName": "Life Balance Social Connection Harm Reduction Interconnect",
+  "machine": {
+    "id": "LifeBalanceSocialConnectionHarmReductionInterconnect",
+    "name": "Life Balance Social Connection Harm Reduction Interconnect",
+    "code": "lifebalancesocialconnectionharmreductioninterconnect",
+    "machineClass": "bridge",
+    "domain": "life-balance",
+    "inputRegion": {
+      "offset": 4892,
+      "length": 30
+    },
+    "outputRegion": {
+      "offset": 4922,
+      "length": 4
+    }
+  },
+  "openclaw": {
+    "id": "openclaw-xacp",
+    "kind": "acp",
+    "platform": "OpenClaw",
+    "surface": "xACP",
+    "command": "openclaw acp",
+    "gatewayUrl": "ws://127.0.0.1:18789",
+    "sessionKey": "agent:main:main",
+    "targetAgent": "life-balance-social-connection-harm-reduction-interconnect",
+    "dispatchMode": "accepted-no-wait",
+    "completionMode": "pe-source-mapping",
+    "completionSourceMappingId": "acp-life-balance-social-connection-harm-reduction-interconnect-input-assessment"
+  },
+  "reasoning": {
+    "objective": "Produce the normalized input vector for \"Life Balance Social Connection Harm Reduction Interconnect\" from current observations so RE can evaluate its CES sequences.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Life Balance Social Connection Harm Reduction Interconnect\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Published life-balance bridge bus that composes the Social Connection Harm Reduction family into a compact response lane. PE owns source composition and writes the compact input lane; RE evaluates this machine as ordinary vector state.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- life-balance-social-connection-and-harm-reduction-connection-baseline-care-team-review-bit (index 0):\n- life-balance-social-connection-and-harm-reduction-connection-baseline-lifestyle-plan-adjust-bit (index 1):\n- life-balance-social-connection-and-harm-reduction-connection-baseline-monitoring-task-bit (index 2):\n- life-balance-social-connection-and-harm-reduction-relationship-stress-monitor-care-team-review-bit (index 3):\n- life-balance-social-connection-and-harm-reduction-relationship-stress-monitor-lifestyle-plan-adjust-bit (index 4):\n- life-balance-social-connection-and-harm-reduction-relationship-stress-monitor-monitoring-task-bit (index 5):\n- life-balance-social-connection-and-harm-reduction-substance-exposure-screen-care-team-review-bit (index 6):\n- life-balance-social-connection-and-harm-reduction-substance-exposure-screen-lifestyle-plan-adjust-bit (index 7):\n- life-balance-social-connection-and-harm-reduction-substance-exposure-screen-monitoring-task-bit (index 8):\n- life-balance-social-connection-and-harm-reduction-harm-reduction-plan-care-team-review-bit (index 9):\n- life-balance-social-connection-and-harm-reduction-harm-reduction-plan-lifestyle-plan-adjust-bit (index 10):\n- life-balance-social-connection-and-harm-reduction-harm-reduction-plan-monitoring-task-bit (index 11):\n- life-balance-social-connection-and-harm-reduction-community-activity-engagement-care-team-review-bit (index 12):\n- life-balance-social-connection-and-harm-reduction-community-activity-engagement-lifestyle-plan-adjust-bit (index 13):\n- life-balance-social-connection-and-harm-reduction-community-activity-engagement-monitoring-task-bit (index 14):\n- life-balance-social-connection-and-harm-reduction-digital-social-load-care-team-review-bit (index 15):\n- life-balance-social-connection-and-harm-reduction-digital-social-load-lifestyle-plan-adjust-bit (index 16):\n- life-balance-social-connection-and-harm-reduction-digital-social-load-monitoring-task-bit (index 17):\n- life-balance-social-connection-and-harm-reduction-care-team-communication-care-team-review-bit (index 18):\n- life-balance-social-connection-and-harm-reduction-care-team-communication-lifestyle-plan-adjust-bit (index 19):\n- life-balance-social-connection-and-harm-reduction-care-team-communication-monitoring-task-bit (index 20):\n- life-balance-social-connection-and-harm-reduction-social-rhythm-stabilizer-care-team-review-bit (index 21):\n- life-balance-social-connection-and-harm-reduction-social-rhythm-stabilizer-lifestyle-plan-adjust-bit (index 22):\n- life-balance-social-connection-and-harm-reduction-social-rhythm-stabilizer-monitoring-task-bit (index 23):\n- life-balance-social-connection-and-harm-reduction-relapse-prevention-support-care-team-review-bit (index 24):\n- life-balance-social-connection-and-harm-reduction-relapse-prevention-support-lifestyle-plan-adjust-bit (index 25):\n- life-balance-social-connection-and-harm-reduction-relapse-prevention-support-monitoring-task-bit (index 26):\n- life-balance-social-connection-and-harm-reduction-connection-executive-care-team-review-bit (index 27):\n- life-balance-social-connection-and-harm-reduction-connection-executive-lifestyle-plan-adjust-bit (index 28):\n- life-balance-social-connection-and-harm-reduction-connection-executive-monitoring-task-bit (index 29):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Social Connection Harm Reduction care team review at [4922 (RED) -> action: Route family care-team review, risk escalation, and resolver summary.\n- Social Connection Harm Reduction lifestyle plan adjustment at [4922 (AMBER) -> action: Route family lifestyle plan adjustment and coaching update.\n- Social Connection Harm Reduction monitoring task at [4922 (AMBER) -> action: Route family monitoring task and data-quality follow-up.\n- Social Connection Harm Reduction stable balance at [4922 (GREEN) -> action: Record stable family state and keep baseline cadence.",
+    "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
+    "inputAxes": [
+      {
+        "index": 0,
+        "key": "life-balance-social-connection-and-harm-reduction-connection-baseline-care-team-review-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 1,
+        "key": "life-balance-social-connection-and-harm-reduction-connection-baseline-lifestyle-plan-adjust-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 2,
+        "key": "life-balance-social-connection-and-harm-reduction-connection-baseline-monitoring-task-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 3,
+        "key": "life-balance-social-connection-and-harm-reduction-relationship-stress-monitor-care-team-review-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 4,
+        "key": "life-balance-social-connection-and-harm-reduction-relationship-stress-monitor-lifestyle-plan-adjust-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 5,
+        "key": "life-balance-social-connection-and-harm-reduction-relationship-stress-monitor-monitoring-task-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 6,
+        "key": "life-balance-social-connection-and-harm-reduction-substance-exposure-screen-care-team-review-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 7,
+        "key": "life-balance-social-connection-and-harm-reduction-substance-exposure-screen-lifestyle-plan-adjust-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 8,
+        "key": "life-balance-social-connection-and-harm-reduction-substance-exposure-screen-monitoring-task-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 9,
+        "key": "life-balance-social-connection-and-harm-reduction-harm-reduction-plan-care-team-review-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 10,
+        "key": "life-balance-social-connection-and-harm-reduction-harm-reduction-plan-lifestyle-plan-adjust-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 11,
+        "key": "life-balance-social-connection-and-harm-reduction-harm-reduction-plan-monitoring-task-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 12,
+        "key": "life-balance-social-connection-and-harm-reduction-community-activity-engagement-care-team-review-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 13,
+        "key": "life-balance-social-connection-and-harm-reduction-community-activity-engagement-lifestyle-plan-adjust-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 14,
+        "key": "life-balance-social-connection-and-harm-reduction-community-activity-engagement-monitoring-task-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 15,
+        "key": "life-balance-social-connection-and-harm-reduction-digital-social-load-care-team-review-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 16,
+        "key": "life-balance-social-connection-and-harm-reduction-digital-social-load-lifestyle-plan-adjust-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 17,
+        "key": "life-balance-social-connection-and-harm-reduction-digital-social-load-monitoring-task-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 18,
+        "key": "life-balance-social-connection-and-harm-reduction-care-team-communication-care-team-review-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 19,
+        "key": "life-balance-social-connection-and-harm-reduction-care-team-communication-lifestyle-plan-adjust-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 20,
+        "key": "life-balance-social-connection-and-harm-reduction-care-team-communication-monitoring-task-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 21,
+        "key": "life-balance-social-connection-and-harm-reduction-social-rhythm-stabilizer-care-team-review-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 22,
+        "key": "life-balance-social-connection-and-harm-reduction-social-rhythm-stabilizer-lifestyle-plan-adjust-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 23,
+        "key": "life-balance-social-connection-and-harm-reduction-social-rhythm-stabilizer-monitoring-task-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 24,
+        "key": "life-balance-social-connection-and-harm-reduction-relapse-prevention-support-care-team-review-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 25,
+        "key": "life-balance-social-connection-and-harm-reduction-relapse-prevention-support-lifestyle-plan-adjust-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 26,
+        "key": "life-balance-social-connection-and-harm-reduction-relapse-prevention-support-monitoring-task-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 27,
+        "key": "life-balance-social-connection-and-harm-reduction-connection-executive-care-team-review-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 28,
+        "key": "life-balance-social-connection-and-harm-reduction-connection-executive-lifestyle-plan-adjust-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 29,
+        "key": "life-balance-social-connection-and-harm-reduction-connection-executive-monitoring-task-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      }
+    ],
+    "sequenceCatalog": [
+      {
+        "sequenceId": "social-connection-harm-reduction-care-team-review",
+        "label": "Social Connection Harm Reduction care team review at [4922",
+        "rag": "RED",
+        "outputIndex": 0,
+        "action": "Route family care-team review, risk escalation, and resolver summary."
+      },
+      {
+        "sequenceId": "social-connection-harm-reduction-plan-adjustment",
+        "label": "Social Connection Harm Reduction lifestyle plan adjustment at [4922",
+        "rag": "AMBER",
+        "outputIndex": 1,
+        "action": "Route family lifestyle plan adjustment and coaching update."
+      },
+      {
+        "sequenceId": "social-connection-harm-reduction-monitoring-task",
+        "label": "Social Connection Harm Reduction monitoring task at [4922",
+        "rag": "AMBER",
+        "outputIndex": 2,
+        "action": "Route family monitoring task and data-quality follow-up."
+      },
+      {
+        "sequenceId": "social-connection-harm-reduction-stable",
+        "label": "Social Connection Harm Reduction stable balance at [4922",
+        "rag": "GREEN",
+        "outputIndex": 3,
+        "action": "Record stable family state and keep baseline cadence."
+      }
+    ]
+  },
+  "agentBinding": {
+    "agent": "life-balance-social-connection-harm-reduction-interconnect",
+    "mode": "advise",
+    "trigger": "lifebalancesocialconnectionharmreductioninterconnect-input-assessment",
+    "allowedActions": [
+      "Assess current \"Life Balance Social Connection Harm Reduction Interconnect\" state from available observations and write the normalized input vector to the PE input region [4892:4922] for RE to evaluate."
+    ],
+    "writeBack": {
+      "type": "pe-sensor",
+      "provider": "acp",
+      "sensorId": "acp.openclaw.lifebalancesocialconnectionharmreductioninterconnect.input-analyst.assessment",
+      "name": "OpenClaw lifebalancesocialconnectionharmreductioninterconnect input-analyst assessment",
+      "region": {
+        "offset": 4892,
+        "length": 30
+      },
+      "semantics": [
+        "life-balance-social-connection-and-harm-reduction-connection-baseline-care-team-review-bit",
+        "life-balance-social-connection-and-harm-reduction-connection-baseline-lifestyle-plan-adjust-bit",
+        "life-balance-social-connection-and-harm-reduction-connection-baseline-monitoring-task-bit",
+        "life-balance-social-connection-and-harm-reduction-relationship-stress-monitor-care-team-review-bit",
+        "life-balance-social-connection-and-harm-reduction-relationship-stress-monitor-lifestyle-plan-adjust-bit",
+        "life-balance-social-connection-and-harm-reduction-relationship-stress-monitor-monitoring-task-bit",
+        "life-balance-social-connection-and-harm-reduction-substance-exposure-screen-care-team-review-bit",
+        "life-balance-social-connection-and-harm-reduction-substance-exposure-screen-lifestyle-plan-adjust-bit",
+        "life-balance-social-connection-and-harm-reduction-substance-exposure-screen-monitoring-task-bit",
+        "life-balance-social-connection-and-harm-reduction-harm-reduction-plan-care-team-review-bit",
+        "life-balance-social-connection-and-harm-reduction-harm-reduction-plan-lifestyle-plan-adjust-bit",
+        "life-balance-social-connection-and-harm-reduction-harm-reduction-plan-monitoring-task-bit",
+        "life-balance-social-connection-and-harm-reduction-community-activity-engagement-care-team-review-bit",
+        "life-balance-social-connection-and-harm-reduction-community-activity-engagement-lifestyle-plan-adjust-bit",
+        "life-balance-social-connection-and-harm-reduction-community-activity-engagement-monitoring-task-bit",
+        "life-balance-social-connection-and-harm-reduction-digital-social-load-care-team-review-bit",
+        "life-balance-social-connection-and-harm-reduction-digital-social-load-lifestyle-plan-adjust-bit",
+        "life-balance-social-connection-and-harm-reduction-digital-social-load-monitoring-task-bit",
+        "life-balance-social-connection-and-harm-reduction-care-team-communication-care-team-review-bit",
+        "life-balance-social-connection-and-harm-reduction-care-team-communication-lifestyle-plan-adjust-bit",
+        "life-balance-social-connection-and-harm-reduction-care-team-communication-monitoring-task-bit",
+        "life-balance-social-connection-and-harm-reduction-social-rhythm-stabilizer-care-team-review-bit",
+        "life-balance-social-connection-and-harm-reduction-social-rhythm-stabilizer-lifestyle-plan-adjust-bit",
+        "life-balance-social-connection-and-harm-reduction-social-rhythm-stabilizer-monitoring-task-bit",
+        "life-balance-social-connection-and-harm-reduction-relapse-prevention-support-care-team-review-bit",
+        "life-balance-social-connection-and-harm-reduction-relapse-prevention-support-lifestyle-plan-adjust-bit",
+        "life-balance-social-connection-and-harm-reduction-relapse-prevention-support-monitoring-task-bit",
+        "life-balance-social-connection-and-harm-reduction-connection-executive-care-team-review-bit",
+        "life-balance-social-connection-and-harm-reduction-connection-executive-lifestyle-plan-adjust-bit",
+        "life-balance-social-connection-and-harm-reduction-connection-executive-monitoring-task-bit"
+      ],
+      "ttlMs": 300000,
+      "normalization": "already-normalized-0-1",
+      "ingest": {
+        "endpoint": "/api/integrations/completions",
+        "method": "POST",
+        "triggerPush": false,
+        "compactPush": true
+      },
+      "sourceMapping": {
+        "id": "acp-lifebalancesocialconnectionharmreductioninterconnect-input-assessment",
+        "sensorId": "acp.openclaw.lifebalancesocialconnectionharmreductioninterconnect.input-analyst.assessment",
+        "name": "OpenClaw lifebalancesocialconnectionharmreductioninterconnect input-analyst assessment",
+        "region": {
+          "offset": 4892,
+          "length": 30
+        },
+        "ttlMs": 300000
+      }
+    },
+    "autonomyPolicy": {
+      "mode": "advise",
+      "stage": 1,
+      "writeBackType": "pe-sensor",
+      "canWriteBack": true,
+      "canStageActions": false,
+      "canExecuteActions": false,
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "blockedWhenRag": []
+    },
+    "riskControls": {
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "maxAutonomy": "advise",
+      "blockedWhenRag": []
+    }
+  },
+  "responseMapping": {
+    "schemaVersion": "1.0.0",
+    "responseContract": "structured-keys-or-text",
+    "mode": "advise",
+    "fields": [
+      {
+        "semantic": "life-balance-social-connection-and-harm-reduction-connection-baseline-care-team-review-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-social-connection-and-harm-reduction-connection-baseline-care-team-review-bit",
+          "responseKey": "life-balance-social-connection-and-harm-reduction-connection-baseline-care-team-review-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancesocialconnectionharmreductioninterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4892,
+            "length": 30
+          },
+          "index": 0
+        }
+      },
+      {
+        "semantic": "life-balance-social-connection-and-harm-reduction-connection-baseline-lifestyle-plan-adjust-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-social-connection-and-harm-reduction-connection-baseline-lifestyle-plan-adjust-bit",
+          "responseKey": "life-balance-social-connection-and-harm-reduction-connection-baseline-lifestyle-plan-adjust-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancesocialconnectionharmreductioninterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4892,
+            "length": 30
+          },
+          "index": 1
+        }
+      },
+      {
+        "semantic": "life-balance-social-connection-and-harm-reduction-connection-baseline-monitoring-task-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-social-connection-and-harm-reduction-connection-baseline-monitoring-task-bit",
+          "responseKey": "life-balance-social-connection-and-harm-reduction-connection-baseline-monitoring-task-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancesocialconnectionharmreductioninterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4892,
+            "length": 30
+          },
+          "index": 2
+        }
+      },
+      {
+        "semantic": "life-balance-social-connection-and-harm-reduction-relationship-stress-monitor-care-team-review-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-social-connection-and-harm-reduction-relationship-stress-monitor-care-team-review-bit",
+          "responseKey": "life-balance-social-connection-and-harm-reduction-relationship-stress-monitor-care-team-review-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancesocialconnectionharmreductioninterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4892,
+            "length": 30
+          },
+          "index": 3
+        }
+      },
+      {
+        "semantic": "life-balance-social-connection-and-harm-reduction-relationship-stress-monitor-lifestyle-plan-adjust-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-social-connection-and-harm-reduction-relationship-stress-monitor-lifestyle-plan-adjust-bit",
+          "responseKey": "life-balance-social-connection-and-harm-reduction-relationship-stress-monitor-lifestyle-plan-adjust-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancesocialconnectionharmreductioninterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4892,
+            "length": 30
+          },
+          "index": 4
+        }
+      },
+      {
+        "semantic": "life-balance-social-connection-and-harm-reduction-relationship-stress-monitor-monitoring-task-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-social-connection-and-harm-reduction-relationship-stress-monitor-monitoring-task-bit",
+          "responseKey": "life-balance-social-connection-and-harm-reduction-relationship-stress-monitor-monitoring-task-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancesocialconnectionharmreductioninterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4892,
+            "length": 30
+          },
+          "index": 5
+        }
+      },
+      {
+        "semantic": "life-balance-social-connection-and-harm-reduction-substance-exposure-screen-care-team-review-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-social-connection-and-harm-reduction-substance-exposure-screen-care-team-review-bit",
+          "responseKey": "life-balance-social-connection-and-harm-reduction-substance-exposure-screen-care-team-review-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancesocialconnectionharmreductioninterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4892,
+            "length": 30
+          },
+          "index": 6
+        }
+      },
+      {
+        "semantic": "life-balance-social-connection-and-harm-reduction-substance-exposure-screen-lifestyle-plan-adjust-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-social-connection-and-harm-reduction-substance-exposure-screen-lifestyle-plan-adjust-bit",
+          "responseKey": "life-balance-social-connection-and-harm-reduction-substance-exposure-screen-lifestyle-plan-adjust-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancesocialconnectionharmreductioninterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4892,
+            "length": 30
+          },
+          "index": 7
+        }
+      },
+      {
+        "semantic": "life-balance-social-connection-and-harm-reduction-substance-exposure-screen-monitoring-task-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-social-connection-and-harm-reduction-substance-exposure-screen-monitoring-task-bit",
+          "responseKey": "life-balance-social-connection-and-harm-reduction-substance-exposure-screen-monitoring-task-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancesocialconnectionharmreductioninterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4892,
+            "length": 30
+          },
+          "index": 8
+        }
+      },
+      {
+        "semantic": "life-balance-social-connection-and-harm-reduction-harm-reduction-plan-care-team-review-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-social-connection-and-harm-reduction-harm-reduction-plan-care-team-review-bit",
+          "responseKey": "life-balance-social-connection-and-harm-reduction-harm-reduction-plan-care-team-review-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancesocialconnectionharmreductioninterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4892,
+            "length": 30
+          },
+          "index": 9
+        }
+      },
+      {
+        "semantic": "life-balance-social-connection-and-harm-reduction-harm-reduction-plan-lifestyle-plan-adjust-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-social-connection-and-harm-reduction-harm-reduction-plan-lifestyle-plan-adjust-bit",
+          "responseKey": "life-balance-social-connection-and-harm-reduction-harm-reduction-plan-lifestyle-plan-adjust-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancesocialconnectionharmreductioninterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4892,
+            "length": 30
+          },
+          "index": 10
+        }
+      },
+      {
+        "semantic": "life-balance-social-connection-and-harm-reduction-harm-reduction-plan-monitoring-task-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-social-connection-and-harm-reduction-harm-reduction-plan-monitoring-task-bit",
+          "responseKey": "life-balance-social-connection-and-harm-reduction-harm-reduction-plan-monitoring-task-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancesocialconnectionharmreductioninterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4892,
+            "length": 30
+          },
+          "index": 11
+        }
+      },
+      {
+        "semantic": "life-balance-social-connection-and-harm-reduction-community-activity-engagement-care-team-review-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-social-connection-and-harm-reduction-community-activity-engagement-care-team-review-bit",
+          "responseKey": "life-balance-social-connection-and-harm-reduction-community-activity-engagement-care-team-review-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancesocialconnectionharmreductioninterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4892,
+            "length": 30
+          },
+          "index": 12
+        }
+      },
+      {
+        "semantic": "life-balance-social-connection-and-harm-reduction-community-activity-engagement-lifestyle-plan-adjust-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-social-connection-and-harm-reduction-community-activity-engagement-lifestyle-plan-adjust-bit",
+          "responseKey": "life-balance-social-connection-and-harm-reduction-community-activity-engagement-lifestyle-plan-adjust-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancesocialconnectionharmreductioninterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4892,
+            "length": 30
+          },
+          "index": 13
+        }
+      },
+      {
+        "semantic": "life-balance-social-connection-and-harm-reduction-community-activity-engagement-monitoring-task-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-social-connection-and-harm-reduction-community-activity-engagement-monitoring-task-bit",
+          "responseKey": "life-balance-social-connection-and-harm-reduction-community-activity-engagement-monitoring-task-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancesocialconnectionharmreductioninterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4892,
+            "length": 30
+          },
+          "index": 14
+        }
+      },
+      {
+        "semantic": "life-balance-social-connection-and-harm-reduction-digital-social-load-care-team-review-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-social-connection-and-harm-reduction-digital-social-load-care-team-review-bit",
+          "responseKey": "life-balance-social-connection-and-harm-reduction-digital-social-load-care-team-review-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancesocialconnectionharmreductioninterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4892,
+            "length": 30
+          },
+          "index": 15
+        }
+      },
+      {
+        "semantic": "life-balance-social-connection-and-harm-reduction-digital-social-load-lifestyle-plan-adjust-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-social-connection-and-harm-reduction-digital-social-load-lifestyle-plan-adjust-bit",
+          "responseKey": "life-balance-social-connection-and-harm-reduction-digital-social-load-lifestyle-plan-adjust-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancesocialconnectionharmreductioninterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4892,
+            "length": 30
+          },
+          "index": 16
+        }
+      },
+      {
+        "semantic": "life-balance-social-connection-and-harm-reduction-digital-social-load-monitoring-task-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-social-connection-and-harm-reduction-digital-social-load-monitoring-task-bit",
+          "responseKey": "life-balance-social-connection-and-harm-reduction-digital-social-load-monitoring-task-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancesocialconnectionharmreductioninterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4892,
+            "length": 30
+          },
+          "index": 17
+        }
+      },
+      {
+        "semantic": "life-balance-social-connection-and-harm-reduction-care-team-communication-care-team-review-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-social-connection-and-harm-reduction-care-team-communication-care-team-review-bit",
+          "responseKey": "life-balance-social-connection-and-harm-reduction-care-team-communication-care-team-review-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancesocialconnectionharmreductioninterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4892,
+            "length": 30
+          },
+          "index": 18
+        }
+      },
+      {
+        "semantic": "life-balance-social-connection-and-harm-reduction-care-team-communication-lifestyle-plan-adjust-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-social-connection-and-harm-reduction-care-team-communication-lifestyle-plan-adjust-bit",
+          "responseKey": "life-balance-social-connection-and-harm-reduction-care-team-communication-lifestyle-plan-adjust-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancesocialconnectionharmreductioninterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4892,
+            "length": 30
+          },
+          "index": 19
+        }
+      },
+      {
+        "semantic": "life-balance-social-connection-and-harm-reduction-care-team-communication-monitoring-task-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-social-connection-and-harm-reduction-care-team-communication-monitoring-task-bit",
+          "responseKey": "life-balance-social-connection-and-harm-reduction-care-team-communication-monitoring-task-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancesocialconnectionharmreductioninterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4892,
+            "length": 30
+          },
+          "index": 20
+        }
+      },
+      {
+        "semantic": "life-balance-social-connection-and-harm-reduction-social-rhythm-stabilizer-care-team-review-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-social-connection-and-harm-reduction-social-rhythm-stabilizer-care-team-review-bit",
+          "responseKey": "life-balance-social-connection-and-harm-reduction-social-rhythm-stabilizer-care-team-review-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancesocialconnectionharmreductioninterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4892,
+            "length": 30
+          },
+          "index": 21
+        }
+      },
+      {
+        "semantic": "life-balance-social-connection-and-harm-reduction-social-rhythm-stabilizer-lifestyle-plan-adjust-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-social-connection-and-harm-reduction-social-rhythm-stabilizer-lifestyle-plan-adjust-bit",
+          "responseKey": "life-balance-social-connection-and-harm-reduction-social-rhythm-stabilizer-lifestyle-plan-adjust-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancesocialconnectionharmreductioninterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4892,
+            "length": 30
+          },
+          "index": 22
+        }
+      },
+      {
+        "semantic": "life-balance-social-connection-and-harm-reduction-social-rhythm-stabilizer-monitoring-task-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-social-connection-and-harm-reduction-social-rhythm-stabilizer-monitoring-task-bit",
+          "responseKey": "life-balance-social-connection-and-harm-reduction-social-rhythm-stabilizer-monitoring-task-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancesocialconnectionharmreductioninterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4892,
+            "length": 30
+          },
+          "index": 23
+        }
+      },
+      {
+        "semantic": "life-balance-social-connection-and-harm-reduction-relapse-prevention-support-care-team-review-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-social-connection-and-harm-reduction-relapse-prevention-support-care-team-review-bit",
+          "responseKey": "life-balance-social-connection-and-harm-reduction-relapse-prevention-support-care-team-review-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancesocialconnectionharmreductioninterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4892,
+            "length": 30
+          },
+          "index": 24
+        }
+      },
+      {
+        "semantic": "life-balance-social-connection-and-harm-reduction-relapse-prevention-support-lifestyle-plan-adjust-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-social-connection-and-harm-reduction-relapse-prevention-support-lifestyle-plan-adjust-bit",
+          "responseKey": "life-balance-social-connection-and-harm-reduction-relapse-prevention-support-lifestyle-plan-adjust-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancesocialconnectionharmreductioninterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4892,
+            "length": 30
+          },
+          "index": 25
+        }
+      },
+      {
+        "semantic": "life-balance-social-connection-and-harm-reduction-relapse-prevention-support-monitoring-task-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-social-connection-and-harm-reduction-relapse-prevention-support-monitoring-task-bit",
+          "responseKey": "life-balance-social-connection-and-harm-reduction-relapse-prevention-support-monitoring-task-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancesocialconnectionharmreductioninterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4892,
+            "length": 30
+          },
+          "index": 26
+        }
+      },
+      {
+        "semantic": "life-balance-social-connection-and-harm-reduction-connection-executive-care-team-review-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-social-connection-and-harm-reduction-connection-executive-care-team-review-bit",
+          "responseKey": "life-balance-social-connection-and-harm-reduction-connection-executive-care-team-review-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancesocialconnectionharmreductioninterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4892,
+            "length": 30
+          },
+          "index": 27
+        }
+      },
+      {
+        "semantic": "life-balance-social-connection-and-harm-reduction-connection-executive-lifestyle-plan-adjust-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-social-connection-and-harm-reduction-connection-executive-lifestyle-plan-adjust-bit",
+          "responseKey": "life-balance-social-connection-and-harm-reduction-connection-executive-lifestyle-plan-adjust-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancesocialconnectionharmreductioninterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4892,
+            "length": 30
+          },
+          "index": 28
+        }
+      },
+      {
+        "semantic": "life-balance-social-connection-and-harm-reduction-connection-executive-monitoring-task-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-social-connection-and-harm-reduction-connection-executive-monitoring-task-bit",
+          "responseKey": "life-balance-social-connection-and-harm-reduction-connection-executive-monitoring-task-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancesocialconnectionharmreductioninterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4892,
+            "length": 30
+          },
+          "index": 29
+        }
+      }
+    ]
+  },
+  "diagnostics": {
+    "axisBasis": "inputSemantics",
+    "warnings": [
+      "input axes derived from inputSemantics (no length-matched sensorNormalization)"
+    ],
+    "inputLength": 30,
+    "sequenceCount": 4
+  }
+}

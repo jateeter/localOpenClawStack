@@ -1,0 +1,670 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "oc-agent-template",
+  "role": "input-analyst",
+  "agentId": "energy-smart-grid-protocol-adapter-health-monitor",
+  "displayName": "Energy Smart Grid Protocol Adapter Health Monitor",
+  "machine": {
+    "id": "ENX208_smart-grid-protocol-adapter-health-monitor",
+    "name": "Energy Smart Grid Protocol Adapter Health Monitor",
+    "code": "enx208_smart_grid_protocol_adapter_health_monitor",
+    "machineClass": "signal-monitor",
+    "domain": "energy",
+    "inputRegion": {
+      "offset": 16691,
+      "length": 10
+    },
+    "outputRegion": {
+      "offset": 16701,
+      "length": 4
+    }
+  },
+  "openclaw": {
+    "id": "openclaw-xacp",
+    "kind": "acp",
+    "platform": "OpenClaw",
+    "surface": "xACP",
+    "command": "openclaw acp",
+    "gatewayUrl": "ws://127.0.0.1:18789",
+    "sessionKey": "agent:main:main",
+    "targetAgent": "energy-smart-grid-protocol-adapter-health-monitor",
+    "dispatchMode": "accepted-no-wait",
+    "completionMode": "pe-source-mapping",
+    "completionSourceMappingId": "acp-energy-smart-grid-protocol-adapter-health-monitor-input-assessment"
+  },
+  "reasoning": {
+    "objective": "Produce the normalized input vector for \"Energy Smart Grid Protocol Adapter Health Monitor\" from current observations so RE can evaluate its CES sequences.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Energy Smart Grid Protocol Adapter Health Monitor\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Represents Smart Grid interconnection readiness across IEEE 2030.5, IEEE 1547, OpenADR, IEC 61850, DNP3, Modbus or OPC UA, OCPP, MQTT, identity, and command latency.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- ieee_2030_5_der_control_available_norm (index 0):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- ieee_1547_telemetry_and_control_available_norm (index 1):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- openadr_signal_available_norm (index 2):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- iec_61850_feeder_or_substation_state_available_norm (index 3):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- dnp3_scada_point_state_available_norm (index 4):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- modbus_or_opc_ua_device_bridge_available_norm (index 5):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- ocpp_ev_charging_control_available_norm (index 6):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- mqtt_grid_event_mirror_available_norm (index 7):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- protocol_authentication_certificate_valid_norm (index 8):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- command_acknowledgement_latency_acceptable_norm (index 9):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Smart Grid Protocol Adapter Health Monitor (RED) -> action: PROTOCOL_CONTROL_UNAVAILABLE for resilient community microgrid operations.\n- Smart Grid Protocol Adapter Health Monitor (AMBER) -> action: DEGRADED_PROTOCOL_PATH for resilient community microgrid operations.\n- Smart Grid Protocol Adapter Health Monitor (AMBER) -> action: FALLBACK_PROTOCOL_ACTIVE for resilient community microgrid operations.\n- Smart Grid Protocol Adapter Health Monitor (GREEN) -> action: PROTOCOLS_STABLE for resilient community microgrid operations.",
+    "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
+    "inputAxes": [
+      {
+        "index": 0,
+        "key": "ieee_2030_5_der_control_available_norm",
+        "anchors": {
+          "low": "false/inactive",
+          "mid": "",
+          "high": "true/active after PE source normalization"
+        }
+      },
+      {
+        "index": 1,
+        "key": "ieee_1547_telemetry_and_control_available_norm",
+        "anchors": {
+          "low": "false/inactive",
+          "mid": "",
+          "high": "true/active after PE source normalization"
+        }
+      },
+      {
+        "index": 2,
+        "key": "openadr_signal_available_norm",
+        "anchors": {
+          "low": "false/inactive",
+          "mid": "",
+          "high": "true/active after PE source normalization"
+        }
+      },
+      {
+        "index": 3,
+        "key": "iec_61850_feeder_or_substation_state_available_norm",
+        "anchors": {
+          "low": "false/inactive",
+          "mid": "",
+          "high": "true/active after PE source normalization"
+        }
+      },
+      {
+        "index": 4,
+        "key": "dnp3_scada_point_state_available_norm",
+        "anchors": {
+          "low": "false/inactive",
+          "mid": "",
+          "high": "true/active after PE source normalization"
+        }
+      },
+      {
+        "index": 5,
+        "key": "modbus_or_opc_ua_device_bridge_available_norm",
+        "anchors": {
+          "low": "false/inactive",
+          "mid": "",
+          "high": "true/active after PE source normalization"
+        }
+      },
+      {
+        "index": 6,
+        "key": "ocpp_ev_charging_control_available_norm",
+        "anchors": {
+          "low": "false/inactive",
+          "mid": "",
+          "high": "true/active after PE source normalization"
+        }
+      },
+      {
+        "index": 7,
+        "key": "mqtt_grid_event_mirror_available_norm",
+        "anchors": {
+          "low": "false/inactive",
+          "mid": "",
+          "high": "true/active after PE source normalization"
+        }
+      },
+      {
+        "index": 8,
+        "key": "protocol_authentication_certificate_valid_norm",
+        "anchors": {
+          "low": "false/inactive",
+          "mid": "",
+          "high": "true/active after PE source normalization"
+        }
+      },
+      {
+        "index": 9,
+        "key": "command_acknowledgement_latency_acceptable_norm",
+        "anchors": {
+          "low": "false/inactive",
+          "mid": "",
+          "high": "true/active after PE source normalization"
+        }
+      }
+    ],
+    "sequenceCatalog": [
+      {
+        "sequenceId": "enx208-protocol-control-unavailable",
+        "label": "Smart Grid Protocol Adapter Health Monitor",
+        "rag": "RED",
+        "outputIndex": 0,
+        "action": "PROTOCOL_CONTROL_UNAVAILABLE for resilient community microgrid operations."
+      },
+      {
+        "sequenceId": "enx208-degraded-protocol-path",
+        "label": "Smart Grid Protocol Adapter Health Monitor",
+        "rag": "AMBER",
+        "outputIndex": 1,
+        "action": "DEGRADED_PROTOCOL_PATH for resilient community microgrid operations."
+      },
+      {
+        "sequenceId": "enx208-fallback-protocol-active",
+        "label": "Smart Grid Protocol Adapter Health Monitor",
+        "rag": "AMBER",
+        "outputIndex": 2,
+        "action": "FALLBACK_PROTOCOL_ACTIVE for resilient community microgrid operations."
+      },
+      {
+        "sequenceId": "enx208-protocols-stable",
+        "label": "Smart Grid Protocol Adapter Health Monitor",
+        "rag": "GREEN",
+        "outputIndex": 3,
+        "action": "PROTOCOLS_STABLE for resilient community microgrid operations."
+      }
+    ]
+  },
+  "agentBinding": {
+    "agent": "energy-smart-grid-protocol-adapter-health-monitor",
+    "mode": "advise",
+    "trigger": "enx208_smart_grid_protocol_adapter_health_monitor-input-assessment",
+    "allowedActions": [
+      "Assess current \"Energy Smart Grid Protocol Adapter Health Monitor\" state from available observations and write the normalized input vector to the PE input region [16691:16701] for RE to evaluate."
+    ],
+    "writeBack": {
+      "type": "pe-sensor",
+      "provider": "acp",
+      "sensorId": "acp.openclaw.enx208_smart_grid_protocol_adapter_health_monitor.input-analyst.assessment",
+      "name": "OpenClaw enx208_smart_grid_protocol_adapter_health_monitor input-analyst assessment",
+      "region": {
+        "offset": 16691,
+        "length": 10
+      },
+      "semantics": [
+        "ieee_2030_5_der_control_available_norm",
+        "ieee_1547_telemetry_and_control_available_norm",
+        "openadr_signal_available_norm",
+        "iec_61850_feeder_or_substation_state_available_norm",
+        "dnp3_scada_point_state_available_norm",
+        "modbus_or_opc_ua_device_bridge_available_norm",
+        "ocpp_ev_charging_control_available_norm",
+        "mqtt_grid_event_mirror_available_norm",
+        "protocol_authentication_certificate_valid_norm",
+        "command_acknowledgement_latency_acceptable_norm"
+      ],
+      "ttlMs": 300000,
+      "normalization": "already-normalized-0-1",
+      "ingest": {
+        "endpoint": "/api/integrations/completions",
+        "method": "POST",
+        "triggerPush": false,
+        "compactPush": true
+      },
+      "sourceMapping": {
+        "id": "acp-enx208_smart_grid_protocol_adapter_health_monitor-input-assessment",
+        "sensorId": "acp.openclaw.enx208_smart_grid_protocol_adapter_health_monitor.input-analyst.assessment",
+        "name": "OpenClaw enx208_smart_grid_protocol_adapter_health_monitor input-analyst assessment",
+        "region": {
+          "offset": 16691,
+          "length": 10
+        },
+        "ttlMs": 300000
+      }
+    },
+    "autonomyPolicy": {
+      "mode": "advise",
+      "stage": 1,
+      "writeBackType": "pe-sensor",
+      "canWriteBack": true,
+      "canStageActions": false,
+      "canExecuteActions": false,
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "blockedWhenRag": []
+    },
+    "riskControls": {
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "maxAutonomy": "advise",
+      "blockedWhenRag": []
+    }
+  },
+  "responseMapping": {
+    "schemaVersion": "1.0.0",
+    "responseContract": "structured-keys-or-text",
+    "mode": "advise",
+    "fields": [
+      {
+        "semantic": "ieee_2030_5_der_control_available_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/ieee_2030_5_der_control_available_norm",
+          "responseKey": "ieee_2030_5_der_control_available_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.enx208_smart_grid_protocol_adapter_health_monitor.input-analyst.assessment",
+          "region": {
+            "offset": 16691,
+            "length": 10
+          },
+          "index": 0
+        }
+      },
+      {
+        "semantic": "ieee_1547_telemetry_and_control_available_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/ieee_1547_telemetry_and_control_available_norm",
+          "responseKey": "ieee_1547_telemetry_and_control_available_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.enx208_smart_grid_protocol_adapter_health_monitor.input-analyst.assessment",
+          "region": {
+            "offset": 16691,
+            "length": 10
+          },
+          "index": 1
+        }
+      },
+      {
+        "semantic": "openadr_signal_available_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/openadr_signal_available_norm",
+          "responseKey": "openadr_signal_available_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.enx208_smart_grid_protocol_adapter_health_monitor.input-analyst.assessment",
+          "region": {
+            "offset": 16691,
+            "length": 10
+          },
+          "index": 2
+        }
+      },
+      {
+        "semantic": "iec_61850_feeder_or_substation_state_available_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/iec_61850_feeder_or_substation_state_available_norm",
+          "responseKey": "iec_61850_feeder_or_substation_state_available_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.enx208_smart_grid_protocol_adapter_health_monitor.input-analyst.assessment",
+          "region": {
+            "offset": 16691,
+            "length": 10
+          },
+          "index": 3
+        }
+      },
+      {
+        "semantic": "dnp3_scada_point_state_available_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/dnp3_scada_point_state_available_norm",
+          "responseKey": "dnp3_scada_point_state_available_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.enx208_smart_grid_protocol_adapter_health_monitor.input-analyst.assessment",
+          "region": {
+            "offset": 16691,
+            "length": 10
+          },
+          "index": 4
+        }
+      },
+      {
+        "semantic": "modbus_or_opc_ua_device_bridge_available_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/modbus_or_opc_ua_device_bridge_available_norm",
+          "responseKey": "modbus_or_opc_ua_device_bridge_available_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.enx208_smart_grid_protocol_adapter_health_monitor.input-analyst.assessment",
+          "region": {
+            "offset": 16691,
+            "length": 10
+          },
+          "index": 5
+        }
+      },
+      {
+        "semantic": "ocpp_ev_charging_control_available_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/ocpp_ev_charging_control_available_norm",
+          "responseKey": "ocpp_ev_charging_control_available_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.enx208_smart_grid_protocol_adapter_health_monitor.input-analyst.assessment",
+          "region": {
+            "offset": 16691,
+            "length": 10
+          },
+          "index": 6
+        }
+      },
+      {
+        "semantic": "mqtt_grid_event_mirror_available_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/mqtt_grid_event_mirror_available_norm",
+          "responseKey": "mqtt_grid_event_mirror_available_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.enx208_smart_grid_protocol_adapter_health_monitor.input-analyst.assessment",
+          "region": {
+            "offset": 16691,
+            "length": 10
+          },
+          "index": 7
+        }
+      },
+      {
+        "semantic": "protocol_authentication_certificate_valid_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/protocol_authentication_certificate_valid_norm",
+          "responseKey": "protocol_authentication_certificate_valid_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.enx208_smart_grid_protocol_adapter_health_monitor.input-analyst.assessment",
+          "region": {
+            "offset": 16691,
+            "length": 10
+          },
+          "index": 8
+        }
+      },
+      {
+        "semantic": "command_acknowledgement_latency_acceptable_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/command_acknowledgement_latency_acceptable_norm",
+          "responseKey": "command_acknowledgement_latency_acceptable_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.enx208_smart_grid_protocol_adapter_health_monitor.input-analyst.assessment",
+          "region": {
+            "offset": 16691,
+            "length": 10
+          },
+          "index": 9
+        }
+      }
+    ]
+  },
+  "diagnostics": {
+    "axisBasis": "sensorNormalization",
+    "warnings": [],
+    "inputLength": 10,
+    "sequenceCount": 4
+  }
+}

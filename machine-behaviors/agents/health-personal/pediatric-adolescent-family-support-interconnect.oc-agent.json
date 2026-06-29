@@ -1,0 +1,1096 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "oc-agent-template",
+  "role": "input-analyst",
+  "agentId": "pediatric-adolescent-family-support-interconnect",
+  "displayName": "Pediatric Adolescent Family Support Interconnect",
+  "machine": {
+    "id": "PediatricAdolescentFamilySupportInterconnect",
+    "name": "Pediatric Adolescent Family Support Interconnect",
+    "code": "pediatricadolescentfamilysupportinterconnect",
+    "machineClass": "bridge",
+    "domain": "health-personal",
+    "inputRegion": {
+      "offset": 4560,
+      "length": 18
+    },
+    "outputRegion": {
+      "offset": 4578,
+      "length": 4
+    }
+  },
+  "openclaw": {
+    "id": "openclaw-xacp",
+    "kind": "acp",
+    "platform": "OpenClaw",
+    "surface": "xACP",
+    "command": "openclaw acp",
+    "gatewayUrl": "ws://127.0.0.1:18789",
+    "sessionKey": "agent:main:main",
+    "targetAgent": "pediatric-adolescent-family-support-interconnect",
+    "dispatchMode": "accepted-no-wait",
+    "completionMode": "pe-source-mapping",
+    "completionSourceMappingId": "acp-pediatric-adolescent-family-support-interconnect-input-assessment"
+  },
+  "reasoning": {
+    "objective": "Produce the normalized input vector for \"Pediatric Adolescent Family Support Interconnect\" from current observations so RE can evaluate its CES sequences.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Pediatric Adolescent Family Support Interconnect\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Published personal-health bridge bus that composes pediatric nutrition, child development, adolescent mental health, caregiver burden, food access, and environment safety into a compact family support lane.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- pediatric-growth-alert-bit (index 0):\n- pediatric-nutrition-deficit-bit (index 1):\n- pediatric-micronutrient-concern-bit (index 2):\n- pediatric-nutrition-ok-bit (index 3):\n- child-referral-needed-bit (index 4):\n- child-social-developmental-concern-bit (index 5):\n- child-learning-concern-bit (index 6):\n- child-development-ok-bit (index 7):\n- adolescent-crisis-risk-bit (index 8):\n- adolescent-behavioral-concern-bit (index 9):\n- adolescent-elevated-stress-bit (index 10):\n- adolescent-mental-health-ok-bit (index 11):\n- caregiver-burnout-bit (index 12):\n- caregiver-high-burden-bit (index 13):\n- caregiver-moderate-burden-bit (index 14):\n- food-crisis-or-insecure-bit (index 15):\n- unsafe-environment-bit (index 16):\n- environment-safe-bit (index 17):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- URGENT_FAMILY_SUPPORT at [4578 (RED) -> action: URGENT_FAMILY_SUPPORT\n- NUTRITION_DEVELOPMENT_REFERRAL at [4578 (AMBER) -> action: NUTRITION_DEVELOPMENT_REFERRAL\n- ADOLESCENT_BEHAVIORAL_SUPPORT at [4578 (AMBER) -> action: ADOLESCENT_BEHAVIORAL_SUPPORT\n- STABLE_FAMILY_SUPPORT at [4578 (GREEN) -> action: STABLE_FAMILY_SUPPORT",
+    "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
+    "inputAxes": [
+      {
+        "index": 0,
+        "key": "pediatric-growth-alert-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 1,
+        "key": "pediatric-nutrition-deficit-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 2,
+        "key": "pediatric-micronutrient-concern-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 3,
+        "key": "pediatric-nutrition-ok-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 4,
+        "key": "child-referral-needed-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 5,
+        "key": "child-social-developmental-concern-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 6,
+        "key": "child-learning-concern-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 7,
+        "key": "child-development-ok-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 8,
+        "key": "adolescent-crisis-risk-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 9,
+        "key": "adolescent-behavioral-concern-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 10,
+        "key": "adolescent-elevated-stress-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 11,
+        "key": "adolescent-mental-health-ok-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 12,
+        "key": "caregiver-burnout-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 13,
+        "key": "caregiver-high-burden-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 14,
+        "key": "caregiver-moderate-burden-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 15,
+        "key": "food-crisis-or-insecure-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 16,
+        "key": "unsafe-environment-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 17,
+        "key": "environment-safe-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      }
+    ],
+    "sequenceCatalog": [
+      {
+        "sequenceId": "pediatric-family-urgent-support",
+        "label": "URGENT_FAMILY_SUPPORT at [4578",
+        "rag": "RED",
+        "outputIndex": 0,
+        "action": "URGENT_FAMILY_SUPPORT"
+      },
+      {
+        "sequenceId": "pediatric-family-nutrition-development",
+        "label": "NUTRITION_DEVELOPMENT_REFERRAL at [4578",
+        "rag": "AMBER",
+        "outputIndex": 1,
+        "action": "NUTRITION_DEVELOPMENT_REFERRAL"
+      },
+      {
+        "sequenceId": "pediatric-family-behavioral-support",
+        "label": "ADOLESCENT_BEHAVIORAL_SUPPORT at [4578",
+        "rag": "AMBER",
+        "outputIndex": 2,
+        "action": "ADOLESCENT_BEHAVIORAL_SUPPORT"
+      },
+      {
+        "sequenceId": "pediatric-family-stable",
+        "label": "STABLE_FAMILY_SUPPORT at [4578",
+        "rag": "GREEN",
+        "outputIndex": 3,
+        "action": "STABLE_FAMILY_SUPPORT"
+      }
+    ]
+  },
+  "agentBinding": {
+    "agent": "pediatric-adolescent-family-support-interconnect",
+    "mode": "advise",
+    "trigger": "pediatricadolescentfamilysupportinterconnect-input-assessment",
+    "allowedActions": [
+      "Assess current \"Pediatric Adolescent Family Support Interconnect\" state from available observations and write the normalized input vector to the PE input region [4560:4578] for RE to evaluate."
+    ],
+    "writeBack": {
+      "type": "pe-sensor",
+      "provider": "acp",
+      "sensorId": "acp.openclaw.pediatricadolescentfamilysupportinterconnect.input-analyst.assessment",
+      "name": "OpenClaw pediatricadolescentfamilysupportinterconnect input-analyst assessment",
+      "region": {
+        "offset": 4560,
+        "length": 18
+      },
+      "semantics": [
+        "pediatric-growth-alert-bit",
+        "pediatric-nutrition-deficit-bit",
+        "pediatric-micronutrient-concern-bit",
+        "pediatric-nutrition-ok-bit",
+        "child-referral-needed-bit",
+        "child-social-developmental-concern-bit",
+        "child-learning-concern-bit",
+        "child-development-ok-bit",
+        "adolescent-crisis-risk-bit",
+        "adolescent-behavioral-concern-bit",
+        "adolescent-elevated-stress-bit",
+        "adolescent-mental-health-ok-bit",
+        "caregiver-burnout-bit",
+        "caregiver-high-burden-bit",
+        "caregiver-moderate-burden-bit",
+        "food-crisis-or-insecure-bit",
+        "unsafe-environment-bit",
+        "environment-safe-bit"
+      ],
+      "ttlMs": 300000,
+      "normalization": "already-normalized-0-1",
+      "ingest": {
+        "endpoint": "/api/integrations/completions",
+        "method": "POST",
+        "triggerPush": false,
+        "compactPush": true
+      },
+      "sourceMapping": {
+        "id": "acp-pediatricadolescentfamilysupportinterconnect-input-assessment",
+        "sensorId": "acp.openclaw.pediatricadolescentfamilysupportinterconnect.input-analyst.assessment",
+        "name": "OpenClaw pediatricadolescentfamilysupportinterconnect input-analyst assessment",
+        "region": {
+          "offset": 4560,
+          "length": 18
+        },
+        "ttlMs": 300000
+      }
+    },
+    "autonomyPolicy": {
+      "mode": "advise",
+      "stage": 1,
+      "writeBackType": "pe-sensor",
+      "canWriteBack": true,
+      "canStageActions": false,
+      "canExecuteActions": false,
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "blockedWhenRag": []
+    },
+    "riskControls": {
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "maxAutonomy": "advise",
+      "blockedWhenRag": []
+    }
+  },
+  "responseMapping": {
+    "schemaVersion": "1.0.0",
+    "responseContract": "structured-keys-or-text",
+    "mode": "advise",
+    "fields": [
+      {
+        "semantic": "pediatric-growth-alert-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/pediatric-growth-alert-bit",
+          "responseKey": "pediatric-growth-alert-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.pediatricadolescentfamilysupportinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4560,
+            "length": 18
+          },
+          "index": 0
+        }
+      },
+      {
+        "semantic": "pediatric-nutrition-deficit-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/pediatric-nutrition-deficit-bit",
+          "responseKey": "pediatric-nutrition-deficit-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.pediatricadolescentfamilysupportinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4560,
+            "length": 18
+          },
+          "index": 1
+        }
+      },
+      {
+        "semantic": "pediatric-micronutrient-concern-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/pediatric-micronutrient-concern-bit",
+          "responseKey": "pediatric-micronutrient-concern-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.pediatricadolescentfamilysupportinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4560,
+            "length": 18
+          },
+          "index": 2
+        }
+      },
+      {
+        "semantic": "pediatric-nutrition-ok-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/pediatric-nutrition-ok-bit",
+          "responseKey": "pediatric-nutrition-ok-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.pediatricadolescentfamilysupportinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4560,
+            "length": 18
+          },
+          "index": 3
+        }
+      },
+      {
+        "semantic": "child-referral-needed-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/child-referral-needed-bit",
+          "responseKey": "child-referral-needed-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.pediatricadolescentfamilysupportinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4560,
+            "length": 18
+          },
+          "index": 4
+        }
+      },
+      {
+        "semantic": "child-social-developmental-concern-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/child-social-developmental-concern-bit",
+          "responseKey": "child-social-developmental-concern-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.pediatricadolescentfamilysupportinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4560,
+            "length": 18
+          },
+          "index": 5
+        }
+      },
+      {
+        "semantic": "child-learning-concern-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/child-learning-concern-bit",
+          "responseKey": "child-learning-concern-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.pediatricadolescentfamilysupportinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4560,
+            "length": 18
+          },
+          "index": 6
+        }
+      },
+      {
+        "semantic": "child-development-ok-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/child-development-ok-bit",
+          "responseKey": "child-development-ok-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.pediatricadolescentfamilysupportinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4560,
+            "length": 18
+          },
+          "index": 7
+        }
+      },
+      {
+        "semantic": "adolescent-crisis-risk-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/adolescent-crisis-risk-bit",
+          "responseKey": "adolescent-crisis-risk-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.pediatricadolescentfamilysupportinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4560,
+            "length": 18
+          },
+          "index": 8
+        }
+      },
+      {
+        "semantic": "adolescent-behavioral-concern-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/adolescent-behavioral-concern-bit",
+          "responseKey": "adolescent-behavioral-concern-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.pediatricadolescentfamilysupportinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4560,
+            "length": 18
+          },
+          "index": 9
+        }
+      },
+      {
+        "semantic": "adolescent-elevated-stress-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/adolescent-elevated-stress-bit",
+          "responseKey": "adolescent-elevated-stress-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.pediatricadolescentfamilysupportinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4560,
+            "length": 18
+          },
+          "index": 10
+        }
+      },
+      {
+        "semantic": "adolescent-mental-health-ok-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/adolescent-mental-health-ok-bit",
+          "responseKey": "adolescent-mental-health-ok-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.pediatricadolescentfamilysupportinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4560,
+            "length": 18
+          },
+          "index": 11
+        }
+      },
+      {
+        "semantic": "caregiver-burnout-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/caregiver-burnout-bit",
+          "responseKey": "caregiver-burnout-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.pediatricadolescentfamilysupportinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4560,
+            "length": 18
+          },
+          "index": 12
+        }
+      },
+      {
+        "semantic": "caregiver-high-burden-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/caregiver-high-burden-bit",
+          "responseKey": "caregiver-high-burden-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.pediatricadolescentfamilysupportinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4560,
+            "length": 18
+          },
+          "index": 13
+        }
+      },
+      {
+        "semantic": "caregiver-moderate-burden-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/caregiver-moderate-burden-bit",
+          "responseKey": "caregiver-moderate-burden-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.pediatricadolescentfamilysupportinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4560,
+            "length": 18
+          },
+          "index": 14
+        }
+      },
+      {
+        "semantic": "food-crisis-or-insecure-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/food-crisis-or-insecure-bit",
+          "responseKey": "food-crisis-or-insecure-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.pediatricadolescentfamilysupportinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4560,
+            "length": 18
+          },
+          "index": 15
+        }
+      },
+      {
+        "semantic": "unsafe-environment-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/unsafe-environment-bit",
+          "responseKey": "unsafe-environment-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.pediatricadolescentfamilysupportinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4560,
+            "length": 18
+          },
+          "index": 16
+        }
+      },
+      {
+        "semantic": "environment-safe-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/environment-safe-bit",
+          "responseKey": "environment-safe-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.pediatricadolescentfamilysupportinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4560,
+            "length": 18
+          },
+          "index": 17
+        }
+      }
+    ]
+  },
+  "diagnostics": {
+    "axisBasis": "inputSemantics",
+    "warnings": [
+      "input axes derived from inputSemantics (no length-matched sensorNormalization)"
+    ],
+    "inputLength": 18,
+    "sequenceCount": 4
+  }
+}

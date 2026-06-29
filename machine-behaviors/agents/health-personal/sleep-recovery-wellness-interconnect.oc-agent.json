@@ -1,0 +1,884 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "oc-agent-template",
+  "role": "input-analyst",
+  "agentId": "sleep-recovery-wellness-interconnect",
+  "displayName": "Sleep Recovery Wellness Interconnect",
+  "machine": {
+    "id": "SleepRecoveryWellnessInterconnect",
+    "name": "Sleep Recovery Wellness Interconnect",
+    "code": "sleeprecoverywellnessinterconnect",
+    "machineClass": "bridge",
+    "domain": "health-personal",
+    "inputRegion": {
+      "offset": 4542,
+      "length": 14
+    },
+    "outputRegion": {
+      "offset": 4556,
+      "length": 4
+    }
+  },
+  "openclaw": {
+    "id": "openclaw-xacp",
+    "kind": "acp",
+    "platform": "OpenClaw",
+    "surface": "xACP",
+    "command": "openclaw acp",
+    "gatewayUrl": "ws://127.0.0.1:18789",
+    "sessionKey": "agent:main:main",
+    "targetAgent": "sleep-recovery-wellness-interconnect",
+    "dispatchMode": "accepted-no-wait",
+    "completionMode": "pe-source-mapping",
+    "completionSourceMappingId": "acp-sleep-recovery-wellness-interconnect-input-assessment"
+  },
+  "reasoning": {
+    "objective": "Produce the normalized input vector for \"Sleep Recovery Wellness Interconnect\" from current observations so RE can evaluate its CES sequences.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Sleep Recovery Wellness Interconnect\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Published personal-health bridge bus that composes sleep quality, activity, hydration, wellness, isolation, daily care, and wellness recovery into a compact sleep recovery lane.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- sleep-poor-bit (index 0):\n- sleep-disturbed-bit (index 1):\n- activity-below-baseline-bit (index 2):\n- activity-prolonged-inactivity-bit (index 3):\n- hydration-low-bit (index 4):\n- hydration-critical-bit (index 5):\n- patient-wellness-alert-bit (index 6):\n- patient-wellness-critical-bit (index 7):\n- social-withdrawal-bit (index 8):\n- isolation-risk-bit (index 9):\n- severe-isolation-bit (index 10):\n- daily-care-wandering-alert-bit (index 11):\n- daily-routine-complete-bit (index 12):\n- wellness-improving-bit (index 13):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- SLEEP_CLINICAL_REVIEW at [4556 (RED) -> action: SLEEP_CLINICAL_REVIEW\n- RECOVERY_ROUTINE_STABILIZATION at [4556 (AMBER) -> action: RECOVERY_ROUTINE_STABILIZATION\n- MONITORING_ADJUSTMENT at [4556 (AMBER) -> action: MONITORING_ADJUSTMENT\n- STABLE_SLEEP_WELLNESS at [4556 (GREEN) -> action: STABLE_SLEEP_WELLNESS",
+    "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
+    "inputAxes": [
+      {
+        "index": 0,
+        "key": "sleep-poor-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 1,
+        "key": "sleep-disturbed-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 2,
+        "key": "activity-below-baseline-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 3,
+        "key": "activity-prolonged-inactivity-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 4,
+        "key": "hydration-low-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 5,
+        "key": "hydration-critical-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 6,
+        "key": "patient-wellness-alert-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 7,
+        "key": "patient-wellness-critical-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 8,
+        "key": "social-withdrawal-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 9,
+        "key": "isolation-risk-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 10,
+        "key": "severe-isolation-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 11,
+        "key": "daily-care-wandering-alert-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 12,
+        "key": "daily-routine-complete-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 13,
+        "key": "wellness-improving-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      }
+    ],
+    "sequenceCatalog": [
+      {
+        "sequenceId": "sleep-recovery-clinical-review",
+        "label": "SLEEP_CLINICAL_REVIEW at [4556",
+        "rag": "RED",
+        "outputIndex": 0,
+        "action": "SLEEP_CLINICAL_REVIEW"
+      },
+      {
+        "sequenceId": "sleep-recovery-routine-stabilization",
+        "label": "RECOVERY_ROUTINE_STABILIZATION at [4556",
+        "rag": "AMBER",
+        "outputIndex": 1,
+        "action": "RECOVERY_ROUTINE_STABILIZATION"
+      },
+      {
+        "sequenceId": "sleep-recovery-monitoring-adjustment",
+        "label": "MONITORING_ADJUSTMENT at [4556",
+        "rag": "AMBER",
+        "outputIndex": 2,
+        "action": "MONITORING_ADJUSTMENT"
+      },
+      {
+        "sequenceId": "sleep-recovery-stable",
+        "label": "STABLE_SLEEP_WELLNESS at [4556",
+        "rag": "GREEN",
+        "outputIndex": 3,
+        "action": "STABLE_SLEEP_WELLNESS"
+      }
+    ]
+  },
+  "agentBinding": {
+    "agent": "sleep-recovery-wellness-interconnect",
+    "mode": "advise",
+    "trigger": "sleeprecoverywellnessinterconnect-input-assessment",
+    "allowedActions": [
+      "Assess current \"Sleep Recovery Wellness Interconnect\" state from available observations and write the normalized input vector to the PE input region [4542:4556] for RE to evaluate."
+    ],
+    "writeBack": {
+      "type": "pe-sensor",
+      "provider": "acp",
+      "sensorId": "acp.openclaw.sleeprecoverywellnessinterconnect.input-analyst.assessment",
+      "name": "OpenClaw sleeprecoverywellnessinterconnect input-analyst assessment",
+      "region": {
+        "offset": 4542,
+        "length": 14
+      },
+      "semantics": [
+        "sleep-poor-bit",
+        "sleep-disturbed-bit",
+        "activity-below-baseline-bit",
+        "activity-prolonged-inactivity-bit",
+        "hydration-low-bit",
+        "hydration-critical-bit",
+        "patient-wellness-alert-bit",
+        "patient-wellness-critical-bit",
+        "social-withdrawal-bit",
+        "isolation-risk-bit",
+        "severe-isolation-bit",
+        "daily-care-wandering-alert-bit",
+        "daily-routine-complete-bit",
+        "wellness-improving-bit"
+      ],
+      "ttlMs": 300000,
+      "normalization": "already-normalized-0-1",
+      "ingest": {
+        "endpoint": "/api/integrations/completions",
+        "method": "POST",
+        "triggerPush": false,
+        "compactPush": true
+      },
+      "sourceMapping": {
+        "id": "acp-sleeprecoverywellnessinterconnect-input-assessment",
+        "sensorId": "acp.openclaw.sleeprecoverywellnessinterconnect.input-analyst.assessment",
+        "name": "OpenClaw sleeprecoverywellnessinterconnect input-analyst assessment",
+        "region": {
+          "offset": 4542,
+          "length": 14
+        },
+        "ttlMs": 300000
+      }
+    },
+    "autonomyPolicy": {
+      "mode": "advise",
+      "stage": 1,
+      "writeBackType": "pe-sensor",
+      "canWriteBack": true,
+      "canStageActions": false,
+      "canExecuteActions": false,
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "blockedWhenRag": []
+    },
+    "riskControls": {
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "maxAutonomy": "advise",
+      "blockedWhenRag": []
+    }
+  },
+  "responseMapping": {
+    "schemaVersion": "1.0.0",
+    "responseContract": "structured-keys-or-text",
+    "mode": "advise",
+    "fields": [
+      {
+        "semantic": "sleep-poor-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/sleep-poor-bit",
+          "responseKey": "sleep-poor-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.sleeprecoverywellnessinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4542,
+            "length": 14
+          },
+          "index": 0
+        }
+      },
+      {
+        "semantic": "sleep-disturbed-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/sleep-disturbed-bit",
+          "responseKey": "sleep-disturbed-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.sleeprecoverywellnessinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4542,
+            "length": 14
+          },
+          "index": 1
+        }
+      },
+      {
+        "semantic": "activity-below-baseline-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/activity-below-baseline-bit",
+          "responseKey": "activity-below-baseline-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.sleeprecoverywellnessinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4542,
+            "length": 14
+          },
+          "index": 2
+        }
+      },
+      {
+        "semantic": "activity-prolonged-inactivity-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/activity-prolonged-inactivity-bit",
+          "responseKey": "activity-prolonged-inactivity-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.sleeprecoverywellnessinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4542,
+            "length": 14
+          },
+          "index": 3
+        }
+      },
+      {
+        "semantic": "hydration-low-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/hydration-low-bit",
+          "responseKey": "hydration-low-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.sleeprecoverywellnessinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4542,
+            "length": 14
+          },
+          "index": 4
+        }
+      },
+      {
+        "semantic": "hydration-critical-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/hydration-critical-bit",
+          "responseKey": "hydration-critical-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.sleeprecoverywellnessinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4542,
+            "length": 14
+          },
+          "index": 5
+        }
+      },
+      {
+        "semantic": "patient-wellness-alert-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/patient-wellness-alert-bit",
+          "responseKey": "patient-wellness-alert-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.sleeprecoverywellnessinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4542,
+            "length": 14
+          },
+          "index": 6
+        }
+      },
+      {
+        "semantic": "patient-wellness-critical-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/patient-wellness-critical-bit",
+          "responseKey": "patient-wellness-critical-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.sleeprecoverywellnessinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4542,
+            "length": 14
+          },
+          "index": 7
+        }
+      },
+      {
+        "semantic": "social-withdrawal-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/social-withdrawal-bit",
+          "responseKey": "social-withdrawal-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.sleeprecoverywellnessinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4542,
+            "length": 14
+          },
+          "index": 8
+        }
+      },
+      {
+        "semantic": "isolation-risk-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/isolation-risk-bit",
+          "responseKey": "isolation-risk-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.sleeprecoverywellnessinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4542,
+            "length": 14
+          },
+          "index": 9
+        }
+      },
+      {
+        "semantic": "severe-isolation-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/severe-isolation-bit",
+          "responseKey": "severe-isolation-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.sleeprecoverywellnessinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4542,
+            "length": 14
+          },
+          "index": 10
+        }
+      },
+      {
+        "semantic": "daily-care-wandering-alert-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/daily-care-wandering-alert-bit",
+          "responseKey": "daily-care-wandering-alert-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.sleeprecoverywellnessinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4542,
+            "length": 14
+          },
+          "index": 11
+        }
+      },
+      {
+        "semantic": "daily-routine-complete-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/daily-routine-complete-bit",
+          "responseKey": "daily-routine-complete-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.sleeprecoverywellnessinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4542,
+            "length": 14
+          },
+          "index": 12
+        }
+      },
+      {
+        "semantic": "wellness-improving-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/wellness-improving-bit",
+          "responseKey": "wellness-improving-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.sleeprecoverywellnessinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4542,
+            "length": 14
+          },
+          "index": 13
+        }
+      }
+    ]
+  },
+  "diagnostics": {
+    "axisBasis": "inputSemantics",
+    "warnings": [
+      "input axes derived from inputSemantics (no length-matched sensorNormalization)"
+    ],
+    "inputLength": 14,
+    "sequenceCount": 4
+  }
+}

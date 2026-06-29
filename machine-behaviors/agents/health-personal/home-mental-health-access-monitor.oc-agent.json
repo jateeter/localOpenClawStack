@@ -34,12 +34,12 @@
   },
   "reasoning": {
     "objective": "Produce the normalized input vector for \"Home Mental Health Access Monitor\" from current observations so RE can evaluate its CES sequences.",
-    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Home Mental Health Access Monitor\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Integration machine that reads combined output signals from the Home Chronic Disease Monitor [2019:2023] and the Home Chronic Pain Monitor [2023:2027] to detect mental health access needs driven by chronic illness burden. Chronic disease and chronic pain are bidirectionally linked to depression and anxiety \u2014 each worsens the other \u2014 and low-income patients carrying both have the least access to mental health services. This machine identifies patients who need mental health integration into their medical home care plan. Output at [2039:2043] is available to downstream care coordination systems.\n\nPOPULATION: Adults managing chronic disease and/or chronic pain with comorbid depression/anxiety risk; home care patients without mental health access; low-income adults below mental health parity enforcement threshold\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- home-mental-health-access-monitor-input-1 (index 0):\n- home-mental-health-access-monitor-input-2 (index 1):\n- home-mental-health-access-monitor-input-3 (index 2):\n- home-mental-health-access-monitor-input-4 (index 3):\n- home-mental-health-access-monitor-input-5 (index 4):\n- home-mental-health-access-monitor-input-6 (index 5):\n- home-mental-health-access-monitor-input-7 (index 6):\n- home-mental-health-access-monitor-input-8 (index 7):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- MENTAL_HEALTH_CRISIS (RED) -> action: Urgent PHQ-9 administration; suicidality screening; crisis counselor contact; integrated behavioral health referral; physician notification for pain/disease management review\n- MH_REFERRAL_NEEDED (AMBER) -> action: Integrated behavioral health referral; telehealth therapy option assessment; peer support program enrollment; PHQ-9 formal scoring; SBIRT screening\n- MH_ACCESS_ADEQUATE (AMBER) -> action: No additional mental health intervention required; maintain current support level",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Home Mental Health Access Monitor\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Integration machine that reads combined output signals from the Home Chronic Disease Monitor [2019:2023] and the Home Chronic Pain Monitor [2023:2027] to detect mental health access needs driven by chronic illness burden. Chronic disease and chronic pain are bidirectionally linked to depression and anxiety \u2014 each worsens the other \u2014 and low-income patients carrying both have the least access to mental health services. This machine identifies patients who need mental health integration into their medical home care plan. Output at [2039:2043] is available to downstream care coordination systems.\n\nPOPULATION: Adults managing chronic disease and/or chronic pain with comorbid depression/anxiety risk; home care patients without mental health access; low-income adults below mental health parity enforcement threshold\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- disease-exacerbation-bit (index 0):\n- disease-poor-control-bit (index 1):\n- disease-borderline-control-bit (index 2):\n- disease-controlled-bit (index 3):\n- pain-crisis-bit (index 4):\n- opioid-risk-elevated-bit (index 5):\n- functional-impairment-bit (index 6):\n- pain-managed-bit (index 7):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- MENTAL_HEALTH_CRISIS (RED) -> action: Urgent PHQ-9 administration; suicidality screening; crisis counselor contact; integrated behavioral health referral; physician notification for pain/disease management review\n- MH_REFERRAL_NEEDED (AMBER) -> action: Integrated behavioral health referral; telehealth therapy option assessment; peer support program enrollment; PHQ-9 formal scoring; SBIRT screening\n- COMORBIDITY_RISK (AMBER) -> action: Monitor PHQ-9/GAD-7 trend; offer low-intensity behavioral health support; review pain/disease plan before crisis escalation.\n- MH_ACCESS_ADEQUATE (GREEN) -> action: No additional mental health intervention required; maintain current support level",
     "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
     "inputAxes": [
       {
         "index": 0,
-        "key": "home-mental-health-access-monitor-input-1",
+        "key": "disease-exacerbation-bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -48,7 +48,7 @@
       },
       {
         "index": 1,
-        "key": "home-mental-health-access-monitor-input-2",
+        "key": "disease-poor-control-bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -57,7 +57,7 @@
       },
       {
         "index": 2,
-        "key": "home-mental-health-access-monitor-input-3",
+        "key": "disease-borderline-control-bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -66,7 +66,7 @@
       },
       {
         "index": 3,
-        "key": "home-mental-health-access-monitor-input-4",
+        "key": "disease-controlled-bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -75,7 +75,7 @@
       },
       {
         "index": 4,
-        "key": "home-mental-health-access-monitor-input-5",
+        "key": "pain-crisis-bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -84,7 +84,7 @@
       },
       {
         "index": 5,
-        "key": "home-mental-health-access-monitor-input-6",
+        "key": "opioid-risk-elevated-bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -93,7 +93,7 @@
       },
       {
         "index": 6,
-        "key": "home-mental-health-access-monitor-input-7",
+        "key": "functional-impairment-bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -102,7 +102,7 @@
       },
       {
         "index": 7,
-        "key": "home-mental-health-access-monitor-input-8",
+        "key": "pain-managed-bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -126,9 +126,16 @@
         "action": "Integrated behavioral health referral; telehealth therapy option assessment; peer support program enrollment; PHQ-9 formal scoring; SBIRT screening"
       },
       {
+        "sequenceId": "mh-comorbidity-risk",
+        "label": "COMORBIDITY_RISK",
+        "rag": "AMBER",
+        "outputIndex": 2,
+        "action": "Monitor PHQ-9/GAD-7 trend; offer low-intensity behavioral health support; review pain/disease plan before crisis escalation."
+      },
+      {
         "sequenceId": "mh-access-adequate",
         "label": "MH_ACCESS_ADEQUATE",
-        "rag": "AMBER",
+        "rag": "GREEN",
         "outputIndex": 3,
         "action": "No additional mental health intervention required; maintain current support level"
       }
@@ -151,14 +158,14 @@
         "length": 8
       },
       "semantics": [
-        "home-mental-health-access-monitor-input-1",
-        "home-mental-health-access-monitor-input-2",
-        "home-mental-health-access-monitor-input-3",
-        "home-mental-health-access-monitor-input-4",
-        "home-mental-health-access-monitor-input-5",
-        "home-mental-health-access-monitor-input-6",
-        "home-mental-health-access-monitor-input-7",
-        "home-mental-health-access-monitor-input-8"
+        "disease-exacerbation-bit",
+        "disease-poor-control-bit",
+        "disease-borderline-control-bit",
+        "disease-controlled-bit",
+        "pain-crisis-bit",
+        "opioid-risk-elevated-bit",
+        "functional-impairment-bit",
+        "pain-managed-bit"
       ],
       "ttlMs": 300000,
       "normalization": "already-normalized-0-1",
@@ -203,12 +210,12 @@
     "mode": "advise",
     "fields": [
       {
-        "semantic": "home-mental-health-access-monitor-input-1",
+        "semantic": "disease-exacerbation-bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/home-mental-health-access-monitor-input-1",
-          "responseKey": "home-mental-health-access-monitor-input-1",
+          "jsonPointer": "/disease-exacerbation-bit",
+          "responseKey": "disease-exacerbation-bit",
           "textFallback": {
             "type": "scalar-phrase",
             "default": 0.5,
@@ -246,12 +253,12 @@
         }
       },
       {
-        "semantic": "home-mental-health-access-monitor-input-2",
+        "semantic": "disease-poor-control-bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/home-mental-health-access-monitor-input-2",
-          "responseKey": "home-mental-health-access-monitor-input-2",
+          "jsonPointer": "/disease-poor-control-bit",
+          "responseKey": "disease-poor-control-bit",
           "textFallback": {
             "type": "scalar-phrase",
             "default": 0.5,
@@ -289,12 +296,12 @@
         }
       },
       {
-        "semantic": "home-mental-health-access-monitor-input-3",
+        "semantic": "disease-borderline-control-bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/home-mental-health-access-monitor-input-3",
-          "responseKey": "home-mental-health-access-monitor-input-3",
+          "jsonPointer": "/disease-borderline-control-bit",
+          "responseKey": "disease-borderline-control-bit",
           "textFallback": {
             "type": "scalar-phrase",
             "default": 0.5,
@@ -332,12 +339,12 @@
         }
       },
       {
-        "semantic": "home-mental-health-access-monitor-input-4",
+        "semantic": "disease-controlled-bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/home-mental-health-access-monitor-input-4",
-          "responseKey": "home-mental-health-access-monitor-input-4",
+          "jsonPointer": "/disease-controlled-bit",
+          "responseKey": "disease-controlled-bit",
           "textFallback": {
             "type": "scalar-phrase",
             "default": 0.5,
@@ -375,12 +382,12 @@
         }
       },
       {
-        "semantic": "home-mental-health-access-monitor-input-5",
+        "semantic": "pain-crisis-bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/home-mental-health-access-monitor-input-5",
-          "responseKey": "home-mental-health-access-monitor-input-5",
+          "jsonPointer": "/pain-crisis-bit",
+          "responseKey": "pain-crisis-bit",
           "textFallback": {
             "type": "scalar-phrase",
             "default": 0.5,
@@ -418,12 +425,12 @@
         }
       },
       {
-        "semantic": "home-mental-health-access-monitor-input-6",
+        "semantic": "opioid-risk-elevated-bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/home-mental-health-access-monitor-input-6",
-          "responseKey": "home-mental-health-access-monitor-input-6",
+          "jsonPointer": "/opioid-risk-elevated-bit",
+          "responseKey": "opioid-risk-elevated-bit",
           "textFallback": {
             "type": "scalar-phrase",
             "default": 0.5,
@@ -461,12 +468,12 @@
         }
       },
       {
-        "semantic": "home-mental-health-access-monitor-input-7",
+        "semantic": "functional-impairment-bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/home-mental-health-access-monitor-input-7",
-          "responseKey": "home-mental-health-access-monitor-input-7",
+          "jsonPointer": "/functional-impairment-bit",
+          "responseKey": "functional-impairment-bit",
           "textFallback": {
             "type": "scalar-phrase",
             "default": 0.5,
@@ -504,12 +511,12 @@
         }
       },
       {
-        "semantic": "home-mental-health-access-monitor-input-8",
+        "semantic": "pain-managed-bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/home-mental-health-access-monitor-input-8",
-          "responseKey": "home-mental-health-access-monitor-input-8",
+          "jsonPointer": "/pain-managed-bit",
+          "responseKey": "pain-managed-bit",
           "textFallback": {
             "type": "scalar-phrase",
             "default": 0.5,
@@ -554,6 +561,6 @@
       "input axes derived from inputSemantics (no length-matched sensorNormalization)"
     ],
     "inputLength": 8,
-    "sequenceCount": 3
+    "sequenceCount": 4
   }
 }

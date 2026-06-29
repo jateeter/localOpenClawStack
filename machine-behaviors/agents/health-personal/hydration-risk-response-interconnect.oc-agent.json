@@ -1,0 +1,672 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "oc-agent-template",
+  "role": "input-analyst",
+  "agentId": "hydration-risk-response-interconnect",
+  "displayName": "Hydration Risk Response Interconnect",
+  "machine": {
+    "id": "HydrationRiskResponseInterconnect",
+    "name": "Hydration Risk Response Interconnect",
+    "code": "hydration_risk_response_interconnect",
+    "machineClass": "bridge",
+    "domain": "health-personal",
+    "inputRegion": {
+      "offset": 4336,
+      "length": 10
+    },
+    "outputRegion": {
+      "offset": 4346,
+      "length": 4
+    }
+  },
+  "openclaw": {
+    "id": "openclaw-xacp",
+    "kind": "acp",
+    "platform": "OpenClaw",
+    "surface": "xACP",
+    "command": "openclaw acp",
+    "gatewayUrl": "ws://127.0.0.1:18789",
+    "sessionKey": "agent:main:main",
+    "targetAgent": "hydration-risk-response-interconnect",
+    "dispatchMode": "accepted-no-wait",
+    "completionMode": "pe-source-mapping",
+    "completionSourceMappingId": "acp-hydration-risk-response-interconnect-input-assessment"
+  },
+  "reasoning": {
+    "objective": "Produce the normalized input vector for \"Hydration Risk Response Interconnect\" from current observations so RE can evaluate its CES sequences.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Hydration Risk Response Interconnect\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Published personal-health bridge bus that composes hydration status, activity tolerance, sleep recovery, and food/fluid access into a compact hydration response lane. PE owns source composition and writes the compact input lane; RE evaluates this machine as ordinary vector state.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- below-half-hydration-target-bit (index 0):\n- below-quarter-hydration-target-bit (index 1):\n- below-baseline-today-bit (index 2):\n- sedentary-streak-active-bit (index 3):\n- short-or-poor-sleep-bit (index 4):\n- disturbed-or-fragmented-sleep-bit (index 5):\n- food-crisis-bit (index 6):\n- food-insecure-bit (index 7):\n- assistance-needed-bit (index 8):\n- food-secure-bit (index 9):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- hydration-risk-urgent-check (RED) -> action: Route urgent hydration check, caregiver contact, and clinician review.\n- hydration-risk-electrolyte-review (AMBER) -> action: Route electrolyte review, hydration plan adjustment, and recovery monitoring.\n- hydration-risk-access-support (AMBER) -> action: Route food/fluid access support, heat outreach if needed, and water access verification.\n- hydration-risk-stable-monitoring (GREEN) -> action: Continue stable hydration monitoring and routine wellness support.",
+    "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
+    "inputAxes": [
+      {
+        "index": 0,
+        "key": "below-half-hydration-target-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 1,
+        "key": "below-quarter-hydration-target-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 2,
+        "key": "below-baseline-today-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 3,
+        "key": "sedentary-streak-active-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 4,
+        "key": "short-or-poor-sleep-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 5,
+        "key": "disturbed-or-fragmented-sleep-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 6,
+        "key": "food-crisis-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 7,
+        "key": "food-insecure-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 8,
+        "key": "assistance-needed-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 9,
+        "key": "food-secure-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      }
+    ],
+    "sequenceCatalog": [
+      {
+        "sequenceId": "hydration-risk-urgent-check",
+        "label": "hydration-risk-urgent-check",
+        "rag": "RED",
+        "outputIndex": 0,
+        "action": "Route urgent hydration check, caregiver contact, and clinician review."
+      },
+      {
+        "sequenceId": "hydration-risk-electrolyte-review",
+        "label": "hydration-risk-electrolyte-review",
+        "rag": "AMBER",
+        "outputIndex": 1,
+        "action": "Route electrolyte review, hydration plan adjustment, and recovery monitoring."
+      },
+      {
+        "sequenceId": "hydration-risk-access-support",
+        "label": "hydration-risk-access-support",
+        "rag": "AMBER",
+        "outputIndex": 2,
+        "action": "Route food/fluid access support, heat outreach if needed, and water access verification."
+      },
+      {
+        "sequenceId": "hydration-risk-stable-monitoring",
+        "label": "hydration-risk-stable-monitoring",
+        "rag": "GREEN",
+        "outputIndex": 3,
+        "action": "Continue stable hydration monitoring and routine wellness support."
+      }
+    ]
+  },
+  "agentBinding": {
+    "agent": "hydration-risk-response-interconnect",
+    "mode": "advise",
+    "trigger": "hydration_risk_response_interconnect-input-assessment",
+    "allowedActions": [
+      "Assess current \"Hydration Risk Response Interconnect\" state from available observations and write the normalized input vector to the PE input region [4336:4346] for RE to evaluate."
+    ],
+    "writeBack": {
+      "type": "pe-sensor",
+      "provider": "acp",
+      "sensorId": "acp.openclaw.hydration_risk_response_interconnect.input-analyst.assessment",
+      "name": "OpenClaw hydration_risk_response_interconnect input-analyst assessment",
+      "region": {
+        "offset": 4336,
+        "length": 10
+      },
+      "semantics": [
+        "below-half-hydration-target-bit",
+        "below-quarter-hydration-target-bit",
+        "below-baseline-today-bit",
+        "sedentary-streak-active-bit",
+        "short-or-poor-sleep-bit",
+        "disturbed-or-fragmented-sleep-bit",
+        "food-crisis-bit",
+        "food-insecure-bit",
+        "assistance-needed-bit",
+        "food-secure-bit"
+      ],
+      "ttlMs": 300000,
+      "normalization": "already-normalized-0-1",
+      "ingest": {
+        "endpoint": "/api/integrations/completions",
+        "method": "POST",
+        "triggerPush": false,
+        "compactPush": true
+      },
+      "sourceMapping": {
+        "id": "acp-hydration_risk_response_interconnect-input-assessment",
+        "sensorId": "acp.openclaw.hydration_risk_response_interconnect.input-analyst.assessment",
+        "name": "OpenClaw hydration_risk_response_interconnect input-analyst assessment",
+        "region": {
+          "offset": 4336,
+          "length": 10
+        },
+        "ttlMs": 300000
+      }
+    },
+    "autonomyPolicy": {
+      "mode": "advise",
+      "stage": 1,
+      "writeBackType": "pe-sensor",
+      "canWriteBack": true,
+      "canStageActions": false,
+      "canExecuteActions": false,
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "blockedWhenRag": []
+    },
+    "riskControls": {
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "maxAutonomy": "advise",
+      "blockedWhenRag": []
+    }
+  },
+  "responseMapping": {
+    "schemaVersion": "1.0.0",
+    "responseContract": "structured-keys-or-text",
+    "mode": "advise",
+    "fields": [
+      {
+        "semantic": "below-half-hydration-target-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/below-half-hydration-target-bit",
+          "responseKey": "below-half-hydration-target-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.hydration_risk_response_interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4336,
+            "length": 10
+          },
+          "index": 0
+        }
+      },
+      {
+        "semantic": "below-quarter-hydration-target-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/below-quarter-hydration-target-bit",
+          "responseKey": "below-quarter-hydration-target-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.hydration_risk_response_interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4336,
+            "length": 10
+          },
+          "index": 1
+        }
+      },
+      {
+        "semantic": "below-baseline-today-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/below-baseline-today-bit",
+          "responseKey": "below-baseline-today-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.hydration_risk_response_interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4336,
+            "length": 10
+          },
+          "index": 2
+        }
+      },
+      {
+        "semantic": "sedentary-streak-active-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/sedentary-streak-active-bit",
+          "responseKey": "sedentary-streak-active-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.hydration_risk_response_interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4336,
+            "length": 10
+          },
+          "index": 3
+        }
+      },
+      {
+        "semantic": "short-or-poor-sleep-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/short-or-poor-sleep-bit",
+          "responseKey": "short-or-poor-sleep-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.hydration_risk_response_interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4336,
+            "length": 10
+          },
+          "index": 4
+        }
+      },
+      {
+        "semantic": "disturbed-or-fragmented-sleep-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/disturbed-or-fragmented-sleep-bit",
+          "responseKey": "disturbed-or-fragmented-sleep-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.hydration_risk_response_interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4336,
+            "length": 10
+          },
+          "index": 5
+        }
+      },
+      {
+        "semantic": "food-crisis-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/food-crisis-bit",
+          "responseKey": "food-crisis-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.hydration_risk_response_interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4336,
+            "length": 10
+          },
+          "index": 6
+        }
+      },
+      {
+        "semantic": "food-insecure-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/food-insecure-bit",
+          "responseKey": "food-insecure-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.hydration_risk_response_interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4336,
+            "length": 10
+          },
+          "index": 7
+        }
+      },
+      {
+        "semantic": "assistance-needed-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/assistance-needed-bit",
+          "responseKey": "assistance-needed-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.hydration_risk_response_interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4336,
+            "length": 10
+          },
+          "index": 8
+        }
+      },
+      {
+        "semantic": "food-secure-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/food-secure-bit",
+          "responseKey": "food-secure-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.hydration_risk_response_interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4336,
+            "length": 10
+          },
+          "index": 9
+        }
+      }
+    ]
+  },
+  "diagnostics": {
+    "axisBasis": "inputSemantics",
+    "warnings": [
+      "input axes derived from inputSemantics (no length-matched sensorNormalization)"
+    ],
+    "inputLength": 10,
+    "sequenceCount": 4
+  }
+}

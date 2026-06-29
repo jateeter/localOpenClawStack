@@ -1,0 +1,354 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "oc-agent-template",
+  "role": "input-analyst",
+  "agentId": "community-microgrid-cluster-weather-and-irradiance-station-resilience-mode-router",
+  "displayName": "Community Microgrid Cluster Weather And Irradiance Station Resilience Mode Router",
+  "machine": {
+    "id": "ENX150_weather-and-irradiance-station-resilience-mode-router",
+    "name": "Community Microgrid Cluster Weather And Irradiance Station Resilience Mode Router",
+    "code": "enx150_weather_and_irradiance_station_resilience_mode_router",
+    "machineClass": "agent-dispatcher",
+    "domain": "energy",
+    "inputRegion": {
+      "offset": 7192,
+      "length": 4
+    },
+    "outputRegion": {
+      "offset": 7196,
+      "length": 4
+    }
+  },
+  "openclaw": {
+    "id": "openclaw-xacp",
+    "kind": "acp",
+    "platform": "OpenClaw",
+    "surface": "xACP",
+    "command": "openclaw acp",
+    "gatewayUrl": "ws://127.0.0.1:18789",
+    "sessionKey": "agent:main:main",
+    "targetAgent": "community-microgrid-cluster-weather-and-irradiance-station-resilience-mode-router",
+    "dispatchMode": "accepted-no-wait",
+    "completionMode": "pe-source-mapping",
+    "completionSourceMappingId": "acp-community-microgrid-cluster-weather-and-irradiance-station-resilience-mode-router-input-assessment"
+  },
+  "reasoning": {
+    "objective": "Produce the normalized input vector for \"Community Microgrid Cluster Weather And Irradiance Station Resilience Mode Router\" from current observations so RE can evaluate its CES sequences.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Community Microgrid Cluster Weather And Irradiance Station Resilience Mode Router\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. New energy domain machine for operational monitoring and control of a community microgrid cluster. It focuses on weather and irradiance station resilience mode router, including solar production, battery storage behavior, feeder state, local grid electric quality/stability, and preventive-maintenance readiness, and emits 4D operational outputs at [7196:7200].\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- solar-or-asset-health (index 0):\n- battery-storage-or-flexible-load-margin (index 1):\n- local-grid-electric-quality-and-stability (index 2):\n- preventive-maintenance-readiness (index 3):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- enx-150-urgent-stabilize (RED) -> action: Dispatch community_microgrid_ops_agent to stabilize weather and irradiance station resilience mode router, protect residents, critical loads, and local grid electric quality, and record corrective action.\n- enx-150-optimize-dispatch (GREEN) -> action: Run solar and battery dispatch optimization for weather and irradiance station resilience mode router using tariff, forecast, community load, voltage, frequency, harmonic, and feeder constraint signals.\n- enx-150-preventive-maintenance (GREEN) -> action: Create preventive-maintenance work for weather and irradiance station resilience mode router and verify post-service telemetry and local electric-quality recovery.\n- enx-150-operating-window-ok (GREEN) -> action: Continue automated monitoring for weather and irradiance station resilience mode router while preserving current grid-support and dispatch setpoints.",
+    "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
+    "inputAxes": [
+      {
+        "index": 0,
+        "key": "solar-or-asset-health",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 1,
+        "key": "battery-storage-or-flexible-load-margin",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 2,
+        "key": "local-grid-electric-quality-and-stability",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 3,
+        "key": "preventive-maintenance-readiness",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      }
+    ],
+    "sequenceCatalog": [
+      {
+        "sequenceId": "enx-150-urgent-stabilize",
+        "label": "enx-150-urgent-stabilize",
+        "rag": "RED",
+        "outputIndex": 0,
+        "action": "Dispatch community_microgrid_ops_agent to stabilize weather and irradiance station resilience mode router, protect residents, critical loads, and local grid electric quality, and record corrective action."
+      },
+      {
+        "sequenceId": "enx-150-optimize-dispatch",
+        "label": "enx-150-optimize-dispatch",
+        "rag": "GREEN",
+        "outputIndex": 1,
+        "action": "Run solar and battery dispatch optimization for weather and irradiance station resilience mode router using tariff, forecast, community load, voltage, frequency, harmonic, and feeder constraint signals."
+      },
+      {
+        "sequenceId": "enx-150-preventive-maintenance",
+        "label": "enx-150-preventive-maintenance",
+        "rag": "GREEN",
+        "outputIndex": 2,
+        "action": "Create preventive-maintenance work for weather and irradiance station resilience mode router and verify post-service telemetry and local electric-quality recovery."
+      },
+      {
+        "sequenceId": "enx-150-operating-window-ok",
+        "label": "enx-150-operating-window-ok",
+        "rag": "GREEN",
+        "outputIndex": 3,
+        "action": "Continue automated monitoring for weather and irradiance station resilience mode router while preserving current grid-support and dispatch setpoints."
+      }
+    ]
+  },
+  "agentBinding": {
+    "agent": "community-microgrid-cluster-weather-and-irradiance-station-resilience-mode-router",
+    "mode": "advise",
+    "trigger": "enx150_weather_and_irradiance_station_resilience_mode_router-input-assessment",
+    "allowedActions": [
+      "Assess current \"Community Microgrid Cluster Weather And Irradiance Station Resilience Mode Router\" state from available observations and write the normalized input vector to the PE input region [7192:7196] for RE to evaluate."
+    ],
+    "writeBack": {
+      "type": "pe-sensor",
+      "provider": "acp",
+      "sensorId": "acp.openclaw.enx150_weather_and_irradiance_station_resilience_mode_router.input-analyst.assessment",
+      "name": "OpenClaw enx150_weather_and_irradiance_station_resilience_mode_router input-analyst assessment",
+      "region": {
+        "offset": 7192,
+        "length": 4
+      },
+      "semantics": [
+        "solar-or-asset-health",
+        "battery-storage-or-flexible-load-margin",
+        "local-grid-electric-quality-and-stability",
+        "preventive-maintenance-readiness"
+      ],
+      "ttlMs": 300000,
+      "normalization": "already-normalized-0-1",
+      "ingest": {
+        "endpoint": "/api/integrations/completions",
+        "method": "POST",
+        "triggerPush": false,
+        "compactPush": true
+      },
+      "sourceMapping": {
+        "id": "acp-enx150_weather_and_irradiance_station_resilience_mode_router-input-assessment",
+        "sensorId": "acp.openclaw.enx150_weather_and_irradiance_station_resilience_mode_router.input-analyst.assessment",
+        "name": "OpenClaw enx150_weather_and_irradiance_station_resilience_mode_router input-analyst assessment",
+        "region": {
+          "offset": 7192,
+          "length": 4
+        },
+        "ttlMs": 300000
+      }
+    },
+    "autonomyPolicy": {
+      "mode": "advise",
+      "stage": 1,
+      "writeBackType": "pe-sensor",
+      "canWriteBack": true,
+      "canStageActions": false,
+      "canExecuteActions": false,
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "blockedWhenRag": []
+    },
+    "riskControls": {
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "maxAutonomy": "advise",
+      "blockedWhenRag": []
+    }
+  },
+  "responseMapping": {
+    "schemaVersion": "1.0.0",
+    "responseContract": "structured-keys-or-text",
+    "mode": "advise",
+    "fields": [
+      {
+        "semantic": "solar-or-asset-health",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/solar-or-asset-health",
+          "responseKey": "solar-or-asset-health",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.enx150_weather_and_irradiance_station_resilience_mode_router.input-analyst.assessment",
+          "region": {
+            "offset": 7192,
+            "length": 4
+          },
+          "index": 0
+        }
+      },
+      {
+        "semantic": "battery-storage-or-flexible-load-margin",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/battery-storage-or-flexible-load-margin",
+          "responseKey": "battery-storage-or-flexible-load-margin",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.enx150_weather_and_irradiance_station_resilience_mode_router.input-analyst.assessment",
+          "region": {
+            "offset": 7192,
+            "length": 4
+          },
+          "index": 1
+        }
+      },
+      {
+        "semantic": "local-grid-electric-quality-and-stability",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/local-grid-electric-quality-and-stability",
+          "responseKey": "local-grid-electric-quality-and-stability",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.enx150_weather_and_irradiance_station_resilience_mode_router.input-analyst.assessment",
+          "region": {
+            "offset": 7192,
+            "length": 4
+          },
+          "index": 2
+        }
+      },
+      {
+        "semantic": "preventive-maintenance-readiness",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/preventive-maintenance-readiness",
+          "responseKey": "preventive-maintenance-readiness",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.enx150_weather_and_irradiance_station_resilience_mode_router.input-analyst.assessment",
+          "region": {
+            "offset": 7192,
+            "length": 4
+          },
+          "index": 3
+        }
+      }
+    ]
+  },
+  "diagnostics": {
+    "axisBasis": "inputSemantics",
+    "warnings": [
+      "input axes derived from inputSemantics (no length-matched sensorNormalization)"
+    ],
+    "inputLength": 4,
+    "sequenceCount": 4
+  }
+}

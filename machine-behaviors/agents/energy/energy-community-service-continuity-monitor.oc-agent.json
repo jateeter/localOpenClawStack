@@ -1,0 +1,617 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "oc-agent-template",
+  "role": "input-analyst",
+  "agentId": "energy-community-service-continuity-monitor",
+  "displayName": "Energy Community Service Continuity Monitor",
+  "machine": {
+    "id": "ENX206_community-service-continuity-monitor",
+    "name": "Energy Community Service Continuity Monitor",
+    "code": "enx206_community_service_continuity_monitor",
+    "machineClass": "signal-monitor",
+    "domain": "energy",
+    "inputRegion": {
+      "offset": 16664,
+      "length": 9
+    },
+    "outputRegion": {
+      "offset": 16673,
+      "length": 4
+    }
+  },
+  "openclaw": {
+    "id": "openclaw-xacp",
+    "kind": "acp",
+    "platform": "OpenClaw",
+    "surface": "xACP",
+    "command": "openclaw acp",
+    "gatewayUrl": "ws://127.0.0.1:18789",
+    "sessionKey": "agent:main:main",
+    "targetAgent": "energy-community-service-continuity-monitor",
+    "dispatchMode": "accepted-no-wait",
+    "completionMode": "pe-source-mapping",
+    "completionSourceMappingId": "acp-energy-community-service-continuity-monitor-input-assessment"
+  },
+  "reasoning": {
+    "objective": "Produce the normalized input vector for \"Energy Community Service Continuity Monitor\" from current observations so RE can evaluate its CES sequences.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Energy Community Service Continuity Monitor\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Converts energy posture into continuity state for schools, transportation, AI data centers, communications, lighting, heating, cooking, shelters, and recovery.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- schools_below_continuity_threshold_norm (index 0):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- transportation_below_continuity_threshold_norm (index 1):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- ai_data_center_below_continuity_threshold_norm (index 2):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- communications_below_continuity_threshold_norm (index 3):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- lighting_below_continuity_threshold_norm (index 4):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- heating_below_continuity_threshold_norm (index 5):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- cooking_or_food_service_below_continuity_threshold_norm (index 6):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- shelter_or_community_service_below_continuity_threshold_norm (index 7):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- service_recovery_action_active_norm (index 8):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Community Service Continuity Monitor (RED) -> action: CRITICAL_SERVICE_INTERRUPTION for resilient community microgrid operations.\n- Community Service Continuity Monitor (AMBER) -> action: SERVICE_DEGRADATION for resilient community microgrid operations.\n- Community Service Continuity Monitor (AMBER) -> action: RECOVERY_IN_PROGRESS for resilient community microgrid operations.\n- Community Service Continuity Monitor (GREEN) -> action: SERVICES_STABLE for resilient community microgrid operations.",
+    "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
+    "inputAxes": [
+      {
+        "index": 0,
+        "key": "schools_below_continuity_threshold_norm",
+        "anchors": {
+          "low": "false/inactive",
+          "mid": "",
+          "high": "true/active after PE source normalization"
+        }
+      },
+      {
+        "index": 1,
+        "key": "transportation_below_continuity_threshold_norm",
+        "anchors": {
+          "low": "false/inactive",
+          "mid": "",
+          "high": "true/active after PE source normalization"
+        }
+      },
+      {
+        "index": 2,
+        "key": "ai_data_center_below_continuity_threshold_norm",
+        "anchors": {
+          "low": "false/inactive",
+          "mid": "",
+          "high": "true/active after PE source normalization"
+        }
+      },
+      {
+        "index": 3,
+        "key": "communications_below_continuity_threshold_norm",
+        "anchors": {
+          "low": "false/inactive",
+          "mid": "",
+          "high": "true/active after PE source normalization"
+        }
+      },
+      {
+        "index": 4,
+        "key": "lighting_below_continuity_threshold_norm",
+        "anchors": {
+          "low": "false/inactive",
+          "mid": "",
+          "high": "true/active after PE source normalization"
+        }
+      },
+      {
+        "index": 5,
+        "key": "heating_below_continuity_threshold_norm",
+        "anchors": {
+          "low": "false/inactive",
+          "mid": "",
+          "high": "true/active after PE source normalization"
+        }
+      },
+      {
+        "index": 6,
+        "key": "cooking_or_food_service_below_continuity_threshold_norm",
+        "anchors": {
+          "low": "false/inactive",
+          "mid": "",
+          "high": "true/active after PE source normalization"
+        }
+      },
+      {
+        "index": 7,
+        "key": "shelter_or_community_service_below_continuity_threshold_norm",
+        "anchors": {
+          "low": "false/inactive",
+          "mid": "",
+          "high": "true/active after PE source normalization"
+        }
+      },
+      {
+        "index": 8,
+        "key": "service_recovery_action_active_norm",
+        "anchors": {
+          "low": "false/inactive",
+          "mid": "",
+          "high": "true/active after PE source normalization"
+        }
+      }
+    ],
+    "sequenceCatalog": [
+      {
+        "sequenceId": "enx206-critical-service-interruption",
+        "label": "Community Service Continuity Monitor",
+        "rag": "RED",
+        "outputIndex": 0,
+        "action": "CRITICAL_SERVICE_INTERRUPTION for resilient community microgrid operations."
+      },
+      {
+        "sequenceId": "enx206-service-degradation",
+        "label": "Community Service Continuity Monitor",
+        "rag": "AMBER",
+        "outputIndex": 1,
+        "action": "SERVICE_DEGRADATION for resilient community microgrid operations."
+      },
+      {
+        "sequenceId": "enx206-recovery-in-progress",
+        "label": "Community Service Continuity Monitor",
+        "rag": "AMBER",
+        "outputIndex": 2,
+        "action": "RECOVERY_IN_PROGRESS for resilient community microgrid operations."
+      },
+      {
+        "sequenceId": "enx206-services-stable",
+        "label": "Community Service Continuity Monitor",
+        "rag": "GREEN",
+        "outputIndex": 3,
+        "action": "SERVICES_STABLE for resilient community microgrid operations."
+      }
+    ]
+  },
+  "agentBinding": {
+    "agent": "energy-community-service-continuity-monitor",
+    "mode": "advise",
+    "trigger": "enx206_community_service_continuity_monitor-input-assessment",
+    "allowedActions": [
+      "Assess current \"Energy Community Service Continuity Monitor\" state from available observations and write the normalized input vector to the PE input region [16664:16673] for RE to evaluate."
+    ],
+    "writeBack": {
+      "type": "pe-sensor",
+      "provider": "acp",
+      "sensorId": "acp.openclaw.enx206_community_service_continuity_monitor.input-analyst.assessment",
+      "name": "OpenClaw enx206_community_service_continuity_monitor input-analyst assessment",
+      "region": {
+        "offset": 16664,
+        "length": 9
+      },
+      "semantics": [
+        "schools_below_continuity_threshold_norm",
+        "transportation_below_continuity_threshold_norm",
+        "ai_data_center_below_continuity_threshold_norm",
+        "communications_below_continuity_threshold_norm",
+        "lighting_below_continuity_threshold_norm",
+        "heating_below_continuity_threshold_norm",
+        "cooking_or_food_service_below_continuity_threshold_norm",
+        "shelter_or_community_service_below_continuity_threshold_norm",
+        "service_recovery_action_active_norm"
+      ],
+      "ttlMs": 300000,
+      "normalization": "already-normalized-0-1",
+      "ingest": {
+        "endpoint": "/api/integrations/completions",
+        "method": "POST",
+        "triggerPush": false,
+        "compactPush": true
+      },
+      "sourceMapping": {
+        "id": "acp-enx206_community_service_continuity_monitor-input-assessment",
+        "sensorId": "acp.openclaw.enx206_community_service_continuity_monitor.input-analyst.assessment",
+        "name": "OpenClaw enx206_community_service_continuity_monitor input-analyst assessment",
+        "region": {
+          "offset": 16664,
+          "length": 9
+        },
+        "ttlMs": 300000
+      }
+    },
+    "autonomyPolicy": {
+      "mode": "advise",
+      "stage": 1,
+      "writeBackType": "pe-sensor",
+      "canWriteBack": true,
+      "canStageActions": false,
+      "canExecuteActions": false,
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "blockedWhenRag": []
+    },
+    "riskControls": {
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "maxAutonomy": "advise",
+      "blockedWhenRag": []
+    }
+  },
+  "responseMapping": {
+    "schemaVersion": "1.0.0",
+    "responseContract": "structured-keys-or-text",
+    "mode": "advise",
+    "fields": [
+      {
+        "semantic": "schools_below_continuity_threshold_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/schools_below_continuity_threshold_norm",
+          "responseKey": "schools_below_continuity_threshold_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.enx206_community_service_continuity_monitor.input-analyst.assessment",
+          "region": {
+            "offset": 16664,
+            "length": 9
+          },
+          "index": 0
+        }
+      },
+      {
+        "semantic": "transportation_below_continuity_threshold_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/transportation_below_continuity_threshold_norm",
+          "responseKey": "transportation_below_continuity_threshold_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.enx206_community_service_continuity_monitor.input-analyst.assessment",
+          "region": {
+            "offset": 16664,
+            "length": 9
+          },
+          "index": 1
+        }
+      },
+      {
+        "semantic": "ai_data_center_below_continuity_threshold_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/ai_data_center_below_continuity_threshold_norm",
+          "responseKey": "ai_data_center_below_continuity_threshold_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.enx206_community_service_continuity_monitor.input-analyst.assessment",
+          "region": {
+            "offset": 16664,
+            "length": 9
+          },
+          "index": 2
+        }
+      },
+      {
+        "semantic": "communications_below_continuity_threshold_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/communications_below_continuity_threshold_norm",
+          "responseKey": "communications_below_continuity_threshold_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.enx206_community_service_continuity_monitor.input-analyst.assessment",
+          "region": {
+            "offset": 16664,
+            "length": 9
+          },
+          "index": 3
+        }
+      },
+      {
+        "semantic": "lighting_below_continuity_threshold_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/lighting_below_continuity_threshold_norm",
+          "responseKey": "lighting_below_continuity_threshold_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.enx206_community_service_continuity_monitor.input-analyst.assessment",
+          "region": {
+            "offset": 16664,
+            "length": 9
+          },
+          "index": 4
+        }
+      },
+      {
+        "semantic": "heating_below_continuity_threshold_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/heating_below_continuity_threshold_norm",
+          "responseKey": "heating_below_continuity_threshold_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.enx206_community_service_continuity_monitor.input-analyst.assessment",
+          "region": {
+            "offset": 16664,
+            "length": 9
+          },
+          "index": 5
+        }
+      },
+      {
+        "semantic": "cooking_or_food_service_below_continuity_threshold_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/cooking_or_food_service_below_continuity_threshold_norm",
+          "responseKey": "cooking_or_food_service_below_continuity_threshold_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.enx206_community_service_continuity_monitor.input-analyst.assessment",
+          "region": {
+            "offset": 16664,
+            "length": 9
+          },
+          "index": 6
+        }
+      },
+      {
+        "semantic": "shelter_or_community_service_below_continuity_threshold_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/shelter_or_community_service_below_continuity_threshold_norm",
+          "responseKey": "shelter_or_community_service_below_continuity_threshold_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.enx206_community_service_continuity_monitor.input-analyst.assessment",
+          "region": {
+            "offset": 16664,
+            "length": 9
+          },
+          "index": 7
+        }
+      },
+      {
+        "semantic": "service_recovery_action_active_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/service_recovery_action_active_norm",
+          "responseKey": "service_recovery_action_active_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.enx206_community_service_continuity_monitor.input-analyst.assessment",
+          "region": {
+            "offset": 16664,
+            "length": 9
+          },
+          "index": 8
+        }
+      }
+    ]
+  },
+  "diagnostics": {
+    "axisBasis": "sensorNormalization",
+    "warnings": [],
+    "inputLength": 9,
+    "sequenceCount": 4
+  }
+}

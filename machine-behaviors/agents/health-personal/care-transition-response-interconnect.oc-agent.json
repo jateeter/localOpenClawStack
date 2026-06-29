@@ -1,0 +1,1096 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "oc-agent-template",
+  "role": "input-analyst",
+  "agentId": "care-transition-response-interconnect",
+  "displayName": "Care Transition Response Interconnect",
+  "machine": {
+    "id": "CareTransitionResponseInterconnect",
+    "name": "Care Transition Response Interconnect",
+    "code": "care_transition_response_interconnect",
+    "machineClass": "bridge",
+    "domain": "health-personal",
+    "inputRegion": {
+      "offset": 4436,
+      "length": 18
+    },
+    "outputRegion": {
+      "offset": 4454,
+      "length": 4
+    }
+  },
+  "openclaw": {
+    "id": "openclaw-xacp",
+    "kind": "acp",
+    "platform": "OpenClaw",
+    "surface": "xACP",
+    "command": "openclaw acp",
+    "gatewayUrl": "ws://127.0.0.1:18789",
+    "sessionKey": "agent:main:main",
+    "targetAgent": "care-transition-response-interconnect",
+    "dispatchMode": "accepted-no-wait",
+    "completionMode": "pe-source-mapping",
+    "completionSourceMappingId": "acp-care-transition-response-interconnect-input-assessment"
+  },
+  "reasoning": {
+    "objective": "Produce the normalized input vector for \"Care Transition Response Interconnect\" from current observations so RE can evaluate its CES sequences.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Care Transition Response Interconnect\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Published personal-health bridge bus that composes care transition outcomes, wellness transition routing, patient wellness acuity, daily-care safety, facilities accessibility, and fall criticality into a compact transition-response lane. PE owns source composition and writes the compact input lane; RE evaluates this machine as ordinary vector state.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- care-transition-hospital-transfer-bit (index 0):\n- care-transition-rehab-transfer-bit (index 1):\n- care-transition-assisted-living-transfer-bit (index 2):\n- care-transition-transfer-blocked-bit (index 3):\n- care-transition-emergency-escalation-bit (index 4):\n- wellness-transition-review-bit (index 5):\n- wellness-transition-escalation-bit (index 6):\n- wellness-transition-urgent-bit (index 7):\n- wellness-improving-bit (index 8):\n- patient-wellness-alert-bit (index 9):\n- patient-wellness-critical-bit (index 10):\n- daily-care-fall-confirmed-bit (index 11):\n- daily-care-unresponsive-fall-bit (index 12):\n- daily-care-medication-missed-bit (index 13):\n- facilities-safety-alert-bit (index 14):\n- facilities-wellness-concern-bit (index 15):\n- facilities-inaccessibility-alert-bit (index 16):\n- fall-red-high-confidence-bit (index 17):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- care-transition-response-urgent-transfer (RED) -> action: Route urgent transfer response, emergency care coordination, governance escalation, and safety review.\n- care-transition-response-barrier-resolution (AMBER) -> action: Route payer, facility, transportation, documentation, medication, and human-services barrier resolution.\n- care-transition-response-post-acute-review (AMBER) -> action: Route post-acute placement review, referral optimization, functional support mapping, and care preference alignment.\n- care-transition-response-stable-monitoring (GREEN) -> action: Route stable transition monitoring, human-services follow-up, and whole-person care preference alignment.",
+    "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
+    "inputAxes": [
+      {
+        "index": 0,
+        "key": "care-transition-hospital-transfer-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 1,
+        "key": "care-transition-rehab-transfer-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 2,
+        "key": "care-transition-assisted-living-transfer-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 3,
+        "key": "care-transition-transfer-blocked-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 4,
+        "key": "care-transition-emergency-escalation-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 5,
+        "key": "wellness-transition-review-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 6,
+        "key": "wellness-transition-escalation-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 7,
+        "key": "wellness-transition-urgent-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 8,
+        "key": "wellness-improving-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 9,
+        "key": "patient-wellness-alert-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 10,
+        "key": "patient-wellness-critical-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 11,
+        "key": "daily-care-fall-confirmed-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 12,
+        "key": "daily-care-unresponsive-fall-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 13,
+        "key": "daily-care-medication-missed-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 14,
+        "key": "facilities-safety-alert-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 15,
+        "key": "facilities-wellness-concern-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 16,
+        "key": "facilities-inaccessibility-alert-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 17,
+        "key": "fall-red-high-confidence-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      }
+    ],
+    "sequenceCatalog": [
+      {
+        "sequenceId": "care-transition-response-urgent-transfer",
+        "label": "care-transition-response-urgent-transfer",
+        "rag": "RED",
+        "outputIndex": 0,
+        "action": "Route urgent transfer response, emergency care coordination, governance escalation, and safety review."
+      },
+      {
+        "sequenceId": "care-transition-response-barrier-resolution",
+        "label": "care-transition-response-barrier-resolution",
+        "rag": "AMBER",
+        "outputIndex": 1,
+        "action": "Route payer, facility, transportation, documentation, medication, and human-services barrier resolution."
+      },
+      {
+        "sequenceId": "care-transition-response-post-acute-review",
+        "label": "care-transition-response-post-acute-review",
+        "rag": "AMBER",
+        "outputIndex": 2,
+        "action": "Route post-acute placement review, referral optimization, functional support mapping, and care preference alignment."
+      },
+      {
+        "sequenceId": "care-transition-response-stable-monitoring",
+        "label": "care-transition-response-stable-monitoring",
+        "rag": "GREEN",
+        "outputIndex": 3,
+        "action": "Route stable transition monitoring, human-services follow-up, and whole-person care preference alignment."
+      }
+    ]
+  },
+  "agentBinding": {
+    "agent": "care-transition-response-interconnect",
+    "mode": "advise",
+    "trigger": "care_transition_response_interconnect-input-assessment",
+    "allowedActions": [
+      "Assess current \"Care Transition Response Interconnect\" state from available observations and write the normalized input vector to the PE input region [4436:4454] for RE to evaluate."
+    ],
+    "writeBack": {
+      "type": "pe-sensor",
+      "provider": "acp",
+      "sensorId": "acp.openclaw.care_transition_response_interconnect.input-analyst.assessment",
+      "name": "OpenClaw care_transition_response_interconnect input-analyst assessment",
+      "region": {
+        "offset": 4436,
+        "length": 18
+      },
+      "semantics": [
+        "care-transition-hospital-transfer-bit",
+        "care-transition-rehab-transfer-bit",
+        "care-transition-assisted-living-transfer-bit",
+        "care-transition-transfer-blocked-bit",
+        "care-transition-emergency-escalation-bit",
+        "wellness-transition-review-bit",
+        "wellness-transition-escalation-bit",
+        "wellness-transition-urgent-bit",
+        "wellness-improving-bit",
+        "patient-wellness-alert-bit",
+        "patient-wellness-critical-bit",
+        "daily-care-fall-confirmed-bit",
+        "daily-care-unresponsive-fall-bit",
+        "daily-care-medication-missed-bit",
+        "facilities-safety-alert-bit",
+        "facilities-wellness-concern-bit",
+        "facilities-inaccessibility-alert-bit",
+        "fall-red-high-confidence-bit"
+      ],
+      "ttlMs": 300000,
+      "normalization": "already-normalized-0-1",
+      "ingest": {
+        "endpoint": "/api/integrations/completions",
+        "method": "POST",
+        "triggerPush": false,
+        "compactPush": true
+      },
+      "sourceMapping": {
+        "id": "acp-care_transition_response_interconnect-input-assessment",
+        "sensorId": "acp.openclaw.care_transition_response_interconnect.input-analyst.assessment",
+        "name": "OpenClaw care_transition_response_interconnect input-analyst assessment",
+        "region": {
+          "offset": 4436,
+          "length": 18
+        },
+        "ttlMs": 300000
+      }
+    },
+    "autonomyPolicy": {
+      "mode": "advise",
+      "stage": 1,
+      "writeBackType": "pe-sensor",
+      "canWriteBack": true,
+      "canStageActions": false,
+      "canExecuteActions": false,
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "blockedWhenRag": []
+    },
+    "riskControls": {
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "maxAutonomy": "advise",
+      "blockedWhenRag": []
+    }
+  },
+  "responseMapping": {
+    "schemaVersion": "1.0.0",
+    "responseContract": "structured-keys-or-text",
+    "mode": "advise",
+    "fields": [
+      {
+        "semantic": "care-transition-hospital-transfer-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/care-transition-hospital-transfer-bit",
+          "responseKey": "care-transition-hospital-transfer-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.care_transition_response_interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4436,
+            "length": 18
+          },
+          "index": 0
+        }
+      },
+      {
+        "semantic": "care-transition-rehab-transfer-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/care-transition-rehab-transfer-bit",
+          "responseKey": "care-transition-rehab-transfer-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.care_transition_response_interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4436,
+            "length": 18
+          },
+          "index": 1
+        }
+      },
+      {
+        "semantic": "care-transition-assisted-living-transfer-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/care-transition-assisted-living-transfer-bit",
+          "responseKey": "care-transition-assisted-living-transfer-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.care_transition_response_interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4436,
+            "length": 18
+          },
+          "index": 2
+        }
+      },
+      {
+        "semantic": "care-transition-transfer-blocked-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/care-transition-transfer-blocked-bit",
+          "responseKey": "care-transition-transfer-blocked-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.care_transition_response_interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4436,
+            "length": 18
+          },
+          "index": 3
+        }
+      },
+      {
+        "semantic": "care-transition-emergency-escalation-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/care-transition-emergency-escalation-bit",
+          "responseKey": "care-transition-emergency-escalation-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.care_transition_response_interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4436,
+            "length": 18
+          },
+          "index": 4
+        }
+      },
+      {
+        "semantic": "wellness-transition-review-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/wellness-transition-review-bit",
+          "responseKey": "wellness-transition-review-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.care_transition_response_interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4436,
+            "length": 18
+          },
+          "index": 5
+        }
+      },
+      {
+        "semantic": "wellness-transition-escalation-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/wellness-transition-escalation-bit",
+          "responseKey": "wellness-transition-escalation-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.care_transition_response_interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4436,
+            "length": 18
+          },
+          "index": 6
+        }
+      },
+      {
+        "semantic": "wellness-transition-urgent-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/wellness-transition-urgent-bit",
+          "responseKey": "wellness-transition-urgent-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.care_transition_response_interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4436,
+            "length": 18
+          },
+          "index": 7
+        }
+      },
+      {
+        "semantic": "wellness-improving-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/wellness-improving-bit",
+          "responseKey": "wellness-improving-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.care_transition_response_interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4436,
+            "length": 18
+          },
+          "index": 8
+        }
+      },
+      {
+        "semantic": "patient-wellness-alert-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/patient-wellness-alert-bit",
+          "responseKey": "patient-wellness-alert-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.care_transition_response_interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4436,
+            "length": 18
+          },
+          "index": 9
+        }
+      },
+      {
+        "semantic": "patient-wellness-critical-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/patient-wellness-critical-bit",
+          "responseKey": "patient-wellness-critical-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.care_transition_response_interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4436,
+            "length": 18
+          },
+          "index": 10
+        }
+      },
+      {
+        "semantic": "daily-care-fall-confirmed-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/daily-care-fall-confirmed-bit",
+          "responseKey": "daily-care-fall-confirmed-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.care_transition_response_interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4436,
+            "length": 18
+          },
+          "index": 11
+        }
+      },
+      {
+        "semantic": "daily-care-unresponsive-fall-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/daily-care-unresponsive-fall-bit",
+          "responseKey": "daily-care-unresponsive-fall-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.care_transition_response_interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4436,
+            "length": 18
+          },
+          "index": 12
+        }
+      },
+      {
+        "semantic": "daily-care-medication-missed-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/daily-care-medication-missed-bit",
+          "responseKey": "daily-care-medication-missed-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.care_transition_response_interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4436,
+            "length": 18
+          },
+          "index": 13
+        }
+      },
+      {
+        "semantic": "facilities-safety-alert-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/facilities-safety-alert-bit",
+          "responseKey": "facilities-safety-alert-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.care_transition_response_interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4436,
+            "length": 18
+          },
+          "index": 14
+        }
+      },
+      {
+        "semantic": "facilities-wellness-concern-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/facilities-wellness-concern-bit",
+          "responseKey": "facilities-wellness-concern-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.care_transition_response_interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4436,
+            "length": 18
+          },
+          "index": 15
+        }
+      },
+      {
+        "semantic": "facilities-inaccessibility-alert-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/facilities-inaccessibility-alert-bit",
+          "responseKey": "facilities-inaccessibility-alert-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.care_transition_response_interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4436,
+            "length": 18
+          },
+          "index": 16
+        }
+      },
+      {
+        "semantic": "fall-red-high-confidence-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/fall-red-high-confidence-bit",
+          "responseKey": "fall-red-high-confidence-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.care_transition_response_interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4436,
+            "length": 18
+          },
+          "index": 17
+        }
+      }
+    ]
+  },
+  "diagnostics": {
+    "axisBasis": "inputSemantics",
+    "warnings": [
+      "input axes derived from inputSemantics (no length-matched sensorNormalization)"
+    ],
+    "inputLength": 18,
+    "sequenceCount": 4
+  }
+}

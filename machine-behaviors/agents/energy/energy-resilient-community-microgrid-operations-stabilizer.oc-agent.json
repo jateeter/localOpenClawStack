@@ -1,0 +1,670 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "oc-agent-template",
+  "role": "input-analyst",
+  "agentId": "energy-resilient-community-microgrid-operations-stabilizer",
+  "displayName": "Energy Resilient Community Microgrid Operations Stabilizer",
+  "machine": {
+    "id": "ENX210_resilient-community-microgrid-operations-stabilizer",
+    "name": "Energy Resilient Community Microgrid Operations Stabilizer",
+    "code": "enx210_resilient_community_microgrid_operations_stabilizer",
+    "machineClass": "outcome-stabilizer",
+    "domain": "energy",
+    "inputRegion": {
+      "offset": 16717,
+      "length": 10
+    },
+    "outputRegion": {
+      "offset": 16727,
+      "length": 4
+    }
+  },
+  "openclaw": {
+    "id": "openclaw-xacp",
+    "kind": "acp",
+    "platform": "OpenClaw",
+    "surface": "xACP",
+    "command": "openclaw acp",
+    "gatewayUrl": "ws://127.0.0.1:18789",
+    "sessionKey": "agent:main:main",
+    "targetAgent": "energy-resilient-community-microgrid-operations-stabilizer",
+    "dispatchMode": "accepted-no-wait",
+    "completionMode": "pe-source-mapping",
+    "completionSourceMappingId": "acp-energy-resilient-community-microgrid-operations-stabilizer-input-assessment"
+  },
+  "reasoning": {
+    "objective": "Produce the normalized input vector for \"Energy Resilient Community Microgrid Operations Stabilizer\" from current observations so RE can evaluate its CES sequences.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Energy Resilient Community Microgrid Operations Stabilizer\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Monitors post-dispatch recovery evidence for critical services, islanded operation, storage, generation, feeder switching, logistics, protocols, and cyber safety.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- critical_load_recovery_confirmed_norm (index 0):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- islanded_or_reconnected_posture_confirmed_norm (index 1):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- storage_reserve_recovered_norm (index 2):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- generation_commitment_recovered_norm (index 3):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- feeder_path_stable_after_action_norm (index 4):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- service_continuity_recovered_norm (index 5):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- supply_chain_action_accepted_norm (index 6):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- smart_grid_protocol_path_stable_norm (index 7):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- cyber_safety_gate_clear_norm (index 8):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- operator_closeout_complete_norm (index 9):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Resilient Community Microgrid Operations Stabilizer (RED) -> action: RECOVERY_REGRESSION for resilient community microgrid operations.\n- Resilient Community Microgrid Operations Stabilizer (AMBER) -> action: STABILIZATION_ACTION_REQUIRED for resilient community microgrid operations.\n- Resilient Community Microgrid Operations Stabilizer (AMBER) -> action: COMPLETION_EVIDENCE_PENDING for resilient community microgrid operations.\n- Resilient Community Microgrid Operations Stabilizer (GREEN) -> action: OPERATIONS_STABLE for resilient community microgrid operations.",
+    "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
+    "inputAxes": [
+      {
+        "index": 0,
+        "key": "critical_load_recovery_confirmed_norm",
+        "anchors": {
+          "low": "false/inactive",
+          "mid": "",
+          "high": "true/active after PE source normalization"
+        }
+      },
+      {
+        "index": 1,
+        "key": "islanded_or_reconnected_posture_confirmed_norm",
+        "anchors": {
+          "low": "false/inactive",
+          "mid": "",
+          "high": "true/active after PE source normalization"
+        }
+      },
+      {
+        "index": 2,
+        "key": "storage_reserve_recovered_norm",
+        "anchors": {
+          "low": "false/inactive",
+          "mid": "",
+          "high": "true/active after PE source normalization"
+        }
+      },
+      {
+        "index": 3,
+        "key": "generation_commitment_recovered_norm",
+        "anchors": {
+          "low": "false/inactive",
+          "mid": "",
+          "high": "true/active after PE source normalization"
+        }
+      },
+      {
+        "index": 4,
+        "key": "feeder_path_stable_after_action_norm",
+        "anchors": {
+          "low": "false/inactive",
+          "mid": "",
+          "high": "true/active after PE source normalization"
+        }
+      },
+      {
+        "index": 5,
+        "key": "service_continuity_recovered_norm",
+        "anchors": {
+          "low": "false/inactive",
+          "mid": "",
+          "high": "true/active after PE source normalization"
+        }
+      },
+      {
+        "index": 6,
+        "key": "supply_chain_action_accepted_norm",
+        "anchors": {
+          "low": "false/inactive",
+          "mid": "",
+          "high": "true/active after PE source normalization"
+        }
+      },
+      {
+        "index": 7,
+        "key": "smart_grid_protocol_path_stable_norm",
+        "anchors": {
+          "low": "false/inactive",
+          "mid": "",
+          "high": "true/active after PE source normalization"
+        }
+      },
+      {
+        "index": 8,
+        "key": "cyber_safety_gate_clear_norm",
+        "anchors": {
+          "low": "false/inactive",
+          "mid": "",
+          "high": "true/active after PE source normalization"
+        }
+      },
+      {
+        "index": 9,
+        "key": "operator_closeout_complete_norm",
+        "anchors": {
+          "low": "false/inactive",
+          "mid": "",
+          "high": "true/active after PE source normalization"
+        }
+      }
+    ],
+    "sequenceCatalog": [
+      {
+        "sequenceId": "enx210-recovery-regression",
+        "label": "Resilient Community Microgrid Operations Stabilizer",
+        "rag": "RED",
+        "outputIndex": 0,
+        "action": "RECOVERY_REGRESSION for resilient community microgrid operations."
+      },
+      {
+        "sequenceId": "enx210-stabilization-action-required",
+        "label": "Resilient Community Microgrid Operations Stabilizer",
+        "rag": "AMBER",
+        "outputIndex": 1,
+        "action": "STABILIZATION_ACTION_REQUIRED for resilient community microgrid operations."
+      },
+      {
+        "sequenceId": "enx210-completion-evidence-pending",
+        "label": "Resilient Community Microgrid Operations Stabilizer",
+        "rag": "AMBER",
+        "outputIndex": 2,
+        "action": "COMPLETION_EVIDENCE_PENDING for resilient community microgrid operations."
+      },
+      {
+        "sequenceId": "enx210-operations-stable",
+        "label": "Resilient Community Microgrid Operations Stabilizer",
+        "rag": "GREEN",
+        "outputIndex": 3,
+        "action": "OPERATIONS_STABLE for resilient community microgrid operations."
+      }
+    ]
+  },
+  "agentBinding": {
+    "agent": "energy-resilient-community-microgrid-operations-stabilizer",
+    "mode": "advise",
+    "trigger": "enx210_resilient_community_microgrid_operations_stabilizer-input-assessment",
+    "allowedActions": [
+      "Assess current \"Energy Resilient Community Microgrid Operations Stabilizer\" state from available observations and write the normalized input vector to the PE input region [16717:16727] for RE to evaluate."
+    ],
+    "writeBack": {
+      "type": "pe-sensor",
+      "provider": "acp",
+      "sensorId": "acp.openclaw.enx210_resilient_community_microgrid_operations_stabilizer.input-analyst.assessment",
+      "name": "OpenClaw enx210_resilient_community_microgrid_operations_stabilizer input-analyst assessment",
+      "region": {
+        "offset": 16717,
+        "length": 10
+      },
+      "semantics": [
+        "critical_load_recovery_confirmed_norm",
+        "islanded_or_reconnected_posture_confirmed_norm",
+        "storage_reserve_recovered_norm",
+        "generation_commitment_recovered_norm",
+        "feeder_path_stable_after_action_norm",
+        "service_continuity_recovered_norm",
+        "supply_chain_action_accepted_norm",
+        "smart_grid_protocol_path_stable_norm",
+        "cyber_safety_gate_clear_norm",
+        "operator_closeout_complete_norm"
+      ],
+      "ttlMs": 300000,
+      "normalization": "already-normalized-0-1",
+      "ingest": {
+        "endpoint": "/api/integrations/completions",
+        "method": "POST",
+        "triggerPush": false,
+        "compactPush": true
+      },
+      "sourceMapping": {
+        "id": "acp-enx210_resilient_community_microgrid_operations_stabilizer-input-assessment",
+        "sensorId": "acp.openclaw.enx210_resilient_community_microgrid_operations_stabilizer.input-analyst.assessment",
+        "name": "OpenClaw enx210_resilient_community_microgrid_operations_stabilizer input-analyst assessment",
+        "region": {
+          "offset": 16717,
+          "length": 10
+        },
+        "ttlMs": 300000
+      }
+    },
+    "autonomyPolicy": {
+      "mode": "advise",
+      "stage": 1,
+      "writeBackType": "pe-sensor",
+      "canWriteBack": true,
+      "canStageActions": false,
+      "canExecuteActions": false,
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "blockedWhenRag": []
+    },
+    "riskControls": {
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "maxAutonomy": "advise",
+      "blockedWhenRag": []
+    }
+  },
+  "responseMapping": {
+    "schemaVersion": "1.0.0",
+    "responseContract": "structured-keys-or-text",
+    "mode": "advise",
+    "fields": [
+      {
+        "semantic": "critical_load_recovery_confirmed_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/critical_load_recovery_confirmed_norm",
+          "responseKey": "critical_load_recovery_confirmed_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.enx210_resilient_community_microgrid_operations_stabilizer.input-analyst.assessment",
+          "region": {
+            "offset": 16717,
+            "length": 10
+          },
+          "index": 0
+        }
+      },
+      {
+        "semantic": "islanded_or_reconnected_posture_confirmed_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/islanded_or_reconnected_posture_confirmed_norm",
+          "responseKey": "islanded_or_reconnected_posture_confirmed_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.enx210_resilient_community_microgrid_operations_stabilizer.input-analyst.assessment",
+          "region": {
+            "offset": 16717,
+            "length": 10
+          },
+          "index": 1
+        }
+      },
+      {
+        "semantic": "storage_reserve_recovered_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/storage_reserve_recovered_norm",
+          "responseKey": "storage_reserve_recovered_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.enx210_resilient_community_microgrid_operations_stabilizer.input-analyst.assessment",
+          "region": {
+            "offset": 16717,
+            "length": 10
+          },
+          "index": 2
+        }
+      },
+      {
+        "semantic": "generation_commitment_recovered_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/generation_commitment_recovered_norm",
+          "responseKey": "generation_commitment_recovered_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.enx210_resilient_community_microgrid_operations_stabilizer.input-analyst.assessment",
+          "region": {
+            "offset": 16717,
+            "length": 10
+          },
+          "index": 3
+        }
+      },
+      {
+        "semantic": "feeder_path_stable_after_action_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/feeder_path_stable_after_action_norm",
+          "responseKey": "feeder_path_stable_after_action_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.enx210_resilient_community_microgrid_operations_stabilizer.input-analyst.assessment",
+          "region": {
+            "offset": 16717,
+            "length": 10
+          },
+          "index": 4
+        }
+      },
+      {
+        "semantic": "service_continuity_recovered_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/service_continuity_recovered_norm",
+          "responseKey": "service_continuity_recovered_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.enx210_resilient_community_microgrid_operations_stabilizer.input-analyst.assessment",
+          "region": {
+            "offset": 16717,
+            "length": 10
+          },
+          "index": 5
+        }
+      },
+      {
+        "semantic": "supply_chain_action_accepted_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/supply_chain_action_accepted_norm",
+          "responseKey": "supply_chain_action_accepted_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.enx210_resilient_community_microgrid_operations_stabilizer.input-analyst.assessment",
+          "region": {
+            "offset": 16717,
+            "length": 10
+          },
+          "index": 6
+        }
+      },
+      {
+        "semantic": "smart_grid_protocol_path_stable_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/smart_grid_protocol_path_stable_norm",
+          "responseKey": "smart_grid_protocol_path_stable_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.enx210_resilient_community_microgrid_operations_stabilizer.input-analyst.assessment",
+          "region": {
+            "offset": 16717,
+            "length": 10
+          },
+          "index": 7
+        }
+      },
+      {
+        "semantic": "cyber_safety_gate_clear_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/cyber_safety_gate_clear_norm",
+          "responseKey": "cyber_safety_gate_clear_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.enx210_resilient_community_microgrid_operations_stabilizer.input-analyst.assessment",
+          "region": {
+            "offset": 16717,
+            "length": 10
+          },
+          "index": 8
+        }
+      },
+      {
+        "semantic": "operator_closeout_complete_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/operator_closeout_complete_norm",
+          "responseKey": "operator_closeout_complete_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.enx210_resilient_community_microgrid_operations_stabilizer.input-analyst.assessment",
+          "region": {
+            "offset": 16717,
+            "length": 10
+          },
+          "index": 9
+        }
+      }
+    ]
+  },
+  "diagnostics": {
+    "axisBasis": "sensorNormalization",
+    "warnings": [],
+    "inputLength": 10,
+    "sequenceCount": 4
+  }
+}

@@ -1,0 +1,670 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "oc-agent-template",
+  "role": "input-analyst",
+  "agentId": "energy-community-critical-load-priority-controller",
+  "displayName": "Energy Community Critical Load Priority Controller",
+  "machine": {
+    "id": "ENX201_community-critical-load-priority-controller",
+    "name": "Energy Community Critical Load Priority Controller",
+    "code": "enx201_community_critical_load_priority_controller",
+    "machineClass": "optimizer",
+    "domain": "energy",
+    "inputRegion": {
+      "offset": 16600,
+      "length": 10
+    },
+    "outputRegion": {
+      "offset": 16610,
+      "length": 4
+    }
+  },
+  "openclaw": {
+    "id": "openclaw-xacp",
+    "kind": "acp",
+    "platform": "OpenClaw",
+    "surface": "xACP",
+    "command": "openclaw acp",
+    "gatewayUrl": "ws://127.0.0.1:18789",
+    "sessionKey": "agent:main:main",
+    "targetAgent": "energy-community-critical-load-priority-controller",
+    "dispatchMode": "accepted-no-wait",
+    "completionMode": "pe-source-mapping",
+    "completionSourceMappingId": "acp-energy-community-critical-load-priority-controller-input-assessment"
+  },
+  "reasoning": {
+    "objective": "Produce the normalized input vector for \"Energy Community Critical Load Priority Controller\" from current observations so RE can evaluate its CES sequences.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Energy Community Critical Load Priority Controller\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Classifies served loads and protects schools, transportation, AI data centers, communications, lighting, heating, cooking, shelters, and human-safety overrides.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- school_critical_load_demand_active_norm (index 0):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- transportation_charging_or_dispatch_load_active_norm (index 1):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- ai_data_center_compute_load_active_norm (index 2):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- communications_continuity_load_active_norm (index 3):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- public_lighting_safety_load_active_norm (index 4):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- heating_demand_active_norm (index 5):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- cooking_or_food_resilience_demand_active_norm (index 6):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- medical_or_community_shelter_load_active_norm (index 7):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- curtailment_tolerance_available_norm (index 8):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- human_safety_override_active_norm (index 9):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Community Critical Load Priority Controller (RED) -> action: LOAD_SHED_BLOCKED_HUMAN_SAFETY for resilient community microgrid operations.\n- Community Critical Load Priority Controller (AMBER) -> action: PRIORITIZE_CRITICAL_SERVICES for resilient community microgrid operations.\n- Community Critical Load Priority Controller (AMBER) -> action: FLEXIBLE_LOAD_AVAILABLE for resilient community microgrid operations.\n- Community Critical Load Priority Controller (GREEN) -> action: LOAD_PRIORITY_STABLE for resilient community microgrid operations.",
+    "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
+    "inputAxes": [
+      {
+        "index": 0,
+        "key": "school_critical_load_demand_active_norm",
+        "anchors": {
+          "low": "false/inactive",
+          "mid": "",
+          "high": "true/active after PE source normalization"
+        }
+      },
+      {
+        "index": 1,
+        "key": "transportation_charging_or_dispatch_load_active_norm",
+        "anchors": {
+          "low": "false/inactive",
+          "mid": "",
+          "high": "true/active after PE source normalization"
+        }
+      },
+      {
+        "index": 2,
+        "key": "ai_data_center_compute_load_active_norm",
+        "anchors": {
+          "low": "false/inactive",
+          "mid": "",
+          "high": "true/active after PE source normalization"
+        }
+      },
+      {
+        "index": 3,
+        "key": "communications_continuity_load_active_norm",
+        "anchors": {
+          "low": "false/inactive",
+          "mid": "",
+          "high": "true/active after PE source normalization"
+        }
+      },
+      {
+        "index": 4,
+        "key": "public_lighting_safety_load_active_norm",
+        "anchors": {
+          "low": "false/inactive",
+          "mid": "",
+          "high": "true/active after PE source normalization"
+        }
+      },
+      {
+        "index": 5,
+        "key": "heating_demand_active_norm",
+        "anchors": {
+          "low": "false/inactive",
+          "mid": "",
+          "high": "true/active after PE source normalization"
+        }
+      },
+      {
+        "index": 6,
+        "key": "cooking_or_food_resilience_demand_active_norm",
+        "anchors": {
+          "low": "false/inactive",
+          "mid": "",
+          "high": "true/active after PE source normalization"
+        }
+      },
+      {
+        "index": 7,
+        "key": "medical_or_community_shelter_load_active_norm",
+        "anchors": {
+          "low": "false/inactive",
+          "mid": "",
+          "high": "true/active after PE source normalization"
+        }
+      },
+      {
+        "index": 8,
+        "key": "curtailment_tolerance_available_norm",
+        "anchors": {
+          "low": "false/inactive",
+          "mid": "",
+          "high": "true/active after PE source normalization"
+        }
+      },
+      {
+        "index": 9,
+        "key": "human_safety_override_active_norm",
+        "anchors": {
+          "low": "false/inactive",
+          "mid": "",
+          "high": "true/active after PE source normalization"
+        }
+      }
+    ],
+    "sequenceCatalog": [
+      {
+        "sequenceId": "enx201-load-shed-blocked-human-safety",
+        "label": "Community Critical Load Priority Controller",
+        "rag": "RED",
+        "outputIndex": 0,
+        "action": "LOAD_SHED_BLOCKED_HUMAN_SAFETY for resilient community microgrid operations."
+      },
+      {
+        "sequenceId": "enx201-prioritize-critical-services",
+        "label": "Community Critical Load Priority Controller",
+        "rag": "AMBER",
+        "outputIndex": 1,
+        "action": "PRIORITIZE_CRITICAL_SERVICES for resilient community microgrid operations."
+      },
+      {
+        "sequenceId": "enx201-flexible-load-available",
+        "label": "Community Critical Load Priority Controller",
+        "rag": "AMBER",
+        "outputIndex": 2,
+        "action": "FLEXIBLE_LOAD_AVAILABLE for resilient community microgrid operations."
+      },
+      {
+        "sequenceId": "enx201-load-priority-stable",
+        "label": "Community Critical Load Priority Controller",
+        "rag": "GREEN",
+        "outputIndex": 3,
+        "action": "LOAD_PRIORITY_STABLE for resilient community microgrid operations."
+      }
+    ]
+  },
+  "agentBinding": {
+    "agent": "energy-community-critical-load-priority-controller",
+    "mode": "advise",
+    "trigger": "enx201_community_critical_load_priority_controller-input-assessment",
+    "allowedActions": [
+      "Assess current \"Energy Community Critical Load Priority Controller\" state from available observations and write the normalized input vector to the PE input region [16600:16610] for RE to evaluate."
+    ],
+    "writeBack": {
+      "type": "pe-sensor",
+      "provider": "acp",
+      "sensorId": "acp.openclaw.enx201_community_critical_load_priority_controller.input-analyst.assessment",
+      "name": "OpenClaw enx201_community_critical_load_priority_controller input-analyst assessment",
+      "region": {
+        "offset": 16600,
+        "length": 10
+      },
+      "semantics": [
+        "school_critical_load_demand_active_norm",
+        "transportation_charging_or_dispatch_load_active_norm",
+        "ai_data_center_compute_load_active_norm",
+        "communications_continuity_load_active_norm",
+        "public_lighting_safety_load_active_norm",
+        "heating_demand_active_norm",
+        "cooking_or_food_resilience_demand_active_norm",
+        "medical_or_community_shelter_load_active_norm",
+        "curtailment_tolerance_available_norm",
+        "human_safety_override_active_norm"
+      ],
+      "ttlMs": 300000,
+      "normalization": "already-normalized-0-1",
+      "ingest": {
+        "endpoint": "/api/integrations/completions",
+        "method": "POST",
+        "triggerPush": false,
+        "compactPush": true
+      },
+      "sourceMapping": {
+        "id": "acp-enx201_community_critical_load_priority_controller-input-assessment",
+        "sensorId": "acp.openclaw.enx201_community_critical_load_priority_controller.input-analyst.assessment",
+        "name": "OpenClaw enx201_community_critical_load_priority_controller input-analyst assessment",
+        "region": {
+          "offset": 16600,
+          "length": 10
+        },
+        "ttlMs": 300000
+      }
+    },
+    "autonomyPolicy": {
+      "mode": "advise",
+      "stage": 1,
+      "writeBackType": "pe-sensor",
+      "canWriteBack": true,
+      "canStageActions": false,
+      "canExecuteActions": false,
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "blockedWhenRag": []
+    },
+    "riskControls": {
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "maxAutonomy": "advise",
+      "blockedWhenRag": []
+    }
+  },
+  "responseMapping": {
+    "schemaVersion": "1.0.0",
+    "responseContract": "structured-keys-or-text",
+    "mode": "advise",
+    "fields": [
+      {
+        "semantic": "school_critical_load_demand_active_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/school_critical_load_demand_active_norm",
+          "responseKey": "school_critical_load_demand_active_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.enx201_community_critical_load_priority_controller.input-analyst.assessment",
+          "region": {
+            "offset": 16600,
+            "length": 10
+          },
+          "index": 0
+        }
+      },
+      {
+        "semantic": "transportation_charging_or_dispatch_load_active_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/transportation_charging_or_dispatch_load_active_norm",
+          "responseKey": "transportation_charging_or_dispatch_load_active_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.enx201_community_critical_load_priority_controller.input-analyst.assessment",
+          "region": {
+            "offset": 16600,
+            "length": 10
+          },
+          "index": 1
+        }
+      },
+      {
+        "semantic": "ai_data_center_compute_load_active_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/ai_data_center_compute_load_active_norm",
+          "responseKey": "ai_data_center_compute_load_active_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.enx201_community_critical_load_priority_controller.input-analyst.assessment",
+          "region": {
+            "offset": 16600,
+            "length": 10
+          },
+          "index": 2
+        }
+      },
+      {
+        "semantic": "communications_continuity_load_active_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/communications_continuity_load_active_norm",
+          "responseKey": "communications_continuity_load_active_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.enx201_community_critical_load_priority_controller.input-analyst.assessment",
+          "region": {
+            "offset": 16600,
+            "length": 10
+          },
+          "index": 3
+        }
+      },
+      {
+        "semantic": "public_lighting_safety_load_active_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/public_lighting_safety_load_active_norm",
+          "responseKey": "public_lighting_safety_load_active_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.enx201_community_critical_load_priority_controller.input-analyst.assessment",
+          "region": {
+            "offset": 16600,
+            "length": 10
+          },
+          "index": 4
+        }
+      },
+      {
+        "semantic": "heating_demand_active_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/heating_demand_active_norm",
+          "responseKey": "heating_demand_active_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.enx201_community_critical_load_priority_controller.input-analyst.assessment",
+          "region": {
+            "offset": 16600,
+            "length": 10
+          },
+          "index": 5
+        }
+      },
+      {
+        "semantic": "cooking_or_food_resilience_demand_active_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/cooking_or_food_resilience_demand_active_norm",
+          "responseKey": "cooking_or_food_resilience_demand_active_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.enx201_community_critical_load_priority_controller.input-analyst.assessment",
+          "region": {
+            "offset": 16600,
+            "length": 10
+          },
+          "index": 6
+        }
+      },
+      {
+        "semantic": "medical_or_community_shelter_load_active_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/medical_or_community_shelter_load_active_norm",
+          "responseKey": "medical_or_community_shelter_load_active_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.enx201_community_critical_load_priority_controller.input-analyst.assessment",
+          "region": {
+            "offset": 16600,
+            "length": 10
+          },
+          "index": 7
+        }
+      },
+      {
+        "semantic": "curtailment_tolerance_available_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/curtailment_tolerance_available_norm",
+          "responseKey": "curtailment_tolerance_available_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.enx201_community_critical_load_priority_controller.input-analyst.assessment",
+          "region": {
+            "offset": 16600,
+            "length": 10
+          },
+          "index": 8
+        }
+      },
+      {
+        "semantic": "human_safety_override_active_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/human_safety_override_active_norm",
+          "responseKey": "human_safety_override_active_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.enx201_community_critical_load_priority_controller.input-analyst.assessment",
+          "region": {
+            "offset": 16600,
+            "length": 10
+          },
+          "index": 9
+        }
+      }
+    ]
+  },
+  "diagnostics": {
+    "axisBasis": "sensorNormalization",
+    "warnings": [],
+    "inputLength": 10,
+    "sequenceCount": 4
+  }
+}

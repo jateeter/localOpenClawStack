@@ -33,17 +33,17 @@
     "completionSourceMappingId": "acp-fall-sensor-motion-pre-aggregator-input-assessment"
   },
   "reasoning": {
-    "objective": "Produce the machine-native count input vector for \"Fall Sensor Motion Pre-aggregator\" from current observations so RE can evaluate its CES sequences.",
-    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Fall Sensor Motion Pre-aggregator\".\n\nOBJECTIVE\nTransform raw wearable motion observations into the machine-native active-sample count consumed by the pre-aggregator. Do not emit a normalized fraction. Write the count through the PE completion source so RE can classify it into the motion-progression ordinal used by Fall Detection.\n\nNARRATIVE ACTIVATION\nIn the patient-safety transport example, a fall-like burst yields six above-threshold accelerometer samples. This agent writes active-accelerometer-sample-count=6 into PE region [4300:4301]. RE maps that to the severe motion ordinal at FallDetection input element 0, allowing the later Fall Detection agent to complete the confirmed-fall input vector.\n\nINPUT AXES (return machine-native counts):\n- active-accelerometer-sample-count (index 0): 0=no active samples, 1-2=brief, 3-4=sustained, 5-7=severe; clamp values above 7 to 7\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- motion-none (GREEN)\n- motion-brief (GREEN)\n- motion-sustained (AMBER)\n- motion-severe (AMBER)",
-    "outputContract": "Return one structured line per input axis as `<axis_key>: <integer count>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
+    "objective": "Produce the normalized input vector for \"Fall Sensor Motion Pre-aggregator\" from current observations so RE can evaluate its CES sequences.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Fall Sensor Motion Pre-aggregator\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Lifts the previously prose-only sensor pre-aggregation contract from FallDetection.metadata.designNotes into an executable CES.  Input is a raw active-sample count per tick (typically derived by the wearable firmware from a window of accelerometer samples whose magnitude exceeds a motion threshold).  Output is the motion-progression ordinal (0=none, 1=brief, 2=sustained, 3=severe) that FallDetection's motion-channel input region expects.  The wearable firmware is testable against this CES \u2014 given the same raw count, both the firmware and the engine must classify into the same ordinal.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- active-accelerometer-sample-count (index 0):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- motion-none (GREEN)\n- motion-brief (GREEN)\n- motion-sustained (AMBER)\n- motion-severe (AMBER)",
+    "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
     "inputAxes": [
       {
         "index": 0,
         "key": "active-accelerometer-sample-count",
         "anchors": {
-          "low": "0=no above-threshold samples",
-          "mid": "3-4=sustained motion",
-          "high": "5-7=severe motion"
+          "low": "",
+          "mid": "",
+          "high": ""
         }
       }
     ],
@@ -98,7 +98,7 @@
         "active-accelerometer-sample-count"
       ],
       "ttlMs": 300000,
-      "normalization": "machine-native-count",
+      "normalization": "already-normalized-0-1",
       "ingest": {
         "endpoint": "/api/integrations/completions",
         "method": "POST",
@@ -141,21 +141,34 @@
     "fields": [
       {
         "semantic": "active-accelerometer-sample-count",
-        "valueType": "count",
-        "normalization": "machine-native-count",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
         "extract": {
           "jsonPointer": "/active-accelerometer-sample-count",
           "responseKey": "active-accelerometer-sample-count",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0,
+            "default": 0.5,
             "phrases": {
-              "none": 0,
-              "absent": 0,
-              "brief": 1,
-              "sustained": 3,
-              "severe": 6,
-              "impact": 6
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
             },
             "numberRegex": "(\\d+(?:\\.\\d+)?)"
           }

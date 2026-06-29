@@ -1,0 +1,564 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "oc-agent-template",
+  "role": "input-analyst",
+  "agentId": "energy-storage-reserve-and-dispatch-optimizer",
+  "displayName": "Energy Storage Reserve And Dispatch Optimizer",
+  "machine": {
+    "id": "ENX203_storage-reserve-and-dispatch-optimizer",
+    "name": "Energy Storage Reserve And Dispatch Optimizer",
+    "code": "enx203_storage_reserve_and_dispatch_optimizer",
+    "machineClass": "risk-forecaster",
+    "domain": "energy",
+    "inputRegion": {
+      "offset": 16626,
+      "length": 8
+    },
+    "outputRegion": {
+      "offset": 16634,
+      "length": 4
+    }
+  },
+  "openclaw": {
+    "id": "openclaw-xacp",
+    "kind": "acp",
+    "platform": "OpenClaw",
+    "surface": "xACP",
+    "command": "openclaw acp",
+    "gatewayUrl": "ws://127.0.0.1:18789",
+    "sessionKey": "agent:main:main",
+    "targetAgent": "energy-storage-reserve-and-dispatch-optimizer",
+    "dispatchMode": "accepted-no-wait",
+    "completionMode": "pe-source-mapping",
+    "completionSourceMappingId": "acp-energy-storage-reserve-and-dispatch-optimizer-input-assessment"
+  },
+  "reasoning": {
+    "objective": "Produce the normalized input vector for \"Energy Storage Reserve And Dispatch Optimizer\" from current observations so RE can evaluate its CES sequences.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Energy Storage Reserve And Dispatch Optimizer\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Coordinates battery state of charge, thermal limits, BMS balance, fire safety, solar surplus, critical load forecast, and dispatch signals.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- state_of_charge_below_reserve_floor_norm (index 0):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- available_discharge_capacity_sufficient_norm (index 1):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- battery_thermal_limit_active_norm (index 2):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- bms_cell_imbalance_active_norm (index 3):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- fire_safety_loop_impaired_norm (index 4):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- solar_charge_surplus_available_norm (index 5):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- critical_load_forecast_rising_norm (index 6):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- market_or_utility_dispatch_signal_active_norm (index 7):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Storage Reserve And Dispatch Optimizer (RED) -> action: PROTECT_STORAGE_ASSET for resilient community microgrid operations.\n- Storage Reserve And Dispatch Optimizer (AMBER) -> action: DISPATCH_STORAGE for resilient community microgrid operations.\n- Storage Reserve And Dispatch Optimizer (AMBER) -> action: CHARGE_STORAGE for resilient community microgrid operations.\n- Storage Reserve And Dispatch Optimizer (GREEN) -> action: RESERVE_STABLE for resilient community microgrid operations.",
+    "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
+    "inputAxes": [
+      {
+        "index": 0,
+        "key": "state_of_charge_below_reserve_floor_norm",
+        "anchors": {
+          "low": "false/inactive",
+          "mid": "",
+          "high": "true/active after PE source normalization"
+        }
+      },
+      {
+        "index": 1,
+        "key": "available_discharge_capacity_sufficient_norm",
+        "anchors": {
+          "low": "false/inactive",
+          "mid": "",
+          "high": "true/active after PE source normalization"
+        }
+      },
+      {
+        "index": 2,
+        "key": "battery_thermal_limit_active_norm",
+        "anchors": {
+          "low": "false/inactive",
+          "mid": "",
+          "high": "true/active after PE source normalization"
+        }
+      },
+      {
+        "index": 3,
+        "key": "bms_cell_imbalance_active_norm",
+        "anchors": {
+          "low": "false/inactive",
+          "mid": "",
+          "high": "true/active after PE source normalization"
+        }
+      },
+      {
+        "index": 4,
+        "key": "fire_safety_loop_impaired_norm",
+        "anchors": {
+          "low": "false/inactive",
+          "mid": "",
+          "high": "true/active after PE source normalization"
+        }
+      },
+      {
+        "index": 5,
+        "key": "solar_charge_surplus_available_norm",
+        "anchors": {
+          "low": "false/inactive",
+          "mid": "",
+          "high": "true/active after PE source normalization"
+        }
+      },
+      {
+        "index": 6,
+        "key": "critical_load_forecast_rising_norm",
+        "anchors": {
+          "low": "false/inactive",
+          "mid": "",
+          "high": "true/active after PE source normalization"
+        }
+      },
+      {
+        "index": 7,
+        "key": "market_or_utility_dispatch_signal_active_norm",
+        "anchors": {
+          "low": "false/inactive",
+          "mid": "",
+          "high": "true/active after PE source normalization"
+        }
+      }
+    ],
+    "sequenceCatalog": [
+      {
+        "sequenceId": "enx203-protect-storage-asset",
+        "label": "Storage Reserve And Dispatch Optimizer",
+        "rag": "RED",
+        "outputIndex": 0,
+        "action": "PROTECT_STORAGE_ASSET for resilient community microgrid operations."
+      },
+      {
+        "sequenceId": "enx203-dispatch-storage",
+        "label": "Storage Reserve And Dispatch Optimizer",
+        "rag": "AMBER",
+        "outputIndex": 1,
+        "action": "DISPATCH_STORAGE for resilient community microgrid operations."
+      },
+      {
+        "sequenceId": "enx203-charge-storage",
+        "label": "Storage Reserve And Dispatch Optimizer",
+        "rag": "AMBER",
+        "outputIndex": 2,
+        "action": "CHARGE_STORAGE for resilient community microgrid operations."
+      },
+      {
+        "sequenceId": "enx203-reserve-stable",
+        "label": "Storage Reserve And Dispatch Optimizer",
+        "rag": "GREEN",
+        "outputIndex": 3,
+        "action": "RESERVE_STABLE for resilient community microgrid operations."
+      }
+    ]
+  },
+  "agentBinding": {
+    "agent": "energy-storage-reserve-and-dispatch-optimizer",
+    "mode": "advise",
+    "trigger": "enx203_storage_reserve_and_dispatch_optimizer-input-assessment",
+    "allowedActions": [
+      "Assess current \"Energy Storage Reserve And Dispatch Optimizer\" state from available observations and write the normalized input vector to the PE input region [16626:16634] for RE to evaluate."
+    ],
+    "writeBack": {
+      "type": "pe-sensor",
+      "provider": "acp",
+      "sensorId": "acp.openclaw.enx203_storage_reserve_and_dispatch_optimizer.input-analyst.assessment",
+      "name": "OpenClaw enx203_storage_reserve_and_dispatch_optimizer input-analyst assessment",
+      "region": {
+        "offset": 16626,
+        "length": 8
+      },
+      "semantics": [
+        "state_of_charge_below_reserve_floor_norm",
+        "available_discharge_capacity_sufficient_norm",
+        "battery_thermal_limit_active_norm",
+        "bms_cell_imbalance_active_norm",
+        "fire_safety_loop_impaired_norm",
+        "solar_charge_surplus_available_norm",
+        "critical_load_forecast_rising_norm",
+        "market_or_utility_dispatch_signal_active_norm"
+      ],
+      "ttlMs": 300000,
+      "normalization": "already-normalized-0-1",
+      "ingest": {
+        "endpoint": "/api/integrations/completions",
+        "method": "POST",
+        "triggerPush": false,
+        "compactPush": true
+      },
+      "sourceMapping": {
+        "id": "acp-enx203_storage_reserve_and_dispatch_optimizer-input-assessment",
+        "sensorId": "acp.openclaw.enx203_storage_reserve_and_dispatch_optimizer.input-analyst.assessment",
+        "name": "OpenClaw enx203_storage_reserve_and_dispatch_optimizer input-analyst assessment",
+        "region": {
+          "offset": 16626,
+          "length": 8
+        },
+        "ttlMs": 300000
+      }
+    },
+    "autonomyPolicy": {
+      "mode": "advise",
+      "stage": 1,
+      "writeBackType": "pe-sensor",
+      "canWriteBack": true,
+      "canStageActions": false,
+      "canExecuteActions": false,
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "blockedWhenRag": []
+    },
+    "riskControls": {
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "maxAutonomy": "advise",
+      "blockedWhenRag": []
+    }
+  },
+  "responseMapping": {
+    "schemaVersion": "1.0.0",
+    "responseContract": "structured-keys-or-text",
+    "mode": "advise",
+    "fields": [
+      {
+        "semantic": "state_of_charge_below_reserve_floor_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/state_of_charge_below_reserve_floor_norm",
+          "responseKey": "state_of_charge_below_reserve_floor_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.enx203_storage_reserve_and_dispatch_optimizer.input-analyst.assessment",
+          "region": {
+            "offset": 16626,
+            "length": 8
+          },
+          "index": 0
+        }
+      },
+      {
+        "semantic": "available_discharge_capacity_sufficient_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/available_discharge_capacity_sufficient_norm",
+          "responseKey": "available_discharge_capacity_sufficient_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.enx203_storage_reserve_and_dispatch_optimizer.input-analyst.assessment",
+          "region": {
+            "offset": 16626,
+            "length": 8
+          },
+          "index": 1
+        }
+      },
+      {
+        "semantic": "battery_thermal_limit_active_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/battery_thermal_limit_active_norm",
+          "responseKey": "battery_thermal_limit_active_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.enx203_storage_reserve_and_dispatch_optimizer.input-analyst.assessment",
+          "region": {
+            "offset": 16626,
+            "length": 8
+          },
+          "index": 2
+        }
+      },
+      {
+        "semantic": "bms_cell_imbalance_active_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/bms_cell_imbalance_active_norm",
+          "responseKey": "bms_cell_imbalance_active_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.enx203_storage_reserve_and_dispatch_optimizer.input-analyst.assessment",
+          "region": {
+            "offset": 16626,
+            "length": 8
+          },
+          "index": 3
+        }
+      },
+      {
+        "semantic": "fire_safety_loop_impaired_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/fire_safety_loop_impaired_norm",
+          "responseKey": "fire_safety_loop_impaired_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.enx203_storage_reserve_and_dispatch_optimizer.input-analyst.assessment",
+          "region": {
+            "offset": 16626,
+            "length": 8
+          },
+          "index": 4
+        }
+      },
+      {
+        "semantic": "solar_charge_surplus_available_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/solar_charge_surplus_available_norm",
+          "responseKey": "solar_charge_surplus_available_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.enx203_storage_reserve_and_dispatch_optimizer.input-analyst.assessment",
+          "region": {
+            "offset": 16626,
+            "length": 8
+          },
+          "index": 5
+        }
+      },
+      {
+        "semantic": "critical_load_forecast_rising_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/critical_load_forecast_rising_norm",
+          "responseKey": "critical_load_forecast_rising_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.enx203_storage_reserve_and_dispatch_optimizer.input-analyst.assessment",
+          "region": {
+            "offset": 16626,
+            "length": 8
+          },
+          "index": 6
+        }
+      },
+      {
+        "semantic": "market_or_utility_dispatch_signal_active_norm",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/market_or_utility_dispatch_signal_active_norm",
+          "responseKey": "market_or_utility_dispatch_signal_active_norm",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.enx203_storage_reserve_and_dispatch_optimizer.input-analyst.assessment",
+          "region": {
+            "offset": 16626,
+            "length": 8
+          },
+          "index": 7
+        }
+      }
+    ]
+  },
+  "diagnostics": {
+    "axisBasis": "sensorNormalization",
+    "warnings": [],
+    "inputLength": 8,
+    "sequenceCount": 4
+  }
+}

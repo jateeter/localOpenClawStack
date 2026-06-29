@@ -1,23 +1,24 @@
 # OC-Agent corpus — index
 
-One input-analyst agent per machine (1015 total), under `agents/<domain>/`.
+One input-analyst agent per machine (1320 total), under `agents/<domain>/`.
 
 | domain | agents |
 |---|---|
-| agriculture | 64 |
-| ai-services | 8 |
-| built-space | 150 |
-| community-services | 103 |
-| data-center | 59 |
-| digital-logic | 57 |
-| health-personal | 24 |
-| health-services | 200 |
-| legal-services | 100 |
-| life-balance | 100 |
-| transportation | 150 |
+| agriculture | 71 |
+| ai-services | 9 |
+| built-space | 165 |
+| community-services | 113 |
+| data-center | 65 |
+| digital-logic | 63 |
+| energy | 187 |
+| health-personal | 42 |
+| health-services | 220 |
+| legal-services | 110 |
+| life-balance | 110 |
+| transportation | 165 |
 
-**total: 1015**
+**total: 1320**
 
-axis grounding: inputSemantics=736, sensorNormalization=279
+axis grounding: inputSemantics=1030, sensorNormalization=290
 
 Regenerate: `python3 materialize_agents.py --fresh`.

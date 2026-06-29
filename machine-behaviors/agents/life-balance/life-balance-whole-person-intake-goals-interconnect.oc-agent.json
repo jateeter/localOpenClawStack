@@ -1,0 +1,1732 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "oc-agent-template",
+  "role": "input-analyst",
+  "agentId": "life-balance-whole-person-intake-goals-interconnect",
+  "displayName": "Life Balance Whole Person Intake Goals Interconnect",
+  "machine": {
+    "id": "LifeBalanceWholePersonIntakeGoalsInterconnect",
+    "name": "Life Balance Whole Person Intake Goals Interconnect",
+    "code": "lifebalancewholepersonintakegoalsinterconnect",
+    "machineClass": "bridge",
+    "domain": "life-balance",
+    "inputRegion": {
+      "offset": 4620,
+      "length": 30
+    },
+    "outputRegion": {
+      "offset": 4650,
+      "length": 4
+    }
+  },
+  "openclaw": {
+    "id": "openclaw-xacp",
+    "kind": "acp",
+    "platform": "OpenClaw",
+    "surface": "xACP",
+    "command": "openclaw acp",
+    "gatewayUrl": "ws://127.0.0.1:18789",
+    "sessionKey": "agent:main:main",
+    "targetAgent": "life-balance-whole-person-intake-goals-interconnect",
+    "dispatchMode": "accepted-no-wait",
+    "completionMode": "pe-source-mapping",
+    "completionSourceMappingId": "acp-life-balance-whole-person-intake-goals-interconnect-input-assessment"
+  },
+  "reasoning": {
+    "objective": "Produce the normalized input vector for \"Life Balance Whole Person Intake Goals Interconnect\" from current observations so RE can evaluate its CES sequences.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Life Balance Whole Person Intake Goals Interconnect\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Published life-balance bridge bus that composes the Whole Person Intake Goals family into a compact response lane. PE owns source composition and writes the compact input lane; RE evaluates this machine as ordinary vector state.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- life-balance-whole-person-intake-and-goals-psychiatric-history-intake-care-team-review-bit (index 0):\n- life-balance-whole-person-intake-and-goals-psychiatric-history-intake-lifestyle-plan-adjust-bit (index 1):\n- life-balance-whole-person-intake-and-goals-psychiatric-history-intake-monitoring-task-bit (index 2):\n- life-balance-whole-person-intake-and-goals-lifestyle-baseline-interview-care-team-review-bit (index 3):\n- life-balance-whole-person-intake-and-goals-lifestyle-baseline-interview-lifestyle-plan-adjust-bit (index 4):\n- life-balance-whole-person-intake-and-goals-lifestyle-baseline-interview-monitoring-task-bit (index 5):\n- life-balance-whole-person-intake-and-goals-readiness-motivation-assessment-care-team-review-bit (index 6):\n- life-balance-whole-person-intake-and-goals-readiness-motivation-assessment-lifestyle-plan-adjust-bit (index 7):\n- life-balance-whole-person-intake-and-goals-readiness-motivation-assessment-monitoring-task-bit (index 8):\n- life-balance-whole-person-intake-and-goals-care-preference-alignment-care-team-review-bit (index 9):\n- life-balance-whole-person-intake-and-goals-care-preference-alignment-lifestyle-plan-adjust-bit (index 10):\n- life-balance-whole-person-intake-and-goals-care-preference-alignment-monitoring-task-bit (index 11):\n- life-balance-whole-person-intake-and-goals-risk-safety-review-care-team-review-bit (index 12):\n- life-balance-whole-person-intake-and-goals-risk-safety-review-lifestyle-plan-adjust-bit (index 13):\n- life-balance-whole-person-intake-and-goals-risk-safety-review-monitoring-task-bit (index 14):\n- life-balance-whole-person-intake-and-goals-adolescent-guardian-alignment-care-team-review-bit (index 15):\n- life-balance-whole-person-intake-and-goals-adolescent-guardian-alignment-lifestyle-plan-adjust-bit (index 16):\n- life-balance-whole-person-intake-and-goals-adolescent-guardian-alignment-monitoring-task-bit (index 17):\n- life-balance-whole-person-intake-and-goals-functional-impairment-map-care-team-review-bit (index 18):\n- life-balance-whole-person-intake-and-goals-functional-impairment-map-lifestyle-plan-adjust-bit (index 19):\n- life-balance-whole-person-intake-and-goals-functional-impairment-map-monitoring-task-bit (index 20):\n- life-balance-whole-person-intake-and-goals-medication-lifestyle-interaction-intake-care-team-review-bit (index 21):\n- life-balance-whole-person-intake-and-goals-medication-lifestyle-interaction-intake-lifestyle-plan-adjust-bit (index 22):\n- life-balance-whole-person-intake-and-goals-medication-lifestyle-interaction-intake-monitoring-task-bit (index 23):\n- life-balance-whole-person-intake-and-goals-initial-goal-contract-care-team-review-bit (index 24):\n- life-balance-whole-person-intake-and-goals-initial-goal-contract-lifestyle-plan-adjust-bit (index 25):\n- life-balance-whole-person-intake-and-goals-initial-goal-contract-monitoring-task-bit (index 26):\n- life-balance-whole-person-intake-and-goals-intake-executive-summary-care-team-review-bit (index 27):\n- life-balance-whole-person-intake-and-goals-intake-executive-summary-lifestyle-plan-adjust-bit (index 28):\n- life-balance-whole-person-intake-and-goals-intake-executive-summary-monitoring-task-bit (index 29):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Whole Person Intake Goals care team review at [4650 (RED) -> action: Route family care-team review, risk escalation, and resolver summary.\n- Whole Person Intake Goals lifestyle plan adjustment at [4650 (AMBER) -> action: Route family lifestyle plan adjustment and coaching update.\n- Whole Person Intake Goals monitoring task at [4650 (AMBER) -> action: Route family monitoring task and data-quality follow-up.\n- Whole Person Intake Goals stable balance at [4650 (GREEN) -> action: Record stable family state and keep baseline cadence.",
+    "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
+    "inputAxes": [
+      {
+        "index": 0,
+        "key": "life-balance-whole-person-intake-and-goals-psychiatric-history-intake-care-team-review-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 1,
+        "key": "life-balance-whole-person-intake-and-goals-psychiatric-history-intake-lifestyle-plan-adjust-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 2,
+        "key": "life-balance-whole-person-intake-and-goals-psychiatric-history-intake-monitoring-task-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 3,
+        "key": "life-balance-whole-person-intake-and-goals-lifestyle-baseline-interview-care-team-review-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 4,
+        "key": "life-balance-whole-person-intake-and-goals-lifestyle-baseline-interview-lifestyle-plan-adjust-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 5,
+        "key": "life-balance-whole-person-intake-and-goals-lifestyle-baseline-interview-monitoring-task-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 6,
+        "key": "life-balance-whole-person-intake-and-goals-readiness-motivation-assessment-care-team-review-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 7,
+        "key": "life-balance-whole-person-intake-and-goals-readiness-motivation-assessment-lifestyle-plan-adjust-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 8,
+        "key": "life-balance-whole-person-intake-and-goals-readiness-motivation-assessment-monitoring-task-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 9,
+        "key": "life-balance-whole-person-intake-and-goals-care-preference-alignment-care-team-review-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 10,
+        "key": "life-balance-whole-person-intake-and-goals-care-preference-alignment-lifestyle-plan-adjust-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 11,
+        "key": "life-balance-whole-person-intake-and-goals-care-preference-alignment-monitoring-task-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 12,
+        "key": "life-balance-whole-person-intake-and-goals-risk-safety-review-care-team-review-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 13,
+        "key": "life-balance-whole-person-intake-and-goals-risk-safety-review-lifestyle-plan-adjust-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 14,
+        "key": "life-balance-whole-person-intake-and-goals-risk-safety-review-monitoring-task-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 15,
+        "key": "life-balance-whole-person-intake-and-goals-adolescent-guardian-alignment-care-team-review-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 16,
+        "key": "life-balance-whole-person-intake-and-goals-adolescent-guardian-alignment-lifestyle-plan-adjust-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 17,
+        "key": "life-balance-whole-person-intake-and-goals-adolescent-guardian-alignment-monitoring-task-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 18,
+        "key": "life-balance-whole-person-intake-and-goals-functional-impairment-map-care-team-review-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 19,
+        "key": "life-balance-whole-person-intake-and-goals-functional-impairment-map-lifestyle-plan-adjust-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 20,
+        "key": "life-balance-whole-person-intake-and-goals-functional-impairment-map-monitoring-task-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 21,
+        "key": "life-balance-whole-person-intake-and-goals-medication-lifestyle-interaction-intake-care-team-review-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 22,
+        "key": "life-balance-whole-person-intake-and-goals-medication-lifestyle-interaction-intake-lifestyle-plan-adjust-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 23,
+        "key": "life-balance-whole-person-intake-and-goals-medication-lifestyle-interaction-intake-monitoring-task-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 24,
+        "key": "life-balance-whole-person-intake-and-goals-initial-goal-contract-care-team-review-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 25,
+        "key": "life-balance-whole-person-intake-and-goals-initial-goal-contract-lifestyle-plan-adjust-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 26,
+        "key": "life-balance-whole-person-intake-and-goals-initial-goal-contract-monitoring-task-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 27,
+        "key": "life-balance-whole-person-intake-and-goals-intake-executive-summary-care-team-review-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 28,
+        "key": "life-balance-whole-person-intake-and-goals-intake-executive-summary-lifestyle-plan-adjust-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 29,
+        "key": "life-balance-whole-person-intake-and-goals-intake-executive-summary-monitoring-task-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      }
+    ],
+    "sequenceCatalog": [
+      {
+        "sequenceId": "whole-person-intake-goals-care-team-review",
+        "label": "Whole Person Intake Goals care team review at [4650",
+        "rag": "RED",
+        "outputIndex": 0,
+        "action": "Route family care-team review, risk escalation, and resolver summary."
+      },
+      {
+        "sequenceId": "whole-person-intake-goals-plan-adjustment",
+        "label": "Whole Person Intake Goals lifestyle plan adjustment at [4650",
+        "rag": "AMBER",
+        "outputIndex": 1,
+        "action": "Route family lifestyle plan adjustment and coaching update."
+      },
+      {
+        "sequenceId": "whole-person-intake-goals-monitoring-task",
+        "label": "Whole Person Intake Goals monitoring task at [4650",
+        "rag": "AMBER",
+        "outputIndex": 2,
+        "action": "Route family monitoring task and data-quality follow-up."
+      },
+      {
+        "sequenceId": "whole-person-intake-goals-stable",
+        "label": "Whole Person Intake Goals stable balance at [4650",
+        "rag": "GREEN",
+        "outputIndex": 3,
+        "action": "Record stable family state and keep baseline cadence."
+      }
+    ]
+  },
+  "agentBinding": {
+    "agent": "life-balance-whole-person-intake-goals-interconnect",
+    "mode": "advise",
+    "trigger": "lifebalancewholepersonintakegoalsinterconnect-input-assessment",
+    "allowedActions": [
+      "Assess current \"Life Balance Whole Person Intake Goals Interconnect\" state from available observations and write the normalized input vector to the PE input region [4620:4650] for RE to evaluate."
+    ],
+    "writeBack": {
+      "type": "pe-sensor",
+      "provider": "acp",
+      "sensorId": "acp.openclaw.lifebalancewholepersonintakegoalsinterconnect.input-analyst.assessment",
+      "name": "OpenClaw lifebalancewholepersonintakegoalsinterconnect input-analyst assessment",
+      "region": {
+        "offset": 4620,
+        "length": 30
+      },
+      "semantics": [
+        "life-balance-whole-person-intake-and-goals-psychiatric-history-intake-care-team-review-bit",
+        "life-balance-whole-person-intake-and-goals-psychiatric-history-intake-lifestyle-plan-adjust-bit",
+        "life-balance-whole-person-intake-and-goals-psychiatric-history-intake-monitoring-task-bit",
+        "life-balance-whole-person-intake-and-goals-lifestyle-baseline-interview-care-team-review-bit",
+        "life-balance-whole-person-intake-and-goals-lifestyle-baseline-interview-lifestyle-plan-adjust-bit",
+        "life-balance-whole-person-intake-and-goals-lifestyle-baseline-interview-monitoring-task-bit",
+        "life-balance-whole-person-intake-and-goals-readiness-motivation-assessment-care-team-review-bit",
+        "life-balance-whole-person-intake-and-goals-readiness-motivation-assessment-lifestyle-plan-adjust-bit",
+        "life-balance-whole-person-intake-and-goals-readiness-motivation-assessment-monitoring-task-bit",
+        "life-balance-whole-person-intake-and-goals-care-preference-alignment-care-team-review-bit",
+        "life-balance-whole-person-intake-and-goals-care-preference-alignment-lifestyle-plan-adjust-bit",
+        "life-balance-whole-person-intake-and-goals-care-preference-alignment-monitoring-task-bit",
+        "life-balance-whole-person-intake-and-goals-risk-safety-review-care-team-review-bit",
+        "life-balance-whole-person-intake-and-goals-risk-safety-review-lifestyle-plan-adjust-bit",
+        "life-balance-whole-person-intake-and-goals-risk-safety-review-monitoring-task-bit",
+        "life-balance-whole-person-intake-and-goals-adolescent-guardian-alignment-care-team-review-bit",
+        "life-balance-whole-person-intake-and-goals-adolescent-guardian-alignment-lifestyle-plan-adjust-bit",
+        "life-balance-whole-person-intake-and-goals-adolescent-guardian-alignment-monitoring-task-bit",
+        "life-balance-whole-person-intake-and-goals-functional-impairment-map-care-team-review-bit",
+        "life-balance-whole-person-intake-and-goals-functional-impairment-map-lifestyle-plan-adjust-bit",
+        "life-balance-whole-person-intake-and-goals-functional-impairment-map-monitoring-task-bit",
+        "life-balance-whole-person-intake-and-goals-medication-lifestyle-interaction-intake-care-team-review-bit",
+        "life-balance-whole-person-intake-and-goals-medication-lifestyle-interaction-intake-lifestyle-plan-adjust-bit",
+        "life-balance-whole-person-intake-and-goals-medication-lifestyle-interaction-intake-monitoring-task-bit",
+        "life-balance-whole-person-intake-and-goals-initial-goal-contract-care-team-review-bit",
+        "life-balance-whole-person-intake-and-goals-initial-goal-contract-lifestyle-plan-adjust-bit",
+        "life-balance-whole-person-intake-and-goals-initial-goal-contract-monitoring-task-bit",
+        "life-balance-whole-person-intake-and-goals-intake-executive-summary-care-team-review-bit",
+        "life-balance-whole-person-intake-and-goals-intake-executive-summary-lifestyle-plan-adjust-bit",
+        "life-balance-whole-person-intake-and-goals-intake-executive-summary-monitoring-task-bit"
+      ],
+      "ttlMs": 300000,
+      "normalization": "already-normalized-0-1",
+      "ingest": {
+        "endpoint": "/api/integrations/completions",
+        "method": "POST",
+        "triggerPush": false,
+        "compactPush": true
+      },
+      "sourceMapping": {
+        "id": "acp-lifebalancewholepersonintakegoalsinterconnect-input-assessment",
+        "sensorId": "acp.openclaw.lifebalancewholepersonintakegoalsinterconnect.input-analyst.assessment",
+        "name": "OpenClaw lifebalancewholepersonintakegoalsinterconnect input-analyst assessment",
+        "region": {
+          "offset": 4620,
+          "length": 30
+        },
+        "ttlMs": 300000
+      }
+    },
+    "autonomyPolicy": {
+      "mode": "advise",
+      "stage": 1,
+      "writeBackType": "pe-sensor",
+      "canWriteBack": true,
+      "canStageActions": false,
+      "canExecuteActions": false,
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "blockedWhenRag": []
+    },
+    "riskControls": {
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "maxAutonomy": "advise",
+      "blockedWhenRag": []
+    }
+  },
+  "responseMapping": {
+    "schemaVersion": "1.0.0",
+    "responseContract": "structured-keys-or-text",
+    "mode": "advise",
+    "fields": [
+      {
+        "semantic": "life-balance-whole-person-intake-and-goals-psychiatric-history-intake-care-team-review-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-whole-person-intake-and-goals-psychiatric-history-intake-care-team-review-bit",
+          "responseKey": "life-balance-whole-person-intake-and-goals-psychiatric-history-intake-care-team-review-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancewholepersonintakegoalsinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4620,
+            "length": 30
+          },
+          "index": 0
+        }
+      },
+      {
+        "semantic": "life-balance-whole-person-intake-and-goals-psychiatric-history-intake-lifestyle-plan-adjust-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-whole-person-intake-and-goals-psychiatric-history-intake-lifestyle-plan-adjust-bit",
+          "responseKey": "life-balance-whole-person-intake-and-goals-psychiatric-history-intake-lifestyle-plan-adjust-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancewholepersonintakegoalsinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4620,
+            "length": 30
+          },
+          "index": 1
+        }
+      },
+      {
+        "semantic": "life-balance-whole-person-intake-and-goals-psychiatric-history-intake-monitoring-task-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-whole-person-intake-and-goals-psychiatric-history-intake-monitoring-task-bit",
+          "responseKey": "life-balance-whole-person-intake-and-goals-psychiatric-history-intake-monitoring-task-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancewholepersonintakegoalsinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4620,
+            "length": 30
+          },
+          "index": 2
+        }
+      },
+      {
+        "semantic": "life-balance-whole-person-intake-and-goals-lifestyle-baseline-interview-care-team-review-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-whole-person-intake-and-goals-lifestyle-baseline-interview-care-team-review-bit",
+          "responseKey": "life-balance-whole-person-intake-and-goals-lifestyle-baseline-interview-care-team-review-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancewholepersonintakegoalsinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4620,
+            "length": 30
+          },
+          "index": 3
+        }
+      },
+      {
+        "semantic": "life-balance-whole-person-intake-and-goals-lifestyle-baseline-interview-lifestyle-plan-adjust-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-whole-person-intake-and-goals-lifestyle-baseline-interview-lifestyle-plan-adjust-bit",
+          "responseKey": "life-balance-whole-person-intake-and-goals-lifestyle-baseline-interview-lifestyle-plan-adjust-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancewholepersonintakegoalsinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4620,
+            "length": 30
+          },
+          "index": 4
+        }
+      },
+      {
+        "semantic": "life-balance-whole-person-intake-and-goals-lifestyle-baseline-interview-monitoring-task-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-whole-person-intake-and-goals-lifestyle-baseline-interview-monitoring-task-bit",
+          "responseKey": "life-balance-whole-person-intake-and-goals-lifestyle-baseline-interview-monitoring-task-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancewholepersonintakegoalsinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4620,
+            "length": 30
+          },
+          "index": 5
+        }
+      },
+      {
+        "semantic": "life-balance-whole-person-intake-and-goals-readiness-motivation-assessment-care-team-review-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-whole-person-intake-and-goals-readiness-motivation-assessment-care-team-review-bit",
+          "responseKey": "life-balance-whole-person-intake-and-goals-readiness-motivation-assessment-care-team-review-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancewholepersonintakegoalsinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4620,
+            "length": 30
+          },
+          "index": 6
+        }
+      },
+      {
+        "semantic": "life-balance-whole-person-intake-and-goals-readiness-motivation-assessment-lifestyle-plan-adjust-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-whole-person-intake-and-goals-readiness-motivation-assessment-lifestyle-plan-adjust-bit",
+          "responseKey": "life-balance-whole-person-intake-and-goals-readiness-motivation-assessment-lifestyle-plan-adjust-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancewholepersonintakegoalsinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4620,
+            "length": 30
+          },
+          "index": 7
+        }
+      },
+      {
+        "semantic": "life-balance-whole-person-intake-and-goals-readiness-motivation-assessment-monitoring-task-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-whole-person-intake-and-goals-readiness-motivation-assessment-monitoring-task-bit",
+          "responseKey": "life-balance-whole-person-intake-and-goals-readiness-motivation-assessment-monitoring-task-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancewholepersonintakegoalsinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4620,
+            "length": 30
+          },
+          "index": 8
+        }
+      },
+      {
+        "semantic": "life-balance-whole-person-intake-and-goals-care-preference-alignment-care-team-review-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-whole-person-intake-and-goals-care-preference-alignment-care-team-review-bit",
+          "responseKey": "life-balance-whole-person-intake-and-goals-care-preference-alignment-care-team-review-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancewholepersonintakegoalsinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4620,
+            "length": 30
+          },
+          "index": 9
+        }
+      },
+      {
+        "semantic": "life-balance-whole-person-intake-and-goals-care-preference-alignment-lifestyle-plan-adjust-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-whole-person-intake-and-goals-care-preference-alignment-lifestyle-plan-adjust-bit",
+          "responseKey": "life-balance-whole-person-intake-and-goals-care-preference-alignment-lifestyle-plan-adjust-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancewholepersonintakegoalsinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4620,
+            "length": 30
+          },
+          "index": 10
+        }
+      },
+      {
+        "semantic": "life-balance-whole-person-intake-and-goals-care-preference-alignment-monitoring-task-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-whole-person-intake-and-goals-care-preference-alignment-monitoring-task-bit",
+          "responseKey": "life-balance-whole-person-intake-and-goals-care-preference-alignment-monitoring-task-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancewholepersonintakegoalsinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4620,
+            "length": 30
+          },
+          "index": 11
+        }
+      },
+      {
+        "semantic": "life-balance-whole-person-intake-and-goals-risk-safety-review-care-team-review-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-whole-person-intake-and-goals-risk-safety-review-care-team-review-bit",
+          "responseKey": "life-balance-whole-person-intake-and-goals-risk-safety-review-care-team-review-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancewholepersonintakegoalsinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4620,
+            "length": 30
+          },
+          "index": 12
+        }
+      },
+      {
+        "semantic": "life-balance-whole-person-intake-and-goals-risk-safety-review-lifestyle-plan-adjust-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-whole-person-intake-and-goals-risk-safety-review-lifestyle-plan-adjust-bit",
+          "responseKey": "life-balance-whole-person-intake-and-goals-risk-safety-review-lifestyle-plan-adjust-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancewholepersonintakegoalsinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4620,
+            "length": 30
+          },
+          "index": 13
+        }
+      },
+      {
+        "semantic": "life-balance-whole-person-intake-and-goals-risk-safety-review-monitoring-task-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-whole-person-intake-and-goals-risk-safety-review-monitoring-task-bit",
+          "responseKey": "life-balance-whole-person-intake-and-goals-risk-safety-review-monitoring-task-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancewholepersonintakegoalsinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4620,
+            "length": 30
+          },
+          "index": 14
+        }
+      },
+      {
+        "semantic": "life-balance-whole-person-intake-and-goals-adolescent-guardian-alignment-care-team-review-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-whole-person-intake-and-goals-adolescent-guardian-alignment-care-team-review-bit",
+          "responseKey": "life-balance-whole-person-intake-and-goals-adolescent-guardian-alignment-care-team-review-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancewholepersonintakegoalsinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4620,
+            "length": 30
+          },
+          "index": 15
+        }
+      },
+      {
+        "semantic": "life-balance-whole-person-intake-and-goals-adolescent-guardian-alignment-lifestyle-plan-adjust-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-whole-person-intake-and-goals-adolescent-guardian-alignment-lifestyle-plan-adjust-bit",
+          "responseKey": "life-balance-whole-person-intake-and-goals-adolescent-guardian-alignment-lifestyle-plan-adjust-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancewholepersonintakegoalsinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4620,
+            "length": 30
+          },
+          "index": 16
+        }
+      },
+      {
+        "semantic": "life-balance-whole-person-intake-and-goals-adolescent-guardian-alignment-monitoring-task-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-whole-person-intake-and-goals-adolescent-guardian-alignment-monitoring-task-bit",
+          "responseKey": "life-balance-whole-person-intake-and-goals-adolescent-guardian-alignment-monitoring-task-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancewholepersonintakegoalsinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4620,
+            "length": 30
+          },
+          "index": 17
+        }
+      },
+      {
+        "semantic": "life-balance-whole-person-intake-and-goals-functional-impairment-map-care-team-review-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-whole-person-intake-and-goals-functional-impairment-map-care-team-review-bit",
+          "responseKey": "life-balance-whole-person-intake-and-goals-functional-impairment-map-care-team-review-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancewholepersonintakegoalsinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4620,
+            "length": 30
+          },
+          "index": 18
+        }
+      },
+      {
+        "semantic": "life-balance-whole-person-intake-and-goals-functional-impairment-map-lifestyle-plan-adjust-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-whole-person-intake-and-goals-functional-impairment-map-lifestyle-plan-adjust-bit",
+          "responseKey": "life-balance-whole-person-intake-and-goals-functional-impairment-map-lifestyle-plan-adjust-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancewholepersonintakegoalsinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4620,
+            "length": 30
+          },
+          "index": 19
+        }
+      },
+      {
+        "semantic": "life-balance-whole-person-intake-and-goals-functional-impairment-map-monitoring-task-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-whole-person-intake-and-goals-functional-impairment-map-monitoring-task-bit",
+          "responseKey": "life-balance-whole-person-intake-and-goals-functional-impairment-map-monitoring-task-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancewholepersonintakegoalsinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4620,
+            "length": 30
+          },
+          "index": 20
+        }
+      },
+      {
+        "semantic": "life-balance-whole-person-intake-and-goals-medication-lifestyle-interaction-intake-care-team-review-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-whole-person-intake-and-goals-medication-lifestyle-interaction-intake-care-team-review-bit",
+          "responseKey": "life-balance-whole-person-intake-and-goals-medication-lifestyle-interaction-intake-care-team-review-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancewholepersonintakegoalsinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4620,
+            "length": 30
+          },
+          "index": 21
+        }
+      },
+      {
+        "semantic": "life-balance-whole-person-intake-and-goals-medication-lifestyle-interaction-intake-lifestyle-plan-adjust-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-whole-person-intake-and-goals-medication-lifestyle-interaction-intake-lifestyle-plan-adjust-bit",
+          "responseKey": "life-balance-whole-person-intake-and-goals-medication-lifestyle-interaction-intake-lifestyle-plan-adjust-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancewholepersonintakegoalsinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4620,
+            "length": 30
+          },
+          "index": 22
+        }
+      },
+      {
+        "semantic": "life-balance-whole-person-intake-and-goals-medication-lifestyle-interaction-intake-monitoring-task-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-whole-person-intake-and-goals-medication-lifestyle-interaction-intake-monitoring-task-bit",
+          "responseKey": "life-balance-whole-person-intake-and-goals-medication-lifestyle-interaction-intake-monitoring-task-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancewholepersonintakegoalsinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4620,
+            "length": 30
+          },
+          "index": 23
+        }
+      },
+      {
+        "semantic": "life-balance-whole-person-intake-and-goals-initial-goal-contract-care-team-review-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-whole-person-intake-and-goals-initial-goal-contract-care-team-review-bit",
+          "responseKey": "life-balance-whole-person-intake-and-goals-initial-goal-contract-care-team-review-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancewholepersonintakegoalsinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4620,
+            "length": 30
+          },
+          "index": 24
+        }
+      },
+      {
+        "semantic": "life-balance-whole-person-intake-and-goals-initial-goal-contract-lifestyle-plan-adjust-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-whole-person-intake-and-goals-initial-goal-contract-lifestyle-plan-adjust-bit",
+          "responseKey": "life-balance-whole-person-intake-and-goals-initial-goal-contract-lifestyle-plan-adjust-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancewholepersonintakegoalsinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4620,
+            "length": 30
+          },
+          "index": 25
+        }
+      },
+      {
+        "semantic": "life-balance-whole-person-intake-and-goals-initial-goal-contract-monitoring-task-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-whole-person-intake-and-goals-initial-goal-contract-monitoring-task-bit",
+          "responseKey": "life-balance-whole-person-intake-and-goals-initial-goal-contract-monitoring-task-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancewholepersonintakegoalsinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4620,
+            "length": 30
+          },
+          "index": 26
+        }
+      },
+      {
+        "semantic": "life-balance-whole-person-intake-and-goals-intake-executive-summary-care-team-review-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-whole-person-intake-and-goals-intake-executive-summary-care-team-review-bit",
+          "responseKey": "life-balance-whole-person-intake-and-goals-intake-executive-summary-care-team-review-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancewholepersonintakegoalsinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4620,
+            "length": 30
+          },
+          "index": 27
+        }
+      },
+      {
+        "semantic": "life-balance-whole-person-intake-and-goals-intake-executive-summary-lifestyle-plan-adjust-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-whole-person-intake-and-goals-intake-executive-summary-lifestyle-plan-adjust-bit",
+          "responseKey": "life-balance-whole-person-intake-and-goals-intake-executive-summary-lifestyle-plan-adjust-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancewholepersonintakegoalsinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4620,
+            "length": 30
+          },
+          "index": 28
+        }
+      },
+      {
+        "semantic": "life-balance-whole-person-intake-and-goals-intake-executive-summary-monitoring-task-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-whole-person-intake-and-goals-intake-executive-summary-monitoring-task-bit",
+          "responseKey": "life-balance-whole-person-intake-and-goals-intake-executive-summary-monitoring-task-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancewholepersonintakegoalsinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4620,
+            "length": 30
+          },
+          "index": 29
+        }
+      }
+    ]
+  },
+  "diagnostics": {
+    "axisBasis": "inputSemantics",
+    "warnings": [
+      "input axes derived from inputSemantics (no length-matched sensorNormalization)"
+    ],
+    "inputLength": 30,
+    "sequenceCount": 4
+  }
+}

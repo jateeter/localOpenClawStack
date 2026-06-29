@@ -1,0 +1,1149 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "oc-agent-template",
+  "role": "input-analyst",
+  "agentId": "data-center-core-interconnect",
+  "displayName": "Data Center Core Interconnect",
+  "machine": {
+    "id": "DataCenterCoreInterconnect",
+    "name": "Data Center Core Interconnect",
+    "code": "datacentercoreinterconnect",
+    "machineClass": "bridge",
+    "domain": "data-center",
+    "inputRegion": {
+      "offset": 14104,
+      "length": 19
+    },
+    "outputRegion": {
+      "offset": 14123,
+      "length": 4
+    }
+  },
+  "openclaw": {
+    "id": "openclaw-xacp",
+    "kind": "acp",
+    "platform": "OpenClaw",
+    "surface": "xACP",
+    "command": "openclaw acp",
+    "gatewayUrl": "ws://127.0.0.1:18789",
+    "sessionKey": "agent:main:main",
+    "targetAgent": "data-center-core-interconnect",
+    "dispatchMode": "accepted-no-wait",
+    "completionMode": "pe-source-mapping",
+    "completionSourceMappingId": "acp-data-center-core-interconnect-input-assessment"
+  },
+  "reasoning": {
+    "objective": "Produce the normalized input vector for \"Data Center Core Interconnect\" from current observations so RE can evaluate its CES sequences.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Data Center Core Interconnect\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Published data-center bridge bus that composes Data Center Core into a compact domain family response lane. PE owns source composition and writes the compact input lane; RE evaluates this machine as ordinary vector state.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- dc-cooling-control-flip-flop-active-output-0-bit (index 0):\n- dc-cooling-control-flip-flop-active-output-1-bit (index 1):\n- dc-critical-alert-flip-flop-active-output-0-bit (index 2):\n- dc-critical-alert-flip-flop-active-output-1-bit (index 3):\n- dc-critical-synthesizer-active-output-0-bit (index 4):\n- dc-critical-synthesizer-active-output-1-bit (index 5):\n- dc-memory-alert-flip-flop-active-output-0-bit (index 6):\n- dc-memory-alert-flip-flop-active-output-1-bit (index 7):\n- dc-memory-pressure-detector-active-output-0-bit (index 8):\n- dc-memory-pressure-detector-active-output-1-bit (index 9):\n- dc-network-burst-detector-active-output-0-bit (index 10):\n- dc-network-burst-detector-active-output-1-bit (index 11):\n- dc-network-throttle-flip-flop-active-output-0-bit (index 12):\n- dc-network-throttle-flip-flop-active-output-1-bit (index 13):\n- dc-thermal-escalation-detector-active-output-0-bit (index 14):\n- dc-thermal-escalation-detector-active-output-1-bit (index 15):\n- data-center-monitoring-active-output-0-bit (index 16):\n- data-center-monitoring-active-output-1-bit (index 17):\n- data-center-monitoring-active-output-2-bit (index 18):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Data Center Core domain family review at [14123 (RED) -> action: Route domain family review, escalation, and resolver summary.\n- Data Center Core domain family optimization at [14123 (AMBER) -> action: Route domain family optimization or plan adjustment.\n- Data Center Core domain family monitoring at [14123 (AMBER) -> action: Route monitoring, evidence, or data-quality follow-up.\n- Data Center Core domain family stable at [14123 (GREEN) -> action: Record stable family state and keep baseline cadence.",
+    "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
+    "inputAxes": [
+      {
+        "index": 0,
+        "key": "dc-cooling-control-flip-flop-active-output-0-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 1,
+        "key": "dc-cooling-control-flip-flop-active-output-1-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 2,
+        "key": "dc-critical-alert-flip-flop-active-output-0-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 3,
+        "key": "dc-critical-alert-flip-flop-active-output-1-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 4,
+        "key": "dc-critical-synthesizer-active-output-0-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 5,
+        "key": "dc-critical-synthesizer-active-output-1-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 6,
+        "key": "dc-memory-alert-flip-flop-active-output-0-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 7,
+        "key": "dc-memory-alert-flip-flop-active-output-1-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 8,
+        "key": "dc-memory-pressure-detector-active-output-0-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 9,
+        "key": "dc-memory-pressure-detector-active-output-1-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 10,
+        "key": "dc-network-burst-detector-active-output-0-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 11,
+        "key": "dc-network-burst-detector-active-output-1-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 12,
+        "key": "dc-network-throttle-flip-flop-active-output-0-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 13,
+        "key": "dc-network-throttle-flip-flop-active-output-1-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 14,
+        "key": "dc-thermal-escalation-detector-active-output-0-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 15,
+        "key": "dc-thermal-escalation-detector-active-output-1-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 16,
+        "key": "data-center-monitoring-active-output-0-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 17,
+        "key": "data-center-monitoring-active-output-1-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 18,
+        "key": "data-center-monitoring-active-output-2-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      }
+    ],
+    "sequenceCatalog": [
+      {
+        "sequenceId": "data-center-core-domain-family-review",
+        "label": "Data Center Core domain family review at [14123",
+        "rag": "RED",
+        "outputIndex": 0,
+        "action": "Route domain family review, escalation, and resolver summary."
+      },
+      {
+        "sequenceId": "data-center-core-domain-family-optimization",
+        "label": "Data Center Core domain family optimization at [14123",
+        "rag": "AMBER",
+        "outputIndex": 1,
+        "action": "Route domain family optimization or plan adjustment."
+      },
+      {
+        "sequenceId": "data-center-core-domain-family-monitoring",
+        "label": "Data Center Core domain family monitoring at [14123",
+        "rag": "AMBER",
+        "outputIndex": 2,
+        "action": "Route monitoring, evidence, or data-quality follow-up."
+      },
+      {
+        "sequenceId": "data-center-core-domain-family-stable",
+        "label": "Data Center Core domain family stable at [14123",
+        "rag": "GREEN",
+        "outputIndex": 3,
+        "action": "Record stable family state and keep baseline cadence."
+      }
+    ]
+  },
+  "agentBinding": {
+    "agent": "data-center-core-interconnect",
+    "mode": "advise",
+    "trigger": "datacentercoreinterconnect-input-assessment",
+    "allowedActions": [
+      "Assess current \"Data Center Core Interconnect\" state from available observations and write the normalized input vector to the PE input region [14104:14123] for RE to evaluate."
+    ],
+    "writeBack": {
+      "type": "pe-sensor",
+      "provider": "acp",
+      "sensorId": "acp.openclaw.datacentercoreinterconnect.input-analyst.assessment",
+      "name": "OpenClaw datacentercoreinterconnect input-analyst assessment",
+      "region": {
+        "offset": 14104,
+        "length": 19
+      },
+      "semantics": [
+        "dc-cooling-control-flip-flop-active-output-0-bit",
+        "dc-cooling-control-flip-flop-active-output-1-bit",
+        "dc-critical-alert-flip-flop-active-output-0-bit",
+        "dc-critical-alert-flip-flop-active-output-1-bit",
+        "dc-critical-synthesizer-active-output-0-bit",
+        "dc-critical-synthesizer-active-output-1-bit",
+        "dc-memory-alert-flip-flop-active-output-0-bit",
+        "dc-memory-alert-flip-flop-active-output-1-bit",
+        "dc-memory-pressure-detector-active-output-0-bit",
+        "dc-memory-pressure-detector-active-output-1-bit",
+        "dc-network-burst-detector-active-output-0-bit",
+        "dc-network-burst-detector-active-output-1-bit",
+        "dc-network-throttle-flip-flop-active-output-0-bit",
+        "dc-network-throttle-flip-flop-active-output-1-bit",
+        "dc-thermal-escalation-detector-active-output-0-bit",
+        "dc-thermal-escalation-detector-active-output-1-bit",
+        "data-center-monitoring-active-output-0-bit",
+        "data-center-monitoring-active-output-1-bit",
+        "data-center-monitoring-active-output-2-bit"
+      ],
+      "ttlMs": 300000,
+      "normalization": "already-normalized-0-1",
+      "ingest": {
+        "endpoint": "/api/integrations/completions",
+        "method": "POST",
+        "triggerPush": false,
+        "compactPush": true
+      },
+      "sourceMapping": {
+        "id": "acp-datacentercoreinterconnect-input-assessment",
+        "sensorId": "acp.openclaw.datacentercoreinterconnect.input-analyst.assessment",
+        "name": "OpenClaw datacentercoreinterconnect input-analyst assessment",
+        "region": {
+          "offset": 14104,
+          "length": 19
+        },
+        "ttlMs": 300000
+      }
+    },
+    "autonomyPolicy": {
+      "mode": "advise",
+      "stage": 1,
+      "writeBackType": "pe-sensor",
+      "canWriteBack": true,
+      "canStageActions": false,
+      "canExecuteActions": false,
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "blockedWhenRag": []
+    },
+    "riskControls": {
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "maxAutonomy": "advise",
+      "blockedWhenRag": []
+    }
+  },
+  "responseMapping": {
+    "schemaVersion": "1.0.0",
+    "responseContract": "structured-keys-or-text",
+    "mode": "advise",
+    "fields": [
+      {
+        "semantic": "dc-cooling-control-flip-flop-active-output-0-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/dc-cooling-control-flip-flop-active-output-0-bit",
+          "responseKey": "dc-cooling-control-flip-flop-active-output-0-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.datacentercoreinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 14104,
+            "length": 19
+          },
+          "index": 0
+        }
+      },
+      {
+        "semantic": "dc-cooling-control-flip-flop-active-output-1-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/dc-cooling-control-flip-flop-active-output-1-bit",
+          "responseKey": "dc-cooling-control-flip-flop-active-output-1-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.datacentercoreinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 14104,
+            "length": 19
+          },
+          "index": 1
+        }
+      },
+      {
+        "semantic": "dc-critical-alert-flip-flop-active-output-0-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/dc-critical-alert-flip-flop-active-output-0-bit",
+          "responseKey": "dc-critical-alert-flip-flop-active-output-0-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.datacentercoreinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 14104,
+            "length": 19
+          },
+          "index": 2
+        }
+      },
+      {
+        "semantic": "dc-critical-alert-flip-flop-active-output-1-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/dc-critical-alert-flip-flop-active-output-1-bit",
+          "responseKey": "dc-critical-alert-flip-flop-active-output-1-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.datacentercoreinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 14104,
+            "length": 19
+          },
+          "index": 3
+        }
+      },
+      {
+        "semantic": "dc-critical-synthesizer-active-output-0-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/dc-critical-synthesizer-active-output-0-bit",
+          "responseKey": "dc-critical-synthesizer-active-output-0-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.datacentercoreinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 14104,
+            "length": 19
+          },
+          "index": 4
+        }
+      },
+      {
+        "semantic": "dc-critical-synthesizer-active-output-1-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/dc-critical-synthesizer-active-output-1-bit",
+          "responseKey": "dc-critical-synthesizer-active-output-1-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.datacentercoreinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 14104,
+            "length": 19
+          },
+          "index": 5
+        }
+      },
+      {
+        "semantic": "dc-memory-alert-flip-flop-active-output-0-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/dc-memory-alert-flip-flop-active-output-0-bit",
+          "responseKey": "dc-memory-alert-flip-flop-active-output-0-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.datacentercoreinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 14104,
+            "length": 19
+          },
+          "index": 6
+        }
+      },
+      {
+        "semantic": "dc-memory-alert-flip-flop-active-output-1-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/dc-memory-alert-flip-flop-active-output-1-bit",
+          "responseKey": "dc-memory-alert-flip-flop-active-output-1-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.datacentercoreinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 14104,
+            "length": 19
+          },
+          "index": 7
+        }
+      },
+      {
+        "semantic": "dc-memory-pressure-detector-active-output-0-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/dc-memory-pressure-detector-active-output-0-bit",
+          "responseKey": "dc-memory-pressure-detector-active-output-0-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.datacentercoreinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 14104,
+            "length": 19
+          },
+          "index": 8
+        }
+      },
+      {
+        "semantic": "dc-memory-pressure-detector-active-output-1-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/dc-memory-pressure-detector-active-output-1-bit",
+          "responseKey": "dc-memory-pressure-detector-active-output-1-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.datacentercoreinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 14104,
+            "length": 19
+          },
+          "index": 9
+        }
+      },
+      {
+        "semantic": "dc-network-burst-detector-active-output-0-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/dc-network-burst-detector-active-output-0-bit",
+          "responseKey": "dc-network-burst-detector-active-output-0-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.datacentercoreinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 14104,
+            "length": 19
+          },
+          "index": 10
+        }
+      },
+      {
+        "semantic": "dc-network-burst-detector-active-output-1-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/dc-network-burst-detector-active-output-1-bit",
+          "responseKey": "dc-network-burst-detector-active-output-1-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.datacentercoreinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 14104,
+            "length": 19
+          },
+          "index": 11
+        }
+      },
+      {
+        "semantic": "dc-network-throttle-flip-flop-active-output-0-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/dc-network-throttle-flip-flop-active-output-0-bit",
+          "responseKey": "dc-network-throttle-flip-flop-active-output-0-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.datacentercoreinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 14104,
+            "length": 19
+          },
+          "index": 12
+        }
+      },
+      {
+        "semantic": "dc-network-throttle-flip-flop-active-output-1-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/dc-network-throttle-flip-flop-active-output-1-bit",
+          "responseKey": "dc-network-throttle-flip-flop-active-output-1-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.datacentercoreinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 14104,
+            "length": 19
+          },
+          "index": 13
+        }
+      },
+      {
+        "semantic": "dc-thermal-escalation-detector-active-output-0-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/dc-thermal-escalation-detector-active-output-0-bit",
+          "responseKey": "dc-thermal-escalation-detector-active-output-0-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.datacentercoreinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 14104,
+            "length": 19
+          },
+          "index": 14
+        }
+      },
+      {
+        "semantic": "dc-thermal-escalation-detector-active-output-1-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/dc-thermal-escalation-detector-active-output-1-bit",
+          "responseKey": "dc-thermal-escalation-detector-active-output-1-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.datacentercoreinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 14104,
+            "length": 19
+          },
+          "index": 15
+        }
+      },
+      {
+        "semantic": "data-center-monitoring-active-output-0-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/data-center-monitoring-active-output-0-bit",
+          "responseKey": "data-center-monitoring-active-output-0-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.datacentercoreinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 14104,
+            "length": 19
+          },
+          "index": 16
+        }
+      },
+      {
+        "semantic": "data-center-monitoring-active-output-1-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/data-center-monitoring-active-output-1-bit",
+          "responseKey": "data-center-monitoring-active-output-1-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.datacentercoreinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 14104,
+            "length": 19
+          },
+          "index": 17
+        }
+      },
+      {
+        "semantic": "data-center-monitoring-active-output-2-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/data-center-monitoring-active-output-2-bit",
+          "responseKey": "data-center-monitoring-active-output-2-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.datacentercoreinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 14104,
+            "length": 19
+          },
+          "index": 18
+        }
+      }
+    ]
+  },
+  "diagnostics": {
+    "axisBasis": "inputSemantics",
+    "warnings": [
+      "input axes derived from inputSemantics (no length-matched sensorNormalization)"
+    ],
+    "inputLength": 19,
+    "sequenceCount": 4
+  }
+}

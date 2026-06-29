@@ -1,0 +1,1202 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "oc-agent-template",
+  "role": "input-analyst",
+  "agentId": "digital-logic-dlx-021-030-interconnect",
+  "displayName": "Digital Logic DLX-021-030 Interconnect",
+  "machine": {
+    "id": "DigitalLogicDlx021030Interconnect",
+    "name": "Digital Logic DLX-021-030 Interconnect",
+    "code": "digitallogicdlx021030interconnect",
+    "machineClass": "bridge",
+    "domain": "digital-logic",
+    "inputRegion": {
+      "offset": 14364,
+      "length": 20
+    },
+    "outputRegion": {
+      "offset": 14384,
+      "length": 4
+    }
+  },
+  "openclaw": {
+    "id": "openclaw-xacp",
+    "kind": "acp",
+    "platform": "OpenClaw",
+    "surface": "xACP",
+    "command": "openclaw acp",
+    "gatewayUrl": "ws://127.0.0.1:18789",
+    "sessionKey": "agent:main:main",
+    "targetAgent": "digital-logic-dlx-021-030-interconnect",
+    "dispatchMode": "accepted-no-wait",
+    "completionMode": "pe-source-mapping",
+    "completionSourceMappingId": "acp-digital-logic-dlx-021-030-interconnect-input-assessment"
+  },
+  "reasoning": {
+    "objective": "Produce the normalized input vector for \"Digital Logic DLX-021-030 Interconnect\" from current observations so RE can evaluate its CES sequences.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Digital Logic DLX-021-030 Interconnect\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Published digital-logic bridge bus that composes Digital Logic DLX-021-030 into a compact domain family response lane. PE owns source composition and writes the compact input lane; RE evaluates this machine as ordinary vector state.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- logical-infrastructure-enable-qualified-valid-active-output-0-bit (index 0):\n- logical-infrastructure-enable-qualified-valid-active-output-1-bit (index 1):\n- logical-infrastructure-enable-disable-cycle-active-output-0-bit (index 2):\n- logical-infrastructure-enable-disable-cycle-active-output-1-bit (index 3):\n- logical-infrastructure-clock-gate-request-grant-active-output-0-bit (index 4):\n- logical-infrastructure-clock-gate-request-grant-active-output-1-bit (index 5):\n- logical-infrastructure-clock-gate-open-close-active-output-0-bit (index 6):\n- logical-infrastructure-clock-gate-open-close-active-output-1-bit (index 7):\n- logical-infrastructure-power-up-sequence-active-output-0-bit (index 8):\n- logical-infrastructure-power-up-sequence-active-output-1-bit (index 9):\n- logical-infrastructure-power-down-sequence-active-output-0-bit (index 10):\n- logical-infrastructure-power-down-sequence-active-output-1-bit (index 11):\n- logical-infrastructure-isolation-enable-before-powerdown-active-output-0-bit (index 12):\n- logical-infrastructure-isolation-enable-before-powerdown-active-output-1-bit (index 13):\n- logical-infrastructure-retention-save-restore-active-output-0-bit (index 14):\n- logical-infrastructure-retention-save-restore-active-output-1-bit (index 15):\n- logical-infrastructure-scan-shift-capture-active-output-0-bit (index 16):\n- logical-infrastructure-scan-shift-capture-active-output-1-bit (index 17):\n- logical-infrastructure-scan-enable-deassert-active-output-0-bit (index 18):\n- logical-infrastructure-scan-enable-deassert-active-output-1-bit (index 19):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Digital Logic DLX-021-030 domain family review at [14384 (RED) -> action: Route domain family review, escalation, and resolver summary.\n- Digital Logic DLX-021-030 domain family optimization at [14384 (AMBER) -> action: Route domain family optimization or plan adjustment.\n- Digital Logic DLX-021-030 domain family monitoring at [14384 (AMBER) -> action: Route monitoring, evidence, or data-quality follow-up.\n- Digital Logic DLX-021-030 domain family stable at [14384 (GREEN) -> action: Record stable family state and keep baseline cadence.",
+    "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
+    "inputAxes": [
+      {
+        "index": 0,
+        "key": "logical-infrastructure-enable-qualified-valid-active-output-0-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 1,
+        "key": "logical-infrastructure-enable-qualified-valid-active-output-1-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 2,
+        "key": "logical-infrastructure-enable-disable-cycle-active-output-0-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 3,
+        "key": "logical-infrastructure-enable-disable-cycle-active-output-1-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 4,
+        "key": "logical-infrastructure-clock-gate-request-grant-active-output-0-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 5,
+        "key": "logical-infrastructure-clock-gate-request-grant-active-output-1-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 6,
+        "key": "logical-infrastructure-clock-gate-open-close-active-output-0-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 7,
+        "key": "logical-infrastructure-clock-gate-open-close-active-output-1-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 8,
+        "key": "logical-infrastructure-power-up-sequence-active-output-0-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 9,
+        "key": "logical-infrastructure-power-up-sequence-active-output-1-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 10,
+        "key": "logical-infrastructure-power-down-sequence-active-output-0-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 11,
+        "key": "logical-infrastructure-power-down-sequence-active-output-1-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 12,
+        "key": "logical-infrastructure-isolation-enable-before-powerdown-active-output-0-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 13,
+        "key": "logical-infrastructure-isolation-enable-before-powerdown-active-output-1-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 14,
+        "key": "logical-infrastructure-retention-save-restore-active-output-0-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 15,
+        "key": "logical-infrastructure-retention-save-restore-active-output-1-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 16,
+        "key": "logical-infrastructure-scan-shift-capture-active-output-0-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 17,
+        "key": "logical-infrastructure-scan-shift-capture-active-output-1-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 18,
+        "key": "logical-infrastructure-scan-enable-deassert-active-output-0-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 19,
+        "key": "logical-infrastructure-scan-enable-deassert-active-output-1-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      }
+    ],
+    "sequenceCatalog": [
+      {
+        "sequenceId": "dlx-021-030-domain-family-review",
+        "label": "Digital Logic DLX-021-030 domain family review at [14384",
+        "rag": "RED",
+        "outputIndex": 0,
+        "action": "Route domain family review, escalation, and resolver summary."
+      },
+      {
+        "sequenceId": "dlx-021-030-domain-family-optimization",
+        "label": "Digital Logic DLX-021-030 domain family optimization at [14384",
+        "rag": "AMBER",
+        "outputIndex": 1,
+        "action": "Route domain family optimization or plan adjustment."
+      },
+      {
+        "sequenceId": "dlx-021-030-domain-family-monitoring",
+        "label": "Digital Logic DLX-021-030 domain family monitoring at [14384",
+        "rag": "AMBER",
+        "outputIndex": 2,
+        "action": "Route monitoring, evidence, or data-quality follow-up."
+      },
+      {
+        "sequenceId": "dlx-021-030-domain-family-stable",
+        "label": "Digital Logic DLX-021-030 domain family stable at [14384",
+        "rag": "GREEN",
+        "outputIndex": 3,
+        "action": "Record stable family state and keep baseline cadence."
+      }
+    ]
+  },
+  "agentBinding": {
+    "agent": "digital-logic-dlx-021-030-interconnect",
+    "mode": "advise",
+    "trigger": "digitallogicdlx021030interconnect-input-assessment",
+    "allowedActions": [
+      "Assess current \"Digital Logic DLX-021-030 Interconnect\" state from available observations and write the normalized input vector to the PE input region [14364:14384] for RE to evaluate."
+    ],
+    "writeBack": {
+      "type": "pe-sensor",
+      "provider": "acp",
+      "sensorId": "acp.openclaw.digitallogicdlx021030interconnect.input-analyst.assessment",
+      "name": "OpenClaw digitallogicdlx021030interconnect input-analyst assessment",
+      "region": {
+        "offset": 14364,
+        "length": 20
+      },
+      "semantics": [
+        "logical-infrastructure-enable-qualified-valid-active-output-0-bit",
+        "logical-infrastructure-enable-qualified-valid-active-output-1-bit",
+        "logical-infrastructure-enable-disable-cycle-active-output-0-bit",
+        "logical-infrastructure-enable-disable-cycle-active-output-1-bit",
+        "logical-infrastructure-clock-gate-request-grant-active-output-0-bit",
+        "logical-infrastructure-clock-gate-request-grant-active-output-1-bit",
+        "logical-infrastructure-clock-gate-open-close-active-output-0-bit",
+        "logical-infrastructure-clock-gate-open-close-active-output-1-bit",
+        "logical-infrastructure-power-up-sequence-active-output-0-bit",
+        "logical-infrastructure-power-up-sequence-active-output-1-bit",
+        "logical-infrastructure-power-down-sequence-active-output-0-bit",
+        "logical-infrastructure-power-down-sequence-active-output-1-bit",
+        "logical-infrastructure-isolation-enable-before-powerdown-active-output-0-bit",
+        "logical-infrastructure-isolation-enable-before-powerdown-active-output-1-bit",
+        "logical-infrastructure-retention-save-restore-active-output-0-bit",
+        "logical-infrastructure-retention-save-restore-active-output-1-bit",
+        "logical-infrastructure-scan-shift-capture-active-output-0-bit",
+        "logical-infrastructure-scan-shift-capture-active-output-1-bit",
+        "logical-infrastructure-scan-enable-deassert-active-output-0-bit",
+        "logical-infrastructure-scan-enable-deassert-active-output-1-bit"
+      ],
+      "ttlMs": 300000,
+      "normalization": "already-normalized-0-1",
+      "ingest": {
+        "endpoint": "/api/integrations/completions",
+        "method": "POST",
+        "triggerPush": false,
+        "compactPush": true
+      },
+      "sourceMapping": {
+        "id": "acp-digitallogicdlx021030interconnect-input-assessment",
+        "sensorId": "acp.openclaw.digitallogicdlx021030interconnect.input-analyst.assessment",
+        "name": "OpenClaw digitallogicdlx021030interconnect input-analyst assessment",
+        "region": {
+          "offset": 14364,
+          "length": 20
+        },
+        "ttlMs": 300000
+      }
+    },
+    "autonomyPolicy": {
+      "mode": "advise",
+      "stage": 1,
+      "writeBackType": "pe-sensor",
+      "canWriteBack": true,
+      "canStageActions": false,
+      "canExecuteActions": false,
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "blockedWhenRag": []
+    },
+    "riskControls": {
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "maxAutonomy": "advise",
+      "blockedWhenRag": []
+    }
+  },
+  "responseMapping": {
+    "schemaVersion": "1.0.0",
+    "responseContract": "structured-keys-or-text",
+    "mode": "advise",
+    "fields": [
+      {
+        "semantic": "logical-infrastructure-enable-qualified-valid-active-output-0-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/logical-infrastructure-enable-qualified-valid-active-output-0-bit",
+          "responseKey": "logical-infrastructure-enable-qualified-valid-active-output-0-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.digitallogicdlx021030interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 14364,
+            "length": 20
+          },
+          "index": 0
+        }
+      },
+      {
+        "semantic": "logical-infrastructure-enable-qualified-valid-active-output-1-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/logical-infrastructure-enable-qualified-valid-active-output-1-bit",
+          "responseKey": "logical-infrastructure-enable-qualified-valid-active-output-1-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.digitallogicdlx021030interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 14364,
+            "length": 20
+          },
+          "index": 1
+        }
+      },
+      {
+        "semantic": "logical-infrastructure-enable-disable-cycle-active-output-0-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/logical-infrastructure-enable-disable-cycle-active-output-0-bit",
+          "responseKey": "logical-infrastructure-enable-disable-cycle-active-output-0-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.digitallogicdlx021030interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 14364,
+            "length": 20
+          },
+          "index": 2
+        }
+      },
+      {
+        "semantic": "logical-infrastructure-enable-disable-cycle-active-output-1-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/logical-infrastructure-enable-disable-cycle-active-output-1-bit",
+          "responseKey": "logical-infrastructure-enable-disable-cycle-active-output-1-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.digitallogicdlx021030interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 14364,
+            "length": 20
+          },
+          "index": 3
+        }
+      },
+      {
+        "semantic": "logical-infrastructure-clock-gate-request-grant-active-output-0-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/logical-infrastructure-clock-gate-request-grant-active-output-0-bit",
+          "responseKey": "logical-infrastructure-clock-gate-request-grant-active-output-0-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.digitallogicdlx021030interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 14364,
+            "length": 20
+          },
+          "index": 4
+        }
+      },
+      {
+        "semantic": "logical-infrastructure-clock-gate-request-grant-active-output-1-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/logical-infrastructure-clock-gate-request-grant-active-output-1-bit",
+          "responseKey": "logical-infrastructure-clock-gate-request-grant-active-output-1-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.digitallogicdlx021030interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 14364,
+            "length": 20
+          },
+          "index": 5
+        }
+      },
+      {
+        "semantic": "logical-infrastructure-clock-gate-open-close-active-output-0-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/logical-infrastructure-clock-gate-open-close-active-output-0-bit",
+          "responseKey": "logical-infrastructure-clock-gate-open-close-active-output-0-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.digitallogicdlx021030interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 14364,
+            "length": 20
+          },
+          "index": 6
+        }
+      },
+      {
+        "semantic": "logical-infrastructure-clock-gate-open-close-active-output-1-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/logical-infrastructure-clock-gate-open-close-active-output-1-bit",
+          "responseKey": "logical-infrastructure-clock-gate-open-close-active-output-1-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.digitallogicdlx021030interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 14364,
+            "length": 20
+          },
+          "index": 7
+        }
+      },
+      {
+        "semantic": "logical-infrastructure-power-up-sequence-active-output-0-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/logical-infrastructure-power-up-sequence-active-output-0-bit",
+          "responseKey": "logical-infrastructure-power-up-sequence-active-output-0-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.digitallogicdlx021030interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 14364,
+            "length": 20
+          },
+          "index": 8
+        }
+      },
+      {
+        "semantic": "logical-infrastructure-power-up-sequence-active-output-1-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/logical-infrastructure-power-up-sequence-active-output-1-bit",
+          "responseKey": "logical-infrastructure-power-up-sequence-active-output-1-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.digitallogicdlx021030interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 14364,
+            "length": 20
+          },
+          "index": 9
+        }
+      },
+      {
+        "semantic": "logical-infrastructure-power-down-sequence-active-output-0-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/logical-infrastructure-power-down-sequence-active-output-0-bit",
+          "responseKey": "logical-infrastructure-power-down-sequence-active-output-0-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.digitallogicdlx021030interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 14364,
+            "length": 20
+          },
+          "index": 10
+        }
+      },
+      {
+        "semantic": "logical-infrastructure-power-down-sequence-active-output-1-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/logical-infrastructure-power-down-sequence-active-output-1-bit",
+          "responseKey": "logical-infrastructure-power-down-sequence-active-output-1-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.digitallogicdlx021030interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 14364,
+            "length": 20
+          },
+          "index": 11
+        }
+      },
+      {
+        "semantic": "logical-infrastructure-isolation-enable-before-powerdown-active-output-0-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/logical-infrastructure-isolation-enable-before-powerdown-active-output-0-bit",
+          "responseKey": "logical-infrastructure-isolation-enable-before-powerdown-active-output-0-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.digitallogicdlx021030interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 14364,
+            "length": 20
+          },
+          "index": 12
+        }
+      },
+      {
+        "semantic": "logical-infrastructure-isolation-enable-before-powerdown-active-output-1-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/logical-infrastructure-isolation-enable-before-powerdown-active-output-1-bit",
+          "responseKey": "logical-infrastructure-isolation-enable-before-powerdown-active-output-1-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.digitallogicdlx021030interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 14364,
+            "length": 20
+          },
+          "index": 13
+        }
+      },
+      {
+        "semantic": "logical-infrastructure-retention-save-restore-active-output-0-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/logical-infrastructure-retention-save-restore-active-output-0-bit",
+          "responseKey": "logical-infrastructure-retention-save-restore-active-output-0-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.digitallogicdlx021030interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 14364,
+            "length": 20
+          },
+          "index": 14
+        }
+      },
+      {
+        "semantic": "logical-infrastructure-retention-save-restore-active-output-1-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/logical-infrastructure-retention-save-restore-active-output-1-bit",
+          "responseKey": "logical-infrastructure-retention-save-restore-active-output-1-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.digitallogicdlx021030interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 14364,
+            "length": 20
+          },
+          "index": 15
+        }
+      },
+      {
+        "semantic": "logical-infrastructure-scan-shift-capture-active-output-0-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/logical-infrastructure-scan-shift-capture-active-output-0-bit",
+          "responseKey": "logical-infrastructure-scan-shift-capture-active-output-0-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.digitallogicdlx021030interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 14364,
+            "length": 20
+          },
+          "index": 16
+        }
+      },
+      {
+        "semantic": "logical-infrastructure-scan-shift-capture-active-output-1-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/logical-infrastructure-scan-shift-capture-active-output-1-bit",
+          "responseKey": "logical-infrastructure-scan-shift-capture-active-output-1-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.digitallogicdlx021030interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 14364,
+            "length": 20
+          },
+          "index": 17
+        }
+      },
+      {
+        "semantic": "logical-infrastructure-scan-enable-deassert-active-output-0-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/logical-infrastructure-scan-enable-deassert-active-output-0-bit",
+          "responseKey": "logical-infrastructure-scan-enable-deassert-active-output-0-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.digitallogicdlx021030interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 14364,
+            "length": 20
+          },
+          "index": 18
+        }
+      },
+      {
+        "semantic": "logical-infrastructure-scan-enable-deassert-active-output-1-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/logical-infrastructure-scan-enable-deassert-active-output-1-bit",
+          "responseKey": "logical-infrastructure-scan-enable-deassert-active-output-1-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.digitallogicdlx021030interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 14364,
+            "length": 20
+          },
+          "index": 19
+        }
+      }
+    ]
+  },
+  "diagnostics": {
+    "axisBasis": "inputSemantics",
+    "warnings": [
+      "input axes derived from inputSemantics (no length-matched sensorNormalization)"
+    ],
+    "inputLength": 20,
+    "sequenceCount": 4
+  }
+}

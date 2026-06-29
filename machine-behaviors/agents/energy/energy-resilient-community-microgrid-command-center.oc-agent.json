@@ -1,0 +1,672 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "oc-agent-template",
+  "role": "input-analyst",
+  "agentId": "energy-resilient-community-microgrid-command-center",
+  "displayName": "Energy Resilient Community Microgrid Command Center",
+  "machine": {
+    "id": "EnergyResilientCommunityMicrogridCommandCenterInterconnect",
+    "name": "Energy Resilient Community Microgrid Command Center",
+    "code": "energy_resilient_community_microgrid_command_center",
+    "machineClass": "bridge",
+    "domain": "energy",
+    "inputRegion": {
+      "offset": 16800,
+      "length": 10
+    },
+    "outputRegion": {
+      "offset": 16810,
+      "length": 4
+    }
+  },
+  "openclaw": {
+    "id": "openclaw-xacp",
+    "kind": "acp",
+    "platform": "OpenClaw",
+    "surface": "xACP",
+    "command": "openclaw acp",
+    "gatewayUrl": "ws://127.0.0.1:18789",
+    "sessionKey": "agent:main:main",
+    "targetAgent": "energy-resilient-community-microgrid-command-center",
+    "dispatchMode": "accepted-no-wait",
+    "completionMode": "pe-source-mapping",
+    "completionSourceMappingId": "acp-energy-resilient-community-microgrid-command-center-input-assessment"
+  },
+  "reasoning": {
+    "objective": "Produce the normalized input vector for \"Energy Resilient Community Microgrid Command Center\" from current observations so RE can evaluate its CES sequences.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Energy Resilient Community Microgrid Command Center\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Published Energy service-level command bus for resilient community microgrid operations across schools, transportation, AI data centers, communications, lighting, heating, cooking, storage, generation, transmission, and supply-chain logistics.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- energy-community-critical-load-priority-controller-urgent-or-review-output-bit (index 0):\n- energy-islanding-readiness-coordinator-urgent-or-review-output-bit (index 1):\n- energy-storage-reserve-and-dispatch-optimizer-urgent-or-review-output-bit (index 2):\n- energy-distributed-generation-commitment-planner-urgent-or-review-output-bit (index 3):\n- energy-feeder-and-transmission-path-manager-urgent-or-review-output-bit (index 4):\n- energy-community-service-continuity-monitor-urgent-or-review-output-bit (index 5):\n- energy-supply-chain-logistics-coordinator-urgent-or-review-output-bit (index 6):\n- energy-smart-grid-protocol-adapter-health-monitor-urgent-or-review-output-bit (index 7):\n- energy-microgrid-cyber-safety-gate-urgent-or-review-output-bit (index 8):\n- energy-resilient-community-microgrid-operations-stabilizer-urgent-or-review-output-bit (index 9):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Resilient Community Microgrid Command Center (RED) -> action: MICROGRID_EMERGENCY_RESPONSE for resilient community infrastructure.\n- Resilient Community Microgrid Command Center (AMBER) -> action: MICROGRID_OPTIMIZATION_REQUIRED for resilient community infrastructure.\n- Resilient Community Microgrid Command Center (AMBER) -> action: MICROGRID_MONITORING_REQUIRED for resilient community infrastructure.\n- Resilient Community Microgrid Command Center (GREEN) -> action: MICROGRID_STABLE for resilient community infrastructure.",
+    "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
+    "inputAxes": [
+      {
+        "index": 0,
+        "key": "energy-community-critical-load-priority-controller-urgent-or-review-output-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 1,
+        "key": "energy-islanding-readiness-coordinator-urgent-or-review-output-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 2,
+        "key": "energy-storage-reserve-and-dispatch-optimizer-urgent-or-review-output-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 3,
+        "key": "energy-distributed-generation-commitment-planner-urgent-or-review-output-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 4,
+        "key": "energy-feeder-and-transmission-path-manager-urgent-or-review-output-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 5,
+        "key": "energy-community-service-continuity-monitor-urgent-or-review-output-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 6,
+        "key": "energy-supply-chain-logistics-coordinator-urgent-or-review-output-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 7,
+        "key": "energy-smart-grid-protocol-adapter-health-monitor-urgent-or-review-output-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 8,
+        "key": "energy-microgrid-cyber-safety-gate-urgent-or-review-output-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 9,
+        "key": "energy-resilient-community-microgrid-operations-stabilizer-urgent-or-review-output-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      }
+    ],
+    "sequenceCatalog": [
+      {
+        "sequenceId": "enx-command-microgrid-emergency-response",
+        "label": "Resilient Community Microgrid Command Center",
+        "rag": "RED",
+        "outputIndex": 0,
+        "action": "MICROGRID_EMERGENCY_RESPONSE for resilient community infrastructure."
+      },
+      {
+        "sequenceId": "enx-command-microgrid-optimization-required",
+        "label": "Resilient Community Microgrid Command Center",
+        "rag": "AMBER",
+        "outputIndex": 1,
+        "action": "MICROGRID_OPTIMIZATION_REQUIRED for resilient community infrastructure."
+      },
+      {
+        "sequenceId": "enx-command-microgrid-monitoring-required",
+        "label": "Resilient Community Microgrid Command Center",
+        "rag": "AMBER",
+        "outputIndex": 2,
+        "action": "MICROGRID_MONITORING_REQUIRED for resilient community infrastructure."
+      },
+      {
+        "sequenceId": "enx-command-microgrid-stable",
+        "label": "Resilient Community Microgrid Command Center",
+        "rag": "GREEN",
+        "outputIndex": 3,
+        "action": "MICROGRID_STABLE for resilient community infrastructure."
+      }
+    ]
+  },
+  "agentBinding": {
+    "agent": "energy-resilient-community-microgrid-command-center",
+    "mode": "advise",
+    "trigger": "energy_resilient_community_microgrid_command_center-input-assessment",
+    "allowedActions": [
+      "Assess current \"Energy Resilient Community Microgrid Command Center\" state from available observations and write the normalized input vector to the PE input region [16800:16810] for RE to evaluate."
+    ],
+    "writeBack": {
+      "type": "pe-sensor",
+      "provider": "acp",
+      "sensorId": "acp.openclaw.energy_resilient_community_microgrid_command_center.input-analyst.assessment",
+      "name": "OpenClaw energy_resilient_community_microgrid_command_center input-analyst assessment",
+      "region": {
+        "offset": 16800,
+        "length": 10
+      },
+      "semantics": [
+        "energy-community-critical-load-priority-controller-urgent-or-review-output-bit",
+        "energy-islanding-readiness-coordinator-urgent-or-review-output-bit",
+        "energy-storage-reserve-and-dispatch-optimizer-urgent-or-review-output-bit",
+        "energy-distributed-generation-commitment-planner-urgent-or-review-output-bit",
+        "energy-feeder-and-transmission-path-manager-urgent-or-review-output-bit",
+        "energy-community-service-continuity-monitor-urgent-or-review-output-bit",
+        "energy-supply-chain-logistics-coordinator-urgent-or-review-output-bit",
+        "energy-smart-grid-protocol-adapter-health-monitor-urgent-or-review-output-bit",
+        "energy-microgrid-cyber-safety-gate-urgent-or-review-output-bit",
+        "energy-resilient-community-microgrid-operations-stabilizer-urgent-or-review-output-bit"
+      ],
+      "ttlMs": 300000,
+      "normalization": "already-normalized-0-1",
+      "ingest": {
+        "endpoint": "/api/integrations/completions",
+        "method": "POST",
+        "triggerPush": false,
+        "compactPush": true
+      },
+      "sourceMapping": {
+        "id": "acp-energy_resilient_community_microgrid_command_center-input-assessment",
+        "sensorId": "acp.openclaw.energy_resilient_community_microgrid_command_center.input-analyst.assessment",
+        "name": "OpenClaw energy_resilient_community_microgrid_command_center input-analyst assessment",
+        "region": {
+          "offset": 16800,
+          "length": 10
+        },
+        "ttlMs": 300000
+      }
+    },
+    "autonomyPolicy": {
+      "mode": "advise",
+      "stage": 1,
+      "writeBackType": "pe-sensor",
+      "canWriteBack": true,
+      "canStageActions": false,
+      "canExecuteActions": false,
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "blockedWhenRag": []
+    },
+    "riskControls": {
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "maxAutonomy": "advise",
+      "blockedWhenRag": []
+    }
+  },
+  "responseMapping": {
+    "schemaVersion": "1.0.0",
+    "responseContract": "structured-keys-or-text",
+    "mode": "advise",
+    "fields": [
+      {
+        "semantic": "energy-community-critical-load-priority-controller-urgent-or-review-output-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/energy-community-critical-load-priority-controller-urgent-or-review-output-bit",
+          "responseKey": "energy-community-critical-load-priority-controller-urgent-or-review-output-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.energy_resilient_community_microgrid_command_center.input-analyst.assessment",
+          "region": {
+            "offset": 16800,
+            "length": 10
+          },
+          "index": 0
+        }
+      },
+      {
+        "semantic": "energy-islanding-readiness-coordinator-urgent-or-review-output-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/energy-islanding-readiness-coordinator-urgent-or-review-output-bit",
+          "responseKey": "energy-islanding-readiness-coordinator-urgent-or-review-output-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.energy_resilient_community_microgrid_command_center.input-analyst.assessment",
+          "region": {
+            "offset": 16800,
+            "length": 10
+          },
+          "index": 1
+        }
+      },
+      {
+        "semantic": "energy-storage-reserve-and-dispatch-optimizer-urgent-or-review-output-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/energy-storage-reserve-and-dispatch-optimizer-urgent-or-review-output-bit",
+          "responseKey": "energy-storage-reserve-and-dispatch-optimizer-urgent-or-review-output-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.energy_resilient_community_microgrid_command_center.input-analyst.assessment",
+          "region": {
+            "offset": 16800,
+            "length": 10
+          },
+          "index": 2
+        }
+      },
+      {
+        "semantic": "energy-distributed-generation-commitment-planner-urgent-or-review-output-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/energy-distributed-generation-commitment-planner-urgent-or-review-output-bit",
+          "responseKey": "energy-distributed-generation-commitment-planner-urgent-or-review-output-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.energy_resilient_community_microgrid_command_center.input-analyst.assessment",
+          "region": {
+            "offset": 16800,
+            "length": 10
+          },
+          "index": 3
+        }
+      },
+      {
+        "semantic": "energy-feeder-and-transmission-path-manager-urgent-or-review-output-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/energy-feeder-and-transmission-path-manager-urgent-or-review-output-bit",
+          "responseKey": "energy-feeder-and-transmission-path-manager-urgent-or-review-output-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.energy_resilient_community_microgrid_command_center.input-analyst.assessment",
+          "region": {
+            "offset": 16800,
+            "length": 10
+          },
+          "index": 4
+        }
+      },
+      {
+        "semantic": "energy-community-service-continuity-monitor-urgent-or-review-output-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/energy-community-service-continuity-monitor-urgent-or-review-output-bit",
+          "responseKey": "energy-community-service-continuity-monitor-urgent-or-review-output-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.energy_resilient_community_microgrid_command_center.input-analyst.assessment",
+          "region": {
+            "offset": 16800,
+            "length": 10
+          },
+          "index": 5
+        }
+      },
+      {
+        "semantic": "energy-supply-chain-logistics-coordinator-urgent-or-review-output-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/energy-supply-chain-logistics-coordinator-urgent-or-review-output-bit",
+          "responseKey": "energy-supply-chain-logistics-coordinator-urgent-or-review-output-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.energy_resilient_community_microgrid_command_center.input-analyst.assessment",
+          "region": {
+            "offset": 16800,
+            "length": 10
+          },
+          "index": 6
+        }
+      },
+      {
+        "semantic": "energy-smart-grid-protocol-adapter-health-monitor-urgent-or-review-output-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/energy-smart-grid-protocol-adapter-health-monitor-urgent-or-review-output-bit",
+          "responseKey": "energy-smart-grid-protocol-adapter-health-monitor-urgent-or-review-output-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.energy_resilient_community_microgrid_command_center.input-analyst.assessment",
+          "region": {
+            "offset": 16800,
+            "length": 10
+          },
+          "index": 7
+        }
+      },
+      {
+        "semantic": "energy-microgrid-cyber-safety-gate-urgent-or-review-output-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/energy-microgrid-cyber-safety-gate-urgent-or-review-output-bit",
+          "responseKey": "energy-microgrid-cyber-safety-gate-urgent-or-review-output-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.energy_resilient_community_microgrid_command_center.input-analyst.assessment",
+          "region": {
+            "offset": 16800,
+            "length": 10
+          },
+          "index": 8
+        }
+      },
+      {
+        "semantic": "energy-resilient-community-microgrid-operations-stabilizer-urgent-or-review-output-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/energy-resilient-community-microgrid-operations-stabilizer-urgent-or-review-output-bit",
+          "responseKey": "energy-resilient-community-microgrid-operations-stabilizer-urgent-or-review-output-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.energy_resilient_community_microgrid_command_center.input-analyst.assessment",
+          "region": {
+            "offset": 16800,
+            "length": 10
+          },
+          "index": 9
+        }
+      }
+    ]
+  },
+  "diagnostics": {
+    "axisBasis": "inputSemantics",
+    "warnings": [
+      "input axes derived from inputSemantics (no length-matched sensorNormalization)"
+    ],
+    "inputLength": 10,
+    "sequenceCount": 4
+  }
+}

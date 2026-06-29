@@ -1,0 +1,937 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "oc-agent-template",
+  "role": "input-analyst",
+  "agentId": "agriculture-agx-051-060-interconnect",
+  "displayName": "Agriculture AGX-051-060 Interconnect",
+  "machine": {
+    "id": "AgricultureAgx051060Interconnect",
+    "name": "Agriculture AGX-051-060 Interconnect",
+    "code": "agricultureagx051060interconnect",
+    "machineClass": "bridge",
+    "domain": "agriculture",
+    "inputRegion": {
+      "offset": 13201,
+      "length": 15
+    },
+    "outputRegion": {
+      "offset": 13216,
+      "length": 4
+    }
+  },
+  "openclaw": {
+    "id": "openclaw-xacp",
+    "kind": "acp",
+    "platform": "OpenClaw",
+    "surface": "xACP",
+    "command": "openclaw acp",
+    "gatewayUrl": "ws://127.0.0.1:18789",
+    "sessionKey": "agent:main:main",
+    "targetAgent": "agriculture-agx-051-060-interconnect",
+    "dispatchMode": "accepted-no-wait",
+    "completionMode": "pe-source-mapping",
+    "completionSourceMappingId": "acp-agriculture-agx-051-060-interconnect-input-assessment"
+  },
+  "reasoning": {
+    "objective": "Produce the normalized input vector for \"Agriculture AGX-051-060 Interconnect\" from current observations so RE can evaluate its CES sequences.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Agriculture AGX-051-060 Interconnect\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Published agriculture bridge bus that composes Agriculture AGX-051-060 into a compact domain family response lane. PE owns source composition and writes the compact input lane; RE evaluates this machine as ordinary vector state.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- agriculture-yuma-aqua-maintenance-forecaster-active-output-0-bit (index 0):\n- agriculture-yuma-aqua-maintenance-forecaster-active-output-1-bit (index 1):\n- agriculture-yuma-aqua-maintenance-forecaster-active-output-2-bit (index 2):\n- agriculture-yuma-do-probe-reliability-tracker-active-output-0-bit (index 3):\n- agriculture-yuma-do-probe-reliability-tracker-active-output-1-bit (index 4):\n- agriculture-yuma-do-probe-reliability-tracker-active-output-2-bit (index 5):\n- agriculture-yuma-vpd-hvac-service-planner-active-output-0-bit (index 6):\n- agriculture-yuma-vpd-hvac-service-planner-active-output-1-bit (index 7):\n- agriculture-yuma-vpd-hvac-service-planner-active-output-2-bit (index 8):\n- agriculture-yuma-co2-safety-compliance-officer-active-output-0-bit (index 9):\n- agriculture-yuma-co2-safety-compliance-officer-active-output-1-bit (index 10):\n- agriculture-yuma-co2-safety-compliance-officer-active-output-2-bit (index 11):\n- agriculture-yuma-facility-ai-synthesis-bridge-active-output-0-bit (index 12):\n- agriculture-yuma-facility-ai-synthesis-bridge-active-output-1-bit (index 13):\n- agriculture-yuma-facility-ai-synthesis-bridge-active-output-2-bit (index 14):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Agriculture AGX-051-060 domain family review at [13216 (RED) -> action: Route domain family review, escalation, and resolver summary.\n- Agriculture AGX-051-060 domain family optimization at [13216 (AMBER) -> action: Route domain family optimization or plan adjustment.\n- Agriculture AGX-051-060 domain family monitoring at [13216 (AMBER) -> action: Route monitoring, evidence, or data-quality follow-up.\n- Agriculture AGX-051-060 domain family stable at [13216 (GREEN) -> action: Record stable family state and keep baseline cadence.",
+    "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
+    "inputAxes": [
+      {
+        "index": 0,
+        "key": "agriculture-yuma-aqua-maintenance-forecaster-active-output-0-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 1,
+        "key": "agriculture-yuma-aqua-maintenance-forecaster-active-output-1-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 2,
+        "key": "agriculture-yuma-aqua-maintenance-forecaster-active-output-2-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 3,
+        "key": "agriculture-yuma-do-probe-reliability-tracker-active-output-0-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 4,
+        "key": "agriculture-yuma-do-probe-reliability-tracker-active-output-1-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 5,
+        "key": "agriculture-yuma-do-probe-reliability-tracker-active-output-2-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 6,
+        "key": "agriculture-yuma-vpd-hvac-service-planner-active-output-0-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 7,
+        "key": "agriculture-yuma-vpd-hvac-service-planner-active-output-1-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 8,
+        "key": "agriculture-yuma-vpd-hvac-service-planner-active-output-2-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 9,
+        "key": "agriculture-yuma-co2-safety-compliance-officer-active-output-0-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 10,
+        "key": "agriculture-yuma-co2-safety-compliance-officer-active-output-1-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 11,
+        "key": "agriculture-yuma-co2-safety-compliance-officer-active-output-2-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 12,
+        "key": "agriculture-yuma-facility-ai-synthesis-bridge-active-output-0-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 13,
+        "key": "agriculture-yuma-facility-ai-synthesis-bridge-active-output-1-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 14,
+        "key": "agriculture-yuma-facility-ai-synthesis-bridge-active-output-2-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      }
+    ],
+    "sequenceCatalog": [
+      {
+        "sequenceId": "agx-051-060-domain-family-review",
+        "label": "Agriculture AGX-051-060 domain family review at [13216",
+        "rag": "RED",
+        "outputIndex": 0,
+        "action": "Route domain family review, escalation, and resolver summary."
+      },
+      {
+        "sequenceId": "agx-051-060-domain-family-optimization",
+        "label": "Agriculture AGX-051-060 domain family optimization at [13216",
+        "rag": "AMBER",
+        "outputIndex": 1,
+        "action": "Route domain family optimization or plan adjustment."
+      },
+      {
+        "sequenceId": "agx-051-060-domain-family-monitoring",
+        "label": "Agriculture AGX-051-060 domain family monitoring at [13216",
+        "rag": "AMBER",
+        "outputIndex": 2,
+        "action": "Route monitoring, evidence, or data-quality follow-up."
+      },
+      {
+        "sequenceId": "agx-051-060-domain-family-stable",
+        "label": "Agriculture AGX-051-060 domain family stable at [13216",
+        "rag": "GREEN",
+        "outputIndex": 3,
+        "action": "Record stable family state and keep baseline cadence."
+      }
+    ]
+  },
+  "agentBinding": {
+    "agent": "agriculture-agx-051-060-interconnect",
+    "mode": "advise",
+    "trigger": "agricultureagx051060interconnect-input-assessment",
+    "allowedActions": [
+      "Assess current \"Agriculture AGX-051-060 Interconnect\" state from available observations and write the normalized input vector to the PE input region [13201:13216] for RE to evaluate."
+    ],
+    "writeBack": {
+      "type": "pe-sensor",
+      "provider": "acp",
+      "sensorId": "acp.openclaw.agricultureagx051060interconnect.input-analyst.assessment",
+      "name": "OpenClaw agricultureagx051060interconnect input-analyst assessment",
+      "region": {
+        "offset": 13201,
+        "length": 15
+      },
+      "semantics": [
+        "agriculture-yuma-aqua-maintenance-forecaster-active-output-0-bit",
+        "agriculture-yuma-aqua-maintenance-forecaster-active-output-1-bit",
+        "agriculture-yuma-aqua-maintenance-forecaster-active-output-2-bit",
+        "agriculture-yuma-do-probe-reliability-tracker-active-output-0-bit",
+        "agriculture-yuma-do-probe-reliability-tracker-active-output-1-bit",
+        "agriculture-yuma-do-probe-reliability-tracker-active-output-2-bit",
+        "agriculture-yuma-vpd-hvac-service-planner-active-output-0-bit",
+        "agriculture-yuma-vpd-hvac-service-planner-active-output-1-bit",
+        "agriculture-yuma-vpd-hvac-service-planner-active-output-2-bit",
+        "agriculture-yuma-co2-safety-compliance-officer-active-output-0-bit",
+        "agriculture-yuma-co2-safety-compliance-officer-active-output-1-bit",
+        "agriculture-yuma-co2-safety-compliance-officer-active-output-2-bit",
+        "agriculture-yuma-facility-ai-synthesis-bridge-active-output-0-bit",
+        "agriculture-yuma-facility-ai-synthesis-bridge-active-output-1-bit",
+        "agriculture-yuma-facility-ai-synthesis-bridge-active-output-2-bit"
+      ],
+      "ttlMs": 300000,
+      "normalization": "already-normalized-0-1",
+      "ingest": {
+        "endpoint": "/api/integrations/completions",
+        "method": "POST",
+        "triggerPush": false,
+        "compactPush": true
+      },
+      "sourceMapping": {
+        "id": "acp-agricultureagx051060interconnect-input-assessment",
+        "sensorId": "acp.openclaw.agricultureagx051060interconnect.input-analyst.assessment",
+        "name": "OpenClaw agricultureagx051060interconnect input-analyst assessment",
+        "region": {
+          "offset": 13201,
+          "length": 15
+        },
+        "ttlMs": 300000
+      }
+    },
+    "autonomyPolicy": {
+      "mode": "advise",
+      "stage": 1,
+      "writeBackType": "pe-sensor",
+      "canWriteBack": true,
+      "canStageActions": false,
+      "canExecuteActions": false,
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "blockedWhenRag": []
+    },
+    "riskControls": {
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "maxAutonomy": "advise",
+      "blockedWhenRag": []
+    }
+  },
+  "responseMapping": {
+    "schemaVersion": "1.0.0",
+    "responseContract": "structured-keys-or-text",
+    "mode": "advise",
+    "fields": [
+      {
+        "semantic": "agriculture-yuma-aqua-maintenance-forecaster-active-output-0-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/agriculture-yuma-aqua-maintenance-forecaster-active-output-0-bit",
+          "responseKey": "agriculture-yuma-aqua-maintenance-forecaster-active-output-0-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agricultureagx051060interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 13201,
+            "length": 15
+          },
+          "index": 0
+        }
+      },
+      {
+        "semantic": "agriculture-yuma-aqua-maintenance-forecaster-active-output-1-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/agriculture-yuma-aqua-maintenance-forecaster-active-output-1-bit",
+          "responseKey": "agriculture-yuma-aqua-maintenance-forecaster-active-output-1-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agricultureagx051060interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 13201,
+            "length": 15
+          },
+          "index": 1
+        }
+      },
+      {
+        "semantic": "agriculture-yuma-aqua-maintenance-forecaster-active-output-2-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/agriculture-yuma-aqua-maintenance-forecaster-active-output-2-bit",
+          "responseKey": "agriculture-yuma-aqua-maintenance-forecaster-active-output-2-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agricultureagx051060interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 13201,
+            "length": 15
+          },
+          "index": 2
+        }
+      },
+      {
+        "semantic": "agriculture-yuma-do-probe-reliability-tracker-active-output-0-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/agriculture-yuma-do-probe-reliability-tracker-active-output-0-bit",
+          "responseKey": "agriculture-yuma-do-probe-reliability-tracker-active-output-0-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agricultureagx051060interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 13201,
+            "length": 15
+          },
+          "index": 3
+        }
+      },
+      {
+        "semantic": "agriculture-yuma-do-probe-reliability-tracker-active-output-1-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/agriculture-yuma-do-probe-reliability-tracker-active-output-1-bit",
+          "responseKey": "agriculture-yuma-do-probe-reliability-tracker-active-output-1-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agricultureagx051060interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 13201,
+            "length": 15
+          },
+          "index": 4
+        }
+      },
+      {
+        "semantic": "agriculture-yuma-do-probe-reliability-tracker-active-output-2-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/agriculture-yuma-do-probe-reliability-tracker-active-output-2-bit",
+          "responseKey": "agriculture-yuma-do-probe-reliability-tracker-active-output-2-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agricultureagx051060interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 13201,
+            "length": 15
+          },
+          "index": 5
+        }
+      },
+      {
+        "semantic": "agriculture-yuma-vpd-hvac-service-planner-active-output-0-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/agriculture-yuma-vpd-hvac-service-planner-active-output-0-bit",
+          "responseKey": "agriculture-yuma-vpd-hvac-service-planner-active-output-0-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agricultureagx051060interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 13201,
+            "length": 15
+          },
+          "index": 6
+        }
+      },
+      {
+        "semantic": "agriculture-yuma-vpd-hvac-service-planner-active-output-1-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/agriculture-yuma-vpd-hvac-service-planner-active-output-1-bit",
+          "responseKey": "agriculture-yuma-vpd-hvac-service-planner-active-output-1-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agricultureagx051060interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 13201,
+            "length": 15
+          },
+          "index": 7
+        }
+      },
+      {
+        "semantic": "agriculture-yuma-vpd-hvac-service-planner-active-output-2-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/agriculture-yuma-vpd-hvac-service-planner-active-output-2-bit",
+          "responseKey": "agriculture-yuma-vpd-hvac-service-planner-active-output-2-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agricultureagx051060interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 13201,
+            "length": 15
+          },
+          "index": 8
+        }
+      },
+      {
+        "semantic": "agriculture-yuma-co2-safety-compliance-officer-active-output-0-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/agriculture-yuma-co2-safety-compliance-officer-active-output-0-bit",
+          "responseKey": "agriculture-yuma-co2-safety-compliance-officer-active-output-0-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agricultureagx051060interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 13201,
+            "length": 15
+          },
+          "index": 9
+        }
+      },
+      {
+        "semantic": "agriculture-yuma-co2-safety-compliance-officer-active-output-1-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/agriculture-yuma-co2-safety-compliance-officer-active-output-1-bit",
+          "responseKey": "agriculture-yuma-co2-safety-compliance-officer-active-output-1-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agricultureagx051060interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 13201,
+            "length": 15
+          },
+          "index": 10
+        }
+      },
+      {
+        "semantic": "agriculture-yuma-co2-safety-compliance-officer-active-output-2-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/agriculture-yuma-co2-safety-compliance-officer-active-output-2-bit",
+          "responseKey": "agriculture-yuma-co2-safety-compliance-officer-active-output-2-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agricultureagx051060interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 13201,
+            "length": 15
+          },
+          "index": 11
+        }
+      },
+      {
+        "semantic": "agriculture-yuma-facility-ai-synthesis-bridge-active-output-0-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/agriculture-yuma-facility-ai-synthesis-bridge-active-output-0-bit",
+          "responseKey": "agriculture-yuma-facility-ai-synthesis-bridge-active-output-0-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agricultureagx051060interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 13201,
+            "length": 15
+          },
+          "index": 12
+        }
+      },
+      {
+        "semantic": "agriculture-yuma-facility-ai-synthesis-bridge-active-output-1-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/agriculture-yuma-facility-ai-synthesis-bridge-active-output-1-bit",
+          "responseKey": "agriculture-yuma-facility-ai-synthesis-bridge-active-output-1-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agricultureagx051060interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 13201,
+            "length": 15
+          },
+          "index": 13
+        }
+      },
+      {
+        "semantic": "agriculture-yuma-facility-ai-synthesis-bridge-active-output-2-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/agriculture-yuma-facility-ai-synthesis-bridge-active-output-2-bit",
+          "responseKey": "agriculture-yuma-facility-ai-synthesis-bridge-active-output-2-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agricultureagx051060interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 13201,
+            "length": 15
+          },
+          "index": 14
+        }
+      }
+    ]
+  },
+  "diagnostics": {
+    "axisBasis": "inputSemantics",
+    "warnings": [
+      "input axes derived from inputSemantics (no length-matched sensorNormalization)"
+    ],
+    "inputLength": 15,
+    "sequenceCount": 4
+  }
+}

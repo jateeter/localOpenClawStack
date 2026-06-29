@@ -1,17 +1,18 @@
 {
-  "total": 1015,
+  "total": 1320,
   "byDomain": {
-    "agriculture": 64,
-    "ai-services": 8,
-    "built-space": 150,
-    "community-services": 103,
-    "data-center": 59,
-    "digital-logic": 57,
-    "health-personal": 24,
-    "health-services": 200,
-    "legal-services": 100,
-    "life-balance": 100,
-    "transportation": 150
+    "agriculture": 71,
+    "ai-services": 9,
+    "built-space": 165,
+    "community-services": 113,
+    "data-center": 65,
+    "digital-logic": 63,
+    "energy": 187,
+    "health-personal": 42,
+    "health-services": 220,
+    "legal-services": 110,
+    "life-balance": 110,
+    "transportation": 165
   },
   "agents": [
     {
@@ -133,6 +134,111 @@
       },
       "axisBasis": "inputSemantics",
       "path": "agriculture/ag-plant-growth-cycle-monitor.oc-agent.json"
+    },
+    {
+      "machineId": "AgricultureAgx001010Interconnect",
+      "machineName": "Agriculture AGX-001-010 Interconnect",
+      "code": "agricultureagx001010interconnect",
+      "agentId": "agriculture-agx-001-010-interconnect",
+      "domain": "agriculture",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 13031,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "agriculture/agriculture-agx-001-010-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "AgricultureAgx011020Interconnect",
+      "machineName": "Agriculture AGX-011-020 Interconnect",
+      "code": "agricultureagx011020interconnect",
+      "agentId": "agriculture-agx-011-020-interconnect",
+      "domain": "agriculture",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 13065,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "agriculture/agriculture-agx-011-020-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "AgricultureAgx021030Interconnect",
+      "machineName": "Agriculture AGX-021-030 Interconnect",
+      "code": "agricultureagx021030interconnect",
+      "agentId": "agriculture-agx-021-030-interconnect",
+      "domain": "agriculture",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 13099,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "agriculture/agriculture-agx-021-030-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "AgricultureAgx031040Interconnect",
+      "machineName": "Agriculture AGX-031-040 Interconnect",
+      "code": "agricultureagx031040interconnect",
+      "agentId": "agriculture-agx-031-040-interconnect",
+      "domain": "agriculture",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 13133,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "agriculture/agriculture-agx-031-040-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "AgricultureAgx041050Interconnect",
+      "machineName": "Agriculture AGX-041-050 Interconnect",
+      "code": "agricultureagx041050interconnect",
+      "agentId": "agriculture-agx-041-050-interconnect",
+      "domain": "agriculture",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 13167,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "agriculture/agriculture-agx-041-050-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "AgricultureAgx051060Interconnect",
+      "machineName": "Agriculture AGX-051-060 Interconnect",
+      "code": "agricultureagx051060interconnect",
+      "agentId": "agriculture-agx-051-060-interconnect",
+      "domain": "agriculture",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 13201,
+        "length": 15
+      },
+      "axisBasis": "inputSemantics",
+      "path": "agriculture/agriculture-agx-051-060-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "AgricultureCoreInterconnect",
+      "machineName": "Agriculture Core Interconnect",
+      "code": "agriculturecoreinterconnect",
+      "agentId": "agriculture-core-interconnect",
+      "domain": "agriculture",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 13000,
+        "length": 27
+      },
+      "axisBasis": "inputSemantics",
+      "path": "agriculture/agriculture-core-interconnect.oc-agent.json"
     },
     {
       "machineId": "AGX001_aquaculture-water-quality-stability",
@@ -1078,6 +1184,21 @@
       },
       "axisBasis": "inputSemantics",
       "path": "ai-services/ai-security-monitor.oc-agent.json"
+    },
+    {
+      "machineId": "AiServicesCoreInterconnect",
+      "machineName": "AI Services Core Interconnect",
+      "code": "aiservicescoreinterconnect",
+      "agentId": "ai-services-core-interconnect",
+      "domain": "ai-services",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 13220,
+        "length": 24
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ai-services/ai-services-core-interconnect.oc-agent.json"
     },
     {
       "machineId": "ai-wellness-coach",
@@ -3345,6 +3466,231 @@
       "path": "built-space/built-space-well-predictive-operations-built-space-command-center.oc-agent.json"
     },
     {
+      "machineId": "BuiltSpaceBsx001010Interconnect",
+      "machineName": "Built Space BSX-001-010 Interconnect",
+      "code": "builtspacebsx001010interconnect",
+      "agentId": "built-space-bsx-001-010-interconnect",
+      "domain": "built-space",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 13248,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "built-space/built-space-bsx-001-010-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "BuiltSpaceBsx011020Interconnect",
+      "machineName": "Built Space BSX-011-020 Interconnect",
+      "code": "builtspacebsx011020interconnect",
+      "agentId": "built-space-bsx-011-020-interconnect",
+      "domain": "built-space",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 13282,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "built-space/built-space-bsx-011-020-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "BuiltSpaceBsx021030Interconnect",
+      "machineName": "Built Space BSX-021-030 Interconnect",
+      "code": "builtspacebsx021030interconnect",
+      "agentId": "built-space-bsx-021-030-interconnect",
+      "domain": "built-space",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 13316,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "built-space/built-space-bsx-021-030-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "BuiltSpaceBsx031040Interconnect",
+      "machineName": "Built Space BSX-031-040 Interconnect",
+      "code": "builtspacebsx031040interconnect",
+      "agentId": "built-space-bsx-031-040-interconnect",
+      "domain": "built-space",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 13350,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "built-space/built-space-bsx-031-040-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "BuiltSpaceBsx041050Interconnect",
+      "machineName": "Built Space BSX-041-050 Interconnect",
+      "code": "builtspacebsx041050interconnect",
+      "agentId": "built-space-bsx-041-050-interconnect",
+      "domain": "built-space",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 13384,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "built-space/built-space-bsx-041-050-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "BuiltSpaceBsx051060Interconnect",
+      "machineName": "Built Space BSX-051-060 Interconnect",
+      "code": "builtspacebsx051060interconnect",
+      "agentId": "built-space-bsx-051-060-interconnect",
+      "domain": "built-space",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 13418,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "built-space/built-space-bsx-051-060-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "BuiltSpaceBsx061070Interconnect",
+      "machineName": "Built Space BSX-061-070 Interconnect",
+      "code": "builtspacebsx061070interconnect",
+      "agentId": "built-space-bsx-061-070-interconnect",
+      "domain": "built-space",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 13452,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "built-space/built-space-bsx-061-070-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "BuiltSpaceBsx071080Interconnect",
+      "machineName": "Built Space BSX-071-080 Interconnect",
+      "code": "builtspacebsx071080interconnect",
+      "agentId": "built-space-bsx-071-080-interconnect",
+      "domain": "built-space",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 13486,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "built-space/built-space-bsx-071-080-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "BuiltSpaceBsx081090Interconnect",
+      "machineName": "Built Space BSX-081-090 Interconnect",
+      "code": "builtspacebsx081090interconnect",
+      "agentId": "built-space-bsx-081-090-interconnect",
+      "domain": "built-space",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 13520,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "built-space/built-space-bsx-081-090-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "BuiltSpaceBsx091100Interconnect",
+      "machineName": "Built Space BSX-091-100 Interconnect",
+      "code": "builtspacebsx091100interconnect",
+      "agentId": "built-space-bsx-091-100-interconnect",
+      "domain": "built-space",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 13554,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "built-space/built-space-bsx-091-100-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "BuiltSpaceBsx101110Interconnect",
+      "machineName": "Built Space BSX-101-110 Interconnect",
+      "code": "builtspacebsx101110interconnect",
+      "agentId": "built-space-bsx-101-110-interconnect",
+      "domain": "built-space",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 13588,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "built-space/built-space-bsx-101-110-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "BuiltSpaceBsx111120Interconnect",
+      "machineName": "Built Space BSX-111-120 Interconnect",
+      "code": "builtspacebsx111120interconnect",
+      "agentId": "built-space-bsx-111-120-interconnect",
+      "domain": "built-space",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 13622,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "built-space/built-space-bsx-111-120-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "BuiltSpaceBsx121130Interconnect",
+      "machineName": "Built Space BSX-121-130 Interconnect",
+      "code": "builtspacebsx121130interconnect",
+      "agentId": "built-space-bsx-121-130-interconnect",
+      "domain": "built-space",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 13656,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "built-space/built-space-bsx-121-130-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "BuiltSpaceBsx131140Interconnect",
+      "machineName": "Built Space BSX-131-140 Interconnect",
+      "code": "builtspacebsx131140interconnect",
+      "agentId": "built-space-bsx-131-140-interconnect",
+      "domain": "built-space",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 13690,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "built-space/built-space-bsx-131-140-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "BuiltSpaceBsx141150Interconnect",
+      "machineName": "Built Space BSX-141-150 Interconnect",
+      "code": "builtspacebsx141150interconnect",
+      "agentId": "built-space-bsx-141-150-interconnect",
+      "domain": "built-space",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 13724,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "built-space/built-space-bsx-141-150-interconnect.oc-agent.json"
+    },
+    {
       "machineId": "BenefitsEligibilityScreener",
       "machineName": "Benefits Eligibility Screener",
       "code": "benefitseligibilityscreener",
@@ -3418,6 +3764,156 @@
       },
       "axisBasis": "sensorNormalization",
       "path": "community-services/community-outreach-monitor.oc-agent.json"
+    },
+    {
+      "machineId": "CommunityServicesCoreInterconnect",
+      "machineName": "Community Services Core Interconnect",
+      "code": "communityservicescoreinterconnect",
+      "agentId": "community-services-core-interconnect",
+      "domain": "community-services",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 13758,
+        "length": 36
+      },
+      "axisBasis": "inputSemantics",
+      "path": "community-services/community-services-core-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "CommunityServicesCsx001010Interconnect",
+      "machineName": "Community Services CSX-001-010 Interconnect",
+      "code": "communityservicescsx001010interconnect",
+      "agentId": "community-services-csx-001-010-interconnect",
+      "domain": "community-services",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 13798,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "community-services/community-services-csx-001-010-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "CommunityServicesCsx011020Interconnect",
+      "machineName": "Community Services CSX-011-020 Interconnect",
+      "code": "communityservicescsx011020interconnect",
+      "agentId": "community-services-csx-011-020-interconnect",
+      "domain": "community-services",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 13832,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "community-services/community-services-csx-011-020-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "CommunityServicesCsx021030Interconnect",
+      "machineName": "Community Services CSX-021-030 Interconnect",
+      "code": "communityservicescsx021030interconnect",
+      "agentId": "community-services-csx-021-030-interconnect",
+      "domain": "community-services",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 13866,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "community-services/community-services-csx-021-030-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "CommunityServicesCsx031040Interconnect",
+      "machineName": "Community Services CSX-031-040 Interconnect",
+      "code": "communityservicescsx031040interconnect",
+      "agentId": "community-services-csx-031-040-interconnect",
+      "domain": "community-services",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 13900,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "community-services/community-services-csx-031-040-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "CommunityServicesCsx041050Interconnect",
+      "machineName": "Community Services CSX-041-050 Interconnect",
+      "code": "communityservicescsx041050interconnect",
+      "agentId": "community-services-csx-041-050-interconnect",
+      "domain": "community-services",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 13934,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "community-services/community-services-csx-041-050-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "CommunityServicesCsx051060Interconnect",
+      "machineName": "Community Services CSX-051-060 Interconnect",
+      "code": "communityservicescsx051060interconnect",
+      "agentId": "community-services-csx-051-060-interconnect",
+      "domain": "community-services",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 13968,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "community-services/community-services-csx-051-060-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "CommunityServicesCsx061070Interconnect",
+      "machineName": "Community Services CSX-061-070 Interconnect",
+      "code": "communityservicescsx061070interconnect",
+      "agentId": "community-services-csx-061-070-interconnect",
+      "domain": "community-services",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 14002,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "community-services/community-services-csx-061-070-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "CommunityServicesCsx071080Interconnect",
+      "machineName": "Community Services CSX-071-080 Interconnect",
+      "code": "communityservicescsx071080interconnect",
+      "agentId": "community-services-csx-071-080-interconnect",
+      "domain": "community-services",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 14036,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "community-services/community-services-csx-071-080-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "CommunityServicesCsx081090Interconnect",
+      "machineName": "Community Services CSX-081-090 Interconnect",
+      "code": "communityservicescsx081090interconnect",
+      "agentId": "community-services-csx-081-090-interconnect",
+      "domain": "community-services",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 14070,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "community-services/community-services-csx-081-090-interconnect.oc-agent.json"
     },
     {
       "machineId": "CSX001_health-and-human-services-intake-resident-intake-triage",
@@ -4890,6 +5386,96 @@
       "path": "community-services/workflow-completion-monitor.oc-agent.json"
     },
     {
+      "machineId": "DataCenterCoreInterconnect",
+      "machineName": "Data Center Core Interconnect",
+      "code": "datacentercoreinterconnect",
+      "agentId": "data-center-core-interconnect",
+      "domain": "data-center",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 14104,
+        "length": 19
+      },
+      "axisBasis": "inputSemantics",
+      "path": "data-center/data-center-core-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "DataCenterDcx001010Interconnect",
+      "machineName": "Data Center DCX-001-010 Interconnect",
+      "code": "datacenterdcx001010interconnect",
+      "agentId": "data-center-dcx-001-010-interconnect",
+      "domain": "data-center",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 14127,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "data-center/data-center-dcx-001-010-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "DataCenterDcx011020Interconnect",
+      "machineName": "Data Center DCX-011-020 Interconnect",
+      "code": "datacenterdcx011020interconnect",
+      "agentId": "data-center-dcx-011-020-interconnect",
+      "domain": "data-center",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 14161,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "data-center/data-center-dcx-011-020-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "DataCenterDcx021030Interconnect",
+      "machineName": "Data Center DCX-021-030 Interconnect",
+      "code": "datacenterdcx021030interconnect",
+      "agentId": "data-center-dcx-021-030-interconnect",
+      "domain": "data-center",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 14195,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "data-center/data-center-dcx-021-030-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "DataCenterDcx031040Interconnect",
+      "machineName": "Data Center DCX-031-040 Interconnect",
+      "code": "datacenterdcx031040interconnect",
+      "agentId": "data-center-dcx-031-040-interconnect",
+      "domain": "data-center",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 14229,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "data-center/data-center-dcx-031-040-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "DataCenterDcx041050Interconnect",
+      "machineName": "Data Center DCX-041-050 Interconnect",
+      "code": "datacenterdcx041050interconnect",
+      "agentId": "data-center-dcx-041-050-interconnect",
+      "domain": "data-center",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 14263,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "data-center/data-center-dcx-041-050-interconnect.oc-agent.json"
+    },
+    {
       "machineId": "DataCenterMonitoring",
       "machineName": "Data Center Monitoring",
       "code": "datacentermonitoring",
@@ -5775,6 +6361,96 @@
       "path": "data-center/data-center-24x7-operations-executive-summary.oc-agent.json"
     },
     {
+      "machineId": "DigitalLogicCoreInterconnect",
+      "machineName": "Digital Logic Core Interconnect",
+      "code": "digitallogiccoreinterconnect",
+      "agentId": "digital-logic-core-interconnect",
+      "domain": "digital-logic",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 14297,
+        "length": 15
+      },
+      "axisBasis": "inputSemantics",
+      "path": "digital-logic/digital-logic-core-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "DigitalLogicDlx001010Interconnect",
+      "machineName": "Digital Logic DLX-001-010 Interconnect",
+      "code": "digitallogicdlx001010interconnect",
+      "agentId": "digital-logic-dlx-001-010-interconnect",
+      "domain": "digital-logic",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 14316,
+        "length": 20
+      },
+      "axisBasis": "inputSemantics",
+      "path": "digital-logic/digital-logic-dlx-001-010-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "DigitalLogicDlx011020Interconnect",
+      "machineName": "Digital Logic DLX-011-020 Interconnect",
+      "code": "digitallogicdlx011020interconnect",
+      "agentId": "digital-logic-dlx-011-020-interconnect",
+      "domain": "digital-logic",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 14340,
+        "length": 20
+      },
+      "axisBasis": "inputSemantics",
+      "path": "digital-logic/digital-logic-dlx-011-020-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "DigitalLogicDlx021030Interconnect",
+      "machineName": "Digital Logic DLX-021-030 Interconnect",
+      "code": "digitallogicdlx021030interconnect",
+      "agentId": "digital-logic-dlx-021-030-interconnect",
+      "domain": "digital-logic",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 14364,
+        "length": 20
+      },
+      "axisBasis": "inputSemantics",
+      "path": "digital-logic/digital-logic-dlx-021-030-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "DigitalLogicDlx031040Interconnect",
+      "machineName": "Digital Logic DLX-031-040 Interconnect",
+      "code": "digitallogicdlx031040interconnect",
+      "agentId": "digital-logic-dlx-031-040-interconnect",
+      "domain": "digital-logic",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 14388,
+        "length": 20
+      },
+      "axisBasis": "inputSemantics",
+      "path": "digital-logic/digital-logic-dlx-031-040-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "DigitalLogicDlx041050Interconnect",
+      "machineName": "Digital Logic DLX-041-050 Interconnect",
+      "code": "digitallogicdlx041050interconnect",
+      "agentId": "digital-logic-dlx-041-050-interconnect",
+      "domain": "digital-logic",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 14412,
+        "length": 20
+      },
+      "axisBasis": "inputSemantics",
+      "path": "digital-logic/digital-logic-dlx-041-050-interconnect.oc-agent.json"
+    },
+    {
       "machineId": "DLX001_rising-edge-detector",
       "machineName": "Logical Infrastructure Rising Edge Detector",
       "code": "dlx001_rising_edge_detector",
@@ -6630,6 +7306,2811 @@
       "path": "digital-logic/rs-flip-flop-deprecated-demo.oc-agent.json"
     },
     {
+      "machineId": "EnergyResilientCommunityMicrogridCommandCenterInterconnect",
+      "machineName": "Energy Resilient Community Microgrid Command Center",
+      "code": "energy_resilient_community_microgrid_command_center",
+      "agentId": "energy-resilient-community-microgrid-command-center",
+      "domain": "energy",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 16800,
+        "length": 10
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/energy-resilient-community-microgrid-command-center.oc-agent.json"
+    },
+    {
+      "machineId": "EnergyEnx001010Interconnect",
+      "machineName": "Energy ENX-001-010 Interconnect",
+      "code": "energyenx001010interconnect",
+      "agentId": "energy-enx-001-010-interconnect",
+      "domain": "energy",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 14436,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/energy-enx-001-010-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "EnergyEnx011020Interconnect",
+      "machineName": "Energy ENX-011-020 Interconnect",
+      "code": "energyenx011020interconnect",
+      "agentId": "energy-enx-011-020-interconnect",
+      "domain": "energy",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 14470,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/energy-enx-011-020-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "EnergyEnx021030Interconnect",
+      "machineName": "Energy ENX-021-030 Interconnect",
+      "code": "energyenx021030interconnect",
+      "agentId": "energy-enx-021-030-interconnect",
+      "domain": "energy",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 14504,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/energy-enx-021-030-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "EnergyEnx031040Interconnect",
+      "machineName": "Energy ENX-031-040 Interconnect",
+      "code": "energyenx031040interconnect",
+      "agentId": "energy-enx-031-040-interconnect",
+      "domain": "energy",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 14538,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/energy-enx-031-040-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "EnergyEnx041050Interconnect",
+      "machineName": "Energy ENX-041-050 Interconnect",
+      "code": "energyenx041050interconnect",
+      "agentId": "energy-enx-041-050-interconnect",
+      "domain": "energy",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 14572,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/energy-enx-041-050-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "EnergyEnx051060Interconnect",
+      "machineName": "Energy ENX-051-060 Interconnect",
+      "code": "energyenx051060interconnect",
+      "agentId": "energy-enx-051-060-interconnect",
+      "domain": "energy",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 14606,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/energy-enx-051-060-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "EnergyEnx061070Interconnect",
+      "machineName": "Energy ENX-061-070 Interconnect",
+      "code": "energyenx061070interconnect",
+      "agentId": "energy-enx-061-070-interconnect",
+      "domain": "energy",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 14640,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/energy-enx-061-070-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "EnergyEnx071080Interconnect",
+      "machineName": "Energy ENX-071-080 Interconnect",
+      "code": "energyenx071080interconnect",
+      "agentId": "energy-enx-071-080-interconnect",
+      "domain": "energy",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 14674,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/energy-enx-071-080-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "EnergyEnx081090Interconnect",
+      "machineName": "Energy ENX-081-090 Interconnect",
+      "code": "energyenx081090interconnect",
+      "agentId": "energy-enx-081-090-interconnect",
+      "domain": "energy",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 14708,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/energy-enx-081-090-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "EnergyEnx091100Interconnect",
+      "machineName": "Energy ENX-091-100 Interconnect",
+      "code": "energyenx091100interconnect",
+      "agentId": "energy-enx-091-100-interconnect",
+      "domain": "energy",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 14742,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/energy-enx-091-100-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "EnergyEnx101110Interconnect",
+      "machineName": "Energy ENX-101-110 Interconnect",
+      "code": "energyenx101110interconnect",
+      "agentId": "energy-enx-101-110-interconnect",
+      "domain": "energy",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 14776,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/energy-enx-101-110-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "EnergyEnx111120Interconnect",
+      "machineName": "Energy ENX-111-120 Interconnect",
+      "code": "energyenx111120interconnect",
+      "agentId": "energy-enx-111-120-interconnect",
+      "domain": "energy",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 14810,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/energy-enx-111-120-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "EnergyEnx121130Interconnect",
+      "machineName": "Energy ENX-121-130 Interconnect",
+      "code": "energyenx121130interconnect",
+      "agentId": "energy-enx-121-130-interconnect",
+      "domain": "energy",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 14844,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/energy-enx-121-130-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "EnergyEnx131140Interconnect",
+      "machineName": "Energy ENX-131-140 Interconnect",
+      "code": "energyenx131140interconnect",
+      "agentId": "energy-enx-131-140-interconnect",
+      "domain": "energy",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 14878,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/energy-enx-131-140-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "EnergyEnx141150Interconnect",
+      "machineName": "Energy ENX-141-150 Interconnect",
+      "code": "energyenx141150interconnect",
+      "agentId": "energy-enx-141-150-interconnect",
+      "domain": "energy",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 14912,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/energy-enx-141-150-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "EnergyEnx151160Interconnect",
+      "machineName": "Energy ENX-151-160 Interconnect",
+      "code": "energyenx151160interconnect",
+      "agentId": "energy-enx-151-160-interconnect",
+      "domain": "energy",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 14946,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/energy-enx-151-160-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "ENX001_rooftop-solar-fleet-availability-monitor",
+      "machineName": "Community Microgrid Cluster Rooftop Solar Fleet Availability Monitor",
+      "code": "enx001_rooftop_solar_fleet_availability_monitor",
+      "agentId": "community-microgrid-cluster-rooftop-solar-fleet-availability-monitor",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6000,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-rooftop-solar-fleet-availability-monitor.oc-agent.json"
+    },
+    {
+      "machineId": "ENX002_rooftop-solar-fleet-dispatch-controller",
+      "machineName": "Community Microgrid Cluster Rooftop Solar Fleet Dispatch Controller",
+      "code": "enx002_rooftop_solar_fleet_dispatch_controller",
+      "agentId": "community-microgrid-cluster-rooftop-solar-fleet-dispatch-controller",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6008,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-rooftop-solar-fleet-dispatch-controller.oc-agent.json"
+    },
+    {
+      "machineId": "ENX003_rooftop-solar-fleet-forecast-gatekeeper",
+      "machineName": "Community Microgrid Cluster Rooftop Solar Fleet Forecast Gatekeeper",
+      "code": "enx003_rooftop_solar_fleet_forecast_gatekeeper",
+      "agentId": "community-microgrid-cluster-rooftop-solar-fleet-forecast-gatekeeper",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6016,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-rooftop-solar-fleet-forecast-gatekeeper.oc-agent.json"
+    },
+    {
+      "machineId": "ENX004_rooftop-solar-fleet-maintenance-scheduler",
+      "machineName": "Community Microgrid Cluster Rooftop Solar Fleet Maintenance Scheduler",
+      "code": "enx004_rooftop_solar_fleet_maintenance_scheduler",
+      "agentId": "community-microgrid-cluster-rooftop-solar-fleet-maintenance-scheduler",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6024,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-rooftop-solar-fleet-maintenance-scheduler.oc-agent.json"
+    },
+    {
+      "machineId": "ENX005_rooftop-solar-fleet-power-quality-guardian",
+      "machineName": "Community Microgrid Cluster Rooftop Solar Fleet Power Quality Guardian",
+      "code": "enx005_rooftop_solar_fleet_power_quality_guardian",
+      "agentId": "community-microgrid-cluster-rooftop-solar-fleet-power-quality-guardian",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6032,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-rooftop-solar-fleet-power-quality-guardian.oc-agent.json"
+    },
+    {
+      "machineId": "ENX006_rooftop-solar-fleet-resilience-mode-router",
+      "machineName": "Community Microgrid Cluster Rooftop Solar Fleet Resilience Mode Router",
+      "code": "enx006_rooftop_solar_fleet_resilience_mode_router",
+      "agentId": "community-microgrid-cluster-rooftop-solar-fleet-resilience-mode-router",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6040,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-rooftop-solar-fleet-resilience-mode-router.oc-agent.json"
+    },
+    {
+      "machineId": "ENX007_rooftop-solar-fleet-optimization-planner",
+      "machineName": "Community Microgrid Cluster Rooftop Solar Fleet Optimization Planner",
+      "code": "enx007_rooftop_solar_fleet_optimization_planner",
+      "agentId": "community-microgrid-cluster-rooftop-solar-fleet-optimization-planner",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6048,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-rooftop-solar-fleet-optimization-planner.oc-agent.json"
+    },
+    {
+      "machineId": "ENX008_rooftop-solar-fleet-safety-compliance-checker",
+      "machineName": "Community Microgrid Cluster Rooftop Solar Fleet Safety Compliance Checker",
+      "code": "enx008_rooftop_solar_fleet_safety_compliance_checker",
+      "agentId": "community-microgrid-cluster-rooftop-solar-fleet-safety-compliance-checker",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6056,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-rooftop-solar-fleet-safety-compliance-checker.oc-agent.json"
+    },
+    {
+      "machineId": "ENX009_carport-solar-array-availability-monitor",
+      "machineName": "Community Microgrid Cluster Carport Solar Array Availability Monitor",
+      "code": "enx009_carport_solar_array_availability_monitor",
+      "agentId": "community-microgrid-cluster-carport-solar-array-availability-monitor",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6064,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-carport-solar-array-availability-monitor.oc-agent.json"
+    },
+    {
+      "machineId": "ENX010_carport-solar-array-dispatch-controller",
+      "machineName": "Community Microgrid Cluster Carport Solar Array Dispatch Controller",
+      "code": "enx010_carport_solar_array_dispatch_controller",
+      "agentId": "community-microgrid-cluster-carport-solar-array-dispatch-controller",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6072,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-carport-solar-array-dispatch-controller.oc-agent.json"
+    },
+    {
+      "machineId": "ENX011_carport-solar-array-forecast-gatekeeper",
+      "machineName": "Community Microgrid Cluster Carport Solar Array Forecast Gatekeeper",
+      "code": "enx011_carport_solar_array_forecast_gatekeeper",
+      "agentId": "community-microgrid-cluster-carport-solar-array-forecast-gatekeeper",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6080,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-carport-solar-array-forecast-gatekeeper.oc-agent.json"
+    },
+    {
+      "machineId": "ENX012_carport-solar-array-maintenance-scheduler",
+      "machineName": "Community Microgrid Cluster Carport Solar Array Maintenance Scheduler",
+      "code": "enx012_carport_solar_array_maintenance_scheduler",
+      "agentId": "community-microgrid-cluster-carport-solar-array-maintenance-scheduler",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6088,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-carport-solar-array-maintenance-scheduler.oc-agent.json"
+    },
+    {
+      "machineId": "ENX013_carport-solar-array-power-quality-guardian",
+      "machineName": "Community Microgrid Cluster Carport Solar Array Power Quality Guardian",
+      "code": "enx013_carport_solar_array_power_quality_guardian",
+      "agentId": "community-microgrid-cluster-carport-solar-array-power-quality-guardian",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6096,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-carport-solar-array-power-quality-guardian.oc-agent.json"
+    },
+    {
+      "machineId": "ENX014_carport-solar-array-resilience-mode-router",
+      "machineName": "Community Microgrid Cluster Carport Solar Array Resilience Mode Router",
+      "code": "enx014_carport_solar_array_resilience_mode_router",
+      "agentId": "community-microgrid-cluster-carport-solar-array-resilience-mode-router",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6104,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-carport-solar-array-resilience-mode-router.oc-agent.json"
+    },
+    {
+      "machineId": "ENX015_carport-solar-array-optimization-planner",
+      "machineName": "Community Microgrid Cluster Carport Solar Array Optimization Planner",
+      "code": "enx015_carport_solar_array_optimization_planner",
+      "agentId": "community-microgrid-cluster-carport-solar-array-optimization-planner",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6112,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-carport-solar-array-optimization-planner.oc-agent.json"
+    },
+    {
+      "machineId": "ENX016_carport-solar-array-safety-compliance-checker",
+      "machineName": "Community Microgrid Cluster Carport Solar Array Safety Compliance Checker",
+      "code": "enx016_carport_solar_array_safety_compliance_checker",
+      "agentId": "community-microgrid-cluster-carport-solar-array-safety-compliance-checker",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6120,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-carport-solar-array-safety-compliance-checker.oc-agent.json"
+    },
+    {
+      "machineId": "ENX017_community-center-solar-availability-monitor",
+      "machineName": "Community Microgrid Cluster Community Center Solar Availability Monitor",
+      "code": "enx017_community_center_solar_availability_monitor",
+      "agentId": "community-microgrid-cluster-community-center-solar-availability-monitor",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6128,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-community-center-solar-availability-monitor.oc-agent.json"
+    },
+    {
+      "machineId": "ENX018_community-center-solar-dispatch-controller",
+      "machineName": "Community Microgrid Cluster Community Center Solar Dispatch Controller",
+      "code": "enx018_community_center_solar_dispatch_controller",
+      "agentId": "community-microgrid-cluster-community-center-solar-dispatch-controller",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6136,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-community-center-solar-dispatch-controller.oc-agent.json"
+    },
+    {
+      "machineId": "ENX019_community-center-solar-forecast-gatekeeper",
+      "machineName": "Community Microgrid Cluster Community Center Solar Forecast Gatekeeper",
+      "code": "enx019_community_center_solar_forecast_gatekeeper",
+      "agentId": "community-microgrid-cluster-community-center-solar-forecast-gatekeeper",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6144,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-community-center-solar-forecast-gatekeeper.oc-agent.json"
+    },
+    {
+      "machineId": "ENX020_community-center-solar-maintenance-scheduler",
+      "machineName": "Community Microgrid Cluster Community Center Solar Maintenance Scheduler",
+      "code": "enx020_community_center_solar_maintenance_scheduler",
+      "agentId": "community-microgrid-cluster-community-center-solar-maintenance-scheduler",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6152,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-community-center-solar-maintenance-scheduler.oc-agent.json"
+    },
+    {
+      "machineId": "ENX021_community-center-solar-power-quality-guardian",
+      "machineName": "Community Microgrid Cluster Community Center Solar Power Quality Guardian",
+      "code": "enx021_community_center_solar_power_quality_guardian",
+      "agentId": "community-microgrid-cluster-community-center-solar-power-quality-guardian",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6160,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-community-center-solar-power-quality-guardian.oc-agent.json"
+    },
+    {
+      "machineId": "ENX022_community-center-solar-resilience-mode-router",
+      "machineName": "Community Microgrid Cluster Community Center Solar Resilience Mode Router",
+      "code": "enx022_community_center_solar_resilience_mode_router",
+      "agentId": "community-microgrid-cluster-community-center-solar-resilience-mode-router",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6168,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-community-center-solar-resilience-mode-router.oc-agent.json"
+    },
+    {
+      "machineId": "ENX023_community-center-solar-optimization-planner",
+      "machineName": "Community Microgrid Cluster Community Center Solar Optimization Planner",
+      "code": "enx023_community_center_solar_optimization_planner",
+      "agentId": "community-microgrid-cluster-community-center-solar-optimization-planner",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6176,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-community-center-solar-optimization-planner.oc-agent.json"
+    },
+    {
+      "machineId": "ENX024_community-center-solar-safety-compliance-checker",
+      "machineName": "Community Microgrid Cluster Community Center Solar Safety Compliance Checker",
+      "code": "enx024_community_center_solar_safety_compliance_checker",
+      "agentId": "community-microgrid-cluster-community-center-solar-safety-compliance-checker",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6184,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-community-center-solar-safety-compliance-checker.oc-agent.json"
+    },
+    {
+      "machineId": "ENX025_school-campus-solar-availability-monitor",
+      "machineName": "Community Microgrid Cluster School Campus Solar Availability Monitor",
+      "code": "enx025_school_campus_solar_availability_monitor",
+      "agentId": "community-microgrid-cluster-school-campus-solar-availability-monitor",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6192,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-school-campus-solar-availability-monitor.oc-agent.json"
+    },
+    {
+      "machineId": "ENX026_school-campus-solar-dispatch-controller",
+      "machineName": "Community Microgrid Cluster School Campus Solar Dispatch Controller",
+      "code": "enx026_school_campus_solar_dispatch_controller",
+      "agentId": "community-microgrid-cluster-school-campus-solar-dispatch-controller",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6200,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-school-campus-solar-dispatch-controller.oc-agent.json"
+    },
+    {
+      "machineId": "ENX027_school-campus-solar-forecast-gatekeeper",
+      "machineName": "Community Microgrid Cluster School Campus Solar Forecast Gatekeeper",
+      "code": "enx027_school_campus_solar_forecast_gatekeeper",
+      "agentId": "community-microgrid-cluster-school-campus-solar-forecast-gatekeeper",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6208,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-school-campus-solar-forecast-gatekeeper.oc-agent.json"
+    },
+    {
+      "machineId": "ENX028_school-campus-solar-maintenance-scheduler",
+      "machineName": "Community Microgrid Cluster School Campus Solar Maintenance Scheduler",
+      "code": "enx028_school_campus_solar_maintenance_scheduler",
+      "agentId": "community-microgrid-cluster-school-campus-solar-maintenance-scheduler",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6216,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-school-campus-solar-maintenance-scheduler.oc-agent.json"
+    },
+    {
+      "machineId": "ENX029_school-campus-solar-power-quality-guardian",
+      "machineName": "Community Microgrid Cluster School Campus Solar Power Quality Guardian",
+      "code": "enx029_school_campus_solar_power_quality_guardian",
+      "agentId": "community-microgrid-cluster-school-campus-solar-power-quality-guardian",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6224,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-school-campus-solar-power-quality-guardian.oc-agent.json"
+    },
+    {
+      "machineId": "ENX030_school-campus-solar-resilience-mode-router",
+      "machineName": "Community Microgrid Cluster School Campus Solar Resilience Mode Router",
+      "code": "enx030_school_campus_solar_resilience_mode_router",
+      "agentId": "community-microgrid-cluster-school-campus-solar-resilience-mode-router",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6232,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-school-campus-solar-resilience-mode-router.oc-agent.json"
+    },
+    {
+      "machineId": "ENX031_school-campus-solar-optimization-planner",
+      "machineName": "Community Microgrid Cluster School Campus Solar Optimization Planner",
+      "code": "enx031_school_campus_solar_optimization_planner",
+      "agentId": "community-microgrid-cluster-school-campus-solar-optimization-planner",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6240,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-school-campus-solar-optimization-planner.oc-agent.json"
+    },
+    {
+      "machineId": "ENX032_school-campus-solar-safety-compliance-checker",
+      "machineName": "Community Microgrid Cluster School Campus Solar Safety Compliance Checker",
+      "code": "enx032_school_campus_solar_safety_compliance_checker",
+      "agentId": "community-microgrid-cluster-school-campus-solar-safety-compliance-checker",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6248,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-school-campus-solar-safety-compliance-checker.oc-agent.json"
+    },
+    {
+      "machineId": "ENX033_ground-mount-solar-field-availability-monitor",
+      "machineName": "Community Microgrid Cluster Ground Mount Solar Field Availability Monitor",
+      "code": "enx033_ground_mount_solar_field_availability_monitor",
+      "agentId": "community-microgrid-cluster-ground-mount-solar-field-availability-monitor",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6256,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-ground-mount-solar-field-availability-monitor.oc-agent.json"
+    },
+    {
+      "machineId": "ENX034_ground-mount-solar-field-dispatch-controller",
+      "machineName": "Community Microgrid Cluster Ground Mount Solar Field Dispatch Controller",
+      "code": "enx034_ground_mount_solar_field_dispatch_controller",
+      "agentId": "community-microgrid-cluster-ground-mount-solar-field-dispatch-controller",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6264,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-ground-mount-solar-field-dispatch-controller.oc-agent.json"
+    },
+    {
+      "machineId": "ENX035_ground-mount-solar-field-forecast-gatekeeper",
+      "machineName": "Community Microgrid Cluster Ground Mount Solar Field Forecast Gatekeeper",
+      "code": "enx035_ground_mount_solar_field_forecast_gatekeeper",
+      "agentId": "community-microgrid-cluster-ground-mount-solar-field-forecast-gatekeeper",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6272,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-ground-mount-solar-field-forecast-gatekeeper.oc-agent.json"
+    },
+    {
+      "machineId": "ENX036_ground-mount-solar-field-maintenance-scheduler",
+      "machineName": "Community Microgrid Cluster Ground Mount Solar Field Maintenance Scheduler",
+      "code": "enx036_ground_mount_solar_field_maintenance_scheduler",
+      "agentId": "community-microgrid-cluster-ground-mount-solar-field-maintenance-scheduler",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6280,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-ground-mount-solar-field-maintenance-scheduler.oc-agent.json"
+    },
+    {
+      "machineId": "ENX037_ground-mount-solar-field-power-quality-guardian",
+      "machineName": "Community Microgrid Cluster Ground Mount Solar Field Power Quality Guardian",
+      "code": "enx037_ground_mount_solar_field_power_quality_guardian",
+      "agentId": "community-microgrid-cluster-ground-mount-solar-field-power-quality-guardian",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6288,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-ground-mount-solar-field-power-quality-guardian.oc-agent.json"
+    },
+    {
+      "machineId": "ENX038_ground-mount-solar-field-resilience-mode-router",
+      "machineName": "Community Microgrid Cluster Ground Mount Solar Field Resilience Mode Router",
+      "code": "enx038_ground_mount_solar_field_resilience_mode_router",
+      "agentId": "community-microgrid-cluster-ground-mount-solar-field-resilience-mode-router",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6296,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-ground-mount-solar-field-resilience-mode-router.oc-agent.json"
+    },
+    {
+      "machineId": "ENX039_ground-mount-solar-field-optimization-planner",
+      "machineName": "Community Microgrid Cluster Ground Mount Solar Field Optimization Planner",
+      "code": "enx039_ground_mount_solar_field_optimization_planner",
+      "agentId": "community-microgrid-cluster-ground-mount-solar-field-optimization-planner",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6304,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-ground-mount-solar-field-optimization-planner.oc-agent.json"
+    },
+    {
+      "machineId": "ENX040_ground-mount-solar-field-safety-compliance-checker",
+      "machineName": "Community Microgrid Cluster Ground Mount Solar Field Safety Compliance Checker",
+      "code": "enx040_ground_mount_solar_field_safety_compliance_checker",
+      "agentId": "community-microgrid-cluster-ground-mount-solar-field-safety-compliance-checker",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6312,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-ground-mount-solar-field-safety-compliance-checker.oc-agent.json"
+    },
+    {
+      "machineId": "ENX041_solar-inverter-bank-availability-monitor",
+      "machineName": "Community Microgrid Cluster Solar Inverter Bank Availability Monitor",
+      "code": "enx041_solar_inverter_bank_availability_monitor",
+      "agentId": "community-microgrid-cluster-solar-inverter-bank-availability-monitor",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6320,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-solar-inverter-bank-availability-monitor.oc-agent.json"
+    },
+    {
+      "machineId": "ENX042_solar-inverter-bank-dispatch-controller",
+      "machineName": "Community Microgrid Cluster Solar Inverter Bank Dispatch Controller",
+      "code": "enx042_solar_inverter_bank_dispatch_controller",
+      "agentId": "community-microgrid-cluster-solar-inverter-bank-dispatch-controller",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6328,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-solar-inverter-bank-dispatch-controller.oc-agent.json"
+    },
+    {
+      "machineId": "ENX043_solar-inverter-bank-forecast-gatekeeper",
+      "machineName": "Community Microgrid Cluster Solar Inverter Bank Forecast Gatekeeper",
+      "code": "enx043_solar_inverter_bank_forecast_gatekeeper",
+      "agentId": "community-microgrid-cluster-solar-inverter-bank-forecast-gatekeeper",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6336,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-solar-inverter-bank-forecast-gatekeeper.oc-agent.json"
+    },
+    {
+      "machineId": "ENX044_solar-inverter-bank-maintenance-scheduler",
+      "machineName": "Community Microgrid Cluster Solar Inverter Bank Maintenance Scheduler",
+      "code": "enx044_solar_inverter_bank_maintenance_scheduler",
+      "agentId": "community-microgrid-cluster-solar-inverter-bank-maintenance-scheduler",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6344,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-solar-inverter-bank-maintenance-scheduler.oc-agent.json"
+    },
+    {
+      "machineId": "ENX045_solar-inverter-bank-power-quality-guardian",
+      "machineName": "Community Microgrid Cluster Solar Inverter Bank Power Quality Guardian",
+      "code": "enx045_solar_inverter_bank_power_quality_guardian",
+      "agentId": "community-microgrid-cluster-solar-inverter-bank-power-quality-guardian",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6352,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-solar-inverter-bank-power-quality-guardian.oc-agent.json"
+    },
+    {
+      "machineId": "ENX046_solar-inverter-bank-resilience-mode-router",
+      "machineName": "Community Microgrid Cluster Solar Inverter Bank Resilience Mode Router",
+      "code": "enx046_solar_inverter_bank_resilience_mode_router",
+      "agentId": "community-microgrid-cluster-solar-inverter-bank-resilience-mode-router",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6360,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-solar-inverter-bank-resilience-mode-router.oc-agent.json"
+    },
+    {
+      "machineId": "ENX047_solar-inverter-bank-optimization-planner",
+      "machineName": "Community Microgrid Cluster Solar Inverter Bank Optimization Planner",
+      "code": "enx047_solar_inverter_bank_optimization_planner",
+      "agentId": "community-microgrid-cluster-solar-inverter-bank-optimization-planner",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6368,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-solar-inverter-bank-optimization-planner.oc-agent.json"
+    },
+    {
+      "machineId": "ENX048_solar-inverter-bank-safety-compliance-checker",
+      "machineName": "Community Microgrid Cluster Solar Inverter Bank Safety Compliance Checker",
+      "code": "enx048_solar_inverter_bank_safety_compliance_checker",
+      "agentId": "community-microgrid-cluster-solar-inverter-bank-safety-compliance-checker",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6376,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-solar-inverter-bank-safety-compliance-checker.oc-agent.json"
+    },
+    {
+      "machineId": "ENX049_solar-string-combiner-availability-monitor",
+      "machineName": "Community Microgrid Cluster Solar String Combiner Availability Monitor",
+      "code": "enx049_solar_string_combiner_availability_monitor",
+      "agentId": "community-microgrid-cluster-solar-string-combiner-availability-monitor",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6384,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-solar-string-combiner-availability-monitor.oc-agent.json"
+    },
+    {
+      "machineId": "ENX050_solar-string-combiner-dispatch-controller",
+      "machineName": "Community Microgrid Cluster Solar String Combiner Dispatch Controller",
+      "code": "enx050_solar_string_combiner_dispatch_controller",
+      "agentId": "community-microgrid-cluster-solar-string-combiner-dispatch-controller",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6392,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-solar-string-combiner-dispatch-controller.oc-agent.json"
+    },
+    {
+      "machineId": "ENX051_solar-string-combiner-forecast-gatekeeper",
+      "machineName": "Community Microgrid Cluster Solar String Combiner Forecast Gatekeeper",
+      "code": "enx051_solar_string_combiner_forecast_gatekeeper",
+      "agentId": "community-microgrid-cluster-solar-string-combiner-forecast-gatekeeper",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6400,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-solar-string-combiner-forecast-gatekeeper.oc-agent.json"
+    },
+    {
+      "machineId": "ENX052_solar-string-combiner-maintenance-scheduler",
+      "machineName": "Community Microgrid Cluster Solar String Combiner Maintenance Scheduler",
+      "code": "enx052_solar_string_combiner_maintenance_scheduler",
+      "agentId": "community-microgrid-cluster-solar-string-combiner-maintenance-scheduler",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6408,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-solar-string-combiner-maintenance-scheduler.oc-agent.json"
+    },
+    {
+      "machineId": "ENX053_solar-string-combiner-power-quality-guardian",
+      "machineName": "Community Microgrid Cluster Solar String Combiner Power Quality Guardian",
+      "code": "enx053_solar_string_combiner_power_quality_guardian",
+      "agentId": "community-microgrid-cluster-solar-string-combiner-power-quality-guardian",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6416,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-solar-string-combiner-power-quality-guardian.oc-agent.json"
+    },
+    {
+      "machineId": "ENX054_solar-string-combiner-resilience-mode-router",
+      "machineName": "Community Microgrid Cluster Solar String Combiner Resilience Mode Router",
+      "code": "enx054_solar_string_combiner_resilience_mode_router",
+      "agentId": "community-microgrid-cluster-solar-string-combiner-resilience-mode-router",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6424,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-solar-string-combiner-resilience-mode-router.oc-agent.json"
+    },
+    {
+      "machineId": "ENX055_solar-string-combiner-optimization-planner",
+      "machineName": "Community Microgrid Cluster Solar String Combiner Optimization Planner",
+      "code": "enx055_solar_string_combiner_optimization_planner",
+      "agentId": "community-microgrid-cluster-solar-string-combiner-optimization-planner",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6432,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-solar-string-combiner-optimization-planner.oc-agent.json"
+    },
+    {
+      "machineId": "ENX056_solar-string-combiner-safety-compliance-checker",
+      "machineName": "Community Microgrid Cluster Solar String Combiner Safety Compliance Checker",
+      "code": "enx056_solar_string_combiner_safety_compliance_checker",
+      "agentId": "community-microgrid-cluster-solar-string-combiner-safety-compliance-checker",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6440,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-solar-string-combiner-safety-compliance-checker.oc-agent.json"
+    },
+    {
+      "machineId": "ENX057_solar-soiling-and-wash-crew-availability-monitor",
+      "machineName": "Community Microgrid Cluster Solar Soiling And Wash Crew Availability Monitor",
+      "code": "enx057_solar_soiling_and_wash_crew_availability_monitor",
+      "agentId": "community-microgrid-cluster-solar-soiling-and-wash-crew-availability-monitor",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6448,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-solar-soiling-and-wash-crew-availability-monitor.oc-agent.json"
+    },
+    {
+      "machineId": "ENX058_solar-soiling-and-wash-crew-dispatch-controller",
+      "machineName": "Community Microgrid Cluster Solar Soiling And Wash Crew Dispatch Controller",
+      "code": "enx058_solar_soiling_and_wash_crew_dispatch_controller",
+      "agentId": "community-microgrid-cluster-solar-soiling-and-wash-crew-dispatch-controller",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6456,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-solar-soiling-and-wash-crew-dispatch-controller.oc-agent.json"
+    },
+    {
+      "machineId": "ENX059_solar-soiling-and-wash-crew-forecast-gatekeeper",
+      "machineName": "Community Microgrid Cluster Solar Soiling And Wash Crew Forecast Gatekeeper",
+      "code": "enx059_solar_soiling_and_wash_crew_forecast_gatekeeper",
+      "agentId": "community-microgrid-cluster-solar-soiling-and-wash-crew-forecast-gatekeeper",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6464,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-solar-soiling-and-wash-crew-forecast-gatekeeper.oc-agent.json"
+    },
+    {
+      "machineId": "ENX060_solar-soiling-and-wash-crew-maintenance-scheduler",
+      "machineName": "Community Microgrid Cluster Solar Soiling And Wash Crew Maintenance Scheduler",
+      "code": "enx060_solar_soiling_and_wash_crew_maintenance_scheduler",
+      "agentId": "community-microgrid-cluster-solar-soiling-and-wash-crew-maintenance-scheduler",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6472,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-solar-soiling-and-wash-crew-maintenance-scheduler.oc-agent.json"
+    },
+    {
+      "machineId": "ENX061_solar-soiling-and-wash-crew-power-quality-guardian",
+      "machineName": "Community Microgrid Cluster Solar Soiling And Wash Crew Power Quality Guardian",
+      "code": "enx061_solar_soiling_and_wash_crew_power_quality_guardian",
+      "agentId": "community-microgrid-cluster-solar-soiling-and-wash-crew-power-quality-guardian",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6480,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-solar-soiling-and-wash-crew-power-quality-guardian.oc-agent.json"
+    },
+    {
+      "machineId": "ENX062_solar-soiling-and-wash-crew-resilience-mode-router",
+      "machineName": "Community Microgrid Cluster Solar Soiling And Wash Crew Resilience Mode Router",
+      "code": "enx062_solar_soiling_and_wash_crew_resilience_mode_router",
+      "agentId": "community-microgrid-cluster-solar-soiling-and-wash-crew-resilience-mode-router",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6488,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-solar-soiling-and-wash-crew-resilience-mode-router.oc-agent.json"
+    },
+    {
+      "machineId": "ENX063_solar-soiling-and-wash-crew-optimization-planner",
+      "machineName": "Community Microgrid Cluster Solar Soiling And Wash Crew Optimization Planner",
+      "code": "enx063_solar_soiling_and_wash_crew_optimization_planner",
+      "agentId": "community-microgrid-cluster-solar-soiling-and-wash-crew-optimization-planner",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6496,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-solar-soiling-and-wash-crew-optimization-planner.oc-agent.json"
+    },
+    {
+      "machineId": "ENX064_solar-soiling-and-wash-crew-safety-compliance-checker",
+      "machineName": "Community Microgrid Cluster Solar Soiling And Wash Crew Safety Compliance Checker",
+      "code": "enx064_solar_soiling_and_wash_crew_safety_compliance_checker",
+      "agentId": "community-microgrid-cluster-solar-soiling-and-wash-crew-safety-compliance-checker",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6504,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-solar-soiling-and-wash-crew-safety-compliance-checker.oc-agent.json"
+    },
+    {
+      "machineId": "ENX065_battery-container-rack-availability-monitor",
+      "machineName": "Community Microgrid Cluster Battery Container Rack Availability Monitor",
+      "code": "enx065_battery_container_rack_availability_monitor",
+      "agentId": "community-microgrid-cluster-battery-container-rack-availability-monitor",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6512,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-battery-container-rack-availability-monitor.oc-agent.json"
+    },
+    {
+      "machineId": "ENX066_battery-container-rack-dispatch-controller",
+      "machineName": "Community Microgrid Cluster Battery Container Rack Dispatch Controller",
+      "code": "enx066_battery_container_rack_dispatch_controller",
+      "agentId": "community-microgrid-cluster-battery-container-rack-dispatch-controller",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6520,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-battery-container-rack-dispatch-controller.oc-agent.json"
+    },
+    {
+      "machineId": "ENX067_battery-container-rack-forecast-gatekeeper",
+      "machineName": "Community Microgrid Cluster Battery Container Rack Forecast Gatekeeper",
+      "code": "enx067_battery_container_rack_forecast_gatekeeper",
+      "agentId": "community-microgrid-cluster-battery-container-rack-forecast-gatekeeper",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6528,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-battery-container-rack-forecast-gatekeeper.oc-agent.json"
+    },
+    {
+      "machineId": "ENX068_battery-container-rack-maintenance-scheduler",
+      "machineName": "Community Microgrid Cluster Battery Container Rack Maintenance Scheduler",
+      "code": "enx068_battery_container_rack_maintenance_scheduler",
+      "agentId": "community-microgrid-cluster-battery-container-rack-maintenance-scheduler",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6536,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-battery-container-rack-maintenance-scheduler.oc-agent.json"
+    },
+    {
+      "machineId": "ENX069_battery-container-rack-power-quality-guardian",
+      "machineName": "Community Microgrid Cluster Battery Container Rack Power Quality Guardian",
+      "code": "enx069_battery_container_rack_power_quality_guardian",
+      "agentId": "community-microgrid-cluster-battery-container-rack-power-quality-guardian",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6544,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-battery-container-rack-power-quality-guardian.oc-agent.json"
+    },
+    {
+      "machineId": "ENX070_battery-container-rack-resilience-mode-router",
+      "machineName": "Community Microgrid Cluster Battery Container Rack Resilience Mode Router",
+      "code": "enx070_battery_container_rack_resilience_mode_router",
+      "agentId": "community-microgrid-cluster-battery-container-rack-resilience-mode-router",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6552,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-battery-container-rack-resilience-mode-router.oc-agent.json"
+    },
+    {
+      "machineId": "ENX071_battery-container-rack-optimization-planner",
+      "machineName": "Community Microgrid Cluster Battery Container Rack Optimization Planner",
+      "code": "enx071_battery_container_rack_optimization_planner",
+      "agentId": "community-microgrid-cluster-battery-container-rack-optimization-planner",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6560,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-battery-container-rack-optimization-planner.oc-agent.json"
+    },
+    {
+      "machineId": "ENX072_battery-container-rack-safety-compliance-checker",
+      "machineName": "Community Microgrid Cluster Battery Container Rack Safety Compliance Checker",
+      "code": "enx072_battery_container_rack_safety_compliance_checker",
+      "agentId": "community-microgrid-cluster-battery-container-rack-safety-compliance-checker",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6568,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-battery-container-rack-safety-compliance-checker.oc-agent.json"
+    },
+    {
+      "machineId": "ENX073_battery-bms-cell-balance-availability-monitor",
+      "machineName": "Community Microgrid Cluster Battery BMS Cell Balance Availability Monitor",
+      "code": "enx073_battery_bms_cell_balance_availability_monitor",
+      "agentId": "community-microgrid-cluster-battery-bms-cell-balance-availability-monitor",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6576,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-battery-bms-cell-balance-availability-monitor.oc-agent.json"
+    },
+    {
+      "machineId": "ENX074_battery-bms-cell-balance-dispatch-controller",
+      "machineName": "Community Microgrid Cluster Battery BMS Cell Balance Dispatch Controller",
+      "code": "enx074_battery_bms_cell_balance_dispatch_controller",
+      "agentId": "community-microgrid-cluster-battery-bms-cell-balance-dispatch-controller",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6584,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-battery-bms-cell-balance-dispatch-controller.oc-agent.json"
+    },
+    {
+      "machineId": "ENX075_battery-bms-cell-balance-forecast-gatekeeper",
+      "machineName": "Community Microgrid Cluster Battery BMS Cell Balance Forecast Gatekeeper",
+      "code": "enx075_battery_bms_cell_balance_forecast_gatekeeper",
+      "agentId": "community-microgrid-cluster-battery-bms-cell-balance-forecast-gatekeeper",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6592,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-battery-bms-cell-balance-forecast-gatekeeper.oc-agent.json"
+    },
+    {
+      "machineId": "ENX076_battery-bms-cell-balance-maintenance-scheduler",
+      "machineName": "Community Microgrid Cluster Battery BMS Cell Balance Maintenance Scheduler",
+      "code": "enx076_battery_bms_cell_balance_maintenance_scheduler",
+      "agentId": "community-microgrid-cluster-battery-bms-cell-balance-maintenance-scheduler",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6600,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-battery-bms-cell-balance-maintenance-scheduler.oc-agent.json"
+    },
+    {
+      "machineId": "ENX077_battery-bms-cell-balance-power-quality-guardian",
+      "machineName": "Community Microgrid Cluster Battery BMS Cell Balance Power Quality Guardian",
+      "code": "enx077_battery_bms_cell_balance_power_quality_guardian",
+      "agentId": "community-microgrid-cluster-battery-bms-cell-balance-power-quality-guardian",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6608,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-battery-bms-cell-balance-power-quality-guardian.oc-agent.json"
+    },
+    {
+      "machineId": "ENX078_battery-bms-cell-balance-resilience-mode-router",
+      "machineName": "Community Microgrid Cluster Battery BMS Cell Balance Resilience Mode Router",
+      "code": "enx078_battery_bms_cell_balance_resilience_mode_router",
+      "agentId": "community-microgrid-cluster-battery-bms-cell-balance-resilience-mode-router",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6616,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-battery-bms-cell-balance-resilience-mode-router.oc-agent.json"
+    },
+    {
+      "machineId": "ENX079_battery-bms-cell-balance-optimization-planner",
+      "machineName": "Community Microgrid Cluster Battery BMS Cell Balance Optimization Planner",
+      "code": "enx079_battery_bms_cell_balance_optimization_planner",
+      "agentId": "community-microgrid-cluster-battery-bms-cell-balance-optimization-planner",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6624,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-battery-bms-cell-balance-optimization-planner.oc-agent.json"
+    },
+    {
+      "machineId": "ENX080_battery-bms-cell-balance-safety-compliance-checker",
+      "machineName": "Community Microgrid Cluster Battery BMS Cell Balance Safety Compliance Checker",
+      "code": "enx080_battery_bms_cell_balance_safety_compliance_checker",
+      "agentId": "community-microgrid-cluster-battery-bms-cell-balance-safety-compliance-checker",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6632,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-battery-bms-cell-balance-safety-compliance-checker.oc-agent.json"
+    },
+    {
+      "machineId": "ENX081_battery-thermal-management-availability-monitor",
+      "machineName": "Community Microgrid Cluster Battery Thermal Management Availability Monitor",
+      "code": "enx081_battery_thermal_management_availability_monitor",
+      "agentId": "community-microgrid-cluster-battery-thermal-management-availability-monitor",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6640,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-battery-thermal-management-availability-monitor.oc-agent.json"
+    },
+    {
+      "machineId": "ENX082_battery-thermal-management-dispatch-controller",
+      "machineName": "Community Microgrid Cluster Battery Thermal Management Dispatch Controller",
+      "code": "enx082_battery_thermal_management_dispatch_controller",
+      "agentId": "community-microgrid-cluster-battery-thermal-management-dispatch-controller",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6648,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-battery-thermal-management-dispatch-controller.oc-agent.json"
+    },
+    {
+      "machineId": "ENX083_battery-thermal-management-forecast-gatekeeper",
+      "machineName": "Community Microgrid Cluster Battery Thermal Management Forecast Gatekeeper",
+      "code": "enx083_battery_thermal_management_forecast_gatekeeper",
+      "agentId": "community-microgrid-cluster-battery-thermal-management-forecast-gatekeeper",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6656,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-battery-thermal-management-forecast-gatekeeper.oc-agent.json"
+    },
+    {
+      "machineId": "ENX084_battery-thermal-management-maintenance-scheduler",
+      "machineName": "Community Microgrid Cluster Battery Thermal Management Maintenance Scheduler",
+      "code": "enx084_battery_thermal_management_maintenance_scheduler",
+      "agentId": "community-microgrid-cluster-battery-thermal-management-maintenance-scheduler",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6664,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-battery-thermal-management-maintenance-scheduler.oc-agent.json"
+    },
+    {
+      "machineId": "ENX085_battery-thermal-management-power-quality-guardian",
+      "machineName": "Community Microgrid Cluster Battery Thermal Management Power Quality Guardian",
+      "code": "enx085_battery_thermal_management_power_quality_guardian",
+      "agentId": "community-microgrid-cluster-battery-thermal-management-power-quality-guardian",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6672,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-battery-thermal-management-power-quality-guardian.oc-agent.json"
+    },
+    {
+      "machineId": "ENX086_battery-thermal-management-resilience-mode-router",
+      "machineName": "Community Microgrid Cluster Battery Thermal Management Resilience Mode Router",
+      "code": "enx086_battery_thermal_management_resilience_mode_router",
+      "agentId": "community-microgrid-cluster-battery-thermal-management-resilience-mode-router",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6680,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-battery-thermal-management-resilience-mode-router.oc-agent.json"
+    },
+    {
+      "machineId": "ENX087_battery-thermal-management-optimization-planner",
+      "machineName": "Community Microgrid Cluster Battery Thermal Management Optimization Planner",
+      "code": "enx087_battery_thermal_management_optimization_planner",
+      "agentId": "community-microgrid-cluster-battery-thermal-management-optimization-planner",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6688,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-battery-thermal-management-optimization-planner.oc-agent.json"
+    },
+    {
+      "machineId": "ENX088_battery-thermal-management-safety-compliance-checker",
+      "machineName": "Community Microgrid Cluster Battery Thermal Management Safety Compliance Checker",
+      "code": "enx088_battery_thermal_management_safety_compliance_checker",
+      "agentId": "community-microgrid-cluster-battery-thermal-management-safety-compliance-checker",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6696,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-battery-thermal-management-safety-compliance-checker.oc-agent.json"
+    },
+    {
+      "machineId": "ENX089_battery-fire-safety-loop-availability-monitor",
+      "machineName": "Community Microgrid Cluster Battery Fire Safety Loop Availability Monitor",
+      "code": "enx089_battery_fire_safety_loop_availability_monitor",
+      "agentId": "community-microgrid-cluster-battery-fire-safety-loop-availability-monitor",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6704,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-battery-fire-safety-loop-availability-monitor.oc-agent.json"
+    },
+    {
+      "machineId": "ENX090_battery-fire-safety-loop-dispatch-controller",
+      "machineName": "Community Microgrid Cluster Battery Fire Safety Loop Dispatch Controller",
+      "code": "enx090_battery_fire_safety_loop_dispatch_controller",
+      "agentId": "community-microgrid-cluster-battery-fire-safety-loop-dispatch-controller",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6712,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-battery-fire-safety-loop-dispatch-controller.oc-agent.json"
+    },
+    {
+      "machineId": "ENX091_battery-fire-safety-loop-forecast-gatekeeper",
+      "machineName": "Community Microgrid Cluster Battery Fire Safety Loop Forecast Gatekeeper",
+      "code": "enx091_battery_fire_safety_loop_forecast_gatekeeper",
+      "agentId": "community-microgrid-cluster-battery-fire-safety-loop-forecast-gatekeeper",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6720,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-battery-fire-safety-loop-forecast-gatekeeper.oc-agent.json"
+    },
+    {
+      "machineId": "ENX092_battery-fire-safety-loop-maintenance-scheduler",
+      "machineName": "Community Microgrid Cluster Battery Fire Safety Loop Maintenance Scheduler",
+      "code": "enx092_battery_fire_safety_loop_maintenance_scheduler",
+      "agentId": "community-microgrid-cluster-battery-fire-safety-loop-maintenance-scheduler",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6728,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-battery-fire-safety-loop-maintenance-scheduler.oc-agent.json"
+    },
+    {
+      "machineId": "ENX093_battery-fire-safety-loop-power-quality-guardian",
+      "machineName": "Community Microgrid Cluster Battery Fire Safety Loop Power Quality Guardian",
+      "code": "enx093_battery_fire_safety_loop_power_quality_guardian",
+      "agentId": "community-microgrid-cluster-battery-fire-safety-loop-power-quality-guardian",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6736,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-battery-fire-safety-loop-power-quality-guardian.oc-agent.json"
+    },
+    {
+      "machineId": "ENX094_battery-fire-safety-loop-resilience-mode-router",
+      "machineName": "Community Microgrid Cluster Battery Fire Safety Loop Resilience Mode Router",
+      "code": "enx094_battery_fire_safety_loop_resilience_mode_router",
+      "agentId": "community-microgrid-cluster-battery-fire-safety-loop-resilience-mode-router",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6744,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-battery-fire-safety-loop-resilience-mode-router.oc-agent.json"
+    },
+    {
+      "machineId": "ENX095_battery-fire-safety-loop-optimization-planner",
+      "machineName": "Community Microgrid Cluster Battery Fire Safety Loop Optimization Planner",
+      "code": "enx095_battery_fire_safety_loop_optimization_planner",
+      "agentId": "community-microgrid-cluster-battery-fire-safety-loop-optimization-planner",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6752,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-battery-fire-safety-loop-optimization-planner.oc-agent.json"
+    },
+    {
+      "machineId": "ENX096_battery-fire-safety-loop-safety-compliance-checker",
+      "machineName": "Community Microgrid Cluster Battery Fire Safety Loop Safety Compliance Checker",
+      "code": "enx096_battery_fire_safety_loop_safety_compliance_checker",
+      "agentId": "community-microgrid-cluster-battery-fire-safety-loop-safety-compliance-checker",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6760,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-battery-fire-safety-loop-safety-compliance-checker.oc-agent.json"
+    },
+    {
+      "machineId": "ENX097_battery-state-of-charge-reserve-availability-monitor",
+      "machineName": "Community Microgrid Cluster Battery State Of Charge Reserve Availability Monitor",
+      "code": "enx097_battery_state_of_charge_reserve_availability_monitor",
+      "agentId": "community-microgrid-cluster-battery-state-of-charge-reserve-availability-monitor",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6768,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-battery-state-of-charge-reserve-availability-monitor.oc-agent.json"
+    },
+    {
+      "machineId": "ENX098_battery-state-of-charge-reserve-dispatch-controller",
+      "machineName": "Community Microgrid Cluster Battery State Of Charge Reserve Dispatch Controller",
+      "code": "enx098_battery_state_of_charge_reserve_dispatch_controller",
+      "agentId": "community-microgrid-cluster-battery-state-of-charge-reserve-dispatch-controller",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6776,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-battery-state-of-charge-reserve-dispatch-controller.oc-agent.json"
+    },
+    {
+      "machineId": "ENX099_battery-state-of-charge-reserve-forecast-gatekeeper",
+      "machineName": "Community Microgrid Cluster Battery State Of Charge Reserve Forecast Gatekeeper",
+      "code": "enx099_battery_state_of_charge_reserve_forecast_gatekeeper",
+      "agentId": "community-microgrid-cluster-battery-state-of-charge-reserve-forecast-gatekeeper",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6784,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-battery-state-of-charge-reserve-forecast-gatekeeper.oc-agent.json"
+    },
+    {
+      "machineId": "ENX100_battery-state-of-charge-reserve-maintenance-scheduler",
+      "machineName": "Community Microgrid Cluster Battery State Of Charge Reserve Maintenance Scheduler",
+      "code": "enx100_battery_state_of_charge_reserve_maintenance_scheduler",
+      "agentId": "community-microgrid-cluster-battery-state-of-charge-reserve-maintenance-scheduler",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6792,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-battery-state-of-charge-reserve-maintenance-scheduler.oc-agent.json"
+    },
+    {
+      "machineId": "ENX101_battery-state-of-charge-reserve-power-quality-guardian",
+      "machineName": "Community Microgrid Cluster Battery State Of Charge Reserve Power Quality Guardian",
+      "code": "enx101_battery_state_of_charge_reserve_power_quality_guardian",
+      "agentId": "community-microgrid-cluster-battery-state-of-charge-reserve-power-quality-guardian",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6800,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-battery-state-of-charge-reserve-power-quality-guardian.oc-agent.json"
+    },
+    {
+      "machineId": "ENX102_battery-state-of-charge-reserve-resilience-mode-router",
+      "machineName": "Community Microgrid Cluster Battery State Of Charge Reserve Resilience Mode Router",
+      "code": "enx102_battery_state_of_charge_reserve_resilience_mode_router",
+      "agentId": "community-microgrid-cluster-battery-state-of-charge-reserve-resilience-mode-router",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6808,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-battery-state-of-charge-reserve-resilience-mode-router.oc-agent.json"
+    },
+    {
+      "machineId": "ENX103_battery-state-of-charge-reserve-optimization-planner",
+      "machineName": "Community Microgrid Cluster Battery State Of Charge Reserve Optimization Planner",
+      "code": "enx103_battery_state_of_charge_reserve_optimization_planner",
+      "agentId": "community-microgrid-cluster-battery-state-of-charge-reserve-optimization-planner",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6816,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-battery-state-of-charge-reserve-optimization-planner.oc-agent.json"
+    },
+    {
+      "machineId": "ENX104_battery-state-of-charge-reserve-safety-compliance-checker",
+      "machineName": "Community Microgrid Cluster Battery State Of Charge Reserve Safety Compliance Checker",
+      "code": "enx104_battery_state_of_charge_reserve_safety_compliance_checker",
+      "agentId": "community-microgrid-cluster-battery-state-of-charge-reserve-safety-compliance-checker",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6824,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-battery-state-of-charge-reserve-safety-compliance-checker.oc-agent.json"
+    },
+    {
+      "machineId": "ENX105_microgrid-point-of-common-coupling-availability-monitor",
+      "machineName": "Community Microgrid Cluster Microgrid Point Of Common Coupling Availability Monitor",
+      "code": "enx105_microgrid_point_of_common_coupling_availability_monitor",
+      "agentId": "community-microgrid-cluster-microgrid-point-of-common-coupling-availability-monitor",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6832,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-microgrid-point-of-common-coupling-availability-monitor.oc-agent.json"
+    },
+    {
+      "machineId": "ENX106_microgrid-point-of-common-coupling-dispatch-controller",
+      "machineName": "Community Microgrid Cluster Microgrid Point Of Common Coupling Dispatch Controller",
+      "code": "enx106_microgrid_point_of_common_coupling_dispatch_controller",
+      "agentId": "community-microgrid-cluster-microgrid-point-of-common-coupling-dispatch-controller",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6840,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-microgrid-point-of-common-coupling-dispatch-controller.oc-agent.json"
+    },
+    {
+      "machineId": "ENX107_microgrid-point-of-common-coupling-forecast-gatekeeper",
+      "machineName": "Community Microgrid Cluster Microgrid Point Of Common Coupling Forecast Gatekeeper",
+      "code": "enx107_microgrid_point_of_common_coupling_forecast_gatekeeper",
+      "agentId": "community-microgrid-cluster-microgrid-point-of-common-coupling-forecast-gatekeeper",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6848,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-microgrid-point-of-common-coupling-forecast-gatekeeper.oc-agent.json"
+    },
+    {
+      "machineId": "ENX108_microgrid-point-of-common-coupling-maintenance-scheduler",
+      "machineName": "Community Microgrid Cluster Microgrid Point Of Common Coupling Maintenance Scheduler",
+      "code": "enx108_microgrid_point_of_common_coupling_maintenance_scheduler",
+      "agentId": "community-microgrid-cluster-microgrid-point-of-common-coupling-maintenance-scheduler",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6856,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-microgrid-point-of-common-coupling-maintenance-scheduler.oc-agent.json"
+    },
+    {
+      "machineId": "ENX109_microgrid-point-of-common-coupling-power-quality-guardian",
+      "machineName": "Community Microgrid Cluster Microgrid Point Of Common Coupling Power Quality Guardian",
+      "code": "enx109_microgrid_point_of_common_coupling_power_quality_guardian",
+      "agentId": "community-microgrid-cluster-microgrid-point-of-common-coupling-power-quality-guardian",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6864,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-microgrid-point-of-common-coupling-power-quality-guardian.oc-agent.json"
+    },
+    {
+      "machineId": "ENX110_microgrid-point-of-common-coupling-resilience-mode-router",
+      "machineName": "Community Microgrid Cluster Microgrid Point Of Common Coupling Resilience Mode Router",
+      "code": "enx110_microgrid_point_of_common_coupling_resilience_mode_router",
+      "agentId": "community-microgrid-cluster-microgrid-point-of-common-coupling-resilience-mode-router",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6872,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-microgrid-point-of-common-coupling-resilience-mode-router.oc-agent.json"
+    },
+    {
+      "machineId": "ENX111_microgrid-point-of-common-coupling-optimization-planner",
+      "machineName": "Community Microgrid Cluster Microgrid Point Of Common Coupling Optimization Planner",
+      "code": "enx111_microgrid_point_of_common_coupling_optimization_planner",
+      "agentId": "community-microgrid-cluster-microgrid-point-of-common-coupling-optimization-planner",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6880,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-microgrid-point-of-common-coupling-optimization-planner.oc-agent.json"
+    },
+    {
+      "machineId": "ENX112_microgrid-point-of-common-coupling-safety-compliance-checker",
+      "machineName": "Community Microgrid Cluster Microgrid Point Of Common Coupling Safety Compliance Checker",
+      "code": "enx112_microgrid_point_of_common_coupling_safety_compliance_checker",
+      "agentId": "community-microgrid-cluster-microgrid-point-of-common-coupling-safety-compliance-checker",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6888,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-microgrid-point-of-common-coupling-safety-compliance-checker.oc-agent.json"
+    },
+    {
+      "machineId": "ENX113_feeder-sectionalizer-availability-monitor",
+      "machineName": "Community Microgrid Cluster Feeder Sectionalizer Availability Monitor",
+      "code": "enx113_feeder_sectionalizer_availability_monitor",
+      "agentId": "community-microgrid-cluster-feeder-sectionalizer-availability-monitor",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6896,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-feeder-sectionalizer-availability-monitor.oc-agent.json"
+    },
+    {
+      "machineId": "ENX114_feeder-sectionalizer-dispatch-controller",
+      "machineName": "Community Microgrid Cluster Feeder Sectionalizer Dispatch Controller",
+      "code": "enx114_feeder_sectionalizer_dispatch_controller",
+      "agentId": "community-microgrid-cluster-feeder-sectionalizer-dispatch-controller",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6904,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-feeder-sectionalizer-dispatch-controller.oc-agent.json"
+    },
+    {
+      "machineId": "ENX115_feeder-sectionalizer-forecast-gatekeeper",
+      "machineName": "Community Microgrid Cluster Feeder Sectionalizer Forecast Gatekeeper",
+      "code": "enx115_feeder_sectionalizer_forecast_gatekeeper",
+      "agentId": "community-microgrid-cluster-feeder-sectionalizer-forecast-gatekeeper",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6912,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-feeder-sectionalizer-forecast-gatekeeper.oc-agent.json"
+    },
+    {
+      "machineId": "ENX116_feeder-sectionalizer-maintenance-scheduler",
+      "machineName": "Community Microgrid Cluster Feeder Sectionalizer Maintenance Scheduler",
+      "code": "enx116_feeder_sectionalizer_maintenance_scheduler",
+      "agentId": "community-microgrid-cluster-feeder-sectionalizer-maintenance-scheduler",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6920,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-feeder-sectionalizer-maintenance-scheduler.oc-agent.json"
+    },
+    {
+      "machineId": "ENX117_feeder-sectionalizer-power-quality-guardian",
+      "machineName": "Community Microgrid Cluster Feeder Sectionalizer Power Quality Guardian",
+      "code": "enx117_feeder_sectionalizer_power_quality_guardian",
+      "agentId": "community-microgrid-cluster-feeder-sectionalizer-power-quality-guardian",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6928,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-feeder-sectionalizer-power-quality-guardian.oc-agent.json"
+    },
+    {
+      "machineId": "ENX118_feeder-sectionalizer-resilience-mode-router",
+      "machineName": "Community Microgrid Cluster Feeder Sectionalizer Resilience Mode Router",
+      "code": "enx118_feeder_sectionalizer_resilience_mode_router",
+      "agentId": "community-microgrid-cluster-feeder-sectionalizer-resilience-mode-router",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6936,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-feeder-sectionalizer-resilience-mode-router.oc-agent.json"
+    },
+    {
+      "machineId": "ENX119_feeder-sectionalizer-optimization-planner",
+      "machineName": "Community Microgrid Cluster Feeder Sectionalizer Optimization Planner",
+      "code": "enx119_feeder_sectionalizer_optimization_planner",
+      "agentId": "community-microgrid-cluster-feeder-sectionalizer-optimization-planner",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6944,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-feeder-sectionalizer-optimization-planner.oc-agent.json"
+    },
+    {
+      "machineId": "ENX120_feeder-sectionalizer-safety-compliance-checker",
+      "machineName": "Community Microgrid Cluster Feeder Sectionalizer Safety Compliance Checker",
+      "code": "enx120_feeder_sectionalizer_safety_compliance_checker",
+      "agentId": "community-microgrid-cluster-feeder-sectionalizer-safety-compliance-checker",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6952,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-feeder-sectionalizer-safety-compliance-checker.oc-agent.json"
+    },
+    {
+      "machineId": "ENX121_community-load-flexibility-availability-monitor",
+      "machineName": "Community Microgrid Cluster Community Load Flexibility Availability Monitor",
+      "code": "enx121_community_load_flexibility_availability_monitor",
+      "agentId": "community-microgrid-cluster-community-load-flexibility-availability-monitor",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6960,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-community-load-flexibility-availability-monitor.oc-agent.json"
+    },
+    {
+      "machineId": "ENX122_community-load-flexibility-dispatch-controller",
+      "machineName": "Community Microgrid Cluster Community Load Flexibility Dispatch Controller",
+      "code": "enx122_community_load_flexibility_dispatch_controller",
+      "agentId": "community-microgrid-cluster-community-load-flexibility-dispatch-controller",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6968,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-community-load-flexibility-dispatch-controller.oc-agent.json"
+    },
+    {
+      "machineId": "ENX123_community-load-flexibility-forecast-gatekeeper",
+      "machineName": "Community Microgrid Cluster Community Load Flexibility Forecast Gatekeeper",
+      "code": "enx123_community_load_flexibility_forecast_gatekeeper",
+      "agentId": "community-microgrid-cluster-community-load-flexibility-forecast-gatekeeper",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6976,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-community-load-flexibility-forecast-gatekeeper.oc-agent.json"
+    },
+    {
+      "machineId": "ENX124_community-load-flexibility-maintenance-scheduler",
+      "machineName": "Community Microgrid Cluster Community Load Flexibility Maintenance Scheduler",
+      "code": "enx124_community_load_flexibility_maintenance_scheduler",
+      "agentId": "community-microgrid-cluster-community-load-flexibility-maintenance-scheduler",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6984,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-community-load-flexibility-maintenance-scheduler.oc-agent.json"
+    },
+    {
+      "machineId": "ENX125_community-load-flexibility-power-quality-guardian",
+      "machineName": "Community Microgrid Cluster Community Load Flexibility Power Quality Guardian",
+      "code": "enx125_community_load_flexibility_power_quality_guardian",
+      "agentId": "community-microgrid-cluster-community-load-flexibility-power-quality-guardian",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 6992,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-community-load-flexibility-power-quality-guardian.oc-agent.json"
+    },
+    {
+      "machineId": "ENX126_community-load-flexibility-resilience-mode-router",
+      "machineName": "Community Microgrid Cluster Community Load Flexibility Resilience Mode Router",
+      "code": "enx126_community_load_flexibility_resilience_mode_router",
+      "agentId": "community-microgrid-cluster-community-load-flexibility-resilience-mode-router",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 7000,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-community-load-flexibility-resilience-mode-router.oc-agent.json"
+    },
+    {
+      "machineId": "ENX127_community-load-flexibility-optimization-planner",
+      "machineName": "Community Microgrid Cluster Community Load Flexibility Optimization Planner",
+      "code": "enx127_community_load_flexibility_optimization_planner",
+      "agentId": "community-microgrid-cluster-community-load-flexibility-optimization-planner",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 7008,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-community-load-flexibility-optimization-planner.oc-agent.json"
+    },
+    {
+      "machineId": "ENX128_community-load-flexibility-safety-compliance-checker",
+      "machineName": "Community Microgrid Cluster Community Load Flexibility Safety Compliance Checker",
+      "code": "enx128_community_load_flexibility_safety_compliance_checker",
+      "agentId": "community-microgrid-cluster-community-load-flexibility-safety-compliance-checker",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 7016,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-community-load-flexibility-safety-compliance-checker.oc-agent.json"
+    },
+    {
+      "machineId": "ENX129_ev-charging-load-bank-availability-monitor",
+      "machineName": "Community Microgrid Cluster EV Charging Load Bank Availability Monitor",
+      "code": "enx129_ev_charging_load_bank_availability_monitor",
+      "agentId": "community-microgrid-cluster-ev-charging-load-bank-availability-monitor",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 7024,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-ev-charging-load-bank-availability-monitor.oc-agent.json"
+    },
+    {
+      "machineId": "ENX130_ev-charging-load-bank-dispatch-controller",
+      "machineName": "Community Microgrid Cluster EV Charging Load Bank Dispatch Controller",
+      "code": "enx130_ev_charging_load_bank_dispatch_controller",
+      "agentId": "community-microgrid-cluster-ev-charging-load-bank-dispatch-controller",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 7032,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-ev-charging-load-bank-dispatch-controller.oc-agent.json"
+    },
+    {
+      "machineId": "ENX131_ev-charging-load-bank-forecast-gatekeeper",
+      "machineName": "Community Microgrid Cluster EV Charging Load Bank Forecast Gatekeeper",
+      "code": "enx131_ev_charging_load_bank_forecast_gatekeeper",
+      "agentId": "community-microgrid-cluster-ev-charging-load-bank-forecast-gatekeeper",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 7040,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-ev-charging-load-bank-forecast-gatekeeper.oc-agent.json"
+    },
+    {
+      "machineId": "ENX132_ev-charging-load-bank-maintenance-scheduler",
+      "machineName": "Community Microgrid Cluster EV Charging Load Bank Maintenance Scheduler",
+      "code": "enx132_ev_charging_load_bank_maintenance_scheduler",
+      "agentId": "community-microgrid-cluster-ev-charging-load-bank-maintenance-scheduler",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 7048,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-ev-charging-load-bank-maintenance-scheduler.oc-agent.json"
+    },
+    {
+      "machineId": "ENX133_ev-charging-load-bank-power-quality-guardian",
+      "machineName": "Community Microgrid Cluster EV Charging Load Bank Power Quality Guardian",
+      "code": "enx133_ev_charging_load_bank_power_quality_guardian",
+      "agentId": "community-microgrid-cluster-ev-charging-load-bank-power-quality-guardian",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 7056,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-ev-charging-load-bank-power-quality-guardian.oc-agent.json"
+    },
+    {
+      "machineId": "ENX134_ev-charging-load-bank-resilience-mode-router",
+      "machineName": "Community Microgrid Cluster EV Charging Load Bank Resilience Mode Router",
+      "code": "enx134_ev_charging_load_bank_resilience_mode_router",
+      "agentId": "community-microgrid-cluster-ev-charging-load-bank-resilience-mode-router",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 7064,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-ev-charging-load-bank-resilience-mode-router.oc-agent.json"
+    },
+    {
+      "machineId": "ENX135_ev-charging-load-bank-optimization-planner",
+      "machineName": "Community Microgrid Cluster EV Charging Load Bank Optimization Planner",
+      "code": "enx135_ev_charging_load_bank_optimization_planner",
+      "agentId": "community-microgrid-cluster-ev-charging-load-bank-optimization-planner",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 7072,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-ev-charging-load-bank-optimization-planner.oc-agent.json"
+    },
+    {
+      "machineId": "ENX136_ev-charging-load-bank-safety-compliance-checker",
+      "machineName": "Community Microgrid Cluster EV Charging Load Bank Safety Compliance Checker",
+      "code": "enx136_ev_charging_load_bank_safety_compliance_checker",
+      "agentId": "community-microgrid-cluster-ev-charging-load-bank-safety-compliance-checker",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 7080,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-ev-charging-load-bank-safety-compliance-checker.oc-agent.json"
+    },
+    {
+      "machineId": "ENX137_critical-facility-backup-panel-availability-monitor",
+      "machineName": "Community Microgrid Cluster Critical Facility Backup Panel Availability Monitor",
+      "code": "enx137_critical_facility_backup_panel_availability_monitor",
+      "agentId": "community-microgrid-cluster-critical-facility-backup-panel-availability-monitor",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 7088,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-critical-facility-backup-panel-availability-monitor.oc-agent.json"
+    },
+    {
+      "machineId": "ENX138_critical-facility-backup-panel-dispatch-controller",
+      "machineName": "Community Microgrid Cluster Critical Facility Backup Panel Dispatch Controller",
+      "code": "enx138_critical_facility_backup_panel_dispatch_controller",
+      "agentId": "community-microgrid-cluster-critical-facility-backup-panel-dispatch-controller",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 7096,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-critical-facility-backup-panel-dispatch-controller.oc-agent.json"
+    },
+    {
+      "machineId": "ENX139_critical-facility-backup-panel-forecast-gatekeeper",
+      "machineName": "Community Microgrid Cluster Critical Facility Backup Panel Forecast Gatekeeper",
+      "code": "enx139_critical_facility_backup_panel_forecast_gatekeeper",
+      "agentId": "community-microgrid-cluster-critical-facility-backup-panel-forecast-gatekeeper",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 7104,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-critical-facility-backup-panel-forecast-gatekeeper.oc-agent.json"
+    },
+    {
+      "machineId": "ENX140_critical-facility-backup-panel-maintenance-scheduler",
+      "machineName": "Community Microgrid Cluster Critical Facility Backup Panel Maintenance Scheduler",
+      "code": "enx140_critical_facility_backup_panel_maintenance_scheduler",
+      "agentId": "community-microgrid-cluster-critical-facility-backup-panel-maintenance-scheduler",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 7112,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-critical-facility-backup-panel-maintenance-scheduler.oc-agent.json"
+    },
+    {
+      "machineId": "ENX141_critical-facility-backup-panel-power-quality-guardian",
+      "machineName": "Community Microgrid Cluster Critical Facility Backup Panel Power Quality Guardian",
+      "code": "enx141_critical_facility_backup_panel_power_quality_guardian",
+      "agentId": "community-microgrid-cluster-critical-facility-backup-panel-power-quality-guardian",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 7120,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-critical-facility-backup-panel-power-quality-guardian.oc-agent.json"
+    },
+    {
+      "machineId": "ENX142_critical-facility-backup-panel-resilience-mode-router",
+      "machineName": "Community Microgrid Cluster Critical Facility Backup Panel Resilience Mode Router",
+      "code": "enx142_critical_facility_backup_panel_resilience_mode_router",
+      "agentId": "community-microgrid-cluster-critical-facility-backup-panel-resilience-mode-router",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 7128,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-critical-facility-backup-panel-resilience-mode-router.oc-agent.json"
+    },
+    {
+      "machineId": "ENX143_critical-facility-backup-panel-optimization-planner",
+      "machineName": "Community Microgrid Cluster Critical Facility Backup Panel Optimization Planner",
+      "code": "enx143_critical_facility_backup_panel_optimization_planner",
+      "agentId": "community-microgrid-cluster-critical-facility-backup-panel-optimization-planner",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 7136,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-critical-facility-backup-panel-optimization-planner.oc-agent.json"
+    },
+    {
+      "machineId": "ENX144_critical-facility-backup-panel-safety-compliance-checker",
+      "machineName": "Community Microgrid Cluster Critical Facility Backup Panel Safety Compliance Checker",
+      "code": "enx144_critical_facility_backup_panel_safety_compliance_checker",
+      "agentId": "community-microgrid-cluster-critical-facility-backup-panel-safety-compliance-checker",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 7144,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-critical-facility-backup-panel-safety-compliance-checker.oc-agent.json"
+    },
+    {
+      "machineId": "ENX145_weather-and-irradiance-station-availability-monitor",
+      "machineName": "Community Microgrid Cluster Weather And Irradiance Station Availability Monitor",
+      "code": "enx145_weather_and_irradiance_station_availability_monitor",
+      "agentId": "community-microgrid-cluster-weather-and-irradiance-station-availability-monitor",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 7152,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-weather-and-irradiance-station-availability-monitor.oc-agent.json"
+    },
+    {
+      "machineId": "ENX146_weather-and-irradiance-station-dispatch-controller",
+      "machineName": "Community Microgrid Cluster Weather And Irradiance Station Dispatch Controller",
+      "code": "enx146_weather_and_irradiance_station_dispatch_controller",
+      "agentId": "community-microgrid-cluster-weather-and-irradiance-station-dispatch-controller",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 7160,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-weather-and-irradiance-station-dispatch-controller.oc-agent.json"
+    },
+    {
+      "machineId": "ENX147_weather-and-irradiance-station-forecast-gatekeeper",
+      "machineName": "Community Microgrid Cluster Weather And Irradiance Station Forecast Gatekeeper",
+      "code": "enx147_weather_and_irradiance_station_forecast_gatekeeper",
+      "agentId": "community-microgrid-cluster-weather-and-irradiance-station-forecast-gatekeeper",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 7168,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-weather-and-irradiance-station-forecast-gatekeeper.oc-agent.json"
+    },
+    {
+      "machineId": "ENX148_weather-and-irradiance-station-maintenance-scheduler",
+      "machineName": "Community Microgrid Cluster Weather And Irradiance Station Maintenance Scheduler",
+      "code": "enx148_weather_and_irradiance_station_maintenance_scheduler",
+      "agentId": "community-microgrid-cluster-weather-and-irradiance-station-maintenance-scheduler",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 7176,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-weather-and-irradiance-station-maintenance-scheduler.oc-agent.json"
+    },
+    {
+      "machineId": "ENX149_weather-and-irradiance-station-power-quality-guardian",
+      "machineName": "Community Microgrid Cluster Weather And Irradiance Station Power Quality Guardian",
+      "code": "enx149_weather_and_irradiance_station_power_quality_guardian",
+      "agentId": "community-microgrid-cluster-weather-and-irradiance-station-power-quality-guardian",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 7184,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-weather-and-irradiance-station-power-quality-guardian.oc-agent.json"
+    },
+    {
+      "machineId": "ENX150_weather-and-irradiance-station-resilience-mode-router",
+      "machineName": "Community Microgrid Cluster Weather And Irradiance Station Resilience Mode Router",
+      "code": "enx150_weather_and_irradiance_station_resilience_mode_router",
+      "agentId": "community-microgrid-cluster-weather-and-irradiance-station-resilience-mode-router",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 7192,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-weather-and-irradiance-station-resilience-mode-router.oc-agent.json"
+    },
+    {
+      "machineId": "ENX151_weather-and-irradiance-station-optimization-planner",
+      "machineName": "Community Microgrid Cluster Weather And Irradiance Station Optimization Planner",
+      "code": "enx151_weather_and_irradiance_station_optimization_planner",
+      "agentId": "community-microgrid-cluster-weather-and-irradiance-station-optimization-planner",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 7200,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-weather-and-irradiance-station-optimization-planner.oc-agent.json"
+    },
+    {
+      "machineId": "ENX152_weather-and-irradiance-station-safety-compliance-checker",
+      "machineName": "Community Microgrid Cluster Weather And Irradiance Station Safety Compliance Checker",
+      "code": "enx152_weather_and_irradiance_station_safety_compliance_checker",
+      "agentId": "community-microgrid-cluster-weather-and-irradiance-station-safety-compliance-checker",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 7208,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-weather-and-irradiance-station-safety-compliance-checker.oc-agent.json"
+    },
+    {
+      "machineId": "ENX153_preventive-maintenance-work-order-availability-monitor",
+      "machineName": "Community Microgrid Cluster Preventive Maintenance Work Order Availability Monitor",
+      "code": "enx153_preventive_maintenance_work_order_availability_monitor",
+      "agentId": "community-microgrid-cluster-preventive-maintenance-work-order-availability-monitor",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 7216,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-preventive-maintenance-work-order-availability-monitor.oc-agent.json"
+    },
+    {
+      "machineId": "ENX154_preventive-maintenance-work-order-dispatch-controller",
+      "machineName": "Community Microgrid Cluster Preventive Maintenance Work Order Dispatch Controller",
+      "code": "enx154_preventive_maintenance_work_order_dispatch_controller",
+      "agentId": "community-microgrid-cluster-preventive-maintenance-work-order-dispatch-controller",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 7224,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-preventive-maintenance-work-order-dispatch-controller.oc-agent.json"
+    },
+    {
+      "machineId": "ENX155_preventive-maintenance-work-order-forecast-gatekeeper",
+      "machineName": "Community Microgrid Cluster Preventive Maintenance Work Order Forecast Gatekeeper",
+      "code": "enx155_preventive_maintenance_work_order_forecast_gatekeeper",
+      "agentId": "community-microgrid-cluster-preventive-maintenance-work-order-forecast-gatekeeper",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 7232,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-preventive-maintenance-work-order-forecast-gatekeeper.oc-agent.json"
+    },
+    {
+      "machineId": "ENX156_preventive-maintenance-work-order-maintenance-scheduler",
+      "machineName": "Community Microgrid Cluster Preventive Maintenance Work Order Maintenance Scheduler",
+      "code": "enx156_preventive_maintenance_work_order_maintenance_scheduler",
+      "agentId": "community-microgrid-cluster-preventive-maintenance-work-order-maintenance-scheduler",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 7240,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-preventive-maintenance-work-order-maintenance-scheduler.oc-agent.json"
+    },
+    {
+      "machineId": "ENX157_preventive-maintenance-work-order-power-quality-guardian",
+      "machineName": "Community Microgrid Cluster Preventive Maintenance Work Order Power Quality Guardian",
+      "code": "enx157_preventive_maintenance_work_order_power_quality_guardian",
+      "agentId": "community-microgrid-cluster-preventive-maintenance-work-order-power-quality-guardian",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 7248,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-preventive-maintenance-work-order-power-quality-guardian.oc-agent.json"
+    },
+    {
+      "machineId": "ENX158_preventive-maintenance-work-order-resilience-mode-router",
+      "machineName": "Community Microgrid Cluster Preventive Maintenance Work Order Resilience Mode Router",
+      "code": "enx158_preventive_maintenance_work_order_resilience_mode_router",
+      "agentId": "community-microgrid-cluster-preventive-maintenance-work-order-resilience-mode-router",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 7256,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-preventive-maintenance-work-order-resilience-mode-router.oc-agent.json"
+    },
+    {
+      "machineId": "ENX159_preventive-maintenance-work-order-optimization-planner",
+      "machineName": "Community Microgrid Cluster Preventive Maintenance Work Order Optimization Planner",
+      "code": "enx159_preventive_maintenance_work_order_optimization_planner",
+      "agentId": "community-microgrid-cluster-preventive-maintenance-work-order-optimization-planner",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 7264,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-preventive-maintenance-work-order-optimization-planner.oc-agent.json"
+    },
+    {
+      "machineId": "ENX160_preventive-maintenance-work-order-safety-compliance-checker",
+      "machineName": "Community Microgrid Cluster Preventive Maintenance Work Order Safety Compliance Checker",
+      "code": "enx160_preventive_maintenance_work_order_safety_compliance_checker",
+      "agentId": "community-microgrid-cluster-preventive-maintenance-work-order-safety-compliance-checker",
+      "domain": "energy",
+      "machineClass": "agent-dispatcher",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 7272,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "energy/community-microgrid-cluster-preventive-maintenance-work-order-safety-compliance-checker.oc-agent.json"
+    },
+    {
+      "machineId": "ENX201_community-critical-load-priority-controller",
+      "machineName": "Energy Community Critical Load Priority Controller",
+      "code": "enx201_community_critical_load_priority_controller",
+      "agentId": "energy-community-critical-load-priority-controller",
+      "domain": "energy",
+      "machineClass": "optimizer",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 16600,
+        "length": 10
+      },
+      "axisBasis": "sensorNormalization",
+      "path": "energy/energy-community-critical-load-priority-controller.oc-agent.json"
+    },
+    {
+      "machineId": "ENX202_islanding-readiness-coordinator",
+      "machineName": "Energy Islanding Readiness Coordinator",
+      "code": "enx202_islanding_readiness_coordinator",
+      "agentId": "energy-islanding-readiness-coordinator",
+      "domain": "energy",
+      "machineClass": "safety-compliance-checker",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 16614,
+        "length": 8
+      },
+      "axisBasis": "sensorNormalization",
+      "path": "energy/energy-islanding-readiness-coordinator.oc-agent.json"
+    },
+    {
+      "machineId": "ENX203_storage-reserve-and-dispatch-optimizer",
+      "machineName": "Energy Storage Reserve And Dispatch Optimizer",
+      "code": "enx203_storage_reserve_and_dispatch_optimizer",
+      "agentId": "energy-storage-reserve-and-dispatch-optimizer",
+      "domain": "energy",
+      "machineClass": "risk-forecaster",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 16626,
+        "length": 8
+      },
+      "axisBasis": "sensorNormalization",
+      "path": "energy/energy-storage-reserve-and-dispatch-optimizer.oc-agent.json"
+    },
+    {
+      "machineId": "ENX204_distributed-generation-commitment-planner",
+      "machineName": "Energy Distributed Generation Commitment Planner",
+      "code": "enx204_distributed_generation_commitment_planner",
+      "agentId": "energy-distributed-generation-commitment-planner",
+      "domain": "energy",
+      "machineClass": "risk-forecaster",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 16638,
+        "length": 10
+      },
+      "axisBasis": "sensorNormalization",
+      "path": "energy/energy-distributed-generation-commitment-planner.oc-agent.json"
+    },
+    {
+      "machineId": "ENX205_feeder-and-transmission-path-manager",
+      "machineName": "Energy Feeder And Transmission Path Manager",
+      "code": "enx205_feeder_and_transmission_path_manager",
+      "agentId": "energy-feeder-and-transmission-path-manager",
+      "domain": "energy",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 16652,
+        "length": 8
+      },
+      "axisBasis": "sensorNormalization",
+      "path": "energy/energy-feeder-and-transmission-path-manager.oc-agent.json"
+    },
+    {
+      "machineId": "ENX206_community-service-continuity-monitor",
+      "machineName": "Energy Community Service Continuity Monitor",
+      "code": "enx206_community_service_continuity_monitor",
+      "agentId": "energy-community-service-continuity-monitor",
+      "domain": "energy",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 16664,
+        "length": 9
+      },
+      "axisBasis": "sensorNormalization",
+      "path": "energy/energy-community-service-continuity-monitor.oc-agent.json"
+    },
+    {
+      "machineId": "ENX207_energy-supply-chain-logistics-coordinator",
+      "machineName": "Energy Supply Chain Logistics Coordinator",
+      "code": "enx207_energy_supply_chain_logistics_coordinator",
+      "agentId": "energy-supply-chain-logistics-coordinator",
+      "domain": "energy",
+      "machineClass": "optimizer",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 16677,
+        "length": 10
+      },
+      "axisBasis": "sensorNormalization",
+      "path": "energy/energy-supply-chain-logistics-coordinator.oc-agent.json"
+    },
+    {
+      "machineId": "ENX208_smart-grid-protocol-adapter-health-monitor",
+      "machineName": "Energy Smart Grid Protocol Adapter Health Monitor",
+      "code": "enx208_smart_grid_protocol_adapter_health_monitor",
+      "agentId": "energy-smart-grid-protocol-adapter-health-monitor",
+      "domain": "energy",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 16691,
+        "length": 10
+      },
+      "axisBasis": "sensorNormalization",
+      "path": "energy/energy-smart-grid-protocol-adapter-health-monitor.oc-agent.json"
+    },
+    {
+      "machineId": "ENX209_microgrid-cyber-safety-gate",
+      "machineName": "Energy Microgrid Cyber Safety Gate",
+      "code": "enx209_microgrid_cyber_safety_gate",
+      "agentId": "energy-microgrid-cyber-safety-gate",
+      "domain": "energy",
+      "machineClass": "safety-compliance-checker",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 16705,
+        "length": 8
+      },
+      "axisBasis": "sensorNormalization",
+      "path": "energy/energy-microgrid-cyber-safety-gate.oc-agent.json"
+    },
+    {
+      "machineId": "ENX210_resilient-community-microgrid-operations-stabilizer",
+      "machineName": "Energy Resilient Community Microgrid Operations Stabilizer",
+      "code": "enx210_resilient_community_microgrid_operations_stabilizer",
+      "agentId": "energy-resilient-community-microgrid-operations-stabilizer",
+      "domain": "energy",
+      "machineClass": "outcome-stabilizer",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 16717,
+        "length": 10
+      },
+      "axisBasis": "sensorNormalization",
+      "path": "energy/energy-resilient-community-microgrid-operations-stabilizer.oc-agent.json"
+    },
+    {
       "machineId": "DailyActivityMonitor",
       "machineName": "Daily Activity Monitor",
       "code": "activity-monitor",
@@ -6660,6 +10141,21 @@
       "path": "health-personal/adolescent-mental-health-monitor.oc-agent.json"
     },
     {
+      "machineId": "CareTransitionResponseInterconnect",
+      "machineName": "Care Transition Response Interconnect",
+      "code": "care_transition_response_interconnect",
+      "agentId": "care-transition-response-interconnect",
+      "domain": "health-personal",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 4436,
+        "length": 18
+      },
+      "axisBasis": "inputSemantics",
+      "path": "health-personal/care-transition-response-interconnect.oc-agent.json"
+    },
+    {
       "machineId": "CareTransitionWorkflow",
       "machineName": "CareTransitionWorkflow",
       "code": "caretransitionworkflow",
@@ -6675,6 +10171,21 @@
       "path": "health-personal/caretransitionworkflow.oc-agent.json"
     },
     {
+      "machineId": "ChildDevelopmentSupportInterconnect",
+      "machineName": "Child Development Support Interconnect",
+      "code": "child_development_support_interconnect",
+      "agentId": "child-development-support-interconnect",
+      "domain": "health-personal",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 4458,
+        "length": 18
+      },
+      "axisBasis": "inputSemantics",
+      "path": "health-personal/child-development-support-interconnect.oc-agent.json"
+    },
+    {
       "machineId": "ChildDevelopmentMonitor",
       "machineName": "Child Development Monitor",
       "code": "childdevelopmentmonitor",
@@ -6688,6 +10199,51 @@
       },
       "axisBasis": "sensorNormalization",
       "path": "health-personal/child-development-monitor.oc-agent.json"
+    },
+    {
+      "machineId": "HomeChronicPainMentalHealthAccessInterconnect",
+      "machineName": "Chronic Pain Mental Health Access Interconnect",
+      "code": "chronic_pain_mental_health_access_interconnect",
+      "agentId": "chronic-pain-mental-health-access-interconnect",
+      "domain": "health-personal",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 4320,
+        "length": 12
+      },
+      "axisBasis": "inputSemantics",
+      "path": "health-personal/chronic-pain-mental-health-access-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "DailyActivityWellnessInterconnect",
+      "machineName": "Daily Activity Wellness Interconnect",
+      "code": "daily_activity_wellness_interconnect",
+      "agentId": "daily-activity-wellness-interconnect",
+      "domain": "health-personal",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 4310,
+        "length": 10
+      },
+      "axisBasis": "inputSemantics",
+      "path": "health-personal/daily-activity-wellness-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "DailyPatientCareResponseInterconnect",
+      "machineName": "Daily Patient Care Response Interconnect",
+      "code": "daily_patient_care_response_interconnect",
+      "agentId": "daily-patient-care-response-interconnect",
+      "domain": "health-personal",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 4480,
+        "length": 18
+      },
+      "axisBasis": "inputSemantics",
+      "path": "health-personal/daily-patient-care-response-interconnect.oc-agent.json"
     },
     {
       "machineId": "DailyPatientCare",
@@ -6720,6 +10276,21 @@
       "path": "health-personal/facilitiesmaintenance.oc-agent.json"
     },
     {
+      "machineId": "FacilitiesMaintenanceResponseInterconnect",
+      "machineName": "Facilities Maintenance Response Interconnect",
+      "code": "facilitiesmaintenanceresponseinterconnect",
+      "agentId": "facilities-maintenance-response-interconnect",
+      "domain": "health-personal",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 4502,
+        "length": 18
+      },
+      "axisBasis": "inputSemantics",
+      "path": "health-personal/facilities-maintenance-response-interconnect.oc-agent.json"
+    },
+    {
       "machineId": "FallDetection",
       "machineName": "Fall Detection",
       "code": "fall-detection",
@@ -6750,6 +10321,36 @@
       "path": "health-personal/fall-sensor-motion-pre-aggregator.oc-agent.json"
     },
     {
+      "machineId": "HealthInfrastructureSupportInterconnect",
+      "machineName": "Health Infrastructure Support Interconnect",
+      "code": "health_infrastructure_support",
+      "agentId": "health-infrastructure-support-interconnect",
+      "domain": "health-personal",
+      "machineClass": "outcome-stabilizer",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 16900,
+        "length": 16
+      },
+      "axisBasis": "sensorNormalization",
+      "path": "health-personal/health-infrastructure-support-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "HomeFoodSecurityResponseInterconnect",
+      "machineName": "Home Food Security Response Interconnect",
+      "code": "home_food_security_response_interconnect",
+      "agentId": "home-food-security-response-interconnect",
+      "domain": "health-personal",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 4350,
+        "length": 14
+      },
+      "axisBasis": "inputSemantics",
+      "path": "health-personal/home-food-security-response-interconnect.oc-agent.json"
+    },
+    {
       "machineId": "HomeCaregiverBurdenMonitor",
       "machineName": "Home Caregiver Burden Monitor",
       "code": "homecaregiverburdenmonitor",
@@ -6765,6 +10366,21 @@
       "path": "health-personal/home-caregiver-burden-monitor.oc-agent.json"
     },
     {
+      "machineId": "HomeCaregiverSupportResponseInterconnect",
+      "machineName": "Home Caregiver Support Response Interconnect",
+      "code": "homecaregiversupportresponseinterconnect",
+      "agentId": "home-caregiver-support-response-interconnect",
+      "domain": "health-personal",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 4390,
+        "length": 20
+      },
+      "axisBasis": "inputSemantics",
+      "path": "health-personal/home-caregiver-support-response-interconnect.oc-agent.json"
+    },
+    {
       "machineId": "HomeChronicDiseaseMonitor",
       "machineName": "Home Chronic Disease Monitor",
       "code": "homechronicdiseasemonitor",
@@ -6778,6 +10394,21 @@
       },
       "axisBasis": "sensorNormalization",
       "path": "health-personal/home-chronic-disease-monitor.oc-agent.json"
+    },
+    {
+      "machineId": "HomeChronicDiseaseResponseInterconnect",
+      "machineName": "Home Chronic Disease Response Interconnect",
+      "code": "homechronicdiseaseresponseinterconnect",
+      "agentId": "home-chronic-disease-response-interconnect",
+      "domain": "health-personal",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 4368,
+        "length": 18
+      },
+      "axisBasis": "inputSemantics",
+      "path": "health-personal/home-chronic-disease-response-interconnect.oc-agent.json"
     },
     {
       "machineId": "HomeChronicPainMonitor",
@@ -6808,6 +10439,21 @@
       },
       "axisBasis": "sensorNormalization",
       "path": "health-personal/home-environment-safety-monitor.oc-agent.json"
+    },
+    {
+      "machineId": "HomeEnvironmentSafetyResponseInterconnect",
+      "machineName": "Home Environment Safety Response Interconnect",
+      "code": "homeenvironmentsafetyresponseinterconnect",
+      "agentId": "home-environment-safety-response-interconnect",
+      "domain": "health-personal",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 4414,
+        "length": 18
+      },
+      "axisBasis": "inputSemantics",
+      "path": "health-personal/home-environment-safety-response-interconnect.oc-agent.json"
     },
     {
       "machineId": "HomeFoodSecurityMonitor",
@@ -6900,6 +10546,36 @@
       "path": "health-personal/hydration-monitor.oc-agent.json"
     },
     {
+      "machineId": "HydrationRiskResponseInterconnect",
+      "machineName": "Hydration Risk Response Interconnect",
+      "code": "hydration_risk_response_interconnect",
+      "agentId": "hydration-risk-response-interconnect",
+      "domain": "health-personal",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 4336,
+        "length": 10
+      },
+      "axisBasis": "inputSemantics",
+      "path": "health-personal/hydration-risk-response-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "IntakeWellnessRoutingInterconnect",
+      "machineName": "Intake Wellness Routing Interconnect",
+      "code": "intakewellnessroutinginterconnect",
+      "agentId": "intake-wellness-routing-interconnect",
+      "domain": "health-personal",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 4582,
+        "length": 16
+      },
+      "axisBasis": "inputSemantics",
+      "path": "health-personal/intake-wellness-routing-interconnect.oc-agent.json"
+    },
+    {
       "machineId": "MedicationAdherenceMonitor",
       "machineName": "Medication Adherence Monitor",
       "code": "medication-adherence",
@@ -6913,6 +10589,21 @@
       },
       "axisBasis": "inputSemantics",
       "path": "health-personal/medication-adherence-monitor.oc-agent.json"
+    },
+    {
+      "machineId": "MedicationAccessAdherenceInterconnect",
+      "machineName": "Medication Access Adherence Interconnect",
+      "code": "medicationaccessadherenceinterconnect",
+      "agentId": "medication-access-adherence-interconnect",
+      "domain": "health-personal",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 4524,
+        "length": 14
+      },
+      "axisBasis": "inputSemantics",
+      "path": "health-personal/medication-access-adherence-interconnect.oc-agent.json"
     },
     {
       "machineId": "NewPatientInflow",
@@ -6930,6 +10621,21 @@
       "path": "health-personal/newpatientinflow.oc-agent.json"
     },
     {
+      "machineId": "PatientSafetyTransportInterconnect",
+      "machineName": "Patient Safety Transport Interconnect",
+      "code": "patient_safety_transport_interconnect",
+      "agentId": "patient-safety-transport-interconnect",
+      "domain": "health-personal",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 4310,
+        "length": 10
+      },
+      "axisBasis": "inputSemantics",
+      "path": "health-personal/patient-safety-transport-interconnect.oc-agent.json"
+    },
+    {
       "machineId": "PatientWellness",
       "machineName": "PatientWellness",
       "code": "patientwellness",
@@ -6943,6 +10649,21 @@
       },
       "axisBasis": "inputSemantics",
       "path": "health-personal/patientwellness.oc-agent.json"
+    },
+    {
+      "machineId": "PediatricAdolescentFamilySupportInterconnect",
+      "machineName": "Pediatric Adolescent Family Support Interconnect",
+      "code": "pediatricadolescentfamilysupportinterconnect",
+      "agentId": "pediatric-adolescent-family-support-interconnect",
+      "domain": "health-personal",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 4560,
+        "length": 18
+      },
+      "axisBasis": "inputSemantics",
+      "path": "health-personal/pediatric-adolescent-family-support-interconnect.oc-agent.json"
     },
     {
       "machineId": "PediatricNutritionMonitor",
@@ -6975,6 +10696,36 @@
       "path": "health-personal/sleep-quality-monitor.oc-agent.json"
     },
     {
+      "machineId": "SleepRecoveryWellnessInterconnect",
+      "machineName": "Sleep Recovery Wellness Interconnect",
+      "code": "sleeprecoverywellnessinterconnect",
+      "agentId": "sleep-recovery-wellness-interconnect",
+      "domain": "health-personal",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 4542,
+        "length": 14
+      },
+      "axisBasis": "inputSemantics",
+      "path": "health-personal/sleep-recovery-wellness-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "SocialIsolationAccessInterconnect",
+      "machineName": "Social Isolation Access Interconnect",
+      "code": "socialisolationaccessinterconnect",
+      "agentId": "social-isolation-access-interconnect",
+      "domain": "health-personal",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 4602,
+        "length": 14
+      },
+      "axisBasis": "inputSemantics",
+      "path": "health-personal/social-isolation-access-interconnect.oc-agent.json"
+    },
+    {
       "machineId": "WellnessAnalytics",
       "machineName": "WellnessAnalytics",
       "code": "wellnessanalytics",
@@ -6988,6 +10739,306 @@
       },
       "axisBasis": "inputSemantics",
       "path": "health-personal/wellnessanalytics.oc-agent.json"
+    },
+    {
+      "machineId": "HealthServicesHsph001010Interconnect",
+      "machineName": "Health Services HSPH-001-010 Interconnect",
+      "code": "healthserviceshsph001010interconnect",
+      "agentId": "health-services-hsph-001-010-interconnect",
+      "domain": "health-services",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 14980,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "health-services/health-services-hsph-001-010-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "HealthServicesHsph011020Interconnect",
+      "machineName": "Health Services HSPH-011-020 Interconnect",
+      "code": "healthserviceshsph011020interconnect",
+      "agentId": "health-services-hsph-011-020-interconnect",
+      "domain": "health-services",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 15014,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "health-services/health-services-hsph-011-020-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "HealthServicesHsph021030Interconnect",
+      "machineName": "Health Services HSPH-021-030 Interconnect",
+      "code": "healthserviceshsph021030interconnect",
+      "agentId": "health-services-hsph-021-030-interconnect",
+      "domain": "health-services",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 15048,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "health-services/health-services-hsph-021-030-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "HealthServicesHsph031040Interconnect",
+      "machineName": "Health Services HSPH-031-040 Interconnect",
+      "code": "healthserviceshsph031040interconnect",
+      "agentId": "health-services-hsph-031-040-interconnect",
+      "domain": "health-services",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 15082,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "health-services/health-services-hsph-031-040-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "HealthServicesHsph041050Interconnect",
+      "machineName": "Health Services HSPH-041-050 Interconnect",
+      "code": "healthserviceshsph041050interconnect",
+      "agentId": "health-services-hsph-041-050-interconnect",
+      "domain": "health-services",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 15116,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "health-services/health-services-hsph-041-050-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "HealthServicesHsph051060Interconnect",
+      "machineName": "Health Services HSPH-051-060 Interconnect",
+      "code": "healthserviceshsph051060interconnect",
+      "agentId": "health-services-hsph-051-060-interconnect",
+      "domain": "health-services",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 15150,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "health-services/health-services-hsph-051-060-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "HealthServicesHsph061070Interconnect",
+      "machineName": "Health Services HSPH-061-070 Interconnect",
+      "code": "healthserviceshsph061070interconnect",
+      "agentId": "health-services-hsph-061-070-interconnect",
+      "domain": "health-services",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 15184,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "health-services/health-services-hsph-061-070-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "HealthServicesHsph071080Interconnect",
+      "machineName": "Health Services HSPH-071-080 Interconnect",
+      "code": "healthserviceshsph071080interconnect",
+      "agentId": "health-services-hsph-071-080-interconnect",
+      "domain": "health-services",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 15218,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "health-services/health-services-hsph-071-080-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "HealthServicesHsph081090Interconnect",
+      "machineName": "Health Services HSPH-081-090 Interconnect",
+      "code": "healthserviceshsph081090interconnect",
+      "agentId": "health-services-hsph-081-090-interconnect",
+      "domain": "health-services",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 15252,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "health-services/health-services-hsph-081-090-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "HealthServicesHsph091100Interconnect",
+      "machineName": "Health Services HSPH-091-100 Interconnect",
+      "code": "healthserviceshsph091100interconnect",
+      "agentId": "health-services-hsph-091-100-interconnect",
+      "domain": "health-services",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 15286,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "health-services/health-services-hsph-091-100-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "HealthServicesHsph101110Interconnect",
+      "machineName": "Health Services HSPH-101-110 Interconnect",
+      "code": "healthserviceshsph101110interconnect",
+      "agentId": "health-services-hsph-101-110-interconnect",
+      "domain": "health-services",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 15320,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "health-services/health-services-hsph-101-110-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "HealthServicesHsph111120Interconnect",
+      "machineName": "Health Services HSPH-111-120 Interconnect",
+      "code": "healthserviceshsph111120interconnect",
+      "agentId": "health-services-hsph-111-120-interconnect",
+      "domain": "health-services",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 15354,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "health-services/health-services-hsph-111-120-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "HealthServicesHsph121130Interconnect",
+      "machineName": "Health Services HSPH-121-130 Interconnect",
+      "code": "healthserviceshsph121130interconnect",
+      "agentId": "health-services-hsph-121-130-interconnect",
+      "domain": "health-services",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 15388,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "health-services/health-services-hsph-121-130-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "HealthServicesHsph131140Interconnect",
+      "machineName": "Health Services HSPH-131-140 Interconnect",
+      "code": "healthserviceshsph131140interconnect",
+      "agentId": "health-services-hsph-131-140-interconnect",
+      "domain": "health-services",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 15422,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "health-services/health-services-hsph-131-140-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "HealthServicesHsph141150Interconnect",
+      "machineName": "Health Services HSPH-141-150 Interconnect",
+      "code": "healthserviceshsph141150interconnect",
+      "agentId": "health-services-hsph-141-150-interconnect",
+      "domain": "health-services",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 15456,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "health-services/health-services-hsph-141-150-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "HealthServicesHsph151160Interconnect",
+      "machineName": "Health Services HSPH-151-160 Interconnect",
+      "code": "healthserviceshsph151160interconnect",
+      "agentId": "health-services-hsph-151-160-interconnect",
+      "domain": "health-services",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 15490,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "health-services/health-services-hsph-151-160-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "HealthServicesHsph161170Interconnect",
+      "machineName": "Health Services HSPH-161-170 Interconnect",
+      "code": "healthserviceshsph161170interconnect",
+      "agentId": "health-services-hsph-161-170-interconnect",
+      "domain": "health-services",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 15524,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "health-services/health-services-hsph-161-170-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "HealthServicesHsph171180Interconnect",
+      "machineName": "Health Services HSPH-171-180 Interconnect",
+      "code": "healthserviceshsph171180interconnect",
+      "agentId": "health-services-hsph-171-180-interconnect",
+      "domain": "health-services",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 15558,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "health-services/health-services-hsph-171-180-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "HealthServicesHsph181190Interconnect",
+      "machineName": "Health Services HSPH-181-190 Interconnect",
+      "code": "healthserviceshsph181190interconnect",
+      "agentId": "health-services-hsph-181-190-interconnect",
+      "domain": "health-services",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 15592,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "health-services/health-services-hsph-181-190-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "HealthServicesHsph191200Interconnect",
+      "machineName": "Health Services HSPH-191-200 Interconnect",
+      "code": "healthserviceshsph191200interconnect",
+      "agentId": "health-services-hsph-191-200-interconnect",
+      "domain": "health-services",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 15626,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "health-services/health-services-hsph-191-200-interconnect.oc-agent.json"
     },
     {
       "machineId": "HSPH001_evaluability-readiness-signal-monitor",
@@ -9990,6 +14041,156 @@
       "path": "health-services/health-services-learning-health-system-outcome-stabilizer.oc-agent.json"
     },
     {
+      "machineId": "LegalServicesLsx001010Interconnect",
+      "machineName": "Legal Services LSX-001-010 Interconnect",
+      "code": "legalserviceslsx001010interconnect",
+      "agentId": "legal-services-lsx-001-010-interconnect",
+      "domain": "legal-services",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 15660,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "legal-services/legal-services-lsx-001-010-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "LegalServicesLsx011020Interconnect",
+      "machineName": "Legal Services LSX-011-020 Interconnect",
+      "code": "legalserviceslsx011020interconnect",
+      "agentId": "legal-services-lsx-011-020-interconnect",
+      "domain": "legal-services",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 15694,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "legal-services/legal-services-lsx-011-020-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "LegalServicesLsx021030Interconnect",
+      "machineName": "Legal Services LSX-021-030 Interconnect",
+      "code": "legalserviceslsx021030interconnect",
+      "agentId": "legal-services-lsx-021-030-interconnect",
+      "domain": "legal-services",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 15728,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "legal-services/legal-services-lsx-021-030-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "LegalServicesLsx031040Interconnect",
+      "machineName": "Legal Services LSX-031-040 Interconnect",
+      "code": "legalserviceslsx031040interconnect",
+      "agentId": "legal-services-lsx-031-040-interconnect",
+      "domain": "legal-services",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 15762,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "legal-services/legal-services-lsx-031-040-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "LegalServicesLsx041050Interconnect",
+      "machineName": "Legal Services LSX-041-050 Interconnect",
+      "code": "legalserviceslsx041050interconnect",
+      "agentId": "legal-services-lsx-041-050-interconnect",
+      "domain": "legal-services",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 15796,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "legal-services/legal-services-lsx-041-050-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "LegalServicesLsx051060Interconnect",
+      "machineName": "Legal Services LSX-051-060 Interconnect",
+      "code": "legalserviceslsx051060interconnect",
+      "agentId": "legal-services-lsx-051-060-interconnect",
+      "domain": "legal-services",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 15830,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "legal-services/legal-services-lsx-051-060-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "LegalServicesLsx061070Interconnect",
+      "machineName": "Legal Services LSX-061-070 Interconnect",
+      "code": "legalserviceslsx061070interconnect",
+      "agentId": "legal-services-lsx-061-070-interconnect",
+      "domain": "legal-services",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 15864,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "legal-services/legal-services-lsx-061-070-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "LegalServicesLsx071080Interconnect",
+      "machineName": "Legal Services LSX-071-080 Interconnect",
+      "code": "legalserviceslsx071080interconnect",
+      "agentId": "legal-services-lsx-071-080-interconnect",
+      "domain": "legal-services",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 15898,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "legal-services/legal-services-lsx-071-080-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "LegalServicesLsx081090Interconnect",
+      "machineName": "Legal Services LSX-081-090 Interconnect",
+      "code": "legalserviceslsx081090interconnect",
+      "agentId": "legal-services-lsx-081-090-interconnect",
+      "domain": "legal-services",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 15932,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "legal-services/legal-services-lsx-081-090-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "LegalServicesLsx091100Interconnect",
+      "machineName": "Legal Services LSX-091-100 Interconnect",
+      "code": "legalserviceslsx091100interconnect",
+      "agentId": "legal-services-lsx-091-100-interconnect",
+      "domain": "legal-services",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 15966,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "legal-services/legal-services-lsx-091-100-interconnect.oc-agent.json"
+    },
+    {
       "machineId": "LSX001_provisional-patent-filing-invention-intake",
       "machineName": "Legal Services Provisional Patent Filing Invention Intake",
       "code": "lsx001_provisional_patent_filing_invention_intake",
@@ -12990,6 +17191,156 @@
       "path": "life-balance/life-balance-projection-automation-and-outcomes-life-balance-command-center.oc-agent.json"
     },
     {
+      "machineId": "LifeBalanceAdolescentFamilySchoolInterconnect",
+      "machineName": "Life Balance Adolescent Family School Interconnect",
+      "code": "lifebalanceadolescentfamilyschoolinterconnect",
+      "agentId": "life-balance-adolescent-family-school-interconnect",
+      "domain": "life-balance",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 4824,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "life-balance/life-balance-adolescent-family-school-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "LifeBalanceMedicationPsychiatricCareInterconnect",
+      "machineName": "Life Balance Medication Psychiatric Care Interconnect",
+      "code": "lifebalancemedicationpsychiatriccareinterconnect",
+      "agentId": "life-balance-medication-psychiatric-care-interconnect",
+      "domain": "life-balance",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 4790,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "life-balance/life-balance-medication-psychiatric-care-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "LifeBalanceMovementPhysicalHealthInterconnect",
+      "machineName": "Life Balance Movement Physical Health Interconnect",
+      "code": "lifebalancemovementphysicalhealthinterconnect",
+      "agentId": "life-balance-movement-physical-health-interconnect",
+      "domain": "life-balance",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 4722,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "life-balance/life-balance-movement-physical-health-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "LifeBalanceNutritionMetabolicHealthInterconnect",
+      "machineName": "Life Balance Nutrition Metabolic Health Interconnect",
+      "code": "lifebalancenutritionmetabolichealthinterconnect",
+      "agentId": "life-balance-nutrition-metabolic-health-interconnect",
+      "domain": "life-balance",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 4654,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "life-balance/life-balance-nutrition-metabolic-health-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "LifeBalanceProjectionAutomationOutcomesInterconnect",
+      "machineName": "Life Balance Projection Automation Outcomes Interconnect",
+      "code": "lifebalanceprojectionautomationoutcomesinterconnect",
+      "agentId": "life-balance-projection-automation-outcomes-interconnect",
+      "domain": "life-balance",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 4926,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "life-balance/life-balance-projection-automation-outcomes-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "LifeBalanceSleepCircadianRhythmInterconnect",
+      "machineName": "Life Balance Sleep Circadian Rhythm Interconnect",
+      "code": "lifebalancesleepcircadianrhythminterconnect",
+      "agentId": "life-balance-sleep-circadian-rhythm-interconnect",
+      "domain": "life-balance",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 4688,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "life-balance/life-balance-sleep-circadian-rhythm-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "LifeBalanceSocialConnectionHarmReductionInterconnect",
+      "machineName": "Life Balance Social Connection Harm Reduction Interconnect",
+      "code": "lifebalancesocialconnectionharmreductioninterconnect",
+      "agentId": "life-balance-social-connection-harm-reduction-interconnect",
+      "domain": "life-balance",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 4892,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "life-balance/life-balance-social-connection-harm-reduction-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "LifeBalanceStressResiliencePsychotherapyInterconnect",
+      "machineName": "Life Balance Stress Resilience Psychotherapy Interconnect",
+      "code": "lifebalancestressresiliencepsychotherapyinterconnect",
+      "agentId": "life-balance-stress-resilience-psychotherapy-interconnect",
+      "domain": "life-balance",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 4756,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "life-balance/life-balance-stress-resilience-psychotherapy-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "LifeBalanceTestingPersonalizationMonitoringInterconnect",
+      "machineName": "Life Balance Testing Personalization Monitoring Interconnect",
+      "code": "lifebalancetestingpersonalizationmonitoringinterconnect",
+      "agentId": "life-balance-testing-personalization-monitoring-interconnect",
+      "domain": "life-balance",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 4858,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "life-balance/life-balance-testing-personalization-monitoring-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "LifeBalanceWholePersonIntakeGoalsInterconnect",
+      "machineName": "Life Balance Whole Person Intake Goals Interconnect",
+      "code": "lifebalancewholepersonintakegoalsinterconnect",
+      "agentId": "life-balance-whole-person-intake-goals-interconnect",
+      "domain": "life-balance",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 4620,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "life-balance/life-balance-whole-person-intake-goals-interconnect.oc-agent.json"
+    },
+    {
       "machineId": "TFX001_rider-experience-stop-crowding-monitor",
       "machineName": "Transportation Fleet Rider Experience Stop Crowding Monitor",
       "code": "tfx001_rider_experience_stop_crowding_monitor",
@@ -15238,6 +19589,231 @@
       },
       "axisBasis": "inputSemantics",
       "path": "transportation/transportation-fleet-executive-optimization-100-bus-fleet-command-center.oc-agent.json"
+    },
+    {
+      "machineId": "TransportationTfx001010Interconnect",
+      "machineName": "Transportation TFX-001-010 Interconnect",
+      "code": "transportationtfx001010interconnect",
+      "agentId": "transportation-tfx-001-010-interconnect",
+      "domain": "transportation",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 16000,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "transportation/transportation-tfx-001-010-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "TransportationTfx011020Interconnect",
+      "machineName": "Transportation TFX-011-020 Interconnect",
+      "code": "transportationtfx011020interconnect",
+      "agentId": "transportation-tfx-011-020-interconnect",
+      "domain": "transportation",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 16034,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "transportation/transportation-tfx-011-020-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "TransportationTfx021030Interconnect",
+      "machineName": "Transportation TFX-021-030 Interconnect",
+      "code": "transportationtfx021030interconnect",
+      "agentId": "transportation-tfx-021-030-interconnect",
+      "domain": "transportation",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 16068,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "transportation/transportation-tfx-021-030-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "TransportationTfx031040Interconnect",
+      "machineName": "Transportation TFX-031-040 Interconnect",
+      "code": "transportationtfx031040interconnect",
+      "agentId": "transportation-tfx-031-040-interconnect",
+      "domain": "transportation",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 16102,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "transportation/transportation-tfx-031-040-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "TransportationTfx041050Interconnect",
+      "machineName": "Transportation TFX-041-050 Interconnect",
+      "code": "transportationtfx041050interconnect",
+      "agentId": "transportation-tfx-041-050-interconnect",
+      "domain": "transportation",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 16136,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "transportation/transportation-tfx-041-050-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "TransportationTfx051060Interconnect",
+      "machineName": "Transportation TFX-051-060 Interconnect",
+      "code": "transportationtfx051060interconnect",
+      "agentId": "transportation-tfx-051-060-interconnect",
+      "domain": "transportation",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 16170,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "transportation/transportation-tfx-051-060-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "TransportationTfx061070Interconnect",
+      "machineName": "Transportation TFX-061-070 Interconnect",
+      "code": "transportationtfx061070interconnect",
+      "agentId": "transportation-tfx-061-070-interconnect",
+      "domain": "transportation",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 16204,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "transportation/transportation-tfx-061-070-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "TransportationTfx071080Interconnect",
+      "machineName": "Transportation TFX-071-080 Interconnect",
+      "code": "transportationtfx071080interconnect",
+      "agentId": "transportation-tfx-071-080-interconnect",
+      "domain": "transportation",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 16238,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "transportation/transportation-tfx-071-080-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "TransportationTfx081090Interconnect",
+      "machineName": "Transportation TFX-081-090 Interconnect",
+      "code": "transportationtfx081090interconnect",
+      "agentId": "transportation-tfx-081-090-interconnect",
+      "domain": "transportation",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 16272,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "transportation/transportation-tfx-081-090-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "TransportationTfx091100Interconnect",
+      "machineName": "Transportation TFX-091-100 Interconnect",
+      "code": "transportationtfx091100interconnect",
+      "agentId": "transportation-tfx-091-100-interconnect",
+      "domain": "transportation",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 16306,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "transportation/transportation-tfx-091-100-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "TransportationTfx101110Interconnect",
+      "machineName": "Transportation TFX-101-110 Interconnect",
+      "code": "transportationtfx101110interconnect",
+      "agentId": "transportation-tfx-101-110-interconnect",
+      "domain": "transportation",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 16340,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "transportation/transportation-tfx-101-110-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "TransportationTfx111120Interconnect",
+      "machineName": "Transportation TFX-111-120 Interconnect",
+      "code": "transportationtfx111120interconnect",
+      "agentId": "transportation-tfx-111-120-interconnect",
+      "domain": "transportation",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 16374,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "transportation/transportation-tfx-111-120-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "TransportationTfx121130Interconnect",
+      "machineName": "Transportation TFX-121-130 Interconnect",
+      "code": "transportationtfx121130interconnect",
+      "agentId": "transportation-tfx-121-130-interconnect",
+      "domain": "transportation",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 16408,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "transportation/transportation-tfx-121-130-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "TransportationTfx131140Interconnect",
+      "machineName": "Transportation TFX-131-140 Interconnect",
+      "code": "transportationtfx131140interconnect",
+      "agentId": "transportation-tfx-131-140-interconnect",
+      "domain": "transportation",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 16442,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "transportation/transportation-tfx-131-140-interconnect.oc-agent.json"
+    },
+    {
+      "machineId": "TransportationTfx141150Interconnect",
+      "machineName": "Transportation TFX-141-150 Interconnect",
+      "code": "transportationtfx141150interconnect",
+      "agentId": "transportation-tfx-141-150-interconnect",
+      "domain": "transportation",
+      "machineClass": "bridge",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 16476,
+        "length": 30
+      },
+      "axisBasis": "inputSemantics",
+      "path": "transportation/transportation-tfx-141-150-interconnect.oc-agent.json"
     }
   ]
 }

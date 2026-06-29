@@ -1,0 +1,1732 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "oc-agent-template",
+  "role": "input-analyst",
+  "agentId": "life-balance-nutrition-metabolic-health-interconnect",
+  "displayName": "Life Balance Nutrition Metabolic Health Interconnect",
+  "machine": {
+    "id": "LifeBalanceNutritionMetabolicHealthInterconnect",
+    "name": "Life Balance Nutrition Metabolic Health Interconnect",
+    "code": "lifebalancenutritionmetabolichealthinterconnect",
+    "machineClass": "bridge",
+    "domain": "life-balance",
+    "inputRegion": {
+      "offset": 4654,
+      "length": 30
+    },
+    "outputRegion": {
+      "offset": 4684,
+      "length": 4
+    }
+  },
+  "openclaw": {
+    "id": "openclaw-xacp",
+    "kind": "acp",
+    "platform": "OpenClaw",
+    "surface": "xACP",
+    "command": "openclaw acp",
+    "gatewayUrl": "ws://127.0.0.1:18789",
+    "sessionKey": "agent:main:main",
+    "targetAgent": "life-balance-nutrition-metabolic-health-interconnect",
+    "dispatchMode": "accepted-no-wait",
+    "completionMode": "pe-source-mapping",
+    "completionSourceMappingId": "acp-life-balance-nutrition-metabolic-health-interconnect-input-assessment"
+  },
+  "reasoning": {
+    "objective": "Produce the normalized input vector for \"Life Balance Nutrition Metabolic Health Interconnect\" from current observations so RE can evaluate its CES sequences.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Life Balance Nutrition Metabolic Health Interconnect\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Published life-balance bridge bus that composes the Nutrition Metabolic Health family into a compact response lane. PE owns source composition and writes the compact input lane; RE evaluates this machine as ordinary vector state.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- life-balance-nutrition-and-metabolic-health-meal-pattern-stability-care-team-review-bit (index 0):\n- life-balance-nutrition-and-metabolic-health-meal-pattern-stability-lifestyle-plan-adjust-bit (index 1):\n- life-balance-nutrition-and-metabolic-health-meal-pattern-stability-monitoring-task-bit (index 2):\n- life-balance-nutrition-and-metabolic-health-carbohydrate-tolerance-watch-care-team-review-bit (index 3):\n- life-balance-nutrition-and-metabolic-health-carbohydrate-tolerance-watch-lifestyle-plan-adjust-bit (index 4):\n- life-balance-nutrition-and-metabolic-health-carbohydrate-tolerance-watch-monitoring-task-bit (index 5):\n- life-balance-nutrition-and-metabolic-health-protein-sufficiency-monitor-care-team-review-bit (index 6):\n- life-balance-nutrition-and-metabolic-health-protein-sufficiency-monitor-lifestyle-plan-adjust-bit (index 7):\n- life-balance-nutrition-and-metabolic-health-protein-sufficiency-monitor-monitoring-task-bit (index 8):\n- life-balance-nutrition-and-metabolic-health-food-mood-journal-review-care-team-review-bit (index 9):\n- life-balance-nutrition-and-metabolic-health-food-mood-journal-review-lifestyle-plan-adjust-bit (index 10):\n- life-balance-nutrition-and-metabolic-health-food-mood-journal-review-monitoring-task-bit (index 11):\n- life-balance-nutrition-and-metabolic-health-hydration-electrolyte-monitor-care-team-review-bit (index 12):\n- life-balance-nutrition-and-metabolic-health-hydration-electrolyte-monitor-lifestyle-plan-adjust-bit (index 13):\n- life-balance-nutrition-and-metabolic-health-hydration-electrolyte-monitor-monitoring-task-bit (index 14):\n- life-balance-nutrition-and-metabolic-health-weight-metabolic-trend-care-team-review-bit (index 15):\n- life-balance-nutrition-and-metabolic-health-weight-metabolic-trend-lifestyle-plan-adjust-bit (index 16):\n- life-balance-nutrition-and-metabolic-health-weight-metabolic-trend-monitoring-task-bit (index 17):\n- life-balance-nutrition-and-metabolic-health-micronutrient-risk-screen-care-team-review-bit (index 18):\n- life-balance-nutrition-and-metabolic-health-micronutrient-risk-screen-lifestyle-plan-adjust-bit (index 19):\n- life-balance-nutrition-and-metabolic-health-micronutrient-risk-screen-monitoring-task-bit (index 20):\n- life-balance-nutrition-and-metabolic-health-family-food-environment-care-team-review-bit (index 21):\n- life-balance-nutrition-and-metabolic-health-family-food-environment-lifestyle-plan-adjust-bit (index 22):\n- life-balance-nutrition-and-metabolic-health-family-food-environment-monitoring-task-bit (index 23):\n- life-balance-nutrition-and-metabolic-health-nutrition-plan-adherence-care-team-review-bit (index 24):\n- life-balance-nutrition-and-metabolic-health-nutrition-plan-adherence-lifestyle-plan-adjust-bit (index 25):\n- life-balance-nutrition-and-metabolic-health-nutrition-plan-adherence-monitoring-task-bit (index 26):\n- life-balance-nutrition-and-metabolic-health-metabolic-nutrition-executive-care-team-review-bit (index 27):\n- life-balance-nutrition-and-metabolic-health-metabolic-nutrition-executive-lifestyle-plan-adjust-bit (index 28):\n- life-balance-nutrition-and-metabolic-health-metabolic-nutrition-executive-monitoring-task-bit (index 29):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Nutrition Metabolic Health care team review at [4684 (RED) -> action: Route family care-team review, risk escalation, and resolver summary.\n- Nutrition Metabolic Health lifestyle plan adjustment at [4684 (AMBER) -> action: Route family lifestyle plan adjustment and coaching update.\n- Nutrition Metabolic Health monitoring task at [4684 (AMBER) -> action: Route family monitoring task and data-quality follow-up.\n- Nutrition Metabolic Health stable balance at [4684 (GREEN) -> action: Record stable family state and keep baseline cadence.",
+    "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
+    "inputAxes": [
+      {
+        "index": 0,
+        "key": "life-balance-nutrition-and-metabolic-health-meal-pattern-stability-care-team-review-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 1,
+        "key": "life-balance-nutrition-and-metabolic-health-meal-pattern-stability-lifestyle-plan-adjust-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 2,
+        "key": "life-balance-nutrition-and-metabolic-health-meal-pattern-stability-monitoring-task-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 3,
+        "key": "life-balance-nutrition-and-metabolic-health-carbohydrate-tolerance-watch-care-team-review-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 4,
+        "key": "life-balance-nutrition-and-metabolic-health-carbohydrate-tolerance-watch-lifestyle-plan-adjust-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 5,
+        "key": "life-balance-nutrition-and-metabolic-health-carbohydrate-tolerance-watch-monitoring-task-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 6,
+        "key": "life-balance-nutrition-and-metabolic-health-protein-sufficiency-monitor-care-team-review-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 7,
+        "key": "life-balance-nutrition-and-metabolic-health-protein-sufficiency-monitor-lifestyle-plan-adjust-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 8,
+        "key": "life-balance-nutrition-and-metabolic-health-protein-sufficiency-monitor-monitoring-task-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 9,
+        "key": "life-balance-nutrition-and-metabolic-health-food-mood-journal-review-care-team-review-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 10,
+        "key": "life-balance-nutrition-and-metabolic-health-food-mood-journal-review-lifestyle-plan-adjust-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 11,
+        "key": "life-balance-nutrition-and-metabolic-health-food-mood-journal-review-monitoring-task-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 12,
+        "key": "life-balance-nutrition-and-metabolic-health-hydration-electrolyte-monitor-care-team-review-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 13,
+        "key": "life-balance-nutrition-and-metabolic-health-hydration-electrolyte-monitor-lifestyle-plan-adjust-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 14,
+        "key": "life-balance-nutrition-and-metabolic-health-hydration-electrolyte-monitor-monitoring-task-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 15,
+        "key": "life-balance-nutrition-and-metabolic-health-weight-metabolic-trend-care-team-review-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 16,
+        "key": "life-balance-nutrition-and-metabolic-health-weight-metabolic-trend-lifestyle-plan-adjust-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 17,
+        "key": "life-balance-nutrition-and-metabolic-health-weight-metabolic-trend-monitoring-task-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 18,
+        "key": "life-balance-nutrition-and-metabolic-health-micronutrient-risk-screen-care-team-review-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 19,
+        "key": "life-balance-nutrition-and-metabolic-health-micronutrient-risk-screen-lifestyle-plan-adjust-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 20,
+        "key": "life-balance-nutrition-and-metabolic-health-micronutrient-risk-screen-monitoring-task-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 21,
+        "key": "life-balance-nutrition-and-metabolic-health-family-food-environment-care-team-review-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 22,
+        "key": "life-balance-nutrition-and-metabolic-health-family-food-environment-lifestyle-plan-adjust-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 23,
+        "key": "life-balance-nutrition-and-metabolic-health-family-food-environment-monitoring-task-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 24,
+        "key": "life-balance-nutrition-and-metabolic-health-nutrition-plan-adherence-care-team-review-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 25,
+        "key": "life-balance-nutrition-and-metabolic-health-nutrition-plan-adherence-lifestyle-plan-adjust-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 26,
+        "key": "life-balance-nutrition-and-metabolic-health-nutrition-plan-adherence-monitoring-task-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 27,
+        "key": "life-balance-nutrition-and-metabolic-health-metabolic-nutrition-executive-care-team-review-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 28,
+        "key": "life-balance-nutrition-and-metabolic-health-metabolic-nutrition-executive-lifestyle-plan-adjust-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 29,
+        "key": "life-balance-nutrition-and-metabolic-health-metabolic-nutrition-executive-monitoring-task-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      }
+    ],
+    "sequenceCatalog": [
+      {
+        "sequenceId": "nutrition-metabolic-health-care-team-review",
+        "label": "Nutrition Metabolic Health care team review at [4684",
+        "rag": "RED",
+        "outputIndex": 0,
+        "action": "Route family care-team review, risk escalation, and resolver summary."
+      },
+      {
+        "sequenceId": "nutrition-metabolic-health-plan-adjustment",
+        "label": "Nutrition Metabolic Health lifestyle plan adjustment at [4684",
+        "rag": "AMBER",
+        "outputIndex": 1,
+        "action": "Route family lifestyle plan adjustment and coaching update."
+      },
+      {
+        "sequenceId": "nutrition-metabolic-health-monitoring-task",
+        "label": "Nutrition Metabolic Health monitoring task at [4684",
+        "rag": "AMBER",
+        "outputIndex": 2,
+        "action": "Route family monitoring task and data-quality follow-up."
+      },
+      {
+        "sequenceId": "nutrition-metabolic-health-stable",
+        "label": "Nutrition Metabolic Health stable balance at [4684",
+        "rag": "GREEN",
+        "outputIndex": 3,
+        "action": "Record stable family state and keep baseline cadence."
+      }
+    ]
+  },
+  "agentBinding": {
+    "agent": "life-balance-nutrition-metabolic-health-interconnect",
+    "mode": "advise",
+    "trigger": "lifebalancenutritionmetabolichealthinterconnect-input-assessment",
+    "allowedActions": [
+      "Assess current \"Life Balance Nutrition Metabolic Health Interconnect\" state from available observations and write the normalized input vector to the PE input region [4654:4684] for RE to evaluate."
+    ],
+    "writeBack": {
+      "type": "pe-sensor",
+      "provider": "acp",
+      "sensorId": "acp.openclaw.lifebalancenutritionmetabolichealthinterconnect.input-analyst.assessment",
+      "name": "OpenClaw lifebalancenutritionmetabolichealthinterconnect input-analyst assessment",
+      "region": {
+        "offset": 4654,
+        "length": 30
+      },
+      "semantics": [
+        "life-balance-nutrition-and-metabolic-health-meal-pattern-stability-care-team-review-bit",
+        "life-balance-nutrition-and-metabolic-health-meal-pattern-stability-lifestyle-plan-adjust-bit",
+        "life-balance-nutrition-and-metabolic-health-meal-pattern-stability-monitoring-task-bit",
+        "life-balance-nutrition-and-metabolic-health-carbohydrate-tolerance-watch-care-team-review-bit",
+        "life-balance-nutrition-and-metabolic-health-carbohydrate-tolerance-watch-lifestyle-plan-adjust-bit",
+        "life-balance-nutrition-and-metabolic-health-carbohydrate-tolerance-watch-monitoring-task-bit",
+        "life-balance-nutrition-and-metabolic-health-protein-sufficiency-monitor-care-team-review-bit",
+        "life-balance-nutrition-and-metabolic-health-protein-sufficiency-monitor-lifestyle-plan-adjust-bit",
+        "life-balance-nutrition-and-metabolic-health-protein-sufficiency-monitor-monitoring-task-bit",
+        "life-balance-nutrition-and-metabolic-health-food-mood-journal-review-care-team-review-bit",
+        "life-balance-nutrition-and-metabolic-health-food-mood-journal-review-lifestyle-plan-adjust-bit",
+        "life-balance-nutrition-and-metabolic-health-food-mood-journal-review-monitoring-task-bit",
+        "life-balance-nutrition-and-metabolic-health-hydration-electrolyte-monitor-care-team-review-bit",
+        "life-balance-nutrition-and-metabolic-health-hydration-electrolyte-monitor-lifestyle-plan-adjust-bit",
+        "life-balance-nutrition-and-metabolic-health-hydration-electrolyte-monitor-monitoring-task-bit",
+        "life-balance-nutrition-and-metabolic-health-weight-metabolic-trend-care-team-review-bit",
+        "life-balance-nutrition-and-metabolic-health-weight-metabolic-trend-lifestyle-plan-adjust-bit",
+        "life-balance-nutrition-and-metabolic-health-weight-metabolic-trend-monitoring-task-bit",
+        "life-balance-nutrition-and-metabolic-health-micronutrient-risk-screen-care-team-review-bit",
+        "life-balance-nutrition-and-metabolic-health-micronutrient-risk-screen-lifestyle-plan-adjust-bit",
+        "life-balance-nutrition-and-metabolic-health-micronutrient-risk-screen-monitoring-task-bit",
+        "life-balance-nutrition-and-metabolic-health-family-food-environment-care-team-review-bit",
+        "life-balance-nutrition-and-metabolic-health-family-food-environment-lifestyle-plan-adjust-bit",
+        "life-balance-nutrition-and-metabolic-health-family-food-environment-monitoring-task-bit",
+        "life-balance-nutrition-and-metabolic-health-nutrition-plan-adherence-care-team-review-bit",
+        "life-balance-nutrition-and-metabolic-health-nutrition-plan-adherence-lifestyle-plan-adjust-bit",
+        "life-balance-nutrition-and-metabolic-health-nutrition-plan-adherence-monitoring-task-bit",
+        "life-balance-nutrition-and-metabolic-health-metabolic-nutrition-executive-care-team-review-bit",
+        "life-balance-nutrition-and-metabolic-health-metabolic-nutrition-executive-lifestyle-plan-adjust-bit",
+        "life-balance-nutrition-and-metabolic-health-metabolic-nutrition-executive-monitoring-task-bit"
+      ],
+      "ttlMs": 300000,
+      "normalization": "already-normalized-0-1",
+      "ingest": {
+        "endpoint": "/api/integrations/completions",
+        "method": "POST",
+        "triggerPush": false,
+        "compactPush": true
+      },
+      "sourceMapping": {
+        "id": "acp-lifebalancenutritionmetabolichealthinterconnect-input-assessment",
+        "sensorId": "acp.openclaw.lifebalancenutritionmetabolichealthinterconnect.input-analyst.assessment",
+        "name": "OpenClaw lifebalancenutritionmetabolichealthinterconnect input-analyst assessment",
+        "region": {
+          "offset": 4654,
+          "length": 30
+        },
+        "ttlMs": 300000
+      }
+    },
+    "autonomyPolicy": {
+      "mode": "advise",
+      "stage": 1,
+      "writeBackType": "pe-sensor",
+      "canWriteBack": true,
+      "canStageActions": false,
+      "canExecuteActions": false,
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "blockedWhenRag": []
+    },
+    "riskControls": {
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "maxAutonomy": "advise",
+      "blockedWhenRag": []
+    }
+  },
+  "responseMapping": {
+    "schemaVersion": "1.0.0",
+    "responseContract": "structured-keys-or-text",
+    "mode": "advise",
+    "fields": [
+      {
+        "semantic": "life-balance-nutrition-and-metabolic-health-meal-pattern-stability-care-team-review-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-nutrition-and-metabolic-health-meal-pattern-stability-care-team-review-bit",
+          "responseKey": "life-balance-nutrition-and-metabolic-health-meal-pattern-stability-care-team-review-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancenutritionmetabolichealthinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4654,
+            "length": 30
+          },
+          "index": 0
+        }
+      },
+      {
+        "semantic": "life-balance-nutrition-and-metabolic-health-meal-pattern-stability-lifestyle-plan-adjust-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-nutrition-and-metabolic-health-meal-pattern-stability-lifestyle-plan-adjust-bit",
+          "responseKey": "life-balance-nutrition-and-metabolic-health-meal-pattern-stability-lifestyle-plan-adjust-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancenutritionmetabolichealthinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4654,
+            "length": 30
+          },
+          "index": 1
+        }
+      },
+      {
+        "semantic": "life-balance-nutrition-and-metabolic-health-meal-pattern-stability-monitoring-task-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-nutrition-and-metabolic-health-meal-pattern-stability-monitoring-task-bit",
+          "responseKey": "life-balance-nutrition-and-metabolic-health-meal-pattern-stability-monitoring-task-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancenutritionmetabolichealthinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4654,
+            "length": 30
+          },
+          "index": 2
+        }
+      },
+      {
+        "semantic": "life-balance-nutrition-and-metabolic-health-carbohydrate-tolerance-watch-care-team-review-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-nutrition-and-metabolic-health-carbohydrate-tolerance-watch-care-team-review-bit",
+          "responseKey": "life-balance-nutrition-and-metabolic-health-carbohydrate-tolerance-watch-care-team-review-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancenutritionmetabolichealthinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4654,
+            "length": 30
+          },
+          "index": 3
+        }
+      },
+      {
+        "semantic": "life-balance-nutrition-and-metabolic-health-carbohydrate-tolerance-watch-lifestyle-plan-adjust-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-nutrition-and-metabolic-health-carbohydrate-tolerance-watch-lifestyle-plan-adjust-bit",
+          "responseKey": "life-balance-nutrition-and-metabolic-health-carbohydrate-tolerance-watch-lifestyle-plan-adjust-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancenutritionmetabolichealthinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4654,
+            "length": 30
+          },
+          "index": 4
+        }
+      },
+      {
+        "semantic": "life-balance-nutrition-and-metabolic-health-carbohydrate-tolerance-watch-monitoring-task-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-nutrition-and-metabolic-health-carbohydrate-tolerance-watch-monitoring-task-bit",
+          "responseKey": "life-balance-nutrition-and-metabolic-health-carbohydrate-tolerance-watch-monitoring-task-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancenutritionmetabolichealthinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4654,
+            "length": 30
+          },
+          "index": 5
+        }
+      },
+      {
+        "semantic": "life-balance-nutrition-and-metabolic-health-protein-sufficiency-monitor-care-team-review-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-nutrition-and-metabolic-health-protein-sufficiency-monitor-care-team-review-bit",
+          "responseKey": "life-balance-nutrition-and-metabolic-health-protein-sufficiency-monitor-care-team-review-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancenutritionmetabolichealthinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4654,
+            "length": 30
+          },
+          "index": 6
+        }
+      },
+      {
+        "semantic": "life-balance-nutrition-and-metabolic-health-protein-sufficiency-monitor-lifestyle-plan-adjust-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-nutrition-and-metabolic-health-protein-sufficiency-monitor-lifestyle-plan-adjust-bit",
+          "responseKey": "life-balance-nutrition-and-metabolic-health-protein-sufficiency-monitor-lifestyle-plan-adjust-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancenutritionmetabolichealthinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4654,
+            "length": 30
+          },
+          "index": 7
+        }
+      },
+      {
+        "semantic": "life-balance-nutrition-and-metabolic-health-protein-sufficiency-monitor-monitoring-task-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-nutrition-and-metabolic-health-protein-sufficiency-monitor-monitoring-task-bit",
+          "responseKey": "life-balance-nutrition-and-metabolic-health-protein-sufficiency-monitor-monitoring-task-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancenutritionmetabolichealthinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4654,
+            "length": 30
+          },
+          "index": 8
+        }
+      },
+      {
+        "semantic": "life-balance-nutrition-and-metabolic-health-food-mood-journal-review-care-team-review-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-nutrition-and-metabolic-health-food-mood-journal-review-care-team-review-bit",
+          "responseKey": "life-balance-nutrition-and-metabolic-health-food-mood-journal-review-care-team-review-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancenutritionmetabolichealthinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4654,
+            "length": 30
+          },
+          "index": 9
+        }
+      },
+      {
+        "semantic": "life-balance-nutrition-and-metabolic-health-food-mood-journal-review-lifestyle-plan-adjust-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-nutrition-and-metabolic-health-food-mood-journal-review-lifestyle-plan-adjust-bit",
+          "responseKey": "life-balance-nutrition-and-metabolic-health-food-mood-journal-review-lifestyle-plan-adjust-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancenutritionmetabolichealthinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4654,
+            "length": 30
+          },
+          "index": 10
+        }
+      },
+      {
+        "semantic": "life-balance-nutrition-and-metabolic-health-food-mood-journal-review-monitoring-task-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-nutrition-and-metabolic-health-food-mood-journal-review-monitoring-task-bit",
+          "responseKey": "life-balance-nutrition-and-metabolic-health-food-mood-journal-review-monitoring-task-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancenutritionmetabolichealthinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4654,
+            "length": 30
+          },
+          "index": 11
+        }
+      },
+      {
+        "semantic": "life-balance-nutrition-and-metabolic-health-hydration-electrolyte-monitor-care-team-review-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-nutrition-and-metabolic-health-hydration-electrolyte-monitor-care-team-review-bit",
+          "responseKey": "life-balance-nutrition-and-metabolic-health-hydration-electrolyte-monitor-care-team-review-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancenutritionmetabolichealthinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4654,
+            "length": 30
+          },
+          "index": 12
+        }
+      },
+      {
+        "semantic": "life-balance-nutrition-and-metabolic-health-hydration-electrolyte-monitor-lifestyle-plan-adjust-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-nutrition-and-metabolic-health-hydration-electrolyte-monitor-lifestyle-plan-adjust-bit",
+          "responseKey": "life-balance-nutrition-and-metabolic-health-hydration-electrolyte-monitor-lifestyle-plan-adjust-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancenutritionmetabolichealthinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4654,
+            "length": 30
+          },
+          "index": 13
+        }
+      },
+      {
+        "semantic": "life-balance-nutrition-and-metabolic-health-hydration-electrolyte-monitor-monitoring-task-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-nutrition-and-metabolic-health-hydration-electrolyte-monitor-monitoring-task-bit",
+          "responseKey": "life-balance-nutrition-and-metabolic-health-hydration-electrolyte-monitor-monitoring-task-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancenutritionmetabolichealthinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4654,
+            "length": 30
+          },
+          "index": 14
+        }
+      },
+      {
+        "semantic": "life-balance-nutrition-and-metabolic-health-weight-metabolic-trend-care-team-review-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-nutrition-and-metabolic-health-weight-metabolic-trend-care-team-review-bit",
+          "responseKey": "life-balance-nutrition-and-metabolic-health-weight-metabolic-trend-care-team-review-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancenutritionmetabolichealthinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4654,
+            "length": 30
+          },
+          "index": 15
+        }
+      },
+      {
+        "semantic": "life-balance-nutrition-and-metabolic-health-weight-metabolic-trend-lifestyle-plan-adjust-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-nutrition-and-metabolic-health-weight-metabolic-trend-lifestyle-plan-adjust-bit",
+          "responseKey": "life-balance-nutrition-and-metabolic-health-weight-metabolic-trend-lifestyle-plan-adjust-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancenutritionmetabolichealthinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4654,
+            "length": 30
+          },
+          "index": 16
+        }
+      },
+      {
+        "semantic": "life-balance-nutrition-and-metabolic-health-weight-metabolic-trend-monitoring-task-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-nutrition-and-metabolic-health-weight-metabolic-trend-monitoring-task-bit",
+          "responseKey": "life-balance-nutrition-and-metabolic-health-weight-metabolic-trend-monitoring-task-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancenutritionmetabolichealthinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4654,
+            "length": 30
+          },
+          "index": 17
+        }
+      },
+      {
+        "semantic": "life-balance-nutrition-and-metabolic-health-micronutrient-risk-screen-care-team-review-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-nutrition-and-metabolic-health-micronutrient-risk-screen-care-team-review-bit",
+          "responseKey": "life-balance-nutrition-and-metabolic-health-micronutrient-risk-screen-care-team-review-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancenutritionmetabolichealthinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4654,
+            "length": 30
+          },
+          "index": 18
+        }
+      },
+      {
+        "semantic": "life-balance-nutrition-and-metabolic-health-micronutrient-risk-screen-lifestyle-plan-adjust-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-nutrition-and-metabolic-health-micronutrient-risk-screen-lifestyle-plan-adjust-bit",
+          "responseKey": "life-balance-nutrition-and-metabolic-health-micronutrient-risk-screen-lifestyle-plan-adjust-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancenutritionmetabolichealthinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4654,
+            "length": 30
+          },
+          "index": 19
+        }
+      },
+      {
+        "semantic": "life-balance-nutrition-and-metabolic-health-micronutrient-risk-screen-monitoring-task-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-nutrition-and-metabolic-health-micronutrient-risk-screen-monitoring-task-bit",
+          "responseKey": "life-balance-nutrition-and-metabolic-health-micronutrient-risk-screen-monitoring-task-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancenutritionmetabolichealthinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4654,
+            "length": 30
+          },
+          "index": 20
+        }
+      },
+      {
+        "semantic": "life-balance-nutrition-and-metabolic-health-family-food-environment-care-team-review-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-nutrition-and-metabolic-health-family-food-environment-care-team-review-bit",
+          "responseKey": "life-balance-nutrition-and-metabolic-health-family-food-environment-care-team-review-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancenutritionmetabolichealthinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4654,
+            "length": 30
+          },
+          "index": 21
+        }
+      },
+      {
+        "semantic": "life-balance-nutrition-and-metabolic-health-family-food-environment-lifestyle-plan-adjust-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-nutrition-and-metabolic-health-family-food-environment-lifestyle-plan-adjust-bit",
+          "responseKey": "life-balance-nutrition-and-metabolic-health-family-food-environment-lifestyle-plan-adjust-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancenutritionmetabolichealthinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4654,
+            "length": 30
+          },
+          "index": 22
+        }
+      },
+      {
+        "semantic": "life-balance-nutrition-and-metabolic-health-family-food-environment-monitoring-task-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-nutrition-and-metabolic-health-family-food-environment-monitoring-task-bit",
+          "responseKey": "life-balance-nutrition-and-metabolic-health-family-food-environment-monitoring-task-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancenutritionmetabolichealthinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4654,
+            "length": 30
+          },
+          "index": 23
+        }
+      },
+      {
+        "semantic": "life-balance-nutrition-and-metabolic-health-nutrition-plan-adherence-care-team-review-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-nutrition-and-metabolic-health-nutrition-plan-adherence-care-team-review-bit",
+          "responseKey": "life-balance-nutrition-and-metabolic-health-nutrition-plan-adherence-care-team-review-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancenutritionmetabolichealthinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4654,
+            "length": 30
+          },
+          "index": 24
+        }
+      },
+      {
+        "semantic": "life-balance-nutrition-and-metabolic-health-nutrition-plan-adherence-lifestyle-plan-adjust-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-nutrition-and-metabolic-health-nutrition-plan-adherence-lifestyle-plan-adjust-bit",
+          "responseKey": "life-balance-nutrition-and-metabolic-health-nutrition-plan-adherence-lifestyle-plan-adjust-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancenutritionmetabolichealthinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4654,
+            "length": 30
+          },
+          "index": 25
+        }
+      },
+      {
+        "semantic": "life-balance-nutrition-and-metabolic-health-nutrition-plan-adherence-monitoring-task-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-nutrition-and-metabolic-health-nutrition-plan-adherence-monitoring-task-bit",
+          "responseKey": "life-balance-nutrition-and-metabolic-health-nutrition-plan-adherence-monitoring-task-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancenutritionmetabolichealthinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4654,
+            "length": 30
+          },
+          "index": 26
+        }
+      },
+      {
+        "semantic": "life-balance-nutrition-and-metabolic-health-metabolic-nutrition-executive-care-team-review-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-nutrition-and-metabolic-health-metabolic-nutrition-executive-care-team-review-bit",
+          "responseKey": "life-balance-nutrition-and-metabolic-health-metabolic-nutrition-executive-care-team-review-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancenutritionmetabolichealthinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4654,
+            "length": 30
+          },
+          "index": 27
+        }
+      },
+      {
+        "semantic": "life-balance-nutrition-and-metabolic-health-metabolic-nutrition-executive-lifestyle-plan-adjust-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-nutrition-and-metabolic-health-metabolic-nutrition-executive-lifestyle-plan-adjust-bit",
+          "responseKey": "life-balance-nutrition-and-metabolic-health-metabolic-nutrition-executive-lifestyle-plan-adjust-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancenutritionmetabolichealthinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4654,
+            "length": 30
+          },
+          "index": 28
+        }
+      },
+      {
+        "semantic": "life-balance-nutrition-and-metabolic-health-metabolic-nutrition-executive-monitoring-task-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/life-balance-nutrition-and-metabolic-health-metabolic-nutrition-executive-monitoring-task-bit",
+          "responseKey": "life-balance-nutrition-and-metabolic-health-metabolic-nutrition-executive-monitoring-task-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lifebalancenutritionmetabolichealthinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4654,
+            "length": 30
+          },
+          "index": 29
+        }
+      }
+    ]
+  },
+  "diagnostics": {
+    "axisBasis": "inputSemantics",
+    "warnings": [
+      "input axes derived from inputSemantics (no length-matched sensorNormalization)"
+    ],
+    "inputLength": 30,
+    "sequenceCount": 4
+  }
+}

@@ -1,0 +1,778 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "oc-agent-template",
+  "role": "input-analyst",
+  "agentId": "chronic-pain-mental-health-access-interconnect",
+  "displayName": "Chronic Pain Mental Health Access Interconnect",
+  "machine": {
+    "id": "HomeChronicPainMentalHealthAccessInterconnect",
+    "name": "Chronic Pain Mental Health Access Interconnect",
+    "code": "chronic_pain_mental_health_access_interconnect",
+    "machineClass": "bridge",
+    "domain": "health-personal",
+    "inputRegion": {
+      "offset": 4320,
+      "length": 12
+    },
+    "outputRegion": {
+      "offset": 4332,
+      "length": 4
+    }
+  },
+  "openclaw": {
+    "id": "openclaw-xacp",
+    "kind": "acp",
+    "platform": "OpenClaw",
+    "surface": "xACP",
+    "command": "openclaw acp",
+    "gatewayUrl": "ws://127.0.0.1:18789",
+    "sessionKey": "agent:main:main",
+    "targetAgent": "chronic-pain-mental-health-access-interconnect",
+    "dispatchMode": "accepted-no-wait",
+    "completionMode": "pe-source-mapping",
+    "completionSourceMappingId": "acp-chronic-pain-mental-health-access-interconnect-input-assessment"
+  },
+  "reasoning": {
+    "objective": "Produce the normalized input vector for \"Chronic Pain Mental Health Access Interconnect\" from current observations so RE can evaluate its CES sequences.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Chronic Pain Mental Health Access Interconnect\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Published personal-health bridge bus that composes chronic disease burden, chronic pain burden, and mental-health access status into a compact fan-out lane for behavioral health integration, opioid safety review, and managed monitoring. PE owns source composition and writes the compact input lane; RE evaluates this machine as ordinary vector state.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- disease-exacerbation-bit (index 0):\n- disease-poor-control-bit (index 1):\n- disease-borderline-control-bit (index 2):\n- disease-controlled-bit (index 3):\n- pain-crisis-bit (index 4):\n- opioid-risk-elevated-bit (index 5):\n- functional-impairment-bit (index 6):\n- pain-managed-bit (index 7):\n- mental-health-crisis-bit (index 8):\n- mental-health-referral-needed-bit (index 9):\n- comorbidity-risk-bit (index 10):\n- mental-health-access-adequate-bit (index 11):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- chronic-pain-mh-urgent-behavioral-health-response (RED) -> action: Route urgent behavioral-health response and physician review.\n- chronic-pain-mh-integrated-referral (AMBER) -> action: Publish integrated behavioral-health referral need.\n- chronic-pain-mh-opioid-safety-review (AMBER) -> action: Route opioid safety review with behavioral-health context.\n- chronic-pain-mh-managed-monitoring (GREEN) -> action: Continue managed monitoring and routine follow-up.",
+    "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
+    "inputAxes": [
+      {
+        "index": 0,
+        "key": "disease-exacerbation-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 1,
+        "key": "disease-poor-control-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 2,
+        "key": "disease-borderline-control-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 3,
+        "key": "disease-controlled-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 4,
+        "key": "pain-crisis-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 5,
+        "key": "opioid-risk-elevated-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 6,
+        "key": "functional-impairment-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 7,
+        "key": "pain-managed-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 8,
+        "key": "mental-health-crisis-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 9,
+        "key": "mental-health-referral-needed-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 10,
+        "key": "comorbidity-risk-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 11,
+        "key": "mental-health-access-adequate-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      }
+    ],
+    "sequenceCatalog": [
+      {
+        "sequenceId": "chronic-pain-mh-urgent-behavioral-health-response",
+        "label": "chronic-pain-mh-urgent-behavioral-health-response",
+        "rag": "RED",
+        "outputIndex": 0,
+        "action": "Route urgent behavioral-health response and physician review."
+      },
+      {
+        "sequenceId": "chronic-pain-mh-integrated-referral",
+        "label": "chronic-pain-mh-integrated-referral",
+        "rag": "AMBER",
+        "outputIndex": 1,
+        "action": "Publish integrated behavioral-health referral need."
+      },
+      {
+        "sequenceId": "chronic-pain-mh-opioid-safety-review",
+        "label": "chronic-pain-mh-opioid-safety-review",
+        "rag": "AMBER",
+        "outputIndex": 2,
+        "action": "Route opioid safety review with behavioral-health context."
+      },
+      {
+        "sequenceId": "chronic-pain-mh-managed-monitoring",
+        "label": "chronic-pain-mh-managed-monitoring",
+        "rag": "GREEN",
+        "outputIndex": 3,
+        "action": "Continue managed monitoring and routine follow-up."
+      }
+    ]
+  },
+  "agentBinding": {
+    "agent": "chronic-pain-mental-health-access-interconnect",
+    "mode": "advise",
+    "trigger": "chronic_pain_mental_health_access_interconnect-input-assessment",
+    "allowedActions": [
+      "Assess current \"Chronic Pain Mental Health Access Interconnect\" state from available observations and write the normalized input vector to the PE input region [4320:4332] for RE to evaluate."
+    ],
+    "writeBack": {
+      "type": "pe-sensor",
+      "provider": "acp",
+      "sensorId": "acp.openclaw.chronic_pain_mental_health_access_interconnect.input-analyst.assessment",
+      "name": "OpenClaw chronic_pain_mental_health_access_interconnect input-analyst assessment",
+      "region": {
+        "offset": 4320,
+        "length": 12
+      },
+      "semantics": [
+        "disease-exacerbation-bit",
+        "disease-poor-control-bit",
+        "disease-borderline-control-bit",
+        "disease-controlled-bit",
+        "pain-crisis-bit",
+        "opioid-risk-elevated-bit",
+        "functional-impairment-bit",
+        "pain-managed-bit",
+        "mental-health-crisis-bit",
+        "mental-health-referral-needed-bit",
+        "comorbidity-risk-bit",
+        "mental-health-access-adequate-bit"
+      ],
+      "ttlMs": 300000,
+      "normalization": "already-normalized-0-1",
+      "ingest": {
+        "endpoint": "/api/integrations/completions",
+        "method": "POST",
+        "triggerPush": false,
+        "compactPush": true
+      },
+      "sourceMapping": {
+        "id": "acp-chronic_pain_mental_health_access_interconnect-input-assessment",
+        "sensorId": "acp.openclaw.chronic_pain_mental_health_access_interconnect.input-analyst.assessment",
+        "name": "OpenClaw chronic_pain_mental_health_access_interconnect input-analyst assessment",
+        "region": {
+          "offset": 4320,
+          "length": 12
+        },
+        "ttlMs": 300000
+      }
+    },
+    "autonomyPolicy": {
+      "mode": "advise",
+      "stage": 1,
+      "writeBackType": "pe-sensor",
+      "canWriteBack": true,
+      "canStageActions": false,
+      "canExecuteActions": false,
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "blockedWhenRag": []
+    },
+    "riskControls": {
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "maxAutonomy": "advise",
+      "blockedWhenRag": []
+    }
+  },
+  "responseMapping": {
+    "schemaVersion": "1.0.0",
+    "responseContract": "structured-keys-or-text",
+    "mode": "advise",
+    "fields": [
+      {
+        "semantic": "disease-exacerbation-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/disease-exacerbation-bit",
+          "responseKey": "disease-exacerbation-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.chronic_pain_mental_health_access_interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4320,
+            "length": 12
+          },
+          "index": 0
+        }
+      },
+      {
+        "semantic": "disease-poor-control-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/disease-poor-control-bit",
+          "responseKey": "disease-poor-control-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.chronic_pain_mental_health_access_interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4320,
+            "length": 12
+          },
+          "index": 1
+        }
+      },
+      {
+        "semantic": "disease-borderline-control-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/disease-borderline-control-bit",
+          "responseKey": "disease-borderline-control-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.chronic_pain_mental_health_access_interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4320,
+            "length": 12
+          },
+          "index": 2
+        }
+      },
+      {
+        "semantic": "disease-controlled-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/disease-controlled-bit",
+          "responseKey": "disease-controlled-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.chronic_pain_mental_health_access_interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4320,
+            "length": 12
+          },
+          "index": 3
+        }
+      },
+      {
+        "semantic": "pain-crisis-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/pain-crisis-bit",
+          "responseKey": "pain-crisis-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.chronic_pain_mental_health_access_interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4320,
+            "length": 12
+          },
+          "index": 4
+        }
+      },
+      {
+        "semantic": "opioid-risk-elevated-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/opioid-risk-elevated-bit",
+          "responseKey": "opioid-risk-elevated-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.chronic_pain_mental_health_access_interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4320,
+            "length": 12
+          },
+          "index": 5
+        }
+      },
+      {
+        "semantic": "functional-impairment-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/functional-impairment-bit",
+          "responseKey": "functional-impairment-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.chronic_pain_mental_health_access_interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4320,
+            "length": 12
+          },
+          "index": 6
+        }
+      },
+      {
+        "semantic": "pain-managed-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/pain-managed-bit",
+          "responseKey": "pain-managed-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.chronic_pain_mental_health_access_interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4320,
+            "length": 12
+          },
+          "index": 7
+        }
+      },
+      {
+        "semantic": "mental-health-crisis-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/mental-health-crisis-bit",
+          "responseKey": "mental-health-crisis-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.chronic_pain_mental_health_access_interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4320,
+            "length": 12
+          },
+          "index": 8
+        }
+      },
+      {
+        "semantic": "mental-health-referral-needed-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/mental-health-referral-needed-bit",
+          "responseKey": "mental-health-referral-needed-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.chronic_pain_mental_health_access_interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4320,
+            "length": 12
+          },
+          "index": 9
+        }
+      },
+      {
+        "semantic": "comorbidity-risk-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/comorbidity-risk-bit",
+          "responseKey": "comorbidity-risk-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.chronic_pain_mental_health_access_interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4320,
+            "length": 12
+          },
+          "index": 10
+        }
+      },
+      {
+        "semantic": "mental-health-access-adequate-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/mental-health-access-adequate-bit",
+          "responseKey": "mental-health-access-adequate-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.chronic_pain_mental_health_access_interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4320,
+            "length": 12
+          },
+          "index": 11
+        }
+      }
+    ]
+  },
+  "diagnostics": {
+    "axisBasis": "inputSemantics",
+    "warnings": [
+      "input axes derived from inputSemantics (no length-matched sensorNormalization)"
+    ],
+    "inputLength": 12,
+    "sequenceCount": 4
+  }
+}

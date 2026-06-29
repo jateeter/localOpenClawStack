@@ -1,0 +1,1096 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "oc-agent-template",
+  "role": "input-analyst",
+  "agentId": "daily-patient-care-response-interconnect",
+  "displayName": "Daily Patient Care Response Interconnect",
+  "machine": {
+    "id": "DailyPatientCareResponseInterconnect",
+    "name": "Daily Patient Care Response Interconnect",
+    "code": "daily_patient_care_response_interconnect",
+    "machineClass": "bridge",
+    "domain": "health-personal",
+    "inputRegion": {
+      "offset": 4480,
+      "length": 18
+    },
+    "outputRegion": {
+      "offset": 4498,
+      "length": 4
+    }
+  },
+  "openclaw": {
+    "id": "openclaw-xacp",
+    "kind": "acp",
+    "platform": "OpenClaw",
+    "surface": "xACP",
+    "command": "openclaw acp",
+    "gatewayUrl": "ws://127.0.0.1:18789",
+    "sessionKey": "agent:main:main",
+    "targetAgent": "daily-patient-care-response-interconnect",
+    "dispatchMode": "accepted-no-wait",
+    "completionMode": "pe-source-mapping",
+    "completionSourceMappingId": "acp-daily-patient-care-response-interconnect-input-assessment"
+  },
+  "reasoning": {
+    "objective": "Produce the normalized input vector for \"Daily Patient Care Response Interconnect\" from current observations so RE can evaluate its CES sequences.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Daily Patient Care Response Interconnect\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Published personal-health bridge bus that composes daily patient care, facilities observations, fall criticality, medication adherence, hydration status, and patient wellness acuity into a compact daily-care response lane. PE owns source composition and writes the compact input lane; RE evaluates this machine as ordinary vector state.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- daily-care-morning-complete-bit (index 0):\n- daily-care-evening-complete-bit (index 1):\n- daily-care-fall-confirmed-bit (index 2):\n- daily-care-unresponsive-fall-bit (index 3):\n- daily-care-bathroom-alert-bit (index 4):\n- daily-care-medication-missed-bit (index 5):\n- daily-care-wandering-alert-bit (index 6):\n- facilities-hygiene-alert-bit (index 7):\n- facilities-safety-alert-bit (index 8):\n- facilities-wellness-concern-bit (index 9):\n- facilities-inaccessibility-alert-bit (index 10):\n- fall-red-high-confidence-bit (index 11):\n- medication-adherence-delayed-bit (index 12):\n- medication-adherence-missed-bit (index 13):\n- hydration-low-bit (index 14):\n- hydration-critical-bit (index 15):\n- patient-wellness-alert-bit (index 16):\n- patient-wellness-critical-bit (index 17):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- daily-patient-care-urgent-safety-response (RED) -> action: Route urgent staff response, care coordination, governance escalation, movement safety review, and wearable monitoring.\n- daily-patient-care-routine-recovery (AMBER) -> action: Route care routine recovery, nursing review, movement/sleep stabilization, and care visit preparation.\n- daily-patient-care-medication-hydration-review (AMBER) -> action: Route medication response tracking, hydration review, care visit preparation, and care coordination resource routing.\n- daily-patient-care-stable (GREEN) -> action: Route stable daily-care monitoring without urgent dispatch.",
+    "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
+    "inputAxes": [
+      {
+        "index": 0,
+        "key": "daily-care-morning-complete-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 1,
+        "key": "daily-care-evening-complete-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 2,
+        "key": "daily-care-fall-confirmed-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 3,
+        "key": "daily-care-unresponsive-fall-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 4,
+        "key": "daily-care-bathroom-alert-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 5,
+        "key": "daily-care-medication-missed-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 6,
+        "key": "daily-care-wandering-alert-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 7,
+        "key": "facilities-hygiene-alert-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 8,
+        "key": "facilities-safety-alert-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 9,
+        "key": "facilities-wellness-concern-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 10,
+        "key": "facilities-inaccessibility-alert-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 11,
+        "key": "fall-red-high-confidence-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 12,
+        "key": "medication-adherence-delayed-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 13,
+        "key": "medication-adherence-missed-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 14,
+        "key": "hydration-low-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 15,
+        "key": "hydration-critical-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 16,
+        "key": "patient-wellness-alert-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 17,
+        "key": "patient-wellness-critical-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      }
+    ],
+    "sequenceCatalog": [
+      {
+        "sequenceId": "daily-patient-care-urgent-safety-response",
+        "label": "daily-patient-care-urgent-safety-response",
+        "rag": "RED",
+        "outputIndex": 0,
+        "action": "Route urgent staff response, care coordination, governance escalation, movement safety review, and wearable monitoring."
+      },
+      {
+        "sequenceId": "daily-patient-care-routine-recovery",
+        "label": "daily-patient-care-routine-recovery",
+        "rag": "AMBER",
+        "outputIndex": 1,
+        "action": "Route care routine recovery, nursing review, movement/sleep stabilization, and care visit preparation."
+      },
+      {
+        "sequenceId": "daily-patient-care-medication-hydration-review",
+        "label": "daily-patient-care-medication-hydration-review",
+        "rag": "AMBER",
+        "outputIndex": 2,
+        "action": "Route medication response tracking, hydration review, care visit preparation, and care coordination resource routing."
+      },
+      {
+        "sequenceId": "daily-patient-care-stable",
+        "label": "daily-patient-care-stable",
+        "rag": "GREEN",
+        "outputIndex": 3,
+        "action": "Route stable daily-care monitoring without urgent dispatch."
+      }
+    ]
+  },
+  "agentBinding": {
+    "agent": "daily-patient-care-response-interconnect",
+    "mode": "advise",
+    "trigger": "daily_patient_care_response_interconnect-input-assessment",
+    "allowedActions": [
+      "Assess current \"Daily Patient Care Response Interconnect\" state from available observations and write the normalized input vector to the PE input region [4480:4498] for RE to evaluate."
+    ],
+    "writeBack": {
+      "type": "pe-sensor",
+      "provider": "acp",
+      "sensorId": "acp.openclaw.daily_patient_care_response_interconnect.input-analyst.assessment",
+      "name": "OpenClaw daily_patient_care_response_interconnect input-analyst assessment",
+      "region": {
+        "offset": 4480,
+        "length": 18
+      },
+      "semantics": [
+        "daily-care-morning-complete-bit",
+        "daily-care-evening-complete-bit",
+        "daily-care-fall-confirmed-bit",
+        "daily-care-unresponsive-fall-bit",
+        "daily-care-bathroom-alert-bit",
+        "daily-care-medication-missed-bit",
+        "daily-care-wandering-alert-bit",
+        "facilities-hygiene-alert-bit",
+        "facilities-safety-alert-bit",
+        "facilities-wellness-concern-bit",
+        "facilities-inaccessibility-alert-bit",
+        "fall-red-high-confidence-bit",
+        "medication-adherence-delayed-bit",
+        "medication-adherence-missed-bit",
+        "hydration-low-bit",
+        "hydration-critical-bit",
+        "patient-wellness-alert-bit",
+        "patient-wellness-critical-bit"
+      ],
+      "ttlMs": 300000,
+      "normalization": "already-normalized-0-1",
+      "ingest": {
+        "endpoint": "/api/integrations/completions",
+        "method": "POST",
+        "triggerPush": false,
+        "compactPush": true
+      },
+      "sourceMapping": {
+        "id": "acp-daily_patient_care_response_interconnect-input-assessment",
+        "sensorId": "acp.openclaw.daily_patient_care_response_interconnect.input-analyst.assessment",
+        "name": "OpenClaw daily_patient_care_response_interconnect input-analyst assessment",
+        "region": {
+          "offset": 4480,
+          "length": 18
+        },
+        "ttlMs": 300000
+      }
+    },
+    "autonomyPolicy": {
+      "mode": "advise",
+      "stage": 1,
+      "writeBackType": "pe-sensor",
+      "canWriteBack": true,
+      "canStageActions": false,
+      "canExecuteActions": false,
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "blockedWhenRag": []
+    },
+    "riskControls": {
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "maxAutonomy": "advise",
+      "blockedWhenRag": []
+    }
+  },
+  "responseMapping": {
+    "schemaVersion": "1.0.0",
+    "responseContract": "structured-keys-or-text",
+    "mode": "advise",
+    "fields": [
+      {
+        "semantic": "daily-care-morning-complete-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/daily-care-morning-complete-bit",
+          "responseKey": "daily-care-morning-complete-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.daily_patient_care_response_interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4480,
+            "length": 18
+          },
+          "index": 0
+        }
+      },
+      {
+        "semantic": "daily-care-evening-complete-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/daily-care-evening-complete-bit",
+          "responseKey": "daily-care-evening-complete-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.daily_patient_care_response_interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4480,
+            "length": 18
+          },
+          "index": 1
+        }
+      },
+      {
+        "semantic": "daily-care-fall-confirmed-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/daily-care-fall-confirmed-bit",
+          "responseKey": "daily-care-fall-confirmed-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.daily_patient_care_response_interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4480,
+            "length": 18
+          },
+          "index": 2
+        }
+      },
+      {
+        "semantic": "daily-care-unresponsive-fall-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/daily-care-unresponsive-fall-bit",
+          "responseKey": "daily-care-unresponsive-fall-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.daily_patient_care_response_interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4480,
+            "length": 18
+          },
+          "index": 3
+        }
+      },
+      {
+        "semantic": "daily-care-bathroom-alert-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/daily-care-bathroom-alert-bit",
+          "responseKey": "daily-care-bathroom-alert-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.daily_patient_care_response_interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4480,
+            "length": 18
+          },
+          "index": 4
+        }
+      },
+      {
+        "semantic": "daily-care-medication-missed-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/daily-care-medication-missed-bit",
+          "responseKey": "daily-care-medication-missed-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.daily_patient_care_response_interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4480,
+            "length": 18
+          },
+          "index": 5
+        }
+      },
+      {
+        "semantic": "daily-care-wandering-alert-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/daily-care-wandering-alert-bit",
+          "responseKey": "daily-care-wandering-alert-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.daily_patient_care_response_interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4480,
+            "length": 18
+          },
+          "index": 6
+        }
+      },
+      {
+        "semantic": "facilities-hygiene-alert-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/facilities-hygiene-alert-bit",
+          "responseKey": "facilities-hygiene-alert-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.daily_patient_care_response_interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4480,
+            "length": 18
+          },
+          "index": 7
+        }
+      },
+      {
+        "semantic": "facilities-safety-alert-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/facilities-safety-alert-bit",
+          "responseKey": "facilities-safety-alert-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.daily_patient_care_response_interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4480,
+            "length": 18
+          },
+          "index": 8
+        }
+      },
+      {
+        "semantic": "facilities-wellness-concern-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/facilities-wellness-concern-bit",
+          "responseKey": "facilities-wellness-concern-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.daily_patient_care_response_interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4480,
+            "length": 18
+          },
+          "index": 9
+        }
+      },
+      {
+        "semantic": "facilities-inaccessibility-alert-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/facilities-inaccessibility-alert-bit",
+          "responseKey": "facilities-inaccessibility-alert-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.daily_patient_care_response_interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4480,
+            "length": 18
+          },
+          "index": 10
+        }
+      },
+      {
+        "semantic": "fall-red-high-confidence-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/fall-red-high-confidence-bit",
+          "responseKey": "fall-red-high-confidence-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.daily_patient_care_response_interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4480,
+            "length": 18
+          },
+          "index": 11
+        }
+      },
+      {
+        "semantic": "medication-adherence-delayed-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/medication-adherence-delayed-bit",
+          "responseKey": "medication-adherence-delayed-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.daily_patient_care_response_interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4480,
+            "length": 18
+          },
+          "index": 12
+        }
+      },
+      {
+        "semantic": "medication-adherence-missed-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/medication-adherence-missed-bit",
+          "responseKey": "medication-adherence-missed-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.daily_patient_care_response_interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4480,
+            "length": 18
+          },
+          "index": 13
+        }
+      },
+      {
+        "semantic": "hydration-low-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/hydration-low-bit",
+          "responseKey": "hydration-low-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.daily_patient_care_response_interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4480,
+            "length": 18
+          },
+          "index": 14
+        }
+      },
+      {
+        "semantic": "hydration-critical-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/hydration-critical-bit",
+          "responseKey": "hydration-critical-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.daily_patient_care_response_interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4480,
+            "length": 18
+          },
+          "index": 15
+        }
+      },
+      {
+        "semantic": "patient-wellness-alert-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/patient-wellness-alert-bit",
+          "responseKey": "patient-wellness-alert-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.daily_patient_care_response_interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4480,
+            "length": 18
+          },
+          "index": 16
+        }
+      },
+      {
+        "semantic": "patient-wellness-critical-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/patient-wellness-critical-bit",
+          "responseKey": "patient-wellness-critical-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.daily_patient_care_response_interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 4480,
+            "length": 18
+          },
+          "index": 17
+        }
+      }
+    ]
+  },
+  "diagnostics": {
+    "axisBasis": "inputSemantics",
+    "warnings": [
+      "input axes derived from inputSemantics (no length-matched sensorNormalization)"
+    ],
+    "inputLength": 18,
+    "sequenceCount": 4
+  }
+}

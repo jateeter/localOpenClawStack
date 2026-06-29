@@ -34,7 +34,7 @@
   },
   "reasoning": {
     "objective": "Produce the normalized input vector for \"Home Food Security Monitor\" from current observations so RE can evaluate its CES sequences.",
-    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Home Food Security Monitor\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Monitors household food access, meal frequency, and nutrition assistance engagement for low- and medium-income families receiving home-based care. Tracks the progression from adequate food access through food insecurity to crisis conditions requiring immediate SNAP, WIC, or food-bank referral. Output at [1995:1999] feeds the Adolescent Mental Health Monitor, reflecting the documented link between food insecurity and adolescent behavioral health outcomes.\n\nPOPULATION: Low- and medium-income households; families with children; adults on fixed incomes\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- meal_frequency_norm (index 0):  0.0 = zero adequate meals/day | 0.5 = 2\u20133 adequate meals/day (sufficient) | 1.0 = 4+ meals/day\n- food_quality_norm (index 1):  0.0 = no nutritious food available | 0.5 = adequate caloric and nutritional balance | 1.0 = optimal nutrition with variety\n- pantry_days_norm (index 2):  0.0 = empty pantry (0 days supply) | 0.5 = 3\u20135 day supply | 1.0 = 2+ week supply\n- food_assistance_norm (index 3):  0.0 = no assistance active (not enrolled or access lapsed) | 0.5 = partial benefit (SNAP pending/partial) | 1.0 = full assistance active (SNAP/WIC/food bank regular)\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- FOOD_CRISIS (RED) -> action: Emergency food bank referral; SNAP expedited application; care coordinator notification\n- ASSISTANCE_NEEDED (AMBER) -> action: Benefits navigator outreach; screen for SNAP/WIC eligibility; food bank connection\n- FOOD_SECURE (AMBER) -> action: Downstream adolescent mental health monitor registers stable food environment",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Home Food Security Monitor\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Monitors household food access, meal frequency, and nutrition assistance engagement for low- and medium-income families receiving home-based care. Tracks the progression from adequate food access through food insecurity to crisis conditions requiring immediate SNAP, WIC, or food-bank referral. Output at [1995:1999] feeds the Adolescent Mental Health Monitor, reflecting the documented link between food insecurity and adolescent behavioral health outcomes.\n\nPOPULATION: Low- and medium-income households; families with children; adults on fixed incomes\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- meal_frequency_norm (index 0):  0.0 = zero adequate meals/day | 0.5 = 2\u20133 adequate meals/day (sufficient) | 1.0 = 4+ meals/day\n- food_quality_norm (index 1):  0.0 = no nutritious food available | 0.5 = adequate caloric and nutritional balance | 1.0 = optimal nutrition with variety\n- pantry_days_norm (index 2):  0.0 = empty pantry (0 days supply) | 0.5 = 3\u20135 day supply | 1.0 = 2+ week supply\n- food_assistance_norm (index 3):  0.0 = no assistance active (not enrolled or access lapsed) | 0.5 = partial benefit (SNAP pending/partial) | 1.0 = full assistance active (SNAP/WIC/food bank regular)\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- FOOD_CRISIS (RED) -> action: Emergency food bank referral; SNAP expedited application; care coordinator notification\n- ASSISTANCE_NEEDED (AMBER) -> action: Benefits navigator outreach; screen for SNAP/WIC eligibility; food bank connection\n- FOOD_INSECURE (AMBER) -> action: Offer benefits screening, food pantry connection, and meal-stability follow-up before crisis escalation.\n- FOOD_SECURE (GREEN) -> action: Downstream adolescent mental health monitor registers stable food environment",
     "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
     "inputAxes": [
       {
@@ -90,9 +90,16 @@
         "action": "Benefits navigator outreach; screen for SNAP/WIC eligibility; food bank connection"
       },
       {
+        "sequenceId": "home-food-insecure",
+        "label": "FOOD_INSECURE",
+        "rag": "AMBER",
+        "outputIndex": 1,
+        "action": "Offer benefits screening, food pantry connection, and meal-stability follow-up before crisis escalation."
+      },
+      {
         "sequenceId": "home-food-secure",
         "label": "FOOD_SECURE",
-        "rag": "AMBER",
+        "rag": "GREEN",
         "outputIndex": 3,
         "action": "Downstream adolescent mental health monitor registers stable food environment"
       }
@@ -340,6 +347,6 @@
     "axisBasis": "sensorNormalization",
     "warnings": [],
     "inputLength": 4,
-    "sequenceCount": 3
+    "sequenceCount": 4
   }
 }

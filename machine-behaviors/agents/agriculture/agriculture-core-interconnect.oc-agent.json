@@ -1,0 +1,1573 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "oc-agent-template",
+  "role": "input-analyst",
+  "agentId": "agriculture-core-interconnect",
+  "displayName": "Agriculture Core Interconnect",
+  "machine": {
+    "id": "AgricultureCoreInterconnect",
+    "name": "Agriculture Core Interconnect",
+    "code": "agriculturecoreinterconnect",
+    "machineClass": "bridge",
+    "domain": "agriculture",
+    "inputRegion": {
+      "offset": 13000,
+      "length": 27
+    },
+    "outputRegion": {
+      "offset": 13027,
+      "length": 4
+    }
+  },
+  "openclaw": {
+    "id": "openclaw-xacp",
+    "kind": "acp",
+    "platform": "OpenClaw",
+    "surface": "xACP",
+    "command": "openclaw acp",
+    "gatewayUrl": "ws://127.0.0.1:18789",
+    "sessionKey": "agent:main:main",
+    "targetAgent": "agriculture-core-interconnect",
+    "dispatchMode": "accepted-no-wait",
+    "completionMode": "pe-source-mapping",
+    "completionSourceMappingId": "acp-agriculture-core-interconnect-input-assessment"
+  },
+  "reasoning": {
+    "objective": "Produce the normalized input vector for \"Agriculture Core Interconnect\" from current observations so RE can evaluate its CES sequences.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Agriculture Core Interconnect\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Published agriculture bridge bus that composes Agriculture Core into a compact domain family response lane. PE owns source composition and writes the compact input lane; RE evaluates this machine as ordinary vector state.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- ag-atmospheric-controller-active-output-0-bit (index 0):\n- ag-atmospheric-controller-active-output-1-bit (index 1):\n- ag-atmospheric-controller-active-output-2-bit (index 2):\n- ag-harvest-readiness-assessor-active-output-0-bit (index 3):\n- ag-harvest-readiness-assessor-active-output-1-bit (index 4):\n- ag-harvest-readiness-assessor-active-output-2-bit (index 5):\n- ag-ipm-pest-alert-monitor-active-output-0-bit (index 6):\n- ag-ipm-pest-alert-monitor-active-output-1-bit (index 7):\n- ag-ipm-pest-alert-monitor-active-output-2-bit (index 8):\n- ag-irrigation-flow-controller-active-output-0-bit (index 9):\n- ag-irrigation-flow-controller-active-output-1-bit (index 10):\n- ag-irrigation-flow-controller-active-output-2-bit (index 11):\n- ag-nutrient-cycle-optimizer-active-output-0-bit (index 12):\n- ag-nutrient-cycle-optimizer-active-output-1-bit (index 13):\n- ag-nutrient-cycle-optimizer-active-output-2-bit (index 14):\n- ag-nutrient-solution-monitor-active-output-0-bit (index 15):\n- ag-nutrient-solution-monitor-active-output-1-bit (index 16):\n- ag-nutrient-solution-monitor-active-output-2-bit (index 17):\n- ag-photo-period-lighting-controller-active-output-0-bit (index 18):\n- ag-photo-period-lighting-controller-active-output-1-bit (index 19):\n- ag-photo-period-lighting-controller-active-output-2-bit (index 20):\n- ag-plant-growth-cycle-monitor-active-output-0-bit (index 21):\n- ag-plant-growth-cycle-monitor-active-output-1-bit (index 22):\n- ag-plant-growth-cycle-monitor-active-output-2-bit (index 23):\n- ag-zone-temperature-controller-active-output-0-bit (index 24):\n- ag-zone-temperature-controller-active-output-1-bit (index 25):\n- ag-zone-temperature-controller-active-output-2-bit (index 26):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Agriculture Core domain family review at [13027 (RED) -> action: Route domain family review, escalation, and resolver summary.\n- Agriculture Core domain family optimization at [13027 (AMBER) -> action: Route domain family optimization or plan adjustment.\n- Agriculture Core domain family monitoring at [13027 (AMBER) -> action: Route monitoring, evidence, or data-quality follow-up.\n- Agriculture Core domain family stable at [13027 (GREEN) -> action: Record stable family state and keep baseline cadence.",
+    "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
+    "inputAxes": [
+      {
+        "index": 0,
+        "key": "ag-atmospheric-controller-active-output-0-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 1,
+        "key": "ag-atmospheric-controller-active-output-1-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 2,
+        "key": "ag-atmospheric-controller-active-output-2-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 3,
+        "key": "ag-harvest-readiness-assessor-active-output-0-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 4,
+        "key": "ag-harvest-readiness-assessor-active-output-1-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 5,
+        "key": "ag-harvest-readiness-assessor-active-output-2-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 6,
+        "key": "ag-ipm-pest-alert-monitor-active-output-0-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 7,
+        "key": "ag-ipm-pest-alert-monitor-active-output-1-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 8,
+        "key": "ag-ipm-pest-alert-monitor-active-output-2-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 9,
+        "key": "ag-irrigation-flow-controller-active-output-0-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 10,
+        "key": "ag-irrigation-flow-controller-active-output-1-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 11,
+        "key": "ag-irrigation-flow-controller-active-output-2-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 12,
+        "key": "ag-nutrient-cycle-optimizer-active-output-0-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 13,
+        "key": "ag-nutrient-cycle-optimizer-active-output-1-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 14,
+        "key": "ag-nutrient-cycle-optimizer-active-output-2-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 15,
+        "key": "ag-nutrient-solution-monitor-active-output-0-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 16,
+        "key": "ag-nutrient-solution-monitor-active-output-1-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 17,
+        "key": "ag-nutrient-solution-monitor-active-output-2-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 18,
+        "key": "ag-photo-period-lighting-controller-active-output-0-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 19,
+        "key": "ag-photo-period-lighting-controller-active-output-1-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 20,
+        "key": "ag-photo-period-lighting-controller-active-output-2-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 21,
+        "key": "ag-plant-growth-cycle-monitor-active-output-0-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 22,
+        "key": "ag-plant-growth-cycle-monitor-active-output-1-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 23,
+        "key": "ag-plant-growth-cycle-monitor-active-output-2-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 24,
+        "key": "ag-zone-temperature-controller-active-output-0-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 25,
+        "key": "ag-zone-temperature-controller-active-output-1-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 26,
+        "key": "ag-zone-temperature-controller-active-output-2-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      }
+    ],
+    "sequenceCatalog": [
+      {
+        "sequenceId": "agriculture-core-domain-family-review",
+        "label": "Agriculture Core domain family review at [13027",
+        "rag": "RED",
+        "outputIndex": 0,
+        "action": "Route domain family review, escalation, and resolver summary."
+      },
+      {
+        "sequenceId": "agriculture-core-domain-family-optimization",
+        "label": "Agriculture Core domain family optimization at [13027",
+        "rag": "AMBER",
+        "outputIndex": 1,
+        "action": "Route domain family optimization or plan adjustment."
+      },
+      {
+        "sequenceId": "agriculture-core-domain-family-monitoring",
+        "label": "Agriculture Core domain family monitoring at [13027",
+        "rag": "AMBER",
+        "outputIndex": 2,
+        "action": "Route monitoring, evidence, or data-quality follow-up."
+      },
+      {
+        "sequenceId": "agriculture-core-domain-family-stable",
+        "label": "Agriculture Core domain family stable at [13027",
+        "rag": "GREEN",
+        "outputIndex": 3,
+        "action": "Record stable family state and keep baseline cadence."
+      }
+    ]
+  },
+  "agentBinding": {
+    "agent": "agriculture-core-interconnect",
+    "mode": "advise",
+    "trigger": "agriculturecoreinterconnect-input-assessment",
+    "allowedActions": [
+      "Assess current \"Agriculture Core Interconnect\" state from available observations and write the normalized input vector to the PE input region [13000:13027] for RE to evaluate."
+    ],
+    "writeBack": {
+      "type": "pe-sensor",
+      "provider": "acp",
+      "sensorId": "acp.openclaw.agriculturecoreinterconnect.input-analyst.assessment",
+      "name": "OpenClaw agriculturecoreinterconnect input-analyst assessment",
+      "region": {
+        "offset": 13000,
+        "length": 27
+      },
+      "semantics": [
+        "ag-atmospheric-controller-active-output-0-bit",
+        "ag-atmospheric-controller-active-output-1-bit",
+        "ag-atmospheric-controller-active-output-2-bit",
+        "ag-harvest-readiness-assessor-active-output-0-bit",
+        "ag-harvest-readiness-assessor-active-output-1-bit",
+        "ag-harvest-readiness-assessor-active-output-2-bit",
+        "ag-ipm-pest-alert-monitor-active-output-0-bit",
+        "ag-ipm-pest-alert-monitor-active-output-1-bit",
+        "ag-ipm-pest-alert-monitor-active-output-2-bit",
+        "ag-irrigation-flow-controller-active-output-0-bit",
+        "ag-irrigation-flow-controller-active-output-1-bit",
+        "ag-irrigation-flow-controller-active-output-2-bit",
+        "ag-nutrient-cycle-optimizer-active-output-0-bit",
+        "ag-nutrient-cycle-optimizer-active-output-1-bit",
+        "ag-nutrient-cycle-optimizer-active-output-2-bit",
+        "ag-nutrient-solution-monitor-active-output-0-bit",
+        "ag-nutrient-solution-monitor-active-output-1-bit",
+        "ag-nutrient-solution-monitor-active-output-2-bit",
+        "ag-photo-period-lighting-controller-active-output-0-bit",
+        "ag-photo-period-lighting-controller-active-output-1-bit",
+        "ag-photo-period-lighting-controller-active-output-2-bit",
+        "ag-plant-growth-cycle-monitor-active-output-0-bit",
+        "ag-plant-growth-cycle-monitor-active-output-1-bit",
+        "ag-plant-growth-cycle-monitor-active-output-2-bit",
+        "ag-zone-temperature-controller-active-output-0-bit",
+        "ag-zone-temperature-controller-active-output-1-bit",
+        "ag-zone-temperature-controller-active-output-2-bit"
+      ],
+      "ttlMs": 300000,
+      "normalization": "already-normalized-0-1",
+      "ingest": {
+        "endpoint": "/api/integrations/completions",
+        "method": "POST",
+        "triggerPush": false,
+        "compactPush": true
+      },
+      "sourceMapping": {
+        "id": "acp-agriculturecoreinterconnect-input-assessment",
+        "sensorId": "acp.openclaw.agriculturecoreinterconnect.input-analyst.assessment",
+        "name": "OpenClaw agriculturecoreinterconnect input-analyst assessment",
+        "region": {
+          "offset": 13000,
+          "length": 27
+        },
+        "ttlMs": 300000
+      }
+    },
+    "autonomyPolicy": {
+      "mode": "advise",
+      "stage": 1,
+      "writeBackType": "pe-sensor",
+      "canWriteBack": true,
+      "canStageActions": false,
+      "canExecuteActions": false,
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "blockedWhenRag": []
+    },
+    "riskControls": {
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "maxAutonomy": "advise",
+      "blockedWhenRag": []
+    }
+  },
+  "responseMapping": {
+    "schemaVersion": "1.0.0",
+    "responseContract": "structured-keys-or-text",
+    "mode": "advise",
+    "fields": [
+      {
+        "semantic": "ag-atmospheric-controller-active-output-0-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/ag-atmospheric-controller-active-output-0-bit",
+          "responseKey": "ag-atmospheric-controller-active-output-0-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agriculturecoreinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 13000,
+            "length": 27
+          },
+          "index": 0
+        }
+      },
+      {
+        "semantic": "ag-atmospheric-controller-active-output-1-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/ag-atmospheric-controller-active-output-1-bit",
+          "responseKey": "ag-atmospheric-controller-active-output-1-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agriculturecoreinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 13000,
+            "length": 27
+          },
+          "index": 1
+        }
+      },
+      {
+        "semantic": "ag-atmospheric-controller-active-output-2-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/ag-atmospheric-controller-active-output-2-bit",
+          "responseKey": "ag-atmospheric-controller-active-output-2-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agriculturecoreinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 13000,
+            "length": 27
+          },
+          "index": 2
+        }
+      },
+      {
+        "semantic": "ag-harvest-readiness-assessor-active-output-0-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/ag-harvest-readiness-assessor-active-output-0-bit",
+          "responseKey": "ag-harvest-readiness-assessor-active-output-0-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agriculturecoreinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 13000,
+            "length": 27
+          },
+          "index": 3
+        }
+      },
+      {
+        "semantic": "ag-harvest-readiness-assessor-active-output-1-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/ag-harvest-readiness-assessor-active-output-1-bit",
+          "responseKey": "ag-harvest-readiness-assessor-active-output-1-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agriculturecoreinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 13000,
+            "length": 27
+          },
+          "index": 4
+        }
+      },
+      {
+        "semantic": "ag-harvest-readiness-assessor-active-output-2-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/ag-harvest-readiness-assessor-active-output-2-bit",
+          "responseKey": "ag-harvest-readiness-assessor-active-output-2-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agriculturecoreinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 13000,
+            "length": 27
+          },
+          "index": 5
+        }
+      },
+      {
+        "semantic": "ag-ipm-pest-alert-monitor-active-output-0-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/ag-ipm-pest-alert-monitor-active-output-0-bit",
+          "responseKey": "ag-ipm-pest-alert-monitor-active-output-0-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agriculturecoreinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 13000,
+            "length": 27
+          },
+          "index": 6
+        }
+      },
+      {
+        "semantic": "ag-ipm-pest-alert-monitor-active-output-1-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/ag-ipm-pest-alert-monitor-active-output-1-bit",
+          "responseKey": "ag-ipm-pest-alert-monitor-active-output-1-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agriculturecoreinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 13000,
+            "length": 27
+          },
+          "index": 7
+        }
+      },
+      {
+        "semantic": "ag-ipm-pest-alert-monitor-active-output-2-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/ag-ipm-pest-alert-monitor-active-output-2-bit",
+          "responseKey": "ag-ipm-pest-alert-monitor-active-output-2-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agriculturecoreinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 13000,
+            "length": 27
+          },
+          "index": 8
+        }
+      },
+      {
+        "semantic": "ag-irrigation-flow-controller-active-output-0-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/ag-irrigation-flow-controller-active-output-0-bit",
+          "responseKey": "ag-irrigation-flow-controller-active-output-0-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agriculturecoreinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 13000,
+            "length": 27
+          },
+          "index": 9
+        }
+      },
+      {
+        "semantic": "ag-irrigation-flow-controller-active-output-1-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/ag-irrigation-flow-controller-active-output-1-bit",
+          "responseKey": "ag-irrigation-flow-controller-active-output-1-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agriculturecoreinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 13000,
+            "length": 27
+          },
+          "index": 10
+        }
+      },
+      {
+        "semantic": "ag-irrigation-flow-controller-active-output-2-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/ag-irrigation-flow-controller-active-output-2-bit",
+          "responseKey": "ag-irrigation-flow-controller-active-output-2-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agriculturecoreinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 13000,
+            "length": 27
+          },
+          "index": 11
+        }
+      },
+      {
+        "semantic": "ag-nutrient-cycle-optimizer-active-output-0-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/ag-nutrient-cycle-optimizer-active-output-0-bit",
+          "responseKey": "ag-nutrient-cycle-optimizer-active-output-0-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agriculturecoreinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 13000,
+            "length": 27
+          },
+          "index": 12
+        }
+      },
+      {
+        "semantic": "ag-nutrient-cycle-optimizer-active-output-1-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/ag-nutrient-cycle-optimizer-active-output-1-bit",
+          "responseKey": "ag-nutrient-cycle-optimizer-active-output-1-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agriculturecoreinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 13000,
+            "length": 27
+          },
+          "index": 13
+        }
+      },
+      {
+        "semantic": "ag-nutrient-cycle-optimizer-active-output-2-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/ag-nutrient-cycle-optimizer-active-output-2-bit",
+          "responseKey": "ag-nutrient-cycle-optimizer-active-output-2-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agriculturecoreinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 13000,
+            "length": 27
+          },
+          "index": 14
+        }
+      },
+      {
+        "semantic": "ag-nutrient-solution-monitor-active-output-0-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/ag-nutrient-solution-monitor-active-output-0-bit",
+          "responseKey": "ag-nutrient-solution-monitor-active-output-0-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agriculturecoreinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 13000,
+            "length": 27
+          },
+          "index": 15
+        }
+      },
+      {
+        "semantic": "ag-nutrient-solution-monitor-active-output-1-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/ag-nutrient-solution-monitor-active-output-1-bit",
+          "responseKey": "ag-nutrient-solution-monitor-active-output-1-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agriculturecoreinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 13000,
+            "length": 27
+          },
+          "index": 16
+        }
+      },
+      {
+        "semantic": "ag-nutrient-solution-monitor-active-output-2-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/ag-nutrient-solution-monitor-active-output-2-bit",
+          "responseKey": "ag-nutrient-solution-monitor-active-output-2-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agriculturecoreinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 13000,
+            "length": 27
+          },
+          "index": 17
+        }
+      },
+      {
+        "semantic": "ag-photo-period-lighting-controller-active-output-0-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/ag-photo-period-lighting-controller-active-output-0-bit",
+          "responseKey": "ag-photo-period-lighting-controller-active-output-0-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agriculturecoreinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 13000,
+            "length": 27
+          },
+          "index": 18
+        }
+      },
+      {
+        "semantic": "ag-photo-period-lighting-controller-active-output-1-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/ag-photo-period-lighting-controller-active-output-1-bit",
+          "responseKey": "ag-photo-period-lighting-controller-active-output-1-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agriculturecoreinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 13000,
+            "length": 27
+          },
+          "index": 19
+        }
+      },
+      {
+        "semantic": "ag-photo-period-lighting-controller-active-output-2-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/ag-photo-period-lighting-controller-active-output-2-bit",
+          "responseKey": "ag-photo-period-lighting-controller-active-output-2-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agriculturecoreinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 13000,
+            "length": 27
+          },
+          "index": 20
+        }
+      },
+      {
+        "semantic": "ag-plant-growth-cycle-monitor-active-output-0-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/ag-plant-growth-cycle-monitor-active-output-0-bit",
+          "responseKey": "ag-plant-growth-cycle-monitor-active-output-0-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agriculturecoreinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 13000,
+            "length": 27
+          },
+          "index": 21
+        }
+      },
+      {
+        "semantic": "ag-plant-growth-cycle-monitor-active-output-1-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/ag-plant-growth-cycle-monitor-active-output-1-bit",
+          "responseKey": "ag-plant-growth-cycle-monitor-active-output-1-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agriculturecoreinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 13000,
+            "length": 27
+          },
+          "index": 22
+        }
+      },
+      {
+        "semantic": "ag-plant-growth-cycle-monitor-active-output-2-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/ag-plant-growth-cycle-monitor-active-output-2-bit",
+          "responseKey": "ag-plant-growth-cycle-monitor-active-output-2-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agriculturecoreinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 13000,
+            "length": 27
+          },
+          "index": 23
+        }
+      },
+      {
+        "semantic": "ag-zone-temperature-controller-active-output-0-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/ag-zone-temperature-controller-active-output-0-bit",
+          "responseKey": "ag-zone-temperature-controller-active-output-0-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agriculturecoreinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 13000,
+            "length": 27
+          },
+          "index": 24
+        }
+      },
+      {
+        "semantic": "ag-zone-temperature-controller-active-output-1-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/ag-zone-temperature-controller-active-output-1-bit",
+          "responseKey": "ag-zone-temperature-controller-active-output-1-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agriculturecoreinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 13000,
+            "length": 27
+          },
+          "index": 25
+        }
+      },
+      {
+        "semantic": "ag-zone-temperature-controller-active-output-2-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/ag-zone-temperature-controller-active-output-2-bit",
+          "responseKey": "ag-zone-temperature-controller-active-output-2-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.agriculturecoreinterconnect.input-analyst.assessment",
+          "region": {
+            "offset": 13000,
+            "length": 27
+          },
+          "index": 26
+        }
+      }
+    ]
+  },
+  "diagnostics": {
+    "axisBasis": "inputSemantics",
+    "warnings": [
+      "input axes derived from inputSemantics (no length-matched sensorNormalization)"
+    ],
+    "inputLength": 27,
+    "sequenceCount": 4
+  }
+}

@@ -111,8 +111,41 @@ check("C4.4 every mapping region inside reserved band",
       all(lo <= m["region"]["offset"] and m["region"]["offset"] + m["region"]["length"] <= hi
           for m in sm["sourceMappings"]))
 
+# C5: input-analyst coverage — one schema-valid agent per machine, materialized on disk
+import oc_agent_template as _oct  # noqa: E402
+_oc_schema = minischema.load_schema(ROOT / "templates" / "oc-agent.schema.json")
+_ia_ok = _ia_bad = _ia_err = 0
+_ia_ids = set()
+for _p in _files:
+    try:
+        _dd = _json.loads(_p.read_text())
+    except _json.JSONDecodeError:
+        continue
+    if not isinstance(_dd.get("machine"), dict):
+        continue
+    try:
+        _inst = _oct.derive(_p, CFG)
+    except Exception:
+        _ia_err += 1
+        continue
+    if minischema.validate(_inst, _oc_schema):
+        _ia_bad += 1
+    else:
+        _ia_ok += 1
+    _ia_ids.add((_inst["machine"]["domain"], _inst["agentId"]))
+check("C5.1 one schema-valid input-analyst agent per machine",
+      _ia_ok == s["machines"] and _ia_bad == 0, f"ok={_ia_ok} bad={_ia_bad} machines={s['machines']}")
+check("C5.2 no input-analyst derive errors across the corpus", _ia_err == 0, str(_ia_err))
+check("C5.3 input-analyst agent ids unique per domain", len(_ia_ids) == s["machines"], str(len(_ia_ids)))
+# materialized on disk: agents/INDEX.json total == machine count (after materialize_agents.py)
+_index_path = ROOT / "agents" / "INDEX.json"
+if _index_path.exists():
+    _idx = _json.loads(_index_path.read_text())
+    check("C5.4 agents/INDEX.json total == corpus machine count",
+          _idx.get("total") == s["machines"], f"index={_idx.get('total')} machines={s['machines']}")
+
 print(f"\ncoverage: {s['machines']} machines, {s['cesOutputs']} behaviors, "
-      f"{s['agentBindings']} bindings, {writeback} PE source mappings, "
-      f"band [{lo}:{hi}] used {regions[0][0]}..{regions[-1][1]}")
+      f"{s['agentBindings']} output-actor bindings, {writeback} PE source mappings, "
+      f"{_ia_ok} input-analyst agents, band [{lo}:{hi}] used {regions[0][0]}..{regions[-1][1]}")
 print(f"{_PASS} passed, {_FAIL} failed")
 sys.exit(1 if _FAIL else 0)

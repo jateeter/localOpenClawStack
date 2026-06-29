@@ -1,0 +1,1732 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "oc-agent-template",
+  "role": "input-analyst",
+  "agentId": "legal-services-lsx-031-040-interconnect",
+  "displayName": "Legal Services LSX-031-040 Interconnect",
+  "machine": {
+    "id": "LegalServicesLsx031040Interconnect",
+    "name": "Legal Services LSX-031-040 Interconnect",
+    "code": "legalserviceslsx031040interconnect",
+    "machineClass": "bridge",
+    "domain": "legal-services",
+    "inputRegion": {
+      "offset": 15762,
+      "length": 30
+    },
+    "outputRegion": {
+      "offset": 15792,
+      "length": 4
+    }
+  },
+  "openclaw": {
+    "id": "openclaw-xacp",
+    "kind": "acp",
+    "platform": "OpenClaw",
+    "surface": "xACP",
+    "command": "openclaw acp",
+    "gatewayUrl": "ws://127.0.0.1:18789",
+    "sessionKey": "agent:main:main",
+    "targetAgent": "legal-services-lsx-031-040-interconnect",
+    "dispatchMode": "accepted-no-wait",
+    "completionMode": "pe-source-mapping",
+    "completionSourceMappingId": "acp-legal-services-lsx-031-040-interconnect-input-assessment"
+  },
+  "reasoning": {
+    "objective": "Produce the normalized input vector for \"Legal Services LSX-031-040 Interconnect\" from current observations so RE can evaluate its CES sequences.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Legal Services LSX-031-040 Interconnect\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Published legal-services bridge bus that composes Legal Services LSX-031-040 into a compact domain family response lane. PE owns source composition and writes the compact input lane; RE evaluates this machine as ordinary vector state.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- legal-services-productization-ip-governance-product-ip-map-active-output-0-bit (index 0):\n- legal-services-productization-ip-governance-product-ip-map-active-output-1-bit (index 1):\n- legal-services-productization-ip-governance-product-ip-map-active-output-2-bit (index 2):\n- legal-services-productization-ip-governance-launch-clearance-gate-active-output-0-bit (index 3):\n- legal-services-productization-ip-governance-launch-clearance-gate-active-output-1-bit (index 4):\n- legal-services-productization-ip-governance-launch-clearance-gate-active-output-2-bit (index 5):\n- legal-services-productization-ip-governance-contractor-contributor-controls-active-output-0-bit (index 6):\n- legal-services-productization-ip-governance-contractor-contributor-controls-active-output-1-bit (index 7):\n- legal-services-productization-ip-governance-contractor-contributor-controls-active-output-2-bit (index 8):\n- legal-services-productization-ip-governance-open-source-compliance-active-output-0-bit (index 9):\n- legal-services-productization-ip-governance-open-source-compliance-active-output-1-bit (index 10):\n- legal-services-productization-ip-governance-open-source-compliance-active-output-2-bit (index 11):\n- legal-services-productization-ip-governance-trade-secret-boundary-active-output-0-bit (index 12):\n- legal-services-productization-ip-governance-trade-secret-boundary-active-output-1-bit (index 13):\n- legal-services-productization-ip-governance-trade-secret-boundary-active-output-2-bit (index 14):\n- legal-services-productization-ip-governance-patent-marking-readiness-active-output-0-bit (index 15):\n- legal-services-productization-ip-governance-patent-marking-readiness-active-output-1-bit (index 16):\n- legal-services-productization-ip-governance-patent-marking-readiness-active-output-2-bit (index 17):\n- legal-services-productization-ip-governance-brand-usage-governance-active-output-0-bit (index 18):\n- legal-services-productization-ip-governance-brand-usage-governance-active-output-1-bit (index 19):\n- legal-services-productization-ip-governance-brand-usage-governance-active-output-2-bit (index 20):\n- legal-services-productization-ip-governance-marketing-claims-review-active-output-0-bit (index 21):\n- legal-services-productization-ip-governance-marketing-claims-review-active-output-1-bit (index 22):\n- legal-services-productization-ip-governance-marketing-claims-review-active-output-2-bit (index 23):\n- legal-services-productization-ip-governance-licensing-monetization-intake-active-output-0-bit (index 24):\n- legal-services-productization-ip-governance-licensing-monetization-intake-active-output-1-bit (index 25):\n- legal-services-productization-ip-governance-licensing-monetization-intake-active-output-2-bit (index 26):\n- legal-services-productization-ip-governance-enforcement-watchlist-active-output-0-bit (index 27):\n- legal-services-productization-ip-governance-enforcement-watchlist-active-output-1-bit (index 28):\n- legal-services-productization-ip-governance-enforcement-watchlist-active-output-2-bit (index 29):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Legal Services LSX-031-040 domain family review at [15792 (RED) -> action: Route domain family review, escalation, and resolver summary.\n- Legal Services LSX-031-040 domain family optimization at [15792 (AMBER) -> action: Route domain family optimization or plan adjustment.\n- Legal Services LSX-031-040 domain family monitoring at [15792 (AMBER) -> action: Route monitoring, evidence, or data-quality follow-up.\n- Legal Services LSX-031-040 domain family stable at [15792 (GREEN) -> action: Record stable family state and keep baseline cadence.",
+    "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
+    "inputAxes": [
+      {
+        "index": 0,
+        "key": "legal-services-productization-ip-governance-product-ip-map-active-output-0-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 1,
+        "key": "legal-services-productization-ip-governance-product-ip-map-active-output-1-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 2,
+        "key": "legal-services-productization-ip-governance-product-ip-map-active-output-2-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 3,
+        "key": "legal-services-productization-ip-governance-launch-clearance-gate-active-output-0-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 4,
+        "key": "legal-services-productization-ip-governance-launch-clearance-gate-active-output-1-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 5,
+        "key": "legal-services-productization-ip-governance-launch-clearance-gate-active-output-2-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 6,
+        "key": "legal-services-productization-ip-governance-contractor-contributor-controls-active-output-0-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 7,
+        "key": "legal-services-productization-ip-governance-contractor-contributor-controls-active-output-1-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 8,
+        "key": "legal-services-productization-ip-governance-contractor-contributor-controls-active-output-2-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 9,
+        "key": "legal-services-productization-ip-governance-open-source-compliance-active-output-0-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 10,
+        "key": "legal-services-productization-ip-governance-open-source-compliance-active-output-1-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 11,
+        "key": "legal-services-productization-ip-governance-open-source-compliance-active-output-2-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 12,
+        "key": "legal-services-productization-ip-governance-trade-secret-boundary-active-output-0-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 13,
+        "key": "legal-services-productization-ip-governance-trade-secret-boundary-active-output-1-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 14,
+        "key": "legal-services-productization-ip-governance-trade-secret-boundary-active-output-2-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 15,
+        "key": "legal-services-productization-ip-governance-patent-marking-readiness-active-output-0-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 16,
+        "key": "legal-services-productization-ip-governance-patent-marking-readiness-active-output-1-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 17,
+        "key": "legal-services-productization-ip-governance-patent-marking-readiness-active-output-2-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 18,
+        "key": "legal-services-productization-ip-governance-brand-usage-governance-active-output-0-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 19,
+        "key": "legal-services-productization-ip-governance-brand-usage-governance-active-output-1-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 20,
+        "key": "legal-services-productization-ip-governance-brand-usage-governance-active-output-2-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 21,
+        "key": "legal-services-productization-ip-governance-marketing-claims-review-active-output-0-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 22,
+        "key": "legal-services-productization-ip-governance-marketing-claims-review-active-output-1-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 23,
+        "key": "legal-services-productization-ip-governance-marketing-claims-review-active-output-2-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 24,
+        "key": "legal-services-productization-ip-governance-licensing-monetization-intake-active-output-0-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 25,
+        "key": "legal-services-productization-ip-governance-licensing-monetization-intake-active-output-1-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 26,
+        "key": "legal-services-productization-ip-governance-licensing-monetization-intake-active-output-2-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 27,
+        "key": "legal-services-productization-ip-governance-enforcement-watchlist-active-output-0-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 28,
+        "key": "legal-services-productization-ip-governance-enforcement-watchlist-active-output-1-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 29,
+        "key": "legal-services-productization-ip-governance-enforcement-watchlist-active-output-2-bit",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      }
+    ],
+    "sequenceCatalog": [
+      {
+        "sequenceId": "lsx-031-040-domain-family-review",
+        "label": "Legal Services LSX-031-040 domain family review at [15792",
+        "rag": "RED",
+        "outputIndex": 0,
+        "action": "Route domain family review, escalation, and resolver summary."
+      },
+      {
+        "sequenceId": "lsx-031-040-domain-family-optimization",
+        "label": "Legal Services LSX-031-040 domain family optimization at [15792",
+        "rag": "AMBER",
+        "outputIndex": 1,
+        "action": "Route domain family optimization or plan adjustment."
+      },
+      {
+        "sequenceId": "lsx-031-040-domain-family-monitoring",
+        "label": "Legal Services LSX-031-040 domain family monitoring at [15792",
+        "rag": "AMBER",
+        "outputIndex": 2,
+        "action": "Route monitoring, evidence, or data-quality follow-up."
+      },
+      {
+        "sequenceId": "lsx-031-040-domain-family-stable",
+        "label": "Legal Services LSX-031-040 domain family stable at [15792",
+        "rag": "GREEN",
+        "outputIndex": 3,
+        "action": "Record stable family state and keep baseline cadence."
+      }
+    ]
+  },
+  "agentBinding": {
+    "agent": "legal-services-lsx-031-040-interconnect",
+    "mode": "advise",
+    "trigger": "legalserviceslsx031040interconnect-input-assessment",
+    "allowedActions": [
+      "Assess current \"Legal Services LSX-031-040 Interconnect\" state from available observations and write the normalized input vector to the PE input region [15762:15792] for RE to evaluate."
+    ],
+    "writeBack": {
+      "type": "pe-sensor",
+      "provider": "acp",
+      "sensorId": "acp.openclaw.legalserviceslsx031040interconnect.input-analyst.assessment",
+      "name": "OpenClaw legalserviceslsx031040interconnect input-analyst assessment",
+      "region": {
+        "offset": 15762,
+        "length": 30
+      },
+      "semantics": [
+        "legal-services-productization-ip-governance-product-ip-map-active-output-0-bit",
+        "legal-services-productization-ip-governance-product-ip-map-active-output-1-bit",
+        "legal-services-productization-ip-governance-product-ip-map-active-output-2-bit",
+        "legal-services-productization-ip-governance-launch-clearance-gate-active-output-0-bit",
+        "legal-services-productization-ip-governance-launch-clearance-gate-active-output-1-bit",
+        "legal-services-productization-ip-governance-launch-clearance-gate-active-output-2-bit",
+        "legal-services-productization-ip-governance-contractor-contributor-controls-active-output-0-bit",
+        "legal-services-productization-ip-governance-contractor-contributor-controls-active-output-1-bit",
+        "legal-services-productization-ip-governance-contractor-contributor-controls-active-output-2-bit",
+        "legal-services-productization-ip-governance-open-source-compliance-active-output-0-bit",
+        "legal-services-productization-ip-governance-open-source-compliance-active-output-1-bit",
+        "legal-services-productization-ip-governance-open-source-compliance-active-output-2-bit",
+        "legal-services-productization-ip-governance-trade-secret-boundary-active-output-0-bit",
+        "legal-services-productization-ip-governance-trade-secret-boundary-active-output-1-bit",
+        "legal-services-productization-ip-governance-trade-secret-boundary-active-output-2-bit",
+        "legal-services-productization-ip-governance-patent-marking-readiness-active-output-0-bit",
+        "legal-services-productization-ip-governance-patent-marking-readiness-active-output-1-bit",
+        "legal-services-productization-ip-governance-patent-marking-readiness-active-output-2-bit",
+        "legal-services-productization-ip-governance-brand-usage-governance-active-output-0-bit",
+        "legal-services-productization-ip-governance-brand-usage-governance-active-output-1-bit",
+        "legal-services-productization-ip-governance-brand-usage-governance-active-output-2-bit",
+        "legal-services-productization-ip-governance-marketing-claims-review-active-output-0-bit",
+        "legal-services-productization-ip-governance-marketing-claims-review-active-output-1-bit",
+        "legal-services-productization-ip-governance-marketing-claims-review-active-output-2-bit",
+        "legal-services-productization-ip-governance-licensing-monetization-intake-active-output-0-bit",
+        "legal-services-productization-ip-governance-licensing-monetization-intake-active-output-1-bit",
+        "legal-services-productization-ip-governance-licensing-monetization-intake-active-output-2-bit",
+        "legal-services-productization-ip-governance-enforcement-watchlist-active-output-0-bit",
+        "legal-services-productization-ip-governance-enforcement-watchlist-active-output-1-bit",
+        "legal-services-productization-ip-governance-enforcement-watchlist-active-output-2-bit"
+      ],
+      "ttlMs": 300000,
+      "normalization": "already-normalized-0-1",
+      "ingest": {
+        "endpoint": "/api/integrations/completions",
+        "method": "POST",
+        "triggerPush": false,
+        "compactPush": true
+      },
+      "sourceMapping": {
+        "id": "acp-legalserviceslsx031040interconnect-input-assessment",
+        "sensorId": "acp.openclaw.legalserviceslsx031040interconnect.input-analyst.assessment",
+        "name": "OpenClaw legalserviceslsx031040interconnect input-analyst assessment",
+        "region": {
+          "offset": 15762,
+          "length": 30
+        },
+        "ttlMs": 300000
+      }
+    },
+    "autonomyPolicy": {
+      "mode": "advise",
+      "stage": 1,
+      "writeBackType": "pe-sensor",
+      "canWriteBack": true,
+      "canStageActions": false,
+      "canExecuteActions": false,
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "blockedWhenRag": []
+    },
+    "riskControls": {
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "maxAutonomy": "advise",
+      "blockedWhenRag": []
+    }
+  },
+  "responseMapping": {
+    "schemaVersion": "1.0.0",
+    "responseContract": "structured-keys-or-text",
+    "mode": "advise",
+    "fields": [
+      {
+        "semantic": "legal-services-productization-ip-governance-product-ip-map-active-output-0-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/legal-services-productization-ip-governance-product-ip-map-active-output-0-bit",
+          "responseKey": "legal-services-productization-ip-governance-product-ip-map-active-output-0-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.legalserviceslsx031040interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 15762,
+            "length": 30
+          },
+          "index": 0
+        }
+      },
+      {
+        "semantic": "legal-services-productization-ip-governance-product-ip-map-active-output-1-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/legal-services-productization-ip-governance-product-ip-map-active-output-1-bit",
+          "responseKey": "legal-services-productization-ip-governance-product-ip-map-active-output-1-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.legalserviceslsx031040interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 15762,
+            "length": 30
+          },
+          "index": 1
+        }
+      },
+      {
+        "semantic": "legal-services-productization-ip-governance-product-ip-map-active-output-2-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/legal-services-productization-ip-governance-product-ip-map-active-output-2-bit",
+          "responseKey": "legal-services-productization-ip-governance-product-ip-map-active-output-2-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.legalserviceslsx031040interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 15762,
+            "length": 30
+          },
+          "index": 2
+        }
+      },
+      {
+        "semantic": "legal-services-productization-ip-governance-launch-clearance-gate-active-output-0-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/legal-services-productization-ip-governance-launch-clearance-gate-active-output-0-bit",
+          "responseKey": "legal-services-productization-ip-governance-launch-clearance-gate-active-output-0-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.legalserviceslsx031040interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 15762,
+            "length": 30
+          },
+          "index": 3
+        }
+      },
+      {
+        "semantic": "legal-services-productization-ip-governance-launch-clearance-gate-active-output-1-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/legal-services-productization-ip-governance-launch-clearance-gate-active-output-1-bit",
+          "responseKey": "legal-services-productization-ip-governance-launch-clearance-gate-active-output-1-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.legalserviceslsx031040interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 15762,
+            "length": 30
+          },
+          "index": 4
+        }
+      },
+      {
+        "semantic": "legal-services-productization-ip-governance-launch-clearance-gate-active-output-2-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/legal-services-productization-ip-governance-launch-clearance-gate-active-output-2-bit",
+          "responseKey": "legal-services-productization-ip-governance-launch-clearance-gate-active-output-2-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.legalserviceslsx031040interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 15762,
+            "length": 30
+          },
+          "index": 5
+        }
+      },
+      {
+        "semantic": "legal-services-productization-ip-governance-contractor-contributor-controls-active-output-0-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/legal-services-productization-ip-governance-contractor-contributor-controls-active-output-0-bit",
+          "responseKey": "legal-services-productization-ip-governance-contractor-contributor-controls-active-output-0-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.legalserviceslsx031040interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 15762,
+            "length": 30
+          },
+          "index": 6
+        }
+      },
+      {
+        "semantic": "legal-services-productization-ip-governance-contractor-contributor-controls-active-output-1-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/legal-services-productization-ip-governance-contractor-contributor-controls-active-output-1-bit",
+          "responseKey": "legal-services-productization-ip-governance-contractor-contributor-controls-active-output-1-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.legalserviceslsx031040interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 15762,
+            "length": 30
+          },
+          "index": 7
+        }
+      },
+      {
+        "semantic": "legal-services-productization-ip-governance-contractor-contributor-controls-active-output-2-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/legal-services-productization-ip-governance-contractor-contributor-controls-active-output-2-bit",
+          "responseKey": "legal-services-productization-ip-governance-contractor-contributor-controls-active-output-2-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.legalserviceslsx031040interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 15762,
+            "length": 30
+          },
+          "index": 8
+        }
+      },
+      {
+        "semantic": "legal-services-productization-ip-governance-open-source-compliance-active-output-0-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/legal-services-productization-ip-governance-open-source-compliance-active-output-0-bit",
+          "responseKey": "legal-services-productization-ip-governance-open-source-compliance-active-output-0-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.legalserviceslsx031040interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 15762,
+            "length": 30
+          },
+          "index": 9
+        }
+      },
+      {
+        "semantic": "legal-services-productization-ip-governance-open-source-compliance-active-output-1-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/legal-services-productization-ip-governance-open-source-compliance-active-output-1-bit",
+          "responseKey": "legal-services-productization-ip-governance-open-source-compliance-active-output-1-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.legalserviceslsx031040interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 15762,
+            "length": 30
+          },
+          "index": 10
+        }
+      },
+      {
+        "semantic": "legal-services-productization-ip-governance-open-source-compliance-active-output-2-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/legal-services-productization-ip-governance-open-source-compliance-active-output-2-bit",
+          "responseKey": "legal-services-productization-ip-governance-open-source-compliance-active-output-2-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.legalserviceslsx031040interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 15762,
+            "length": 30
+          },
+          "index": 11
+        }
+      },
+      {
+        "semantic": "legal-services-productization-ip-governance-trade-secret-boundary-active-output-0-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/legal-services-productization-ip-governance-trade-secret-boundary-active-output-0-bit",
+          "responseKey": "legal-services-productization-ip-governance-trade-secret-boundary-active-output-0-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.legalserviceslsx031040interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 15762,
+            "length": 30
+          },
+          "index": 12
+        }
+      },
+      {
+        "semantic": "legal-services-productization-ip-governance-trade-secret-boundary-active-output-1-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/legal-services-productization-ip-governance-trade-secret-boundary-active-output-1-bit",
+          "responseKey": "legal-services-productization-ip-governance-trade-secret-boundary-active-output-1-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.legalserviceslsx031040interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 15762,
+            "length": 30
+          },
+          "index": 13
+        }
+      },
+      {
+        "semantic": "legal-services-productization-ip-governance-trade-secret-boundary-active-output-2-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/legal-services-productization-ip-governance-trade-secret-boundary-active-output-2-bit",
+          "responseKey": "legal-services-productization-ip-governance-trade-secret-boundary-active-output-2-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.legalserviceslsx031040interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 15762,
+            "length": 30
+          },
+          "index": 14
+        }
+      },
+      {
+        "semantic": "legal-services-productization-ip-governance-patent-marking-readiness-active-output-0-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/legal-services-productization-ip-governance-patent-marking-readiness-active-output-0-bit",
+          "responseKey": "legal-services-productization-ip-governance-patent-marking-readiness-active-output-0-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.legalserviceslsx031040interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 15762,
+            "length": 30
+          },
+          "index": 15
+        }
+      },
+      {
+        "semantic": "legal-services-productization-ip-governance-patent-marking-readiness-active-output-1-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/legal-services-productization-ip-governance-patent-marking-readiness-active-output-1-bit",
+          "responseKey": "legal-services-productization-ip-governance-patent-marking-readiness-active-output-1-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.legalserviceslsx031040interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 15762,
+            "length": 30
+          },
+          "index": 16
+        }
+      },
+      {
+        "semantic": "legal-services-productization-ip-governance-patent-marking-readiness-active-output-2-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/legal-services-productization-ip-governance-patent-marking-readiness-active-output-2-bit",
+          "responseKey": "legal-services-productization-ip-governance-patent-marking-readiness-active-output-2-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.legalserviceslsx031040interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 15762,
+            "length": 30
+          },
+          "index": 17
+        }
+      },
+      {
+        "semantic": "legal-services-productization-ip-governance-brand-usage-governance-active-output-0-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/legal-services-productization-ip-governance-brand-usage-governance-active-output-0-bit",
+          "responseKey": "legal-services-productization-ip-governance-brand-usage-governance-active-output-0-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.legalserviceslsx031040interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 15762,
+            "length": 30
+          },
+          "index": 18
+        }
+      },
+      {
+        "semantic": "legal-services-productization-ip-governance-brand-usage-governance-active-output-1-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/legal-services-productization-ip-governance-brand-usage-governance-active-output-1-bit",
+          "responseKey": "legal-services-productization-ip-governance-brand-usage-governance-active-output-1-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.legalserviceslsx031040interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 15762,
+            "length": 30
+          },
+          "index": 19
+        }
+      },
+      {
+        "semantic": "legal-services-productization-ip-governance-brand-usage-governance-active-output-2-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/legal-services-productization-ip-governance-brand-usage-governance-active-output-2-bit",
+          "responseKey": "legal-services-productization-ip-governance-brand-usage-governance-active-output-2-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.legalserviceslsx031040interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 15762,
+            "length": 30
+          },
+          "index": 20
+        }
+      },
+      {
+        "semantic": "legal-services-productization-ip-governance-marketing-claims-review-active-output-0-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/legal-services-productization-ip-governance-marketing-claims-review-active-output-0-bit",
+          "responseKey": "legal-services-productization-ip-governance-marketing-claims-review-active-output-0-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.legalserviceslsx031040interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 15762,
+            "length": 30
+          },
+          "index": 21
+        }
+      },
+      {
+        "semantic": "legal-services-productization-ip-governance-marketing-claims-review-active-output-1-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/legal-services-productization-ip-governance-marketing-claims-review-active-output-1-bit",
+          "responseKey": "legal-services-productization-ip-governance-marketing-claims-review-active-output-1-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.legalserviceslsx031040interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 15762,
+            "length": 30
+          },
+          "index": 22
+        }
+      },
+      {
+        "semantic": "legal-services-productization-ip-governance-marketing-claims-review-active-output-2-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/legal-services-productization-ip-governance-marketing-claims-review-active-output-2-bit",
+          "responseKey": "legal-services-productization-ip-governance-marketing-claims-review-active-output-2-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.legalserviceslsx031040interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 15762,
+            "length": 30
+          },
+          "index": 23
+        }
+      },
+      {
+        "semantic": "legal-services-productization-ip-governance-licensing-monetization-intake-active-output-0-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/legal-services-productization-ip-governance-licensing-monetization-intake-active-output-0-bit",
+          "responseKey": "legal-services-productization-ip-governance-licensing-monetization-intake-active-output-0-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.legalserviceslsx031040interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 15762,
+            "length": 30
+          },
+          "index": 24
+        }
+      },
+      {
+        "semantic": "legal-services-productization-ip-governance-licensing-monetization-intake-active-output-1-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/legal-services-productization-ip-governance-licensing-monetization-intake-active-output-1-bit",
+          "responseKey": "legal-services-productization-ip-governance-licensing-monetization-intake-active-output-1-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.legalserviceslsx031040interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 15762,
+            "length": 30
+          },
+          "index": 25
+        }
+      },
+      {
+        "semantic": "legal-services-productization-ip-governance-licensing-monetization-intake-active-output-2-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/legal-services-productization-ip-governance-licensing-monetization-intake-active-output-2-bit",
+          "responseKey": "legal-services-productization-ip-governance-licensing-monetization-intake-active-output-2-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.legalserviceslsx031040interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 15762,
+            "length": 30
+          },
+          "index": 26
+        }
+      },
+      {
+        "semantic": "legal-services-productization-ip-governance-enforcement-watchlist-active-output-0-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/legal-services-productization-ip-governance-enforcement-watchlist-active-output-0-bit",
+          "responseKey": "legal-services-productization-ip-governance-enforcement-watchlist-active-output-0-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.legalserviceslsx031040interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 15762,
+            "length": 30
+          },
+          "index": 27
+        }
+      },
+      {
+        "semantic": "legal-services-productization-ip-governance-enforcement-watchlist-active-output-1-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/legal-services-productization-ip-governance-enforcement-watchlist-active-output-1-bit",
+          "responseKey": "legal-services-productization-ip-governance-enforcement-watchlist-active-output-1-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.legalserviceslsx031040interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 15762,
+            "length": 30
+          },
+          "index": 28
+        }
+      },
+      {
+        "semantic": "legal-services-productization-ip-governance-enforcement-watchlist-active-output-2-bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/legal-services-productization-ip-governance-enforcement-watchlist-active-output-2-bit",
+          "responseKey": "legal-services-productization-ip-governance-enforcement-watchlist-active-output-2-bit",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "default": 0.5,
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.legalserviceslsx031040interconnect.input-analyst.assessment",
+          "region": {
+            "offset": 15762,
+            "length": 30
+          },
+          "index": 29
+        }
+      }
+    ]
+  },
+  "diagnostics": {
+    "axisBasis": "inputSemantics",
+    "warnings": [
+      "input axes derived from inputSemantics (no length-matched sensorNormalization)"
+    ],
+    "inputLength": 30,
+    "sequenceCount": 4
+  }
+}
