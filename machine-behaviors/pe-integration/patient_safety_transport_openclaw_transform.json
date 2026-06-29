@@ -57,7 +57,7 @@
       "completionSourceMappingId": "acp-home-social-isolation-monitor-input-assessment",
       "targetRegion": { "offset": 2011, "length": 8 },
       "normalization": "machine-native-binary",
-      "proofResponseText": "medication-adherence-crisis-bit: 0\nmedication-cost-barrier-active-bit: 0\npartial-medication-adherence-bit: 0\nmedication-managed-bit: 1\ntransport-critical-access-failure-bit: 1\ntransport-appointment-barrier-bit: 0\ntransport-transit-dependent-risk-bit: 0\ntransportation-adequate-bit: 0\nasserted_sequence: social-connected-ok\nconfidence: moderate\nrationale: Medication is managed, but transportation failure is present for downstream patient-safety composition.",
+      "proofResponseText": "medication-adherence-crisis-bit: 0\nmedication-cost-barrier-active-bit: 0\nmedication-access-risk-bit: 0\nmedication-managed-bit: 1\ntransport-critical-access-failure-bit: 1\ntransport-appointment-barrier-bit: 0\ntransport-dependent-risk-bit: 0\ntransportation-adequate-bit: 0\nasserted_sequence: social-connected-ok\nconfidence: moderate\nrationale: Medication is managed, but transportation failure is present for downstream patient-safety composition.",
       "expectedCompletionValues": [0, 0, 0, 1, 1, 0, 0, 0]
     }
   ],
