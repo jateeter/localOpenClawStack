@@ -144,8 +144,26 @@ if _index_path.exists():
     check("C5.4 agents/INDEX.json total == corpus machine count",
           _idx.get("total") == s["machines"], f"index={_idx.get('total')} machines={s['machines']}")
 
+# C6: PE input bridges — leaf source mappings are clean and complete
+import register_input_mappings as _reg  # noqa: E402
+_br = _reg.collect("*", include_bridged=False)
+_leafregs = sorted((m["region"]["offset"], m["region"]["offset"] + m["region"]["length"])
+                   for m in _br["mappings"])
+_brov = sum(1 for i in range(1, len(_leafregs)) if _leafregs[i][0] < _leafregs[i - 1][1])
+check("C6.1 leaf bridge mappings are mutually non-overlapping", _brov == 0, str(_brov))
+check("C6.2 every machine classified (selected+skipped == corpus)",
+      len(_br["selected"]) + len(_br["skipped"]) == s["machines"],
+      f"{len(_br['selected'])}+{len(_br['skipped'])} vs {s['machines']}")
+_energy_leaf = sum(1 for r in _br["leaf"] if r["instance"]["machine"]["domain"] == "energy")
+check("C6.3 energy domain fully bridged as leaf (rglob fix unlocked subdir)",
+      _energy_leaf == s["perDomain"]["energy"]["machines"],
+      f"{_energy_leaf} vs {s['perDomain']['energy']['machines']}")
+check("C6.4 no leaf bridge overlaps the sensor-integration band [4200:4320]",
+      not any(o < 4320 and 4200 < e for o, e in _leafregs), "leaf in sensor band")
+
 print(f"\ncoverage: {s['machines']} machines, {s['cesOutputs']} behaviors, "
-      f"{s['agentBindings']} output-actor bindings, {writeback} PE source mappings, "
-      f"{_ia_ok} input-analyst agents, band [{lo}:{hi}] used {regions[0][0]}..{regions[-1][1]}")
+      f"{s['agentBindings']} output-actor bindings, {writeback} PE completion mappings, "
+      f"{_ia_ok} input-analyst agents, {len(_br['mappings'])} PE input bridges, "
+      f"band [{lo}:{hi}] used {regions[0][0]}..{regions[-1][1]}")
 print(f"{_PASS} passed, {_FAIL} failed")
 sys.exit(1 if _FAIL else 0)

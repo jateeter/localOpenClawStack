@@ -62,7 +62,7 @@ def _mapping_for(inst: dict[str, Any]) -> dict[str, Any]:
 def _corpus_outputs(mdir: Path) -> list[tuple[str, int, int, str]]:
     """(machineName, outOffset, outLength, fileStem) for every machine."""
     out = []
-    for f in mdir.glob("*.json"):
+    for f in mdir.rglob("*.json"):  # rglob: include machines/domains/** subdirs
         try:
             m = as_object(json.loads(f.read_text()).get("machine"))
         except Exception:
@@ -79,13 +79,16 @@ def collect(domain: str, include_bridged: bool = False) -> dict[str, Any]:
     corpus_outputs = _corpus_outputs(mdir)
     selected: list[dict[str, Any]] = []
     skipped: list[dict[str, Any]] = []
-    for f in sorted(mdir.glob("*.json")):
+    all_scope = domain in (None, "*")
+    for f in sorted(mdir.rglob("*.json")):  # rglob: include machines/domains/** subdirs
         try:
             data = json.loads(f.read_text())
         except Exception:
             continue
         meta = as_object(as_object(data.get("machine")).get("metadata"))
-        if primary_domain(meta) != domain:
+        if not meta:
+            continue
+        if not all_scope and primary_domain(meta) != domain:
             continue
         inst = tmpl.derive(f, cfg)
         region = as_object(inst["machine"]["inputRegion"])
@@ -252,35 +255,60 @@ def verify(report: dict[str, Any]) -> None:
 def main() -> int:
     ap = argparse.ArgumentParser(description="Register input-analyst source mappings for a domain.")
     ap.add_argument("--domain", default="health-personal")
+    ap.add_argument("--all", action="store_true", help="scope the whole corpus (collision detection is corpus-wide)")
     ap.add_argument("--write", action="store_true", help="merge into CI integrations configs")
     ap.add_argument("--verify", action="store_true", help="post firing inputs and report transitions")
     ap.add_argument("--include-bridged", action="store_true",
                     help="also register machines whose input is another machine's output (default: exclude)")
     args = ap.parse_args()
 
-    report = collect(args.domain, include_bridged=args.include_bridged)
-    print(f"domain={args.domain}: {len(report['selected'])} in-domain, "
+    scope = "*" if args.all else args.domain
+    report = collect(scope, include_bridged=args.include_bridged)
+    print(f"scope={scope}: {len(report['selected'])} machines, "
           f"{len(report['skipped'])} skipped, {len(report['collided'])} colliding, "
           f"{len(report['bridged'])} bridge-fed → {len(report['mappings'])} leaf mappings"
           f"{' (incl. bridged)' if args.include_bridged else ''}")
-    for r in report["skipped"]:
-        print(f"  skip    {r['code']:34s} {r.get('reason')}")
-    for r in report["collided"]:
-        print(f"  COLLIDE {r['code']:32s} input [{r['offset']}:{r['offset']+r['length']}] "
-              f"overlaps {r['collidesWith']}")
-    for r in report["bridged"]:
-        tag = "incl" if args.include_bridged else "excl"
-        print(f"  bridge[{tag}] {r['code']:30s} input [{r['offset']}:{r['offset']+r['length']}] "
-              f"<= output of {r['bridgedBy']}")
+
+    if args.all:  # per-domain rollup instead of 1300 per-line entries
+        from collections import Counter
+        dom = lambda r: r["instance"]["machine"]["domain"]
+        roll: dict[str, Counter] = {}
+        for r in report["selected"]:
+            c = roll.setdefault(dom(r), Counter())
+            c["leaf" if r in report["leaf"] else
+              ("collide" if "collidesWith" in r else "bridge" if "bridgedBy" in r else "leaf")] += 1
+        for r in report["skipped"]:
+            roll.setdefault(dom(r), Counter())["skip"] += 1
+        print(f"\n  {'domain':22}{'leaf':>6}{'bridge':>8}{'collide':>9}{'skip':>6}")
+        for d in sorted(roll):
+            c = roll[d]
+            print(f"  {d:22}{c['leaf']:>6}{c['bridge']:>8}{c['collide']:>9}{c['skip']:>6}")
+        # collisions are the corpus-correction signal: list them all
+        if report["collided"]:
+            print(f"\n  {len(report['collided'])} input-region collisions (corpus correction candidates):")
+            for r in report["collided"][:40]:
+                print(f"    COLLIDE {r['code']:30s} [{r['offset']}:{r['offset']+r['length']}] "
+                      f"overlaps {r['collidesWith'][:4]}")
+    else:
+        for r in report["skipped"]:
+            print(f"  skip    {r['code']:34s} {r.get('reason')}")
+        for r in report["collided"]:
+            print(f"  COLLIDE {r['code']:32s} input [{r['offset']}:{r['offset']+r['length']}] "
+                  f"overlaps {r['collidesWith']}")
+        for r in report["bridged"]:
+            tag = "incl" if args.include_bridged else "excl"
+            print(f"  bridge[{tag}] {r['code']:30s} input [{r['offset']}:{r['offset']+r['length']}] "
+                  f"<= output of {r['bridgedBy']}")
     if not (args.write or args.verify):
         print("\nmappings (dry-run; pass --write to register):")
         for m in report["mappings"]:
             print(f"  {m['id']:46s} region={m['region']} pointers={m['extract']['pointers']}")
         # persist an artifact for the record
-        out = HERE / "out" / f"{args.domain}.input-mappings.json"
+        label = "corpus" if args.all else args.domain
+        out = HERE / "out" / f"{label}.input-mappings.json"
         out.parent.mkdir(parents=True, exist_ok=True)
         out.write_text(json.dumps(report["mappings"], indent=2) + "\n")
-        print(f"\nwrote {out.relative_to(HERE)}")
+        print(f"\nwrote {out.relative_to(HERE)} ({len(report['mappings'])} mappings)")
 
     if args.write:
         for name in ("integrations.json", "integrations.example.json"):
