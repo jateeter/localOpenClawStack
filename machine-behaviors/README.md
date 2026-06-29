@@ -162,9 +162,10 @@ Requires Python 3.11+ (`python3.13` here). No third-party packages.
       session through the gateway at `ws://127.0.0.1:18789`.
 - [ ] **M8 Session policy** — allowed gateway URLs, session-key prefixes, target
       agents, permission profiles (Architecture Roadmap item 3).
-- [x] **M10 Corpus sweep (all domains)** — `domain_sweep.py --all` derives all
-      1175 machines / 4531 behaviors / 1605 bindings across 12 domains, allocates
-      globally inside the reserved band, emits PE source mappings, 0 schema errors.
+- [x] **M10 Corpus sweep (all domains)** — `domain_sweep.py --all` derives the
+      whole corpus (1320 machines / 5114 behaviors / 1782 bindings across 12
+      domains as of last sweep; tracks corpus growth), allocates globally inside
+      the reserved band, emits PE source mappings, 0 schema errors.
       See [`CORPUS_COVERAGE.md`](CORPUS_COVERAGE.md). Promotion of derived bindings
       into `agent-dispatcher` machines remains a separate reviewed corpus change.
 
