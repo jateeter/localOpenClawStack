@@ -933,8 +933,8 @@
       },
       {
         "semantic": "logical-infrastructure-cdc-stable-two-sample-active-output-0-bit",
-        "valueType": "scalar",
-        "normalization": "scalar-0-1",
+        "valueType": "count",
+        "normalization": "machine-native-count",
         "extract": {
           "jsonPointer": "/logical-infrastructure-cdc-stable-two-sample-active-output-0-bit",
           "responseKey": "logical-infrastructure-cdc-stable-two-sample-active-output-0-bit",
@@ -976,8 +976,8 @@
       },
       {
         "semantic": "logical-infrastructure-cdc-stable-two-sample-active-output-1-bit",
-        "valueType": "scalar",
-        "normalization": "scalar-0-1",
+        "valueType": "count",
+        "normalization": "machine-native-count",
         "extract": {
           "jsonPointer": "/logical-infrastructure-cdc-stable-two-sample-active-output-1-bit",
           "responseKey": "logical-infrastructure-cdc-stable-two-sample-active-output-1-bit",

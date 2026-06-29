@@ -141,8 +141,8 @@
     "fields": [
       {
         "semantic": "active-accelerometer-sample-count",
-        "valueType": "scalar",
-        "normalization": "scalar-0-1",
+        "valueType": "count",
+        "normalization": "machine-native-count",
         "extract": {
           "jsonPointer": "/active-accelerometer-sample-count",
           "responseKey": "active-accelerometer-sample-count",

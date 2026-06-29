@@ -172,8 +172,8 @@
     "fields": [
       {
         "semantic": "motion-progression-ordinal",
-        "valueType": "scalar",
-        "normalization": "scalar-0-1",
+        "valueType": "ordinal",
+        "normalization": "machine-native-ordinal",
         "extract": {
           "jsonPointer": "/motion-progression-ordinal",
           "responseKey": "motion-progression-ordinal",
@@ -215,8 +215,8 @@
       },
       {
         "semantic": "stillness-progression-ordinal",
-        "valueType": "scalar",
-        "normalization": "scalar-0-1",
+        "valueType": "ordinal",
+        "normalization": "machine-native-ordinal",
         "extract": {
           "jsonPointer": "/stillness-progression-ordinal",
           "responseKey": "stillness-progression-ordinal",

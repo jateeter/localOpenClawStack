@@ -72,12 +72,33 @@ def _split_anchors(spec: str) -> dict[str, str]:
     return out
 
 
+_ORDINAL_RE = re.compile(r"\b0\s*=.*?\b1\s*=", re.S)
+
+
+def _axis_value_type(key: str, text: str) -> tuple[str, str]:
+    """Classify an input axis as (valueType, normalization).
+
+    Almost every axis is a 0-1 normalized scalar (sensorNormalization 0.0/0.5/1.0
+    anchors).  A few machines feed RE a machine-native **count** (e.g. a raw
+    accelerometer sample count, clamped before the CES compares it) or **ordinal**
+    (0=none,1=brief,2=...).  Those must pass through unscaled — a 0-1 coercion
+    would feed the CES garbage (a count of 6 becoming 0.06).
+    """
+    blob = f"{key} {text}".lower()
+    if "ordinal" in blob or _ORDINAL_RE.search(blob):
+        return "ordinal", "machine-native-ordinal"
+    if key.lower().endswith("count") or re.search(r"\b(count|number of|tally|samples?)\b", blob):
+        return "count", "machine-native-count"
+    return "scalar", "scalar-0-1"
+
+
 def _input_axes(metadata: dict[str, Any], length: int) -> tuple[list[dict[str, Any]], str]:
     """Derive one reasoning axis per input position.
 
     Preferred source is `sensorNormalization` (carries 0/0.5/1.0 anchors that
     ground the agent's reasoning).  Falls back to `inputSemantics`, then generic
-    positional keys.  Returns (axes, basis).
+    positional keys.  Each axis is also typed (scalar vs machine-native
+    count/ordinal).  Returns (axes, basis).
     """
     norm = as_object(metadata.get("sensorNormalization"))
     keys = list(norm.keys())
@@ -187,11 +208,16 @@ _AXIS_PHRASES = {
 
 
 def _response_mapping(axes: list[dict[str, Any]], sensor_id: str,
-                      region: dict[str, int]) -> dict[str, Any]:
+                      region: dict[str, int],
+                      norm: dict[str, Any] | None = None) -> dict[str, Any]:
+    norm = norm or {}
     fields = []
     for ax in axes:
+        value_type, normalization = _axis_value_type(ax["key"], str(norm.get(ax["key"], "")))
         fields.append({
-            "semantic": ax["key"], "valueType": "scalar", "normalization": "scalar-0-1",
+            "semantic": ax["key"],
+            "valueType": value_type,
+            "normalization": normalization,
             "extract": {
                 "jsonPointer": f"/{ax['key']}",
                 "responseKey": ax["key"],
@@ -275,7 +301,8 @@ def derive(machine_path: Path, cfg: dict[str, Any] | None = None) -> dict[str, A
         "autonomyPolicy": _autonomy_policy(),
         "riskControls": _risk_controls(),
     }
-    response_mapping = _response_mapping(axes, sensor_id, region)
+    response_mapping = _response_mapping(axes, sensor_id, region,
+                                         as_object(metadata.get("sensorNormalization")))
 
     return {
         "schemaVersion": "1.0.0",

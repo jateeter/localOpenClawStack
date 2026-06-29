@@ -161,9 +161,42 @@ check("C6.3 energy domain fully bridged as leaf (rglob fix unlocked subdir)",
 check("C6.4 no leaf bridge overlaps the sensor-integration band [4200:4320]",
       not any(o < 4320 and 4200 < e for o, e in _leafregs), "leaf in sensor band")
 
+# C7: machine-native count/ordinal axes pass through unscaled (no 0-1 coercion)
+import openclaw_side as _ocs  # noqa: E402
+
+
+def _passthrough(norm, val):
+    rm = {"schemaVersion": "1.0.0", "responseContract": "structured-keys-or-text",
+          "mode": "advise", "fields": [{
+              "semantic": "x", "valueType": "count", "normalization": norm,
+              "extract": {"jsonPointer": "/x", "responseKey": "x",
+                          "textFallback": {"type": "scalar-phrase", "default": 0.5,
+                                           "phrases": {}, "numberRegex": r"(\d+(?:\.\d+)?)"}},
+              "target": {"sensorId": "s", "region": {"offset": 0, "length": 1}, "index": 0}}]}
+    _targets, _ = _ocs.apply_response_mapping(f"x: {val}", rm)
+    return _targets[0]["values"][0]
+
+
+check("C7.1 machine-native-count 6 passes through as 6 (not 0.06)",
+      _passthrough("machine-native-count", 6) == 6.0, str(_passthrough("machine-native-count", 6)))
+check("C7.2 machine-native-ordinal 3 passes through as 3",
+      _passthrough("machine-native-ordinal", 3) == 3.0, str(_passthrough("machine-native-ordinal", 3)))
+check("C7.3 scalar-0-1 axis still bounded to [0,1]",
+      0.0 <= _passthrough("scalar-0-1", 6) <= 1.0, str(_passthrough("scalar-0-1", 6)))
+# the deriver emits machine-native only for genuine count/ordinal-input machines
+_native = 0
+for _p in _files:
+    try:
+        _i = _oct.derive(_p, CFG)
+    except Exception:
+        continue
+    if any(f["normalization"].startswith("machine-native") for f in _i["responseMapping"]["fields"]):
+        _native += 1
+check("C7.4 machine-native normalization is rare/targeted (<=10 machines)", _native <= 10, str(_native))
+
 print(f"\ncoverage: {s['machines']} machines, {s['cesOutputs']} behaviors, "
       f"{s['agentBindings']} output-actor bindings, {writeback} PE completion mappings, "
-      f"{_ia_ok} input-analyst agents, {len(_br['mappings'])} PE input bridges, "
+      f"{_ia_ok} input-analyst agents ({_native} machine-native), {len(_br['mappings'])} PE input bridges, "
       f"band [{lo}:{hi}] used {regions[0][0]}..{regions[-1][1]}")
 print(f"{_PASS} passed, {_FAIL} failed")
 sys.exit(1 if _FAIL else 0)
