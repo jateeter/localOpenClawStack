@@ -13,11 +13,25 @@ mkdir -p openclaw openwebui-data browser-config
 OWNER="${LOCAL_OWNER:-$(id -un)}"
 GROUP="${LOCAL_GROUP:-$(id -gn)}"
 
-if [[ -f openclaw/openclaw.json ]]; then
-  tmp="$(mktemp)"
-  port="${OPENCLAW_GATEWAY_PORT:-18789}"
-  jq --arg localhost_origin "http://localhost:${port}" \
-     --arg loopback_origin "http://127.0.0.1:${port}" '
+if [[ ! -f openclaw/openclaw.json ]]; then
+  jq -n \
+    --arg model "${OPENCLAW_DEFAULT_MODEL:-ollama/llama3.1:8b}" \
+    '{
+      gateway: {},
+      agents: {
+        defaults: {
+          model: {primary: $model},
+          models: {}
+        },
+        list: []
+      }
+    }' > openclaw/openclaw.json
+fi
+
+tmp="$(mktemp)"
+port="${OPENCLAW_GATEWAY_PORT:-18789}"
+jq --arg localhost_origin "http://localhost:${port}" \
+   --arg loopback_origin "http://127.0.0.1:${port}" '
     .gateway.mode = "local" |
     .gateway.bind = "lan" |
     .gateway.auth.mode = "token" |
@@ -35,8 +49,7 @@ if [[ -f openclaw/openclaw.json ]]; then
       $loopback_origin
     ]
   ' openclaw/openclaw.json > "$tmp"
-  mv "$tmp" openclaw/openclaw.json
-fi
+mv "$tmp" openclaw/openclaw.json
 
 chown "$OWNER:$GROUP" .env
 chmod 600 .env
