@@ -71,6 +71,7 @@ done
 
 "$ROOT_DIR/scripts/harden-config.sh"
 "$ROOT_DIR/scripts/sync-machine-agents.sh"
+"$ROOT_DIR/scripts/verify-openclaw-config.sh"
 chmod 700 "$ROOT_DIR/openclaw" "$ROOT_DIR/openwebui-data" "$ROOT_DIR/browser-config" 2>/dev/null || true
 EXPECTED_AGENT_COUNT="$(( $(jq -r '.total' "$ROOT_DIR/machine-behaviors/agents/INDEX.json") + 1 ))"
 

@@ -39,7 +39,8 @@ jq --slurpfile idx "$INDEX_PATH" \
         default: true,
         workspace: $mainWorkspace,
         agentDir: ($containerAgentRoot + "/main/agent"),
-        model: (.model // {primary: $defaultModel})
+        model: (.model // {primary: $defaultModel}),
+        sandbox: ((.sandbox // {}) + {mode: "all"})
       } else . end)
     else
       [{
@@ -48,7 +49,8 @@ jq --slurpfile idx "$INDEX_PATH" \
         default: true,
         workspace: $mainWorkspace,
         agentDir: ($containerAgentRoot + "/main/agent"),
-        model: {primary: $defaultModel}
+        model: {primary: $defaultModel},
+        sandbox: {mode: "all"}
       }] + $preserved
     end
   ) as $preservedWithMain |
@@ -65,6 +67,9 @@ jq --slurpfile idx "$INDEX_PATH" \
     contextInjection: "always",
     bootstrapMaxChars: 50000,
     bootstrapTotalMaxChars: 120000,
+    sandbox: {
+      mode: "all"
+    },
     experimental: {
       localModelLean: true
     }

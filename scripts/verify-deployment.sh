@@ -17,6 +17,8 @@ pass "Base and external images are pinned by immutable digest"
 docker compose config --quiet
 pass "Compose configuration is valid"
 
+"$ROOT_DIR/scripts/verify-openclaw-config.sh"
+
 for service in openclaw-gateway open-webui browser; do
   cid="$(docker compose ps -q "$service")"
   [[ -n "$cid" ]] || fail "$service is not running"
@@ -52,4 +54,20 @@ login_status="$(curl --silent --max-time 10 --output /dev/null --write-out '%{ht
 [[ "$login_status" == "200" ]] || fail "WebUI admin sign-in returned HTTP $login_status"
 pass "WebUI admin credentials authenticate successfully"
 
-docker compose exec -T openclaw-gateway sh -lc 'chmod 700 "$HOME/.openclaw" && openclaw security audit --deep'
+audit_json="$(docker compose exec -T openclaw-gateway sh -lc \
+  'chmod 700 "$HOME/.openclaw" && timeout 45s openclaw security audit --json')" || \
+  fail "OpenClaw security audit did not complete successfully within 45s"
+audit_critical="$(printf '%s' "$audit_json" | jq -r '.summary.critical // 0')"
+audit_warn="$(printf '%s' "$audit_json" | jq -r '.summary.warn // 0')"
+audit_info="$(printf '%s' "$audit_json" | jq -r '.summary.info // 0')"
+[[ "$audit_critical" == "0" ]] || fail "OpenClaw security audit reported $audit_critical critical finding(s)"
+pass "OpenClaw security audit passed (${audit_critical} critical, ${audit_warn} warn, ${audit_info} info)"
+
+if [[ "${OPENCLAW_DEEP_SECURITY_AUDIT:-false}" == "true" ]]; then
+  docker compose exec -T openclaw-gateway sh -lc \
+    'timeout "${OPENCLAW_DEEP_SECURITY_AUDIT_TIMEOUT:-180}s" openclaw security audit --deep' || \
+    fail "OpenClaw deep security audit did not complete successfully"
+  pass "OpenClaw deep security audit completed"
+else
+  pass "OpenClaw deep security audit skipped (set OPENCLAW_DEEP_SECURITY_AUDIT=true to run)"
+fi

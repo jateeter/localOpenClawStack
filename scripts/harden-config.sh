@@ -21,7 +21,8 @@ if [[ ! -f openclaw/openclaw.json ]]; then
       agents: {
         defaults: {
           model: {primary: $model},
-          models: {}
+          models: {},
+          sandbox: {mode: "all"}
         },
         list: []
       }
@@ -30,11 +31,20 @@ fi
 
 tmp="$(mktemp)"
 port="${OPENCLAW_GATEWAY_PORT:-18789}"
+model="$(jq -r '.agents.defaults.model.primary // "ollama/llama3.1:8b"' openclaw/openclaw.json)"
 jq --arg localhost_origin "http://localhost:${port}" \
-   --arg loopback_origin "http://127.0.0.1:${port}" '
+   --arg loopback_origin "http://127.0.0.1:${port}" \
+   --arg model "$model" '
     .gateway.mode = "local" |
     .gateway.bind = "lan" |
     .gateway.auth.mode = "token" |
+    .agents = (.agents // {}) |
+    .agents.defaults = (.agents.defaults // {}) |
+    .agents.defaults.sandbox = ((.agents.defaults.sandbox // {}) + {mode: "all"}) |
+    .tools = (.tools // {}) |
+    .tools.byProvider = (.tools.byProvider // {}) |
+    .tools.byProvider[$model] = (.tools.byProvider[$model] // {}) |
+    .tools.byProvider[$model].deny = (((.tools.byProvider[$model].deny // []) + ["group:web", "browser"]) | unique) |
     del(.gateway.auth.token, .gateway.controlUi.allowInsecureAuth,
         .gateway.controlUi.dangerouslyAllowHostHeaderOriginFallback,
         .gateway.controlUi.dangerouslyDisableDeviceAuth) |
