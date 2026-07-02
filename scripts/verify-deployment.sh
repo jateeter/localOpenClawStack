@@ -17,6 +17,17 @@ pass "Base and external images are pinned by immutable digest"
 docker compose config --quiet
 pass "Compose configuration is valid"
 
+# OpenClaw round-trip schema gate (static; fails fast before starting the stack):
+# agent instances vs oc-agent.schema.json, a completion payload vs the corpus
+# localai-completion-writeback.schema.json, and the PE source-mapping artifact.
+SCHEMA_PY="$(command -v python3.13 || command -v python3.12 || command -v python3.11 || command -v python3 || true)"
+if [[ -n "$SCHEMA_PY" && -f "$ROOT_DIR/machine-behaviors/verify_schemas.py" ]]; then
+  MB_DEBUG=0 "$SCHEMA_PY" "$ROOT_DIR/machine-behaviors/verify_schemas.py" || fail "OpenClaw round-trip schema gate failed"
+  pass "OpenClaw round-trip schemas verified"
+else
+  pass "OpenClaw schema gate skipped (machine-behaviors or python3 unavailable)"
+fi
+
 "$ROOT_DIR/scripts/verify-openclaw-config.sh"
 
 for service in openclaw-gateway open-webui browser; do
