@@ -1,0 +1,10 @@
+{
+  "// note": "Editor JSON-Schema associations for the OpenClaw machine-behaviors artifacts. Mirrors machine-behaviors/verify_schemas.py so agent instances validate live in-editor.",
+  "json.validate.enable": true,
+  "json.schemas": [
+    {
+      "fileMatch": ["machine-behaviors/agents/**/*.oc-agent.json"],
+      "url": "./machine-behaviors/templates/oc-agent.schema.json"
+    }
+  ]
+}
