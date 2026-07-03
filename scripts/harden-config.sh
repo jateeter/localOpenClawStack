@@ -32,12 +32,22 @@ fi
 tmp="$(mktemp)"
 port="${OPENCLAW_GATEWAY_PORT:-18789}"
 model="$(jq -r '.agents.defaults.model.primary // "ollama/llama3.1:8b"' openclaw/openclaw.json)"
+ollama_base="${OLLAMA_BASE_URL:-http://host.docker.internal:11434}"
+ollama_model="${model#ollama/}"   # provider model id without the "ollama/" prefix
 jq --arg localhost_origin "http://localhost:${port}" \
    --arg loopback_origin "http://127.0.0.1:${port}" \
+   --argjson gwport "$port" \
+   --arg ollama_base "$ollama_base" \
+   --arg ollama_model "$ollama_model" \
    --arg model "$model" '
     .gateway.mode = "local" |
     .gateway.bind = "lan" |
     .gateway.auth.mode = "token" |
+    .gateway.port = $gwport |
+    .gateway.nodes = (.gateway.nodes // {}) |
+    .gateway.nodes.denyCommands =
+      (((.gateway.nodes.denyCommands // []) +
+        ["camera.snap", "screen.record", "sms.send"]) | unique) |
     .agents = (.agents // {}) |
     .agents.defaults = (.agents.defaults // {}) |
     .agents.defaults.sandbox = ((.agents.defaults.sandbox // {}) + {mode: "all"}) |
@@ -45,6 +55,13 @@ jq --arg localhost_origin "http://localhost:${port}" \
     .tools.byProvider = (.tools.byProvider // {}) |
     .tools.byProvider[$model] = (.tools.byProvider[$model] // {}) |
     .tools.byProvider[$model].deny = (((.tools.byProvider[$model].deny // []) + ["group:web", "browser"]) | unique) |
+    .models = (.models // {}) |
+    .models.providers = (.models.providers // {}) |
+    .models.providers.ollama = (.models.providers.ollama // {}) |
+    .models.providers.ollama.api = "ollama" |
+    .models.providers.ollama.baseUrl = $ollama_base |
+    .models.providers.ollama.models =
+      (((.models.providers.ollama.models // []) + [$ollama_model]) | unique) |
     del(.gateway.auth.token, .gateway.controlUi.allowInsecureAuth,
         .gateway.controlUi.dangerouslyAllowHostHeaderOriginFallback,
         .gateway.controlUi.dangerouslyDisableDeviceAuth) |
