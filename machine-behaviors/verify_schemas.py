@@ -22,7 +22,7 @@ from pathlib import Path
 HERE = Path(__file__).parent
 sys.path.insert(0, str(HERE))
 import minischema  # noqa: E402
-from derive_agents import derive, load_config, _abs  # noqa: E402
+from derive_agents import derive, load_config, _abs, resolve_machine_file  # noqa: E402
 
 OC_SCHEMA = HERE / "templates" / "oc-agent.schema.json"
 CFG = load_config()
@@ -54,7 +54,7 @@ report(f"{len(agents)} agent instances vs oc-agent.schema.json", bad[:5])
 
 # (b) representative completion payload vs corpus completion schema -----------
 comp_schema = minischema.load_schema(COMPLETION_SCHEMA)
-plan = derive(_abs(CFG["machinesDir"]) / "HomeChronicPainMonitor.json", CFG)
+plan = derive(resolve_machine_file(_abs(CFG["machinesDir"]), "HomeChronicPainMonitor.json"), CFG)
 agent = next(a for a in plan["agents"] if a["realityVectorImpact"])
 wb = agent["agentBinding"]["writeBack"]
 completion = {

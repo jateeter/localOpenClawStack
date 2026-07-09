@@ -154,7 +154,7 @@ def _post(cfg: dict[str, Any], envelope: dict[str, Any], record: dict[str, Any],
 
 
 def load_machine_meta(plan: dict[str, Any], cfg: dict[str, Any]) -> dict[str, Any]:
-    from derive_agents import _abs
-    path = _abs(cfg["machinesDir"]) / f"{plan['machine']['id']}.json"
+    from derive_agents import _abs, resolve_machine_file
+    path = resolve_machine_file(_abs(cfg["machinesDir"]), f"{plan['machine']['id']}.json")
     data = json.loads(Path(path).read_text())
     return _as_object(_as_object(data.get("machine")).get("metadata"))

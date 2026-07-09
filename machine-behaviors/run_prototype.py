@@ -19,7 +19,7 @@ from pathlib import Path
 from uuid import uuid4
 
 from behavior_log import BehaviorLogger, SIDE_DISPATCH, SIDE_OPENCLAW, read_log, clear_logs
-from derive_agents import derive, load_config, _abs
+from derive_agents import derive, load_config, _abs, resolve_machine_file
 import dispatch_side
 import openclaw_side
 
@@ -31,7 +31,7 @@ def main() -> int:
     args = parser.parse_args()
 
     cfg = load_config()
-    path = _abs(cfg["machinesDir"]) / args.machine
+    path = resolve_machine_file(_abs(cfg["machinesDir"]), args.machine)
     plan = derive(path, cfg)
     machine_meta = dispatch_side.load_machine_meta(plan, cfg)
     clear_logs()

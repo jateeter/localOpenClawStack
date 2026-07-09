@@ -77,6 +77,16 @@ def _abs(cfg_path: str) -> Path:
     return p if p.is_absolute() else (HERE / p).resolve()
 
 
+def resolve_machine_file(machines_dir: Path, filename: str) -> Path:
+    """Resolve a corpus machine filename: flat path first, then a recursive
+    basename search — corpus files live in machines/domains/<name>/ and
+    filenames are globally unique."""
+    flat = machines_dir / filename
+    if flat.exists() or not machines_dir.is_dir():
+        return flat
+    return next(machines_dir.rglob(filename), flat)
+
+
 _JSON_CACHE: dict[str, Any] = {}
 
 
@@ -501,7 +511,7 @@ def main() -> int:
     cfg = load_config()
     path = Path(args.machine_file)
     if not path.is_absolute() and not path.exists():
-        path = _abs(cfg["machinesDir"]) / args.machine_file
+        path = resolve_machine_file(_abs(cfg["machinesDir"]), args.machine_file)
     print(json.dumps(derive(path, cfg), indent=2))
     return 0
 
