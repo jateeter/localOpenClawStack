@@ -19,7 +19,7 @@ ROOT = HERE.parent
 sys.path.insert(0, str(ROOT))
 
 import minischema  # noqa: E402
-from derive_agents import derive, load_config, _abs  # noqa: E402
+from derive_agents import derive, load_config, _abs, resolve_machine_file  # noqa: E402
 import dispatch_side  # noqa: E402
 import openclaw_side  # noqa: E402
 from behavior_log import (BehaviorLogger, SIDE_DISPATCH, SIDE_OPENCLAW,  # noqa: E402
@@ -27,7 +27,7 @@ from behavior_log import (BehaviorLogger, SIDE_DISPATCH, SIDE_OPENCLAW,  # noqa:
 
 CFG = load_config()
 SCHEMAS = _abs(CFG["schemasDir"])
-MACHINE = _abs(CFG["machinesDir"]) / "HomeChronicPainMonitor.json"
+MACHINE = resolve_machine_file(_abs(CFG["machinesDir"]), "HomeChronicPainMonitor.json")
 
 _PASS = 0
 _FAIL = 0

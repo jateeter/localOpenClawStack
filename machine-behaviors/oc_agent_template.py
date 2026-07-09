@@ -38,7 +38,7 @@ from typing import Any
 
 from derive_agents import (
     HERE, as_object, as_list, load_config, _abs, primary_domain,
-    machine_code, _action_for_sequence, _output_index,
+    machine_code, _action_for_sequence, _output_index, resolve_machine_file,
 )
 
 # Input-analyst is a sensing/advisory role: it writes a PE sensor (the input
@@ -363,7 +363,7 @@ def main() -> int:
     cfg = load_config()
     path = Path(args.machine_file)
     if not path.is_absolute() and not path.exists():
-        path = _abs(cfg["machinesDir"]) / args.machine_file
+        path = resolve_machine_file(_abs(cfg["machinesDir"]), args.machine_file)
     instance = derive(path, cfg)
     if args.write:
         dom = re.sub(r"[^a-z0-9]+", "-", str(instance["machine"]["domain"]).lower()).strip("-") or "uncategorized"
