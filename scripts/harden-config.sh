@@ -60,8 +60,15 @@ jq --arg localhost_origin "http://localhost:${port}" \
     .models.providers.ollama = (.models.providers.ollama // {}) |
     .models.providers.ollama.api = "ollama" |
     .models.providers.ollama.baseUrl = $ollama_base |
+    # OpenClaw requires model *objects* here ({id, name, ...}); appending the
+    # bare id produced "models.providers.ollama.models.0: Invalid input" and
+    # `unique` could not dedupe a string against the equivalent object, so the
+    # invalid entry was re-added on every run and the gateway refused to boot.
+    # Drop any legacy bare-string entries, then add an object only if absent.
     .models.providers.ollama.models =
-      (((.models.providers.ollama.models // []) + [$ollama_model]) | unique) |
+      (((.models.providers.ollama.models // []) | map(select(type == "object")))
+       | if any(.id == $ollama_model) then .
+         else . + [{id: $ollama_model, name: $ollama_model}] end) |
     del(.gateway.auth.token, .gateway.controlUi.allowInsecureAuth,
         .gateway.controlUi.dangerouslyAllowHostHeaderOriginFallback,
         .gateway.controlUi.dangerouslyDisableDeviceAuth) |
