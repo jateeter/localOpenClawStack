@@ -44,8 +44,18 @@ actual_version="$(docker compose exec -T openclaw-gateway openclaw --version | t
 [[ "$actual_version" == *"$OPENCLAW_VERSION"* ]] || fail "OpenClaw version mismatch: $actual_version"
 pass "OpenClaw runtime is $OPENCLAW_VERSION"
 
-curl --fail --silent --max-time 10 "http://127.0.0.1:${OPENCLAW_GATEWAY_PORT:-18789}/healthz" >/dev/null
-curl --fail --silent --max-time 10 "http://127.0.0.1:${OPEN_WEBUI_PORT:-8080}/health" >/dev/null
+# Retry: this runs immediately after container (re)creation, and open-webui in
+# particular can still be binding.  A single attempt made the whole script exit
+# non-zero with no message — bare `curl --fail` under `set -e` aborts silently —
+# so a healthy stack reported "OpenClaw startup failed" to startUniverse.
+for attempt in $(seq 1 30); do
+  if curl --fail --silent --max-time 5 "http://127.0.0.1:${OPENCLAW_GATEWAY_PORT:-18789}/healthz" >/dev/null \
+     && curl --fail --silent --max-time 5 "http://127.0.0.1:${OPEN_WEBUI_PORT:-8080}/health" >/dev/null; then
+    break
+  fi
+  [[ "$attempt" -eq 30 ]] && fail "gateway (:${OPENCLAW_GATEWAY_PORT:-18789}/healthz) or WebUI (:${OPEN_WEBUI_PORT:-8080}/health) not reachable on loopback after 150s"
+  sleep 5
+done
 pass "Gateway and WebUI health endpoints are reachable on loopback"
 
 status="$(curl --silent --max-time 10 --output /dev/null --write-out '%{http_code}' \
