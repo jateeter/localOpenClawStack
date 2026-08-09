@@ -1,6 +1,6 @@
 # localOpenClawStack Guidance
 
-Last reviewed: 2026-06-22
+Last reviewed: 2026-08-09
 
 See `/Users/johnt/workspace/GitHub/claude.md` for the integrated application map. Update both this file and the root map when OpenClaw versioning, gateway wiring, auth/bootstrap, or Manager/PE integration expectations change.
 

@@ -28,9 +28,9 @@ A local Docker-based deployment stack for OpenClaw (OpenClay) development.
 
 `start.sh` refreshes current non-prerelease versions, records immutable image
 pins in `.env`, hardens the persisted gateway configuration, and verifies the
-running image identities. Use `start.sh --no-update` only for an offline restart
-with existing pins. WebUI credentials remain in the owner-only `.env` file and
-are never committed.
+running image identities. Use `start.sh --update` to resolve fresh stable
+releases and refresh image pins before starting. Normal startup uses the
+existing pinned versions without mutating them.
 
 ## Services
 
@@ -95,7 +95,7 @@ never blocks on the external agent.
 
 | Variable | Description |
 |---|---|
-| `OPENCLAW_VERSION` | OpenClaw npm package version used to build the gateway image (default: `2026.6.9`) |
+| `OPENCLAW_VERSION` | OpenClaw npm package version used to build the gateway image (default: `2026.6.34`; run `./scripts/update-versions.sh` to refresh to the current `extended-stable` release) |
 | `OPENCLAW_GATEWAY_URL` | Base URL for the OpenClaw gateway (e.g. `http://localhost:18789`) |
 | `ACP_SESSION_KEY` | Shared secret used when dispatching to the gateway |
 
