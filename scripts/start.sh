@@ -13,14 +13,21 @@ cd "$ROOT_DIR"
 # ── Flags ─────────────────────────────────────────────────────────────────────
 FRESH=false
 UPDATE=false
+AGENT_PROFILE="${OPENCLAW_AGENT_PROFILE:-full}"
 for arg in "$@"; do
   case "$arg" in
     --fresh) FRESH=true ;;
     --update) UPDATE=true ;;
+    --agent-profile=*) AGENT_PROFILE="${arg#*=}" ;;
     --help|-h)
-      echo "Usage: $0 [--fresh] [--update]"
-      echo "  --fresh   wipe openclaw/, openwebui-data/, and browser-config/ before starting"
-      echo "  --update  resolve current stable releases and refresh immutable image pins"
+      echo "Usage: $0 [--fresh] [--update] [--agent-profile=NAME]"
+      echo "  --fresh           wipe openclaw/, openwebui-data/, and browser-config/ before starting"
+      echo "  --update          resolve current stable releases and refresh immutable image pins"
+      echo "  --agent-profile   which machine-behavior agents to load (default: full)"
+      echo "                      full        the whole corpus (1320 agents)"
+      echo "                      regression  only the agents bound to the RealityEngine"
+      echo "                                  regression machine corpus (12 agents)"
+      echo "                    Any name in machine-behaviors/agents/profiles/ is valid."
       exit 0 ;;
     *) die "Unknown argument: $arg" ;;
   esac
@@ -69,11 +76,19 @@ for IMAGE_VAR in NODE_IMAGE OPEN_WEBUI_IMAGE BROWSER_IMAGE; do
     die "$IMAGE_VAR is not digest-pinned. Run ./scripts/update-versions.sh or start with --update."
 done
 
+# Resolve the agent profile once and hand the same index to the sync, the
+# config verifier, and the live count gate below. Three consumers deriving the
+# expected agent set independently is how they end up disagreeing.
+OPENCLAW_AGENT_INDEX_PATH="$("$ROOT_DIR/scripts/agent-profile.sh" "$AGENT_PROFILE")"
+export OPENCLAW_AGENT_PROFILE="$AGENT_PROFILE"
+export OPENCLAW_AGENT_INDEX_PATH
+info "Agent profile: $AGENT_PROFILE ($(jq -r '.total' "$OPENCLAW_AGENT_INDEX_PATH") machine agents)"
+
 "$ROOT_DIR/scripts/harden-config.sh"
 "$ROOT_DIR/scripts/sync-machine-agents.sh"
 "$ROOT_DIR/scripts/verify-openclaw-config.sh"
 chmod 700 "$ROOT_DIR/openclaw" "$ROOT_DIR/openwebui-data" "$ROOT_DIR/browser-config" 2>/dev/null || true
-EXPECTED_AGENT_COUNT="$(( $(jq -r '.total' "$ROOT_DIR/machine-behaviors/agents/INDEX.json") + 1 ))"
+EXPECTED_AGENT_COUNT="$(( $(jq -r '.total' "$OPENCLAW_AGENT_INDEX_PATH") + 1 ))"
 
 # ── Port pre-flight ───────────────────────────────────────────────────────────
 GW_PORT="${OPENCLAW_GATEWAY_PORT:-18789}"

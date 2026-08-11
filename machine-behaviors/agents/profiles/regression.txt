@@ -1,0 +1,22 @@
+# Machine-behavior agents for the RealityEngine regression corpus.
+#
+# GENERATED — do not edit by hand.
+#   source:     RealityEngine_CI/config/standard-deployment-corpus.txt (12 machines)
+#   regenerate: ./scripts/generate-regression-profile.py
+#   verify:     ./scripts/generate-regression-profile.py --check
+#
+# One agentId per line, in corpus order; the trailing comment is the machine
+# it is bound to.
+
+logical-infrastructure-req-ack-handshake     # domains/digital-logic/DLX011_req-ack-handshake.json
+logical-infrastructure-start-busy-done       # domains/digital-logic/DLX017_start-busy-done.json
+logical-infrastructure-watchdog-kick-window  # domains/digital-logic/DLX034_watchdog-kick-window.json
+logical-infrastructure-one-hot-grant         # domains/digital-logic/DLX041_one-hot-grant.json
+dc-memory-alert-flip-flop                    # domains/data-center/DCMemoryAlertFF.json
+dc-network-throttle-flip-flop                # domains/data-center/DCNetworkThrottleFF.json
+openclaw-completion-e2e                      # domains/digital-logic/OpenClawCompletionE2E.json
+document-signing-workflow-monitor            # domains/community-services/DocumentSigningWorkflowMonitor.json
+qualification-verification-monitor           # domains/community-services/QualificationVerificationMonitor.json
+home-transportation-barrier-monitor          # domains/health-personal/HomeTransportationBarrierMonitor.json
+data-center-dcx-001-010-interconnect         # domains/data-center/DataCenterDcx001010Interconnect.json
+digital-logic-dlx-021-030-interconnect       # domains/digital-logic/DigitalLogicDlx021030Interconnect.json
