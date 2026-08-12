@@ -15,6 +15,8 @@ This repo provides the local OpenClaw ACP/xACP gateway and Open WebUI stack used
 - `openclaw/identity/`: identity/session material.
 - `openclaw/logs/`: runtime logs.
 - `scripts/`: start/stop/bootstrap and validation helpers.
+- `machine-behaviors/agents/`: generated machine-behavior agent specs and `INDEX.json`.
+- `machine-behaviors/agents/profiles/`: agent profiles — which subset of the corpus a deployment loads.
 - `browser-config/`: browser/OpenWebUI runtime configuration.
 - Compose files: local gateway, Open WebUI, and supporting containers.
 
@@ -26,6 +28,8 @@ docker compose ps
 ./scripts/init-secrets.sh
 ./scripts/update-versions.sh
 ./scripts/start.sh
+./scripts/start.sh --agent-profile=regression
+./scripts/generate-regression-profile.py --check
 ./scripts/verify-deployment.sh
 ./scripts/stop.sh
 ```
@@ -40,6 +44,9 @@ Use the repo's actual scripts when present; Docker Compose state is time-sensiti
 - Release refresh is explicit through `update-versions.sh` or `start.sh --update`; ordinary startup consumes the existing pins without mutating versions.
 - `start.sh` owns persisted gateway hardening, WebUI administrator synchronization, and live deployment verification. CI delegates to this entrypoint.
 - RealityEngine PE tests should use `ACP_ENABLED=true`, gateway URL, session key, target agent, and `ACP_COMPLETION_SOURCE_MAPPING_ID=acp-openclaw-completion`.
+- Agent loading is profile-selected. `--agent-profile=full` (the default) loads the whole 1320-agent corpus; `--agent-profile=regression` loads only the 12 agents bound to the RealityEngine regression machine corpus. `start.sh` resolves the profile once and hands the same index to the sync, the config verifier, and the live count gate.
+- `machine-behaviors/agents/profiles/regression.txt` is generated from `RealityEngine_CI/config/standard-deployment-corpus.txt`, not hand-maintained. Re-run `./scripts/generate-regression-profile.py` when that corpus changes; `--check` is the drift guard and fails when the two disagree.
+- Narrowing the profile prunes the previous profile's workspaces and agent directories. Switching back re-materializes them; the sibling repos are needed only to regenerate or check a profile, not to start the stack.
 - Treat upstream version freshness as time-sensitive; re-check before claiming current release status.
 
 ## LSP Support

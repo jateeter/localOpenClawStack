@@ -4,7 +4,12 @@ set -euo pipefail
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT_DIR"
 
-INDEX_PATH="$ROOT_DIR/machine-behaviors/agents/INDEX.json"
+# Which agents this deployment loads. `full` is the whole corpus and remains the
+# default; a named profile (machine-behaviors/agents/profiles/<name>.txt) narrows
+# it. The regression profile exists because loading 1320 agents to exercise 12
+# machines costs time and memory on every start.
+AGENT_PROFILE="${OPENCLAW_AGENT_PROFILE:-full}"
+INDEX_PATH="${OPENCLAW_AGENT_INDEX_PATH:-$("$ROOT_DIR/scripts/agent-profile.sh" "$AGENT_PROFILE")}"
 CONFIG_PATH="$ROOT_DIR/openclaw/openclaw.json"
 WORKSPACE_ROOT="$ROOT_DIR/openclaw/workspaces/machine-behaviors"
 AGENT_ROOT="$ROOT_DIR/openclaw/agents"
@@ -23,7 +28,8 @@ CONFIG_TMP="$(mktemp)"
 jq --slurpfile idx "$INDEX_PATH" \
   --arg defaultModel "$DEFAULT_MODEL" \
   --arg mainWorkspace "$CONTAINER_MAIN_WORKSPACE" \
-  --arg containerAgentRoot "$CONTAINER_AGENT_ROOT" '
+  --arg containerAgentRoot "$CONTAINER_AGENT_ROOT" \
+  --arg machineWorkspacePrefix "$CONTAINER_WORKSPACE_ROOT/" '
   ($idx[0].agents | map(.agentId)) as $managedIds |
   .agents = (.agents // {}) |
   .agents.defaults = (.agents.defaults // {}) |
@@ -32,7 +38,14 @@ jq --slurpfile idx "$INDEX_PATH" \
   .agents.defaults.models = (.agents.defaults.models // {}) |
   .agents.defaults.models[$defaultModel] = (.agents.defaults.models[$defaultModel] // {}) |
   (.agents.list // []) as $existing |
-  ($existing | map(select(((.id // "") as $id | ($managedIds | index($id)) | not)))) as $preserved |
+  # Entries this sync does not manage are kept, so a hand-added agent survives.
+  # A machine-behavior agent from a *previous* profile is not kept: it is
+  # identified by its generated workspace path and dropped, otherwise narrowing
+  # the profile would leave the old corpus resident in the config.
+  ($existing
+    | map(select(((.id // "") as $id | ($managedIds | index($id)) | not)))
+    | map(select(((.workspace // "") | startswith($machineWorkspacePrefix)) | not))
+  ) as $preserved |
   (
     if any($preserved[]?; .id == "main") then
       $preserved | map(if .id == "main" then . + {
@@ -84,7 +97,7 @@ mkdir -p "$MAIN_WORKSPACE" "$WORKSPACE_ROOT" "$AGENT_ROOT/main/agent"
 cp "$INDEX_PATH" "$WORKSPACE_ROOT/INDEX.json"
 {
   printf '# OpenClaw Machine Behaviors\n\n'
-  printf 'This deployment workspace is generated from `machine-behaviors/agents/INDEX.json`.\n\n'
+  printf 'This deployment workspace is generated from the `%s` agent profile of `machine-behaviors/agents/INDEX.json`.\n\n' "$AGENT_PROFILE"
   printf 'It loads `%s` machine-behavior agents under `/home/node/.openclaw/workspaces/machine-behaviors`. Each agent subdirectory contains an `oc-agent.json` binding contract and an `AGENTS.md` bootstrap prompt.\n\n' "$(jq -r '.total' "$INDEX_PATH")"
   printf 'Use `openclaw agents list` to enumerate the loaded agents, or select a specific agent id when dispatching through the gateway.\n'
 } > "$MAIN_WORKSPACE/AGENTS.md"
@@ -122,10 +135,38 @@ while IFS=$'\t' read -r agent_id machine_name domain rel_path; do
     '{providers: {}, selected: {model: $model}}' > "$agent_dir/models.json"
 done < <(jq -r '.agents[] | [.agentId, .machineName, .domain, .path] | @tsv' "$INDEX_PATH")
 
+# Prune agents left behind by a previous, wider profile. Without this, narrowing
+# the profile shrinks openclaw.json but leaves the old corpus on disk — 32 MB of
+# workspaces the gateway may still enumerate, and no reduction in the footprint
+# the profile exists to reduce. Scoped to generated directories: `main` is never
+# a machine agent, and anything still in the active index is kept.
+MANAGED_IDS="$(mktemp)"
+trap 'rm -f "$MANAGED_IDS"' EXIT
+jq -r '.agents[].agentId' "$INDEX_PATH" | sort > "$MANAGED_IDS"
+
+prune_unmanaged() {
+  local root="$1" dir name pruned=0
+  [[ -d "$root" ]] || { printf '0'; return 0; }
+  while IFS= read -r dir; do
+    name="$(basename "$dir")"
+    [[ "$name" == "main" ]] && continue
+    grep -qxF "$name" "$MANAGED_IDS" && continue
+    rm -rf "$dir"
+    pruned=$((pruned + 1))
+  done < <(find "$root" -mindepth 1 -maxdepth 1 -type d)
+  printf '%s' "$pruned"
+}
+
+PRUNED_WORKSPACES="$(prune_unmanaged "$WORKSPACE_ROOT")"
+PRUNED_AGENTS="$(prune_unmanaged "$AGENT_ROOT")"
+if [[ "$PRUNED_WORKSPACES" != "0" || "$PRUNED_AGENTS" != "0" ]]; then
+  echo "[machine-agents] pruned $PRUNED_WORKSPACES workspace(s) and $PRUNED_AGENTS agent dir(s) outside the '$AGENT_PROFILE' profile"
+fi
+
 chmod 700 "$ROOT_DIR/openclaw" "$MAIN_WORKSPACE" "$ROOT_DIR/openclaw/workspaces" "$WORKSPACE_ROOT" "$AGENT_ROOT" 2>/dev/null || true
 find "$MAIN_WORKSPACE" "$WORKSPACE_ROOT" "$AGENT_ROOT" -type d -exec chmod 700 {} + 2>/dev/null || true
 find "$MAIN_WORKSPACE" "$WORKSPACE_ROOT" "$AGENT_ROOT" -type f -exec chmod 600 {} + 2>/dev/null || true
 chmod 600 "$CONFIG_PATH"
 
 COUNT="$(jq -r '.total' "$INDEX_PATH")"
-echo "[machine-agents] synced $COUNT machine-behavior agents from machine-behaviors/agents"
+echo "[machine-agents] synced $COUNT machine-behavior agents from machine-behaviors/agents (profile: $AGENT_PROFILE)"

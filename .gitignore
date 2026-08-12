@@ -1,5 +1,6 @@
 .DS_Store
 .env
 openclaw/
+machine-behaviors/agents/.generated/
 openwebui-data/
 browser-config/
