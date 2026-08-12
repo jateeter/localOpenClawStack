@@ -7,7 +7,9 @@ artifacts conform to their schemas. Runs before the stack is brought up.
   (a) every materialized agents/**/*.oc-agent.json  vs templates/oc-agent.schema.json
   (b) a representative OpenClaw completion payload   vs the corpus
       localai-completion-writeback.schema.json
-  (c) the PE input-bridge source-mapping artifact    (shape: id/sensorId/region/extract)
+  (c) pe-integration/corpus.pe-source-mappings.json   vs schemas/pe-source-mappings.schema.json
+      plus the cross-field invariants a schema cannot state (pointer count vs
+      region length, regions inside the reserved band, declared count vs actual)
 
 Exits non-zero on any violation. Mirrors the machine-behaviors test coverage
 (corpus suite C4/C5) as a self-contained gate for the deployment path.
@@ -25,6 +27,7 @@ import minischema  # noqa: E402
 from derive_agents import derive, load_config, _abs, resolve_machine_file  # noqa: E402
 
 OC_SCHEMA = HERE / "templates" / "oc-agent.schema.json"
+SOURCE_MAPPINGS_SCHEMA = HERE / "schemas" / "pe-source-mappings.schema.json"
 CFG = load_config()
 COMPLETION_SCHEMA = _abs(CFG["schemasDir"]) / "localai-completion-writeback.schema.json"
 
@@ -75,25 +78,34 @@ completion = {
 report("sample OpenClaw completion vs localai-completion-writeback.schema.json",
        minischema.validate(completion, comp_schema))
 
-# (c) PE input-bridge source-mapping artifact shape ---------------------------
+# (c) PE input-bridge source-mapping artifact ---------------------------------
+#
+# Shape is enforced by schema now; what stays here are the cross-field
+# invariants a schema cannot state: pointer count against region length,
+# every region inside the declared reserved band, and the declared count
+# against the actual one.
 sm_path = HERE / "pe-integration" / "corpus.pe-source-mappings.json"
 sm_errs = []
 if sm_path.exists():
     doc = json.loads(sm_path.read_text())
+    sm_errs.extend(minischema.validate(doc, minischema.load_schema(SOURCE_MAPPINGS_SCHEMA)))
     mappings = doc.get("sourceMappings", [])
-    if not isinstance(mappings, list) or not mappings:
-        sm_errs.append("sourceMappings missing or empty")
-    for m in mappings[:5000]:
-        for k in ("id", "sensorId", "region", "extract"):
-            if k not in m:
-                sm_errs.append(f"{m.get('id','?')}: missing '{k}'")
-        r = m.get("region", {})
-        if not (isinstance(r.get("offset"), int) and isinstance(r.get("length"), int) and r["length"] >= 1):
-            sm_errs.append(f"{m.get('id','?')}: bad region {r}")
-        ptrs = m.get("extract", {}).get("pointers", [])
-        if len(ptrs) != r.get("length"):
-            sm_errs.append(f"{m.get('id','?')}: pointers({len(ptrs)}) != region.length({r.get('length')})")
-    report(f"{len(mappings)} PE source mappings shape", sm_errs[:5])
+    if isinstance(mappings, list):
+        declared = doc.get("count")
+        if isinstance(declared, int) and declared != len(mappings):
+            sm_errs.append(f"count({declared}) != len(sourceMappings)({len(mappings)})")
+        band = doc.get("reservedBand") or []
+        low, high = (band + [None, None])[:2]
+        for m in mappings:
+            r = m.get("region") or {}
+            off, ln = r.get("offset"), r.get("length")
+            ptrs = (m.get("extract") or {}).get("pointers") or []
+            if isinstance(ln, int) and len(ptrs) != ln:
+                sm_errs.append(f"{m.get('id','?')}: pointers({len(ptrs)}) != region.length({ln})")
+            if isinstance(low, int) and isinstance(high, int) and isinstance(off, int) and isinstance(ln, int):
+                if off < low or off + ln - 1 > high:
+                    sm_errs.append(f"{m.get('id','?')}: region [{off}:{off + ln}] outside reservedBand [{low}:{high}]")
+    report(f"{len(mappings)} PE source mappings vs pe-source-mappings.schema.json", sm_errs[:5])
 else:
     report("PE source-mappings artifact present", [f"missing {sm_path.name} (run domain_sweep.py --all --write)"])
 
