@@ -1,0 +1,99 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://realityengine.example.org/schemas/pe-source-mappings.schema.json",
+  "title": "OpenClaw Corpus PE Source Mappings",
+  "description": "The generated PE INTEGRATIONS_CONFIG source-mapping artifact (pe-integration/corpus.pe-source-mappings.json). One entry per write-back agent, registering the completion sensor that carries that agent's response into the reserved completion band so PE can ingest it and RE can read it. Written by domain_sweep.py --all --write. This artifact is the completion axis; it is not the same identity as the per-machine input-analyst agents in agents/INDEX.json, and the two are not interchangeable.",
+  "type": "object",
+  "required": ["schemaVersion", "reservedBand", "count", "sourceMappings"],
+  "properties": {
+    "_comment": { "type": "string" },
+    "schemaVersion": { "type": "string", "minLength": 1 },
+    "generatedFrom": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Domain selector the sweep ran with; '*' for the whole corpus."
+    },
+    "reservedBand": {
+      "type": "array",
+      "minItems": 2,
+      "description": "[low, high] offsets of the reserved completion band. Every region must fall inside it, and it must sit above the corpus maximum offset so no machine can collide with a completion.",
+      "items": { "type": "integer", "minimum": 0 }
+    },
+    "count": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Must equal the length of sourceMappings; a stale count means the artifact was hand-edited."
+    },
+    "sourceMappings": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/sourceMapping" }
+    }
+  },
+  "$defs": {
+    "sourceMapping": {
+      "type": "object",
+      "required": ["id", "sensorId", "provider", "machine", "domain", "agent", "region", "extract", "normalize", "ttlMs", "pushMode"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Stable mapping id: acp-<machine>-<agent>-completion."
+        },
+        "sensorId": {
+          "type": "string",
+          "minLength": 1,
+          "description": "acp.openclaw.<machine>.<agent>.completion. Note the agent segment is kebab-cased here while the sibling `agent` field is snake_cased; consumers joining on agent identity must normalize."
+        },
+        "name": { "type": "string" },
+        "provider": { "type": "string", "enum": ["acp"] },
+        "machine": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Machine key. Derived from the machine file stem for most entries and from the normalized display name for a few, so a consumer resolving this against the corpus must try both conventions."
+        },
+        "domain": { "type": "string", "minLength": 1 },
+        "agent": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Agent family (role level), not the per-machine input-analyst agentId from agents/INDEX.json. Must be a family declared for `domain` in the corpus domain-registry."
+        },
+        "region": { "$ref": "#/$defs/region" },
+        "extract": { "$ref": "#/$defs/extract" },
+        "normalize": {
+          "type": "object",
+          "required": ["mode"],
+          "properties": {
+            "mode": { "type": "string", "enum": ["passthrough", "scale", "clamp01"] },
+            "clamp": { "type": "boolean" }
+          }
+        },
+        "ttlMs": { "type": "integer", "minimum": 1 },
+        "pushMode": { "type": "string", "enum": ["immediate", "debounced"] },
+        "debounceMs": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "region": {
+      "type": "object",
+      "required": ["offset", "length"],
+      "properties": {
+        "offset": { "type": "integer", "minimum": 0 },
+        "length": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "extract": {
+      "type": "object",
+      "required": ["type", "pointers"],
+      "description": "One JSON pointer per element of region, in element order. Pointer count and region.length must agree or the completion writes a different number of values than the region holds.",
+      "properties": {
+        "type": { "type": "string", "enum": ["json"] },
+        "pointers": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1 }
+        }
+      }
+    }
+  }
+}

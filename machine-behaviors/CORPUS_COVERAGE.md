@@ -1,5 +1,12 @@
 # Corpus-wide OpenClaw agent automation (all domains)
 
+> **Counts below are from the sweep that generated this file and have since
+> drifted** (the corpus is now 1321 machines / 1058 curated bindings). For a
+> current cross-repo review of how this agent corpus lines up with the machine
+> corpus — including the four agent axes, the 1127 semantic-axis disagreements,
+> and the 175 machines with no completion mapping — see
+> [`CORPUS_REVIEW.md`](CORPUS_REVIEW.md).
+
 The Personal Health template (`README.md` + `RESPONSE_MAPPING.md` +
 `DOMAIN_HEALTH_PERSONAL.md`) applied to **every machine in every domain**.
 Read-only w.r.t. machine `.json` and PE loaders; the only corpus-repo edits are

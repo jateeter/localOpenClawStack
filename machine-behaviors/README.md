@@ -106,13 +106,15 @@ JSONL, gated by `MB_DEBUG` (`0` silent, `1` file, `2` file+stderr), sharing one
 | `run_prototype.py` | end-to-end orchestration + summary tables |
 | `behavior_log.py` | correlated both-side JSONL debug logger |
 | `schemas/response-mapping.schema.json` | the round-trip textual→value contract ([`RESPONSE_MAPPING.md`](RESPONSE_MAPPING.md)) |
+| `schemas/pe-source-mappings.schema.json` | the completion-axis artifact contract, enforced by `verify_schemas.py` check (c) |
 | `minischema.py` | dependency-free validator against the corpus's real JSON schemas |
 | `config.example.json` | OpenClaw template values + region-band policy |
 | `tests/run_tests.py` | 27 incremental checks (derivation, schema-validity, regions, logging) |
 | `tests/run_domain_tests.py` | 20 domain-sweep checks (coverage, global regions, autonomy ceilings, reserved band) |
 | `tests/run_corpus_tests.py` | 17 corpus-wide checks (all corpus machines, schema-valid, PE source mappings) |
 | `tests/run_all.sh` | runs all three suites (82 checks) |
-| `pe-integration/corpus.pe-source-mappings.json` | materialized PE source mappings for all 1047 write-back agents ([`CORPUS_COVERAGE.md`](CORPUS_COVERAGE.md)) |
+| `pe-integration/corpus.pe-source-mappings.json` | materialized PE source mappings for the write-back agents — 1216 rows over 1146 machines ([`CORPUS_COVERAGE.md`](CORPUS_COVERAGE.md)); 175 machines have none, see [`CORPUS_REVIEW.md`](CORPUS_REVIEW.md) |
+| `CORPUS_REVIEW.md` | cross-repo review of this agent corpus against the machine corpus: the four agent axes, consistency, redundancy, omissions |
 
 ## 3. Usage
 
