@@ -34,7 +34,7 @@
   },
   "reasoning": {
     "objective": "Produce the normalized input vector for \"Transportation Fleet Finance And Cost Security Cost Monitor\" from current observations so RE can evaluate its CES sequences.",
-    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Transportation Fleet Finance And Cost Security Cost Monitor\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Public transportation fleet machine for security cost monitor in the finance and cost workstream. It monitors incident overtime, police assist, evidence handling, and hotspot deployment for a 100-bus 24/7 operation and emits AI-triggered outputs for rider experience, operations, maintenance, cleaning, security, and predictive fleet-flow management.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- service-reliability (index 0):\n- rider-impact (index 1):\n- asset-readiness (index 2):\n- safety-security-risk (index 3):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Security Cost Monitor (AMBER) -> action: Dispatch transit_command_center_agent for critical 100-bus fleet intervention on security cost monitor.\n- Security Cost Monitor (GREEN) -> action: Trigger predictive flow management for security cost monitor using rider, vehicle, and route context.\n- Security Cost Monitor (GREEN) -> action: Create maintenance, cleaning, security, or service task for security cost monitor.\n- Security Cost Monitor (GREEN) -> action: Keep 24/7 monitoring active for security cost monitor.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Transportation Fleet Finance And Cost Security Cost Monitor\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Public transportation fleet machine for security cost monitor in the finance and cost workstream. It monitors incident overtime, police assist, evidence handling, and hotspot deployment for a 100-bus 24/7 operation and emits AI-triggered outputs for rider experience, operations, maintenance, cleaning, security, and predictive fleet-flow management.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- service-reliability (index 0):\n- rider-impact (index 1):\n- asset-readiness (index 2):\n- safety-security-risk (index 3):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Security Cost Monitor (AMBER) -> action: dispatch-agent\n- Security Cost Monitor (GREEN) -> action: trigger-agent-workflow\n- Security Cost Monitor (GREEN) -> action: create-work-order\n- Security Cost Monitor (GREEN) -> action: continue-monitoring",
     "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
     "inputAxes": [
       {
@@ -80,28 +80,28 @@
         "label": "Security Cost Monitor",
         "rag": "AMBER",
         "outputIndex": 0,
-        "action": "Dispatch transit_command_center_agent for critical 100-bus fleet intervention on security cost monitor."
+        "action": "dispatch-agent"
       },
       {
         "sequenceId": "tfx-135-predictive-flow",
         "label": "Security Cost Monitor",
         "rag": "GREEN",
         "outputIndex": 1,
-        "action": "Trigger predictive flow management for security cost monitor using rider, vehicle, and route context."
+        "action": "trigger-agent-workflow"
       },
       {
         "sequenceId": "tfx-135-ops-task",
         "label": "Security Cost Monitor",
         "rag": "GREEN",
         "outputIndex": 2,
-        "action": "Create maintenance, cleaning, security, or service task for security cost monitor."
+        "action": "create-work-order"
       },
       {
         "sequenceId": "tfx-135-nominal",
         "label": "Security Cost Monitor",
         "rag": "GREEN",
         "outputIndex": 3,
-        "action": "Keep 24/7 monitoring active for security cost monitor."
+        "action": "continue-monitoring"
       }
     ]
   },
@@ -178,7 +178,7 @@
           "responseKey": "service-reliability",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -221,7 +221,7 @@
           "responseKey": "rider-impact",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -264,7 +264,7 @@
           "responseKey": "asset-readiness",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -307,7 +307,7 @@
           "responseKey": "safety-security-risk",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,

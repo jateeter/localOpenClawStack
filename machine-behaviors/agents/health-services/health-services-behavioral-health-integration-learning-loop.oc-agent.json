@@ -34,7 +34,7 @@
   },
   "reasoning": {
     "objective": "Produce the normalized input vector for \"Health Services Behavioral Health Integration Learning Loop\" from current observations so RE can evaluate its CES sequences.",
-    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Health Services Behavioral Health Integration Learning Loop\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Health Services domain machine for behavioral health integration that turns evaluation findings into adaptation and quality improvement. It operationalizes the PH system transformation evaluation-plan workflow by watching evaluability, logic-model outputs, evaluation questions, selected measures, and AI-dispatchable intervention status. Output at [1883:1887] can trigger downstream agents or peer machines in the Behavioral Health Integration pathway.\n\nPOPULATION: Community health service recipients, public health agencies, care partners, and cross-sector service networks\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- evaluability_readiness_norm (index 0):  0.0 = no usable data, support, or capacity; | 0.5 = partial evaluability; | 1.0 = clear scope, data, resources, and interest-holder support\n- service_delivery_pressure_norm (index 1):  0.0 = acute unmet demand or failed handoffs; | 0.5 = manageable pressure; | 1.0 = stable delivery capacity\n- equity_signal_norm (index 2):  0.0 = large disparity or excluded population; | 0.5 = known gap under mitigation; | 1.0 = equitable reach and experience\n- measure_confidence_norm (index 3):  0.0 = missing/low-quality measures; | 0.5 = partial indicator confidence; | 1.0 = timely, actionable, trusted measures\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- hsph-149-urgent-dispatch (RED) -> action: Dispatch benefits_navigation_agent to resolve behavioral health integration delivery risk and update the evaluation plan matrix.\n- hsph-149-optimize-delivery (GREEN) -> action: Trigger optimization agent workflow for behavioral health integration using current logic-model outputs and measures.\n- hsph-149-stable-ideal-state (GREEN) -> action: Record sustained progress toward the ideal state for behavioral health integration and keep monitoring.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Health Services Behavioral Health Integration Learning Loop\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Health Services domain machine for behavioral health integration that turns evaluation findings into adaptation and quality improvement. It operationalizes the PH system transformation evaluation-plan workflow by watching evaluability, logic-model outputs, evaluation questions, selected measures, and AI-dispatchable intervention status. Output at [1883:1887] can trigger downstream agents or peer machines in the Behavioral Health Integration pathway.\n\nPOPULATION: Community health service recipients, public health agencies, care partners, and cross-sector service networks\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- evaluability_readiness_norm (index 0):  0.0 = no usable data, support, or capacity; | 0.5 = partial evaluability; | 1.0 = clear scope, data, resources, and interest-holder support\n- service_delivery_pressure_norm (index 1):  0.0 = acute unmet demand or failed handoffs; | 0.5 = manageable pressure; | 1.0 = stable delivery capacity\n- equity_signal_norm (index 2):  0.0 = large disparity or excluded population; | 0.5 = known gap under mitigation; | 1.0 = equitable reach and experience\n- measure_confidence_norm (index 3):  0.0 = missing/low-quality measures; | 0.5 = partial indicator confidence; | 1.0 = timely, actionable, trusted measures\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- hsph-149-urgent-dispatch (RED) -> action: dispatch-agent\n- hsph-149-optimize-delivery (GREEN) -> action: trigger-agent-workflow\n- hsph-149-stable-ideal-state (GREEN) -> action: continue-monitoring",
     "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
     "inputAxes": [
       {
@@ -80,21 +80,21 @@
         "label": "hsph-149-urgent-dispatch",
         "rag": "RED",
         "outputIndex": 0,
-        "action": "Dispatch benefits_navigation_agent to resolve behavioral health integration delivery risk and update the evaluation plan matrix."
+        "action": "dispatch-agent"
       },
       {
         "sequenceId": "hsph-149-optimize-delivery",
         "label": "hsph-149-optimize-delivery",
         "rag": "GREEN",
         "outputIndex": 1,
-        "action": "Trigger optimization agent workflow for behavioral health integration using current logic-model outputs and measures."
+        "action": "trigger-agent-workflow"
       },
       {
         "sequenceId": "hsph-149-stable-ideal-state",
         "label": "hsph-149-stable-ideal-state",
         "rag": "GREEN",
         "outputIndex": 3,
-        "action": "Record sustained progress toward the ideal state for behavioral health integration and keep monitoring."
+        "action": "continue-monitoring"
       }
     ]
   },
@@ -171,7 +171,7 @@
           "responseKey": "evaluability_readiness_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -214,7 +214,7 @@
           "responseKey": "service_delivery_pressure_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -257,7 +257,7 @@
           "responseKey": "equity_signal_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -300,7 +300,7 @@
           "responseKey": "measure_confidence_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,

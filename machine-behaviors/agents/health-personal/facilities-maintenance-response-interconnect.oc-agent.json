@@ -34,7 +34,7 @@
   },
   "reasoning": {
     "objective": "Produce the normalized input vector for \"Facilities Maintenance Response Interconnect\" from current observations so RE can evaluate its CES sequences.",
-    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Facilities Maintenance Response Interconnect\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Published personal-health bridge bus that composes facilities maintenance observations, environment safety, food access, transportation access, social isolation, daily care anomalies, and wellness escalation into a compact facilities response lane. PE owns source composition and writes the compact input lane; RE evaluates this machine as ordinary vector state.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- facilities-daily-complete-bit (index 0):\n- facilities-weekly-complete-bit (index 1):\n- facilities-hygiene-alert-bit (index 2):\n- facilities-safety-alert-bit (index 3):\n- facilities-wellness-concern-bit (index 4):\n- facilities-inaccessibility-alert-bit (index 5):\n- environment-unsafe-housing-bit (index 6):\n- environment-utility-failure-bit (index 7):\n- environment-health-hazard-risk-bit (index 8):\n- food-crisis-bit (index 9):\n- food-insecure-bit (index 10):\n- food-assistance-needed-bit (index 11):\n- transport-critical-access-failure-bit (index 12):\n- transport-appointment-barrier-bit (index 13):\n- severe-social-isolation-bit (index 14):\n- daily-care-unresponsive-fall-bit (index 15):\n- daily-care-bathroom-alert-bit (index 16):\n- wellness-transition-urgent-or-escalated-bit (index 17):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- IMMEDIATE_WELFARE_CHECK (RED) -> action: Route welfare check, care coordination, emergency escalation, transport support, and governance review.\n- ENVIRONMENT_REMEDIATION_RESPONSE (AMBER) -> action: Route maintenance remediation, housing utility support, safety review, and care visit preparation.\n- SERVICE_ACCESS_STABILIZATION (AMBER) -> action: Route nutrition assistance, transportation support, social connection review, and care coordination.\n- ROUTINE_MAINTENANCE_COMPLETE (GREEN) -> action: Record routine maintenance completion and keep monitoring at baseline cadence.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Facilities Maintenance Response Interconnect\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Published personal-health bridge bus that composes facilities maintenance observations, environment safety, food access, transportation access, social isolation, daily care anomalies, and wellness escalation into a compact facilities response lane. PE owns source composition and writes the compact input lane; RE evaluates this machine as ordinary vector state.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- facilities-daily-complete-bit (index 0):\n- facilities-weekly-complete-bit (index 1):\n- facilities-hygiene-alert-bit (index 2):\n- facilities-safety-alert-bit (index 3):\n- facilities-wellness-concern-bit (index 4):\n- facilities-inaccessibility-alert-bit (index 5):\n- environment-unsafe-housing-bit (index 6):\n- environment-utility-failure-bit (index 7):\n- environment-health-hazard-risk-bit (index 8):\n- food-crisis-bit (index 9):\n- food-insecure-bit (index 10):\n- food-assistance-needed-bit (index 11):\n- transport-critical-access-failure-bit (index 12):\n- transport-appointment-barrier-bit (index 13):\n- severe-social-isolation-bit (index 14):\n- daily-care-unresponsive-fall-bit (index 15):\n- daily-care-bathroom-alert-bit (index 16):\n- wellness-transition-urgent-or-escalated-bit (index 17):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- IMMEDIATE_WELFARE_CHECK (RED) -> action: urgent-intervention\n- ENVIRONMENT_REMEDIATION_RESPONSE (AMBER) -> action: route-referral\n- SERVICE_ACCESS_STABILIZATION (AMBER) -> action: route-referral\n- ROUTINE_MAINTENANCE_COMPLETE (GREEN) -> action: continue-monitoring",
     "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
     "inputAxes": [
       {
@@ -206,28 +206,28 @@
         "label": "IMMEDIATE_WELFARE_CHECK",
         "rag": "RED",
         "outputIndex": 0,
-        "action": "Route welfare check, care coordination, emergency escalation, transport support, and governance review."
+        "action": "urgent-intervention"
       },
       {
         "sequenceId": "facilities-maintenance-environment-remediation",
         "label": "ENVIRONMENT_REMEDIATION_RESPONSE",
         "rag": "AMBER",
         "outputIndex": 1,
-        "action": "Route maintenance remediation, housing utility support, safety review, and care visit preparation."
+        "action": "route-referral"
       },
       {
         "sequenceId": "facilities-maintenance-service-access-stabilization",
         "label": "SERVICE_ACCESS_STABILIZATION",
         "rag": "AMBER",
         "outputIndex": 2,
-        "action": "Route nutrition assistance, transportation support, social connection review, and care coordination."
+        "action": "route-referral"
       },
       {
         "sequenceId": "facilities-maintenance-routine-complete",
         "label": "ROUTINE_MAINTENANCE_COMPLETE",
         "rag": "GREEN",
         "outputIndex": 3,
-        "action": "Record routine maintenance completion and keep monitoring at baseline cadence."
+        "action": "continue-monitoring"
       }
     ]
   },
@@ -318,7 +318,7 @@
           "responseKey": "facilities-daily-complete-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -361,7 +361,7 @@
           "responseKey": "facilities-weekly-complete-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -404,7 +404,7 @@
           "responseKey": "facilities-hygiene-alert-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -447,7 +447,7 @@
           "responseKey": "facilities-safety-alert-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -490,7 +490,7 @@
           "responseKey": "facilities-wellness-concern-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -533,7 +533,7 @@
           "responseKey": "facilities-inaccessibility-alert-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -576,7 +576,7 @@
           "responseKey": "environment-unsafe-housing-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -619,7 +619,7 @@
           "responseKey": "environment-utility-failure-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -662,7 +662,7 @@
           "responseKey": "environment-health-hazard-risk-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -705,7 +705,7 @@
           "responseKey": "food-crisis-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -748,7 +748,7 @@
           "responseKey": "food-insecure-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -791,7 +791,7 @@
           "responseKey": "food-assistance-needed-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -834,7 +834,7 @@
           "responseKey": "transport-critical-access-failure-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -877,7 +877,7 @@
           "responseKey": "transport-appointment-barrier-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -920,7 +920,7 @@
           "responseKey": "severe-social-isolation-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -963,7 +963,7 @@
           "responseKey": "daily-care-unresponsive-fall-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -1006,7 +1006,7 @@
           "responseKey": "daily-care-bathroom-alert-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -1049,7 +1049,7 @@
           "responseKey": "wellness-transition-urgent-or-escalated-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,

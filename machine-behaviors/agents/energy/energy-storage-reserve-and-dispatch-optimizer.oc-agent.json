@@ -34,7 +34,7 @@
   },
   "reasoning": {
     "objective": "Produce the normalized input vector for \"Energy Storage Reserve And Dispatch Optimizer\" from current observations so RE can evaluate its CES sequences.",
-    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Energy Storage Reserve And Dispatch Optimizer\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Coordinates battery state of charge, thermal limits, BMS balance, fire safety, solar surplus, critical load forecast, and dispatch signals.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- state_of_charge_below_reserve_floor_norm (index 0):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- available_discharge_capacity_sufficient_norm (index 1):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- battery_thermal_limit_active_norm (index 2):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- bms_cell_imbalance_active_norm (index 3):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- fire_safety_loop_impaired_norm (index 4):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- solar_charge_surplus_available_norm (index 5):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- critical_load_forecast_rising_norm (index 6):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- market_or_utility_dispatch_signal_active_norm (index 7):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Storage Reserve And Dispatch Optimizer (RED) -> action: PROTECT_STORAGE_ASSET for resilient community microgrid operations.\n- Storage Reserve And Dispatch Optimizer (AMBER) -> action: DISPATCH_STORAGE for resilient community microgrid operations.\n- Storage Reserve And Dispatch Optimizer (AMBER) -> action: CHARGE_STORAGE for resilient community microgrid operations.\n- Storage Reserve And Dispatch Optimizer (GREEN) -> action: RESERVE_STABLE for resilient community microgrid operations.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Energy Storage Reserve And Dispatch Optimizer\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Coordinates battery state of charge, thermal limits, BMS balance, fire safety, solar surplus, critical load forecast, and dispatch signals.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- state_of_charge_below_reserve_floor_norm (index 0):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- available_discharge_capacity_sufficient_norm (index 1):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- battery_thermal_limit_active_norm (index 2):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- bms_cell_imbalance_active_norm (index 3):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- fire_safety_loop_impaired_norm (index 4):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- solar_charge_surplus_available_norm (index 5):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- critical_load_forecast_rising_norm (index 6):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- market_or_utility_dispatch_signal_active_norm (index 7):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Storage Reserve And Dispatch Optimizer (RED) -> action: adjust-operations\n- Storage Reserve And Dispatch Optimizer (AMBER) -> action: adjust-operations\n- Storage Reserve And Dispatch Optimizer (AMBER) -> action: adjust-operations\n- Storage Reserve And Dispatch Optimizer (GREEN) -> action: continue-monitoring",
     "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
     "inputAxes": [
       {
@@ -116,28 +116,28 @@
         "label": "Storage Reserve And Dispatch Optimizer",
         "rag": "RED",
         "outputIndex": 0,
-        "action": "PROTECT_STORAGE_ASSET for resilient community microgrid operations."
+        "action": "adjust-operations"
       },
       {
         "sequenceId": "enx203-dispatch-storage",
         "label": "Storage Reserve And Dispatch Optimizer",
         "rag": "AMBER",
         "outputIndex": 1,
-        "action": "DISPATCH_STORAGE for resilient community microgrid operations."
+        "action": "adjust-operations"
       },
       {
         "sequenceId": "enx203-charge-storage",
         "label": "Storage Reserve And Dispatch Optimizer",
         "rag": "AMBER",
         "outputIndex": 2,
-        "action": "CHARGE_STORAGE for resilient community microgrid operations."
+        "action": "adjust-operations"
       },
       {
         "sequenceId": "enx203-reserve-stable",
         "label": "Storage Reserve And Dispatch Optimizer",
         "rag": "GREEN",
         "outputIndex": 3,
-        "action": "RESERVE_STABLE for resilient community microgrid operations."
+        "action": "continue-monitoring"
       }
     ]
   },
@@ -218,7 +218,7 @@
           "responseKey": "state_of_charge_below_reserve_floor_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -261,7 +261,7 @@
           "responseKey": "available_discharge_capacity_sufficient_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -304,7 +304,7 @@
           "responseKey": "battery_thermal_limit_active_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -347,7 +347,7 @@
           "responseKey": "bms_cell_imbalance_active_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -390,7 +390,7 @@
           "responseKey": "fire_safety_loop_impaired_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -433,7 +433,7 @@
           "responseKey": "solar_charge_surplus_available_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -476,7 +476,7 @@
           "responseKey": "critical_load_forecast_rising_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -519,7 +519,7 @@
           "responseKey": "market_or_utility_dispatch_signal_active_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,

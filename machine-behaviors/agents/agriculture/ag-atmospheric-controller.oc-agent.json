@@ -34,7 +34,7 @@
   },
   "reasoning": {
     "objective": "Produce the normalized input vector for \"Ag Atmospheric Controller\" from current observations so RE can evaluate its CES sequences.",
-    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Ag Atmospheric Controller\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Monitors CO2 concentration, relative humidity, and vapor pressure deficit (VPD) within indoor growing zones. Three concurrent patterns detect CO2 depletion during photosynthesis peaks, high-humidity fungal risk, and optimal atmospheric conditions. Upstream: atmospheric sensors at [16:20]. Downstream: AgIPMPestAlertMonitor reads output at [36:40].\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- co2_ppm_norm (index 0):  0.0 = 0 ppm | 0.5 = 800 ppm (enriched optimal) | 1.0 = 2000 ppm\n- rh_norm (index 1):  0.0 = 0% RH | 0.5 = 65% RH (vegetative optimal) | 1.0 = 100% RH\n- vpd_norm (index 2):  0.0 = 0.0 kPa (zero VPD, no transpiration) | 0.5 = 1.0 kPa (optimal) | 1.0 = 2.5 kPa (excessive)\n- air_exchange_norm (index 3):  0.0 = stagnant | 0.5 = nominal ACH | 1.0 = maximum ventilation\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- CO2_INJECT (AMBER) -> action: Open CO2 regulator; enrichment cycle begins; IPM monitor registers CO2 stress\n- HUMIDITY_ALERT (AMBER) -> action: Increase air exchange; IPM monitor registers elevated fungal pressure\n- ATMOS_OK (GREEN) -> action: IPM and plant monitors register clean atmospheric baseline",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Ag Atmospheric Controller\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Monitors CO2 concentration, relative humidity, and vapor pressure deficit (VPD) within indoor growing zones. Three concurrent patterns detect CO2 depletion during photosynthesis peaks, high-humidity fungal risk, and optimal atmospheric conditions. Upstream: atmospheric sensors at [16:20]. Downstream: AgIPMPestAlertMonitor reads output at [36:40].\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- co2_ppm_norm (index 0):  0.0 = 0 ppm | 0.5 = 800 ppm (enriched optimal) | 1.0 = 2000 ppm\n- rh_norm (index 1):  0.0 = 0% RH | 0.5 = 65% RH (vegetative optimal) | 1.0 = 100% RH\n- vpd_norm (index 2):  0.0 = 0.0 kPa (zero VPD, no transpiration) | 0.5 = 1.0 kPa (optimal) | 1.0 = 2.5 kPa (excessive)\n- air_exchange_norm (index 3):  0.0 = stagnant | 0.5 = nominal ACH | 1.0 = maximum ventilation\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- CO2_INJECT (AMBER) -> action: adjust-operations\n- HUMIDITY_ALERT (AMBER) -> action: adjust-operations\n- ATMOS_OK (GREEN) -> action: continue-monitoring",
     "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
     "inputAxes": [
       {
@@ -80,21 +80,21 @@
         "label": "CO2_INJECT",
         "rag": "AMBER",
         "outputIndex": 0,
-        "action": "Open CO2 regulator; enrichment cycle begins; IPM monitor registers CO2 stress"
+        "action": "adjust-operations"
       },
       {
         "sequenceId": "ag-atmos-humidity-escalation",
         "label": "HUMIDITY_ALERT",
         "rag": "AMBER",
         "outputIndex": 2,
-        "action": "Increase air exchange; IPM monitor registers elevated fungal pressure"
+        "action": "adjust-operations"
       },
       {
         "sequenceId": "ag-atmos-optimal",
         "label": "ATMOS_OK",
         "rag": "GREEN",
         "outputIndex": 3,
-        "action": "IPM and plant monitors register clean atmospheric baseline"
+        "action": "continue-monitoring"
       }
     ]
   },
@@ -171,7 +171,7 @@
           "responseKey": "co2_ppm_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -214,7 +214,7 @@
           "responseKey": "rh_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -257,7 +257,7 @@
           "responseKey": "vpd_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -300,7 +300,7 @@
           "responseKey": "air_exchange_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,

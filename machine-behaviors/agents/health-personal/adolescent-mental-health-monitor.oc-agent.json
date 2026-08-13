@@ -34,7 +34,7 @@
   },
   "reasoning": {
     "objective": "Produce the normalized input vector for \"Adolescent Mental Health Monitor\" from current observations so RE can evaluate its CES sequences.",
-    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Adolescent Mental Health Monitor\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Integration machine that reads combined output signals from the Home Food Security Monitor [1995:1999] and the Home Environment Safety Monitor [1999:2003] to detect adolescent mental health risk driven by co-occurring social adversities. Food insecurity and housing instability are the two most predictive household stressors for adolescent depression, anxiety, and behavioral health crises. Monitors mood indicators, school engagement, risk behavior, and family conflict as 8D integrated input. Output at [2027:2031] is available to downstream care coordination systems.\n\nPOPULATION: Adolescents ages 12\u201318 in food-insecure and housing-unstable households; low-income youth without behavioral health access\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- food-crisis-bit (index 0):\n- food-insecure-bit (index 1):\n- food-assistance-needed-bit (index 2):\n- food-secure-bit (index 3):\n- unsafe-housing-bit (index 4):\n- utility-failure-bit (index 5):\n- health-hazard-risk-bit (index 6):\n- environment-safe-bit (index 7):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- CRISIS_RISK (RED) -> action: School counselor notification; behavioral health crisis referral; family stabilization services; ACE screening; mandated reporter assessment\n- BEHAVIORAL_CONCERN (AMBER) -> action: School counselor check-in; home visitor assessment; caregiver mental health screening; behavioral health referral\n- MENTAL_HEALTH_OK (GREEN) -> action: No intervention required; continue monitoring",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Adolescent Mental Health Monitor\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Integration machine that reads combined output signals from the Home Food Security Monitor [1995:1999] and the Home Environment Safety Monitor [1999:2003] to detect adolescent mental health risk driven by co-occurring social adversities. Food insecurity and housing instability are the two most predictive household stressors for adolescent depression, anxiety, and behavioral health crises. Monitors mood indicators, school engagement, risk behavior, and family conflict as 8D integrated input. Output at [2027:2031] is available to downstream care coordination systems.\n\nPOPULATION: Adolescents ages 12\u201318 in food-insecure and housing-unstable households; low-income youth without behavioral health access\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- food-crisis-bit (index 0):\n- food-insecure-bit (index 1):\n- food-assistance-needed-bit (index 2):\n- food-secure-bit (index 3):\n- unsafe-housing-bit (index 4):\n- utility-failure-bit (index 5):\n- health-hazard-risk-bit (index 6):\n- environment-safe-bit (index 7):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- CRISIS_RISK (RED) -> action: urgent-intervention\n- BEHAVIORAL_CONCERN (AMBER) -> action: route-referral\n- MENTAL_HEALTH_OK (GREEN) -> action: continue-monitoring",
     "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
     "inputAxes": [
       {
@@ -116,21 +116,21 @@
         "label": "CRISIS_RISK",
         "rag": "RED",
         "outputIndex": 0,
-        "action": "School counselor notification; behavioral health crisis referral; family stabilization services; ACE screening; mandated reporter assessment"
+        "action": "urgent-intervention"
       },
       {
         "sequenceId": "adolescent-mh-behavioral-concern",
         "label": "BEHAVIORAL_CONCERN",
         "rag": "AMBER",
         "outputIndex": 1,
-        "action": "School counselor check-in; home visitor assessment; caregiver mental health screening; behavioral health referral"
+        "action": "route-referral"
       },
       {
         "sequenceId": "adolescent-mh-ok",
         "label": "MENTAL_HEALTH_OK",
         "rag": "GREEN",
         "outputIndex": 3,
-        "action": "No intervention required; continue monitoring"
+        "action": "continue-monitoring"
       }
     ]
   },
@@ -211,7 +211,7 @@
           "responseKey": "food-crisis-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -254,7 +254,7 @@
           "responseKey": "food-insecure-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -297,7 +297,7 @@
           "responseKey": "food-assistance-needed-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -340,7 +340,7 @@
           "responseKey": "food-secure-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -383,7 +383,7 @@
           "responseKey": "unsafe-housing-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -426,7 +426,7 @@
           "responseKey": "utility-failure-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -469,7 +469,7 @@
           "responseKey": "health-hazard-risk-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -512,7 +512,7 @@
           "responseKey": "environment-safe-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,

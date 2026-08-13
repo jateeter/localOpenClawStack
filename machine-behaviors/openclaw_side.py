@@ -71,8 +71,18 @@ def _structured_value(response: str, key: str) -> str | None:
     return None
 
 
-def _match_rule(value_text: str, rule: dict[str, Any], *, preserve_number: bool = False) -> float:
-    """Apply a textFallback rule to a (short) value string -> normalized value."""
+UNRESOLVED = None   # the transformation could not resolve this axis
+
+
+def _match_rule(value_text: str, rule: dict[str, Any], *, preserve_number: bool = False):
+    """Apply a textFallback rule to a (short) value string -> normalized value.
+
+    Returns UNRESOLVED when nothing in the response resolves against this axis.
+    There is deliberately no default: a substituted value would make the
+    transformation incapable of failing, and the transformation IS the quality
+    gate (ARBITER_CONTRACT.md 4.3b). An unresolved axis yields no contribution
+    and is diverted to the analysis stream instead.
+    """
     vt = value_text.lower()
     vtokens = set(re.findall(r"[a-z0-9]+", vt))
 
@@ -87,7 +97,7 @@ def _match_rule(value_text: str, rule: dict[str, Any], *, preserve_number: bool 
         m = re.search(rule.get("numberRegex", r"\b([01](?:\.0+)?)\b"), vt)
         if m:
             return float(m.group(1))
-        return float(rule.get("default", 0.0))
+        return UNRESOLVED
     if kind == "scalar-phrase":
         for ph, val in rule["phrases"].items():
             if hit(ph):
@@ -98,8 +108,8 @@ def _match_rule(value_text: str, rule: dict[str, Any], *, preserve_number: bool 
             if preserve_number:
                 return num
             return _clamp01(num / 100.0 if num > 1 else num)
-        return float(rule.get("default", 0.5))
-    return float(rule.get("default", 0.0))
+        return UNRESOLVED
+    return UNRESOLVED
 
 
 def _coerce_number(v: Any, rule: dict[str, Any], *, preserve_number: bool = False) -> float:
@@ -121,7 +131,9 @@ def _field_preserves_number(field: dict[str, Any]) -> bool:
     return str(field.get("normalization", "")).startswith("machine-native-")
 
 
-def _normalize_field_value(value: float, field: dict[str, Any]) -> float:
+def _normalize_field_value(value, field: dict[str, Any]):
+    if value is UNRESOLVED:
+        return UNRESOLVED
     normalization = field.get("normalization")
     if normalization in {"binary", "one-hot", "machine-native-binary"}:
         return 1.0 if value >= 0.5 else 0.0
@@ -134,7 +146,7 @@ def _normalize_field_value(value: float, field: dict[str, Any]) -> float:
     return _clamp01(value)
 
 
-def _extract_field(response: Any, full_text: str, field: dict[str, Any]) -> float:
+def _extract_field(response: Any, full_text: str, field: dict[str, Any]):
     ex = field["extract"]
     rule = ex.get("textFallback", {})
     preserve_number = _field_preserves_number(field)
@@ -149,42 +161,67 @@ def _extract_field(response: Any, full_text: str, field: dict[str, Any]) -> floa
     if value_text is not None:
         return _normalize_field_value(
             _match_rule(value_text, rule, preserve_number=preserve_number), field)
-    # contracted key absent: in a structured turn that means "default", not a
-    # whole-text scan (which would cross-contaminate from other fields' values).
+    # Contracted key absent in a structured turn. Previously this substituted a
+    # default; it now resolves to nothing. A whole-text scan is still refused
+    # here because it would cross-contaminate from other fields' values.
     if _looks_structured(response):
-        return _normalize_field_value(float(rule.get("default", 0.0)), field)
+        return UNRESOLVED
     return _normalize_field_value(
         _match_rule(full_text, rule, preserve_number=preserve_number), field)  # pure free-text turn: best-effort scan
 
 
 def apply_response_mapping(response: Any, mapping: dict[str, Any]):
-    """Return (targets, extracted_fields).
+    """Return (targets, extracted_fields, unresolved).
 
-    targets: list of {sensorId, region, values, semantics} — one per PE region the
-    response fans out to.  extracted_fields: flat list of {semantic, value} for
-    logging/audit.  Fields with target=None (observe) contribute to audit only.
+    targets: list of {sensorId, region, values, present, semantics} — one per PE
+    region the response fans out to.  `present[i]` is False where the
+    transformation could not resolve that axis; those positions contribute
+    nothing and MUST NOT be written to the reality vector.
+
+    extracted_fields: flat list of {semantic, value} for logging/audit; `value`
+    is None for unresolved axes.
+
+    unresolved: the analysis-stream payload — one record per axis the
+    transformation could not resolve, carrying the axis and its declared
+    semantics, the extraction attempted, and the response received.  Failure is
+    diverted here for learning rather than discarded (ARBITER_CONTRACT.md 4.3b).
     """
     full_text = response if isinstance(response, str) else json.dumps(response)
     full_text = full_text.lower()
     targets: dict[tuple, dict[str, Any]] = {}
     extracted: list[dict[str, Any]] = []
+    unresolved: list[dict[str, Any]] = []
     for field in mapping["fields"]:
         value = _extract_field(response, full_text, field)
         extracted.append({"semantic": field["semantic"], "value": value})
         target = field.get("target")
+        if value is UNRESOLVED:
+            unresolved.append({
+                "semantic": field["semantic"],
+                "declaredSemantics": {"valueType": field.get("valueType"),
+                                      "normalization": field.get("normalization")},
+                "extractAttempted": field.get("extract"),
+                "response": response,
+                "target": target,
+                "reason": "transformation-unresolved",
+            })
+            continue
         if not target:
             continue
         region = target["region"]
         key = (target["sensorId"], region["offset"], region["length"])
         slot = targets.setdefault(key, {
             "sensorId": target["sensorId"], "region": dict(region),
-            "values": [0.0] * region["length"], "semantics": [None] * region["length"],
+            "values": [0.0] * region["length"],
+            "present": [False] * region["length"],
+            "semantics": [None] * region["length"],
             "normalizations": [None] * region["length"],
         })
         slot["values"][target["index"]] = value
+        slot["present"][target["index"]] = True
         slot["semantics"][target["index"]] = field["semantic"]
         slot["normalizations"][target["index"]] = field.get("normalization")
-    return list(targets.values()), extracted
+    return list(targets.values()), extracted, unresolved
 
 
 # --- simulated agent turn -----------------------------------------------------
@@ -260,7 +297,7 @@ def run(envelope: dict[str, Any], agent_rec: dict[str, Any], cfg: dict[str, Any]
                envelopeId=envelope["envelopeId"], trigger=binding["trigger"])
 
     response_text = _simulate_textual_response(envelope, agent_rec)
-    targets, extracted = apply_response_mapping(response_text, mapping)
+    targets, extracted, unresolved = apply_response_mapping(response_text, mapping)
     logger.log("openclaw.agent-response", acpRunId=acp_run_id, agent=agent_rec["agent"],
                autonomyMode=envelope["dispatch"]["autonomyMode"],
                responseFormat=mapping["responseContract"], responseText=response_text)

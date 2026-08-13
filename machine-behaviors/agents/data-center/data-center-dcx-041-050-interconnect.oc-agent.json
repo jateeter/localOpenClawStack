@@ -34,7 +34,7 @@
   },
   "reasoning": {
     "objective": "Produce the normalized input vector for \"Data Center DCX-041-050 Interconnect\" from current observations so RE can evaluate its CES sequences.",
-    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Data Center DCX-041-050 Interconnect\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Published data-center bridge bus that composes Data Center DCX-041-050 into a compact domain family response lane. PE owns source composition and writes the compact input lane; RE evaluates this machine as ordinary vector state.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- data-center-carbon-aware-workload-scheduler-active-output-0-bit (index 0):\n- data-center-carbon-aware-workload-scheduler-active-output-1-bit (index 1):\n- data-center-carbon-aware-workload-scheduler-active-output-2-bit (index 2):\n- data-center-tenant-capacity-guard-active-output-0-bit (index 3):\n- data-center-tenant-capacity-guard-active-output-1-bit (index 4):\n- data-center-tenant-capacity-guard-active-output-2-bit (index 5):\n- data-center-sre-handoff-completeness-active-output-0-bit (index 6):\n- data-center-sre-handoff-completeness-active-output-1-bit (index 7):\n- data-center-sre-handoff-completeness-active-output-2-bit (index 8):\n- data-center-maintenance-blackout-guard-active-output-0-bit (index 9):\n- data-center-maintenance-blackout-guard-active-output-1-bit (index 10):\n- data-center-maintenance-blackout-guard-active-output-2-bit (index 11):\n- data-center-upgrade-wave-planner-active-output-0-bit (index 12):\n- data-center-upgrade-wave-planner-active-output-1-bit (index 13):\n- data-center-upgrade-wave-planner-active-output-2-bit (index 14):\n- data-center-firmware-rollback-readiness-active-output-0-bit (index 15):\n- data-center-firmware-rollback-readiness-active-output-1-bit (index 16):\n- data-center-firmware-rollback-readiness-active-output-2-bit (index 17):\n- data-center-spine-leaf-expansion-planner-active-output-0-bit (index 18):\n- data-center-spine-leaf-expansion-planner-active-output-1-bit (index 19):\n- data-center-spine-leaf-expansion-planner-active-output-2-bit (index 20):\n- data-center-storage-migration-coordinator-active-output-0-bit (index 21):\n- data-center-storage-migration-coordinator-active-output-1-bit (index 22):\n- data-center-storage-migration-coordinator-active-output-2-bit (index 23):\n- data-center-decommission-safety-controller-active-output-0-bit (index 24):\n- data-center-decommission-safety-controller-active-output-1-bit (index 25):\n- data-center-decommission-safety-controller-active-output-2-bit (index 26):\n- data-center-24x7-operations-executive-summary-active-output-0-bit (index 27):\n- data-center-24x7-operations-executive-summary-active-output-1-bit (index 28):\n- data-center-24x7-operations-executive-summary-active-output-2-bit (index 29):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Data Center DCX-041-050 domain family review at [14293 (RED) -> action: Route domain family review, escalation, and resolver summary.\n- Data Center DCX-041-050 domain family optimization at [14293 (AMBER) -> action: Route domain family optimization or plan adjustment.\n- Data Center DCX-041-050 domain family monitoring at [14293 (AMBER) -> action: Route monitoring, evidence, or data-quality follow-up.\n- Data Center DCX-041-050 domain family stable at [14293 (GREEN) -> action: Record stable family state and keep baseline cadence.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Data Center DCX-041-050 Interconnect\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Published data-center bridge bus that composes Data Center DCX-041-050 into a compact domain family response lane. PE owns source composition and writes the compact input lane; RE evaluates this machine as ordinary vector state.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- data-center-carbon-aware-workload-scheduler-active-output-0-bit (index 0):\n- data-center-carbon-aware-workload-scheduler-active-output-1-bit (index 1):\n- data-center-carbon-aware-workload-scheduler-active-output-2-bit (index 2):\n- data-center-tenant-capacity-guard-active-output-0-bit (index 3):\n- data-center-tenant-capacity-guard-active-output-1-bit (index 4):\n- data-center-tenant-capacity-guard-active-output-2-bit (index 5):\n- data-center-sre-handoff-completeness-active-output-0-bit (index 6):\n- data-center-sre-handoff-completeness-active-output-1-bit (index 7):\n- data-center-sre-handoff-completeness-active-output-2-bit (index 8):\n- data-center-maintenance-blackout-guard-active-output-0-bit (index 9):\n- data-center-maintenance-blackout-guard-active-output-1-bit (index 10):\n- data-center-maintenance-blackout-guard-active-output-2-bit (index 11):\n- data-center-upgrade-wave-planner-active-output-0-bit (index 12):\n- data-center-upgrade-wave-planner-active-output-1-bit (index 13):\n- data-center-upgrade-wave-planner-active-output-2-bit (index 14):\n- data-center-firmware-rollback-readiness-active-output-0-bit (index 15):\n- data-center-firmware-rollback-readiness-active-output-1-bit (index 16):\n- data-center-firmware-rollback-readiness-active-output-2-bit (index 17):\n- data-center-spine-leaf-expansion-planner-active-output-0-bit (index 18):\n- data-center-spine-leaf-expansion-planner-active-output-1-bit (index 19):\n- data-center-spine-leaf-expansion-planner-active-output-2-bit (index 20):\n- data-center-storage-migration-coordinator-active-output-0-bit (index 21):\n- data-center-storage-migration-coordinator-active-output-1-bit (index 22):\n- data-center-storage-migration-coordinator-active-output-2-bit (index 23):\n- data-center-decommission-safety-controller-active-output-0-bit (index 24):\n- data-center-decommission-safety-controller-active-output-1-bit (index 25):\n- data-center-decommission-safety-controller-active-output-2-bit (index 26):\n- data-center-24x7-operations-executive-summary-active-output-0-bit (index 27):\n- data-center-24x7-operations-executive-summary-active-output-1-bit (index 28):\n- data-center-24x7-operations-executive-summary-active-output-2-bit (index 29):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Data Center DCX-041-050 domain family review at [14293 (RED) -> action: route-review\n- Data Center DCX-041-050 domain family optimization at [14293 (AMBER) -> action: route-review\n- Data Center DCX-041-050 domain family monitoring at [14293 (AMBER) -> action: route-review\n- Data Center DCX-041-050 domain family stable at [14293 (GREEN) -> action: continue-monitoring",
     "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
     "inputAxes": [
       {
@@ -314,28 +314,28 @@
         "label": "Data Center DCX-041-050 domain family review at [14293",
         "rag": "RED",
         "outputIndex": 0,
-        "action": "Route domain family review, escalation, and resolver summary."
+        "action": "route-review"
       },
       {
         "sequenceId": "dcx-041-050-domain-family-optimization",
         "label": "Data Center DCX-041-050 domain family optimization at [14293",
         "rag": "AMBER",
         "outputIndex": 1,
-        "action": "Route domain family optimization or plan adjustment."
+        "action": "route-review"
       },
       {
         "sequenceId": "dcx-041-050-domain-family-monitoring",
         "label": "Data Center DCX-041-050 domain family monitoring at [14293",
         "rag": "AMBER",
         "outputIndex": 2,
-        "action": "Route monitoring, evidence, or data-quality follow-up."
+        "action": "route-review"
       },
       {
         "sequenceId": "dcx-041-050-domain-family-stable",
         "label": "Data Center DCX-041-050 domain family stable at [14293",
         "rag": "GREEN",
         "outputIndex": 3,
-        "action": "Record stable family state and keep baseline cadence."
+        "action": "continue-monitoring"
       }
     ]
   },
@@ -438,7 +438,7 @@
           "responseKey": "data-center-carbon-aware-workload-scheduler-active-output-0-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -481,7 +481,7 @@
           "responseKey": "data-center-carbon-aware-workload-scheduler-active-output-1-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -524,7 +524,7 @@
           "responseKey": "data-center-carbon-aware-workload-scheduler-active-output-2-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -567,7 +567,7 @@
           "responseKey": "data-center-tenant-capacity-guard-active-output-0-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -610,7 +610,7 @@
           "responseKey": "data-center-tenant-capacity-guard-active-output-1-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -653,7 +653,7 @@
           "responseKey": "data-center-tenant-capacity-guard-active-output-2-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -696,7 +696,7 @@
           "responseKey": "data-center-sre-handoff-completeness-active-output-0-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -739,7 +739,7 @@
           "responseKey": "data-center-sre-handoff-completeness-active-output-1-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -782,7 +782,7 @@
           "responseKey": "data-center-sre-handoff-completeness-active-output-2-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -825,7 +825,7 @@
           "responseKey": "data-center-maintenance-blackout-guard-active-output-0-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -868,7 +868,7 @@
           "responseKey": "data-center-maintenance-blackout-guard-active-output-1-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -911,7 +911,7 @@
           "responseKey": "data-center-maintenance-blackout-guard-active-output-2-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -954,7 +954,7 @@
           "responseKey": "data-center-upgrade-wave-planner-active-output-0-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -997,7 +997,7 @@
           "responseKey": "data-center-upgrade-wave-planner-active-output-1-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -1040,7 +1040,7 @@
           "responseKey": "data-center-upgrade-wave-planner-active-output-2-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -1083,7 +1083,7 @@
           "responseKey": "data-center-firmware-rollback-readiness-active-output-0-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -1126,7 +1126,7 @@
           "responseKey": "data-center-firmware-rollback-readiness-active-output-1-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -1169,7 +1169,7 @@
           "responseKey": "data-center-firmware-rollback-readiness-active-output-2-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -1212,7 +1212,7 @@
           "responseKey": "data-center-spine-leaf-expansion-planner-active-output-0-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -1255,7 +1255,7 @@
           "responseKey": "data-center-spine-leaf-expansion-planner-active-output-1-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -1298,7 +1298,7 @@
           "responseKey": "data-center-spine-leaf-expansion-planner-active-output-2-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -1341,7 +1341,7 @@
           "responseKey": "data-center-storage-migration-coordinator-active-output-0-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -1384,7 +1384,7 @@
           "responseKey": "data-center-storage-migration-coordinator-active-output-1-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -1427,7 +1427,7 @@
           "responseKey": "data-center-storage-migration-coordinator-active-output-2-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -1470,7 +1470,7 @@
           "responseKey": "data-center-decommission-safety-controller-active-output-0-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -1513,7 +1513,7 @@
           "responseKey": "data-center-decommission-safety-controller-active-output-1-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -1556,7 +1556,7 @@
           "responseKey": "data-center-decommission-safety-controller-active-output-2-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -1599,7 +1599,7 @@
           "responseKey": "data-center-24x7-operations-executive-summary-active-output-0-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -1642,7 +1642,7 @@
           "responseKey": "data-center-24x7-operations-executive-summary-active-output-1-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -1685,7 +1685,7 @@
           "responseKey": "data-center-24x7-operations-executive-summary-active-output-2-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,

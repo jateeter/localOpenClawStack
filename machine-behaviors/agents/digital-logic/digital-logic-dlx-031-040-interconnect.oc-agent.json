@@ -34,7 +34,7 @@
   },
   "reasoning": {
     "objective": "Produce the normalized input vector for \"Digital Logic DLX-031-040 Interconnect\" from current observations so RE can evaluate its CES sequences.",
-    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Digital Logic DLX-031-040 Interconnect\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Published digital-logic bridge bus that composes Digital Logic DLX-031-040 into a compact domain family response lane. PE owns source composition and writes the compact input lane; RE evaluates this machine as ordinary vector state.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- logical-infrastructure-jtag-select-capture-shift-update-active-output-0-bit (index 0):\n- logical-infrastructure-jtag-select-capture-shift-update-active-output-1-bit (index 1):\n- logical-infrastructure-interrupt-assert-clear-active-output-0-bit (index 2):\n- logical-infrastructure-interrupt-assert-clear-active-output-1-bit (index 3):\n- logical-infrastructure-error-sticky-clear-active-output-0-bit (index 4):\n- logical-infrastructure-error-sticky-clear-active-output-1-bit (index 5):\n- logical-infrastructure-watchdog-kick-window-active-output-0-bit (index 6):\n- logical-infrastructure-watchdog-kick-window-active-output-1-bit (index 7):\n- logical-infrastructure-watchdog-timeout-active-output-0-bit (index 8):\n- logical-infrastructure-watchdog-timeout-active-output-1-bit (index 9):\n- logical-infrastructure-timeout-retry-success-active-output-0-bit (index 10):\n- logical-infrastructure-timeout-retry-success-active-output-1-bit (index 11):\n- logical-infrastructure-fifo-empty-to-not-empty-active-output-0-bit (index 12):\n- logical-infrastructure-fifo-empty-to-not-empty-active-output-1-bit (index 13):\n- logical-infrastructure-fifo-almost-full-full-active-output-0-bit (index 14):\n- logical-infrastructure-fifo-almost-full-full-active-output-1-bit (index 15):\n- logical-infrastructure-fifo-full-to-not-full-active-output-0-bit (index 16):\n- logical-infrastructure-fifo-full-to-not-full-active-output-1-bit (index 17):\n- logical-infrastructure-credit-decrement-increment-active-output-0-bit (index 18):\n- logical-infrastructure-credit-decrement-increment-active-output-1-bit (index 19):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Digital Logic DLX-031-040 domain family review at [14408 (RED) -> action: Route domain family review, escalation, and resolver summary.\n- Digital Logic DLX-031-040 domain family optimization at [14408 (AMBER) -> action: Route domain family optimization or plan adjustment.\n- Digital Logic DLX-031-040 domain family monitoring at [14408 (AMBER) -> action: Route monitoring, evidence, or data-quality follow-up.\n- Digital Logic DLX-031-040 domain family stable at [14408 (GREEN) -> action: Record stable family state and keep baseline cadence.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Digital Logic DLX-031-040 Interconnect\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Published digital-logic bridge bus that composes Digital Logic DLX-031-040 into a compact domain family response lane. PE owns source composition and writes the compact input lane; RE evaluates this machine as ordinary vector state.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- logical-infrastructure-jtag-select-capture-shift-update-active-output-0-bit (index 0):\n- logical-infrastructure-jtag-select-capture-shift-update-active-output-1-bit (index 1):\n- logical-infrastructure-interrupt-assert-clear-active-output-0-bit (index 2):\n- logical-infrastructure-interrupt-assert-clear-active-output-1-bit (index 3):\n- logical-infrastructure-error-sticky-clear-active-output-0-bit (index 4):\n- logical-infrastructure-error-sticky-clear-active-output-1-bit (index 5):\n- logical-infrastructure-watchdog-kick-window-active-output-0-bit (index 6):\n- logical-infrastructure-watchdog-kick-window-active-output-1-bit (index 7):\n- logical-infrastructure-watchdog-timeout-active-output-0-bit (index 8):\n- logical-infrastructure-watchdog-timeout-active-output-1-bit (index 9):\n- logical-infrastructure-timeout-retry-success-active-output-0-bit (index 10):\n- logical-infrastructure-timeout-retry-success-active-output-1-bit (index 11):\n- logical-infrastructure-fifo-empty-to-not-empty-active-output-0-bit (index 12):\n- logical-infrastructure-fifo-empty-to-not-empty-active-output-1-bit (index 13):\n- logical-infrastructure-fifo-almost-full-full-active-output-0-bit (index 14):\n- logical-infrastructure-fifo-almost-full-full-active-output-1-bit (index 15):\n- logical-infrastructure-fifo-full-to-not-full-active-output-0-bit (index 16):\n- logical-infrastructure-fifo-full-to-not-full-active-output-1-bit (index 17):\n- logical-infrastructure-credit-decrement-increment-active-output-0-bit (index 18):\n- logical-infrastructure-credit-decrement-increment-active-output-1-bit (index 19):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Digital Logic DLX-031-040 domain family review at [14408 (RED) -> action: route-review\n- Digital Logic DLX-031-040 domain family optimization at [14408 (AMBER) -> action: route-review\n- Digital Logic DLX-031-040 domain family monitoring at [14408 (AMBER) -> action: route-review\n- Digital Logic DLX-031-040 domain family stable at [14408 (GREEN) -> action: continue-monitoring",
     "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
     "inputAxes": [
       {
@@ -224,28 +224,28 @@
         "label": "Digital Logic DLX-031-040 domain family review at [14408",
         "rag": "RED",
         "outputIndex": 0,
-        "action": "Route domain family review, escalation, and resolver summary."
+        "action": "route-review"
       },
       {
         "sequenceId": "dlx-031-040-domain-family-optimization",
         "label": "Digital Logic DLX-031-040 domain family optimization at [14408",
         "rag": "AMBER",
         "outputIndex": 1,
-        "action": "Route domain family optimization or plan adjustment."
+        "action": "route-review"
       },
       {
         "sequenceId": "dlx-031-040-domain-family-monitoring",
         "label": "Digital Logic DLX-031-040 domain family monitoring at [14408",
         "rag": "AMBER",
         "outputIndex": 2,
-        "action": "Route monitoring, evidence, or data-quality follow-up."
+        "action": "route-review"
       },
       {
         "sequenceId": "dlx-031-040-domain-family-stable",
         "label": "Digital Logic DLX-031-040 domain family stable at [14408",
         "rag": "GREEN",
         "outputIndex": 3,
-        "action": "Record stable family state and keep baseline cadence."
+        "action": "continue-monitoring"
       }
     ]
   },
@@ -338,7 +338,7 @@
           "responseKey": "logical-infrastructure-jtag-select-capture-shift-update-active-output-0-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -381,7 +381,7 @@
           "responseKey": "logical-infrastructure-jtag-select-capture-shift-update-active-output-1-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -424,7 +424,7 @@
           "responseKey": "logical-infrastructure-interrupt-assert-clear-active-output-0-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -467,7 +467,7 @@
           "responseKey": "logical-infrastructure-interrupt-assert-clear-active-output-1-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -510,7 +510,7 @@
           "responseKey": "logical-infrastructure-error-sticky-clear-active-output-0-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -553,7 +553,7 @@
           "responseKey": "logical-infrastructure-error-sticky-clear-active-output-1-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -596,7 +596,7 @@
           "responseKey": "logical-infrastructure-watchdog-kick-window-active-output-0-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -639,7 +639,7 @@
           "responseKey": "logical-infrastructure-watchdog-kick-window-active-output-1-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -682,7 +682,7 @@
           "responseKey": "logical-infrastructure-watchdog-timeout-active-output-0-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -725,7 +725,7 @@
           "responseKey": "logical-infrastructure-watchdog-timeout-active-output-1-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -768,7 +768,7 @@
           "responseKey": "logical-infrastructure-timeout-retry-success-active-output-0-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -811,7 +811,7 @@
           "responseKey": "logical-infrastructure-timeout-retry-success-active-output-1-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -854,7 +854,7 @@
           "responseKey": "logical-infrastructure-fifo-empty-to-not-empty-active-output-0-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -897,7 +897,7 @@
           "responseKey": "logical-infrastructure-fifo-empty-to-not-empty-active-output-1-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -940,7 +940,7 @@
           "responseKey": "logical-infrastructure-fifo-almost-full-full-active-output-0-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -983,7 +983,7 @@
           "responseKey": "logical-infrastructure-fifo-almost-full-full-active-output-1-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -1026,7 +1026,7 @@
           "responseKey": "logical-infrastructure-fifo-full-to-not-full-active-output-0-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -1069,7 +1069,7 @@
           "responseKey": "logical-infrastructure-fifo-full-to-not-full-active-output-1-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -1112,7 +1112,7 @@
           "responseKey": "logical-infrastructure-credit-decrement-increment-active-output-0-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -1155,7 +1155,7 @@
           "responseKey": "logical-infrastructure-credit-decrement-increment-active-output-1-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,

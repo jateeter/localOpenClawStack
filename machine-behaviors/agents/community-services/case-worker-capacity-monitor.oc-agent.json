@@ -34,7 +34,7 @@
   },
   "reasoning": {
     "objective": "Produce the normalized input vector for \"Case Worker Capacity Monitor\" from current observations so RE can evaluate its CES sequences.",
-    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Case Worker Capacity Monitor\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Monitors active caseload ratios, response time performance, worker availability, and case complexity distribution for community service case workers and teams. Case worker capacity is the primary throughput constraint in community services \u2014 when workers are overloaded, intake delays, missed follow-ups, and compliance failures cascade downstream. Output at [968:972] feeds the Service Delivery Integrity Monitor.\n\nPOPULATION: Community services organizations with case management functions; public agency benefit offices; non-profit care coordinators; social services departments\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- caseload_ratio_norm (index 0):  0.0 = >150% of recommended caseload per worker (e.g. 75+ cases where 50 is standard) | 0.5 = 100\u2013120% of recommended caseload (manageable but over) | 1.0 = <90% of recommended caseload (adequate capacity)\n- response_time_norm (index 1):  0.0 = average initial contact response >10 business days (regulatory threshold exceeded) | 0.5 = response within 3\u20135 business days (borderline) | 1.0 = response within 1\u20132 business days (meeting or exceeding standard)\n- worker_availability_norm (index 2):  0.0 = >25% of case worker positions vacant or on leave; no coverage plan | 0.5 = 10\u201325% positions vacant; coverage partial | 1.0 = <10% positions vacant; full coverage maintained\n- complexity_index_norm (index 3):  0.0 = majority of caseload is high-complexity (trauma, substance use, serious mental illness, homelessness) | 0.5 = mixed complexity; high-complexity cases at or above 40% of caseload | 1.0 = balanced complexity distribution; high-complexity cases below 30%\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- CAPACITY_CRISIS (RED) -> action: Emergency staffing plan; case redistribution; intake hold for non-critical cases; supervisor escalation; regulatory notification if thresholds exceeded\n- OVERLOADED (RED) -> action: Hiring request escalation; case complexity review; caseload rebalancing; supervisor check-in schedule increase; burnout monitoring\n- CAPACITY_ADEQUATE (GREEN) -> action: Service delivery integrity monitor registers staffing adequate",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Case Worker Capacity Monitor\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Monitors active caseload ratios, response time performance, worker availability, and case complexity distribution for community service case workers and teams. Case worker capacity is the primary throughput constraint in community services \u2014 when workers are overloaded, intake delays, missed follow-ups, and compliance failures cascade downstream. Output at [968:972] feeds the Service Delivery Integrity Monitor.\n\nPOPULATION: Community services organizations with case management functions; public agency benefit offices; non-profit care coordinators; social services departments\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- caseload_ratio_norm (index 0):  0.0 = >150% of recommended caseload per worker (e.g. 75+ cases where 50 is standard) | 0.5 = 100\u2013120% of recommended caseload (manageable but over) | 1.0 = <90% of recommended caseload (adequate capacity)\n- response_time_norm (index 1):  0.0 = average initial contact response >10 business days (regulatory threshold exceeded) | 0.5 = response within 3\u20135 business days (borderline) | 1.0 = response within 1\u20132 business days (meeting or exceeding standard)\n- worker_availability_norm (index 2):  0.0 = >25% of case worker positions vacant or on leave; no coverage plan | 0.5 = 10\u201325% positions vacant; coverage partial | 1.0 = <10% positions vacant; full coverage maintained\n- complexity_index_norm (index 3):  0.0 = majority of caseload is high-complexity (trauma, substance use, serious mental illness, homelessness) | 0.5 = mixed complexity; high-complexity cases at or above 40% of caseload | 1.0 = balanced complexity distribution; high-complexity cases below 30%\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- CAPACITY_CRISIS (RED) -> action: urgent-intervention\n- OVERLOADED (RED) -> action: route-review\n- CAPACITY_ADEQUATE (GREEN) -> action: continue-monitoring",
     "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
     "inputAxes": [
       {
@@ -80,21 +80,21 @@
         "label": "CAPACITY_CRISIS",
         "rag": "RED",
         "outputIndex": 0,
-        "action": "Emergency staffing plan; case redistribution; intake hold for non-critical cases; supervisor escalation; regulatory notification if thresholds exceeded"
+        "action": "urgent-intervention"
       },
       {
         "sequenceId": "capacity-overloaded",
         "label": "OVERLOADED",
         "rag": "RED",
         "outputIndex": 1,
-        "action": "Hiring request escalation; case complexity review; caseload rebalancing; supervisor check-in schedule increase; burnout monitoring"
+        "action": "route-review"
       },
       {
         "sequenceId": "capacity-adequate-ok",
         "label": "CAPACITY_ADEQUATE",
         "rag": "GREEN",
         "outputIndex": 3,
-        "action": "Service delivery integrity monitor registers staffing adequate"
+        "action": "continue-monitoring"
       }
     ]
   },
@@ -171,7 +171,7 @@
           "responseKey": "caseload_ratio_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -214,7 +214,7 @@
           "responseKey": "response_time_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -257,7 +257,7 @@
           "responseKey": "worker_availability_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -300,7 +300,7 @@
           "responseKey": "complexity_index_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,

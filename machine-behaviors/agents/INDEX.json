@@ -1,14 +1,14 @@
 {
-  "total": 1320,
+  "total": 1323,
   "byDomain": {
     "agriculture": 71,
     "ai-services": 9,
     "built-space": 165,
     "community-services": 113,
     "data-center": 65,
-    "digital-logic": 63,
+    "digital-logic": 65,
     "energy": 187,
-    "health-personal": 42,
+    "health-personal": 43,
     "health-services": 220,
     "legal-services": 110,
     "life-balance": 110,
@@ -1176,7 +1176,7 @@
       "code": "aisecuritymonitor",
       "agentId": "ai-security-monitor",
       "domain": "ai-services",
-      "machineClass": "signal-monitor",
+      "machineClass": "agent-dispatcher",
       "role": "input-analyst",
       "inputRegion": {
         "offset": 268,
@@ -7306,6 +7306,36 @@
       "path": "digital-logic/rs-flip-flop-deprecated-demo.oc-agent.json"
     },
     {
+      "machineId": "RSRingLatchStageA",
+      "machineName": "RS Ring Latch Stage A",
+      "code": "rsringlatchstagea",
+      "agentId": "rs-ring-latch-stage-a",
+      "domain": "digital-logic",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 16920,
+        "length": 2
+      },
+      "axisBasis": "inputSemantics",
+      "path": "digital-logic/rs-ring-latch-stage-a.oc-agent.json"
+    },
+    {
+      "machineId": "RSRingLatchStageB",
+      "machineName": "RS Ring Latch Stage B",
+      "code": "rsringlatchstageb",
+      "agentId": "rs-ring-latch-stage-b",
+      "domain": "digital-logic",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 16922,
+        "length": 2
+      },
+      "axisBasis": "inputSemantics",
+      "path": "digital-logic/rs-ring-latch-stage-b.oc-agent.json"
+    },
+    {
       "machineId": "EnergyResilientCommunityMicrogridCommandCenterInterconnect",
       "machineName": "Energy Resilient Community Microgrid Command Center",
       "code": "energy_resilient_community_microgrid_command_center",
@@ -10336,6 +10366,21 @@
       "path": "health-personal/health-infrastructure-support-interconnect.oc-agent.json"
     },
     {
+      "machineId": "HealthKitVitalsMonitor",
+      "machineName": "HealthKit Vitals Monitor",
+      "code": "healthkit-vitals",
+      "agentId": "healthkit-vitals-monitor",
+      "domain": "health-personal",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 4320,
+        "length": 4
+      },
+      "axisBasis": "inputSemantics",
+      "path": "health-personal/healthkit-vitals-monitor.oc-agent.json"
+    },
+    {
       "machineId": "HomeFoodSecurityResponseInterconnect",
       "machineName": "Home Food Security Response Interconnect",
       "code": "home_food_security_response_interconnect",
@@ -10521,7 +10566,7 @@
       "code": "hometransportationbarriermonitor",
       "agentId": "home-transportation-barrier-monitor",
       "domain": "health-personal",
-      "machineClass": "signal-monitor",
+      "machineClass": "agent-dispatcher",
       "role": "input-analyst",
       "inputRegion": {
         "offset": 1983,

@@ -34,7 +34,7 @@
   },
   "reasoning": {
     "objective": "Produce the normalized input vector for \"Ag Zone Temperature Controller\" from current observations so RE can evaluate its CES sequences.",
-    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Ag Zone Temperature Controller\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Monitors air and root-zone temperature to detect overheating and frost risk in indoor growing zones. Implements two concurrent escalation patterns (OVERTEMP and UNDERTEMP) plus a continuous OPTIMAL signal. Upstream: raw zone sensors at [0:4]. Downstream: AgPlantGrowthCycleMonitor reads output at [20:24].\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- air_temp_norm (index 0):  0.0 = 15\u00b0C | 0.5 = 24\u00b0C (optimal) | 1.0 = 35\u00b0C\n- root_zone_temp_norm (index 1):  0.0 = 12\u00b0C | 0.5 = 22\u00b0C (optimal) | 1.0 = 32\u00b0C\n- heater_status (index 2):  0.0 = off | 0.5 =  | 1.0 = on (active heating)\n- cooler_status (index 3):  0.0 = off | 0.5 =  | 1.0 = on (active cooling)\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- COOLING_ON (RED) -> action: Enable cooling; downstream AgPlantGrowthCycleMonitor will register high-temp condition\n- HEATING_ON (AMBER) -> action: Enable heating; frost risk prevention mode\n- TEMP_OK (GREEN) -> action: Downstream AgPlantGrowthCycleMonitor registers healthy temp condition",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Ag Zone Temperature Controller\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Monitors air and root-zone temperature to detect overheating and frost risk in indoor growing zones. Implements two concurrent escalation patterns (OVERTEMP and UNDERTEMP) plus a continuous OPTIMAL signal. Upstream: raw zone sensors at [0:4]. Downstream: AgPlantGrowthCycleMonitor reads output at [20:24].\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- air_temp_norm (index 0):  0.0 = 15\u00b0C | 0.5 = 24\u00b0C (optimal) | 1.0 = 35\u00b0C\n- root_zone_temp_norm (index 1):  0.0 = 12\u00b0C | 0.5 = 22\u00b0C (optimal) | 1.0 = 32\u00b0C\n- heater_status (index 2):  0.0 = off | 0.5 =  | 1.0 = on (active heating)\n- cooler_status (index 3):  0.0 = off | 0.5 =  | 1.0 = on (active cooling)\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- COOLING_ON (RED) -> action: adjust-operations\n- HEATING_ON (AMBER) -> action: adjust-operations\n- TEMP_OK (GREEN) -> action: continue-monitoring",
     "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
     "inputAxes": [
       {
@@ -80,21 +80,21 @@
         "label": "COOLING_ON",
         "rag": "RED",
         "outputIndex": 1,
-        "action": "Enable cooling; downstream AgPlantGrowthCycleMonitor will register high-temp condition"
+        "action": "adjust-operations"
       },
       {
         "sequenceId": "ag-zone-temp-undertemp",
         "label": "HEATING_ON",
         "rag": "AMBER",
         "outputIndex": 0,
-        "action": "Enable heating; frost risk prevention mode"
+        "action": "adjust-operations"
       },
       {
         "sequenceId": "ag-zone-temp-optimal",
         "label": "TEMP_OK",
         "rag": "GREEN",
         "outputIndex": 3,
-        "action": "Downstream AgPlantGrowthCycleMonitor registers healthy temp condition"
+        "action": "continue-monitoring"
       }
     ]
   },
@@ -171,7 +171,7 @@
           "responseKey": "air_temp_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -214,7 +214,7 @@
           "responseKey": "root_zone_temp_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -257,7 +257,7 @@
           "responseKey": "heater_status",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -300,7 +300,7 @@
           "responseKey": "cooler_status",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,

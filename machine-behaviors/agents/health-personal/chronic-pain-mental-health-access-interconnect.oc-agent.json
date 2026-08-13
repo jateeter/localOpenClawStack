@@ -34,7 +34,7 @@
   },
   "reasoning": {
     "objective": "Produce the normalized input vector for \"Chronic Pain Mental Health Access Interconnect\" from current observations so RE can evaluate its CES sequences.",
-    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Chronic Pain Mental Health Access Interconnect\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Published personal-health bridge bus that composes chronic disease burden, chronic pain burden, and mental-health access status into a compact fan-out lane for behavioral health integration, opioid safety review, and managed monitoring. PE owns source composition and writes the compact input lane; RE evaluates this machine as ordinary vector state.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- disease-exacerbation-bit (index 0):\n- disease-poor-control-bit (index 1):\n- disease-borderline-control-bit (index 2):\n- disease-controlled-bit (index 3):\n- pain-crisis-bit (index 4):\n- opioid-risk-elevated-bit (index 5):\n- functional-impairment-bit (index 6):\n- pain-managed-bit (index 7):\n- mental-health-crisis-bit (index 8):\n- mental-health-referral-needed-bit (index 9):\n- comorbidity-risk-bit (index 10):\n- mental-health-access-adequate-bit (index 11):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- chronic-pain-mh-urgent-behavioral-health-response (RED) -> action: Route urgent behavioral-health response and physician review.\n- chronic-pain-mh-integrated-referral (AMBER) -> action: Publish integrated behavioral-health referral need.\n- chronic-pain-mh-opioid-safety-review (AMBER) -> action: Route opioid safety review with behavioral-health context.\n- chronic-pain-mh-managed-monitoring (GREEN) -> action: Continue managed monitoring and routine follow-up.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Chronic Pain Mental Health Access Interconnect\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Published personal-health bridge bus that composes chronic disease burden, chronic pain burden, and mental-health access status into a compact fan-out lane for behavioral health integration, opioid safety review, and managed monitoring. PE owns source composition and writes the compact input lane; RE evaluates this machine as ordinary vector state.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- disease-exacerbation-bit (index 0):\n- disease-poor-control-bit (index 1):\n- disease-borderline-control-bit (index 2):\n- disease-controlled-bit (index 3):\n- pain-crisis-bit (index 4):\n- opioid-risk-elevated-bit (index 5):\n- functional-impairment-bit (index 6):\n- pain-managed-bit (index 7):\n- mental-health-crisis-bit (index 8):\n- mental-health-referral-needed-bit (index 9):\n- comorbidity-risk-bit (index 10):\n- mental-health-access-adequate-bit (index 11):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- chronic-pain-mh-urgent-behavioral-health-response (RED) -> action: urgent-intervention\n- chronic-pain-mh-integrated-referral (AMBER) -> action: publish-bus\n- chronic-pain-mh-opioid-safety-review (AMBER) -> action: route-referral\n- chronic-pain-mh-managed-monitoring (GREEN) -> action: continue-monitoring",
     "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
     "inputAxes": [
       {
@@ -152,28 +152,28 @@
         "label": "chronic-pain-mh-urgent-behavioral-health-response",
         "rag": "RED",
         "outputIndex": 0,
-        "action": "Route urgent behavioral-health response and physician review."
+        "action": "urgent-intervention"
       },
       {
         "sequenceId": "chronic-pain-mh-integrated-referral",
         "label": "chronic-pain-mh-integrated-referral",
         "rag": "AMBER",
         "outputIndex": 1,
-        "action": "Publish integrated behavioral-health referral need."
+        "action": "publish-bus"
       },
       {
         "sequenceId": "chronic-pain-mh-opioid-safety-review",
         "label": "chronic-pain-mh-opioid-safety-review",
         "rag": "AMBER",
         "outputIndex": 2,
-        "action": "Route opioid safety review with behavioral-health context."
+        "action": "route-referral"
       },
       {
         "sequenceId": "chronic-pain-mh-managed-monitoring",
         "label": "chronic-pain-mh-managed-monitoring",
         "rag": "GREEN",
         "outputIndex": 3,
-        "action": "Continue managed monitoring and routine follow-up."
+        "action": "continue-monitoring"
       }
     ]
   },
@@ -258,7 +258,7 @@
           "responseKey": "disease-exacerbation-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -301,7 +301,7 @@
           "responseKey": "disease-poor-control-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -344,7 +344,7 @@
           "responseKey": "disease-borderline-control-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -387,7 +387,7 @@
           "responseKey": "disease-controlled-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -430,7 +430,7 @@
           "responseKey": "pain-crisis-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -473,7 +473,7 @@
           "responseKey": "opioid-risk-elevated-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -516,7 +516,7 @@
           "responseKey": "functional-impairment-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -559,7 +559,7 @@
           "responseKey": "pain-managed-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -602,7 +602,7 @@
           "responseKey": "mental-health-crisis-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -645,7 +645,7 @@
           "responseKey": "mental-health-referral-needed-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -688,7 +688,7 @@
           "responseKey": "comorbidity-risk-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -731,7 +731,7 @@
           "responseKey": "mental-health-access-adequate-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,

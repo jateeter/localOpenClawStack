@@ -34,7 +34,7 @@
   },
   "reasoning": {
     "objective": "Produce the normalized input vector for \"Home Food Security Response Interconnect\" from current observations so RE can evaluate its CES sequences.",
-    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Home Food Security Response Interconnect\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Published personal-health bridge bus that composes food-security status, pediatric nutrition status, adolescent behavioral-health status, and hydration status into a compact food-security response lane. PE owns source composition and writes the compact input lane; RE evaluates this machine as ordinary vector state.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- food-crisis-bit (index 0):\n- food-insecure-bit (index 1):\n- assistance-needed-bit (index 2):\n- food-secure-bit (index 3):\n- growth-alert-bit (index 4):\n- nutrition-deficit-bit (index 5):\n- micronutrient-concern-bit (index 6):\n- nutrition-ok-bit (index 7):\n- adolescent-crisis-risk-bit (index 8):\n- adolescent-behavioral-concern-bit (index 9):\n- adolescent-elevated-stress-bit (index 10):\n- adolescent-mental-health-ok-bit (index 11):\n- below-half-hydration-target-bit (index 12):\n- below-quarter-hydration-target-bit (index 13):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- food-security-urgent-response (RED) -> action: Route immediate food assistance, family stabilization, care coordination, and clinical nutrition review.\n- food-security-benefits-access (AMBER) -> action: Route SNAP/WIC/food pantry and benefits navigation support.\n- food-security-nutrition-behavioral-followup (AMBER) -> action: Route pediatric nutrition, micronutrient, adolescent school/family, and hydration follow-up.\n- food-security-stable-monitoring (GREEN) -> action: Continue stable food-security monitoring and routine wellness support.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Home Food Security Response Interconnect\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Published personal-health bridge bus that composes food-security status, pediatric nutrition status, adolescent behavioral-health status, and hydration status into a compact food-security response lane. PE owns source composition and writes the compact input lane; RE evaluates this machine as ordinary vector state.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- food-crisis-bit (index 0):\n- food-insecure-bit (index 1):\n- assistance-needed-bit (index 2):\n- food-secure-bit (index 3):\n- growth-alert-bit (index 4):\n- nutrition-deficit-bit (index 5):\n- micronutrient-concern-bit (index 6):\n- nutrition-ok-bit (index 7):\n- adolescent-crisis-risk-bit (index 8):\n- adolescent-behavioral-concern-bit (index 9):\n- adolescent-elevated-stress-bit (index 10):\n- adolescent-mental-health-ok-bit (index 11):\n- below-half-hydration-target-bit (index 12):\n- below-quarter-hydration-target-bit (index 13):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- food-security-urgent-response (RED) -> action: route-referral\n- food-security-benefits-access (AMBER) -> action: route-referral\n- food-security-nutrition-behavioral-followup (AMBER) -> action: route-referral\n- food-security-stable-monitoring (GREEN) -> action: continue-monitoring",
     "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
     "inputAxes": [
       {
@@ -170,28 +170,28 @@
         "label": "food-security-urgent-response",
         "rag": "RED",
         "outputIndex": 0,
-        "action": "Route immediate food assistance, family stabilization, care coordination, and clinical nutrition review."
+        "action": "route-referral"
       },
       {
         "sequenceId": "food-security-benefits-access",
         "label": "food-security-benefits-access",
         "rag": "AMBER",
         "outputIndex": 1,
-        "action": "Route SNAP/WIC/food pantry and benefits navigation support."
+        "action": "route-referral"
       },
       {
         "sequenceId": "food-security-nutrition-behavioral-followup",
         "label": "food-security-nutrition-behavioral-followup",
         "rag": "AMBER",
         "outputIndex": 2,
-        "action": "Route pediatric nutrition, micronutrient, adolescent school/family, and hydration follow-up."
+        "action": "route-referral"
       },
       {
         "sequenceId": "food-security-stable-monitoring",
         "label": "food-security-stable-monitoring",
         "rag": "GREEN",
         "outputIndex": 3,
-        "action": "Continue stable food-security monitoring and routine wellness support."
+        "action": "continue-monitoring"
       }
     ]
   },
@@ -278,7 +278,7 @@
           "responseKey": "food-crisis-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -321,7 +321,7 @@
           "responseKey": "food-insecure-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -364,7 +364,7 @@
           "responseKey": "assistance-needed-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -407,7 +407,7 @@
           "responseKey": "food-secure-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -450,7 +450,7 @@
           "responseKey": "growth-alert-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -493,7 +493,7 @@
           "responseKey": "nutrition-deficit-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -536,7 +536,7 @@
           "responseKey": "micronutrient-concern-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -579,7 +579,7 @@
           "responseKey": "nutrition-ok-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -622,7 +622,7 @@
           "responseKey": "adolescent-crisis-risk-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -665,7 +665,7 @@
           "responseKey": "adolescent-behavioral-concern-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -708,7 +708,7 @@
           "responseKey": "adolescent-elevated-stress-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -751,7 +751,7 @@
           "responseKey": "adolescent-mental-health-ok-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -794,7 +794,7 @@
           "responseKey": "below-half-hydration-target-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -837,7 +837,7 @@
           "responseKey": "below-quarter-hydration-target-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,

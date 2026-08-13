@@ -34,7 +34,7 @@
   },
   "reasoning": {
     "objective": "Produce the normalized input vector for \"Qualification Verification Monitor\" from current observations so RE can evaluate its CES sequences.",
-    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Qualification Verification Monitor\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Tracks identity verification, income verification, program-specific qualification criteria, and active enrollment status for community service participants. Qualification verification is the formal determination layer sitting between eligibility screening and active benefit delivery \u2014 it catches identity mismatches, income discrepancies, and program-specific rules (residency duration, asset limits, household composition) that screening tools miss. Output at [964:968] feeds the Workflow Completion Monitor.\n\nPOPULATION: Benefits program enrollees requiring formal qualification determination; participants at annual redetermination; newly enrolled individuals with pending verification holds\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- identity_verification_norm (index 0):  0.0 = identity cannot be verified (no SSN, no acceptable ID, data mismatch with DMV or SSA records) | 0.5 = identity partially verified (one of two factors confirmed) | 1.0 = identity fully verified through authoritative source\n- income_verification_norm (index 1):  0.0 = income cannot be verified (self-employment undocumented, cash income only, employer unresponsive) | 0.5 = income partially verified (one income source confirmed; second source pending) | 1.0 = all income sources verified against pay stubs, tax records, or benefit award letters\n- program_qualification_norm (index 2):  0.0 = program-specific rules not met (asset limit exceeded, residency duration insufficient, household composition mismatch) | 0.5 = program rules met but one qualifier requires additional documentation | 1.0 = all program-specific qualification criteria confirmed\n- enrollment_active_norm (index 3):  0.0 = enrollment lapsed, suspended, or terminated; benefits not flowing | 0.5 = enrollment conditionally active (provisional benefits; verification hold) | 1.0 = enrollment fully active; benefits flowing without restriction\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- QUALIFICATION_FAILED (RED) -> action: Formal adverse action notice; fair hearing rights notification; appeal process initiation; navigator assistance for documentation cure\n- REVERIFICATION_REQUIRED (GREEN) -> action: Redetermination appointment scheduling; document collection checklist; proactive outreach to prevent gap in benefits\n- FULLY_QUALIFIED (GREEN) -> action: Workflow completion monitor registers qualification confirmed; unrestricted service delivery authorized",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Qualification Verification Monitor\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Tracks identity verification, income verification, program-specific qualification criteria, and active enrollment status for community service participants. Qualification verification is the formal determination layer sitting between eligibility screening and active benefit delivery \u2014 it catches identity mismatches, income discrepancies, and program-specific rules (residency duration, asset limits, household composition) that screening tools miss. Output at [964:968] feeds the Workflow Completion Monitor.\n\nPOPULATION: Benefits program enrollees requiring formal qualification determination; participants at annual redetermination; newly enrolled individuals with pending verification holds\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- identity_verification_norm (index 0):  0.0 = identity cannot be verified (no SSN, no acceptable ID, data mismatch with DMV or SSA records) | 0.5 = identity partially verified (one of two factors confirmed) | 1.0 = identity fully verified through authoritative source\n- income_verification_norm (index 1):  0.0 = income cannot be verified (self-employment undocumented, cash income only, employer unresponsive) | 0.5 = income partially verified (one income source confirmed; second source pending) | 1.0 = all income sources verified against pay stubs, tax records, or benefit award letters\n- program_qualification_norm (index 2):  0.0 = program-specific rules not met (asset limit exceeded, residency duration insufficient, household composition mismatch) | 0.5 = program rules met but one qualifier requires additional documentation | 1.0 = all program-specific qualification criteria confirmed\n- enrollment_active_norm (index 3):  0.0 = enrollment lapsed, suspended, or terminated; benefits not flowing | 0.5 = enrollment conditionally active (provisional benefits; verification hold) | 1.0 = enrollment fully active; benefits flowing without restriction\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- QUALIFICATION_FAILED (RED) -> action: route-review\n- REVERIFICATION_REQUIRED (GREEN) -> action: route-review\n- FULLY_QUALIFIED (GREEN) -> action: continue-monitoring",
     "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
     "inputAxes": [
       {
@@ -80,21 +80,21 @@
         "label": "QUALIFICATION_FAILED",
         "rag": "RED",
         "outputIndex": 0,
-        "action": "Formal adverse action notice; fair hearing rights notification; appeal process initiation; navigator assistance for documentation cure"
+        "action": "route-review"
       },
       {
         "sequenceId": "qualification-reverification",
         "label": "REVERIFICATION_REQUIRED",
         "rag": "GREEN",
         "outputIndex": 1,
-        "action": "Redetermination appointment scheduling; document collection checklist; proactive outreach to prevent gap in benefits"
+        "action": "route-review"
       },
       {
         "sequenceId": "qualification-confirmed",
         "label": "FULLY_QUALIFIED",
         "rag": "GREEN",
         "outputIndex": 3,
-        "action": "Workflow completion monitor registers qualification confirmed; unrestricted service delivery authorized"
+        "action": "continue-monitoring"
       }
     ]
   },
@@ -171,7 +171,7 @@
           "responseKey": "identity_verification_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -214,7 +214,7 @@
           "responseKey": "income_verification_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -257,7 +257,7 @@
           "responseKey": "program_qualification_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -300,7 +300,7 @@
           "responseKey": "enrollment_active_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,

@@ -34,7 +34,7 @@
   },
   "reasoning": {
     "objective": "Produce the normalized input vector for \"Transportation Fleet Cleaning And Sanitation Clean Bus Release Gate\" from current observations so RE can evaluate its CES sequences.",
-    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Transportation Fleet Cleaning And Sanitation Clean Bus Release Gate\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Public transportation fleet machine for clean bus release gate in the cleaning and sanitation workstream. It monitors cleaning proof, defect scan, operator acceptance, and pullout deadline for a 100-bus 24/7 operation and emits AI-triggered outputs for rider experience, operations, maintenance, cleaning, security, and predictive fleet-flow management.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- service-reliability (index 0):\n- rider-impact (index 1):\n- asset-readiness (index 2):\n- safety-security-risk (index 3):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Clean Bus Release Gate (AMBER) -> action: Dispatch transit_compliance_agent for critical 100-bus fleet intervention on clean bus release gate.\n- Clean Bus Release Gate (GREEN) -> action: Trigger predictive flow management for clean bus release gate using rider, vehicle, and route context.\n- Clean Bus Release Gate (GREEN) -> action: Create maintenance, cleaning, security, or service task for clean bus release gate.\n- Clean Bus Release Gate (GREEN) -> action: Keep 24/7 monitoring active for clean bus release gate.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Transportation Fleet Cleaning And Sanitation Clean Bus Release Gate\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Public transportation fleet machine for clean bus release gate in the cleaning and sanitation workstream. It monitors cleaning proof, defect scan, operator acceptance, and pullout deadline for a 100-bus 24/7 operation and emits AI-triggered outputs for rider experience, operations, maintenance, cleaning, security, and predictive fleet-flow management.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- service-reliability (index 0):\n- rider-impact (index 1):\n- asset-readiness (index 2):\n- safety-security-risk (index 3):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Clean Bus Release Gate (AMBER) -> action: dispatch-agent\n- Clean Bus Release Gate (GREEN) -> action: trigger-agent-workflow\n- Clean Bus Release Gate (GREEN) -> action: create-work-order\n- Clean Bus Release Gate (GREEN) -> action: continue-monitoring",
     "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
     "inputAxes": [
       {
@@ -80,28 +80,28 @@
         "label": "Clean Bus Release Gate",
         "rag": "AMBER",
         "outputIndex": 0,
-        "action": "Dispatch transit_compliance_agent for critical 100-bus fleet intervention on clean bus release gate."
+        "action": "dispatch-agent"
       },
       {
         "sequenceId": "tfx-040-predictive-flow",
         "label": "Clean Bus Release Gate",
         "rag": "GREEN",
         "outputIndex": 1,
-        "action": "Trigger predictive flow management for clean bus release gate using rider, vehicle, and route context."
+        "action": "trigger-agent-workflow"
       },
       {
         "sequenceId": "tfx-040-ops-task",
         "label": "Clean Bus Release Gate",
         "rag": "GREEN",
         "outputIndex": 2,
-        "action": "Create maintenance, cleaning, security, or service task for clean bus release gate."
+        "action": "create-work-order"
       },
       {
         "sequenceId": "tfx-040-nominal",
         "label": "Clean Bus Release Gate",
         "rag": "GREEN",
         "outputIndex": 3,
-        "action": "Keep 24/7 monitoring active for clean bus release gate."
+        "action": "continue-monitoring"
       }
     ]
   },
@@ -178,7 +178,7 @@
           "responseKey": "service-reliability",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -221,7 +221,7 @@
           "responseKey": "rider-impact",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -264,7 +264,7 @@
           "responseKey": "asset-readiness",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -307,7 +307,7 @@
           "responseKey": "safety-security-risk",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,

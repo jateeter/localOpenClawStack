@@ -34,7 +34,7 @@
   },
   "reasoning": {
     "objective": "Produce the normalized input vector for \"Health Infrastructure Support Interconnect\" from current observations so RE can evaluate its CES sequences.",
-    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Health Infrastructure Support Interconnect\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Cross-domain PE-published bus connecting transportation, built-space, and community-service operations to personal-health and care-coordination workflows.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- transportation_ada_service_access (index 0):  0.0 = no active support risk from source output[0] | 0.5 =  | 1.0 = active support risk after PE composition\n- transportation_rider_alert_reliability (index 1):  0.0 = no active support risk from source output[0] | 0.5 =  | 1.0 = active support risk after PE composition\n- transportation_stop_shelter_condition (index 2):  0.0 = no active support risk from source output[0] | 0.5 =  | 1.0 = active support risk after PE composition\n- transportation_vertical_access (index 3):  0.0 = no active support risk from source output[0] | 0.5 =  | 1.0 = active support risk after PE composition\n- built_space_air_filtration (index 4):  0.0 = no active support risk from source output[0] | 0.5 =  | 1.0 = active support risk after PE composition\n- built_space_humidity_mold_risk (index 5):  0.0 = no active support risk from source output[0] | 0.5 =  | 1.0 = active support risk after PE composition\n- built_space_water_pathogen_control (index 6):  0.0 = no active support risk from source output[0] | 0.5 =  | 1.0 = active support risk after PE composition\n- built_space_circadian_lighting (index 7):  0.0 = no active support risk from source output[0] | 0.5 =  | 1.0 = active support risk after PE composition\n- built_space_accessible_movement_paths (index 8):  0.0 = no active support risk from source output[0] | 0.5 =  | 1.0 = active support risk after PE composition\n- built_space_behavioral_support_access (index 9):  0.0 = no active support risk from source output[0] | 0.5 =  | 1.0 = active support risk after PE composition\n- community_services_hhs_intake (index 10):  0.0 = no active support risk from source output[0] | 0.5 =  | 1.0 = active support risk after PE composition\n- community_services_utility_assistance (index 11):  0.0 = no active support risk from source output[0] | 0.5 =  | 1.0 = active support risk after PE composition\n- community_services_meal_outreach (index 12):  0.0 = no active support risk from source output[0] | 0.5 =  | 1.0 = active support risk after PE composition\n- community_services_housing_navigation (index 13):  0.0 = no active support risk from source output[0] | 0.5 =  | 1.0 = active support risk after PE composition\n- community_services_local_access_hub (index 14):  0.0 = no active support risk from source output[0] | 0.5 =  | 1.0 = active support risk after PE composition\n- community_services_predictive_prevention (index 15):  0.0 = no active support risk from source output[0] | 0.5 =  | 1.0 = active support risk after PE composition\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- health-infrastructure-infrastructure-emergency (RED) -> action: Escalate cross-domain infrastructure response for personal-health risk.\n- health-infrastructure-coordinated-support-required (AMBER) -> action: Coordinate transportation, built-space, and community-service supports.\n- health-infrastructure-support-continuity-monitoring (AMBER) -> action: Continue monitoring support continuity and keep PE sources fresh.\n- health-infrastructure-infrastructure-support-stable (GREEN) -> action: Infrastructure support state is stable for personal health workflows.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Health Infrastructure Support Interconnect\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Cross-domain PE-published bus connecting transportation, built-space, and community-service operations to personal-health and care-coordination workflows.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- transportation_ada_service_access (index 0):  0.0 = no active support risk from source output[0] | 0.5 =  | 1.0 = active support risk after PE composition\n- transportation_rider_alert_reliability (index 1):  0.0 = no active support risk from source output[0] | 0.5 =  | 1.0 = active support risk after PE composition\n- transportation_stop_shelter_condition (index 2):  0.0 = no active support risk from source output[0] | 0.5 =  | 1.0 = active support risk after PE composition\n- transportation_vertical_access (index 3):  0.0 = no active support risk from source output[0] | 0.5 =  | 1.0 = active support risk after PE composition\n- built_space_air_filtration (index 4):  0.0 = no active support risk from source output[0] | 0.5 =  | 1.0 = active support risk after PE composition\n- built_space_humidity_mold_risk (index 5):  0.0 = no active support risk from source output[0] | 0.5 =  | 1.0 = active support risk after PE composition\n- built_space_water_pathogen_control (index 6):  0.0 = no active support risk from source output[0] | 0.5 =  | 1.0 = active support risk after PE composition\n- built_space_circadian_lighting (index 7):  0.0 = no active support risk from source output[0] | 0.5 =  | 1.0 = active support risk after PE composition\n- built_space_accessible_movement_paths (index 8):  0.0 = no active support risk from source output[0] | 0.5 =  | 1.0 = active support risk after PE composition\n- built_space_behavioral_support_access (index 9):  0.0 = no active support risk from source output[0] | 0.5 =  | 1.0 = active support risk after PE composition\n- community_services_hhs_intake (index 10):  0.0 = no active support risk from source output[0] | 0.5 =  | 1.0 = active support risk after PE composition\n- community_services_utility_assistance (index 11):  0.0 = no active support risk from source output[0] | 0.5 =  | 1.0 = active support risk after PE composition\n- community_services_meal_outreach (index 12):  0.0 = no active support risk from source output[0] | 0.5 =  | 1.0 = active support risk after PE composition\n- community_services_housing_navigation (index 13):  0.0 = no active support risk from source output[0] | 0.5 =  | 1.0 = active support risk after PE composition\n- community_services_local_access_hub (index 14):  0.0 = no active support risk from source output[0] | 0.5 =  | 1.0 = active support risk after PE composition\n- community_services_predictive_prevention (index 15):  0.0 = no active support risk from source output[0] | 0.5 =  | 1.0 = active support risk after PE composition\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- health-infrastructure-infrastructure-emergency (RED) -> action: urgent-intervention\n- health-infrastructure-coordinated-support-required (AMBER) -> action: route-referral\n- health-infrastructure-support-continuity-monitoring (AMBER) -> action: continue-monitoring\n- health-infrastructure-infrastructure-support-stable (GREEN) -> action: continue-monitoring",
     "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
     "inputAxes": [
       {
@@ -188,28 +188,28 @@
         "label": "health-infrastructure-infrastructure-emergency",
         "rag": "RED",
         "outputIndex": 0,
-        "action": "Escalate cross-domain infrastructure response for personal-health risk."
+        "action": "urgent-intervention"
       },
       {
         "sequenceId": "health-infrastructure-coordinated-support-required",
         "label": "health-infrastructure-coordinated-support-required",
         "rag": "AMBER",
         "outputIndex": 1,
-        "action": "Coordinate transportation, built-space, and community-service supports."
+        "action": "route-referral"
       },
       {
         "sequenceId": "health-infrastructure-support-continuity-monitoring",
         "label": "health-infrastructure-support-continuity-monitoring",
         "rag": "AMBER",
         "outputIndex": 2,
-        "action": "Continue monitoring support continuity and keep PE sources fresh."
+        "action": "continue-monitoring"
       },
       {
         "sequenceId": "health-infrastructure-infrastructure-support-stable",
         "label": "health-infrastructure-infrastructure-support-stable",
         "rag": "GREEN",
         "outputIndex": 3,
-        "action": "Infrastructure support state is stable for personal health workflows."
+        "action": "continue-monitoring"
       }
     ]
   },
@@ -298,7 +298,7 @@
           "responseKey": "transportation_ada_service_access",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -341,7 +341,7 @@
           "responseKey": "transportation_rider_alert_reliability",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -384,7 +384,7 @@
           "responseKey": "transportation_stop_shelter_condition",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -427,7 +427,7 @@
           "responseKey": "transportation_vertical_access",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -470,7 +470,7 @@
           "responseKey": "built_space_air_filtration",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -513,7 +513,7 @@
           "responseKey": "built_space_humidity_mold_risk",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -556,7 +556,7 @@
           "responseKey": "built_space_water_pathogen_control",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -599,7 +599,7 @@
           "responseKey": "built_space_circadian_lighting",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -642,7 +642,7 @@
           "responseKey": "built_space_accessible_movement_paths",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -685,7 +685,7 @@
           "responseKey": "built_space_behavioral_support_access",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -728,7 +728,7 @@
           "responseKey": "community_services_hhs_intake",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -771,7 +771,7 @@
           "responseKey": "community_services_utility_assistance",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -814,7 +814,7 @@
           "responseKey": "community_services_meal_outreach",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -857,7 +857,7 @@
           "responseKey": "community_services_housing_navigation",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -900,7 +900,7 @@
           "responseKey": "community_services_local_access_hub",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -943,7 +943,7 @@
           "responseKey": "community_services_predictive_prevention",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,

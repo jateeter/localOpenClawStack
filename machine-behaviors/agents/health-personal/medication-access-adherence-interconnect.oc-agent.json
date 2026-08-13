@@ -34,7 +34,7 @@
   },
   "reasoning": {
     "objective": "Produce the normalized input vector for \"Medication Access Adherence Interconnect\" from current observations so RE can evaluate its CES sequences.",
-    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Medication Access Adherence Interconnect\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Published personal-health bridge bus that composes medication adherence, medication cost, daily care, transport, isolation, wellness routing, and hydration into a compact medication access response lane.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- medication-delayed-bit (index 0):\n- medication-missed-bit (index 1):\n- cost-adherence-crisis-bit (index 2):\n- cost-barrier-active-bit (index 3):\n- partial-adherence-bit (index 4):\n- medication-managed-bit (index 5):\n- daily-care-medication-missed-bit (index 6):\n- transport-critical-access-failure-bit (index 7):\n- transport-appointment-barrier-bit (index 8):\n- severe-social-isolation-bit (index 9):\n- isolation-risk-bit (index 10):\n- wellness-inflow-urgent-bit (index 11):\n- wellness-transition-urgent-or-escalated-bit (index 12):\n- hydration-critical-bit (index 13):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- URGENT_MEDICATION_RECOVERY at [4538 (RED) -> action: URGENT_MEDICATION_RECOVERY\n- AFFORDABILITY_NAVIGATION at [4538 (AMBER) -> action: AFFORDABILITY_NAVIGATION\n- CAREGIVER_REMINDER_LOOP at [4538 (AMBER) -> action: CAREGIVER_REMINDER_LOOP\n- STABLE_MEDICATION_ROUTINE at [4538 (GREEN) -> action: STABLE_MEDICATION_ROUTINE",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Medication Access Adherence Interconnect\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Published personal-health bridge bus that composes medication adherence, medication cost, daily care, transport, isolation, wellness routing, and hydration into a compact medication access response lane.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- medication-delayed-bit (index 0):\n- medication-missed-bit (index 1):\n- cost-adherence-crisis-bit (index 2):\n- cost-barrier-active-bit (index 3):\n- partial-adherence-bit (index 4):\n- medication-managed-bit (index 5):\n- daily-care-medication-missed-bit (index 6):\n- transport-critical-access-failure-bit (index 7):\n- transport-appointment-barrier-bit (index 8):\n- severe-social-isolation-bit (index 9):\n- isolation-risk-bit (index 10):\n- wellness-inflow-urgent-bit (index 11):\n- wellness-transition-urgent-or-escalated-bit (index 12):\n- hydration-critical-bit (index 13):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- URGENT_MEDICATION_RECOVERY at [4538 (RED) -> action: urgent-intervention\n- AFFORDABILITY_NAVIGATION at [4538 (AMBER) -> action: route-referral\n- CAREGIVER_REMINDER_LOOP at [4538 (AMBER) -> action: route-referral\n- STABLE_MEDICATION_ROUTINE at [4538 (GREEN) -> action: continue-monitoring",
     "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
     "inputAxes": [
       {
@@ -170,28 +170,28 @@
         "label": "URGENT_MEDICATION_RECOVERY at [4538",
         "rag": "RED",
         "outputIndex": 0,
-        "action": "URGENT_MEDICATION_RECOVERY"
+        "action": "urgent-intervention"
       },
       {
         "sequenceId": "medication-access-affordability-navigation",
         "label": "AFFORDABILITY_NAVIGATION at [4538",
         "rag": "AMBER",
         "outputIndex": 1,
-        "action": "AFFORDABILITY_NAVIGATION"
+        "action": "route-referral"
       },
       {
         "sequenceId": "medication-access-caregiver-reminder",
         "label": "CAREGIVER_REMINDER_LOOP at [4538",
         "rag": "AMBER",
         "outputIndex": 2,
-        "action": "CAREGIVER_REMINDER_LOOP"
+        "action": "route-referral"
       },
       {
         "sequenceId": "medication-access-stable",
         "label": "STABLE_MEDICATION_ROUTINE at [4538",
         "rag": "GREEN",
         "outputIndex": 3,
-        "action": "STABLE_MEDICATION_ROUTINE"
+        "action": "continue-monitoring"
       }
     ]
   },
@@ -278,7 +278,7 @@
           "responseKey": "medication-delayed-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -321,7 +321,7 @@
           "responseKey": "medication-missed-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -364,7 +364,7 @@
           "responseKey": "cost-adherence-crisis-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -407,7 +407,7 @@
           "responseKey": "cost-barrier-active-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -450,7 +450,7 @@
           "responseKey": "partial-adherence-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -493,7 +493,7 @@
           "responseKey": "medication-managed-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -536,7 +536,7 @@
           "responseKey": "daily-care-medication-missed-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -579,7 +579,7 @@
           "responseKey": "transport-critical-access-failure-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -622,7 +622,7 @@
           "responseKey": "transport-appointment-barrier-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -665,7 +665,7 @@
           "responseKey": "severe-social-isolation-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -708,7 +708,7 @@
           "responseKey": "isolation-risk-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -751,7 +751,7 @@
           "responseKey": "wellness-inflow-urgent-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -794,7 +794,7 @@
           "responseKey": "wellness-transition-urgent-or-escalated-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -837,7 +837,7 @@
           "responseKey": "hydration-critical-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,

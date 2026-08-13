@@ -34,7 +34,7 @@
   },
   "reasoning": {
     "objective": "Produce the normalized input vector for \"Care Transition Response Interconnect\" from current observations so RE can evaluate its CES sequences.",
-    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Care Transition Response Interconnect\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Published personal-health bridge bus that composes care transition outcomes, wellness transition routing, patient wellness acuity, daily-care safety, facilities accessibility, and fall criticality into a compact transition-response lane. PE owns source composition and writes the compact input lane; RE evaluates this machine as ordinary vector state.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- care-transition-hospital-transfer-bit (index 0):\n- care-transition-rehab-transfer-bit (index 1):\n- care-transition-assisted-living-transfer-bit (index 2):\n- care-transition-transfer-blocked-bit (index 3):\n- care-transition-emergency-escalation-bit (index 4):\n- wellness-transition-review-bit (index 5):\n- wellness-transition-escalation-bit (index 6):\n- wellness-transition-urgent-bit (index 7):\n- wellness-improving-bit (index 8):\n- patient-wellness-alert-bit (index 9):\n- patient-wellness-critical-bit (index 10):\n- daily-care-fall-confirmed-bit (index 11):\n- daily-care-unresponsive-fall-bit (index 12):\n- daily-care-medication-missed-bit (index 13):\n- facilities-safety-alert-bit (index 14):\n- facilities-wellness-concern-bit (index 15):\n- facilities-inaccessibility-alert-bit (index 16):\n- fall-red-high-confidence-bit (index 17):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- care-transition-response-urgent-transfer (RED) -> action: Route urgent transfer response, emergency care coordination, governance escalation, and safety review.\n- care-transition-response-barrier-resolution (AMBER) -> action: Route payer, facility, transportation, documentation, medication, and human-services barrier resolution.\n- care-transition-response-post-acute-review (AMBER) -> action: Route post-acute placement review, referral optimization, functional support mapping, and care preference alignment.\n- care-transition-response-stable-monitoring (GREEN) -> action: Route stable transition monitoring, human-services follow-up, and whole-person care preference alignment.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Care Transition Response Interconnect\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Published personal-health bridge bus that composes care transition outcomes, wellness transition routing, patient wellness acuity, daily-care safety, facilities accessibility, and fall criticality into a compact transition-response lane. PE owns source composition and writes the compact input lane; RE evaluates this machine as ordinary vector state.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- care-transition-hospital-transfer-bit (index 0):\n- care-transition-rehab-transfer-bit (index 1):\n- care-transition-assisted-living-transfer-bit (index 2):\n- care-transition-transfer-blocked-bit (index 3):\n- care-transition-emergency-escalation-bit (index 4):\n- wellness-transition-review-bit (index 5):\n- wellness-transition-escalation-bit (index 6):\n- wellness-transition-urgent-bit (index 7):\n- wellness-improving-bit (index 8):\n- patient-wellness-alert-bit (index 9):\n- patient-wellness-critical-bit (index 10):\n- daily-care-fall-confirmed-bit (index 11):\n- daily-care-unresponsive-fall-bit (index 12):\n- daily-care-medication-missed-bit (index 13):\n- facilities-safety-alert-bit (index 14):\n- facilities-wellness-concern-bit (index 15):\n- facilities-inaccessibility-alert-bit (index 16):\n- fall-red-high-confidence-bit (index 17):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- care-transition-response-urgent-transfer (RED) -> action: urgent-intervention\n- care-transition-response-barrier-resolution (AMBER) -> action: route-referral\n- care-transition-response-post-acute-review (AMBER) -> action: route-referral\n- care-transition-response-stable-monitoring (GREEN) -> action: continue-monitoring",
     "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
     "inputAxes": [
       {
@@ -206,28 +206,28 @@
         "label": "care-transition-response-urgent-transfer",
         "rag": "RED",
         "outputIndex": 0,
-        "action": "Route urgent transfer response, emergency care coordination, governance escalation, and safety review."
+        "action": "urgent-intervention"
       },
       {
         "sequenceId": "care-transition-response-barrier-resolution",
         "label": "care-transition-response-barrier-resolution",
         "rag": "AMBER",
         "outputIndex": 1,
-        "action": "Route payer, facility, transportation, documentation, medication, and human-services barrier resolution."
+        "action": "route-referral"
       },
       {
         "sequenceId": "care-transition-response-post-acute-review",
         "label": "care-transition-response-post-acute-review",
         "rag": "AMBER",
         "outputIndex": 2,
-        "action": "Route post-acute placement review, referral optimization, functional support mapping, and care preference alignment."
+        "action": "route-referral"
       },
       {
         "sequenceId": "care-transition-response-stable-monitoring",
         "label": "care-transition-response-stable-monitoring",
         "rag": "GREEN",
         "outputIndex": 3,
-        "action": "Route stable transition monitoring, human-services follow-up, and whole-person care preference alignment."
+        "action": "continue-monitoring"
       }
     ]
   },
@@ -318,7 +318,7 @@
           "responseKey": "care-transition-hospital-transfer-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -361,7 +361,7 @@
           "responseKey": "care-transition-rehab-transfer-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -404,7 +404,7 @@
           "responseKey": "care-transition-assisted-living-transfer-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -447,7 +447,7 @@
           "responseKey": "care-transition-transfer-blocked-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -490,7 +490,7 @@
           "responseKey": "care-transition-emergency-escalation-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -533,7 +533,7 @@
           "responseKey": "wellness-transition-review-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -576,7 +576,7 @@
           "responseKey": "wellness-transition-escalation-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -619,7 +619,7 @@
           "responseKey": "wellness-transition-urgent-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -662,7 +662,7 @@
           "responseKey": "wellness-improving-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -705,7 +705,7 @@
           "responseKey": "patient-wellness-alert-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -748,7 +748,7 @@
           "responseKey": "patient-wellness-critical-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -791,7 +791,7 @@
           "responseKey": "daily-care-fall-confirmed-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -834,7 +834,7 @@
           "responseKey": "daily-care-unresponsive-fall-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -877,7 +877,7 @@
           "responseKey": "daily-care-medication-missed-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -920,7 +920,7 @@
           "responseKey": "facilities-safety-alert-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -963,7 +963,7 @@
           "responseKey": "facilities-wellness-concern-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -1006,7 +1006,7 @@
           "responseKey": "facilities-inaccessibility-alert-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -1049,7 +1049,7 @@
           "responseKey": "fall-red-high-confidence-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,

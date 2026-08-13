@@ -34,7 +34,7 @@
   },
   "reasoning": {
     "objective": "Produce the normalized input vector for \"Agriculture Core Interconnect\" from current observations so RE can evaluate its CES sequences.",
-    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Agriculture Core Interconnect\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Published agriculture bridge bus that composes Agriculture Core into a compact domain family response lane. PE owns source composition and writes the compact input lane; RE evaluates this machine as ordinary vector state.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- ag-atmospheric-controller-active-output-0-bit (index 0):\n- ag-atmospheric-controller-active-output-1-bit (index 1):\n- ag-atmospheric-controller-active-output-2-bit (index 2):\n- ag-harvest-readiness-assessor-active-output-0-bit (index 3):\n- ag-harvest-readiness-assessor-active-output-1-bit (index 4):\n- ag-harvest-readiness-assessor-active-output-2-bit (index 5):\n- ag-ipm-pest-alert-monitor-active-output-0-bit (index 6):\n- ag-ipm-pest-alert-monitor-active-output-1-bit (index 7):\n- ag-ipm-pest-alert-monitor-active-output-2-bit (index 8):\n- ag-irrigation-flow-controller-active-output-0-bit (index 9):\n- ag-irrigation-flow-controller-active-output-1-bit (index 10):\n- ag-irrigation-flow-controller-active-output-2-bit (index 11):\n- ag-nutrient-cycle-optimizer-active-output-0-bit (index 12):\n- ag-nutrient-cycle-optimizer-active-output-1-bit (index 13):\n- ag-nutrient-cycle-optimizer-active-output-2-bit (index 14):\n- ag-nutrient-solution-monitor-active-output-0-bit (index 15):\n- ag-nutrient-solution-monitor-active-output-1-bit (index 16):\n- ag-nutrient-solution-monitor-active-output-2-bit (index 17):\n- ag-photo-period-lighting-controller-active-output-0-bit (index 18):\n- ag-photo-period-lighting-controller-active-output-1-bit (index 19):\n- ag-photo-period-lighting-controller-active-output-2-bit (index 20):\n- ag-plant-growth-cycle-monitor-active-output-0-bit (index 21):\n- ag-plant-growth-cycle-monitor-active-output-1-bit (index 22):\n- ag-plant-growth-cycle-monitor-active-output-2-bit (index 23):\n- ag-zone-temperature-controller-active-output-0-bit (index 24):\n- ag-zone-temperature-controller-active-output-1-bit (index 25):\n- ag-zone-temperature-controller-active-output-2-bit (index 26):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Agriculture Core domain family review at [13027 (RED) -> action: Route domain family review, escalation, and resolver summary.\n- Agriculture Core domain family optimization at [13027 (AMBER) -> action: Route domain family optimization or plan adjustment.\n- Agriculture Core domain family monitoring at [13027 (AMBER) -> action: Route monitoring, evidence, or data-quality follow-up.\n- Agriculture Core domain family stable at [13027 (GREEN) -> action: Record stable family state and keep baseline cadence.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Agriculture Core Interconnect\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Published agriculture bridge bus that composes Agriculture Core into a compact domain family response lane. PE owns source composition and writes the compact input lane; RE evaluates this machine as ordinary vector state.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- ag-atmospheric-controller-active-output-0-bit (index 0):\n- ag-atmospheric-controller-active-output-1-bit (index 1):\n- ag-atmospheric-controller-active-output-2-bit (index 2):\n- ag-harvest-readiness-assessor-active-output-0-bit (index 3):\n- ag-harvest-readiness-assessor-active-output-1-bit (index 4):\n- ag-harvest-readiness-assessor-active-output-2-bit (index 5):\n- ag-ipm-pest-alert-monitor-active-output-0-bit (index 6):\n- ag-ipm-pest-alert-monitor-active-output-1-bit (index 7):\n- ag-ipm-pest-alert-monitor-active-output-2-bit (index 8):\n- ag-irrigation-flow-controller-active-output-0-bit (index 9):\n- ag-irrigation-flow-controller-active-output-1-bit (index 10):\n- ag-irrigation-flow-controller-active-output-2-bit (index 11):\n- ag-nutrient-cycle-optimizer-active-output-0-bit (index 12):\n- ag-nutrient-cycle-optimizer-active-output-1-bit (index 13):\n- ag-nutrient-cycle-optimizer-active-output-2-bit (index 14):\n- ag-nutrient-solution-monitor-active-output-0-bit (index 15):\n- ag-nutrient-solution-monitor-active-output-1-bit (index 16):\n- ag-nutrient-solution-monitor-active-output-2-bit (index 17):\n- ag-photo-period-lighting-controller-active-output-0-bit (index 18):\n- ag-photo-period-lighting-controller-active-output-1-bit (index 19):\n- ag-photo-period-lighting-controller-active-output-2-bit (index 20):\n- ag-plant-growth-cycle-monitor-active-output-0-bit (index 21):\n- ag-plant-growth-cycle-monitor-active-output-1-bit (index 22):\n- ag-plant-growth-cycle-monitor-active-output-2-bit (index 23):\n- ag-zone-temperature-controller-active-output-0-bit (index 24):\n- ag-zone-temperature-controller-active-output-1-bit (index 25):\n- ag-zone-temperature-controller-active-output-2-bit (index 26):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Agriculture Core domain family review at [13027 (RED) -> action: route-review\n- Agriculture Core domain family optimization at [13027 (AMBER) -> action: route-review\n- Agriculture Core domain family monitoring at [13027 (AMBER) -> action: route-review\n- Agriculture Core domain family stable at [13027 (GREEN) -> action: continue-monitoring",
     "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
     "inputAxes": [
       {
@@ -287,28 +287,28 @@
         "label": "Agriculture Core domain family review at [13027",
         "rag": "RED",
         "outputIndex": 0,
-        "action": "Route domain family review, escalation, and resolver summary."
+        "action": "route-review"
       },
       {
         "sequenceId": "agriculture-core-domain-family-optimization",
         "label": "Agriculture Core domain family optimization at [13027",
         "rag": "AMBER",
         "outputIndex": 1,
-        "action": "Route domain family optimization or plan adjustment."
+        "action": "route-review"
       },
       {
         "sequenceId": "agriculture-core-domain-family-monitoring",
         "label": "Agriculture Core domain family monitoring at [13027",
         "rag": "AMBER",
         "outputIndex": 2,
-        "action": "Route monitoring, evidence, or data-quality follow-up."
+        "action": "route-review"
       },
       {
         "sequenceId": "agriculture-core-domain-family-stable",
         "label": "Agriculture Core domain family stable at [13027",
         "rag": "GREEN",
         "outputIndex": 3,
-        "action": "Record stable family state and keep baseline cadence."
+        "action": "continue-monitoring"
       }
     ]
   },
@@ -408,7 +408,7 @@
           "responseKey": "ag-atmospheric-controller-active-output-0-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -451,7 +451,7 @@
           "responseKey": "ag-atmospheric-controller-active-output-1-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -494,7 +494,7 @@
           "responseKey": "ag-atmospheric-controller-active-output-2-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -537,7 +537,7 @@
           "responseKey": "ag-harvest-readiness-assessor-active-output-0-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -580,7 +580,7 @@
           "responseKey": "ag-harvest-readiness-assessor-active-output-1-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -623,7 +623,7 @@
           "responseKey": "ag-harvest-readiness-assessor-active-output-2-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -666,7 +666,7 @@
           "responseKey": "ag-ipm-pest-alert-monitor-active-output-0-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -709,7 +709,7 @@
           "responseKey": "ag-ipm-pest-alert-monitor-active-output-1-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -752,7 +752,7 @@
           "responseKey": "ag-ipm-pest-alert-monitor-active-output-2-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -795,7 +795,7 @@
           "responseKey": "ag-irrigation-flow-controller-active-output-0-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -838,7 +838,7 @@
           "responseKey": "ag-irrigation-flow-controller-active-output-1-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -881,7 +881,7 @@
           "responseKey": "ag-irrigation-flow-controller-active-output-2-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -924,7 +924,7 @@
           "responseKey": "ag-nutrient-cycle-optimizer-active-output-0-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -967,7 +967,7 @@
           "responseKey": "ag-nutrient-cycle-optimizer-active-output-1-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -1010,7 +1010,7 @@
           "responseKey": "ag-nutrient-cycle-optimizer-active-output-2-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -1053,7 +1053,7 @@
           "responseKey": "ag-nutrient-solution-monitor-active-output-0-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -1096,7 +1096,7 @@
           "responseKey": "ag-nutrient-solution-monitor-active-output-1-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -1139,7 +1139,7 @@
           "responseKey": "ag-nutrient-solution-monitor-active-output-2-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -1182,7 +1182,7 @@
           "responseKey": "ag-photo-period-lighting-controller-active-output-0-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -1225,7 +1225,7 @@
           "responseKey": "ag-photo-period-lighting-controller-active-output-1-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -1268,7 +1268,7 @@
           "responseKey": "ag-photo-period-lighting-controller-active-output-2-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -1311,7 +1311,7 @@
           "responseKey": "ag-plant-growth-cycle-monitor-active-output-0-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -1354,7 +1354,7 @@
           "responseKey": "ag-plant-growth-cycle-monitor-active-output-1-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -1397,7 +1397,7 @@
           "responseKey": "ag-plant-growth-cycle-monitor-active-output-2-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -1440,7 +1440,7 @@
           "responseKey": "ag-zone-temperature-controller-active-output-0-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -1483,7 +1483,7 @@
           "responseKey": "ag-zone-temperature-controller-active-output-1-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -1526,7 +1526,7 @@
           "responseKey": "ag-zone-temperature-controller-active-output-2-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,

@@ -1,0 +1,234 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "oc-agent-template",
+  "role": "input-analyst",
+  "agentId": "rs-ring-latch-stage-b",
+  "displayName": "RS Ring Latch Stage B",
+  "machine": {
+    "id": "RSRingLatchStageB",
+    "name": "RS Ring Latch Stage B",
+    "code": "rsringlatchstageb",
+    "machineClass": "signal-monitor",
+    "domain": "digital-logic",
+    "inputRegion": {
+      "offset": 16922,
+      "length": 2
+    },
+    "outputRegion": {
+      "offset": 16920,
+      "length": 2
+    }
+  },
+  "openclaw": {
+    "id": "openclaw-xacp",
+    "kind": "acp",
+    "platform": "OpenClaw",
+    "surface": "xACP",
+    "command": "openclaw acp",
+    "gatewayUrl": "ws://127.0.0.1:18789",
+    "sessionKey": "agent:main:main",
+    "targetAgent": "rs-ring-latch-stage-b",
+    "dispatchMode": "accepted-no-wait",
+    "completionMode": "pe-source-mapping",
+    "completionSourceMappingId": "acp-rs-ring-latch-stage-b-input-assessment"
+  },
+  "reasoning": {
+    "objective": "Produce the normalized input vector for \"RS Ring Latch Stage B\" from current observations so RE can evaluate its CES sequences.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"RS Ring Latch Stage B\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. RS bistable forming one half of the minimal provable feedback ring. Reads [S,R] at [16922:16924] and emits [Q,/Q] at [16920:16922]. Paired with RS Ring Latch Stage A to close a two-stage latch ring.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- rs-ring-latch-stage-b-set-input-s (index 0):\n- rs-ring-latch-stage-b-reset-input-r (index 1):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- rsr-b-set-sequence (GREEN) -> action: log-activity\n- rsr-b-reset-sequence (GREEN) -> action: log-activity",
+    "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
+    "inputAxes": [
+      {
+        "index": 0,
+        "key": "rs-ring-latch-stage-b-set-input-s",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 1,
+        "key": "rs-ring-latch-stage-b-reset-input-r",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      }
+    ],
+    "sequenceCatalog": [
+      {
+        "sequenceId": "rsr-b-set-sequence",
+        "label": "rsr-b-set-sequence",
+        "rag": "GREEN",
+        "outputIndex": 0,
+        "action": "log-activity"
+      },
+      {
+        "sequenceId": "rsr-b-reset-sequence",
+        "label": "rsr-b-reset-sequence",
+        "rag": "GREEN",
+        "outputIndex": 1,
+        "action": "log-activity"
+      }
+    ]
+  },
+  "agentBinding": {
+    "agent": "rs-ring-latch-stage-b",
+    "mode": "advise",
+    "trigger": "rsringlatchstageb-input-assessment",
+    "allowedActions": [
+      "Assess current \"RS Ring Latch Stage B\" state from available observations and write the normalized input vector to the PE input region [16922:16924] for RE to evaluate."
+    ],
+    "writeBack": {
+      "type": "pe-sensor",
+      "provider": "acp",
+      "sensorId": "acp.openclaw.rsringlatchstageb.input-analyst.assessment",
+      "name": "OpenClaw rsringlatchstageb input-analyst assessment",
+      "region": {
+        "offset": 16922,
+        "length": 2
+      },
+      "semantics": [
+        "rs-ring-latch-stage-b-set-input-s",
+        "rs-ring-latch-stage-b-reset-input-r"
+      ],
+      "ttlMs": 300000,
+      "normalization": "already-normalized-0-1",
+      "ingest": {
+        "endpoint": "/api/integrations/completions",
+        "method": "POST",
+        "triggerPush": false,
+        "compactPush": true
+      },
+      "sourceMapping": {
+        "id": "acp-rsringlatchstageb-input-assessment",
+        "sensorId": "acp.openclaw.rsringlatchstageb.input-analyst.assessment",
+        "name": "OpenClaw rsringlatchstageb input-analyst assessment",
+        "region": {
+          "offset": 16922,
+          "length": 2
+        },
+        "ttlMs": 300000
+      }
+    },
+    "autonomyPolicy": {
+      "mode": "advise",
+      "stage": 1,
+      "writeBackType": "pe-sensor",
+      "canWriteBack": true,
+      "canStageActions": false,
+      "canExecuteActions": false,
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "blockedWhenRag": []
+    },
+    "riskControls": {
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "maxAutonomy": "advise",
+      "blockedWhenRag": []
+    }
+  },
+  "responseMapping": {
+    "schemaVersion": "1.0.0",
+    "responseContract": "structured-keys-or-text",
+    "mode": "advise",
+    "fields": [
+      {
+        "semantic": "rs-ring-latch-stage-b-set-input-s",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/rs-ring-latch-stage-b-set-input-s",
+          "responseKey": "rs-ring-latch-stage-b-set-input-s",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "onUnresolved": "divert-to-analysis",
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.rsringlatchstageb.input-analyst.assessment",
+          "region": {
+            "offset": 16922,
+            "length": 2
+          },
+          "index": 0
+        }
+      },
+      {
+        "semantic": "rs-ring-latch-stage-b-reset-input-r",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/rs-ring-latch-stage-b-reset-input-r",
+          "responseKey": "rs-ring-latch-stage-b-reset-input-r",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "onUnresolved": "divert-to-analysis",
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.rsringlatchstageb.input-analyst.assessment",
+          "region": {
+            "offset": 16922,
+            "length": 2
+          },
+          "index": 1
+        }
+      }
+    ]
+  },
+  "diagnostics": {
+    "axisBasis": "inputSemantics",
+    "warnings": [
+      "input axes derived from inputSemantics (no length-matched sensorNormalization)"
+    ],
+    "inputLength": 2,
+    "sequenceCount": 2
+  }
+}

@@ -34,7 +34,7 @@
   },
   "reasoning": {
     "objective": "Produce the normalized input vector for \"Community Outreach Monitor\" from current observations so RE can evaluate its CES sequences.",
-    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Community Outreach Monitor\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Monitors outreach engagement rates, unreached population coverage, outreach frequency, and community trust indicators for community service outreach programs. In community services, outreach is the first mile \u2014 without it, eligible populations remain unaware of or disconnected from available services. Outreach effectiveness is especially critical for immigrant communities, people experiencing homelessness, and individuals with prior negative government contact who distrust institutional services. Output at [980:984] feeds the Community Access Monitor.\n\nPOPULATION: Outreach-dependent service populations: immigrant communities, homeless individuals, returning citizens, domestic violence survivors, isolated elders; organizations running street outreach, community health worker programs, and peer outreach\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- engagement_rate_norm (index 0):  0.0 = <10% of outreach contacts result in service connection (contacts made but clients not engaging) | 0.5 = 30\u201350% engagement rate (moderate connection; trust barriers present) | 1.0 = >75% engagement rate (high trust; effective outreach messaging and worker relationships)\n- unreached_population_norm (index 1):  0.0 = target population almost entirely unreached (>80% of estimated eligible have not had contact) | 0.5 = partial coverage (30\u201360% reached; hard-to-reach subgroups untouched) | 1.0 = >80% of estimated target population has been contacted at least once\n- outreach_frequency_norm (index 2):  0.0 = no active outreach occurring (program paused, staff unavailable, funding lapsed) | 0.5 = intermittent outreach (monthly or less; insufficient for trust-building) | 1.0 = regular intensive outreach (weekly or more; consistent presence in target locations)\n- trust_score_norm (index 3):  0.0 = community actively avoiding outreach workers; prior incident damaging trust; fear of contact with services | 0.5 = neutral trust; some community members engaging; others avoidant | 1.0 = high trust; community initiating contact; peer referrals active\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- OUTREACH_FAILURE (AMBER) -> action: Community trust repair engagement; peer outreach worker recruitment; community needs assessment; messaging and approach overhaul; community advisory group convening\n- ENGAGEMENT_BUILDING (GREEN) -> action: Peer outreach ambassador program expansion; maintain consistent presence; track trust indicators; avoid disruptive program changes during relationship-building phase\n- OUTREACH_EFFECTIVE (GREEN) -> action: Community access monitor registers outreach functional; continue and document effective practices",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Community Outreach Monitor\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Monitors outreach engagement rates, unreached population coverage, outreach frequency, and community trust indicators for community service outreach programs. In community services, outreach is the first mile \u2014 without it, eligible populations remain unaware of or disconnected from available services. Outreach effectiveness is especially critical for immigrant communities, people experiencing homelessness, and individuals with prior negative government contact who distrust institutional services. Output at [980:984] feeds the Community Access Monitor.\n\nPOPULATION: Outreach-dependent service populations: immigrant communities, homeless individuals, returning citizens, domestic violence survivors, isolated elders; organizations running street outreach, community health worker programs, and peer outreach\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- engagement_rate_norm (index 0):  0.0 = <10% of outreach contacts result in service connection (contacts made but clients not engaging) | 0.5 = 30\u201350% engagement rate (moderate connection; trust barriers present) | 1.0 = >75% engagement rate (high trust; effective outreach messaging and worker relationships)\n- unreached_population_norm (index 1):  0.0 = target population almost entirely unreached (>80% of estimated eligible have not had contact) | 0.5 = partial coverage (30\u201360% reached; hard-to-reach subgroups untouched) | 1.0 = >80% of estimated target population has been contacted at least once\n- outreach_frequency_norm (index 2):  0.0 = no active outreach occurring (program paused, staff unavailable, funding lapsed) | 0.5 = intermittent outreach (monthly or less; insufficient for trust-building) | 1.0 = regular intensive outreach (weekly or more; consistent presence in target locations)\n- trust_score_norm (index 3):  0.0 = community actively avoiding outreach workers; prior incident damaging trust; fear of contact with services | 0.5 = neutral trust; some community members engaging; others avoidant | 1.0 = high trust; community initiating contact; peer referrals active\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- OUTREACH_FAILURE (AMBER) -> action: route-review\n- ENGAGEMENT_BUILDING (GREEN) -> action: route-review\n- OUTREACH_EFFECTIVE (GREEN) -> action: continue-monitoring",
     "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
     "inputAxes": [
       {
@@ -80,21 +80,21 @@
         "label": "OUTREACH_FAILURE",
         "rag": "AMBER",
         "outputIndex": 0,
-        "action": "Community trust repair engagement; peer outreach worker recruitment; community needs assessment; messaging and approach overhaul; community advisory group convening"
+        "action": "route-review"
       },
       {
         "sequenceId": "outreach-building",
         "label": "ENGAGEMENT_BUILDING",
         "rag": "GREEN",
         "outputIndex": 2,
-        "action": "Peer outreach ambassador program expansion; maintain consistent presence; track trust indicators; avoid disruptive program changes during relationship-building phase"
+        "action": "route-review"
       },
       {
         "sequenceId": "outreach-effective-ok",
         "label": "OUTREACH_EFFECTIVE",
         "rag": "GREEN",
         "outputIndex": 3,
-        "action": "Community access monitor registers outreach functional; continue and document effective practices"
+        "action": "continue-monitoring"
       }
     ]
   },
@@ -171,7 +171,7 @@
           "responseKey": "engagement_rate_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -214,7 +214,7 @@
           "responseKey": "unreached_population_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -257,7 +257,7 @@
           "responseKey": "outreach_frequency_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -300,7 +300,7 @@
           "responseKey": "trust_score_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,

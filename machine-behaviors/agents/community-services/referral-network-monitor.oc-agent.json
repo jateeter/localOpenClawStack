@@ -34,7 +34,7 @@
   },
   "reasoning": {
     "objective": "Produce the normalized input vector for \"Referral Network Monitor\" from current observations so RE can evaluate its CES sequences.",
-    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Referral Network Monitor\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Monitors referral acceptance rates, wait time performance, warm handoff completion, and follow-through rates across community service referral partnerships. Referral networks are the connective tissue of community services \u2014 they route clients to specialized resources (food banks, legal aid, mental health, substance use treatment, housing) that the referring agency cannot provide directly. Network degradation (partner agencies at capacity, wait lists expanding, warm handoff failures) silently starves clients of services they were told they would receive. Output at [976:980] feeds the Community Access Monitor.\n\nPOPULATION: Community service agencies with referral partnerships; clients referred to partner organizations for specialized services; organizations participating in coordinated entry systems\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- referral_acceptance_norm (index 0):  0.0 = partners not accepting referrals (<20% acceptance rate); all partner agencies at capacity | 0.5 = partial acceptance (40\u201360% of referrals accepted within target timeframe) | 1.0 = >85% of referrals accepted within target timeframe\n- wait_time_norm (index 1):  0.0 = wait time for referred service >90 days or indefinite (waitlist closed) | 0.5 = wait time 30\u201360 days (acceptable for non-urgent; problematic for urgent need) | 1.0 = wait time <2 weeks for standard services; same-day or next-day for crisis\n- warm_handoff_completion_norm (index 2):  0.0 = warm handoffs not occurring; clients being given phone numbers and left to navigate alone | 0.5 = partial warm handoff (email introduction sent; no direct contact confirmation) | 1.0 = warm handoff confirmed \u2014 direct worker-to-worker contact; client acknowledged by receiving agency\n- follow_through_norm (index 3):  0.0 = <30% of referred clients confirmed to have connected with referred service | 0.5 = 40\u201365% of referred clients confirmed connected | 1.0 = >80% of referred clients confirmed connected within target timeframe\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- REFERRAL_BREAKDOWN (GREEN) -> action: Emergency partner network meeting; alternative resource identification; direct service expansion; funder notification; coordinated entry system escalation\n- REFERRAL_DELAYS (GREEN) -> action: Expedited referral pathways negotiation; crisis slot advocacy with partners; interim bridge service identification; peer support engagement while waiting\n- REFERRAL_FUNCTIONAL (GREEN) -> action: Community access monitor registers referral network healthy",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Referral Network Monitor\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Monitors referral acceptance rates, wait time performance, warm handoff completion, and follow-through rates across community service referral partnerships. Referral networks are the connective tissue of community services \u2014 they route clients to specialized resources (food banks, legal aid, mental health, substance use treatment, housing) that the referring agency cannot provide directly. Network degradation (partner agencies at capacity, wait lists expanding, warm handoff failures) silently starves clients of services they were told they would receive. Output at [976:980] feeds the Community Access Monitor.\n\nPOPULATION: Community service agencies with referral partnerships; clients referred to partner organizations for specialized services; organizations participating in coordinated entry systems\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- referral_acceptance_norm (index 0):  0.0 = partners not accepting referrals (<20% acceptance rate); all partner agencies at capacity | 0.5 = partial acceptance (40\u201360% of referrals accepted within target timeframe) | 1.0 = >85% of referrals accepted within target timeframe\n- wait_time_norm (index 1):  0.0 = wait time for referred service >90 days or indefinite (waitlist closed) | 0.5 = wait time 30\u201360 days (acceptable for non-urgent; problematic for urgent need) | 1.0 = wait time <2 weeks for standard services; same-day or next-day for crisis\n- warm_handoff_completion_norm (index 2):  0.0 = warm handoffs not occurring; clients being given phone numbers and left to navigate alone | 0.5 = partial warm handoff (email introduction sent; no direct contact confirmation) | 1.0 = warm handoff confirmed \u2014 direct worker-to-worker contact; client acknowledged by receiving agency\n- follow_through_norm (index 3):  0.0 = <30% of referred clients confirmed to have connected with referred service | 0.5 = 40\u201365% of referred clients confirmed connected | 1.0 = >80% of referred clients confirmed connected within target timeframe\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- REFERRAL_BREAKDOWN (GREEN) -> action: urgent-intervention\n- REFERRAL_DELAYS (GREEN) -> action: adjust-operations\n- REFERRAL_FUNCTIONAL (GREEN) -> action: continue-monitoring",
     "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
     "inputAxes": [
       {
@@ -80,21 +80,21 @@
         "label": "REFERRAL_BREAKDOWN",
         "rag": "GREEN",
         "outputIndex": 0,
-        "action": "Emergency partner network meeting; alternative resource identification; direct service expansion; funder notification; coordinated entry system escalation"
+        "action": "urgent-intervention"
       },
       {
         "sequenceId": "referral-delays",
         "label": "REFERRAL_DELAYS",
         "rag": "GREEN",
         "outputIndex": 2,
-        "action": "Expedited referral pathways negotiation; crisis slot advocacy with partners; interim bridge service identification; peer support engagement while waiting"
+        "action": "adjust-operations"
       },
       {
         "sequenceId": "referral-ok",
         "label": "REFERRAL_FUNCTIONAL",
         "rag": "GREEN",
         "outputIndex": 3,
-        "action": "Community access monitor registers referral network healthy"
+        "action": "continue-monitoring"
       }
     ]
   },
@@ -171,7 +171,7 @@
           "responseKey": "referral_acceptance_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -214,7 +214,7 @@
           "responseKey": "wait_time_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -257,7 +257,7 @@
           "responseKey": "warm_handoff_completion_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -300,7 +300,7 @@
           "responseKey": "follow_through_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,

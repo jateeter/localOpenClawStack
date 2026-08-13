@@ -34,7 +34,7 @@
   },
   "reasoning": {
     "objective": "Produce the normalized input vector for \"Pediatric Adolescent Family Support Interconnect\" from current observations so RE can evaluate its CES sequences.",
-    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Pediatric Adolescent Family Support Interconnect\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Published personal-health bridge bus that composes pediatric nutrition, child development, adolescent mental health, caregiver burden, food access, and environment safety into a compact family support lane.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- pediatric-growth-alert-bit (index 0):\n- pediatric-nutrition-deficit-bit (index 1):\n- pediatric-micronutrient-concern-bit (index 2):\n- pediatric-nutrition-ok-bit (index 3):\n- child-referral-needed-bit (index 4):\n- child-social-developmental-concern-bit (index 5):\n- child-learning-concern-bit (index 6):\n- child-development-ok-bit (index 7):\n- adolescent-crisis-risk-bit (index 8):\n- adolescent-behavioral-concern-bit (index 9):\n- adolescent-elevated-stress-bit (index 10):\n- adolescent-mental-health-ok-bit (index 11):\n- caregiver-burnout-bit (index 12):\n- caregiver-high-burden-bit (index 13):\n- caregiver-moderate-burden-bit (index 14):\n- food-crisis-or-insecure-bit (index 15):\n- unsafe-environment-bit (index 16):\n- environment-safe-bit (index 17):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- URGENT_FAMILY_SUPPORT at [4578 (RED) -> action: URGENT_FAMILY_SUPPORT\n- NUTRITION_DEVELOPMENT_REFERRAL at [4578 (AMBER) -> action: NUTRITION_DEVELOPMENT_REFERRAL\n- ADOLESCENT_BEHAVIORAL_SUPPORT at [4578 (AMBER) -> action: ADOLESCENT_BEHAVIORAL_SUPPORT\n- STABLE_FAMILY_SUPPORT at [4578 (GREEN) -> action: STABLE_FAMILY_SUPPORT",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Pediatric Adolescent Family Support Interconnect\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Published personal-health bridge bus that composes pediatric nutrition, child development, adolescent mental health, caregiver burden, food access, and environment safety into a compact family support lane.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- pediatric-growth-alert-bit (index 0):\n- pediatric-nutrition-deficit-bit (index 1):\n- pediatric-micronutrient-concern-bit (index 2):\n- pediatric-nutrition-ok-bit (index 3):\n- child-referral-needed-bit (index 4):\n- child-social-developmental-concern-bit (index 5):\n- child-learning-concern-bit (index 6):\n- child-development-ok-bit (index 7):\n- adolescent-crisis-risk-bit (index 8):\n- adolescent-behavioral-concern-bit (index 9):\n- adolescent-elevated-stress-bit (index 10):\n- adolescent-mental-health-ok-bit (index 11):\n- caregiver-burnout-bit (index 12):\n- caregiver-high-burden-bit (index 13):\n- caregiver-moderate-burden-bit (index 14):\n- food-crisis-or-insecure-bit (index 15):\n- unsafe-environment-bit (index 16):\n- environment-safe-bit (index 17):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- URGENT_FAMILY_SUPPORT at [4578 (RED) -> action: urgent-intervention\n- NUTRITION_DEVELOPMENT_REFERRAL at [4578 (AMBER) -> action: route-referral\n- ADOLESCENT_BEHAVIORAL_SUPPORT at [4578 (AMBER) -> action: route-referral\n- STABLE_FAMILY_SUPPORT at [4578 (GREEN) -> action: continue-monitoring",
     "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
     "inputAxes": [
       {
@@ -206,28 +206,28 @@
         "label": "URGENT_FAMILY_SUPPORT at [4578",
         "rag": "RED",
         "outputIndex": 0,
-        "action": "URGENT_FAMILY_SUPPORT"
+        "action": "urgent-intervention"
       },
       {
         "sequenceId": "pediatric-family-nutrition-development",
         "label": "NUTRITION_DEVELOPMENT_REFERRAL at [4578",
         "rag": "AMBER",
         "outputIndex": 1,
-        "action": "NUTRITION_DEVELOPMENT_REFERRAL"
+        "action": "route-referral"
       },
       {
         "sequenceId": "pediatric-family-behavioral-support",
         "label": "ADOLESCENT_BEHAVIORAL_SUPPORT at [4578",
         "rag": "AMBER",
         "outputIndex": 2,
-        "action": "ADOLESCENT_BEHAVIORAL_SUPPORT"
+        "action": "route-referral"
       },
       {
         "sequenceId": "pediatric-family-stable",
         "label": "STABLE_FAMILY_SUPPORT at [4578",
         "rag": "GREEN",
         "outputIndex": 3,
-        "action": "STABLE_FAMILY_SUPPORT"
+        "action": "continue-monitoring"
       }
     ]
   },
@@ -318,7 +318,7 @@
           "responseKey": "pediatric-growth-alert-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -361,7 +361,7 @@
           "responseKey": "pediatric-nutrition-deficit-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -404,7 +404,7 @@
           "responseKey": "pediatric-micronutrient-concern-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -447,7 +447,7 @@
           "responseKey": "pediatric-nutrition-ok-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -490,7 +490,7 @@
           "responseKey": "child-referral-needed-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -533,7 +533,7 @@
           "responseKey": "child-social-developmental-concern-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -576,7 +576,7 @@
           "responseKey": "child-learning-concern-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -619,7 +619,7 @@
           "responseKey": "child-development-ok-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -662,7 +662,7 @@
           "responseKey": "adolescent-crisis-risk-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -705,7 +705,7 @@
           "responseKey": "adolescent-behavioral-concern-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -748,7 +748,7 @@
           "responseKey": "adolescent-elevated-stress-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -791,7 +791,7 @@
           "responseKey": "adolescent-mental-health-ok-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -834,7 +834,7 @@
           "responseKey": "caregiver-burnout-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -877,7 +877,7 @@
           "responseKey": "caregiver-high-burden-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -920,7 +920,7 @@
           "responseKey": "caregiver-moderate-burden-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -963,7 +963,7 @@
           "responseKey": "food-crisis-or-insecure-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -1006,7 +1006,7 @@
           "responseKey": "unsafe-environment-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -1049,7 +1049,7 @@
           "responseKey": "environment-safe-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,

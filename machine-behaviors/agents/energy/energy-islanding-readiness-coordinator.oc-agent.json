@@ -34,7 +34,7 @@
   },
   "reasoning": {
     "objective": "Produce the normalized input vector for \"Energy Islanding Readiness Coordinator\" from current observations so RE can evaluate its CES sequences.",
-    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Energy Islanding Readiness Coordinator\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Determines whether the microgrid should island, prepare to island, reconnect, or remain grid-connected stable.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- pcc_instability_or_utility_outage_indicated_norm (index 0):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- feeder_sectionalizer_route_available_norm (index 1):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- inverter_grid_forming_capability_available_norm (index 2):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- storage_reserve_above_island_threshold_norm (index 3):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- black_start_sequence_available_norm (index 4):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- frequency_and_voltage_stability_acceptable_norm (index 5):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- protection_settings_synchronized_norm (index 6):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- resynchronization_window_available_norm (index 7):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Islanding Readiness Coordinator (RED) -> action: ISLAND_NOW for resilient community microgrid operations.\n- Islanding Readiness Coordinator (AMBER) -> action: PREPARE_ISLANDING for resilient community microgrid operations.\n- Islanding Readiness Coordinator (AMBER) -> action: RECONNECT_READY for resilient community microgrid operations.\n- Islanding Readiness Coordinator (GREEN) -> action: GRID_CONNECTED_STABLE for resilient community microgrid operations.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Energy Islanding Readiness Coordinator\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Determines whether the microgrid should island, prepare to island, reconnect, or remain grid-connected stable.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- pcc_instability_or_utility_outage_indicated_norm (index 0):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- feeder_sectionalizer_route_available_norm (index 1):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- inverter_grid_forming_capability_available_norm (index 2):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- storage_reserve_above_island_threshold_norm (index 3):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- black_start_sequence_available_norm (index 4):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- frequency_and_voltage_stability_acceptable_norm (index 5):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- protection_settings_synchronized_norm (index 6):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- resynchronization_window_available_norm (index 7):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Islanding Readiness Coordinator (RED) -> action: adjust-operations\n- Islanding Readiness Coordinator (AMBER) -> action: adjust-operations\n- Islanding Readiness Coordinator (AMBER) -> action: adjust-operations\n- Islanding Readiness Coordinator (GREEN) -> action: continue-monitoring",
     "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
     "inputAxes": [
       {
@@ -116,28 +116,28 @@
         "label": "Islanding Readiness Coordinator",
         "rag": "RED",
         "outputIndex": 0,
-        "action": "ISLAND_NOW for resilient community microgrid operations."
+        "action": "adjust-operations"
       },
       {
         "sequenceId": "enx202-prepare-islanding",
         "label": "Islanding Readiness Coordinator",
         "rag": "AMBER",
         "outputIndex": 1,
-        "action": "PREPARE_ISLANDING for resilient community microgrid operations."
+        "action": "adjust-operations"
       },
       {
         "sequenceId": "enx202-reconnect-ready",
         "label": "Islanding Readiness Coordinator",
         "rag": "AMBER",
         "outputIndex": 2,
-        "action": "RECONNECT_READY for resilient community microgrid operations."
+        "action": "adjust-operations"
       },
       {
         "sequenceId": "enx202-grid-connected-stable",
         "label": "Islanding Readiness Coordinator",
         "rag": "GREEN",
         "outputIndex": 3,
-        "action": "GRID_CONNECTED_STABLE for resilient community microgrid operations."
+        "action": "continue-monitoring"
       }
     ]
   },
@@ -218,7 +218,7 @@
           "responseKey": "pcc_instability_or_utility_outage_indicated_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -261,7 +261,7 @@
           "responseKey": "feeder_sectionalizer_route_available_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -304,7 +304,7 @@
           "responseKey": "inverter_grid_forming_capability_available_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -347,7 +347,7 @@
           "responseKey": "storage_reserve_above_island_threshold_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -390,7 +390,7 @@
           "responseKey": "black_start_sequence_available_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -433,7 +433,7 @@
           "responseKey": "frequency_and_voltage_stability_acceptable_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -476,7 +476,7 @@
           "responseKey": "protection_settings_synchronized_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -519,7 +519,7 @@
           "responseKey": "resynchronization_window_available_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,

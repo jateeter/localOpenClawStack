@@ -34,7 +34,7 @@
   },
   "reasoning": {
     "objective": "Produce the normalized input vector for \"DC Thermal Escalation Detector\" from current observations so RE can evaluate its CES sequences.",
-    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"DC Thermal Escalation Detector\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Monitors CPU temperature and load to detect thermal runaway. Implements the regular expression pattern NORMAL+ \u2192 WARM+ \u2192 HOT \u2192 CRITICAL+ \u2192 EMERGENCY \u2192 [alarm]. A concurrent SAFE+ sequence fires the reset signal whenever conditions return to normal, enabling RS flip-flop recovery.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- cpu_temp_norm (index 0):\n- cpu_load_norm (index 1):\n- cpu_throttle_norm (index 2):\n- cpu_efficiency_norm (index 3):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- THERMAL EMERGENCY (RED) -> action: DCCoolingControlFF will SET; emergency cooling activated\n- THERMAL SAFE (GREEN) -> action: DCCoolingControlFF will RESET; normal cooling sufficient",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"DC Thermal Escalation Detector\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Monitors CPU temperature and load to detect thermal runaway. Implements the regular expression pattern NORMAL+ \u2192 WARM+ \u2192 HOT \u2192 CRITICAL+ \u2192 EMERGENCY \u2192 [alarm]. A concurrent SAFE+ sequence fires the reset signal whenever conditions return to normal, enabling RS flip-flop recovery.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- cpu_temp_norm (index 0):\n- cpu_load_norm (index 1):\n- cpu_throttle_norm (index 2):\n- cpu_efficiency_norm (index 3):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- THERMAL EMERGENCY (RED) -> action: adjust-operations\n- THERMAL SAFE (GREEN) -> action: adjust-operations",
     "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
     "inputAxes": [
       {
@@ -80,14 +80,14 @@
         "label": "THERMAL EMERGENCY",
         "rag": "RED",
         "outputIndex": 0,
-        "action": "DCCoolingControlFF will SET; emergency cooling activated"
+        "action": "adjust-operations"
       },
       {
         "sequenceId": "dc-thermal-safe-recovery",
         "label": "THERMAL SAFE",
         "rag": "GREEN",
         "outputIndex": 1,
-        "action": "DCCoolingControlFF will RESET; normal cooling sufficient"
+        "action": "adjust-operations"
       }
     ]
   },
@@ -164,7 +164,7 @@
           "responseKey": "cpu_temp_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -207,7 +207,7 @@
           "responseKey": "cpu_load_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -250,7 +250,7 @@
           "responseKey": "cpu_throttle_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -293,7 +293,7 @@
           "responseKey": "cpu_efficiency_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
