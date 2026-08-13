@@ -34,7 +34,7 @@
   },
   "reasoning": {
     "objective": "Produce the normalized input vector for \"Energy Community Service Continuity Monitor\" from current observations so RE can evaluate its CES sequences.",
-    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Energy Community Service Continuity Monitor\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Converts energy posture into continuity state for schools, transportation, AI data centers, communications, lighting, heating, cooking, shelters, and recovery.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- schools_below_continuity_threshold_norm (index 0):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- transportation_below_continuity_threshold_norm (index 1):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- ai_data_center_below_continuity_threshold_norm (index 2):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- communications_below_continuity_threshold_norm (index 3):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- lighting_below_continuity_threshold_norm (index 4):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- heating_below_continuity_threshold_norm (index 5):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- cooking_or_food_service_below_continuity_threshold_norm (index 6):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- shelter_or_community_service_below_continuity_threshold_norm (index 7):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- service_recovery_action_active_norm (index 8):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Community Service Continuity Monitor (RED) -> action: CRITICAL_SERVICE_INTERRUPTION for resilient community microgrid operations.\n- Community Service Continuity Monitor (AMBER) -> action: SERVICE_DEGRADATION for resilient community microgrid operations.\n- Community Service Continuity Monitor (AMBER) -> action: RECOVERY_IN_PROGRESS for resilient community microgrid operations.\n- Community Service Continuity Monitor (GREEN) -> action: SERVICES_STABLE for resilient community microgrid operations.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Energy Community Service Continuity Monitor\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Converts energy posture into continuity state for schools, transportation, AI data centers, communications, lighting, heating, cooking, shelters, and recovery.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- schools_below_continuity_threshold_norm (index 0):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- transportation_below_continuity_threshold_norm (index 1):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- ai_data_center_below_continuity_threshold_norm (index 2):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- communications_below_continuity_threshold_norm (index 3):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- lighting_below_continuity_threshold_norm (index 4):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- heating_below_continuity_threshold_norm (index 5):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- cooking_or_food_service_below_continuity_threshold_norm (index 6):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- shelter_or_community_service_below_continuity_threshold_norm (index 7):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- service_recovery_action_active_norm (index 8):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Community Service Continuity Monitor (RED) -> action: urgent-intervention\n- Community Service Continuity Monitor (AMBER) -> action: urgent-intervention\n- Community Service Continuity Monitor (AMBER) -> action: continue-monitoring\n- Community Service Continuity Monitor (GREEN) -> action: continue-monitoring",
     "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
     "inputAxes": [
       {
@@ -125,28 +125,28 @@
         "label": "Community Service Continuity Monitor",
         "rag": "RED",
         "outputIndex": 0,
-        "action": "CRITICAL_SERVICE_INTERRUPTION for resilient community microgrid operations."
+        "action": "urgent-intervention"
       },
       {
         "sequenceId": "enx206-service-degradation",
         "label": "Community Service Continuity Monitor",
         "rag": "AMBER",
         "outputIndex": 1,
-        "action": "SERVICE_DEGRADATION for resilient community microgrid operations."
+        "action": "urgent-intervention"
       },
       {
         "sequenceId": "enx206-recovery-in-progress",
         "label": "Community Service Continuity Monitor",
         "rag": "AMBER",
         "outputIndex": 2,
-        "action": "RECOVERY_IN_PROGRESS for resilient community microgrid operations."
+        "action": "continue-monitoring"
       },
       {
         "sequenceId": "enx206-services-stable",
         "label": "Community Service Continuity Monitor",
         "rag": "GREEN",
         "outputIndex": 3,
-        "action": "SERVICES_STABLE for resilient community microgrid operations."
+        "action": "continue-monitoring"
       }
     ]
   },
@@ -228,7 +228,7 @@
           "responseKey": "schools_below_continuity_threshold_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -271,7 +271,7 @@
           "responseKey": "transportation_below_continuity_threshold_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -314,7 +314,7 @@
           "responseKey": "ai_data_center_below_continuity_threshold_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -357,7 +357,7 @@
           "responseKey": "communications_below_continuity_threshold_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -400,7 +400,7 @@
           "responseKey": "lighting_below_continuity_threshold_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -443,7 +443,7 @@
           "responseKey": "heating_below_continuity_threshold_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -486,7 +486,7 @@
           "responseKey": "cooking_or_food_service_below_continuity_threshold_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -529,7 +529,7 @@
           "responseKey": "shelter_or_community_service_below_continuity_threshold_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -572,7 +572,7 @@
           "responseKey": "service_recovery_action_active_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,

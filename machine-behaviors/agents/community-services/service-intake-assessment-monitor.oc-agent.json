@@ -34,7 +34,7 @@
   },
   "reasoning": {
     "objective": "Produce the normalized input vector for \"Service Intake Assessment Monitor\" from current observations so RE can evaluate its CES sequences.",
-    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Service Intake Assessment Monitor\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Monitors intake and needs assessment workflow for community service recipients \u2014 tracking need severity, functional status, safety risk, and support network adequacy. Determines intake priority and routing for case assignment. In community services, intake triage determines whether a person receives immediate crisis response, intensive case management, or standard program enrollment. Output at [956:960] feeds the Enrollment Coordination Monitor.\n\nPOPULATION: New community service applicants; crisis walk-ins; referrals from partner agencies; individuals experiencing housing, food, or safety crises\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- need_severity_norm (index 0):  0.0 = acute multi-domain crisis (shelter, food, safety all failing simultaneously) | 0.5 = significant need in one domain; manageable with standard services | 1.0 = moderate need with adequate existing support; standard enrollment appropriate\n- functional_status_norm (index 1):  0.0 = unable to complete intake independently; cognitive, physical, or psychiatric barriers to participation | 0.5 = needs assistance with parts of intake; low literacy or language barrier | 1.0 = fully capable of completing intake process independently\n- safety_risk_norm (index 2):  0.0 = imminent safety risk (DV, child abuse, elder abuse, suicidality reported) | 0.5 = elevated risk factors present but not acute (past DV, unstable housing, substance use) | 1.0 = no safety concerns identified during screening\n- support_network_norm (index 3):  0.0 = completely isolated; no family, friends, or existing services engaged | 0.5 = limited support (one informal contact; partial service engagement) | 1.0 = strong support network; family engaged; existing services active\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- PRIORITY_INTAKE (RED) -> action: Immediate caseworker assignment; safety plan activation; partner agency crisis notification; same-day service initiation\n- COMPLEX_INTAKE (GREEN) -> action: Complex case manager assignment; multi-agency coordination plan; functional capacity assessment; care plan development\n- INTAKE_COMPLETE (GREEN) -> action: Enrollment coordination monitor receives INTAKE_COMPLETE; case assignment queue populated",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Service Intake Assessment Monitor\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Monitors intake and needs assessment workflow for community service recipients \u2014 tracking need severity, functional status, safety risk, and support network adequacy. Determines intake priority and routing for case assignment. In community services, intake triage determines whether a person receives immediate crisis response, intensive case management, or standard program enrollment. Output at [956:960] feeds the Enrollment Coordination Monitor.\n\nPOPULATION: New community service applicants; crisis walk-ins; referrals from partner agencies; individuals experiencing housing, food, or safety crises\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- need_severity_norm (index 0):  0.0 = acute multi-domain crisis (shelter, food, safety all failing simultaneously) | 0.5 = significant need in one domain; manageable with standard services | 1.0 = moderate need with adequate existing support; standard enrollment appropriate\n- functional_status_norm (index 1):  0.0 = unable to complete intake independently; cognitive, physical, or psychiatric barriers to participation | 0.5 = needs assistance with parts of intake; low literacy or language barrier | 1.0 = fully capable of completing intake process independently\n- safety_risk_norm (index 2):  0.0 = imminent safety risk (DV, child abuse, elder abuse, suicidality reported) | 0.5 = elevated risk factors present but not acute (past DV, unstable housing, substance use) | 1.0 = no safety concerns identified during screening\n- support_network_norm (index 3):  0.0 = completely isolated; no family, friends, or existing services engaged | 0.5 = limited support (one informal contact; partial service engagement) | 1.0 = strong support network; family engaged; existing services active\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- PRIORITY_INTAKE (RED) -> action: urgent-intervention\n- COMPLEX_INTAKE (GREEN) -> action: route-review\n- INTAKE_COMPLETE (GREEN) -> action: route-review",
     "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
     "inputAxes": [
       {
@@ -80,21 +80,21 @@
         "label": "PRIORITY_INTAKE",
         "rag": "RED",
         "outputIndex": 0,
-        "action": "Immediate caseworker assignment; safety plan activation; partner agency crisis notification; same-day service initiation"
+        "action": "urgent-intervention"
       },
       {
         "sequenceId": "intake-complex-routing",
         "label": "COMPLEX_INTAKE",
         "rag": "GREEN",
         "outputIndex": 1,
-        "action": "Complex case manager assignment; multi-agency coordination plan; functional capacity assessment; care plan development"
+        "action": "route-review"
       },
       {
         "sequenceId": "intake-complete",
         "label": "INTAKE_COMPLETE",
         "rag": "GREEN",
         "outputIndex": 3,
-        "action": "Enrollment coordination monitor receives INTAKE_COMPLETE; case assignment queue populated"
+        "action": "route-review"
       }
     ]
   },
@@ -171,7 +171,7 @@
           "responseKey": "need_severity_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -214,7 +214,7 @@
           "responseKey": "functional_status_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -257,7 +257,7 @@
           "responseKey": "safety_risk_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -300,7 +300,7 @@
           "responseKey": "support_network_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,

@@ -34,7 +34,7 @@
   },
   "reasoning": {
     "objective": "Produce the normalized input vector for \"Transportation Fleet Compliance And Reporting Funding Grant Deliverable\" from current observations so RE can evaluate its CES sequences.",
-    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Transportation Fleet Compliance And Reporting Funding Grant Deliverable\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Public transportation fleet machine for funding grant deliverable in the compliance and reporting workstream. It monitors fleet uptime, emissions target, ridership metric, and reporting deadline for a 100-bus 24/7 operation and emits AI-triggered outputs for rider experience, operations, maintenance, cleaning, security, and predictive fleet-flow management.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- service-reliability (index 0):\n- rider-impact (index 1):\n- asset-readiness (index 2):\n- safety-security-risk (index 3):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Funding Grant Deliverable (AMBER) -> action: Dispatch transit_workforce_agent for critical 100-bus fleet intervention on funding grant deliverable.\n- Funding Grant Deliverable (GREEN) -> action: Trigger predictive flow management for funding grant deliverable using rider, vehicle, and route context.\n- Funding Grant Deliverable (GREEN) -> action: Create maintenance, cleaning, security, or service task for funding grant deliverable.\n- Funding Grant Deliverable (GREEN) -> action: Keep 24/7 monitoring active for funding grant deliverable.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Transportation Fleet Compliance And Reporting Funding Grant Deliverable\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Public transportation fleet machine for funding grant deliverable in the compliance and reporting workstream. It monitors fleet uptime, emissions target, ridership metric, and reporting deadline for a 100-bus 24/7 operation and emits AI-triggered outputs for rider experience, operations, maintenance, cleaning, security, and predictive fleet-flow management.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- service-reliability (index 0):\n- rider-impact (index 1):\n- asset-readiness (index 2):\n- safety-security-risk (index 3):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Funding Grant Deliverable (AMBER) -> action: dispatch-agent\n- Funding Grant Deliverable (GREEN) -> action: trigger-agent-workflow\n- Funding Grant Deliverable (GREEN) -> action: create-work-order\n- Funding Grant Deliverable (GREEN) -> action: continue-monitoring",
     "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
     "inputAxes": [
       {
@@ -80,28 +80,28 @@
         "label": "Funding Grant Deliverable",
         "rag": "AMBER",
         "outputIndex": 0,
-        "action": "Dispatch transit_workforce_agent for critical 100-bus fleet intervention on funding grant deliverable."
+        "action": "dispatch-agent"
       },
       {
         "sequenceId": "tfx-099-predictive-flow",
         "label": "Funding Grant Deliverable",
         "rag": "GREEN",
         "outputIndex": 1,
-        "action": "Trigger predictive flow management for funding grant deliverable using rider, vehicle, and route context."
+        "action": "trigger-agent-workflow"
       },
       {
         "sequenceId": "tfx-099-ops-task",
         "label": "Funding Grant Deliverable",
         "rag": "GREEN",
         "outputIndex": 2,
-        "action": "Create maintenance, cleaning, security, or service task for funding grant deliverable."
+        "action": "create-work-order"
       },
       {
         "sequenceId": "tfx-099-nominal",
         "label": "Funding Grant Deliverable",
         "rag": "GREEN",
         "outputIndex": 3,
-        "action": "Keep 24/7 monitoring active for funding grant deliverable."
+        "action": "continue-monitoring"
       }
     ]
   },
@@ -178,7 +178,7 @@
           "responseKey": "service-reliability",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -221,7 +221,7 @@
           "responseKey": "rider-impact",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -264,7 +264,7 @@
           "responseKey": "asset-readiness",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -307,7 +307,7 @@
           "responseKey": "safety-security-risk",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,

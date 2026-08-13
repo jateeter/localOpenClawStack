@@ -168,7 +168,7 @@ check("T9.2 region length tracks affected positions",
 # textual -> value: a known structured-keys response must extract the right vector
 mapping = sup["responseMapping"]
 text_ok = "verdict: staged\ncompleted: yes\nfailed: no\nconfidence: high\nreview_required: yes"
-targets, fields = apply_response_mapping(text_ok, mapping)
+targets, fields, _ = apply_response_mapping(text_ok, mapping)
 fv = {f["semantic"]: f["value"] for f in fields}
 check("T9.3 text 'completed: yes' -> 1.0", fv["completed"] == 1.0, str(fv))
 check("T9.4 text 'failed: no' -> 0.0", fv["failed"] == 0.0)
@@ -180,17 +180,40 @@ check("T9.8 one target region, values length == positions",
 
 # negative case: 'completed: no / failed: yes' (blocked) flips the vector
 text_blocked = "verdict: blocked\ncompleted: no\nfailed: yes\nconfidence: low"
-_, fields_b = apply_response_mapping(text_blocked, mapping)
+_, fields_b, _ = apply_response_mapping(text_blocked, mapping)
 fb = {f["semantic"]: f["value"] for f in fields_b}
 check("T9.9 'completed: no' -> 0.0 and 'failed: yes' -> 1.0",
       fb["completed"] == 0.0 and fb["failed"] == 1.0, str(fb))
-check("T9.10 absent contracted key -> default, not cross-contamination",
-      fb["review_required"] == 0.0, str(fb))
+# An absent contracted key used to substitute a default. It now resolves to
+# nothing: the transformation IS the quality gate, so a value it cannot resolve
+# yields no contribution rather than a plausible-looking one
+# (RealityEngine_Machines docs/ARBITER_CONTRACT.md 4.3b). Cross-contamination
+# from other fields' values is still refused.
+targets_b, _, unres_b = apply_response_mapping(text_blocked, mapping)
+_unres_semantics = {u["semantic"] for u in unres_b}
+_unres_indices = {u["target"]["index"] for u in unres_b if u.get("target")}
+check("T9.10 absent contracted key -> UNRESOLVED, not a default",
+      fb["review_required"] is None, str(fb))
+check("T9.10a unresolved axis is diverted to the analysis stream",
+      "review_required" in _unres_semantics, str(sorted(_unres_semantics)))
+check("T9.10b diversion record carries axis, extraction and response",
+      len(unres_b) > 0 and all(
+          {"semantic", "declaredSemantics", "extractAttempted", "response", "reason"} <= set(u)
+          for u in unres_b),
+      str(sorted(unres_b[0])) if unres_b else "no records")
+check("T9.10c an unresolved axis contributes no value to the region",
+      len(targets_b) == 1
+      and len(_unres_indices) > 0
+      and all(targets_b[0]["present"][i] is False for i in _unres_indices),
+      str(targets_b[0]["present"]) if targets_b else "no targets")
+check("T9.10d a resolved axis is still marked present",
+      len(targets_b) == 1 and any(targets_b[0]["present"]),
+      str(targets_b[0]["present"]) if targets_b else "no targets")
 
 # JSON response path: extraction prefers the JSON pointer
 json_resp = {"completed": 1, "failed": 0, "confidence": 0.42, "verdict": "executed",
              "review_required": False}
-_, fields_j = apply_response_mapping(json_resp, mapping)
+_, fields_j, _ = apply_response_mapping(json_resp, mapping)
 fj = {f["semantic"]: f["value"] for f in fields_j}
 check("T9.11 JSON pointer extraction (confidence 0.42)", fj["confidence"] == 0.42, str(fj))
 check("T9.12 JSON bool false -> 0.0", fj["review_required"] == 0.0)
@@ -208,7 +231,7 @@ multi = {"schemaVersion": "1.0.0", "responseContract": "structured-keys-or-text"
                           "textFallback": {"type": "enum-keyword", "default": 0.0,
                                            "keywords": {"yes": 1.0, "no": 0.0}}},
               "target": {"sensorId": "s.b", "region": {"offset": 900, "length": 1}, "index": 0}}]}
-mt, _ = apply_response_mapping("completed: yes\nescalate: yes", multi)
+mt, _, _ = apply_response_mapping("completed: yes\nescalate: yes", multi)
 check("T9.13 response fans out to multiple non-contiguous regions",
       len(mt) == 2 and {t["sensorId"] for t in mt} == {"s.a", "s.b"}, str([t["sensorId"] for t in mt]))
 

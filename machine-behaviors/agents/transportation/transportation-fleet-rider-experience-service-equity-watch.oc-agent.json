@@ -34,7 +34,7 @@
   },
   "reasoning": {
     "objective": "Produce the normalized input vector for \"Transportation Fleet Rider Experience Service Equity Watch\" from current observations so RE can evaluate its CES sequences.",
-    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Transportation Fleet Rider Experience Service Equity Watch\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Public transportation fleet machine for service equity watch in the rider experience workstream. It monitors underserved stop delay, cancelled trip concentration, ADA impact, and mitigation status for a 100-bus 24/7 operation and emits AI-triggered outputs for rider experience, operations, maintenance, cleaning, security, and predictive fleet-flow management.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- service-reliability (index 0):\n- rider-impact (index 1):\n- asset-readiness (index 2):\n- safety-security-risk (index 3):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Service Equity Watch (AMBER) -> action: Dispatch transit_compliance_agent for critical 100-bus fleet intervention on service equity watch.\n- Service Equity Watch (AMBER) -> action: Trigger predictive flow management for service equity watch using rider, vehicle, and route context.\n- Service Equity Watch (AMBER) -> action: Create maintenance, cleaning, security, or service task for service equity watch.\n- Service Equity Watch (AMBER) -> action: Keep 24/7 monitoring active for service equity watch.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Transportation Fleet Rider Experience Service Equity Watch\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Public transportation fleet machine for service equity watch in the rider experience workstream. It monitors underserved stop delay, cancelled trip concentration, ADA impact, and mitigation status for a 100-bus 24/7 operation and emits AI-triggered outputs for rider experience, operations, maintenance, cleaning, security, and predictive fleet-flow management.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- service-reliability (index 0):\n- rider-impact (index 1):\n- asset-readiness (index 2):\n- safety-security-risk (index 3):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Service Equity Watch (AMBER) -> action: dispatch-agent\n- Service Equity Watch (AMBER) -> action: trigger-agent-workflow\n- Service Equity Watch (AMBER) -> action: create-work-order\n- Service Equity Watch (AMBER) -> action: continue-monitoring",
     "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
     "inputAxes": [
       {
@@ -80,28 +80,28 @@
         "label": "Service Equity Watch",
         "rag": "AMBER",
         "outputIndex": 0,
-        "action": "Dispatch transit_compliance_agent for critical 100-bus fleet intervention on service equity watch."
+        "action": "dispatch-agent"
       },
       {
         "sequenceId": "tfx-010-predictive-flow",
         "label": "Service Equity Watch",
         "rag": "AMBER",
         "outputIndex": 1,
-        "action": "Trigger predictive flow management for service equity watch using rider, vehicle, and route context."
+        "action": "trigger-agent-workflow"
       },
       {
         "sequenceId": "tfx-010-ops-task",
         "label": "Service Equity Watch",
         "rag": "AMBER",
         "outputIndex": 2,
-        "action": "Create maintenance, cleaning, security, or service task for service equity watch."
+        "action": "create-work-order"
       },
       {
         "sequenceId": "tfx-010-nominal",
         "label": "Service Equity Watch",
         "rag": "AMBER",
         "outputIndex": 3,
-        "action": "Keep 24/7 monitoring active for service equity watch."
+        "action": "continue-monitoring"
       }
     ]
   },
@@ -178,7 +178,7 @@
           "responseKey": "service-reliability",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -221,7 +221,7 @@
           "responseKey": "rider-impact",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -264,7 +264,7 @@
           "responseKey": "asset-readiness",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -307,7 +307,7 @@
           "responseKey": "safety-security-risk",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,

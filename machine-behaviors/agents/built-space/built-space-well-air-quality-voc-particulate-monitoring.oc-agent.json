@@ -34,7 +34,7 @@
   },
   "reasoning": {
     "objective": "Produce the normalized input vector for \"Built Space WELL Air Quality VOC Particulate Monitoring\" from current observations so RE can evaluate its CES sequences.",
-    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Built Space WELL Air Quality VOC Particulate Monitoring\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Built-Space domain machine for WELL-oriented voc particulate monitoring in the air quality workstream. It monitors TVOC, PM2.5, PM10, source events, and trend stability and emits AI-triggered outputs for verification, predictive optimization, operations work, and sustained compliant operation.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- health-performance-signal-stable (index 0):\n- evidence-or-policy-current (index 1):\n- maintenance-or-operational-drift-pressure (index 2):\n- occupant-impact-or-wellness-risk (index 3):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- VOC Particulate Monitoring (AMBER) -> action: Dispatch well_materials_cleaning_agent to verify WELL operational conformance for voc particulate monitoring.\n- VOC Particulate Monitoring (AMBER) -> action: Run predictive optimization for voc particulate monitoring using occupant, system, and evidence trends.\n- VOC Particulate Monitoring (GREEN) -> action: Create an operations, maintenance, policy, or evidence work order for voc particulate monitoring.\n- VOC Particulate Monitoring (GREEN) -> action: Mark voc particulate monitoring in the current compliant operating window.\n- VOC Particulate Monitoring (GREEN) -> action: Run predictive optimization for voc particulate monitoring using occupant, system, and evidence trends.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Built Space WELL Air Quality VOC Particulate Monitoring\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Built-Space domain machine for WELL-oriented voc particulate monitoring in the air quality workstream. It monitors TVOC, PM2.5, PM10, source events, and trend stability and emits AI-triggered outputs for verification, predictive optimization, operations work, and sustained compliant operation.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- health-performance-signal-stable (index 0):\n- evidence-or-policy-current (index 1):\n- maintenance-or-operational-drift-pressure (index 2):\n- occupant-impact-or-wellness-risk (index 3):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- VOC Particulate Monitoring (AMBER) -> action: dispatch-agent\n- VOC Particulate Monitoring (AMBER) -> action: trigger-agent-workflow\n- VOC Particulate Monitoring (GREEN) -> action: create-work-order\n- VOC Particulate Monitoring (GREEN) -> action: continue-monitoring\n- VOC Particulate Monitoring (GREEN) -> action: trigger-agent-workflow",
     "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
     "inputAxes": [
       {
@@ -80,35 +80,35 @@
         "label": "VOC Particulate Monitoring",
         "rag": "AMBER",
         "outputIndex": 0,
-        "action": "Dispatch well_materials_cleaning_agent to verify WELL operational conformance for voc particulate monitoring."
+        "action": "dispatch-agent"
       },
       {
         "sequenceId": "bsx-023-optimize",
         "label": "VOC Particulate Monitoring",
         "rag": "AMBER",
         "outputIndex": 1,
-        "action": "Run predictive optimization for voc particulate monitoring using occupant, system, and evidence trends."
+        "action": "trigger-agent-workflow"
       },
       {
         "sequenceId": "bsx-023-work-order",
         "label": "VOC Particulate Monitoring",
         "rag": "GREEN",
         "outputIndex": 2,
-        "action": "Create an operations, maintenance, policy, or evidence work order for voc particulate monitoring."
+        "action": "create-work-order"
       },
       {
         "sequenceId": "bsx-023-compliant",
         "label": "VOC Particulate Monitoring",
         "rag": "GREEN",
         "outputIndex": 3,
-        "action": "Mark voc particulate monitoring in the current compliant operating window."
+        "action": "continue-monitoring"
       },
       {
         "sequenceId": "bsx-023-predictive-24h",
         "label": "VOC Particulate Monitoring",
         "rag": "GREEN",
         "outputIndex": 1,
-        "action": "Run predictive optimization for voc particulate monitoring using occupant, system, and evidence trends."
+        "action": "trigger-agent-workflow"
       }
     ]
   },
@@ -185,7 +185,7 @@
           "responseKey": "health-performance-signal-stable",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -228,7 +228,7 @@
           "responseKey": "evidence-or-policy-current",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -271,7 +271,7 @@
           "responseKey": "maintenance-or-operational-drift-pressure",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -314,7 +314,7 @@
           "responseKey": "occupant-impact-or-wellness-risk",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,

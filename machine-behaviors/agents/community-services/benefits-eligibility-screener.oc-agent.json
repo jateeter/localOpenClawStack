@@ -34,7 +34,7 @@
   },
   "reasoning": {
     "objective": "Produce the normalized input vector for \"Benefits Eligibility Screener\" from current observations so RE can evaluate its CES sequences.",
-    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Benefits Eligibility Screener\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Monitors income threshold compliance, residency documentation status, categorical eligibility criteria, and application completeness for community benefits programs (SNAP, LIHEAP, housing assistance, childcare subsidies). Tracks the eligibility determination workflow from initial screening through confirmation, identifying documentation gaps and conditional holds before they stall service delivery. Output at [952:956] feeds the Enrollment Coordination Monitor.\n\nPOPULATION: Applicants for means-tested community benefits programs; newly unemployed; families with recent income changes; aging-out youth; immigrants with pending status\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- income_threshold_norm (index 0):  0.0 = income clearly above program threshold (ineligible) | 0.5 = income near threshold boundary (requires calculation) | 1.0 = income clearly within program limits\n- residency_documentation_norm (index 1):  0.0 = no valid residency documentation (no ID, no address proof, no utility bill) | 0.5 = partial documentation (one of two required documents) | 1.0 = all residency documentation complete and valid\n- categorical_eligibility_norm (index 2):  0.0 = no categorical qualifier met (not disabled, not elderly, no minor children, not pregnant) | 0.5 = one categorical qualifier pending verification | 1.0 = categorical eligibility confirmed (SSI recipient, Medicaid enrolled, TANF active)\n- application_completeness_norm (index 3):  0.0 = application not started or less than 50% complete | 0.5 = application submitted but key fields missing | 1.0 = application complete and all required fields populated\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- ELIGIBILITY_DENIED (GREEN) -> action: Denial notice with appeal rights; alternative program screening; benefits navigator referral for near-miss cases\n- DOCUMENTATION_NEEDED (GREEN) -> action: Document checklist provision; benefits navigator document collection support; alternative documentation acceptance review; 30-day cure period activation\n- ELIGIBILITY_CONFIRMED (GREEN) -> action: Enrollment coordination monitor receives ELIGIBILITY_CONFIRMED; benefit issuance workflow initiated",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Benefits Eligibility Screener\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Monitors income threshold compliance, residency documentation status, categorical eligibility criteria, and application completeness for community benefits programs (SNAP, LIHEAP, housing assistance, childcare subsidies). Tracks the eligibility determination workflow from initial screening through confirmation, identifying documentation gaps and conditional holds before they stall service delivery. Output at [952:956] feeds the Enrollment Coordination Monitor.\n\nPOPULATION: Applicants for means-tested community benefits programs; newly unemployed; families with recent income changes; aging-out youth; immigrants with pending status\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- income_threshold_norm (index 0):  0.0 = income clearly above program threshold (ineligible) | 0.5 = income near threshold boundary (requires calculation) | 1.0 = income clearly within program limits\n- residency_documentation_norm (index 1):  0.0 = no valid residency documentation (no ID, no address proof, no utility bill) | 0.5 = partial documentation (one of two required documents) | 1.0 = all residency documentation complete and valid\n- categorical_eligibility_norm (index 2):  0.0 = no categorical qualifier met (not disabled, not elderly, no minor children, not pregnant) | 0.5 = one categorical qualifier pending verification | 1.0 = categorical eligibility confirmed (SSI recipient, Medicaid enrolled, TANF active)\n- application_completeness_norm (index 3):  0.0 = application not started or less than 50% complete | 0.5 = application submitted but key fields missing | 1.0 = application complete and all required fields populated\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- ELIGIBILITY_DENIED (GREEN) -> action: route-referral\n- DOCUMENTATION_NEEDED (GREEN) -> action: continue-monitoring\n- ELIGIBILITY_CONFIRMED (GREEN) -> action: route-review",
     "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
     "inputAxes": [
       {
@@ -80,21 +80,21 @@
         "label": "ELIGIBILITY_DENIED",
         "rag": "GREEN",
         "outputIndex": 0,
-        "action": "Denial notice with appeal rights; alternative program screening; benefits navigator referral for near-miss cases"
+        "action": "route-referral"
       },
       {
         "sequenceId": "benefits-documentation-needed",
         "label": "DOCUMENTATION_NEEDED",
         "rag": "GREEN",
         "outputIndex": 2,
-        "action": "Document checklist provision; benefits navigator document collection support; alternative documentation acceptance review; 30-day cure period activation"
+        "action": "continue-monitoring"
       },
       {
         "sequenceId": "benefits-confirmed",
         "label": "ELIGIBILITY_CONFIRMED",
         "rag": "GREEN",
         "outputIndex": 3,
-        "action": "Enrollment coordination monitor receives ELIGIBILITY_CONFIRMED; benefit issuance workflow initiated"
+        "action": "route-review"
       }
     ]
   },
@@ -171,7 +171,7 @@
           "responseKey": "income_threshold_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -214,7 +214,7 @@
           "responseKey": "residency_documentation_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -257,7 +257,7 @@
           "responseKey": "categorical_eligibility_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -300,7 +300,7 @@
           "responseKey": "application_completeness_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,

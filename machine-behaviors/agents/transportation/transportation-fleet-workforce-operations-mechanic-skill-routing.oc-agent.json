@@ -34,7 +34,7 @@
   },
   "reasoning": {
     "objective": "Produce the normalized input vector for \"Transportation Fleet Workforce Operations Mechanic Skill Routing\" from current observations so RE can evaluate its CES sequences.",
-    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Transportation Fleet Workforce Operations Mechanic Skill Routing\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Public transportation fleet machine for mechanic skill routing in the workforce operations workstream. It monitors defect type, certification, shift roster, and job priority for a 100-bus 24/7 operation and emits AI-triggered outputs for rider experience, operations, maintenance, cleaning, security, and predictive fleet-flow management.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- service-reliability (index 0):\n- rider-impact (index 1):\n- asset-readiness (index 2):\n- safety-security-risk (index 3):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Mechanic Skill Routing (AMBER) -> action: Dispatch transit_workforce_agent for critical 100-bus fleet intervention on mechanic skill routing.\n- Mechanic Skill Routing (GREEN) -> action: Trigger predictive flow management for mechanic skill routing using rider, vehicle, and route context.\n- Mechanic Skill Routing (GREEN) -> action: Create maintenance, cleaning, security, or service task for mechanic skill routing.\n- Mechanic Skill Routing (GREEN) -> action: Keep 24/7 monitoring active for mechanic skill routing.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Transportation Fleet Workforce Operations Mechanic Skill Routing\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Public transportation fleet machine for mechanic skill routing in the workforce operations workstream. It monitors defect type, certification, shift roster, and job priority for a 100-bus 24/7 operation and emits AI-triggered outputs for rider experience, operations, maintenance, cleaning, security, and predictive fleet-flow management.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- service-reliability (index 0):\n- rider-impact (index 1):\n- asset-readiness (index 2):\n- safety-security-risk (index 3):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Mechanic Skill Routing (AMBER) -> action: dispatch-agent\n- Mechanic Skill Routing (GREEN) -> action: trigger-agent-workflow\n- Mechanic Skill Routing (GREEN) -> action: create-work-order\n- Mechanic Skill Routing (GREEN) -> action: continue-monitoring",
     "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
     "inputAxes": [
       {
@@ -80,28 +80,28 @@
         "label": "Mechanic Skill Routing",
         "rag": "AMBER",
         "outputIndex": 0,
-        "action": "Dispatch transit_workforce_agent for critical 100-bus fleet intervention on mechanic skill routing."
+        "action": "dispatch-agent"
       },
       {
         "sequenceId": "tfx-084-predictive-flow",
         "label": "Mechanic Skill Routing",
         "rag": "GREEN",
         "outputIndex": 1,
-        "action": "Trigger predictive flow management for mechanic skill routing using rider, vehicle, and route context."
+        "action": "trigger-agent-workflow"
       },
       {
         "sequenceId": "tfx-084-ops-task",
         "label": "Mechanic Skill Routing",
         "rag": "GREEN",
         "outputIndex": 2,
-        "action": "Create maintenance, cleaning, security, or service task for mechanic skill routing."
+        "action": "create-work-order"
       },
       {
         "sequenceId": "tfx-084-nominal",
         "label": "Mechanic Skill Routing",
         "rag": "GREEN",
         "outputIndex": 3,
-        "action": "Keep 24/7 monitoring active for mechanic skill routing."
+        "action": "continue-monitoring"
       }
     ]
   },
@@ -178,7 +178,7 @@
           "responseKey": "service-reliability",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -221,7 +221,7 @@
           "responseKey": "rider-impact",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -264,7 +264,7 @@
           "responseKey": "asset-readiness",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -307,7 +307,7 @@
           "responseKey": "safety-security-risk",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,

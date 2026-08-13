@@ -34,7 +34,7 @@
   },
   "reasoning": {
     "objective": "Produce the normalized input vector for \"Life Balance Sleep And Circadian Rhythm Adolescent Sleep School Fit\" from current observations so RE can evaluate its CES sequences.",
-    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Life Balance Sleep And Circadian Rhythm Adolescent Sleep School Fit\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Life-balance machine for adolescent sleep school fit in the sleep and circadian rhythm workstream. It monitors school start, homework load, device use, sports, and family routines to support lifestyle-psychiatry workflows spanning psychiatric care, nutrition, sleep, movement, stress resilience, monitoring, and projection. Example only; not medical advice.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- symptom-or-functional-concern (index 0):\n- lifestyle-barrier-or-preference (index 1):\n- monitoring-data-quality-or-readiness (index 2):\n- risk-safety-or-care-team-urgency (index 3):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Adolescent Sleep School Fit (AMBER) -> action: Route adolescent sleep school fit concern to licensed care-team review.\n- Adolescent Sleep School Fit (GREEN) -> action: Adjust the life-balance plan for adolescent sleep school fit using patient goals, barriers, and preferences.\n- Adolescent Sleep School Fit (GREEN) -> action: Create monitoring or follow-up task for adolescent sleep school fit.\n- Adolescent Sleep School Fit (GREEN) -> action: Continue stable life-balance monitoring for adolescent sleep school fit.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Life Balance Sleep And Circadian Rhythm Adolescent Sleep School Fit\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Life-balance machine for adolescent sleep school fit in the sleep and circadian rhythm workstream. It monitors school start, homework load, device use, sports, and family routines to support lifestyle-psychiatry workflows spanning psychiatric care, nutrition, sleep, movement, stress resilience, monitoring, and projection. Example only; not medical advice.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- symptom-or-functional-concern (index 0):\n- lifestyle-barrier-or-preference (index 1):\n- monitoring-data-quality-or-readiness (index 2):\n- risk-safety-or-care-team-urgency (index 3):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Adolescent Sleep School Fit (AMBER) -> action: route-review\n- Adolescent Sleep School Fit (GREEN) -> action: adjust-operations\n- Adolescent Sleep School Fit (GREEN) -> action: create-work-order\n- Adolescent Sleep School Fit (GREEN) -> action: continue-monitoring",
     "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
     "inputAxes": [
       {
@@ -80,28 +80,28 @@
         "label": "Adolescent Sleep School Fit",
         "rag": "AMBER",
         "outputIndex": 0,
-        "action": "Route adolescent sleep school fit concern to licensed care-team review."
+        "action": "route-review"
       },
       {
         "sequenceId": "lbl-027-plan-adjust",
         "label": "Adolescent Sleep School Fit",
         "rag": "GREEN",
         "outputIndex": 1,
-        "action": "Adjust the life-balance plan for adolescent sleep school fit using patient goals, barriers, and preferences."
+        "action": "adjust-operations"
       },
       {
         "sequenceId": "lbl-027-monitoring-task",
         "label": "Adolescent Sleep School Fit",
         "rag": "GREEN",
         "outputIndex": 2,
-        "action": "Create monitoring or follow-up task for adolescent sleep school fit."
+        "action": "create-work-order"
       },
       {
         "sequenceId": "lbl-027-stable-balance",
         "label": "Adolescent Sleep School Fit",
         "rag": "GREEN",
         "outputIndex": 3,
-        "action": "Continue stable life-balance monitoring for adolescent sleep school fit."
+        "action": "continue-monitoring"
       }
     ]
   },
@@ -178,7 +178,7 @@
           "responseKey": "symptom-or-functional-concern",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -221,7 +221,7 @@
           "responseKey": "lifestyle-barrier-or-preference",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -264,7 +264,7 @@
           "responseKey": "monitoring-data-quality-or-readiness",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -307,7 +307,7 @@
           "responseKey": "risk-safety-or-care-team-urgency",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,

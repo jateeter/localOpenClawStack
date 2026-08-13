@@ -280,31 +280,31 @@ def _field(semantic: str, response_key: str, value_type: str, normalization: str
 def _response_field_spec(mode: str) -> list[dict[str, Any]]:
     base = [
         _field("completed", "completed", "binary", "binary",
-               {"type": "enum-keyword", "default": 0.0,
+               {"type": "enum-keyword", "onUnresolved": "divert-to-analysis",
                 "keywords": {**_YES, "completed": 1.0, "staged": 1.0, "acknowledged": 1.0,
                              "done": 1.0, "resolved": 1.0,
                              **_NO, "unable": 0.0, "blocked": 0.0, "failed": 0.0, "deferred": 0.0}}),
         _field("failed", "failed", "binary", "binary",
-               {"type": "enum-keyword", "default": 0.0,
+               {"type": "enum-keyword", "onUnresolved": "divert-to-analysis",
                 "keywords": {**_YES, "failed": 1.0, "blocked": 1.0, "unable": 1.0, "error": 1.0, **_NO}}),
         _field("confidence", "confidence", "scalar", "scalar-0-1",
-               {"type": "scalar-phrase", "default": 0.5, "phrases": _CONFIDENCE_PHRASE,
+               {"type": "scalar-phrase", "onUnresolved": "divert-to-analysis", "phrases": _CONFIDENCE_PHRASE,
                 "numberRegex": r"(\d+(?:\.\d+)?)"}),
         # actionClass is fed by the "verdict" response key
         _field("actionClass", "verdict", "scalar", "scalar-0-1",
-               {"type": "enum-keyword", "default": 0.25, "keywords": _VERDICT_CLASS}),
+               {"type": "enum-keyword", "onUnresolved": "divert-to-analysis", "keywords": _VERDICT_CLASS}),
     ]
     if mode == "supervised-act":
         base.append(_field("review_required", "review_required", "binary", "binary",
-                    {"type": "enum-keyword", "default": 0.0,
+                    {"type": "enum-keyword", "onUnresolved": "divert-to-analysis",
                      "keywords": {**_YES, "required": 1.0, "escalate": 1.0, "governance": 1.0,
                                   "approval required": 1.0, "human review": 1.0, **_NO}}))
     if mode == "automated-act":
         base.append(_field("executed", "executed", "binary", "binary",
-                    {"type": "enum-keyword", "default": 0.0,
+                    {"type": "enum-keyword", "onUnresolved": "divert-to-analysis",
                      "keywords": {**_YES, "executed": 1.0, "performed": 1.0, **_NO}}))
         base.append(_field("rollback_ok", "rollback_ok", "binary", "binary",
-                    {"type": "enum-keyword", "default": 0.0,
+                    {"type": "enum-keyword", "onUnresolved": "divert-to-analysis",
                      "keywords": {**_YES, "ready": 1.0, "available": 1.0, "reversible": 1.0, **_NO}}))
     return base
 
@@ -322,7 +322,7 @@ def _build_response_mapping(mode: str, sensor_id: str | None,
                 "valueType": "binary",
                 "normalization": "binary",
                 "extract": {"jsonPointer": "/observed", "responseKey": "observed",
-                            "textFallback": {"type": "enum-keyword", "default": 1.0,
+                            "textFallback": {"type": "enum-keyword", "onUnresolved": "divert-to-analysis",
                                              "keywords": {**_YES, "observed": 1.0, "noted": 1.0,
                                                           "recorded": 1.0, **_NO}}},
                 "target": None,   # observe writes no PE vector

@@ -34,7 +34,7 @@
   },
   "reasoning": {
     "objective": "Produce the normalized input vector for \"Daily Patient Care Response Interconnect\" from current observations so RE can evaluate its CES sequences.",
-    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Daily Patient Care Response Interconnect\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Published personal-health bridge bus that composes daily patient care, facilities observations, fall criticality, medication adherence, hydration status, and patient wellness acuity into a compact daily-care response lane. PE owns source composition and writes the compact input lane; RE evaluates this machine as ordinary vector state.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- daily-care-morning-complete-bit (index 0):\n- daily-care-evening-complete-bit (index 1):\n- daily-care-fall-confirmed-bit (index 2):\n- daily-care-unresponsive-fall-bit (index 3):\n- daily-care-bathroom-alert-bit (index 4):\n- daily-care-medication-missed-bit (index 5):\n- daily-care-wandering-alert-bit (index 6):\n- facilities-hygiene-alert-bit (index 7):\n- facilities-safety-alert-bit (index 8):\n- facilities-wellness-concern-bit (index 9):\n- facilities-inaccessibility-alert-bit (index 10):\n- fall-red-high-confidence-bit (index 11):\n- medication-adherence-delayed-bit (index 12):\n- medication-adherence-missed-bit (index 13):\n- hydration-low-bit (index 14):\n- hydration-critical-bit (index 15):\n- patient-wellness-alert-bit (index 16):\n- patient-wellness-critical-bit (index 17):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- daily-patient-care-urgent-safety-response (RED) -> action: Route urgent staff response, care coordination, governance escalation, movement safety review, and wearable monitoring.\n- daily-patient-care-routine-recovery (AMBER) -> action: Route care routine recovery, nursing review, movement/sleep stabilization, and care visit preparation.\n- daily-patient-care-medication-hydration-review (AMBER) -> action: Route medication response tracking, hydration review, care visit preparation, and care coordination resource routing.\n- daily-patient-care-stable (GREEN) -> action: Route stable daily-care monitoring without urgent dispatch.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Daily Patient Care Response Interconnect\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Published personal-health bridge bus that composes daily patient care, facilities observations, fall criticality, medication adherence, hydration status, and patient wellness acuity into a compact daily-care response lane. PE owns source composition and writes the compact input lane; RE evaluates this machine as ordinary vector state.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- daily-care-morning-complete-bit (index 0):\n- daily-care-evening-complete-bit (index 1):\n- daily-care-fall-confirmed-bit (index 2):\n- daily-care-unresponsive-fall-bit (index 3):\n- daily-care-bathroom-alert-bit (index 4):\n- daily-care-medication-missed-bit (index 5):\n- daily-care-wandering-alert-bit (index 6):\n- facilities-hygiene-alert-bit (index 7):\n- facilities-safety-alert-bit (index 8):\n- facilities-wellness-concern-bit (index 9):\n- facilities-inaccessibility-alert-bit (index 10):\n- fall-red-high-confidence-bit (index 11):\n- medication-adherence-delayed-bit (index 12):\n- medication-adherence-missed-bit (index 13):\n- hydration-low-bit (index 14):\n- hydration-critical-bit (index 15):\n- patient-wellness-alert-bit (index 16):\n- patient-wellness-critical-bit (index 17):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- daily-patient-care-urgent-safety-response (RED) -> action: urgent-intervention\n- daily-patient-care-routine-recovery (AMBER) -> action: route-referral\n- daily-patient-care-medication-hydration-review (AMBER) -> action: route-referral\n- daily-patient-care-stable (GREEN) -> action: continue-monitoring",
     "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
     "inputAxes": [
       {
@@ -206,28 +206,28 @@
         "label": "daily-patient-care-urgent-safety-response",
         "rag": "RED",
         "outputIndex": 0,
-        "action": "Route urgent staff response, care coordination, governance escalation, movement safety review, and wearable monitoring."
+        "action": "urgent-intervention"
       },
       {
         "sequenceId": "daily-patient-care-routine-recovery",
         "label": "daily-patient-care-routine-recovery",
         "rag": "AMBER",
         "outputIndex": 1,
-        "action": "Route care routine recovery, nursing review, movement/sleep stabilization, and care visit preparation."
+        "action": "route-referral"
       },
       {
         "sequenceId": "daily-patient-care-medication-hydration-review",
         "label": "daily-patient-care-medication-hydration-review",
         "rag": "AMBER",
         "outputIndex": 2,
-        "action": "Route medication response tracking, hydration review, care visit preparation, and care coordination resource routing."
+        "action": "route-referral"
       },
       {
         "sequenceId": "daily-patient-care-stable",
         "label": "daily-patient-care-stable",
         "rag": "GREEN",
         "outputIndex": 3,
-        "action": "Route stable daily-care monitoring without urgent dispatch."
+        "action": "continue-monitoring"
       }
     ]
   },
@@ -318,7 +318,7 @@
           "responseKey": "daily-care-morning-complete-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -361,7 +361,7 @@
           "responseKey": "daily-care-evening-complete-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -404,7 +404,7 @@
           "responseKey": "daily-care-fall-confirmed-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -447,7 +447,7 @@
           "responseKey": "daily-care-unresponsive-fall-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -490,7 +490,7 @@
           "responseKey": "daily-care-bathroom-alert-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -533,7 +533,7 @@
           "responseKey": "daily-care-medication-missed-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -576,7 +576,7 @@
           "responseKey": "daily-care-wandering-alert-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -619,7 +619,7 @@
           "responseKey": "facilities-hygiene-alert-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -662,7 +662,7 @@
           "responseKey": "facilities-safety-alert-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -705,7 +705,7 @@
           "responseKey": "facilities-wellness-concern-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -748,7 +748,7 @@
           "responseKey": "facilities-inaccessibility-alert-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -791,7 +791,7 @@
           "responseKey": "fall-red-high-confidence-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -834,7 +834,7 @@
           "responseKey": "medication-adherence-delayed-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -877,7 +877,7 @@
           "responseKey": "medication-adherence-missed-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -920,7 +920,7 @@
           "responseKey": "hydration-low-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -963,7 +963,7 @@
           "responseKey": "hydration-critical-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -1006,7 +1006,7 @@
           "responseKey": "patient-wellness-alert-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -1049,7 +1049,7 @@
           "responseKey": "patient-wellness-critical-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,

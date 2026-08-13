@@ -34,7 +34,7 @@
   },
   "reasoning": {
     "objective": "Produce the normalized input vector for \"Energy Resilient Community Microgrid Operations Stabilizer\" from current observations so RE can evaluate its CES sequences.",
-    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Energy Resilient Community Microgrid Operations Stabilizer\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Monitors post-dispatch recovery evidence for critical services, islanded operation, storage, generation, feeder switching, logistics, protocols, and cyber safety.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- critical_load_recovery_confirmed_norm (index 0):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- islanded_or_reconnected_posture_confirmed_norm (index 1):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- storage_reserve_recovered_norm (index 2):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- generation_commitment_recovered_norm (index 3):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- feeder_path_stable_after_action_norm (index 4):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- service_continuity_recovered_norm (index 5):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- supply_chain_action_accepted_norm (index 6):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- smart_grid_protocol_path_stable_norm (index 7):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- cyber_safety_gate_clear_norm (index 8):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- operator_closeout_complete_norm (index 9):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Resilient Community Microgrid Operations Stabilizer (RED) -> action: RECOVERY_REGRESSION for resilient community microgrid operations.\n- Resilient Community Microgrid Operations Stabilizer (AMBER) -> action: STABILIZATION_ACTION_REQUIRED for resilient community microgrid operations.\n- Resilient Community Microgrid Operations Stabilizer (AMBER) -> action: COMPLETION_EVIDENCE_PENDING for resilient community microgrid operations.\n- Resilient Community Microgrid Operations Stabilizer (GREEN) -> action: OPERATIONS_STABLE for resilient community microgrid operations.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Energy Resilient Community Microgrid Operations Stabilizer\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Monitors post-dispatch recovery evidence for critical services, islanded operation, storage, generation, feeder switching, logistics, protocols, and cyber safety.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- critical_load_recovery_confirmed_norm (index 0):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- islanded_or_reconnected_posture_confirmed_norm (index 1):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- storage_reserve_recovered_norm (index 2):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- generation_commitment_recovered_norm (index 3):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- feeder_path_stable_after_action_norm (index 4):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- service_continuity_recovered_norm (index 5):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- supply_chain_action_accepted_norm (index 6):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- smart_grid_protocol_path_stable_norm (index 7):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- cyber_safety_gate_clear_norm (index 8):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- operator_closeout_complete_norm (index 9):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Resilient Community Microgrid Operations Stabilizer (RED) -> action: urgent-intervention\n- Resilient Community Microgrid Operations Stabilizer (AMBER) -> action: urgent-intervention\n- Resilient Community Microgrid Operations Stabilizer (AMBER) -> action: continue-monitoring\n- Resilient Community Microgrid Operations Stabilizer (GREEN) -> action: continue-monitoring",
     "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
     "inputAxes": [
       {
@@ -134,28 +134,28 @@
         "label": "Resilient Community Microgrid Operations Stabilizer",
         "rag": "RED",
         "outputIndex": 0,
-        "action": "RECOVERY_REGRESSION for resilient community microgrid operations."
+        "action": "urgent-intervention"
       },
       {
         "sequenceId": "enx210-stabilization-action-required",
         "label": "Resilient Community Microgrid Operations Stabilizer",
         "rag": "AMBER",
         "outputIndex": 1,
-        "action": "STABILIZATION_ACTION_REQUIRED for resilient community microgrid operations."
+        "action": "urgent-intervention"
       },
       {
         "sequenceId": "enx210-completion-evidence-pending",
         "label": "Resilient Community Microgrid Operations Stabilizer",
         "rag": "AMBER",
         "outputIndex": 2,
-        "action": "COMPLETION_EVIDENCE_PENDING for resilient community microgrid operations."
+        "action": "continue-monitoring"
       },
       {
         "sequenceId": "enx210-operations-stable",
         "label": "Resilient Community Microgrid Operations Stabilizer",
         "rag": "GREEN",
         "outputIndex": 3,
-        "action": "OPERATIONS_STABLE for resilient community microgrid operations."
+        "action": "continue-monitoring"
       }
     ]
   },
@@ -238,7 +238,7 @@
           "responseKey": "critical_load_recovery_confirmed_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -281,7 +281,7 @@
           "responseKey": "islanded_or_reconnected_posture_confirmed_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -324,7 +324,7 @@
           "responseKey": "storage_reserve_recovered_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -367,7 +367,7 @@
           "responseKey": "generation_commitment_recovered_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -410,7 +410,7 @@
           "responseKey": "feeder_path_stable_after_action_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -453,7 +453,7 @@
           "responseKey": "service_continuity_recovered_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -496,7 +496,7 @@
           "responseKey": "supply_chain_action_accepted_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -539,7 +539,7 @@
           "responseKey": "smart_grid_protocol_path_stable_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -582,7 +582,7 @@
           "responseKey": "cyber_safety_gate_clear_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -625,7 +625,7 @@
           "responseKey": "operator_closeout_complete_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,

@@ -34,7 +34,7 @@
   },
   "reasoning": {
     "objective": "Produce the normalized input vector for \"Energy Distributed Generation Commitment Planner\" from current observations so RE can evaluate its CES sequences.",
-    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Energy Distributed Generation Commitment Planner\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Combines solar, inverter, weather, backup generation, maintenance restriction, and power quality signals into a generation commitment posture.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- rooftop_solar_available_norm (index 0):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- carport_solar_available_norm (index 1):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- school_campus_solar_available_norm (index 2):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- community_center_solar_available_norm (index 3):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- ground_mount_solar_available_norm (index 4):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- inverter_bank_healthy_norm (index 5):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- irradiance_forecast_favorable_norm (index 6):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- backup_generation_available_norm (index 7):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- generation_maintenance_restriction_active_norm (index 8):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- power_quality_limit_active_norm (index 9):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Distributed Generation Commitment Planner (RED) -> action: GENERATION_CONSTRAINED for resilient community microgrid operations.\n- Distributed Generation Commitment Planner (AMBER) -> action: COMMIT_LOCAL_GENERATION for resilient community microgrid operations.\n- Distributed Generation Commitment Planner (AMBER) -> action: USE_BACKUP_GENERATION for resilient community microgrid operations.\n- Distributed Generation Commitment Planner (GREEN) -> action: GENERATION_STABLE for resilient community microgrid operations.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Energy Distributed Generation Commitment Planner\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Combines solar, inverter, weather, backup generation, maintenance restriction, and power quality signals into a generation commitment posture.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- rooftop_solar_available_norm (index 0):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- carport_solar_available_norm (index 1):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- school_campus_solar_available_norm (index 2):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- community_center_solar_available_norm (index 3):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- ground_mount_solar_available_norm (index 4):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- inverter_bank_healthy_norm (index 5):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- irradiance_forecast_favorable_norm (index 6):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- backup_generation_available_norm (index 7):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- generation_maintenance_restriction_active_norm (index 8):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- power_quality_limit_active_norm (index 9):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Distributed Generation Commitment Planner (RED) -> action: route-review\n- Distributed Generation Commitment Planner (AMBER) -> action: adjust-operations\n- Distributed Generation Commitment Planner (AMBER) -> action: adjust-operations\n- Distributed Generation Commitment Planner (GREEN) -> action: continue-monitoring",
     "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
     "inputAxes": [
       {
@@ -134,28 +134,28 @@
         "label": "Distributed Generation Commitment Planner",
         "rag": "RED",
         "outputIndex": 0,
-        "action": "GENERATION_CONSTRAINED for resilient community microgrid operations."
+        "action": "route-review"
       },
       {
         "sequenceId": "enx204-commit-local-generation",
         "label": "Distributed Generation Commitment Planner",
         "rag": "AMBER",
         "outputIndex": 1,
-        "action": "COMMIT_LOCAL_GENERATION for resilient community microgrid operations."
+        "action": "adjust-operations"
       },
       {
         "sequenceId": "enx204-use-backup-generation",
         "label": "Distributed Generation Commitment Planner",
         "rag": "AMBER",
         "outputIndex": 2,
-        "action": "USE_BACKUP_GENERATION for resilient community microgrid operations."
+        "action": "adjust-operations"
       },
       {
         "sequenceId": "enx204-generation-stable",
         "label": "Distributed Generation Commitment Planner",
         "rag": "GREEN",
         "outputIndex": 3,
-        "action": "GENERATION_STABLE for resilient community microgrid operations."
+        "action": "continue-monitoring"
       }
     ]
   },
@@ -238,7 +238,7 @@
           "responseKey": "rooftop_solar_available_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -281,7 +281,7 @@
           "responseKey": "carport_solar_available_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -324,7 +324,7 @@
           "responseKey": "school_campus_solar_available_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -367,7 +367,7 @@
           "responseKey": "community_center_solar_available_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -410,7 +410,7 @@
           "responseKey": "ground_mount_solar_available_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -453,7 +453,7 @@
           "responseKey": "inverter_bank_healthy_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -496,7 +496,7 @@
           "responseKey": "irradiance_forecast_favorable_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -539,7 +539,7 @@
           "responseKey": "backup_generation_available_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -582,7 +582,7 @@
           "responseKey": "generation_maintenance_restriction_active_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -625,7 +625,7 @@
           "responseKey": "power_quality_limit_active_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,

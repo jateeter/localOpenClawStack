@@ -34,7 +34,7 @@
   },
   "reasoning": {
     "objective": "Produce the normalized input vector for \"Built Space WELL Water Quality Dispenser Daily Cleaning\" from current observations so RE can evaluate its CES sequences.",
-    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Built Space WELL Water Quality Dispenser Daily Cleaning\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Built-Space domain machine for WELL-oriented dispenser daily cleaning in the water quality workstream. It monitors mouthpiece cleaning, guard cleaning, lime/calcium buildup, and completion proof and emits AI-triggered outputs for verification, predictive optimization, operations work, and sustained compliant operation.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- health-performance-signal-stable (index 0):\n- evidence-or-policy-current (index 1):\n- maintenance-or-operational-drift-pressure (index 2):\n- occupant-impact-or-wellness-risk (index 3):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Dispenser Daily Cleaning (AMBER) -> action: Dispatch well_integrative_agent to verify WELL operational conformance for dispenser daily cleaning.\n- Dispenser Daily Cleaning (AMBER) -> action: Run predictive optimization for dispenser daily cleaning using occupant, system, and evidence trends.\n- Dispenser Daily Cleaning (GREEN) -> action: Create an operations, maintenance, policy, or evidence work order for dispenser daily cleaning.\n- Dispenser Daily Cleaning (GREEN) -> action: Mark dispenser daily cleaning in the current compliant operating window.\n- Dispenser Daily Cleaning (GREEN) -> action: Run predictive optimization for dispenser daily cleaning using occupant, system, and evidence trends.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Built Space WELL Water Quality Dispenser Daily Cleaning\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Built-Space domain machine for WELL-oriented dispenser daily cleaning in the water quality workstream. It monitors mouthpiece cleaning, guard cleaning, lime/calcium buildup, and completion proof and emits AI-triggered outputs for verification, predictive optimization, operations work, and sustained compliant operation.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- health-performance-signal-stable (index 0):\n- evidence-or-policy-current (index 1):\n- maintenance-or-operational-drift-pressure (index 2):\n- occupant-impact-or-wellness-risk (index 3):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Dispenser Daily Cleaning (AMBER) -> action: dispatch-agent\n- Dispenser Daily Cleaning (AMBER) -> action: trigger-agent-workflow\n- Dispenser Daily Cleaning (GREEN) -> action: create-work-order\n- Dispenser Daily Cleaning (GREEN) -> action: continue-monitoring\n- Dispenser Daily Cleaning (GREEN) -> action: trigger-agent-workflow",
     "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
     "inputAxes": [
       {
@@ -80,35 +80,35 @@
         "label": "Dispenser Daily Cleaning",
         "rag": "AMBER",
         "outputIndex": 0,
-        "action": "Dispatch well_integrative_agent to verify WELL operational conformance for dispenser daily cleaning."
+        "action": "dispatch-agent"
       },
       {
         "sequenceId": "bsx-031-optimize",
         "label": "Dispenser Daily Cleaning",
         "rag": "AMBER",
         "outputIndex": 1,
-        "action": "Run predictive optimization for dispenser daily cleaning using occupant, system, and evidence trends."
+        "action": "trigger-agent-workflow"
       },
       {
         "sequenceId": "bsx-031-work-order",
         "label": "Dispenser Daily Cleaning",
         "rag": "GREEN",
         "outputIndex": 2,
-        "action": "Create an operations, maintenance, policy, or evidence work order for dispenser daily cleaning."
+        "action": "create-work-order"
       },
       {
         "sequenceId": "bsx-031-compliant",
         "label": "Dispenser Daily Cleaning",
         "rag": "GREEN",
         "outputIndex": 3,
-        "action": "Mark dispenser daily cleaning in the current compliant operating window."
+        "action": "continue-monitoring"
       },
       {
         "sequenceId": "bsx-031-predictive-24h",
         "label": "Dispenser Daily Cleaning",
         "rag": "GREEN",
         "outputIndex": 1,
-        "action": "Run predictive optimization for dispenser daily cleaning using occupant, system, and evidence trends."
+        "action": "trigger-agent-workflow"
       }
     ]
   },
@@ -185,7 +185,7 @@
           "responseKey": "health-performance-signal-stable",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -228,7 +228,7 @@
           "responseKey": "evidence-or-policy-current",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -271,7 +271,7 @@
           "responseKey": "maintenance-or-operational-drift-pressure",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -314,7 +314,7 @@
           "responseKey": "occupant-impact-or-wellness-risk",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,

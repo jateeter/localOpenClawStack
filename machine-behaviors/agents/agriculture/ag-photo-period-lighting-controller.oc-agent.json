@@ -34,7 +34,7 @@
   },
   "reasoning": {
     "objective": "Produce the normalized input vector for \"Ag Photo Period Lighting Controller\" from current observations so RE can evaluate its CES sequences.",
-    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Ag Photo Period Lighting Controller\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Controls photoperiod and light intensity for indoor growing zones. Monitors PAR (photosynthetically active radiation) intensity, accumulated daily light integral (DLI), and dark-period integrity. Fires LIGHTS_ON/OFF transitions and DLI insufficiency alerts. Upstream: light sensors at [12:16]. Downstream: AgNutrientCycleOptimizer and AgIPMPestAlertMonitor read output at [32:36].\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- par_intensity_norm (index 0):  0.0 = dark | 0.5 = 400 \u00b5mol/m\u00b2/s (vegetative optimal) | 1.0 = 1000 \u00b5mol/m\u00b2/s\n- photoperiod_elapsed_norm (index 1):  0.0 = start of light period | 0.5 = mid-period | 1.0 = full period complete\n- dli_accumulated_norm (index 2):  0.0 = 0 mol/m\u00b2/d | 0.5 = 20 mol/m\u00b2/d (vegetative target) | 1.0 = 40+ mol/m\u00b2/d\n- dark_period_integrity_norm (index 3):  0.0 = dark period fully satisfied | 0.5 = partial dark | 1.0 = no dark period (light leak)\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- LIGHTS_ON (GREEN) -> action: Downstream IPM and nutrient cycle monitors register active photoperiod\n- LIGHTS_OFF (GREEN) -> action: Power down grow lights; dark period timer starts\n- PHOTO_OK (GREEN) -> action: Downstream nutrient and IPM monitors register healthy light environment",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Ag Photo Period Lighting Controller\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Controls photoperiod and light intensity for indoor growing zones. Monitors PAR (photosynthetically active radiation) intensity, accumulated daily light integral (DLI), and dark-period integrity. Fires LIGHTS_ON/OFF transitions and DLI insufficiency alerts. Upstream: light sensors at [12:16]. Downstream: AgNutrientCycleOptimizer and AgIPMPestAlertMonitor read output at [32:36].\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- par_intensity_norm (index 0):  0.0 = dark | 0.5 = 400 \u00b5mol/m\u00b2/s (vegetative optimal) | 1.0 = 1000 \u00b5mol/m\u00b2/s\n- photoperiod_elapsed_norm (index 1):  0.0 = start of light period | 0.5 = mid-period | 1.0 = full period complete\n- dli_accumulated_norm (index 2):  0.0 = 0 mol/m\u00b2/d | 0.5 = 20 mol/m\u00b2/d (vegetative target) | 1.0 = 40+ mol/m\u00b2/d\n- dark_period_integrity_norm (index 3):  0.0 = dark period fully satisfied | 0.5 = partial dark | 1.0 = no dark period (light leak)\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- LIGHTS_ON (GREEN) -> action: continue-monitoring\n- LIGHTS_OFF (GREEN) -> action: adjust-operations\n- PHOTO_OK (GREEN) -> action: continue-monitoring",
     "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
     "inputAxes": [
       {
@@ -80,21 +80,21 @@
         "label": "LIGHTS_ON",
         "rag": "GREEN",
         "outputIndex": 0,
-        "action": "Downstream IPM and nutrient cycle monitors register active photoperiod"
+        "action": "continue-monitoring"
       },
       {
         "sequenceId": "ag-photo-lights-off-cycle",
         "label": "LIGHTS_OFF",
         "rag": "GREEN",
         "outputIndex": 1,
-        "action": "Power down grow lights; dark period timer starts"
+        "action": "adjust-operations"
       },
       {
         "sequenceId": "ag-photo-ok",
         "label": "PHOTO_OK",
         "rag": "GREEN",
         "outputIndex": 3,
-        "action": "Downstream nutrient and IPM monitors register healthy light environment"
+        "action": "continue-monitoring"
       }
     ]
   },
@@ -171,7 +171,7 @@
           "responseKey": "par_intensity_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -214,7 +214,7 @@
           "responseKey": "photoperiod_elapsed_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -257,7 +257,7 @@
           "responseKey": "dli_accumulated_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -300,7 +300,7 @@
           "responseKey": "dark_period_integrity_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,

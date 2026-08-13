@@ -34,7 +34,7 @@
   },
   "reasoning": {
     "objective": "Produce the normalized input vector for \"Data Center Core Interconnect\" from current observations so RE can evaluate its CES sequences.",
-    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Data Center Core Interconnect\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Published data-center bridge bus that composes Data Center Core into a compact domain family response lane. PE owns source composition and writes the compact input lane; RE evaluates this machine as ordinary vector state.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- dc-cooling-control-flip-flop-active-output-0-bit (index 0):\n- dc-cooling-control-flip-flop-active-output-1-bit (index 1):\n- dc-critical-alert-flip-flop-active-output-0-bit (index 2):\n- dc-critical-alert-flip-flop-active-output-1-bit (index 3):\n- dc-critical-synthesizer-active-output-0-bit (index 4):\n- dc-critical-synthesizer-active-output-1-bit (index 5):\n- dc-memory-alert-flip-flop-active-output-0-bit (index 6):\n- dc-memory-alert-flip-flop-active-output-1-bit (index 7):\n- dc-memory-pressure-detector-active-output-0-bit (index 8):\n- dc-memory-pressure-detector-active-output-1-bit (index 9):\n- dc-network-burst-detector-active-output-0-bit (index 10):\n- dc-network-burst-detector-active-output-1-bit (index 11):\n- dc-network-throttle-flip-flop-active-output-0-bit (index 12):\n- dc-network-throttle-flip-flop-active-output-1-bit (index 13):\n- dc-thermal-escalation-detector-active-output-0-bit (index 14):\n- dc-thermal-escalation-detector-active-output-1-bit (index 15):\n- data-center-monitoring-active-output-0-bit (index 16):\n- data-center-monitoring-active-output-1-bit (index 17):\n- data-center-monitoring-active-output-2-bit (index 18):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Data Center Core domain family review at [14123 (RED) -> action: Route domain family review, escalation, and resolver summary.\n- Data Center Core domain family optimization at [14123 (AMBER) -> action: Route domain family optimization or plan adjustment.\n- Data Center Core domain family monitoring at [14123 (AMBER) -> action: Route monitoring, evidence, or data-quality follow-up.\n- Data Center Core domain family stable at [14123 (GREEN) -> action: Record stable family state and keep baseline cadence.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Data Center Core Interconnect\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Published data-center bridge bus that composes Data Center Core into a compact domain family response lane. PE owns source composition and writes the compact input lane; RE evaluates this machine as ordinary vector state.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- dc-cooling-control-flip-flop-active-output-0-bit (index 0):\n- dc-cooling-control-flip-flop-active-output-1-bit (index 1):\n- dc-critical-alert-flip-flop-active-output-0-bit (index 2):\n- dc-critical-alert-flip-flop-active-output-1-bit (index 3):\n- dc-critical-synthesizer-active-output-0-bit (index 4):\n- dc-critical-synthesizer-active-output-1-bit (index 5):\n- dc-memory-alert-flip-flop-active-output-0-bit (index 6):\n- dc-memory-alert-flip-flop-active-output-1-bit (index 7):\n- dc-memory-pressure-detector-active-output-0-bit (index 8):\n- dc-memory-pressure-detector-active-output-1-bit (index 9):\n- dc-network-burst-detector-active-output-0-bit (index 10):\n- dc-network-burst-detector-active-output-1-bit (index 11):\n- dc-network-throttle-flip-flop-active-output-0-bit (index 12):\n- dc-network-throttle-flip-flop-active-output-1-bit (index 13):\n- dc-thermal-escalation-detector-active-output-0-bit (index 14):\n- dc-thermal-escalation-detector-active-output-1-bit (index 15):\n- data-center-monitoring-active-output-0-bit (index 16):\n- data-center-monitoring-active-output-1-bit (index 17):\n- data-center-monitoring-active-output-2-bit (index 18):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Data Center Core domain family review at [14123 (RED) -> action: route-review\n- Data Center Core domain family optimization at [14123 (AMBER) -> action: route-review\n- Data Center Core domain family monitoring at [14123 (AMBER) -> action: route-review\n- Data Center Core domain family stable at [14123 (GREEN) -> action: continue-monitoring",
     "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
     "inputAxes": [
       {
@@ -215,28 +215,28 @@
         "label": "Data Center Core domain family review at [14123",
         "rag": "RED",
         "outputIndex": 0,
-        "action": "Route domain family review, escalation, and resolver summary."
+        "action": "route-review"
       },
       {
         "sequenceId": "data-center-core-domain-family-optimization",
         "label": "Data Center Core domain family optimization at [14123",
         "rag": "AMBER",
         "outputIndex": 1,
-        "action": "Route domain family optimization or plan adjustment."
+        "action": "route-review"
       },
       {
         "sequenceId": "data-center-core-domain-family-monitoring",
         "label": "Data Center Core domain family monitoring at [14123",
         "rag": "AMBER",
         "outputIndex": 2,
-        "action": "Route monitoring, evidence, or data-quality follow-up."
+        "action": "route-review"
       },
       {
         "sequenceId": "data-center-core-domain-family-stable",
         "label": "Data Center Core domain family stable at [14123",
         "rag": "GREEN",
         "outputIndex": 3,
-        "action": "Record stable family state and keep baseline cadence."
+        "action": "continue-monitoring"
       }
     ]
   },
@@ -328,7 +328,7 @@
           "responseKey": "dc-cooling-control-flip-flop-active-output-0-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -371,7 +371,7 @@
           "responseKey": "dc-cooling-control-flip-flop-active-output-1-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -414,7 +414,7 @@
           "responseKey": "dc-critical-alert-flip-flop-active-output-0-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -457,7 +457,7 @@
           "responseKey": "dc-critical-alert-flip-flop-active-output-1-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -500,7 +500,7 @@
           "responseKey": "dc-critical-synthesizer-active-output-0-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -543,7 +543,7 @@
           "responseKey": "dc-critical-synthesizer-active-output-1-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -586,7 +586,7 @@
           "responseKey": "dc-memory-alert-flip-flop-active-output-0-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -629,7 +629,7 @@
           "responseKey": "dc-memory-alert-flip-flop-active-output-1-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -672,7 +672,7 @@
           "responseKey": "dc-memory-pressure-detector-active-output-0-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -715,7 +715,7 @@
           "responseKey": "dc-memory-pressure-detector-active-output-1-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -758,7 +758,7 @@
           "responseKey": "dc-network-burst-detector-active-output-0-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -801,7 +801,7 @@
           "responseKey": "dc-network-burst-detector-active-output-1-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -844,7 +844,7 @@
           "responseKey": "dc-network-throttle-flip-flop-active-output-0-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -887,7 +887,7 @@
           "responseKey": "dc-network-throttle-flip-flop-active-output-1-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -930,7 +930,7 @@
           "responseKey": "dc-thermal-escalation-detector-active-output-0-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -973,7 +973,7 @@
           "responseKey": "dc-thermal-escalation-detector-active-output-1-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -1016,7 +1016,7 @@
           "responseKey": "data-center-monitoring-active-output-0-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -1059,7 +1059,7 @@
           "responseKey": "data-center-monitoring-active-output-1-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -1102,7 +1102,7 @@
           "responseKey": "data-center-monitoring-active-output-2-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,

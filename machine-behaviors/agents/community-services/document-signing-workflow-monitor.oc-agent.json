@@ -34,7 +34,7 @@
   },
   "reasoning": {
     "objective": "Produce the normalized input vector for \"Document Signing Workflow Monitor\" from current observations so RE can evaluate its CES sequences.",
-    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Document Signing Workflow Monitor\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Tracks document collection completeness, signature status, witness verification, and legal validity for community service enrollment agreements, consent forms, release of information authorizations, and benefit assignment documents. Document signing is a critical gating step in community services \u2014 unsigned consent forms block care coordination, unsigned ROIs prevent inter-agency data sharing, and missing program agreements delay benefit issuance by days or weeks. Output at [960:964] feeds the Workflow Completion Monitor.\n\nPOPULATION: Community service enrollees requiring consent forms, ROI authorizations, program agreements; applicants with limited digital access; participants with cognitive or literacy barriers\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- documents_received_norm (index 0):  0.0 = no required documents collected (zero of required set) | 0.5 = half of required documents collected | 1.0 = all required documents collected and on file\n- signature_completeness_norm (index 1):  0.0 = no signatures obtained (client unreachable or refusing) | 0.5 = partial signatures (some forms signed; key forms unsigned) | 1.0 = all required signatures obtained\n- witness_verification_norm (index 2):  0.0 = witness signature required but not obtained; notarization missing; co-signer absent | 0.5 = witness present but verification pending (identity check in progress) | 1.0 = all witness and notarization requirements satisfied\n- legal_validity_norm (index 3):  0.0 = documents legally invalid (expired forms, wrong version, jurisdiction mismatch, capacity concern) | 0.5 = documents submitted but legal review pending | 1.0 = all documents legally valid and accepted by receiving program\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- SIGNING_BLOCKED (RED) -> action: Outreach worker escalation; alternative signing method assessment (in-person, paper); legal capacity evaluation referral; guardian/POA contact\n- PARTIAL_SIGNING (GREEN) -> action: Initiate services on signed agreements; schedule follow-up for remaining forms; limit cross-agency data sharing until ROI obtained\n- SIGNING_COMPLETE (GREEN) -> action: Workflow completion monitor registers signing complete; full inter-agency coordination authorized",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Document Signing Workflow Monitor\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Tracks document collection completeness, signature status, witness verification, and legal validity for community service enrollment agreements, consent forms, release of information authorizations, and benefit assignment documents. Document signing is a critical gating step in community services \u2014 unsigned consent forms block care coordination, unsigned ROIs prevent inter-agency data sharing, and missing program agreements delay benefit issuance by days or weeks. Output at [960:964] feeds the Workflow Completion Monitor.\n\nPOPULATION: Community service enrollees requiring consent forms, ROI authorizations, program agreements; applicants with limited digital access; participants with cognitive or literacy barriers\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- documents_received_norm (index 0):  0.0 = no required documents collected (zero of required set) | 0.5 = half of required documents collected | 1.0 = all required documents collected and on file\n- signature_completeness_norm (index 1):  0.0 = no signatures obtained (client unreachable or refusing) | 0.5 = partial signatures (some forms signed; key forms unsigned) | 1.0 = all required signatures obtained\n- witness_verification_norm (index 2):  0.0 = witness signature required but not obtained; notarization missing; co-signer absent | 0.5 = witness present but verification pending (identity check in progress) | 1.0 = all witness and notarization requirements satisfied\n- legal_validity_norm (index 3):  0.0 = documents legally invalid (expired forms, wrong version, jurisdiction mismatch, capacity concern) | 0.5 = documents submitted but legal review pending | 1.0 = all documents legally valid and accepted by receiving program\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- SIGNING_BLOCKED (RED) -> action: route-referral\n- PARTIAL_SIGNING (GREEN) -> action: route-review\n- SIGNING_COMPLETE (GREEN) -> action: continue-monitoring",
     "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
     "inputAxes": [
       {
@@ -80,21 +80,21 @@
         "label": "SIGNING_BLOCKED",
         "rag": "RED",
         "outputIndex": 0,
-        "action": "Outreach worker escalation; alternative signing method assessment (in-person, paper); legal capacity evaluation referral; guardian/POA contact"
+        "action": "route-referral"
       },
       {
         "sequenceId": "signing-partial",
         "label": "PARTIAL_SIGNING",
         "rag": "GREEN",
         "outputIndex": 2,
-        "action": "Initiate services on signed agreements; schedule follow-up for remaining forms; limit cross-agency data sharing until ROI obtained"
+        "action": "route-review"
       },
       {
         "sequenceId": "signing-complete",
         "label": "SIGNING_COMPLETE",
         "rag": "GREEN",
         "outputIndex": 3,
-        "action": "Workflow completion monitor registers signing complete; full inter-agency coordination authorized"
+        "action": "continue-monitoring"
       }
     ]
   },
@@ -171,7 +171,7 @@
           "responseKey": "documents_received_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -214,7 +214,7 @@
           "responseKey": "signature_completeness_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -257,7 +257,7 @@
           "responseKey": "witness_verification_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -300,7 +300,7 @@
           "responseKey": "legal_validity_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,

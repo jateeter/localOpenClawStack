@@ -34,7 +34,7 @@
   },
   "reasoning": {
     "objective": "Produce the normalized input vector for \"Community Services Core Interconnect\" from current observations so RE can evaluate its CES sequences.",
-    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Community Services Core Interconnect\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Published community-services bridge bus that composes Community Services Core into a compact domain family response lane. PE owns source composition and writes the compact input lane; RE evaluates this machine as ordinary vector state.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- benefits-eligibility-screener-active-output-0-bit (index 0):\n- benefits-eligibility-screener-active-output-1-bit (index 1):\n- benefits-eligibility-screener-active-output-2-bit (index 2):\n- case-worker-capacity-monitor-active-output-0-bit (index 3):\n- case-worker-capacity-monitor-active-output-1-bit (index 4):\n- case-worker-capacity-monitor-active-output-2-bit (index 5):\n- community-access-monitor-active-output-0-bit (index 6):\n- community-access-monitor-active-output-1-bit (index 7):\n- community-access-monitor-active-output-2-bit (index 8):\n- community-outreach-monitor-active-output-0-bit (index 9):\n- community-outreach-monitor-active-output-1-bit (index 10):\n- community-outreach-monitor-active-output-2-bit (index 11):\n- document-signing-workflow-monitor-active-output-0-bit (index 12):\n- document-signing-workflow-monitor-active-output-1-bit (index 13):\n- document-signing-workflow-monitor-active-output-2-bit (index 14):\n- enrollment-coordination-monitor-active-output-0-bit (index 15):\n- enrollment-coordination-monitor-active-output-1-bit (index 16):\n- enrollment-coordination-monitor-active-output-2-bit (index 17):\n- qualification-verification-monitor-active-output-0-bit (index 18):\n- qualification-verification-monitor-active-output-1-bit (index 19):\n- qualification-verification-monitor-active-output-2-bit (index 20):\n- referral-network-monitor-active-output-0-bit (index 21):\n- referral-network-monitor-active-output-1-bit (index 22):\n- referral-network-monitor-active-output-2-bit (index 23):\n- service-delivery-compliance-monitor-active-output-0-bit (index 24):\n- service-delivery-compliance-monitor-active-output-1-bit (index 25):\n- service-delivery-compliance-monitor-active-output-2-bit (index 26):\n- service-delivery-integrity-monitor-active-output-0-bit (index 27):\n- service-delivery-integrity-monitor-active-output-1-bit (index 28):\n- service-delivery-integrity-monitor-active-output-2-bit (index 29):\n- service-intake-assessment-monitor-active-output-0-bit (index 30):\n- service-intake-assessment-monitor-active-output-1-bit (index 31):\n- service-intake-assessment-monitor-active-output-2-bit (index 32):\n- workflow-completion-monitor-active-output-0-bit (index 33):\n- workflow-completion-monitor-active-output-1-bit (index 34):\n- workflow-completion-monitor-active-output-2-bit (index 35):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Community Services Core domain family review at [13794 (RED) -> action: Route domain family review, escalation, and resolver summary.\n- Community Services Core domain family optimization at [13794 (AMBER) -> action: Route domain family optimization or plan adjustment.\n- Community Services Core domain family monitoring at [13794 (AMBER) -> action: Route monitoring, evidence, or data-quality follow-up.\n- Community Services Core domain family stable at [13794 (GREEN) -> action: Record stable family state and keep baseline cadence.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Community Services Core Interconnect\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Published community-services bridge bus that composes Community Services Core into a compact domain family response lane. PE owns source composition and writes the compact input lane; RE evaluates this machine as ordinary vector state.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- benefits-eligibility-screener-active-output-0-bit (index 0):\n- benefits-eligibility-screener-active-output-1-bit (index 1):\n- benefits-eligibility-screener-active-output-2-bit (index 2):\n- case-worker-capacity-monitor-active-output-0-bit (index 3):\n- case-worker-capacity-monitor-active-output-1-bit (index 4):\n- case-worker-capacity-monitor-active-output-2-bit (index 5):\n- community-access-monitor-active-output-0-bit (index 6):\n- community-access-monitor-active-output-1-bit (index 7):\n- community-access-monitor-active-output-2-bit (index 8):\n- community-outreach-monitor-active-output-0-bit (index 9):\n- community-outreach-monitor-active-output-1-bit (index 10):\n- community-outreach-monitor-active-output-2-bit (index 11):\n- document-signing-workflow-monitor-active-output-0-bit (index 12):\n- document-signing-workflow-monitor-active-output-1-bit (index 13):\n- document-signing-workflow-monitor-active-output-2-bit (index 14):\n- enrollment-coordination-monitor-active-output-0-bit (index 15):\n- enrollment-coordination-monitor-active-output-1-bit (index 16):\n- enrollment-coordination-monitor-active-output-2-bit (index 17):\n- qualification-verification-monitor-active-output-0-bit (index 18):\n- qualification-verification-monitor-active-output-1-bit (index 19):\n- qualification-verification-monitor-active-output-2-bit (index 20):\n- referral-network-monitor-active-output-0-bit (index 21):\n- referral-network-monitor-active-output-1-bit (index 22):\n- referral-network-monitor-active-output-2-bit (index 23):\n- service-delivery-compliance-monitor-active-output-0-bit (index 24):\n- service-delivery-compliance-monitor-active-output-1-bit (index 25):\n- service-delivery-compliance-monitor-active-output-2-bit (index 26):\n- service-delivery-integrity-monitor-active-output-0-bit (index 27):\n- service-delivery-integrity-monitor-active-output-1-bit (index 28):\n- service-delivery-integrity-monitor-active-output-2-bit (index 29):\n- service-intake-assessment-monitor-active-output-0-bit (index 30):\n- service-intake-assessment-monitor-active-output-1-bit (index 31):\n- service-intake-assessment-monitor-active-output-2-bit (index 32):\n- workflow-completion-monitor-active-output-0-bit (index 33):\n- workflow-completion-monitor-active-output-1-bit (index 34):\n- workflow-completion-monitor-active-output-2-bit (index 35):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Community Services Core domain family review at [13794 (RED) -> action: route-review\n- Community Services Core domain family optimization at [13794 (AMBER) -> action: route-review\n- Community Services Core domain family monitoring at [13794 (AMBER) -> action: route-review\n- Community Services Core domain family stable at [13794 (GREEN) -> action: continue-monitoring",
     "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
     "inputAxes": [
       {
@@ -368,28 +368,28 @@
         "label": "Community Services Core domain family review at [13794",
         "rag": "RED",
         "outputIndex": 0,
-        "action": "Route domain family review, escalation, and resolver summary."
+        "action": "route-review"
       },
       {
         "sequenceId": "community-services-core-domain-family-optimization",
         "label": "Community Services Core domain family optimization at [13794",
         "rag": "AMBER",
         "outputIndex": 1,
-        "action": "Route domain family optimization or plan adjustment."
+        "action": "route-review"
       },
       {
         "sequenceId": "community-services-core-domain-family-monitoring",
         "label": "Community Services Core domain family monitoring at [13794",
         "rag": "AMBER",
         "outputIndex": 2,
-        "action": "Route monitoring, evidence, or data-quality follow-up."
+        "action": "route-review"
       },
       {
         "sequenceId": "community-services-core-domain-family-stable",
         "label": "Community Services Core domain family stable at [13794",
         "rag": "GREEN",
         "outputIndex": 3,
-        "action": "Record stable family state and keep baseline cadence."
+        "action": "continue-monitoring"
       }
     ]
   },
@@ -498,7 +498,7 @@
           "responseKey": "benefits-eligibility-screener-active-output-0-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -541,7 +541,7 @@
           "responseKey": "benefits-eligibility-screener-active-output-1-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -584,7 +584,7 @@
           "responseKey": "benefits-eligibility-screener-active-output-2-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -627,7 +627,7 @@
           "responseKey": "case-worker-capacity-monitor-active-output-0-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -670,7 +670,7 @@
           "responseKey": "case-worker-capacity-monitor-active-output-1-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -713,7 +713,7 @@
           "responseKey": "case-worker-capacity-monitor-active-output-2-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -756,7 +756,7 @@
           "responseKey": "community-access-monitor-active-output-0-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -799,7 +799,7 @@
           "responseKey": "community-access-monitor-active-output-1-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -842,7 +842,7 @@
           "responseKey": "community-access-monitor-active-output-2-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -885,7 +885,7 @@
           "responseKey": "community-outreach-monitor-active-output-0-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -928,7 +928,7 @@
           "responseKey": "community-outreach-monitor-active-output-1-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -971,7 +971,7 @@
           "responseKey": "community-outreach-monitor-active-output-2-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -1014,7 +1014,7 @@
           "responseKey": "document-signing-workflow-monitor-active-output-0-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -1057,7 +1057,7 @@
           "responseKey": "document-signing-workflow-monitor-active-output-1-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -1100,7 +1100,7 @@
           "responseKey": "document-signing-workflow-monitor-active-output-2-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -1143,7 +1143,7 @@
           "responseKey": "enrollment-coordination-monitor-active-output-0-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -1186,7 +1186,7 @@
           "responseKey": "enrollment-coordination-monitor-active-output-1-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -1229,7 +1229,7 @@
           "responseKey": "enrollment-coordination-monitor-active-output-2-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -1272,7 +1272,7 @@
           "responseKey": "qualification-verification-monitor-active-output-0-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -1315,7 +1315,7 @@
           "responseKey": "qualification-verification-monitor-active-output-1-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -1358,7 +1358,7 @@
           "responseKey": "qualification-verification-monitor-active-output-2-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -1401,7 +1401,7 @@
           "responseKey": "referral-network-monitor-active-output-0-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -1444,7 +1444,7 @@
           "responseKey": "referral-network-monitor-active-output-1-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -1487,7 +1487,7 @@
           "responseKey": "referral-network-monitor-active-output-2-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -1530,7 +1530,7 @@
           "responseKey": "service-delivery-compliance-monitor-active-output-0-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -1573,7 +1573,7 @@
           "responseKey": "service-delivery-compliance-monitor-active-output-1-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -1616,7 +1616,7 @@
           "responseKey": "service-delivery-compliance-monitor-active-output-2-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -1659,7 +1659,7 @@
           "responseKey": "service-delivery-integrity-monitor-active-output-0-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -1702,7 +1702,7 @@
           "responseKey": "service-delivery-integrity-monitor-active-output-1-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -1745,7 +1745,7 @@
           "responseKey": "service-delivery-integrity-monitor-active-output-2-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -1788,7 +1788,7 @@
           "responseKey": "service-intake-assessment-monitor-active-output-0-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -1831,7 +1831,7 @@
           "responseKey": "service-intake-assessment-monitor-active-output-1-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -1874,7 +1874,7 @@
           "responseKey": "service-intake-assessment-monitor-active-output-2-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -1917,7 +1917,7 @@
           "responseKey": "workflow-completion-monitor-active-output-0-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -1960,7 +1960,7 @@
           "responseKey": "workflow-completion-monitor-active-output-1-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -2003,7 +2003,7 @@
           "responseKey": "workflow-completion-monitor-active-output-2-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,

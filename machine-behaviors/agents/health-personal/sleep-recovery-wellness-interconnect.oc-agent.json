@@ -34,7 +34,7 @@
   },
   "reasoning": {
     "objective": "Produce the normalized input vector for \"Sleep Recovery Wellness Interconnect\" from current observations so RE can evaluate its CES sequences.",
-    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Sleep Recovery Wellness Interconnect\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Published personal-health bridge bus that composes sleep quality, activity, hydration, wellness, isolation, daily care, and wellness recovery into a compact sleep recovery lane.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- sleep-poor-bit (index 0):\n- sleep-disturbed-bit (index 1):\n- activity-below-baseline-bit (index 2):\n- activity-prolonged-inactivity-bit (index 3):\n- hydration-low-bit (index 4):\n- hydration-critical-bit (index 5):\n- patient-wellness-alert-bit (index 6):\n- patient-wellness-critical-bit (index 7):\n- social-withdrawal-bit (index 8):\n- isolation-risk-bit (index 9):\n- severe-isolation-bit (index 10):\n- daily-care-wandering-alert-bit (index 11):\n- daily-routine-complete-bit (index 12):\n- wellness-improving-bit (index 13):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- SLEEP_CLINICAL_REVIEW at [4556 (RED) -> action: SLEEP_CLINICAL_REVIEW\n- RECOVERY_ROUTINE_STABILIZATION at [4556 (AMBER) -> action: RECOVERY_ROUTINE_STABILIZATION\n- MONITORING_ADJUSTMENT at [4556 (AMBER) -> action: MONITORING_ADJUSTMENT\n- STABLE_SLEEP_WELLNESS at [4556 (GREEN) -> action: STABLE_SLEEP_WELLNESS",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Sleep Recovery Wellness Interconnect\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Published personal-health bridge bus that composes sleep quality, activity, hydration, wellness, isolation, daily care, and wellness recovery into a compact sleep recovery lane.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- sleep-poor-bit (index 0):\n- sleep-disturbed-bit (index 1):\n- activity-below-baseline-bit (index 2):\n- activity-prolonged-inactivity-bit (index 3):\n- hydration-low-bit (index 4):\n- hydration-critical-bit (index 5):\n- patient-wellness-alert-bit (index 6):\n- patient-wellness-critical-bit (index 7):\n- social-withdrawal-bit (index 8):\n- isolation-risk-bit (index 9):\n- severe-isolation-bit (index 10):\n- daily-care-wandering-alert-bit (index 11):\n- daily-routine-complete-bit (index 12):\n- wellness-improving-bit (index 13):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- SLEEP_CLINICAL_REVIEW at [4556 (RED) -> action: route-referral\n- RECOVERY_ROUTINE_STABILIZATION at [4556 (AMBER) -> action: route-referral\n- MONITORING_ADJUSTMENT at [4556 (AMBER) -> action: route-referral\n- STABLE_SLEEP_WELLNESS at [4556 (GREEN) -> action: continue-monitoring",
     "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
     "inputAxes": [
       {
@@ -170,28 +170,28 @@
         "label": "SLEEP_CLINICAL_REVIEW at [4556",
         "rag": "RED",
         "outputIndex": 0,
-        "action": "SLEEP_CLINICAL_REVIEW"
+        "action": "route-referral"
       },
       {
         "sequenceId": "sleep-recovery-routine-stabilization",
         "label": "RECOVERY_ROUTINE_STABILIZATION at [4556",
         "rag": "AMBER",
         "outputIndex": 1,
-        "action": "RECOVERY_ROUTINE_STABILIZATION"
+        "action": "route-referral"
       },
       {
         "sequenceId": "sleep-recovery-monitoring-adjustment",
         "label": "MONITORING_ADJUSTMENT at [4556",
         "rag": "AMBER",
         "outputIndex": 2,
-        "action": "MONITORING_ADJUSTMENT"
+        "action": "route-referral"
       },
       {
         "sequenceId": "sleep-recovery-stable",
         "label": "STABLE_SLEEP_WELLNESS at [4556",
         "rag": "GREEN",
         "outputIndex": 3,
-        "action": "STABLE_SLEEP_WELLNESS"
+        "action": "continue-monitoring"
       }
     ]
   },
@@ -278,7 +278,7 @@
           "responseKey": "sleep-poor-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -321,7 +321,7 @@
           "responseKey": "sleep-disturbed-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -364,7 +364,7 @@
           "responseKey": "activity-below-baseline-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -407,7 +407,7 @@
           "responseKey": "activity-prolonged-inactivity-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -450,7 +450,7 @@
           "responseKey": "hydration-low-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -493,7 +493,7 @@
           "responseKey": "hydration-critical-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -536,7 +536,7 @@
           "responseKey": "patient-wellness-alert-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -579,7 +579,7 @@
           "responseKey": "patient-wellness-critical-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -622,7 +622,7 @@
           "responseKey": "social-withdrawal-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -665,7 +665,7 @@
           "responseKey": "isolation-risk-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -708,7 +708,7 @@
           "responseKey": "severe-isolation-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -751,7 +751,7 @@
           "responseKey": "daily-care-wandering-alert-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -794,7 +794,7 @@
           "responseKey": "daily-routine-complete-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -837,7 +837,7 @@
           "responseKey": "wellness-improving-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,

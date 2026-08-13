@@ -34,7 +34,7 @@
   },
   "reasoning": {
     "objective": "Produce the normalized input vector for \"Daily Activity Wellness Interconnect\" from current observations so RE can evaluate its CES sequences.",
-    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Daily Activity Wellness Interconnect\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Published personal-health bridge bus that composes daily activity, sleep quality, hydration status, and social-isolation context into a compact wellness deterioration lane. PE owns source composition and writes the compact input lane; RE evaluates this machine as ordinary vector state.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- below-baseline-today-bit (index 0):\n- sedentary-streak-active-bit (index 1):\n- short-or-poor-sleep-bit (index 2):\n- disturbed-or-fragmented-sleep-bit (index 3):\n- below-half-hydration-target-bit (index 4):\n- below-quarter-hydration-target-bit (index 5):\n- severe-isolation-bit (index 6):\n- social-withdrawal-bit (index 7):\n- isolation-risk-bit (index 8):\n- socially-connected-bit (index 9):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- daily-activity-wellness-urgent-check (RED) -> action: Route urgent wellness check, caregiver contact, and clinician review.\n- daily-activity-wellness-activity-support (AMBER) -> action: Route movement baseline review and graded activity plan.\n- daily-activity-wellness-hydration-sleep-recovery (AMBER) -> action: Route hydration, sleep, and gentle recovery support.\n- daily-activity-wellness-stable-routine (GREEN) -> action: Continue stable monitoring and routine wellness coaching.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Daily Activity Wellness Interconnect\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Published personal-health bridge bus that composes daily activity, sleep quality, hydration status, and social-isolation context into a compact wellness deterioration lane. PE owns source composition and writes the compact input lane; RE evaluates this machine as ordinary vector state.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- below-baseline-today-bit (index 0):\n- sedentary-streak-active-bit (index 1):\n- short-or-poor-sleep-bit (index 2):\n- disturbed-or-fragmented-sleep-bit (index 3):\n- below-half-hydration-target-bit (index 4):\n- below-quarter-hydration-target-bit (index 5):\n- severe-isolation-bit (index 6):\n- social-withdrawal-bit (index 7):\n- isolation-risk-bit (index 8):\n- socially-connected-bit (index 9):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- daily-activity-wellness-urgent-check (RED) -> action: urgent-intervention\n- daily-activity-wellness-activity-support (AMBER) -> action: route-referral\n- daily-activity-wellness-hydration-sleep-recovery (AMBER) -> action: route-referral\n- daily-activity-wellness-stable-routine (GREEN) -> action: continue-monitoring",
     "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
     "inputAxes": [
       {
@@ -134,28 +134,28 @@
         "label": "daily-activity-wellness-urgent-check",
         "rag": "RED",
         "outputIndex": 0,
-        "action": "Route urgent wellness check, caregiver contact, and clinician review."
+        "action": "urgent-intervention"
       },
       {
         "sequenceId": "daily-activity-wellness-activity-support",
         "label": "daily-activity-wellness-activity-support",
         "rag": "AMBER",
         "outputIndex": 1,
-        "action": "Route movement baseline review and graded activity plan."
+        "action": "route-referral"
       },
       {
         "sequenceId": "daily-activity-wellness-hydration-sleep-recovery",
         "label": "daily-activity-wellness-hydration-sleep-recovery",
         "rag": "AMBER",
         "outputIndex": 2,
-        "action": "Route hydration, sleep, and gentle recovery support."
+        "action": "route-referral"
       },
       {
         "sequenceId": "daily-activity-wellness-stable-routine",
         "label": "daily-activity-wellness-stable-routine",
         "rag": "GREEN",
         "outputIndex": 3,
-        "action": "Continue stable monitoring and routine wellness coaching."
+        "action": "continue-monitoring"
       }
     ]
   },
@@ -238,7 +238,7 @@
           "responseKey": "below-baseline-today-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -281,7 +281,7 @@
           "responseKey": "sedentary-streak-active-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -324,7 +324,7 @@
           "responseKey": "short-or-poor-sleep-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -367,7 +367,7 @@
           "responseKey": "disturbed-or-fragmented-sleep-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -410,7 +410,7 @@
           "responseKey": "below-half-hydration-target-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -453,7 +453,7 @@
           "responseKey": "below-quarter-hydration-target-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -496,7 +496,7 @@
           "responseKey": "severe-isolation-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -539,7 +539,7 @@
           "responseKey": "social-withdrawal-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -582,7 +582,7 @@
           "responseKey": "isolation-risk-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -625,7 +625,7 @@
           "responseKey": "socially-connected-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,

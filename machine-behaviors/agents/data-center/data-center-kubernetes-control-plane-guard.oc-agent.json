@@ -34,7 +34,7 @@
   },
   "reasoning": {
     "objective": "Produce the normalized input vector for \"Data Center Kubernetes Control Plane Guard\" from current observations so RE can evaluate its CES sequences.",
-    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Data Center Kubernetes Control Plane Guard\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Data-center operations machine for kubernetes control plane guard. It monitors API health, etcd quorum, node pressure, and certificate age and emits operational outputs for 24/7 incident response, maintenance planning, upgrade readiness, and steady-state assurance.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- availability-margin (index 0):\n- maintenance-readiness (index 1):\n- upgrade-lifecycle-pressure (index 2):\n- operational-confidence (index 3):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Kubernetes Control Plane Guard (RED) -> action: Dispatch dc_facilities_agent for immediate stabilization of kubernetes control plane guard.\n- Kubernetes Control Plane Guard (GREEN) -> action: Schedule maintenance for kubernetes control plane guard with rollback and staffing checks.\n- Kubernetes Control Plane Guard (GREEN) -> action: Plan upgrade or lifecycle change for kubernetes control plane guard using risk-gated rollout.\n- Kubernetes Control Plane Guard (GREEN) -> action: Keep 24/7 monitoring active for kubernetes control plane guard.\n- Kubernetes Control Plane Guard (GREEN) -> action: Project kubernetes control plane guard forward over the next 24 hours and prescribe maintenance or upgrade work before the risk window opens.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Data Center Kubernetes Control Plane Guard\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Data-center operations machine for kubernetes control plane guard. It monitors API health, etcd quorum, node pressure, and certificate age and emits operational outputs for 24/7 incident response, maintenance planning, upgrade readiness, and steady-state assurance.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- availability-margin (index 0):\n- maintenance-readiness (index 1):\n- upgrade-lifecycle-pressure (index 2):\n- operational-confidence (index 3):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Kubernetes Control Plane Guard (RED) -> action: dispatch-agent\n- Kubernetes Control Plane Guard (GREEN) -> action: create-work-order\n- Kubernetes Control Plane Guard (GREEN) -> action: route-review\n- Kubernetes Control Plane Guard (GREEN) -> action: continue-monitoring\n- Kubernetes Control Plane Guard (GREEN) -> action: create-work-order",
     "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
     "inputAxes": [
       {
@@ -80,35 +80,35 @@
         "label": "Kubernetes Control Plane Guard",
         "rag": "RED",
         "outputIndex": 0,
-        "action": "Dispatch dc_facilities_agent for immediate stabilization of kubernetes control plane guard."
+        "action": "dispatch-agent"
       },
       {
         "sequenceId": "dcx-021-maintenance",
         "label": "Kubernetes Control Plane Guard",
         "rag": "GREEN",
         "outputIndex": 1,
-        "action": "Schedule maintenance for kubernetes control plane guard with rollback and staffing checks."
+        "action": "create-work-order"
       },
       {
         "sequenceId": "dcx-021-upgrade",
         "label": "Kubernetes Control Plane Guard",
         "rag": "GREEN",
         "outputIndex": 2,
-        "action": "Plan upgrade or lifecycle change for kubernetes control plane guard using risk-gated rollout."
+        "action": "route-review"
       },
       {
         "sequenceId": "dcx-021-nominal",
         "label": "Kubernetes Control Plane Guard",
         "rag": "GREEN",
         "outputIndex": 3,
-        "action": "Keep 24/7 monitoring active for kubernetes control plane guard."
+        "action": "continue-monitoring"
       },
       {
         "sequenceId": "dcx-021-24h-projection",
         "label": "Kubernetes Control Plane Guard",
         "rag": "GREEN",
         "outputIndex": 1,
-        "action": "Project kubernetes control plane guard forward over the next 24 hours and prescribe maintenance or upgrade work before the risk window opens."
+        "action": "create-work-order"
       }
     ]
   },
@@ -185,7 +185,7 @@
           "responseKey": "availability-margin",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -228,7 +228,7 @@
           "responseKey": "maintenance-readiness",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -271,7 +271,7 @@
           "responseKey": "upgrade-lifecycle-pressure",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -314,7 +314,7 @@
           "responseKey": "operational-confidence",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,

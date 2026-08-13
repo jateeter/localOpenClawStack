@@ -33,7 +33,7 @@ def round_values(values: list[float]) -> list[float]:
 def build_agent_completion(transform: dict, agent_cfg: dict) -> dict:
     agent_path = (Path(__file__).resolve().parent / agent_cfg["agentFile"]).resolve()
     agent = load_json(agent_path)
-    targets, extracted = apply_response_mapping(
+    targets, extracted, _unresolved = apply_response_mapping(
         agent_cfg["proofResponseText"], agent["responseMapping"])
     if len(targets) != 1:
         raise ValueError(f"{agent_cfg['agentId']} produced {len(targets)} target regions")

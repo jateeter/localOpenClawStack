@@ -34,7 +34,7 @@
   },
   "reasoning": {
     "objective": "Produce the normalized input vector for \"Energy Feeder And Transmission Path Manager\" from current observations so RE can evaluate its CES sequences.",
-    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Energy Feeder And Transmission Path Manager\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Monitors feeder sectionalizer availability, path capacity, protection posture, fault isolation, switching, and communication health.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- feeder_sectionalizer_available_norm (index 0):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- feeder_power_quality_within_band_norm (index 1):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- route_capacity_sufficient_norm (index 2):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- fault_isolation_active_norm (index 3):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- switching_operation_pending_norm (index 4):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- protection_coordination_valid_norm (index 5):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- communications_to_field_device_healthy_norm (index 6):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- alternate_path_available_norm (index 7):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Feeder And Transmission Path Manager (RED) -> action: ISOLATE_FAULT for resilient community microgrid operations.\n- Feeder And Transmission Path Manager (AMBER) -> action: SWITCH_FEEDER_PATH for resilient community microgrid operations.\n- Feeder And Transmission Path Manager (AMBER) -> action: ROUTE_CAPACITY_LIMITED for resilient community microgrid operations.\n- Feeder And Transmission Path Manager (GREEN) -> action: PATH_STABLE for resilient community microgrid operations.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Energy Feeder And Transmission Path Manager\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Monitors feeder sectionalizer availability, path capacity, protection posture, fault isolation, switching, and communication health.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- feeder_sectionalizer_available_norm (index 0):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- feeder_power_quality_within_band_norm (index 1):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- route_capacity_sufficient_norm (index 2):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- fault_isolation_active_norm (index 3):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- switching_operation_pending_norm (index 4):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- protection_coordination_valid_norm (index 5):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- communications_to_field_device_healthy_norm (index 6):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- alternate_path_available_norm (index 7):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Feeder And Transmission Path Manager (RED) -> action: adjust-operations\n- Feeder And Transmission Path Manager (AMBER) -> action: adjust-operations\n- Feeder And Transmission Path Manager (AMBER) -> action: route-review\n- Feeder And Transmission Path Manager (GREEN) -> action: continue-monitoring",
     "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
     "inputAxes": [
       {
@@ -116,28 +116,28 @@
         "label": "Feeder And Transmission Path Manager",
         "rag": "RED",
         "outputIndex": 0,
-        "action": "ISOLATE_FAULT for resilient community microgrid operations."
+        "action": "adjust-operations"
       },
       {
         "sequenceId": "enx205-switch-feeder-path",
         "label": "Feeder And Transmission Path Manager",
         "rag": "AMBER",
         "outputIndex": 1,
-        "action": "SWITCH_FEEDER_PATH for resilient community microgrid operations."
+        "action": "adjust-operations"
       },
       {
         "sequenceId": "enx205-route-capacity-limited",
         "label": "Feeder And Transmission Path Manager",
         "rag": "AMBER",
         "outputIndex": 2,
-        "action": "ROUTE_CAPACITY_LIMITED for resilient community microgrid operations."
+        "action": "route-review"
       },
       {
         "sequenceId": "enx205-path-stable",
         "label": "Feeder And Transmission Path Manager",
         "rag": "GREEN",
         "outputIndex": 3,
-        "action": "PATH_STABLE for resilient community microgrid operations."
+        "action": "continue-monitoring"
       }
     ]
   },
@@ -218,7 +218,7 @@
           "responseKey": "feeder_sectionalizer_available_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -261,7 +261,7 @@
           "responseKey": "feeder_power_quality_within_band_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -304,7 +304,7 @@
           "responseKey": "route_capacity_sufficient_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -347,7 +347,7 @@
           "responseKey": "fault_isolation_active_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -390,7 +390,7 @@
           "responseKey": "switching_operation_pending_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -433,7 +433,7 @@
           "responseKey": "protection_coordination_valid_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -476,7 +476,7 @@
           "responseKey": "communications_to_field_device_healthy_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -519,7 +519,7 @@
           "responseKey": "alternate_path_available_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,

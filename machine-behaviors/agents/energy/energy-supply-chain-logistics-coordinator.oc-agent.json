@@ -34,7 +34,7 @@
   },
   "reasoning": {
     "objective": "Produce the normalized input vector for \"Energy Supply Chain Logistics Coordinator\" from current observations so RE can evaluate its CES sequences.",
-    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Energy Supply Chain Logistics Coordinator\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Manages spare parts, fuel or alternate energy supplies, field crews, mobile battery assets, mutual aid vendors, lead time, and work-order backlog.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- spare_inverter_parts_below_threshold_norm (index 0):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- battery_service_parts_below_threshold_norm (index 1):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- generator_fuel_or_alternate_energy_supply_constrained_norm (index 2):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- field_crew_unavailable_norm (index 3):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- ev_or_mobile_battery_asset_unavailable_norm (index 4):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- food_heating_or_cooking_fuel_support_constrained_norm (index 5):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- communications_repair_part_constrained_norm (index 6):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- mutual_aid_vendor_capacity_available_norm (index 7):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- procurement_lead_time_exceeds_resilience_window_norm (index 8):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- work_order_backlog_active_norm (index 9):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Supply Chain Logistics Coordinator (RED) -> action: LOGISTICS_BLOCKING_RESILIENCE for resilient community microgrid operations.\n- Supply Chain Logistics Coordinator (AMBER) -> action: EXPEDITE_SUPPLY_CHAIN for resilient community microgrid operations.\n- Supply Chain Logistics Coordinator (AMBER) -> action: SCHEDULE_FIELD_CREW for resilient community microgrid operations.\n- Supply Chain Logistics Coordinator (GREEN) -> action: LOGISTICS_STABLE for resilient community microgrid operations.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Energy Supply Chain Logistics Coordinator\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Manages spare parts, fuel or alternate energy supplies, field crews, mobile battery assets, mutual aid vendors, lead time, and work-order backlog.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- spare_inverter_parts_below_threshold_norm (index 0):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- battery_service_parts_below_threshold_norm (index 1):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- generator_fuel_or_alternate_energy_supply_constrained_norm (index 2):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- field_crew_unavailable_norm (index 3):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- ev_or_mobile_battery_asset_unavailable_norm (index 4):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- food_heating_or_cooking_fuel_support_constrained_norm (index 5):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- communications_repair_part_constrained_norm (index 6):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- mutual_aid_vendor_capacity_available_norm (index 7):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- procurement_lead_time_exceeds_resilience_window_norm (index 8):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- work_order_backlog_active_norm (index 9):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Supply Chain Logistics Coordinator (RED) -> action: route-review\n- Supply Chain Logistics Coordinator (AMBER) -> action: adjust-operations\n- Supply Chain Logistics Coordinator (AMBER) -> action: schedule-care-review\n- Supply Chain Logistics Coordinator (GREEN) -> action: continue-monitoring",
     "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
     "inputAxes": [
       {
@@ -134,28 +134,28 @@
         "label": "Supply Chain Logistics Coordinator",
         "rag": "RED",
         "outputIndex": 0,
-        "action": "LOGISTICS_BLOCKING_RESILIENCE for resilient community microgrid operations."
+        "action": "route-review"
       },
       {
         "sequenceId": "enx207-expedite-supply-chain",
         "label": "Supply Chain Logistics Coordinator",
         "rag": "AMBER",
         "outputIndex": 1,
-        "action": "EXPEDITE_SUPPLY_CHAIN for resilient community microgrid operations."
+        "action": "adjust-operations"
       },
       {
         "sequenceId": "enx207-schedule-field-crew",
         "label": "Supply Chain Logistics Coordinator",
         "rag": "AMBER",
         "outputIndex": 2,
-        "action": "SCHEDULE_FIELD_CREW for resilient community microgrid operations."
+        "action": "schedule-care-review"
       },
       {
         "sequenceId": "enx207-logistics-stable",
         "label": "Supply Chain Logistics Coordinator",
         "rag": "GREEN",
         "outputIndex": 3,
-        "action": "LOGISTICS_STABLE for resilient community microgrid operations."
+        "action": "continue-monitoring"
       }
     ]
   },
@@ -238,7 +238,7 @@
           "responseKey": "spare_inverter_parts_below_threshold_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -281,7 +281,7 @@
           "responseKey": "battery_service_parts_below_threshold_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -324,7 +324,7 @@
           "responseKey": "generator_fuel_or_alternate_energy_supply_constrained_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -367,7 +367,7 @@
           "responseKey": "field_crew_unavailable_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -410,7 +410,7 @@
           "responseKey": "ev_or_mobile_battery_asset_unavailable_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -453,7 +453,7 @@
           "responseKey": "food_heating_or_cooking_fuel_support_constrained_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -496,7 +496,7 @@
           "responseKey": "communications_repair_part_constrained_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -539,7 +539,7 @@
           "responseKey": "mutual_aid_vendor_capacity_available_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -582,7 +582,7 @@
           "responseKey": "procurement_lead_time_exceeds_resilience_window_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -625,7 +625,7 @@
           "responseKey": "work_order_backlog_active_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,

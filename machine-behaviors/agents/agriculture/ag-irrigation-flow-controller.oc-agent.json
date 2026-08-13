@@ -34,7 +34,7 @@
   },
   "reasoning": {
     "objective": "Produce the normalized input vector for \"Ag Irrigation Flow Controller\" from current observations so RE can evaluate its CES sequences.",
-    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Ag Irrigation Flow Controller\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Monitors substrate moisture, flow rate, and electrical conductivity to detect irrigation deficits and waterlogging in hydroponic and soil-based indoor systems. Two escalation sequences (DRY_DOWN and WATERLOG) plus a BALANCED signal for optimal drainage cycles. Upstream: raw flow sensors at [4:8]. Downstream: AgPlantGrowthCycleMonitor reads output at [24:28].\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- soil_moisture_norm (index 0):  0.0 = bone dry | 0.5 = optimal field capacity (60% WHC) | 1.0 = fully saturated\n- flow_rate_norm (index 1):  0.0 = no flow | 0.5 = nominal irrigation rate | 1.0 = max pump capacity\n- substrate_ec_norm (index 2):  0.0 = distilled water | 0.5 = 2.0 mS/cm (target) | 1.0 = 4.0+ mS/cm (toxic)\n- runoff_ratio_norm (index 3):  0.0 = zero runoff | 0.5 = 15\u201320% (healthy drainage) | 1.0 = 100% runoff\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- IRRIGATE_ON (AMBER) -> action: Immediate irrigation; downstream growth monitor registers water-stress state\n- DRAIN_ALERT (AMBER) -> action: Emergency drain; downstream growth monitor registers waterlogging state\n- FLOW_OK (GREEN) -> action: Downstream AgPlantGrowthCycleMonitor registers healthy water state",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Ag Irrigation Flow Controller\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Monitors substrate moisture, flow rate, and electrical conductivity to detect irrigation deficits and waterlogging in hydroponic and soil-based indoor systems. Two escalation sequences (DRY_DOWN and WATERLOG) plus a BALANCED signal for optimal drainage cycles. Upstream: raw flow sensors at [4:8]. Downstream: AgPlantGrowthCycleMonitor reads output at [24:28].\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- soil_moisture_norm (index 0):  0.0 = bone dry | 0.5 = optimal field capacity (60% WHC) | 1.0 = fully saturated\n- flow_rate_norm (index 1):  0.0 = no flow | 0.5 = nominal irrigation rate | 1.0 = max pump capacity\n- substrate_ec_norm (index 2):  0.0 = distilled water | 0.5 = 2.0 mS/cm (target) | 1.0 = 4.0+ mS/cm (toxic)\n- runoff_ratio_norm (index 3):  0.0 = zero runoff | 0.5 = 15\u201320% (healthy drainage) | 1.0 = 100% runoff\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- IRRIGATE_ON (AMBER) -> action: continue-monitoring\n- DRAIN_ALERT (AMBER) -> action: urgent-intervention\n- FLOW_OK (GREEN) -> action: continue-monitoring",
     "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
     "inputAxes": [
       {
@@ -80,21 +80,21 @@
         "label": "IRRIGATE_ON",
         "rag": "AMBER",
         "outputIndex": 0,
-        "action": "Immediate irrigation; downstream growth monitor registers water-stress state"
+        "action": "continue-monitoring"
       },
       {
         "sequenceId": "ag-irrig-waterlog",
         "label": "DRAIN_ALERT",
         "rag": "AMBER",
         "outputIndex": 1,
-        "action": "Emergency drain; downstream growth monitor registers waterlogging state"
+        "action": "urgent-intervention"
       },
       {
         "sequenceId": "ag-irrig-balanced",
         "label": "FLOW_OK",
         "rag": "GREEN",
         "outputIndex": 3,
-        "action": "Downstream AgPlantGrowthCycleMonitor registers healthy water state"
+        "action": "continue-monitoring"
       }
     ]
   },
@@ -171,7 +171,7 @@
           "responseKey": "soil_moisture_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -214,7 +214,7 @@
           "responseKey": "flow_rate_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -257,7 +257,7 @@
           "responseKey": "substrate_ec_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -300,7 +300,7 @@
           "responseKey": "runoff_ratio_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,

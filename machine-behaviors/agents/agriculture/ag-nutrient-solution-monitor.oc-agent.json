@@ -34,7 +34,7 @@
   },
   "reasoning": {
     "objective": "Produce the normalized input vector for \"Ag Nutrient Solution Monitor\" from current observations so RE can evaluate its CES sequences.",
-    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Ag Nutrient Solution Monitor\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Monitors hydroponic nutrient solution quality including pH, electrical conductivity, and nitrogen concentration. Three concurrent patterns detect: pH acidification drift, EC toxicity escalation, and macronutrient deficiency. Upstream: raw nutrient sensors at [8:12]. Downstream: AgNutrientCycleOptimizer reads output at [28:32].\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- ph_norm (index 0):  0.0 = pH3 (extreme acid) | 0.5 = pH6.5 (optimal) | 1.0 = pH10 (extreme base)\n- ec_norm (index 1):  0.0 = 0 mS/cm (distilled) | 0.5 = 2.0 mS/cm (target) | 1.0 = 4.0 mS/cm (toxic)\n- nitrogen_norm (index 2):  0.0 = severe N deficit | 0.5 = optimal N level | 1.0 = N excess/toxicity\n- micronutrient_norm (index 3):  0.0 = severe deficit | 0.5 = balanced trace minerals | 1.0 = excess/lockout\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- PH_ALERT (AMBER) -> action: Inject pH-up solution; flush reservoir; notify nutrient cycle optimizer\n- EC_ALERT (AMBER) -> action: Add fresh water to reservoir; reduce nutrient dosing; flush substrate\n- DEFICIENCY_ALERT (AMBER) -> action: Add concentrated A+B nutrient solution; check dosing pump function",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Ag Nutrient Solution Monitor\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Monitors hydroponic nutrient solution quality including pH, electrical conductivity, and nitrogen concentration. Three concurrent patterns detect: pH acidification drift, EC toxicity escalation, and macronutrient deficiency. Upstream: raw nutrient sensors at [8:12]. Downstream: AgNutrientCycleOptimizer reads output at [28:32].\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- ph_norm (index 0):  0.0 = pH3 (extreme acid) | 0.5 = pH6.5 (optimal) | 1.0 = pH10 (extreme base)\n- ec_norm (index 1):  0.0 = 0 mS/cm (distilled) | 0.5 = 2.0 mS/cm (target) | 1.0 = 4.0 mS/cm (toxic)\n- nitrogen_norm (index 2):  0.0 = severe N deficit | 0.5 = optimal N level | 1.0 = N excess/toxicity\n- micronutrient_norm (index 3):  0.0 = severe deficit | 0.5 = balanced trace minerals | 1.0 = excess/lockout\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- PH_ALERT (AMBER) -> action: adjust-operations\n- EC_ALERT (AMBER) -> action: adjust-operations\n- DEFICIENCY_ALERT (AMBER) -> action: adjust-operations",
     "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
     "inputAxes": [
       {
@@ -80,21 +80,21 @@
         "label": "PH_ALERT",
         "rag": "AMBER",
         "outputIndex": 0,
-        "action": "Inject pH-up solution; flush reservoir; notify nutrient cycle optimizer"
+        "action": "adjust-operations"
       },
       {
         "sequenceId": "ag-nutrient-ec-escalation",
         "label": "EC_ALERT",
         "rag": "AMBER",
         "outputIndex": 1,
-        "action": "Add fresh water to reservoir; reduce nutrient dosing; flush substrate"
+        "action": "adjust-operations"
       },
       {
         "sequenceId": "ag-nutrient-deficiency",
         "label": "DEFICIENCY_ALERT",
         "rag": "AMBER",
         "outputIndex": 2,
-        "action": "Add concentrated A+B nutrient solution; check dosing pump function"
+        "action": "adjust-operations"
       }
     ]
   },
@@ -171,7 +171,7 @@
           "responseKey": "ph_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -214,7 +214,7 @@
           "responseKey": "ec_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -257,7 +257,7 @@
           "responseKey": "nitrogen_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -300,7 +300,7 @@
           "responseKey": "micronutrient_norm",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,

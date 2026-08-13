@@ -34,7 +34,7 @@
   },
   "reasoning": {
     "objective": "Produce the normalized input vector for \"Agriculture Yuma Facility AI Synthesis Bridge\" from current observations so RE can evaluate its CES sequences.",
-    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Agriculture Yuma Facility AI Synthesis Bridge\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Yuma MQTT \u2192 AI Synthesis Bridge. Aggregates the four Yuma MQTT-driven maintenance machines (AGX051-054) at offsets [256:272) and projects a 12-cell synthesis vector onto AgYieldOptimizationAI's input window at offsets [3959:3971], completing the path from live broker sensors through domain-specific maintenance machines into the cross-domain yield AI.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- agx051-aquaculture-maintenance-forecast-bit-1 (index 0):\n- agx051-aquaculture-maintenance-forecast-bit-2 (index 1):\n- agx051-aquaculture-maintenance-forecast-bit-3 (index 2):\n- agx051-aquaculture-maintenance-forecast-bit-4 (index 3):\n- agx052-dissolved-oxygen-probe-reliability-bit-1 (index 4):\n- agx052-dissolved-oxygen-probe-reliability-bit-2 (index 5):\n- agx052-dissolved-oxygen-probe-reliability-bit-3 (index 6):\n- agx052-dissolved-oxygen-probe-reliability-bit-4 (index 7):\n- agx053-hvac-service-plan-bit-1 (index 8):\n- agx053-hvac-service-plan-bit-2 (index 9):\n- agx053-hvac-service-plan-bit-3 (index 10):\n- agx053-hvac-service-plan-bit-4 (index 11):\n- agx054-co2-safety-compliance-bit-1 (index 12):\n- agx054-co2-safety-compliance-bit-2 (index 13):\n- agx054-co2-safety-compliance-bit-3 (index 14):\n- agx054-co2-safety-compliance-bit-4 (index 15):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- agx-055-aqua-urgent (RED) -> action: Project synthesis vector onto AgYieldOptimizationAI input window at [3959:3971]; AI dispatches cross-domain optimization.\n- agx-055-do-urgent (RED) -> action: Project synthesis vector onto AgYieldOptimizationAI input window at [3959:3971]; AI dispatches cross-domain optimization.\n- agx-055-climate-urgent (RED) -> action: Project synthesis vector onto AgYieldOptimizationAI input window at [3959:3971]; AI dispatches cross-domain optimization.\n- agx-055-safety-urgent (RED) -> action: Project synthesis vector onto AgYieldOptimizationAI input window at [3959:3971]; AI dispatches cross-domain optimization.\n- agx-055-facility-stable (GREEN) -> action: Project synthesis vector onto AgYieldOptimizationAI input window at [3959:3971]; AI dispatches cross-domain optimization.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Agriculture Yuma Facility AI Synthesis Bridge\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Yuma MQTT \u2192 AI Synthesis Bridge. Aggregates the four Yuma MQTT-driven maintenance machines (AGX051-054) at offsets [256:272) and projects a 12-cell synthesis vector onto AgYieldOptimizationAI's input window at offsets [3959:3971], completing the path from live broker sensors through domain-specific maintenance machines into the cross-domain yield AI.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- agx051-aquaculture-maintenance-forecast-bit-1 (index 0):\n- agx051-aquaculture-maintenance-forecast-bit-2 (index 1):\n- agx051-aquaculture-maintenance-forecast-bit-3 (index 2):\n- agx051-aquaculture-maintenance-forecast-bit-4 (index 3):\n- agx052-dissolved-oxygen-probe-reliability-bit-1 (index 4):\n- agx052-dissolved-oxygen-probe-reliability-bit-2 (index 5):\n- agx052-dissolved-oxygen-probe-reliability-bit-3 (index 6):\n- agx052-dissolved-oxygen-probe-reliability-bit-4 (index 7):\n- agx053-hvac-service-plan-bit-1 (index 8):\n- agx053-hvac-service-plan-bit-2 (index 9):\n- agx053-hvac-service-plan-bit-3 (index 10):\n- agx053-hvac-service-plan-bit-4 (index 11):\n- agx054-co2-safety-compliance-bit-1 (index 12):\n- agx054-co2-safety-compliance-bit-2 (index 13):\n- agx054-co2-safety-compliance-bit-3 (index 14):\n- agx054-co2-safety-compliance-bit-4 (index 15):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- agx-055-aqua-urgent (RED) -> action: create-work-order\n- agx-055-do-urgent (RED) -> action: create-work-order\n- agx-055-climate-urgent (RED) -> action: create-work-order\n- agx-055-safety-urgent (RED) -> action: create-work-order\n- agx-055-facility-stable (GREEN) -> action: create-work-order",
     "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
     "inputAxes": [
       {
@@ -188,35 +188,35 @@
         "label": "agx-055-aqua-urgent",
         "rag": "RED",
         "outputIndex": 0,
-        "action": "Project synthesis vector onto AgYieldOptimizationAI input window at [3959:3971]; AI dispatches cross-domain optimization."
+        "action": "create-work-order"
       },
       {
         "sequenceId": "agx-055-do-urgent",
         "label": "agx-055-do-urgent",
         "rag": "RED",
         "outputIndex": 3,
-        "action": "Project synthesis vector onto AgYieldOptimizationAI input window at [3959:3971]; AI dispatches cross-domain optimization."
+        "action": "create-work-order"
       },
       {
         "sequenceId": "agx-055-climate-urgent",
         "label": "agx-055-climate-urgent",
         "rag": "RED",
         "outputIndex": 6,
-        "action": "Project synthesis vector onto AgYieldOptimizationAI input window at [3959:3971]; AI dispatches cross-domain optimization."
+        "action": "create-work-order"
       },
       {
         "sequenceId": "agx-055-safety-urgent",
         "label": "agx-055-safety-urgent",
         "rag": "RED",
         "outputIndex": 9,
-        "action": "Project synthesis vector onto AgYieldOptimizationAI input window at [3959:3971]; AI dispatches cross-domain optimization."
+        "action": "create-work-order"
       },
       {
         "sequenceId": "agx-055-facility-stable",
         "label": "agx-055-facility-stable",
         "rag": "GREEN",
         "outputIndex": 11,
-        "action": "Project synthesis vector onto AgYieldOptimizationAI input window at [3959:3971]; AI dispatches cross-domain optimization."
+        "action": "create-work-order"
       }
     ]
   },
@@ -305,7 +305,7 @@
           "responseKey": "agx051-aquaculture-maintenance-forecast-bit-1",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -348,7 +348,7 @@
           "responseKey": "agx051-aquaculture-maintenance-forecast-bit-2",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -391,7 +391,7 @@
           "responseKey": "agx051-aquaculture-maintenance-forecast-bit-3",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -434,7 +434,7 @@
           "responseKey": "agx051-aquaculture-maintenance-forecast-bit-4",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -477,7 +477,7 @@
           "responseKey": "agx052-dissolved-oxygen-probe-reliability-bit-1",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -520,7 +520,7 @@
           "responseKey": "agx052-dissolved-oxygen-probe-reliability-bit-2",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -563,7 +563,7 @@
           "responseKey": "agx052-dissolved-oxygen-probe-reliability-bit-3",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -606,7 +606,7 @@
           "responseKey": "agx052-dissolved-oxygen-probe-reliability-bit-4",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -649,7 +649,7 @@
           "responseKey": "agx053-hvac-service-plan-bit-1",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -692,7 +692,7 @@
           "responseKey": "agx053-hvac-service-plan-bit-2",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -735,7 +735,7 @@
           "responseKey": "agx053-hvac-service-plan-bit-3",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -778,7 +778,7 @@
           "responseKey": "agx053-hvac-service-plan-bit-4",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -821,7 +821,7 @@
           "responseKey": "agx054-co2-safety-compliance-bit-1",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -864,7 +864,7 @@
           "responseKey": "agx054-co2-safety-compliance-bit-2",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -907,7 +907,7 @@
           "responseKey": "agx054-co2-safety-compliance-bit-3",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -950,7 +950,7 @@
           "responseKey": "agx054-co2-safety-compliance-bit-4",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,

@@ -34,7 +34,7 @@
   },
   "reasoning": {
     "objective": "Produce the normalized input vector for \"FacilitiesMaintenance\" from current observations so RE can evaluate its CES sequences.",
-    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"FacilitiesMaintenance\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Integrates facilities maintenance workflows into the eldercare patient health pipeline. Models janitorial, hygiene, and general living space maintenance activities as structured observational sequences. Each maintenance visit is an observational opportunity \u2014 facilities staff serve as a frontline sensing layer, reporting hygiene deficits, fall hazards, nutritional gaps, and patient wellness concerns to the clinical care workflow engines (DailyPatientCare, WellnessAnalytics). Produces six outputs: two completion signals (daily, weekly) and four clinical alert signals feeding downstream eldercare machines.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- facilitiesmaintenance-input-1 (index 0):\n- facilitiesmaintenance-input-2 (index 1):\n- facilitiesmaintenance-input-3 (index 2):\n- facilitiesmaintenance-input-4 (index 3):\n- facilitiesmaintenance-input-5 (index 4):\n- facilitiesmaintenance-input-6 (index 5):\n- facilitiesmaintenance-input-7 (index 6):\n- facilitiesmaintenance-input-8 (index 7):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- maint-daily-routine (GREEN) -> action: Log visit completion. No clinical alert generated. Supervisor review during standard shift handoff. Contributes to longitudinal visit pattern baseline.\n- maint-weekly-deep-clean (GREEN) -> action: Log weekly visit completion with nutrition assessment results. Submit to supervisor for weekly review. If nutrition indicators were marginal but within threshold, note in visit record for trending.\n- HYGIENE_ALERT \u2014 bathroom or linen hygiene deficit observed by facilities staff. Downstream (AMBER) -> action: Alert charge nurse immediately. CNA dispatched for hygiene assistance within 1 hour. Nurse assesses for incontinence, mobility decline, or cognitive factors. Document in care record. Integration layer writes BATHROOM/ALERT input to DailyPatientCare perceptual region.\n- SAFETY_ALERT \u2014 fall hazard or unsafe living space condition identified by facilities staff. Downstream (RED) -> action: Immediately mitigate hazard (wet floor sign, remove rug, clear pathway). Alert charge nurse with specific hazard description. Nurse assesses patient for evidence of prior fall or injury. Submit work order for permanent remediation. File incident report per facility policy.\n- WELLNESS_CONCERN \u2014 patient observation by facilities staff raised welfare flag. Downstream (AMBER) -> action: Immediately inform charge nurse. Worker documents specific observed behaviors (did not recognize worker, appeared tearful, was unable to state the day). Nurse assesses within 2 hours (immediately if acute). Integration layer evaluates patient context and writes to WellnessAnalytics input at offset 234.\n- INACCESSIBILITY_ALERT \u2014 unit inaccessible after multiple attempts by facilities staff. Welfare check protocol activated. Potential downstream (RED) -> action: Immediate: notify charge nurse and supervisor. Charge nurse accompanies facilities staff for emergency access (supervisor key or master key). Assess patient status on entry. If medical emergency: activate 911 and CareTransitionWorkflow Sequence 1. If not found: activate elopement protocol. If safe (sleeping, showering): document resolved incident. File incident report regardless.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"FacilitiesMaintenance\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Integrates facilities maintenance workflows into the eldercare patient health pipeline. Models janitorial, hygiene, and general living space maintenance activities as structured observational sequences. Each maintenance visit is an observational opportunity \u2014 facilities staff serve as a frontline sensing layer, reporting hygiene deficits, fall hazards, nutritional gaps, and patient wellness concerns to the clinical care workflow engines (DailyPatientCare, WellnessAnalytics). Produces six outputs: two completion signals (daily, weekly) and four clinical alert signals feeding downstream eldercare machines.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- facilitiesmaintenance-input-1 (index 0):\n- facilitiesmaintenance-input-2 (index 1):\n- facilitiesmaintenance-input-3 (index 2):\n- facilitiesmaintenance-input-4 (index 3):\n- facilitiesmaintenance-input-5 (index 4):\n- facilitiesmaintenance-input-6 (index 5):\n- facilitiesmaintenance-input-7 (index 6):\n- facilitiesmaintenance-input-8 (index 7):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- maint-daily-routine (GREEN) -> action: log-activity\n- maint-weekly-deep-clean (GREEN) -> action: route-referral\n- HYGIENE_ALERT \u2014 bathroom or linen hygiene deficit observed by facilities staff. Downstream (AMBER) -> action: urgent-intervention\n- SAFETY_ALERT \u2014 fall hazard or unsafe living space condition identified by facilities staff. Downstream (RED) -> action: urgent-intervention\n- WELLNESS_CONCERN \u2014 patient observation by facilities staff raised welfare flag. Downstream (AMBER) -> action: urgent-intervention\n- INACCESSIBILITY_ALERT \u2014 unit inaccessible after multiple attempts by facilities staff. Welfare check protocol activated. Potential downstream (RED) -> action: urgent-intervention",
     "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
     "inputAxes": [
       {
@@ -116,42 +116,42 @@
         "label": "maint-daily-routine",
         "rag": "GREEN",
         "outputIndex": 0,
-        "action": "Log visit completion. No clinical alert generated. Supervisor review during standard shift handoff. Contributes to longitudinal visit pattern baseline."
+        "action": "log-activity"
       },
       {
         "sequenceId": "maint-weekly-deep-clean",
         "label": "maint-weekly-deep-clean",
         "rag": "GREEN",
         "outputIndex": 1,
-        "action": "Log weekly visit completion with nutrition assessment results. Submit to supervisor for weekly review. If nutrition indicators were marginal but within threshold, note in visit record for trending."
+        "action": "route-referral"
       },
       {
         "sequenceId": "maint-hygiene-concern",
         "label": "HYGIENE_ALERT \u2014 bathroom or linen hygiene deficit observed by facilities staff. Downstream",
         "rag": "AMBER",
         "outputIndex": 2,
-        "action": "Alert charge nurse immediately. CNA dispatched for hygiene assistance within 1 hour. Nurse assesses for incontinence, mobility decline, or cognitive factors. Document in care record. Integration layer writes BATHROOM/ALERT input to DailyPatientCare perceptual region."
+        "action": "urgent-intervention"
       },
       {
         "sequenceId": "maint-safety-concern",
         "label": "SAFETY_ALERT \u2014 fall hazard or unsafe living space condition identified by facilities staff. Downstream",
         "rag": "RED",
         "outputIndex": 3,
-        "action": "Immediately mitigate hazard (wet floor sign, remove rug, clear pathway). Alert charge nurse with specific hazard description. Nurse assesses patient for evidence of prior fall or injury. Submit work order for permanent remediation. File incident report per facility policy."
+        "action": "urgent-intervention"
       },
       {
         "sequenceId": "maint-wellness-concern",
         "label": "WELLNESS_CONCERN \u2014 patient observation by facilities staff raised welfare flag. Downstream",
         "rag": "AMBER",
         "outputIndex": 4,
-        "action": "Immediately inform charge nurse. Worker documents specific observed behaviors (did not recognize worker, appeared tearful, was unable to state the day). Nurse assesses within 2 hours (immediately if acute). Integration layer evaluates patient context and writes to WellnessAnalytics input at offset 234."
+        "action": "urgent-intervention"
       },
       {
         "sequenceId": "maint-inaccessible",
         "label": "INACCESSIBILITY_ALERT \u2014 unit inaccessible after multiple attempts by facilities staff. Welfare check protocol activated. Potential downstream",
         "rag": "RED",
         "outputIndex": 5,
-        "action": "Immediate: notify charge nurse and supervisor. Charge nurse accompanies facilities staff for emergency access (supervisor key or master key). Assess patient status on entry. If medical emergency: activate 911 and CareTransitionWorkflow Sequence 1. If not found: activate elopement protocol. If safe (sleeping, showering): document resolved incident. File incident report regardless."
+        "action": "urgent-intervention"
       }
     ]
   },
@@ -232,7 +232,7 @@
           "responseKey": "facilitiesmaintenance-input-1",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -275,7 +275,7 @@
           "responseKey": "facilitiesmaintenance-input-2",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -318,7 +318,7 @@
           "responseKey": "facilitiesmaintenance-input-3",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -361,7 +361,7 @@
           "responseKey": "facilitiesmaintenance-input-4",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -404,7 +404,7 @@
           "responseKey": "facilitiesmaintenance-input-5",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -447,7 +447,7 @@
           "responseKey": "facilitiesmaintenance-input-6",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -490,7 +490,7 @@
           "responseKey": "facilitiesmaintenance-input-7",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -533,7 +533,7 @@
           "responseKey": "facilitiesmaintenance-input-8",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,

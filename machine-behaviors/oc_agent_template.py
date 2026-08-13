@@ -221,7 +221,8 @@ def _response_mapping(axes: list[dict[str, Any]], sensor_id: str,
             "extract": {
                 "jsonPointer": f"/{ax['key']}",
                 "responseKey": ax["key"],
-                "textFallback": {"type": "scalar-phrase", "default": 0.5,
+                "textFallback": {"type": "scalar-phrase",
+                                 "onUnresolved": "divert-to-analysis",
                                  "phrases": _AXIS_PHRASES,
                                  "numberRegex": r"(\d+(?:\.\d+)?)"},
             },
@@ -347,7 +348,7 @@ def demo_turn(instance: dict[str, Any]) -> dict[str, Any]:
     lines += [f"asserted_sequence: {asserted}", "confidence: high",
               "rationale: scripted deteriorating-state demo; values trend below threshold."]
     response_text = "\n".join(lines)
-    targets, extracted = openclaw_side.apply_response_mapping(
+    targets, extracted, unresolved = openclaw_side.apply_response_mapping(
         response_text, instance["responseMapping"])
     return {"responseText": response_text, "targets": targets, "extracted": extracted,
             "assertedSequence": asserted}

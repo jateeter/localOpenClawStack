@@ -173,7 +173,7 @@ def _passthrough(norm, val):
                           "textFallback": {"type": "scalar-phrase", "default": 0.5,
                                            "phrases": {}, "numberRegex": r"(\d+(?:\.\d+)?)"}},
               "target": {"sensorId": "s", "region": {"offset": 0, "length": 1}, "index": 0}}]}
-    _targets, _ = _ocs.apply_response_mapping(f"x: {val}", rm)
+    _targets, _, _ = _ocs.apply_response_mapping(f"x: {val}", rm)
     return _targets[0]["values"][0]
 
 

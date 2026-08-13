@@ -34,7 +34,7 @@
   },
   "reasoning": {
     "objective": "Produce the normalized input vector for \"Social Isolation Access Interconnect\" from current observations so RE can evaluate its CES sequences.",
-    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Social Isolation Access Interconnect\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Published personal-health bridge bus that composes social isolation, medication access, transportation access, and mental health access into a compact social access response lane.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- severe-isolation-bit (index 0):\n- social-withdrawal-bit (index 1):\n- isolation-risk-bit (index 2):\n- socially-connected-bit (index 3):\n- medication-adherence-crisis-bit (index 4):\n- cost-barrier-active-bit (index 5):\n- partial-medication-adherence-bit (index 6):\n- medication-managed-bit (index 7):\n- transport-critical-access-failure-bit (index 8):\n- transport-appointment-barrier-bit (index 9):\n- transport-dependent-risk-bit (index 10):\n- transport-adequate-bit (index 11):\n- mental-health-crisis-bit (index 12):\n- mental-health-referral-needed-bit (index 13):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- SELF_NEGLECT_OUTREACH at [4616 (RED) -> action: SELF_NEGLECT_OUTREACH\n- ACCESS_BARRIER_NAVIGATION at [4616 (AMBER) -> action: ACCESS_BARRIER_NAVIGATION\n- SOCIAL_RHYTHM_SUPPORT at [4616 (AMBER) -> action: SOCIAL_RHYTHM_SUPPORT\n- STABLE_CONNECTED_ACCESS at [4616 (GREEN) -> action: STABLE_CONNECTED_ACCESS",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Social Isolation Access Interconnect\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Published personal-health bridge bus that composes social isolation, medication access, transportation access, and mental health access into a compact social access response lane.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- severe-isolation-bit (index 0):\n- social-withdrawal-bit (index 1):\n- isolation-risk-bit (index 2):\n- socially-connected-bit (index 3):\n- medication-adherence-crisis-bit (index 4):\n- cost-barrier-active-bit (index 5):\n- partial-medication-adherence-bit (index 6):\n- medication-managed-bit (index 7):\n- transport-critical-access-failure-bit (index 8):\n- transport-appointment-barrier-bit (index 9):\n- transport-dependent-risk-bit (index 10):\n- transport-adequate-bit (index 11):\n- mental-health-crisis-bit (index 12):\n- mental-health-referral-needed-bit (index 13):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- SELF_NEGLECT_OUTREACH at [4616 (RED) -> action: route-referral\n- ACCESS_BARRIER_NAVIGATION at [4616 (AMBER) -> action: route-referral\n- SOCIAL_RHYTHM_SUPPORT at [4616 (AMBER) -> action: route-referral\n- STABLE_CONNECTED_ACCESS at [4616 (GREEN) -> action: continue-monitoring",
     "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
     "inputAxes": [
       {
@@ -170,28 +170,28 @@
         "label": "SELF_NEGLECT_OUTREACH at [4616",
         "rag": "RED",
         "outputIndex": 0,
-        "action": "SELF_NEGLECT_OUTREACH"
+        "action": "route-referral"
       },
       {
         "sequenceId": "social-access-barrier-navigation",
         "label": "ACCESS_BARRIER_NAVIGATION at [4616",
         "rag": "AMBER",
         "outputIndex": 1,
-        "action": "ACCESS_BARRIER_NAVIGATION"
+        "action": "route-referral"
       },
       {
         "sequenceId": "social-access-rhythm-support",
         "label": "SOCIAL_RHYTHM_SUPPORT at [4616",
         "rag": "AMBER",
         "outputIndex": 2,
-        "action": "SOCIAL_RHYTHM_SUPPORT"
+        "action": "route-referral"
       },
       {
         "sequenceId": "social-access-stable",
         "label": "STABLE_CONNECTED_ACCESS at [4616",
         "rag": "GREEN",
         "outputIndex": 3,
-        "action": "STABLE_CONNECTED_ACCESS"
+        "action": "continue-monitoring"
       }
     ]
   },
@@ -278,7 +278,7 @@
           "responseKey": "severe-isolation-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -321,7 +321,7 @@
           "responseKey": "social-withdrawal-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -364,7 +364,7 @@
           "responseKey": "isolation-risk-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -407,7 +407,7 @@
           "responseKey": "socially-connected-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -450,7 +450,7 @@
           "responseKey": "medication-adherence-crisis-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -493,7 +493,7 @@
           "responseKey": "cost-barrier-active-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -536,7 +536,7 @@
           "responseKey": "partial-medication-adherence-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -579,7 +579,7 @@
           "responseKey": "medication-managed-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -622,7 +622,7 @@
           "responseKey": "transport-critical-access-failure-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -665,7 +665,7 @@
           "responseKey": "transport-appointment-barrier-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -708,7 +708,7 @@
           "responseKey": "transport-dependent-risk-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -751,7 +751,7 @@
           "responseKey": "transport-adequate-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -794,7 +794,7 @@
           "responseKey": "mental-health-crisis-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
@@ -837,7 +837,7 @@
           "responseKey": "mental-health-referral-needed-bit",
           "textFallback": {
             "type": "scalar-phrase",
-            "default": 0.5,
+            "onUnresolved": "divert-to-analysis",
             "phrases": {
               "crisis": 0.05,
               "severe": 0.15,
