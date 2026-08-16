@@ -34,12 +34,12 @@
   },
   "reasoning": {
     "objective": "Produce the normalized input vector for \"Built Space BSX-081-090 Interconnect\" from current observations so RE can evaluate its CES sequences.",
-    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Built Space BSX-081-090 Interconnect\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Published built-space bridge bus that composes Built Space BSX-081-090 into a compact domain family response lane. PE owns source composition and writes the compact input lane; RE evaluates this machine as ordinary vector state.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- built-space-well-materials-and-cleaning-material-transparency-register-active-output-0-bit (index 0):\n- built-space-well-materials-and-cleaning-material-transparency-register-active-output-1-bit (index 1):\n- built-space-well-materials-and-cleaning-material-transparency-register-active-output-2-bit (index 2):\n- built-space-well-materials-and-cleaning-interior-finish-compliance-active-output-0-bit (index 3):\n- built-space-well-materials-and-cleaning-interior-finish-compliance-active-output-1-bit (index 4):\n- built-space-well-materials-and-cleaning-interior-finish-compliance-active-output-2-bit (index 5):\n- built-space-well-materials-and-cleaning-cleaning-product-safety-active-output-0-bit (index 6):\n- built-space-well-materials-and-cleaning-cleaning-product-safety-active-output-1-bit (index 7):\n- built-space-well-materials-and-cleaning-cleaning-product-safety-active-output-2-bit (index 8):\n- built-space-well-materials-and-cleaning-cleaning-schedule-assurance-active-output-0-bit (index 9):\n- built-space-well-materials-and-cleaning-cleaning-schedule-assurance-active-output-1-bit (index 10):\n- built-space-well-materials-and-cleaning-cleaning-schedule-assurance-active-output-2-bit (index 11):\n- built-space-well-materials-and-cleaning-pest-management-safety-active-output-0-bit (index 12):\n- built-space-well-materials-and-cleaning-pest-management-safety-active-output-1-bit (index 13):\n- built-space-well-materials-and-cleaning-pest-management-safety-active-output-2-bit (index 14):\n- built-space-well-materials-and-cleaning-waste-recycling-operations-active-output-0-bit (index 15):\n- built-space-well-materials-and-cleaning-waste-recycling-operations-active-output-1-bit (index 16):\n- built-space-well-materials-and-cleaning-waste-recycling-operations-active-output-2-bit (index 17):\n- built-space-well-materials-and-cleaning-moisture-materials-risk-active-output-0-bit (index 18):\n- built-space-well-materials-and-cleaning-moisture-materials-risk-active-output-1-bit (index 19):\n- built-space-well-materials-and-cleaning-moisture-materials-risk-active-output-2-bit (index 20):\n- built-space-well-materials-and-cleaning-construction-dust-control-active-output-0-bit (index 21):\n- built-space-well-materials-and-cleaning-construction-dust-control-active-output-1-bit (index 22):\n- built-space-well-materials-and-cleaning-construction-dust-control-active-output-2-bit (index 23):\n- built-space-well-materials-and-cleaning-materials-evidence-archive-active-output-0-bit (index 24):\n- built-space-well-materials-and-cleaning-materials-evidence-archive-active-output-1-bit (index 25):\n- built-space-well-materials-and-cleaning-materials-evidence-archive-active-output-2-bit (index 26):\n- built-space-well-materials-and-cleaning-materials-executive-assurance-active-output-0-bit (index 27):\n- built-space-well-materials-and-cleaning-materials-executive-assurance-active-output-1-bit (index 28):\n- built-space-well-materials-and-cleaning-materials-executive-assurance-active-output-2-bit (index 29):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Built Space BSX-081-090 domain family review at [13550 (RED) -> action: route-review\n- Built Space BSX-081-090 domain family optimization at [13550 (AMBER) -> action: route-review\n- Built Space BSX-081-090 domain family monitoring at [13550 (AMBER) -> action: route-review\n- Built Space BSX-081-090 domain family stable at [13550 (GREEN) -> action: continue-monitoring",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Built Space BSX-081-090 Interconnect\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Published built-space bridge bus that composes Built Space BSX-081-090 into a compact domain family response lane. PE owns source composition and writes the compact input lane; RE evaluates this machine as ordinary vector state.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- built_space_well_materials_and_cleaning_material_transparency_register_active_output_0_bit (index 0):\n- built_space_well_materials_and_cleaning_material_transparency_register_active_output_1_bit (index 1):\n- built_space_well_materials_and_cleaning_material_transparency_register_active_output_2_bit (index 2):\n- built_space_well_materials_and_cleaning_interior_finish_compliance_active_output_0_bit (index 3):\n- built_space_well_materials_and_cleaning_interior_finish_compliance_active_output_1_bit (index 4):\n- built_space_well_materials_and_cleaning_interior_finish_compliance_active_output_2_bit (index 5):\n- built_space_well_materials_and_cleaning_cleaning_product_safety_active_output_0_bit (index 6):\n- built_space_well_materials_and_cleaning_cleaning_product_safety_active_output_1_bit (index 7):\n- built_space_well_materials_and_cleaning_cleaning_product_safety_active_output_2_bit (index 8):\n- built_space_well_materials_and_cleaning_cleaning_schedule_assurance_active_output_0_bit (index 9):\n- built_space_well_materials_and_cleaning_cleaning_schedule_assurance_active_output_1_bit (index 10):\n- built_space_well_materials_and_cleaning_cleaning_schedule_assurance_active_output_2_bit (index 11):\n- built_space_well_materials_and_cleaning_pest_management_safety_active_output_0_bit (index 12):\n- built_space_well_materials_and_cleaning_pest_management_safety_active_output_1_bit (index 13):\n- built_space_well_materials_and_cleaning_pest_management_safety_active_output_2_bit (index 14):\n- built_space_well_materials_and_cleaning_waste_recycling_operations_active_output_0_bit (index 15):\n- built_space_well_materials_and_cleaning_waste_recycling_operations_active_output_1_bit (index 16):\n- built_space_well_materials_and_cleaning_waste_recycling_operations_active_output_2_bit (index 17):\n- built_space_well_materials_and_cleaning_moisture_materials_risk_active_output_0_bit (index 18):\n- built_space_well_materials_and_cleaning_moisture_materials_risk_active_output_1_bit (index 19):\n- built_space_well_materials_and_cleaning_moisture_materials_risk_active_output_2_bit (index 20):\n- built_space_well_materials_and_cleaning_construction_dust_control_active_output_0_bit (index 21):\n- built_space_well_materials_and_cleaning_construction_dust_control_active_output_1_bit (index 22):\n- built_space_well_materials_and_cleaning_construction_dust_control_active_output_2_bit (index 23):\n- built_space_well_materials_and_cleaning_materials_evidence_archive_active_output_0_bit (index 24):\n- built_space_well_materials_and_cleaning_materials_evidence_archive_active_output_1_bit (index 25):\n- built_space_well_materials_and_cleaning_materials_evidence_archive_active_output_2_bit (index 26):\n- built_space_well_materials_and_cleaning_materials_executive_assurance_active_output_0_bit (index 27):\n- built_space_well_materials_and_cleaning_materials_executive_assurance_active_output_1_bit (index 28):\n- built_space_well_materials_and_cleaning_materials_executive_assurance_active_output_2_bit (index 29):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Built Space BSX-081-090 domain family review at [13550 (RED) -> action: route-review\n- Built Space BSX-081-090 domain family optimization at [13550 (AMBER) -> action: route-review\n- Built Space BSX-081-090 domain family monitoring at [13550 (AMBER) -> action: route-review\n- Built Space BSX-081-090 domain family stable at [13550 (GREEN) -> action: continue-monitoring",
     "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
     "inputAxes": [
       {
         "index": 0,
-        "key": "built-space-well-materials-and-cleaning-material-transparency-register-active-output-0-bit",
+        "key": "built_space_well_materials_and_cleaning_material_transparency_register_active_output_0_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -48,7 +48,7 @@
       },
       {
         "index": 1,
-        "key": "built-space-well-materials-and-cleaning-material-transparency-register-active-output-1-bit",
+        "key": "built_space_well_materials_and_cleaning_material_transparency_register_active_output_1_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -57,7 +57,7 @@
       },
       {
         "index": 2,
-        "key": "built-space-well-materials-and-cleaning-material-transparency-register-active-output-2-bit",
+        "key": "built_space_well_materials_and_cleaning_material_transparency_register_active_output_2_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -66,7 +66,7 @@
       },
       {
         "index": 3,
-        "key": "built-space-well-materials-and-cleaning-interior-finish-compliance-active-output-0-bit",
+        "key": "built_space_well_materials_and_cleaning_interior_finish_compliance_active_output_0_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -75,7 +75,7 @@
       },
       {
         "index": 4,
-        "key": "built-space-well-materials-and-cleaning-interior-finish-compliance-active-output-1-bit",
+        "key": "built_space_well_materials_and_cleaning_interior_finish_compliance_active_output_1_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -84,7 +84,7 @@
       },
       {
         "index": 5,
-        "key": "built-space-well-materials-and-cleaning-interior-finish-compliance-active-output-2-bit",
+        "key": "built_space_well_materials_and_cleaning_interior_finish_compliance_active_output_2_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -93,7 +93,7 @@
       },
       {
         "index": 6,
-        "key": "built-space-well-materials-and-cleaning-cleaning-product-safety-active-output-0-bit",
+        "key": "built_space_well_materials_and_cleaning_cleaning_product_safety_active_output_0_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -102,7 +102,7 @@
       },
       {
         "index": 7,
-        "key": "built-space-well-materials-and-cleaning-cleaning-product-safety-active-output-1-bit",
+        "key": "built_space_well_materials_and_cleaning_cleaning_product_safety_active_output_1_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -111,7 +111,7 @@
       },
       {
         "index": 8,
-        "key": "built-space-well-materials-and-cleaning-cleaning-product-safety-active-output-2-bit",
+        "key": "built_space_well_materials_and_cleaning_cleaning_product_safety_active_output_2_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -120,7 +120,7 @@
       },
       {
         "index": 9,
-        "key": "built-space-well-materials-and-cleaning-cleaning-schedule-assurance-active-output-0-bit",
+        "key": "built_space_well_materials_and_cleaning_cleaning_schedule_assurance_active_output_0_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -129,7 +129,7 @@
       },
       {
         "index": 10,
-        "key": "built-space-well-materials-and-cleaning-cleaning-schedule-assurance-active-output-1-bit",
+        "key": "built_space_well_materials_and_cleaning_cleaning_schedule_assurance_active_output_1_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -138,7 +138,7 @@
       },
       {
         "index": 11,
-        "key": "built-space-well-materials-and-cleaning-cleaning-schedule-assurance-active-output-2-bit",
+        "key": "built_space_well_materials_and_cleaning_cleaning_schedule_assurance_active_output_2_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -147,7 +147,7 @@
       },
       {
         "index": 12,
-        "key": "built-space-well-materials-and-cleaning-pest-management-safety-active-output-0-bit",
+        "key": "built_space_well_materials_and_cleaning_pest_management_safety_active_output_0_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -156,7 +156,7 @@
       },
       {
         "index": 13,
-        "key": "built-space-well-materials-and-cleaning-pest-management-safety-active-output-1-bit",
+        "key": "built_space_well_materials_and_cleaning_pest_management_safety_active_output_1_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -165,7 +165,7 @@
       },
       {
         "index": 14,
-        "key": "built-space-well-materials-and-cleaning-pest-management-safety-active-output-2-bit",
+        "key": "built_space_well_materials_and_cleaning_pest_management_safety_active_output_2_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -174,7 +174,7 @@
       },
       {
         "index": 15,
-        "key": "built-space-well-materials-and-cleaning-waste-recycling-operations-active-output-0-bit",
+        "key": "built_space_well_materials_and_cleaning_waste_recycling_operations_active_output_0_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -183,7 +183,7 @@
       },
       {
         "index": 16,
-        "key": "built-space-well-materials-and-cleaning-waste-recycling-operations-active-output-1-bit",
+        "key": "built_space_well_materials_and_cleaning_waste_recycling_operations_active_output_1_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -192,7 +192,7 @@
       },
       {
         "index": 17,
-        "key": "built-space-well-materials-and-cleaning-waste-recycling-operations-active-output-2-bit",
+        "key": "built_space_well_materials_and_cleaning_waste_recycling_operations_active_output_2_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -201,7 +201,7 @@
       },
       {
         "index": 18,
-        "key": "built-space-well-materials-and-cleaning-moisture-materials-risk-active-output-0-bit",
+        "key": "built_space_well_materials_and_cleaning_moisture_materials_risk_active_output_0_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -210,7 +210,7 @@
       },
       {
         "index": 19,
-        "key": "built-space-well-materials-and-cleaning-moisture-materials-risk-active-output-1-bit",
+        "key": "built_space_well_materials_and_cleaning_moisture_materials_risk_active_output_1_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -219,7 +219,7 @@
       },
       {
         "index": 20,
-        "key": "built-space-well-materials-and-cleaning-moisture-materials-risk-active-output-2-bit",
+        "key": "built_space_well_materials_and_cleaning_moisture_materials_risk_active_output_2_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -228,7 +228,7 @@
       },
       {
         "index": 21,
-        "key": "built-space-well-materials-and-cleaning-construction-dust-control-active-output-0-bit",
+        "key": "built_space_well_materials_and_cleaning_construction_dust_control_active_output_0_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -237,7 +237,7 @@
       },
       {
         "index": 22,
-        "key": "built-space-well-materials-and-cleaning-construction-dust-control-active-output-1-bit",
+        "key": "built_space_well_materials_and_cleaning_construction_dust_control_active_output_1_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -246,7 +246,7 @@
       },
       {
         "index": 23,
-        "key": "built-space-well-materials-and-cleaning-construction-dust-control-active-output-2-bit",
+        "key": "built_space_well_materials_and_cleaning_construction_dust_control_active_output_2_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -255,7 +255,7 @@
       },
       {
         "index": 24,
-        "key": "built-space-well-materials-and-cleaning-materials-evidence-archive-active-output-0-bit",
+        "key": "built_space_well_materials_and_cleaning_materials_evidence_archive_active_output_0_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -264,7 +264,7 @@
       },
       {
         "index": 25,
-        "key": "built-space-well-materials-and-cleaning-materials-evidence-archive-active-output-1-bit",
+        "key": "built_space_well_materials_and_cleaning_materials_evidence_archive_active_output_1_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -273,7 +273,7 @@
       },
       {
         "index": 26,
-        "key": "built-space-well-materials-and-cleaning-materials-evidence-archive-active-output-2-bit",
+        "key": "built_space_well_materials_and_cleaning_materials_evidence_archive_active_output_2_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -282,7 +282,7 @@
       },
       {
         "index": 27,
-        "key": "built-space-well-materials-and-cleaning-materials-executive-assurance-active-output-0-bit",
+        "key": "built_space_well_materials_and_cleaning_materials_executive_assurance_active_output_0_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -291,7 +291,7 @@
       },
       {
         "index": 28,
-        "key": "built-space-well-materials-and-cleaning-materials-executive-assurance-active-output-1-bit",
+        "key": "built_space_well_materials_and_cleaning_materials_executive_assurance_active_output_1_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -300,7 +300,7 @@
       },
       {
         "index": 29,
-        "key": "built-space-well-materials-and-cleaning-materials-executive-assurance-active-output-2-bit",
+        "key": "built_space_well_materials_and_cleaning_materials_executive_assurance_active_output_2_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -356,36 +356,36 @@
         "length": 30
       },
       "semantics": [
-        "built-space-well-materials-and-cleaning-material-transparency-register-active-output-0-bit",
-        "built-space-well-materials-and-cleaning-material-transparency-register-active-output-1-bit",
-        "built-space-well-materials-and-cleaning-material-transparency-register-active-output-2-bit",
-        "built-space-well-materials-and-cleaning-interior-finish-compliance-active-output-0-bit",
-        "built-space-well-materials-and-cleaning-interior-finish-compliance-active-output-1-bit",
-        "built-space-well-materials-and-cleaning-interior-finish-compliance-active-output-2-bit",
-        "built-space-well-materials-and-cleaning-cleaning-product-safety-active-output-0-bit",
-        "built-space-well-materials-and-cleaning-cleaning-product-safety-active-output-1-bit",
-        "built-space-well-materials-and-cleaning-cleaning-product-safety-active-output-2-bit",
-        "built-space-well-materials-and-cleaning-cleaning-schedule-assurance-active-output-0-bit",
-        "built-space-well-materials-and-cleaning-cleaning-schedule-assurance-active-output-1-bit",
-        "built-space-well-materials-and-cleaning-cleaning-schedule-assurance-active-output-2-bit",
-        "built-space-well-materials-and-cleaning-pest-management-safety-active-output-0-bit",
-        "built-space-well-materials-and-cleaning-pest-management-safety-active-output-1-bit",
-        "built-space-well-materials-and-cleaning-pest-management-safety-active-output-2-bit",
-        "built-space-well-materials-and-cleaning-waste-recycling-operations-active-output-0-bit",
-        "built-space-well-materials-and-cleaning-waste-recycling-operations-active-output-1-bit",
-        "built-space-well-materials-and-cleaning-waste-recycling-operations-active-output-2-bit",
-        "built-space-well-materials-and-cleaning-moisture-materials-risk-active-output-0-bit",
-        "built-space-well-materials-and-cleaning-moisture-materials-risk-active-output-1-bit",
-        "built-space-well-materials-and-cleaning-moisture-materials-risk-active-output-2-bit",
-        "built-space-well-materials-and-cleaning-construction-dust-control-active-output-0-bit",
-        "built-space-well-materials-and-cleaning-construction-dust-control-active-output-1-bit",
-        "built-space-well-materials-and-cleaning-construction-dust-control-active-output-2-bit",
-        "built-space-well-materials-and-cleaning-materials-evidence-archive-active-output-0-bit",
-        "built-space-well-materials-and-cleaning-materials-evidence-archive-active-output-1-bit",
-        "built-space-well-materials-and-cleaning-materials-evidence-archive-active-output-2-bit",
-        "built-space-well-materials-and-cleaning-materials-executive-assurance-active-output-0-bit",
-        "built-space-well-materials-and-cleaning-materials-executive-assurance-active-output-1-bit",
-        "built-space-well-materials-and-cleaning-materials-executive-assurance-active-output-2-bit"
+        "built_space_well_materials_and_cleaning_material_transparency_register_active_output_0_bit",
+        "built_space_well_materials_and_cleaning_material_transparency_register_active_output_1_bit",
+        "built_space_well_materials_and_cleaning_material_transparency_register_active_output_2_bit",
+        "built_space_well_materials_and_cleaning_interior_finish_compliance_active_output_0_bit",
+        "built_space_well_materials_and_cleaning_interior_finish_compliance_active_output_1_bit",
+        "built_space_well_materials_and_cleaning_interior_finish_compliance_active_output_2_bit",
+        "built_space_well_materials_and_cleaning_cleaning_product_safety_active_output_0_bit",
+        "built_space_well_materials_and_cleaning_cleaning_product_safety_active_output_1_bit",
+        "built_space_well_materials_and_cleaning_cleaning_product_safety_active_output_2_bit",
+        "built_space_well_materials_and_cleaning_cleaning_schedule_assurance_active_output_0_bit",
+        "built_space_well_materials_and_cleaning_cleaning_schedule_assurance_active_output_1_bit",
+        "built_space_well_materials_and_cleaning_cleaning_schedule_assurance_active_output_2_bit",
+        "built_space_well_materials_and_cleaning_pest_management_safety_active_output_0_bit",
+        "built_space_well_materials_and_cleaning_pest_management_safety_active_output_1_bit",
+        "built_space_well_materials_and_cleaning_pest_management_safety_active_output_2_bit",
+        "built_space_well_materials_and_cleaning_waste_recycling_operations_active_output_0_bit",
+        "built_space_well_materials_and_cleaning_waste_recycling_operations_active_output_1_bit",
+        "built_space_well_materials_and_cleaning_waste_recycling_operations_active_output_2_bit",
+        "built_space_well_materials_and_cleaning_moisture_materials_risk_active_output_0_bit",
+        "built_space_well_materials_and_cleaning_moisture_materials_risk_active_output_1_bit",
+        "built_space_well_materials_and_cleaning_moisture_materials_risk_active_output_2_bit",
+        "built_space_well_materials_and_cleaning_construction_dust_control_active_output_0_bit",
+        "built_space_well_materials_and_cleaning_construction_dust_control_active_output_1_bit",
+        "built_space_well_materials_and_cleaning_construction_dust_control_active_output_2_bit",
+        "built_space_well_materials_and_cleaning_materials_evidence_archive_active_output_0_bit",
+        "built_space_well_materials_and_cleaning_materials_evidence_archive_active_output_1_bit",
+        "built_space_well_materials_and_cleaning_materials_evidence_archive_active_output_2_bit",
+        "built_space_well_materials_and_cleaning_materials_executive_assurance_active_output_0_bit",
+        "built_space_well_materials_and_cleaning_materials_executive_assurance_active_output_1_bit",
+        "built_space_well_materials_and_cleaning_materials_executive_assurance_active_output_2_bit"
       ],
       "ttlMs": 300000,
       "normalization": "already-normalized-0-1",
@@ -430,12 +430,12 @@
     "mode": "advise",
     "fields": [
       {
-        "semantic": "built-space-well-materials-and-cleaning-material-transparency-register-active-output-0-bit",
+        "semantic": "built_space_well_materials_and_cleaning_material_transparency_register_active_output_0_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/built-space-well-materials-and-cleaning-material-transparency-register-active-output-0-bit",
-          "responseKey": "built-space-well-materials-and-cleaning-material-transparency-register-active-output-0-bit",
+          "jsonPointer": "/built_space_well_materials_and_cleaning_material_transparency_register_active_output_0_bit",
+          "responseKey": "built_space_well_materials_and_cleaning_material_transparency_register_active_output_0_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -473,12 +473,12 @@
         }
       },
       {
-        "semantic": "built-space-well-materials-and-cleaning-material-transparency-register-active-output-1-bit",
+        "semantic": "built_space_well_materials_and_cleaning_material_transparency_register_active_output_1_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/built-space-well-materials-and-cleaning-material-transparency-register-active-output-1-bit",
-          "responseKey": "built-space-well-materials-and-cleaning-material-transparency-register-active-output-1-bit",
+          "jsonPointer": "/built_space_well_materials_and_cleaning_material_transparency_register_active_output_1_bit",
+          "responseKey": "built_space_well_materials_and_cleaning_material_transparency_register_active_output_1_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -516,12 +516,12 @@
         }
       },
       {
-        "semantic": "built-space-well-materials-and-cleaning-material-transparency-register-active-output-2-bit",
+        "semantic": "built_space_well_materials_and_cleaning_material_transparency_register_active_output_2_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/built-space-well-materials-and-cleaning-material-transparency-register-active-output-2-bit",
-          "responseKey": "built-space-well-materials-and-cleaning-material-transparency-register-active-output-2-bit",
+          "jsonPointer": "/built_space_well_materials_and_cleaning_material_transparency_register_active_output_2_bit",
+          "responseKey": "built_space_well_materials_and_cleaning_material_transparency_register_active_output_2_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -559,12 +559,12 @@
         }
       },
       {
-        "semantic": "built-space-well-materials-and-cleaning-interior-finish-compliance-active-output-0-bit",
+        "semantic": "built_space_well_materials_and_cleaning_interior_finish_compliance_active_output_0_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/built-space-well-materials-and-cleaning-interior-finish-compliance-active-output-0-bit",
-          "responseKey": "built-space-well-materials-and-cleaning-interior-finish-compliance-active-output-0-bit",
+          "jsonPointer": "/built_space_well_materials_and_cleaning_interior_finish_compliance_active_output_0_bit",
+          "responseKey": "built_space_well_materials_and_cleaning_interior_finish_compliance_active_output_0_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -602,12 +602,12 @@
         }
       },
       {
-        "semantic": "built-space-well-materials-and-cleaning-interior-finish-compliance-active-output-1-bit",
+        "semantic": "built_space_well_materials_and_cleaning_interior_finish_compliance_active_output_1_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/built-space-well-materials-and-cleaning-interior-finish-compliance-active-output-1-bit",
-          "responseKey": "built-space-well-materials-and-cleaning-interior-finish-compliance-active-output-1-bit",
+          "jsonPointer": "/built_space_well_materials_and_cleaning_interior_finish_compliance_active_output_1_bit",
+          "responseKey": "built_space_well_materials_and_cleaning_interior_finish_compliance_active_output_1_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -645,12 +645,12 @@
         }
       },
       {
-        "semantic": "built-space-well-materials-and-cleaning-interior-finish-compliance-active-output-2-bit",
+        "semantic": "built_space_well_materials_and_cleaning_interior_finish_compliance_active_output_2_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/built-space-well-materials-and-cleaning-interior-finish-compliance-active-output-2-bit",
-          "responseKey": "built-space-well-materials-and-cleaning-interior-finish-compliance-active-output-2-bit",
+          "jsonPointer": "/built_space_well_materials_and_cleaning_interior_finish_compliance_active_output_2_bit",
+          "responseKey": "built_space_well_materials_and_cleaning_interior_finish_compliance_active_output_2_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -688,12 +688,12 @@
         }
       },
       {
-        "semantic": "built-space-well-materials-and-cleaning-cleaning-product-safety-active-output-0-bit",
+        "semantic": "built_space_well_materials_and_cleaning_cleaning_product_safety_active_output_0_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/built-space-well-materials-and-cleaning-cleaning-product-safety-active-output-0-bit",
-          "responseKey": "built-space-well-materials-and-cleaning-cleaning-product-safety-active-output-0-bit",
+          "jsonPointer": "/built_space_well_materials_and_cleaning_cleaning_product_safety_active_output_0_bit",
+          "responseKey": "built_space_well_materials_and_cleaning_cleaning_product_safety_active_output_0_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -731,12 +731,12 @@
         }
       },
       {
-        "semantic": "built-space-well-materials-and-cleaning-cleaning-product-safety-active-output-1-bit",
+        "semantic": "built_space_well_materials_and_cleaning_cleaning_product_safety_active_output_1_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/built-space-well-materials-and-cleaning-cleaning-product-safety-active-output-1-bit",
-          "responseKey": "built-space-well-materials-and-cleaning-cleaning-product-safety-active-output-1-bit",
+          "jsonPointer": "/built_space_well_materials_and_cleaning_cleaning_product_safety_active_output_1_bit",
+          "responseKey": "built_space_well_materials_and_cleaning_cleaning_product_safety_active_output_1_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -774,12 +774,12 @@
         }
       },
       {
-        "semantic": "built-space-well-materials-and-cleaning-cleaning-product-safety-active-output-2-bit",
+        "semantic": "built_space_well_materials_and_cleaning_cleaning_product_safety_active_output_2_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/built-space-well-materials-and-cleaning-cleaning-product-safety-active-output-2-bit",
-          "responseKey": "built-space-well-materials-and-cleaning-cleaning-product-safety-active-output-2-bit",
+          "jsonPointer": "/built_space_well_materials_and_cleaning_cleaning_product_safety_active_output_2_bit",
+          "responseKey": "built_space_well_materials_and_cleaning_cleaning_product_safety_active_output_2_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -817,12 +817,12 @@
         }
       },
       {
-        "semantic": "built-space-well-materials-and-cleaning-cleaning-schedule-assurance-active-output-0-bit",
+        "semantic": "built_space_well_materials_and_cleaning_cleaning_schedule_assurance_active_output_0_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/built-space-well-materials-and-cleaning-cleaning-schedule-assurance-active-output-0-bit",
-          "responseKey": "built-space-well-materials-and-cleaning-cleaning-schedule-assurance-active-output-0-bit",
+          "jsonPointer": "/built_space_well_materials_and_cleaning_cleaning_schedule_assurance_active_output_0_bit",
+          "responseKey": "built_space_well_materials_and_cleaning_cleaning_schedule_assurance_active_output_0_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -860,12 +860,12 @@
         }
       },
       {
-        "semantic": "built-space-well-materials-and-cleaning-cleaning-schedule-assurance-active-output-1-bit",
+        "semantic": "built_space_well_materials_and_cleaning_cleaning_schedule_assurance_active_output_1_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/built-space-well-materials-and-cleaning-cleaning-schedule-assurance-active-output-1-bit",
-          "responseKey": "built-space-well-materials-and-cleaning-cleaning-schedule-assurance-active-output-1-bit",
+          "jsonPointer": "/built_space_well_materials_and_cleaning_cleaning_schedule_assurance_active_output_1_bit",
+          "responseKey": "built_space_well_materials_and_cleaning_cleaning_schedule_assurance_active_output_1_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -903,12 +903,12 @@
         }
       },
       {
-        "semantic": "built-space-well-materials-and-cleaning-cleaning-schedule-assurance-active-output-2-bit",
+        "semantic": "built_space_well_materials_and_cleaning_cleaning_schedule_assurance_active_output_2_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/built-space-well-materials-and-cleaning-cleaning-schedule-assurance-active-output-2-bit",
-          "responseKey": "built-space-well-materials-and-cleaning-cleaning-schedule-assurance-active-output-2-bit",
+          "jsonPointer": "/built_space_well_materials_and_cleaning_cleaning_schedule_assurance_active_output_2_bit",
+          "responseKey": "built_space_well_materials_and_cleaning_cleaning_schedule_assurance_active_output_2_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -946,12 +946,12 @@
         }
       },
       {
-        "semantic": "built-space-well-materials-and-cleaning-pest-management-safety-active-output-0-bit",
+        "semantic": "built_space_well_materials_and_cleaning_pest_management_safety_active_output_0_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/built-space-well-materials-and-cleaning-pest-management-safety-active-output-0-bit",
-          "responseKey": "built-space-well-materials-and-cleaning-pest-management-safety-active-output-0-bit",
+          "jsonPointer": "/built_space_well_materials_and_cleaning_pest_management_safety_active_output_0_bit",
+          "responseKey": "built_space_well_materials_and_cleaning_pest_management_safety_active_output_0_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -989,12 +989,12 @@
         }
       },
       {
-        "semantic": "built-space-well-materials-and-cleaning-pest-management-safety-active-output-1-bit",
+        "semantic": "built_space_well_materials_and_cleaning_pest_management_safety_active_output_1_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/built-space-well-materials-and-cleaning-pest-management-safety-active-output-1-bit",
-          "responseKey": "built-space-well-materials-and-cleaning-pest-management-safety-active-output-1-bit",
+          "jsonPointer": "/built_space_well_materials_and_cleaning_pest_management_safety_active_output_1_bit",
+          "responseKey": "built_space_well_materials_and_cleaning_pest_management_safety_active_output_1_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1032,12 +1032,12 @@
         }
       },
       {
-        "semantic": "built-space-well-materials-and-cleaning-pest-management-safety-active-output-2-bit",
+        "semantic": "built_space_well_materials_and_cleaning_pest_management_safety_active_output_2_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/built-space-well-materials-and-cleaning-pest-management-safety-active-output-2-bit",
-          "responseKey": "built-space-well-materials-and-cleaning-pest-management-safety-active-output-2-bit",
+          "jsonPointer": "/built_space_well_materials_and_cleaning_pest_management_safety_active_output_2_bit",
+          "responseKey": "built_space_well_materials_and_cleaning_pest_management_safety_active_output_2_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1075,12 +1075,12 @@
         }
       },
       {
-        "semantic": "built-space-well-materials-and-cleaning-waste-recycling-operations-active-output-0-bit",
+        "semantic": "built_space_well_materials_and_cleaning_waste_recycling_operations_active_output_0_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/built-space-well-materials-and-cleaning-waste-recycling-operations-active-output-0-bit",
-          "responseKey": "built-space-well-materials-and-cleaning-waste-recycling-operations-active-output-0-bit",
+          "jsonPointer": "/built_space_well_materials_and_cleaning_waste_recycling_operations_active_output_0_bit",
+          "responseKey": "built_space_well_materials_and_cleaning_waste_recycling_operations_active_output_0_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1118,12 +1118,12 @@
         }
       },
       {
-        "semantic": "built-space-well-materials-and-cleaning-waste-recycling-operations-active-output-1-bit",
+        "semantic": "built_space_well_materials_and_cleaning_waste_recycling_operations_active_output_1_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/built-space-well-materials-and-cleaning-waste-recycling-operations-active-output-1-bit",
-          "responseKey": "built-space-well-materials-and-cleaning-waste-recycling-operations-active-output-1-bit",
+          "jsonPointer": "/built_space_well_materials_and_cleaning_waste_recycling_operations_active_output_1_bit",
+          "responseKey": "built_space_well_materials_and_cleaning_waste_recycling_operations_active_output_1_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1161,12 +1161,12 @@
         }
       },
       {
-        "semantic": "built-space-well-materials-and-cleaning-waste-recycling-operations-active-output-2-bit",
+        "semantic": "built_space_well_materials_and_cleaning_waste_recycling_operations_active_output_2_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/built-space-well-materials-and-cleaning-waste-recycling-operations-active-output-2-bit",
-          "responseKey": "built-space-well-materials-and-cleaning-waste-recycling-operations-active-output-2-bit",
+          "jsonPointer": "/built_space_well_materials_and_cleaning_waste_recycling_operations_active_output_2_bit",
+          "responseKey": "built_space_well_materials_and_cleaning_waste_recycling_operations_active_output_2_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1204,12 +1204,12 @@
         }
       },
       {
-        "semantic": "built-space-well-materials-and-cleaning-moisture-materials-risk-active-output-0-bit",
+        "semantic": "built_space_well_materials_and_cleaning_moisture_materials_risk_active_output_0_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/built-space-well-materials-and-cleaning-moisture-materials-risk-active-output-0-bit",
-          "responseKey": "built-space-well-materials-and-cleaning-moisture-materials-risk-active-output-0-bit",
+          "jsonPointer": "/built_space_well_materials_and_cleaning_moisture_materials_risk_active_output_0_bit",
+          "responseKey": "built_space_well_materials_and_cleaning_moisture_materials_risk_active_output_0_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1247,12 +1247,12 @@
         }
       },
       {
-        "semantic": "built-space-well-materials-and-cleaning-moisture-materials-risk-active-output-1-bit",
+        "semantic": "built_space_well_materials_and_cleaning_moisture_materials_risk_active_output_1_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/built-space-well-materials-and-cleaning-moisture-materials-risk-active-output-1-bit",
-          "responseKey": "built-space-well-materials-and-cleaning-moisture-materials-risk-active-output-1-bit",
+          "jsonPointer": "/built_space_well_materials_and_cleaning_moisture_materials_risk_active_output_1_bit",
+          "responseKey": "built_space_well_materials_and_cleaning_moisture_materials_risk_active_output_1_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1290,12 +1290,12 @@
         }
       },
       {
-        "semantic": "built-space-well-materials-and-cleaning-moisture-materials-risk-active-output-2-bit",
+        "semantic": "built_space_well_materials_and_cleaning_moisture_materials_risk_active_output_2_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/built-space-well-materials-and-cleaning-moisture-materials-risk-active-output-2-bit",
-          "responseKey": "built-space-well-materials-and-cleaning-moisture-materials-risk-active-output-2-bit",
+          "jsonPointer": "/built_space_well_materials_and_cleaning_moisture_materials_risk_active_output_2_bit",
+          "responseKey": "built_space_well_materials_and_cleaning_moisture_materials_risk_active_output_2_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1333,12 +1333,12 @@
         }
       },
       {
-        "semantic": "built-space-well-materials-and-cleaning-construction-dust-control-active-output-0-bit",
+        "semantic": "built_space_well_materials_and_cleaning_construction_dust_control_active_output_0_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/built-space-well-materials-and-cleaning-construction-dust-control-active-output-0-bit",
-          "responseKey": "built-space-well-materials-and-cleaning-construction-dust-control-active-output-0-bit",
+          "jsonPointer": "/built_space_well_materials_and_cleaning_construction_dust_control_active_output_0_bit",
+          "responseKey": "built_space_well_materials_and_cleaning_construction_dust_control_active_output_0_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1376,12 +1376,12 @@
         }
       },
       {
-        "semantic": "built-space-well-materials-and-cleaning-construction-dust-control-active-output-1-bit",
+        "semantic": "built_space_well_materials_and_cleaning_construction_dust_control_active_output_1_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/built-space-well-materials-and-cleaning-construction-dust-control-active-output-1-bit",
-          "responseKey": "built-space-well-materials-and-cleaning-construction-dust-control-active-output-1-bit",
+          "jsonPointer": "/built_space_well_materials_and_cleaning_construction_dust_control_active_output_1_bit",
+          "responseKey": "built_space_well_materials_and_cleaning_construction_dust_control_active_output_1_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1419,12 +1419,12 @@
         }
       },
       {
-        "semantic": "built-space-well-materials-and-cleaning-construction-dust-control-active-output-2-bit",
+        "semantic": "built_space_well_materials_and_cleaning_construction_dust_control_active_output_2_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/built-space-well-materials-and-cleaning-construction-dust-control-active-output-2-bit",
-          "responseKey": "built-space-well-materials-and-cleaning-construction-dust-control-active-output-2-bit",
+          "jsonPointer": "/built_space_well_materials_and_cleaning_construction_dust_control_active_output_2_bit",
+          "responseKey": "built_space_well_materials_and_cleaning_construction_dust_control_active_output_2_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1462,12 +1462,12 @@
         }
       },
       {
-        "semantic": "built-space-well-materials-and-cleaning-materials-evidence-archive-active-output-0-bit",
+        "semantic": "built_space_well_materials_and_cleaning_materials_evidence_archive_active_output_0_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/built-space-well-materials-and-cleaning-materials-evidence-archive-active-output-0-bit",
-          "responseKey": "built-space-well-materials-and-cleaning-materials-evidence-archive-active-output-0-bit",
+          "jsonPointer": "/built_space_well_materials_and_cleaning_materials_evidence_archive_active_output_0_bit",
+          "responseKey": "built_space_well_materials_and_cleaning_materials_evidence_archive_active_output_0_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1505,12 +1505,12 @@
         }
       },
       {
-        "semantic": "built-space-well-materials-and-cleaning-materials-evidence-archive-active-output-1-bit",
+        "semantic": "built_space_well_materials_and_cleaning_materials_evidence_archive_active_output_1_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/built-space-well-materials-and-cleaning-materials-evidence-archive-active-output-1-bit",
-          "responseKey": "built-space-well-materials-and-cleaning-materials-evidence-archive-active-output-1-bit",
+          "jsonPointer": "/built_space_well_materials_and_cleaning_materials_evidence_archive_active_output_1_bit",
+          "responseKey": "built_space_well_materials_and_cleaning_materials_evidence_archive_active_output_1_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1548,12 +1548,12 @@
         }
       },
       {
-        "semantic": "built-space-well-materials-and-cleaning-materials-evidence-archive-active-output-2-bit",
+        "semantic": "built_space_well_materials_and_cleaning_materials_evidence_archive_active_output_2_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/built-space-well-materials-and-cleaning-materials-evidence-archive-active-output-2-bit",
-          "responseKey": "built-space-well-materials-and-cleaning-materials-evidence-archive-active-output-2-bit",
+          "jsonPointer": "/built_space_well_materials_and_cleaning_materials_evidence_archive_active_output_2_bit",
+          "responseKey": "built_space_well_materials_and_cleaning_materials_evidence_archive_active_output_2_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1591,12 +1591,12 @@
         }
       },
       {
-        "semantic": "built-space-well-materials-and-cleaning-materials-executive-assurance-active-output-0-bit",
+        "semantic": "built_space_well_materials_and_cleaning_materials_executive_assurance_active_output_0_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/built-space-well-materials-and-cleaning-materials-executive-assurance-active-output-0-bit",
-          "responseKey": "built-space-well-materials-and-cleaning-materials-executive-assurance-active-output-0-bit",
+          "jsonPointer": "/built_space_well_materials_and_cleaning_materials_executive_assurance_active_output_0_bit",
+          "responseKey": "built_space_well_materials_and_cleaning_materials_executive_assurance_active_output_0_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1634,12 +1634,12 @@
         }
       },
       {
-        "semantic": "built-space-well-materials-and-cleaning-materials-executive-assurance-active-output-1-bit",
+        "semantic": "built_space_well_materials_and_cleaning_materials_executive_assurance_active_output_1_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/built-space-well-materials-and-cleaning-materials-executive-assurance-active-output-1-bit",
-          "responseKey": "built-space-well-materials-and-cleaning-materials-executive-assurance-active-output-1-bit",
+          "jsonPointer": "/built_space_well_materials_and_cleaning_materials_executive_assurance_active_output_1_bit",
+          "responseKey": "built_space_well_materials_and_cleaning_materials_executive_assurance_active_output_1_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1677,12 +1677,12 @@
         }
       },
       {
-        "semantic": "built-space-well-materials-and-cleaning-materials-executive-assurance-active-output-2-bit",
+        "semantic": "built_space_well_materials_and_cleaning_materials_executive_assurance_active_output_2_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/built-space-well-materials-and-cleaning-materials-executive-assurance-active-output-2-bit",
-          "responseKey": "built-space-well-materials-and-cleaning-materials-executive-assurance-active-output-2-bit",
+          "jsonPointer": "/built_space_well_materials_and_cleaning_materials_executive_assurance_active_output_2_bit",
+          "responseKey": "built_space_well_materials_and_cleaning_materials_executive_assurance_active_output_2_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1724,7 +1724,7 @@
   "diagnostics": {
     "axisBasis": "inputSemantics",
     "warnings": [
-      "input axes derived from inputSemantics (no length-matched sensorNormalization)"
+      "input axes derived from inputSemantics; openClawProjection.semantics does not name these positions, so the agent's axis names are unverified"
     ],
     "inputLength": 30,
     "sequenceCount": 4

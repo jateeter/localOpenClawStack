@@ -34,12 +34,12 @@
   },
   "reasoning": {
     "objective": "Produce the normalized input vector for \"Home Medication Cost Barrier Monitor\" from current observations so RE can evaluate its CES sequences.",
-    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Home Medication Cost Barrier Monitor\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Monitors prescription fill rates, dose adherence, cost-driven non-adherence, and generic/assistance program access for low- and medium-income adults managing chronic conditions at home. Medication cost barriers are a leading driver of avoidable hospitalization and disease progression in economically vulnerable populations. Output at [2011:2015] feeds the Home Social Isolation Monitor, capturing how pharmacy access barriers compound transportation and social barriers.\n\nPOPULATION: Adults on chronic medications; uninsured or underinsured patients; Medicare Part D gap patients; households below 200% FPL\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- fill_ratio_norm (index 0):  0.0 = no prescriptions filled (complete non-adherence) | 0.5 = ~50% of prescribed fills completed | 1.0 = all prescriptions filled on schedule\n- dose_adherence_norm (index 1):  0.0 = not taking medications (stopped or skipping >50% doses) | 0.5 = taking but rationing (splitting doses, skipping days) | 1.0 = full prescribed adherence\n- cost_barrier_norm (index 2):  0.0 = cost explicitly cited as reason for not filling (unaffordable even with insurance) | 0.5 = difficulty but managing with assistance | 1.0 = no cost barrier reported\n- generic_access_norm (index 3):  0.0 = no access to generic or assistance programs; paying full brand price or going without | 0.5 = partial program access (copay cards, one drug covered) | 1.0 = fully enrolled in PAP or full generic coverage\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- ADHERENCE_CRISIS (AMBER) -> action: route-referral\n- COST_BARRIER_ACTIVE (AMBER) -> action: route-referral\n- MEDICATION_MANAGED (AMBER) -> action: continue-monitoring",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Home Medication Cost Barrier Monitor\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Monitors prescription fill rates, dose adherence, cost-driven non-adherence, and generic/assistance program access for low- and medium-income adults managing chronic conditions at home. Medication cost barriers are a leading driver of avoidable hospitalization and disease progression in economically vulnerable populations. Output at [2011:2015] feeds the Home Social Isolation Monitor, capturing how pharmacy access barriers compound transportation and social barriers.\n\nPOPULATION: Adults on chronic medications; uninsured or underinsured patients; Medicare Part D gap patients; households below 200% FPL\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- medication_affordability_norm (index 0):  0.0 = no prescriptions filled (complete non-adherence) | 0.5 = ~50% of prescribed fills completed | 1.0 = all prescriptions filled on schedule\n- refill_continuity_norm (index 1):  0.0 = not taking medications (stopped or skipping >50% doses) | 0.5 = taking but rationing (splitting doses, skipping days) | 1.0 = full prescribed adherence\n- dose_rationing_norm (index 2):  0.0 = cost explicitly cited as reason for not filling (unaffordable even with insurance) | 0.5 = difficulty but managing with assistance | 1.0 = no cost barrier reported\n- benefit_access_norm (index 3):  0.0 = no access to generic or assistance programs; paying full brand price or going without | 0.5 = partial program access (copay cards, one drug covered) | 1.0 = fully enrolled in PAP or full generic coverage\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- ADHERENCE_CRISIS (AMBER) -> action: route-referral\n- COST_BARRIER_ACTIVE (AMBER) -> action: route-referral\n- MEDICATION_MANAGED (AMBER) -> action: continue-monitoring",
     "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
     "inputAxes": [
       {
         "index": 0,
-        "key": "fill_ratio_norm",
+        "key": "medication_affordability_norm",
         "anchors": {
           "low": "no prescriptions filled (complete non-adherence)",
           "mid": "~50% of prescribed fills completed",
@@ -48,7 +48,7 @@
       },
       {
         "index": 1,
-        "key": "dose_adherence_norm",
+        "key": "refill_continuity_norm",
         "anchors": {
           "low": "not taking medications (stopped or skipping >50% doses)",
           "mid": "taking but rationing (splitting doses, skipping days)",
@@ -57,7 +57,7 @@
       },
       {
         "index": 2,
-        "key": "cost_barrier_norm",
+        "key": "dose_rationing_norm",
         "anchors": {
           "low": "cost explicitly cited as reason for not filling (unaffordable even with insurance)",
           "mid": "difficulty but managing with assistance",
@@ -66,7 +66,7 @@
       },
       {
         "index": 3,
-        "key": "generic_access_norm",
+        "key": "benefit_access_norm",
         "anchors": {
           "low": "no access to generic or assistance programs; paying full brand price or going without",
           "mid": "partial program access (copay cards, one drug covered)",
@@ -115,10 +115,10 @@
         "length": 4
       },
       "semantics": [
-        "fill_ratio_norm",
-        "dose_adherence_norm",
-        "cost_barrier_norm",
-        "generic_access_norm"
+        "medication_affordability_norm",
+        "refill_continuity_norm",
+        "dose_rationing_norm",
+        "benefit_access_norm"
       ],
       "ttlMs": 300000,
       "normalization": "already-normalized-0-1",
@@ -163,12 +163,12 @@
     "mode": "advise",
     "fields": [
       {
-        "semantic": "fill_ratio_norm",
+        "semantic": "medication_affordability_norm",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/fill_ratio_norm",
-          "responseKey": "fill_ratio_norm",
+          "jsonPointer": "/medication_affordability_norm",
+          "responseKey": "medication_affordability_norm",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -206,12 +206,12 @@
         }
       },
       {
-        "semantic": "dose_adherence_norm",
+        "semantic": "refill_continuity_norm",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/dose_adherence_norm",
-          "responseKey": "dose_adherence_norm",
+          "jsonPointer": "/refill_continuity_norm",
+          "responseKey": "refill_continuity_norm",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -249,12 +249,12 @@
         }
       },
       {
-        "semantic": "cost_barrier_norm",
+        "semantic": "dose_rationing_norm",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/cost_barrier_norm",
-          "responseKey": "cost_barrier_norm",
+          "jsonPointer": "/dose_rationing_norm",
+          "responseKey": "dose_rationing_norm",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -292,12 +292,12 @@
         }
       },
       {
-        "semantic": "generic_access_norm",
+        "semantic": "benefit_access_norm",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/generic_access_norm",
-          "responseKey": "generic_access_norm",
+          "jsonPointer": "/benefit_access_norm",
+          "responseKey": "benefit_access_norm",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -337,7 +337,7 @@
     ]
   },
   "diagnostics": {
-    "axisBasis": "sensorNormalization",
+    "axisBasis": "openClawProjection",
     "warnings": [],
     "inputLength": 4,
     "sequenceCount": 3

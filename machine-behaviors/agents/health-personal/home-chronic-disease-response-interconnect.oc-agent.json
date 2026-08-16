@@ -34,12 +34,12 @@
   },
   "reasoning": {
     "objective": "Produce the normalized input vector for \"Home Chronic Disease Response Interconnect\" from current observations so RE can evaluate its CES sequences.",
-    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Home Chronic Disease Response Interconnect\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Published personal-health bridge bus that composes chronic disease control, medication access, transportation access, food security, and activity tolerance into a compact fan-out lane for urgent disease response, access/adherence support, preventive intensification, and stable monitoring. PE owns source composition and writes the compact input lane; RE evaluates this machine as ordinary vector state.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- disease-exacerbation-bit (index 0):\n- poor-chronic-disease-control-bit (index 1):\n- borderline-chronic-disease-control-bit (index 2):\n- disease-controlled-bit (index 3):\n- medication-adherence-crisis-bit (index 4):\n- medication-cost-barrier-active-bit (index 5):\n- partial-medication-adherence-bit (index 6):\n- medication-managed-bit (index 7):\n- critical-transportation-access-failure-bit (index 8):\n- appointment-transportation-barrier-bit (index 9):\n- transit-dependent-risk-bit (index 10):\n- transportation-adequate-bit (index 11):\n- food-crisis-bit (index 12):\n- food-insecure-bit (index 13):\n- food-assistance-needed-bit (index 14):\n- food-secure-bit (index 15):\n- below-baseline-activity-bit (index 16):\n- sedentary-streak-active-bit (index 17):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- URGENT_DISEASE_RESPONSE (RED) -> action: urgent-intervention\n- ACCESS_ADHERENCE_SUPPORT (AMBER) -> action: route-referral\n- PREVENTIVE_INTENSIFICATION (AMBER) -> action: route-referral\n- STABLE_CHRONIC_DISEASE_MONITORING (GREEN) -> action: continue-monitoring",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Home Chronic Disease Response Interconnect\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Published personal-health bridge bus that composes chronic disease control, medication access, transportation access, food security, and activity tolerance into a compact fan-out lane for urgent disease response, access/adherence support, preventive intensification, and stable monitoring. PE owns source composition and writes the compact input lane; RE evaluates this machine as ordinary vector state.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- disease_exacerbation_bit (index 0):\n- poor_chronic_disease_control_bit (index 1):\n- borderline_chronic_disease_control_bit (index 2):\n- disease_controlled_bit (index 3):\n- medication_adherence_crisis_bit (index 4):\n- medication_cost_barrier_active_bit (index 5):\n- partial_medication_adherence_bit (index 6):\n- medication_managed_bit (index 7):\n- critical_transportation_access_failure_bit (index 8):\n- appointment_transportation_barrier_bit (index 9):\n- transit_dependent_risk_bit (index 10):\n- transportation_adequate_bit (index 11):\n- food_crisis_bit (index 12):\n- food_insecure_bit (index 13):\n- food_assistance_needed_bit (index 14):\n- food_secure_bit (index 15):\n- below_baseline_activity_bit (index 16):\n- sedentary_streak_active_bit (index 17):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- URGENT_DISEASE_RESPONSE (RED) -> action: urgent-intervention\n- ACCESS_ADHERENCE_SUPPORT (AMBER) -> action: route-referral\n- PREVENTIVE_INTENSIFICATION (AMBER) -> action: route-referral\n- STABLE_CHRONIC_DISEASE_MONITORING (GREEN) -> action: continue-monitoring",
     "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
     "inputAxes": [
       {
         "index": 0,
-        "key": "disease-exacerbation-bit",
+        "key": "disease_exacerbation_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -48,7 +48,7 @@
       },
       {
         "index": 1,
-        "key": "poor-chronic-disease-control-bit",
+        "key": "poor_chronic_disease_control_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -57,7 +57,7 @@
       },
       {
         "index": 2,
-        "key": "borderline-chronic-disease-control-bit",
+        "key": "borderline_chronic_disease_control_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -66,7 +66,7 @@
       },
       {
         "index": 3,
-        "key": "disease-controlled-bit",
+        "key": "disease_controlled_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -75,7 +75,7 @@
       },
       {
         "index": 4,
-        "key": "medication-adherence-crisis-bit",
+        "key": "medication_adherence_crisis_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -84,7 +84,7 @@
       },
       {
         "index": 5,
-        "key": "medication-cost-barrier-active-bit",
+        "key": "medication_cost_barrier_active_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -93,7 +93,7 @@
       },
       {
         "index": 6,
-        "key": "partial-medication-adherence-bit",
+        "key": "partial_medication_adherence_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -102,7 +102,7 @@
       },
       {
         "index": 7,
-        "key": "medication-managed-bit",
+        "key": "medication_managed_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -111,7 +111,7 @@
       },
       {
         "index": 8,
-        "key": "critical-transportation-access-failure-bit",
+        "key": "critical_transportation_access_failure_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -120,7 +120,7 @@
       },
       {
         "index": 9,
-        "key": "appointment-transportation-barrier-bit",
+        "key": "appointment_transportation_barrier_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -129,7 +129,7 @@
       },
       {
         "index": 10,
-        "key": "transit-dependent-risk-bit",
+        "key": "transit_dependent_risk_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -138,7 +138,7 @@
       },
       {
         "index": 11,
-        "key": "transportation-adequate-bit",
+        "key": "transportation_adequate_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -147,7 +147,7 @@
       },
       {
         "index": 12,
-        "key": "food-crisis-bit",
+        "key": "food_crisis_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -156,7 +156,7 @@
       },
       {
         "index": 13,
-        "key": "food-insecure-bit",
+        "key": "food_insecure_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -165,7 +165,7 @@
       },
       {
         "index": 14,
-        "key": "food-assistance-needed-bit",
+        "key": "food_assistance_needed_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -174,7 +174,7 @@
       },
       {
         "index": 15,
-        "key": "food-secure-bit",
+        "key": "food_secure_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -183,7 +183,7 @@
       },
       {
         "index": 16,
-        "key": "below-baseline-activity-bit",
+        "key": "below_baseline_activity_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -192,7 +192,7 @@
       },
       {
         "index": 17,
-        "key": "sedentary-streak-active-bit",
+        "key": "sedentary_streak_active_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -248,24 +248,24 @@
         "length": 18
       },
       "semantics": [
-        "disease-exacerbation-bit",
-        "poor-chronic-disease-control-bit",
-        "borderline-chronic-disease-control-bit",
-        "disease-controlled-bit",
-        "medication-adherence-crisis-bit",
-        "medication-cost-barrier-active-bit",
-        "partial-medication-adherence-bit",
-        "medication-managed-bit",
-        "critical-transportation-access-failure-bit",
-        "appointment-transportation-barrier-bit",
-        "transit-dependent-risk-bit",
-        "transportation-adequate-bit",
-        "food-crisis-bit",
-        "food-insecure-bit",
-        "food-assistance-needed-bit",
-        "food-secure-bit",
-        "below-baseline-activity-bit",
-        "sedentary-streak-active-bit"
+        "disease_exacerbation_bit",
+        "poor_chronic_disease_control_bit",
+        "borderline_chronic_disease_control_bit",
+        "disease_controlled_bit",
+        "medication_adherence_crisis_bit",
+        "medication_cost_barrier_active_bit",
+        "partial_medication_adherence_bit",
+        "medication_managed_bit",
+        "critical_transportation_access_failure_bit",
+        "appointment_transportation_barrier_bit",
+        "transit_dependent_risk_bit",
+        "transportation_adequate_bit",
+        "food_crisis_bit",
+        "food_insecure_bit",
+        "food_assistance_needed_bit",
+        "food_secure_bit",
+        "below_baseline_activity_bit",
+        "sedentary_streak_active_bit"
       ],
       "ttlMs": 300000,
       "normalization": "already-normalized-0-1",
@@ -310,12 +310,12 @@
     "mode": "advise",
     "fields": [
       {
-        "semantic": "disease-exacerbation-bit",
+        "semantic": "disease_exacerbation_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/disease-exacerbation-bit",
-          "responseKey": "disease-exacerbation-bit",
+          "jsonPointer": "/disease_exacerbation_bit",
+          "responseKey": "disease_exacerbation_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -353,12 +353,12 @@
         }
       },
       {
-        "semantic": "poor-chronic-disease-control-bit",
+        "semantic": "poor_chronic_disease_control_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/poor-chronic-disease-control-bit",
-          "responseKey": "poor-chronic-disease-control-bit",
+          "jsonPointer": "/poor_chronic_disease_control_bit",
+          "responseKey": "poor_chronic_disease_control_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -396,12 +396,12 @@
         }
       },
       {
-        "semantic": "borderline-chronic-disease-control-bit",
+        "semantic": "borderline_chronic_disease_control_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/borderline-chronic-disease-control-bit",
-          "responseKey": "borderline-chronic-disease-control-bit",
+          "jsonPointer": "/borderline_chronic_disease_control_bit",
+          "responseKey": "borderline_chronic_disease_control_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -439,12 +439,12 @@
         }
       },
       {
-        "semantic": "disease-controlled-bit",
+        "semantic": "disease_controlled_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/disease-controlled-bit",
-          "responseKey": "disease-controlled-bit",
+          "jsonPointer": "/disease_controlled_bit",
+          "responseKey": "disease_controlled_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -482,12 +482,12 @@
         }
       },
       {
-        "semantic": "medication-adherence-crisis-bit",
+        "semantic": "medication_adherence_crisis_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/medication-adherence-crisis-bit",
-          "responseKey": "medication-adherence-crisis-bit",
+          "jsonPointer": "/medication_adherence_crisis_bit",
+          "responseKey": "medication_adherence_crisis_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -525,12 +525,12 @@
         }
       },
       {
-        "semantic": "medication-cost-barrier-active-bit",
+        "semantic": "medication_cost_barrier_active_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/medication-cost-barrier-active-bit",
-          "responseKey": "medication-cost-barrier-active-bit",
+          "jsonPointer": "/medication_cost_barrier_active_bit",
+          "responseKey": "medication_cost_barrier_active_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -568,12 +568,12 @@
         }
       },
       {
-        "semantic": "partial-medication-adherence-bit",
+        "semantic": "partial_medication_adherence_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/partial-medication-adherence-bit",
-          "responseKey": "partial-medication-adherence-bit",
+          "jsonPointer": "/partial_medication_adherence_bit",
+          "responseKey": "partial_medication_adherence_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -611,12 +611,12 @@
         }
       },
       {
-        "semantic": "medication-managed-bit",
+        "semantic": "medication_managed_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/medication-managed-bit",
-          "responseKey": "medication-managed-bit",
+          "jsonPointer": "/medication_managed_bit",
+          "responseKey": "medication_managed_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -654,12 +654,12 @@
         }
       },
       {
-        "semantic": "critical-transportation-access-failure-bit",
+        "semantic": "critical_transportation_access_failure_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/critical-transportation-access-failure-bit",
-          "responseKey": "critical-transportation-access-failure-bit",
+          "jsonPointer": "/critical_transportation_access_failure_bit",
+          "responseKey": "critical_transportation_access_failure_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -697,12 +697,12 @@
         }
       },
       {
-        "semantic": "appointment-transportation-barrier-bit",
+        "semantic": "appointment_transportation_barrier_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/appointment-transportation-barrier-bit",
-          "responseKey": "appointment-transportation-barrier-bit",
+          "jsonPointer": "/appointment_transportation_barrier_bit",
+          "responseKey": "appointment_transportation_barrier_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -740,12 +740,12 @@
         }
       },
       {
-        "semantic": "transit-dependent-risk-bit",
+        "semantic": "transit_dependent_risk_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/transit-dependent-risk-bit",
-          "responseKey": "transit-dependent-risk-bit",
+          "jsonPointer": "/transit_dependent_risk_bit",
+          "responseKey": "transit_dependent_risk_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -783,12 +783,12 @@
         }
       },
       {
-        "semantic": "transportation-adequate-bit",
+        "semantic": "transportation_adequate_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/transportation-adequate-bit",
-          "responseKey": "transportation-adequate-bit",
+          "jsonPointer": "/transportation_adequate_bit",
+          "responseKey": "transportation_adequate_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -826,12 +826,12 @@
         }
       },
       {
-        "semantic": "food-crisis-bit",
+        "semantic": "food_crisis_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/food-crisis-bit",
-          "responseKey": "food-crisis-bit",
+          "jsonPointer": "/food_crisis_bit",
+          "responseKey": "food_crisis_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -869,12 +869,12 @@
         }
       },
       {
-        "semantic": "food-insecure-bit",
+        "semantic": "food_insecure_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/food-insecure-bit",
-          "responseKey": "food-insecure-bit",
+          "jsonPointer": "/food_insecure_bit",
+          "responseKey": "food_insecure_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -912,12 +912,12 @@
         }
       },
       {
-        "semantic": "food-assistance-needed-bit",
+        "semantic": "food_assistance_needed_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/food-assistance-needed-bit",
-          "responseKey": "food-assistance-needed-bit",
+          "jsonPointer": "/food_assistance_needed_bit",
+          "responseKey": "food_assistance_needed_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -955,12 +955,12 @@
         }
       },
       {
-        "semantic": "food-secure-bit",
+        "semantic": "food_secure_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/food-secure-bit",
-          "responseKey": "food-secure-bit",
+          "jsonPointer": "/food_secure_bit",
+          "responseKey": "food_secure_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -998,12 +998,12 @@
         }
       },
       {
-        "semantic": "below-baseline-activity-bit",
+        "semantic": "below_baseline_activity_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/below-baseline-activity-bit",
-          "responseKey": "below-baseline-activity-bit",
+          "jsonPointer": "/below_baseline_activity_bit",
+          "responseKey": "below_baseline_activity_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1041,12 +1041,12 @@
         }
       },
       {
-        "semantic": "sedentary-streak-active-bit",
+        "semantic": "sedentary_streak_active_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/sedentary-streak-active-bit",
-          "responseKey": "sedentary-streak-active-bit",
+          "jsonPointer": "/sedentary_streak_active_bit",
+          "responseKey": "sedentary_streak_active_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1088,7 +1088,7 @@
   "diagnostics": {
     "axisBasis": "inputSemantics",
     "warnings": [
-      "input axes derived from inputSemantics (no length-matched sensorNormalization)"
+      "input axes derived from inputSemantics; openClawProjection.semantics does not name these positions, so the agent's axis names are unverified"
     ],
     "inputLength": 18,
     "sequenceCount": 4

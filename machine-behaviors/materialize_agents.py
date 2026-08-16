@@ -46,7 +46,15 @@ def main() -> int:
     cfg = load_config()
     mdir = _abs(cfg["machinesDir"])
     if args.fresh and AGENTS_DIR.exists():
-        shutil.rmtree(AGENTS_DIR)
+        # --fresh clears generated specs, not everything under agents/.
+        # agents/profiles/ holds hand-maintained corpus selections —
+        # regression.txt is what `startUniverse.sh --agent-profile=regression`
+        # loads — and a blanket rmtree deleted it, which is a broken lane rather
+        # than a stale artifact. Preserve any non-generated subdirectory.
+        for child in AGENTS_DIR.iterdir():
+            if child.name == "profiles":
+                continue
+            shutil.rmtree(child) if child.is_dir() else child.unlink()
     AGENTS_DIR.mkdir(parents=True, exist_ok=True)
 
     index = []
@@ -54,7 +62,8 @@ def main() -> int:
     axis_basis = Counter()
     errors = []
     written = 0
-    seen_paths: dict[str, str] = {}  # output path -> machine stem, to catch collisions
+    seen_paths: dict[str, str] = {}
+    skipped_fixtures: list[str] = []  # output path -> machine stem, to catch collisions
 
     for f in sorted(mdir.rglob("*.json")):  # rglob: cover machines/domains/** subdirs
         try:
@@ -65,6 +74,17 @@ def main() -> int:
         meta = as_object(as_object(data.get("machine")).get("metadata"))
         domain = primary_domain(meta)
         if args.domain and domain != args.domain:
+            continue
+        # Conformance fixtures get no agent, deliberately.
+        #
+        # The five arbitration fixtures exist to prove resolution is
+        # deterministic, and an agent is a `generated` contributor — exactly the
+        # non-determinism that would invalidate what they test. Recorded in
+        # RealityEngine_Machines corpus-exit-v1.0 §3.3, which states that a
+        # regeneration producing 1,328 specs rather than 1,323 is wrong. It was:
+        # a --fresh run produced agents for all five before this guard existed.
+        if str(as_object(meta.get("tagging")).get("family", "")) == "arbitration-fixture":
+            skipped_fixtures.append(f.stem)
             continue
         try:
             inst = tmpl.derive(f, cfg)
@@ -120,6 +140,8 @@ def main() -> int:
     for dom, n in sorted(per_domain.items()):
         print(f"  {dom:24s} {n}")
     print(f"axis grounding: {dict(sorted(axis_basis.items()))}")
+    print(f"skipped conformance fixtures: {len(skipped_fixtures)} "
+          f"{sorted(skipped_fixtures)}")
     if errors:
         print(f"\n{len(errors)} error(s):")
         for name, msg in errors[:20]:

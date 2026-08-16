@@ -34,12 +34,12 @@
   },
   "reasoning": {
     "objective": "Produce the normalized input vector for \"HealthKit Vitals Monitor\" from current observations so RE can evaluate its CES sequences.",
-    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"HealthKit Vitals Monitor\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Classifies blood-pressure family readings delivered by the iOS HealthKit bridge (localHealthkitBridge) into NOMINAL, HYPERTENSIVE, or CRISIS. Reads the canonical bridge region [4320:4324] (systolic/200, diastolic/120, pulse/200, confidence per docs/INGEST_CONTRACT.md) and emits a vitals-status word for downstream health-personal interconnects.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- systolic-bp-normalized-0-200mmhg (index 0):\n- diastolic-bp-normalized-0-120mmhg (index 1):\n- pulse-normalized-0-200bpm (index 2):\n- reading-confidence (index 3):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- hk-vitals-nominal (GREEN)\n- hk-vitals-hypertensive (AMBER)\n- hk-vitals-crisis (RED)",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"HealthKit Vitals Monitor\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Classifies blood-pressure family readings delivered by the iOS HealthKit bridge (localHealthkitBridge) into NOMINAL, HYPERTENSIVE, or CRISIS. Reads the canonical bridge region [4320:4324] (systolic/200, diastolic/120, pulse/200, confidence per docs/INGEST_CONTRACT.md) and emits a vitals-status word for downstream health-personal interconnects.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- systolic_bp_normalized_0_200mmhg (index 0):\n- diastolic_bp_normalized_0_120mmhg (index 1):\n- pulse_normalized_0_200bpm (index 2):\n- reading_confidence (index 3):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- hk-vitals-nominal (GREEN)\n- hk-vitals-hypertensive (AMBER)\n- hk-vitals-crisis (RED)",
     "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
     "inputAxes": [
       {
         "index": 0,
-        "key": "systolic-bp-normalized-0-200mmhg",
+        "key": "systolic_bp_normalized_0_200mmhg",
         "anchors": {
           "low": "",
           "mid": "",
@@ -48,7 +48,7 @@
       },
       {
         "index": 1,
-        "key": "diastolic-bp-normalized-0-120mmhg",
+        "key": "diastolic_bp_normalized_0_120mmhg",
         "anchors": {
           "low": "",
           "mid": "",
@@ -57,7 +57,7 @@
       },
       {
         "index": 2,
-        "key": "pulse-normalized-0-200bpm",
+        "key": "pulse_normalized_0_200bpm",
         "anchors": {
           "low": "",
           "mid": "",
@@ -66,7 +66,7 @@
       },
       {
         "index": 3,
-        "key": "reading-confidence",
+        "key": "reading_confidence",
         "anchors": {
           "low": "",
           "mid": "",
@@ -115,10 +115,10 @@
         "length": 4
       },
       "semantics": [
-        "systolic-bp-normalized-0-200mmhg",
-        "diastolic-bp-normalized-0-120mmhg",
-        "pulse-normalized-0-200bpm",
-        "reading-confidence"
+        "systolic_bp_normalized_0_200mmhg",
+        "diastolic_bp_normalized_0_120mmhg",
+        "pulse_normalized_0_200bpm",
+        "reading_confidence"
       ],
       "ttlMs": 300000,
       "normalization": "already-normalized-0-1",
@@ -163,12 +163,12 @@
     "mode": "advise",
     "fields": [
       {
-        "semantic": "systolic-bp-normalized-0-200mmhg",
+        "semantic": "systolic_bp_normalized_0_200mmhg",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/systolic-bp-normalized-0-200mmhg",
-          "responseKey": "systolic-bp-normalized-0-200mmhg",
+          "jsonPointer": "/systolic_bp_normalized_0_200mmhg",
+          "responseKey": "systolic_bp_normalized_0_200mmhg",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -206,12 +206,12 @@
         }
       },
       {
-        "semantic": "diastolic-bp-normalized-0-120mmhg",
+        "semantic": "diastolic_bp_normalized_0_120mmhg",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/diastolic-bp-normalized-0-120mmhg",
-          "responseKey": "diastolic-bp-normalized-0-120mmhg",
+          "jsonPointer": "/diastolic_bp_normalized_0_120mmhg",
+          "responseKey": "diastolic_bp_normalized_0_120mmhg",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -249,12 +249,12 @@
         }
       },
       {
-        "semantic": "pulse-normalized-0-200bpm",
+        "semantic": "pulse_normalized_0_200bpm",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/pulse-normalized-0-200bpm",
-          "responseKey": "pulse-normalized-0-200bpm",
+          "jsonPointer": "/pulse_normalized_0_200bpm",
+          "responseKey": "pulse_normalized_0_200bpm",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -292,12 +292,12 @@
         }
       },
       {
-        "semantic": "reading-confidence",
+        "semantic": "reading_confidence",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/reading-confidence",
-          "responseKey": "reading-confidence",
+          "jsonPointer": "/reading_confidence",
+          "responseKey": "reading_confidence",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -339,7 +339,7 @@
   "diagnostics": {
     "axisBasis": "inputSemantics",
     "warnings": [
-      "input axes derived from inputSemantics (no length-matched sensorNormalization)"
+      "input axes derived from inputSemantics; openClawProjection.semantics does not name these positions, so the agent's axis names are unverified"
     ],
     "inputLength": 4,
     "sequenceCount": 3

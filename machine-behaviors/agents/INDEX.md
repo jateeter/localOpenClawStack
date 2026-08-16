@@ -19,6 +19,6 @@ One input-analyst agent per machine (1323 total), under `agents/<domain>/`.
 
 **total: 1323**
 
-axis grounding: inputSemantics=1033, sensorNormalization=290
+axis grounding: inputSemantics=139, openClawProjection=1184
 
 Regenerate: `python3 materialize_agents.py --fresh`.

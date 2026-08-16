@@ -34,12 +34,12 @@
   },
   "reasoning": {
     "objective": "Produce the normalized input vector for \"AI Model Wellness Monitor\" from current observations so RE can evaluate its CES sequences.",
-    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"AI Model Wellness Monitor\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Monitors AI model serving health \u2014 tracks inference error rate, latency SLO compliance, model accuracy drift, and memory leak indicators to detect model degradation before user impact.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- ai-model-wellness-monitor-input-1 (index 0):\n- ai-model-wellness-monitor-input-2 (index 1):\n- ai-model-wellness-monitor-input-3 (index 2):\n- ai-model-wellness-monitor-input-4 (index 3):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- aimw-model-degradation (AMBER)\n- aimw-model-degradation (AMBER)\n- aimw-model-degradation (RED)\n- Action (RED)\n- aimw-model-degradation (RED)\n- Action (RED)\n- Action (GREEN)\n- aimw-latency-breach (AMBER)\n- Action (RED)",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"AI Model Wellness Monitor\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Monitors AI model serving health \u2014 tracks inference error rate, latency SLO compliance, model accuracy drift, and memory leak indicators to detect model degradation before user impact.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- ai_model_wellness_monitor_input_1 (index 0):\n- ai_model_wellness_monitor_input_2 (index 1):\n- ai_model_wellness_monitor_input_3 (index 2):\n- ai_model_wellness_monitor_input_4 (index 3):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- aimw-model-degradation (AMBER)\n- aimw-model-degradation (AMBER)\n- aimw-model-degradation (RED)\n- Action (RED)\n- aimw-model-degradation (RED)\n- Action (RED)\n- Action (GREEN)\n- aimw-latency-breach (AMBER)\n- Action (RED)",
     "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
     "inputAxes": [
       {
         "index": 0,
-        "key": "ai-model-wellness-monitor-input-1",
+        "key": "ai_model_wellness_monitor_input_1",
         "anchors": {
           "low": "",
           "mid": "",
@@ -48,7 +48,7 @@
       },
       {
         "index": 1,
-        "key": "ai-model-wellness-monitor-input-2",
+        "key": "ai_model_wellness_monitor_input_2",
         "anchors": {
           "low": "",
           "mid": "",
@@ -57,7 +57,7 @@
       },
       {
         "index": 2,
-        "key": "ai-model-wellness-monitor-input-3",
+        "key": "ai_model_wellness_monitor_input_3",
         "anchors": {
           "low": "",
           "mid": "",
@@ -66,7 +66,7 @@
       },
       {
         "index": 3,
-        "key": "ai-model-wellness-monitor-input-4",
+        "key": "ai_model_wellness_monitor_input_4",
         "anchors": {
           "low": "",
           "mid": "",
@@ -157,10 +157,10 @@
         "length": 4
       },
       "semantics": [
-        "ai-model-wellness-monitor-input-1",
-        "ai-model-wellness-monitor-input-2",
-        "ai-model-wellness-monitor-input-3",
-        "ai-model-wellness-monitor-input-4"
+        "ai_model_wellness_monitor_input_1",
+        "ai_model_wellness_monitor_input_2",
+        "ai_model_wellness_monitor_input_3",
+        "ai_model_wellness_monitor_input_4"
       ],
       "ttlMs": 300000,
       "normalization": "already-normalized-0-1",
@@ -205,12 +205,12 @@
     "mode": "advise",
     "fields": [
       {
-        "semantic": "ai-model-wellness-monitor-input-1",
+        "semantic": "ai_model_wellness_monitor_input_1",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/ai-model-wellness-monitor-input-1",
-          "responseKey": "ai-model-wellness-monitor-input-1",
+          "jsonPointer": "/ai_model_wellness_monitor_input_1",
+          "responseKey": "ai_model_wellness_monitor_input_1",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -248,12 +248,12 @@
         }
       },
       {
-        "semantic": "ai-model-wellness-monitor-input-2",
+        "semantic": "ai_model_wellness_monitor_input_2",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/ai-model-wellness-monitor-input-2",
-          "responseKey": "ai-model-wellness-monitor-input-2",
+          "jsonPointer": "/ai_model_wellness_monitor_input_2",
+          "responseKey": "ai_model_wellness_monitor_input_2",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -291,12 +291,12 @@
         }
       },
       {
-        "semantic": "ai-model-wellness-monitor-input-3",
+        "semantic": "ai_model_wellness_monitor_input_3",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/ai-model-wellness-monitor-input-3",
-          "responseKey": "ai-model-wellness-monitor-input-3",
+          "jsonPointer": "/ai_model_wellness_monitor_input_3",
+          "responseKey": "ai_model_wellness_monitor_input_3",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -334,12 +334,12 @@
         }
       },
       {
-        "semantic": "ai-model-wellness-monitor-input-4",
+        "semantic": "ai_model_wellness_monitor_input_4",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/ai-model-wellness-monitor-input-4",
-          "responseKey": "ai-model-wellness-monitor-input-4",
+          "jsonPointer": "/ai_model_wellness_monitor_input_4",
+          "responseKey": "ai_model_wellness_monitor_input_4",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -379,10 +379,8 @@
     ]
   },
   "diagnostics": {
-    "axisBasis": "inputSemantics",
-    "warnings": [
-      "input axes derived from inputSemantics (no length-matched sensorNormalization)"
-    ],
+    "axisBasis": "openClawProjection",
+    "warnings": [],
     "inputLength": 4,
     "sequenceCount": 9
   }

@@ -34,12 +34,12 @@
   },
   "reasoning": {
     "objective": "Produce the normalized input vector for \"Patient Safety Transport Interconnect\" from current observations so RE can evaluate its CES sequences.",
-    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Patient Safety Transport Interconnect\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Published personal-health bridge bus that composes fall outcome, transportation access, and social isolation status into the existing care-coordination vector lane. PE owns the source composition and writes the compact input lane; RE evaluates this machine as ordinary vector state and emits to [7378:7382] for downstream health-services, life-balance, and community-service consumers.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- fall-red-tier-bit (index 0):\n- fall-amber-high-tier-bit (index 1):\n- fall-high-confidence-bit (index 2):\n- transport-critical-access-failure-bit (index 3):\n- transport-appointment-barrier-bit (index 4):\n- transport-transit-dependent-risk-bit (index 5):\n- transport-adequate-bit (index 6):\n- social-severe-isolation-bit (index 7):\n- social-isolation-risk-bit (index 8):\n- socially-connected-bit (index 9):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- patient-safety-transport-urgent-dispatch (RED) -> action: publish-bus\n- patient-safety-transport-coordinate-services (AMBER) -> action: route-referral\n- patient-safety-transport-human-review (AMBER) -> action: human-review-gate\n- patient-safety-transport-stable-follow-up (GREEN) -> action: continue-monitoring",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Patient Safety Transport Interconnect\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Published personal-health bridge bus that composes fall outcome, transportation access, and social isolation status into the existing care-coordination vector lane. PE owns the source composition and writes the compact input lane; RE evaluates this machine as ordinary vector state and emits to [7378:7382] for downstream health-services, life-balance, and community-service consumers.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- fall_red_tier_bit (index 0):\n- fall_amber_high_tier_bit (index 1):\n- fall_high_confidence_bit (index 2):\n- transport_critical_access_failure_bit (index 3):\n- transport_appointment_barrier_bit (index 4):\n- transport_transit_dependent_risk_bit (index 5):\n- transport_adequate_bit (index 6):\n- social_severe_isolation_bit (index 7):\n- social_isolation_risk_bit (index 8):\n- socially_connected_bit (index 9):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- patient-safety-transport-urgent-dispatch (RED) -> action: publish-bus\n- patient-safety-transport-coordinate-services (AMBER) -> action: route-referral\n- patient-safety-transport-human-review (AMBER) -> action: human-review-gate\n- patient-safety-transport-stable-follow-up (GREEN) -> action: continue-monitoring",
     "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
     "inputAxes": [
       {
         "index": 0,
-        "key": "fall-red-tier-bit",
+        "key": "fall_red_tier_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -48,7 +48,7 @@
       },
       {
         "index": 1,
-        "key": "fall-amber-high-tier-bit",
+        "key": "fall_amber_high_tier_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -57,7 +57,7 @@
       },
       {
         "index": 2,
-        "key": "fall-high-confidence-bit",
+        "key": "fall_high_confidence_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -66,7 +66,7 @@
       },
       {
         "index": 3,
-        "key": "transport-critical-access-failure-bit",
+        "key": "transport_critical_access_failure_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -75,7 +75,7 @@
       },
       {
         "index": 4,
-        "key": "transport-appointment-barrier-bit",
+        "key": "transport_appointment_barrier_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -84,7 +84,7 @@
       },
       {
         "index": 5,
-        "key": "transport-transit-dependent-risk-bit",
+        "key": "transport_transit_dependent_risk_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -93,7 +93,7 @@
       },
       {
         "index": 6,
-        "key": "transport-adequate-bit",
+        "key": "transport_adequate_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -102,7 +102,7 @@
       },
       {
         "index": 7,
-        "key": "social-severe-isolation-bit",
+        "key": "social_severe_isolation_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -111,7 +111,7 @@
       },
       {
         "index": 8,
-        "key": "social-isolation-risk-bit",
+        "key": "social_isolation_risk_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -120,7 +120,7 @@
       },
       {
         "index": 9,
-        "key": "socially-connected-bit",
+        "key": "socially_connected_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -176,16 +176,16 @@
         "length": 10
       },
       "semantics": [
-        "fall-red-tier-bit",
-        "fall-amber-high-tier-bit",
-        "fall-high-confidence-bit",
-        "transport-critical-access-failure-bit",
-        "transport-appointment-barrier-bit",
-        "transport-transit-dependent-risk-bit",
-        "transport-adequate-bit",
-        "social-severe-isolation-bit",
-        "social-isolation-risk-bit",
-        "socially-connected-bit"
+        "fall_red_tier_bit",
+        "fall_amber_high_tier_bit",
+        "fall_high_confidence_bit",
+        "transport_critical_access_failure_bit",
+        "transport_appointment_barrier_bit",
+        "transport_transit_dependent_risk_bit",
+        "transport_adequate_bit",
+        "social_severe_isolation_bit",
+        "social_isolation_risk_bit",
+        "socially_connected_bit"
       ],
       "ttlMs": 300000,
       "normalization": "already-normalized-0-1",
@@ -230,12 +230,12 @@
     "mode": "advise",
     "fields": [
       {
-        "semantic": "fall-red-tier-bit",
+        "semantic": "fall_red_tier_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/fall-red-tier-bit",
-          "responseKey": "fall-red-tier-bit",
+          "jsonPointer": "/fall_red_tier_bit",
+          "responseKey": "fall_red_tier_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -273,12 +273,12 @@
         }
       },
       {
-        "semantic": "fall-amber-high-tier-bit",
+        "semantic": "fall_amber_high_tier_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/fall-amber-high-tier-bit",
-          "responseKey": "fall-amber-high-tier-bit",
+          "jsonPointer": "/fall_amber_high_tier_bit",
+          "responseKey": "fall_amber_high_tier_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -316,12 +316,12 @@
         }
       },
       {
-        "semantic": "fall-high-confidence-bit",
+        "semantic": "fall_high_confidence_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/fall-high-confidence-bit",
-          "responseKey": "fall-high-confidence-bit",
+          "jsonPointer": "/fall_high_confidence_bit",
+          "responseKey": "fall_high_confidence_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -359,12 +359,12 @@
         }
       },
       {
-        "semantic": "transport-critical-access-failure-bit",
+        "semantic": "transport_critical_access_failure_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/transport-critical-access-failure-bit",
-          "responseKey": "transport-critical-access-failure-bit",
+          "jsonPointer": "/transport_critical_access_failure_bit",
+          "responseKey": "transport_critical_access_failure_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -402,12 +402,12 @@
         }
       },
       {
-        "semantic": "transport-appointment-barrier-bit",
+        "semantic": "transport_appointment_barrier_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/transport-appointment-barrier-bit",
-          "responseKey": "transport-appointment-barrier-bit",
+          "jsonPointer": "/transport_appointment_barrier_bit",
+          "responseKey": "transport_appointment_barrier_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -445,12 +445,12 @@
         }
       },
       {
-        "semantic": "transport-transit-dependent-risk-bit",
+        "semantic": "transport_transit_dependent_risk_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/transport-transit-dependent-risk-bit",
-          "responseKey": "transport-transit-dependent-risk-bit",
+          "jsonPointer": "/transport_transit_dependent_risk_bit",
+          "responseKey": "transport_transit_dependent_risk_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -488,12 +488,12 @@
         }
       },
       {
-        "semantic": "transport-adequate-bit",
+        "semantic": "transport_adequate_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/transport-adequate-bit",
-          "responseKey": "transport-adequate-bit",
+          "jsonPointer": "/transport_adequate_bit",
+          "responseKey": "transport_adequate_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -531,12 +531,12 @@
         }
       },
       {
-        "semantic": "social-severe-isolation-bit",
+        "semantic": "social_severe_isolation_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/social-severe-isolation-bit",
-          "responseKey": "social-severe-isolation-bit",
+          "jsonPointer": "/social_severe_isolation_bit",
+          "responseKey": "social_severe_isolation_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -574,12 +574,12 @@
         }
       },
       {
-        "semantic": "social-isolation-risk-bit",
+        "semantic": "social_isolation_risk_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/social-isolation-risk-bit",
-          "responseKey": "social-isolation-risk-bit",
+          "jsonPointer": "/social_isolation_risk_bit",
+          "responseKey": "social_isolation_risk_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -617,12 +617,12 @@
         }
       },
       {
-        "semantic": "socially-connected-bit",
+        "semantic": "socially_connected_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/socially-connected-bit",
-          "responseKey": "socially-connected-bit",
+          "jsonPointer": "/socially_connected_bit",
+          "responseKey": "socially_connected_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -664,7 +664,7 @@
   "diagnostics": {
     "axisBasis": "inputSemantics",
     "warnings": [
-      "input axes derived from inputSemantics (no length-matched sensorNormalization)"
+      "input axes derived from inputSemantics; openClawProjection.semantics does not name these positions, so the agent's axis names are unverified"
     ],
     "inputLength": 10,
     "sequenceCount": 4

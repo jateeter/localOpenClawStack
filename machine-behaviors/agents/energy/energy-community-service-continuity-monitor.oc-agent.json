@@ -34,12 +34,12 @@
   },
   "reasoning": {
     "objective": "Produce the normalized input vector for \"Energy Community Service Continuity Monitor\" from current observations so RE can evaluate its CES sequences.",
-    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Energy Community Service Continuity Monitor\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Converts energy posture into continuity state for schools, transportation, AI data centers, communications, lighting, heating, cooking, shelters, and recovery.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- schools_below_continuity_threshold_norm (index 0):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- transportation_below_continuity_threshold_norm (index 1):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- ai_data_center_below_continuity_threshold_norm (index 2):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- communications_below_continuity_threshold_norm (index 3):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- lighting_below_continuity_threshold_norm (index 4):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- heating_below_continuity_threshold_norm (index 5):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- cooking_or_food_service_below_continuity_threshold_norm (index 6):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- shelter_or_community_service_below_continuity_threshold_norm (index 7):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- service_recovery_action_active_norm (index 8):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Community Service Continuity Monitor (RED) -> action: urgent-intervention\n- Community Service Continuity Monitor (AMBER) -> action: urgent-intervention\n- Community Service Continuity Monitor (AMBER) -> action: continue-monitoring\n- Community Service Continuity Monitor (GREEN) -> action: continue-monitoring",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Energy Community Service Continuity Monitor\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Converts energy posture into continuity state for schools, transportation, AI data centers, communications, lighting, heating, cooking, shelters, and recovery.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- schools_below_continuity_threshold (index 0):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- transportation_below_continuity_threshold (index 1):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- ai_data_center_below_continuity_threshold (index 2):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- communications_below_continuity_threshold (index 3):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- lighting_below_continuity_threshold (index 4):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- heating_below_continuity_threshold (index 5):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- cooking_or_food_service_below_continuity_threshold (index 6):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- shelter_or_community_service_below_continuity_threshold (index 7):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- service_recovery_action_active (index 8):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Community Service Continuity Monitor (RED) -> action: urgent-intervention\n- Community Service Continuity Monitor (AMBER) -> action: urgent-intervention\n- Community Service Continuity Monitor (AMBER) -> action: continue-monitoring\n- Community Service Continuity Monitor (GREEN) -> action: continue-monitoring",
     "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
     "inputAxes": [
       {
         "index": 0,
-        "key": "schools_below_continuity_threshold_norm",
+        "key": "schools_below_continuity_threshold",
         "anchors": {
           "low": "false/inactive",
           "mid": "",
@@ -48,7 +48,7 @@
       },
       {
         "index": 1,
-        "key": "transportation_below_continuity_threshold_norm",
+        "key": "transportation_below_continuity_threshold",
         "anchors": {
           "low": "false/inactive",
           "mid": "",
@@ -57,7 +57,7 @@
       },
       {
         "index": 2,
-        "key": "ai_data_center_below_continuity_threshold_norm",
+        "key": "ai_data_center_below_continuity_threshold",
         "anchors": {
           "low": "false/inactive",
           "mid": "",
@@ -66,7 +66,7 @@
       },
       {
         "index": 3,
-        "key": "communications_below_continuity_threshold_norm",
+        "key": "communications_below_continuity_threshold",
         "anchors": {
           "low": "false/inactive",
           "mid": "",
@@ -75,7 +75,7 @@
       },
       {
         "index": 4,
-        "key": "lighting_below_continuity_threshold_norm",
+        "key": "lighting_below_continuity_threshold",
         "anchors": {
           "low": "false/inactive",
           "mid": "",
@@ -84,7 +84,7 @@
       },
       {
         "index": 5,
-        "key": "heating_below_continuity_threshold_norm",
+        "key": "heating_below_continuity_threshold",
         "anchors": {
           "low": "false/inactive",
           "mid": "",
@@ -93,7 +93,7 @@
       },
       {
         "index": 6,
-        "key": "cooking_or_food_service_below_continuity_threshold_norm",
+        "key": "cooking_or_food_service_below_continuity_threshold",
         "anchors": {
           "low": "false/inactive",
           "mid": "",
@@ -102,7 +102,7 @@
       },
       {
         "index": 7,
-        "key": "shelter_or_community_service_below_continuity_threshold_norm",
+        "key": "shelter_or_community_service_below_continuity_threshold",
         "anchors": {
           "low": "false/inactive",
           "mid": "",
@@ -111,7 +111,7 @@
       },
       {
         "index": 8,
-        "key": "service_recovery_action_active_norm",
+        "key": "service_recovery_action_active",
         "anchors": {
           "low": "false/inactive",
           "mid": "",
@@ -167,15 +167,15 @@
         "length": 9
       },
       "semantics": [
-        "schools_below_continuity_threshold_norm",
-        "transportation_below_continuity_threshold_norm",
-        "ai_data_center_below_continuity_threshold_norm",
-        "communications_below_continuity_threshold_norm",
-        "lighting_below_continuity_threshold_norm",
-        "heating_below_continuity_threshold_norm",
-        "cooking_or_food_service_below_continuity_threshold_norm",
-        "shelter_or_community_service_below_continuity_threshold_norm",
-        "service_recovery_action_active_norm"
+        "schools_below_continuity_threshold",
+        "transportation_below_continuity_threshold",
+        "ai_data_center_below_continuity_threshold",
+        "communications_below_continuity_threshold",
+        "lighting_below_continuity_threshold",
+        "heating_below_continuity_threshold",
+        "cooking_or_food_service_below_continuity_threshold",
+        "shelter_or_community_service_below_continuity_threshold",
+        "service_recovery_action_active"
       ],
       "ttlMs": 300000,
       "normalization": "already-normalized-0-1",
@@ -220,12 +220,12 @@
     "mode": "advise",
     "fields": [
       {
-        "semantic": "schools_below_continuity_threshold_norm",
+        "semantic": "schools_below_continuity_threshold",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/schools_below_continuity_threshold_norm",
-          "responseKey": "schools_below_continuity_threshold_norm",
+          "jsonPointer": "/schools_below_continuity_threshold",
+          "responseKey": "schools_below_continuity_threshold",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -263,12 +263,12 @@
         }
       },
       {
-        "semantic": "transportation_below_continuity_threshold_norm",
+        "semantic": "transportation_below_continuity_threshold",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/transportation_below_continuity_threshold_norm",
-          "responseKey": "transportation_below_continuity_threshold_norm",
+          "jsonPointer": "/transportation_below_continuity_threshold",
+          "responseKey": "transportation_below_continuity_threshold",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -306,12 +306,12 @@
         }
       },
       {
-        "semantic": "ai_data_center_below_continuity_threshold_norm",
+        "semantic": "ai_data_center_below_continuity_threshold",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/ai_data_center_below_continuity_threshold_norm",
-          "responseKey": "ai_data_center_below_continuity_threshold_norm",
+          "jsonPointer": "/ai_data_center_below_continuity_threshold",
+          "responseKey": "ai_data_center_below_continuity_threshold",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -349,12 +349,12 @@
         }
       },
       {
-        "semantic": "communications_below_continuity_threshold_norm",
+        "semantic": "communications_below_continuity_threshold",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/communications_below_continuity_threshold_norm",
-          "responseKey": "communications_below_continuity_threshold_norm",
+          "jsonPointer": "/communications_below_continuity_threshold",
+          "responseKey": "communications_below_continuity_threshold",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -392,12 +392,12 @@
         }
       },
       {
-        "semantic": "lighting_below_continuity_threshold_norm",
+        "semantic": "lighting_below_continuity_threshold",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/lighting_below_continuity_threshold_norm",
-          "responseKey": "lighting_below_continuity_threshold_norm",
+          "jsonPointer": "/lighting_below_continuity_threshold",
+          "responseKey": "lighting_below_continuity_threshold",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -435,12 +435,12 @@
         }
       },
       {
-        "semantic": "heating_below_continuity_threshold_norm",
+        "semantic": "heating_below_continuity_threshold",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/heating_below_continuity_threshold_norm",
-          "responseKey": "heating_below_continuity_threshold_norm",
+          "jsonPointer": "/heating_below_continuity_threshold",
+          "responseKey": "heating_below_continuity_threshold",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -478,12 +478,12 @@
         }
       },
       {
-        "semantic": "cooking_or_food_service_below_continuity_threshold_norm",
+        "semantic": "cooking_or_food_service_below_continuity_threshold",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/cooking_or_food_service_below_continuity_threshold_norm",
-          "responseKey": "cooking_or_food_service_below_continuity_threshold_norm",
+          "jsonPointer": "/cooking_or_food_service_below_continuity_threshold",
+          "responseKey": "cooking_or_food_service_below_continuity_threshold",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -521,12 +521,12 @@
         }
       },
       {
-        "semantic": "shelter_or_community_service_below_continuity_threshold_norm",
+        "semantic": "shelter_or_community_service_below_continuity_threshold",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/shelter_or_community_service_below_continuity_threshold_norm",
-          "responseKey": "shelter_or_community_service_below_continuity_threshold_norm",
+          "jsonPointer": "/shelter_or_community_service_below_continuity_threshold",
+          "responseKey": "shelter_or_community_service_below_continuity_threshold",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -564,12 +564,12 @@
         }
       },
       {
-        "semantic": "service_recovery_action_active_norm",
+        "semantic": "service_recovery_action_active",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/service_recovery_action_active_norm",
-          "responseKey": "service_recovery_action_active_norm",
+          "jsonPointer": "/service_recovery_action_active",
+          "responseKey": "service_recovery_action_active",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -609,7 +609,7 @@
     ]
   },
   "diagnostics": {
-    "axisBasis": "sensorNormalization",
+    "axisBasis": "openClawProjection",
     "warnings": [],
     "inputLength": 9,
     "sequenceCount": 4

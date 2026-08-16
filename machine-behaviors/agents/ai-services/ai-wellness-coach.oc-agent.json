@@ -34,12 +34,12 @@
   },
   "reasoning": {
     "objective": "Produce the normalized input vector for \"AI Wellness Coach\" from current observations so RE can evaluate its CES sequences.",
-    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"AI Wellness Coach\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Bridge machine that consumes PatientWellness emissions (wellness-level classification for assisted-living residents) and produces AI-driven coaching recommendations. Integrates the Health Services domain (PatientWellness input) with the AI domain (inference-driven recommendation): reads the 4-level wellness metric (OPTIMAL / GOOD / ALERT / CRITICAL) and emits coaching actions \u2014 maintain baseline, targeted enrichment, clinical escalation, or urgent multidisciplinary huddle \u2014 along with ancillary triggers for family notification, activity scheduling, care-plan revision, and on-call paging.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- ai-wellness-coach-input-1 (index 0):\n- ai-wellness-coach-input-2 (index 1):\n- ai-wellness-coach-input-3 (index 2):\n- ai-wellness-coach-input-4 (index 3):\n- ai-wellness-coach-input-5 (index 4):\n- ai-wellness-coach-input-6 (index 5):\n- ai-wellness-coach-input-7 (index 6):\n- ai-wellness-coach-input-8 (index 7):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- aiwc-optimal-maintain (GREEN)\n- aiwc-good-enrichment (GREEN)\n- Clinical escalation (AMBER)\n- aiwc-critical-huddle (RED)",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"AI Wellness Coach\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Bridge machine that consumes PatientWellness emissions (wellness-level classification for assisted-living residents) and produces AI-driven coaching recommendations. Integrates the Health Services domain (PatientWellness input) with the AI domain (inference-driven recommendation): reads the 4-level wellness metric (OPTIMAL / GOOD / ALERT / CRITICAL) and emits coaching actions \u2014 maintain baseline, targeted enrichment, clinical escalation, or urgent multidisciplinary huddle \u2014 along with ancillary triggers for family notification, activity scheduling, care-plan revision, and on-call paging.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- ai_wellness_coach_input_1 (index 0):\n- ai_wellness_coach_input_2 (index 1):\n- ai_wellness_coach_input_3 (index 2):\n- ai_wellness_coach_input_4 (index 3):\n- ai_wellness_coach_input_5 (index 4):\n- ai_wellness_coach_input_6 (index 5):\n- ai_wellness_coach_input_7 (index 6):\n- ai_wellness_coach_input_8 (index 7):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- aiwc-optimal-maintain (GREEN)\n- aiwc-good-enrichment (GREEN)\n- Clinical escalation (AMBER)\n- aiwc-critical-huddle (RED)",
     "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
     "inputAxes": [
       {
         "index": 0,
-        "key": "ai-wellness-coach-input-1",
+        "key": "ai_wellness_coach_input_1",
         "anchors": {
           "low": "",
           "mid": "",
@@ -48,7 +48,7 @@
       },
       {
         "index": 1,
-        "key": "ai-wellness-coach-input-2",
+        "key": "ai_wellness_coach_input_2",
         "anchors": {
           "low": "",
           "mid": "",
@@ -57,7 +57,7 @@
       },
       {
         "index": 2,
-        "key": "ai-wellness-coach-input-3",
+        "key": "ai_wellness_coach_input_3",
         "anchors": {
           "low": "",
           "mid": "",
@@ -66,7 +66,7 @@
       },
       {
         "index": 3,
-        "key": "ai-wellness-coach-input-4",
+        "key": "ai_wellness_coach_input_4",
         "anchors": {
           "low": "",
           "mid": "",
@@ -75,7 +75,7 @@
       },
       {
         "index": 4,
-        "key": "ai-wellness-coach-input-5",
+        "key": "ai_wellness_coach_input_5",
         "anchors": {
           "low": "",
           "mid": "",
@@ -84,7 +84,7 @@
       },
       {
         "index": 5,
-        "key": "ai-wellness-coach-input-6",
+        "key": "ai_wellness_coach_input_6",
         "anchors": {
           "low": "",
           "mid": "",
@@ -93,7 +93,7 @@
       },
       {
         "index": 6,
-        "key": "ai-wellness-coach-input-7",
+        "key": "ai_wellness_coach_input_7",
         "anchors": {
           "low": "",
           "mid": "",
@@ -102,7 +102,7 @@
       },
       {
         "index": 7,
-        "key": "ai-wellness-coach-input-8",
+        "key": "ai_wellness_coach_input_8",
         "anchors": {
           "low": "",
           "mid": "",
@@ -158,14 +158,14 @@
         "length": 8
       },
       "semantics": [
-        "ai-wellness-coach-input-1",
-        "ai-wellness-coach-input-2",
-        "ai-wellness-coach-input-3",
-        "ai-wellness-coach-input-4",
-        "ai-wellness-coach-input-5",
-        "ai-wellness-coach-input-6",
-        "ai-wellness-coach-input-7",
-        "ai-wellness-coach-input-8"
+        "ai_wellness_coach_input_1",
+        "ai_wellness_coach_input_2",
+        "ai_wellness_coach_input_3",
+        "ai_wellness_coach_input_4",
+        "ai_wellness_coach_input_5",
+        "ai_wellness_coach_input_6",
+        "ai_wellness_coach_input_7",
+        "ai_wellness_coach_input_8"
       ],
       "ttlMs": 300000,
       "normalization": "already-normalized-0-1",
@@ -210,12 +210,12 @@
     "mode": "advise",
     "fields": [
       {
-        "semantic": "ai-wellness-coach-input-1",
+        "semantic": "ai_wellness_coach_input_1",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/ai-wellness-coach-input-1",
-          "responseKey": "ai-wellness-coach-input-1",
+          "jsonPointer": "/ai_wellness_coach_input_1",
+          "responseKey": "ai_wellness_coach_input_1",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -253,12 +253,12 @@
         }
       },
       {
-        "semantic": "ai-wellness-coach-input-2",
+        "semantic": "ai_wellness_coach_input_2",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/ai-wellness-coach-input-2",
-          "responseKey": "ai-wellness-coach-input-2",
+          "jsonPointer": "/ai_wellness_coach_input_2",
+          "responseKey": "ai_wellness_coach_input_2",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -296,12 +296,12 @@
         }
       },
       {
-        "semantic": "ai-wellness-coach-input-3",
+        "semantic": "ai_wellness_coach_input_3",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/ai-wellness-coach-input-3",
-          "responseKey": "ai-wellness-coach-input-3",
+          "jsonPointer": "/ai_wellness_coach_input_3",
+          "responseKey": "ai_wellness_coach_input_3",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -339,12 +339,12 @@
         }
       },
       {
-        "semantic": "ai-wellness-coach-input-4",
+        "semantic": "ai_wellness_coach_input_4",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/ai-wellness-coach-input-4",
-          "responseKey": "ai-wellness-coach-input-4",
+          "jsonPointer": "/ai_wellness_coach_input_4",
+          "responseKey": "ai_wellness_coach_input_4",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -382,12 +382,12 @@
         }
       },
       {
-        "semantic": "ai-wellness-coach-input-5",
+        "semantic": "ai_wellness_coach_input_5",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/ai-wellness-coach-input-5",
-          "responseKey": "ai-wellness-coach-input-5",
+          "jsonPointer": "/ai_wellness_coach_input_5",
+          "responseKey": "ai_wellness_coach_input_5",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -425,12 +425,12 @@
         }
       },
       {
-        "semantic": "ai-wellness-coach-input-6",
+        "semantic": "ai_wellness_coach_input_6",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/ai-wellness-coach-input-6",
-          "responseKey": "ai-wellness-coach-input-6",
+          "jsonPointer": "/ai_wellness_coach_input_6",
+          "responseKey": "ai_wellness_coach_input_6",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -468,12 +468,12 @@
         }
       },
       {
-        "semantic": "ai-wellness-coach-input-7",
+        "semantic": "ai_wellness_coach_input_7",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/ai-wellness-coach-input-7",
-          "responseKey": "ai-wellness-coach-input-7",
+          "jsonPointer": "/ai_wellness_coach_input_7",
+          "responseKey": "ai_wellness_coach_input_7",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -511,12 +511,12 @@
         }
       },
       {
-        "semantic": "ai-wellness-coach-input-8",
+        "semantic": "ai_wellness_coach_input_8",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/ai-wellness-coach-input-8",
-          "responseKey": "ai-wellness-coach-input-8",
+          "jsonPointer": "/ai_wellness_coach_input_8",
+          "responseKey": "ai_wellness_coach_input_8",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -556,10 +556,8 @@
     ]
   },
   "diagnostics": {
-    "axisBasis": "inputSemantics",
-    "warnings": [
-      "input axes derived from inputSemantics (no length-matched sensorNormalization)"
-    ],
+    "axisBasis": "openClawProjection",
+    "warnings": [],
     "inputLength": 8,
     "sequenceCount": 4
   }

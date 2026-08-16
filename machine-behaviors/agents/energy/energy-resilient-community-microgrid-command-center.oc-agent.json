@@ -34,12 +34,12 @@
   },
   "reasoning": {
     "objective": "Produce the normalized input vector for \"Energy Resilient Community Microgrid Command Center\" from current observations so RE can evaluate its CES sequences.",
-    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Energy Resilient Community Microgrid Command Center\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Published Energy service-level command bus for resilient community microgrid operations across schools, transportation, AI data centers, communications, lighting, heating, cooking, storage, generation, transmission, and supply-chain logistics.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- energy-community-critical-load-priority-controller-urgent-or-review-output-bit (index 0):\n- energy-islanding-readiness-coordinator-urgent-or-review-output-bit (index 1):\n- energy-storage-reserve-and-dispatch-optimizer-urgent-or-review-output-bit (index 2):\n- energy-distributed-generation-commitment-planner-urgent-or-review-output-bit (index 3):\n- energy-feeder-and-transmission-path-manager-urgent-or-review-output-bit (index 4):\n- energy-community-service-continuity-monitor-urgent-or-review-output-bit (index 5):\n- energy-supply-chain-logistics-coordinator-urgent-or-review-output-bit (index 6):\n- energy-smart-grid-protocol-adapter-health-monitor-urgent-or-review-output-bit (index 7):\n- energy-microgrid-cyber-safety-gate-urgent-or-review-output-bit (index 8):\n- energy-resilient-community-microgrid-operations-stabilizer-urgent-or-review-output-bit (index 9):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Resilient Community Microgrid Command Center (RED) -> action: urgent-intervention\n- Resilient Community Microgrid Command Center (AMBER) -> action: route-review\n- Resilient Community Microgrid Command Center (AMBER) -> action: continue-monitoring\n- Resilient Community Microgrid Command Center (GREEN) -> action: continue-monitoring",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Energy Resilient Community Microgrid Command Center\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Published Energy service-level command bus for resilient community microgrid operations across schools, transportation, AI data centers, communications, lighting, heating, cooking, storage, generation, transmission, and supply-chain logistics.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- energy_community_critical_load_priority_controller_urgent_or_review_output_bit (index 0):\n- energy_islanding_readiness_coordinator_urgent_or_review_output_bit (index 1):\n- energy_storage_reserve_and_dispatch_optimizer_urgent_or_review_output_bit (index 2):\n- energy_distributed_generation_commitment_planner_urgent_or_review_output_bit (index 3):\n- energy_feeder_and_transmission_path_manager_urgent_or_review_output_bit (index 4):\n- energy_community_service_continuity_monitor_urgent_or_review_output_bit (index 5):\n- energy_supply_chain_logistics_coordinator_urgent_or_review_output_bit (index 6):\n- energy_smart_grid_protocol_adapter_health_monitor_urgent_or_review_output_bit (index 7):\n- energy_microgrid_cyber_safety_gate_urgent_or_review_output_bit (index 8):\n- energy_resilient_community_microgrid_operations_stabilizer_urgent_or_review_output_bit (index 9):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Resilient Community Microgrid Command Center (RED) -> action: urgent-intervention\n- Resilient Community Microgrid Command Center (AMBER) -> action: route-review\n- Resilient Community Microgrid Command Center (AMBER) -> action: continue-monitoring\n- Resilient Community Microgrid Command Center (GREEN) -> action: continue-monitoring",
     "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
     "inputAxes": [
       {
         "index": 0,
-        "key": "energy-community-critical-load-priority-controller-urgent-or-review-output-bit",
+        "key": "energy_community_critical_load_priority_controller_urgent_or_review_output_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -48,7 +48,7 @@
       },
       {
         "index": 1,
-        "key": "energy-islanding-readiness-coordinator-urgent-or-review-output-bit",
+        "key": "energy_islanding_readiness_coordinator_urgent_or_review_output_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -57,7 +57,7 @@
       },
       {
         "index": 2,
-        "key": "energy-storage-reserve-and-dispatch-optimizer-urgent-or-review-output-bit",
+        "key": "energy_storage_reserve_and_dispatch_optimizer_urgent_or_review_output_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -66,7 +66,7 @@
       },
       {
         "index": 3,
-        "key": "energy-distributed-generation-commitment-planner-urgent-or-review-output-bit",
+        "key": "energy_distributed_generation_commitment_planner_urgent_or_review_output_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -75,7 +75,7 @@
       },
       {
         "index": 4,
-        "key": "energy-feeder-and-transmission-path-manager-urgent-or-review-output-bit",
+        "key": "energy_feeder_and_transmission_path_manager_urgent_or_review_output_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -84,7 +84,7 @@
       },
       {
         "index": 5,
-        "key": "energy-community-service-continuity-monitor-urgent-or-review-output-bit",
+        "key": "energy_community_service_continuity_monitor_urgent_or_review_output_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -93,7 +93,7 @@
       },
       {
         "index": 6,
-        "key": "energy-supply-chain-logistics-coordinator-urgent-or-review-output-bit",
+        "key": "energy_supply_chain_logistics_coordinator_urgent_or_review_output_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -102,7 +102,7 @@
       },
       {
         "index": 7,
-        "key": "energy-smart-grid-protocol-adapter-health-monitor-urgent-or-review-output-bit",
+        "key": "energy_smart_grid_protocol_adapter_health_monitor_urgent_or_review_output_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -111,7 +111,7 @@
       },
       {
         "index": 8,
-        "key": "energy-microgrid-cyber-safety-gate-urgent-or-review-output-bit",
+        "key": "energy_microgrid_cyber_safety_gate_urgent_or_review_output_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -120,7 +120,7 @@
       },
       {
         "index": 9,
-        "key": "energy-resilient-community-microgrid-operations-stabilizer-urgent-or-review-output-bit",
+        "key": "energy_resilient_community_microgrid_operations_stabilizer_urgent_or_review_output_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -176,16 +176,16 @@
         "length": 10
       },
       "semantics": [
-        "energy-community-critical-load-priority-controller-urgent-or-review-output-bit",
-        "energy-islanding-readiness-coordinator-urgent-or-review-output-bit",
-        "energy-storage-reserve-and-dispatch-optimizer-urgent-or-review-output-bit",
-        "energy-distributed-generation-commitment-planner-urgent-or-review-output-bit",
-        "energy-feeder-and-transmission-path-manager-urgent-or-review-output-bit",
-        "energy-community-service-continuity-monitor-urgent-or-review-output-bit",
-        "energy-supply-chain-logistics-coordinator-urgent-or-review-output-bit",
-        "energy-smart-grid-protocol-adapter-health-monitor-urgent-or-review-output-bit",
-        "energy-microgrid-cyber-safety-gate-urgent-or-review-output-bit",
-        "energy-resilient-community-microgrid-operations-stabilizer-urgent-or-review-output-bit"
+        "energy_community_critical_load_priority_controller_urgent_or_review_output_bit",
+        "energy_islanding_readiness_coordinator_urgent_or_review_output_bit",
+        "energy_storage_reserve_and_dispatch_optimizer_urgent_or_review_output_bit",
+        "energy_distributed_generation_commitment_planner_urgent_or_review_output_bit",
+        "energy_feeder_and_transmission_path_manager_urgent_or_review_output_bit",
+        "energy_community_service_continuity_monitor_urgent_or_review_output_bit",
+        "energy_supply_chain_logistics_coordinator_urgent_or_review_output_bit",
+        "energy_smart_grid_protocol_adapter_health_monitor_urgent_or_review_output_bit",
+        "energy_microgrid_cyber_safety_gate_urgent_or_review_output_bit",
+        "energy_resilient_community_microgrid_operations_stabilizer_urgent_or_review_output_bit"
       ],
       "ttlMs": 300000,
       "normalization": "already-normalized-0-1",
@@ -230,12 +230,12 @@
     "mode": "advise",
     "fields": [
       {
-        "semantic": "energy-community-critical-load-priority-controller-urgent-or-review-output-bit",
+        "semantic": "energy_community_critical_load_priority_controller_urgent_or_review_output_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/energy-community-critical-load-priority-controller-urgent-or-review-output-bit",
-          "responseKey": "energy-community-critical-load-priority-controller-urgent-or-review-output-bit",
+          "jsonPointer": "/energy_community_critical_load_priority_controller_urgent_or_review_output_bit",
+          "responseKey": "energy_community_critical_load_priority_controller_urgent_or_review_output_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -273,12 +273,12 @@
         }
       },
       {
-        "semantic": "energy-islanding-readiness-coordinator-urgent-or-review-output-bit",
+        "semantic": "energy_islanding_readiness_coordinator_urgent_or_review_output_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/energy-islanding-readiness-coordinator-urgent-or-review-output-bit",
-          "responseKey": "energy-islanding-readiness-coordinator-urgent-or-review-output-bit",
+          "jsonPointer": "/energy_islanding_readiness_coordinator_urgent_or_review_output_bit",
+          "responseKey": "energy_islanding_readiness_coordinator_urgent_or_review_output_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -316,12 +316,12 @@
         }
       },
       {
-        "semantic": "energy-storage-reserve-and-dispatch-optimizer-urgent-or-review-output-bit",
+        "semantic": "energy_storage_reserve_and_dispatch_optimizer_urgent_or_review_output_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/energy-storage-reserve-and-dispatch-optimizer-urgent-or-review-output-bit",
-          "responseKey": "energy-storage-reserve-and-dispatch-optimizer-urgent-or-review-output-bit",
+          "jsonPointer": "/energy_storage_reserve_and_dispatch_optimizer_urgent_or_review_output_bit",
+          "responseKey": "energy_storage_reserve_and_dispatch_optimizer_urgent_or_review_output_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -359,12 +359,12 @@
         }
       },
       {
-        "semantic": "energy-distributed-generation-commitment-planner-urgent-or-review-output-bit",
+        "semantic": "energy_distributed_generation_commitment_planner_urgent_or_review_output_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/energy-distributed-generation-commitment-planner-urgent-or-review-output-bit",
-          "responseKey": "energy-distributed-generation-commitment-planner-urgent-or-review-output-bit",
+          "jsonPointer": "/energy_distributed_generation_commitment_planner_urgent_or_review_output_bit",
+          "responseKey": "energy_distributed_generation_commitment_planner_urgent_or_review_output_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -402,12 +402,12 @@
         }
       },
       {
-        "semantic": "energy-feeder-and-transmission-path-manager-urgent-or-review-output-bit",
+        "semantic": "energy_feeder_and_transmission_path_manager_urgent_or_review_output_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/energy-feeder-and-transmission-path-manager-urgent-or-review-output-bit",
-          "responseKey": "energy-feeder-and-transmission-path-manager-urgent-or-review-output-bit",
+          "jsonPointer": "/energy_feeder_and_transmission_path_manager_urgent_or_review_output_bit",
+          "responseKey": "energy_feeder_and_transmission_path_manager_urgent_or_review_output_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -445,12 +445,12 @@
         }
       },
       {
-        "semantic": "energy-community-service-continuity-monitor-urgent-or-review-output-bit",
+        "semantic": "energy_community_service_continuity_monitor_urgent_or_review_output_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/energy-community-service-continuity-monitor-urgent-or-review-output-bit",
-          "responseKey": "energy-community-service-continuity-monitor-urgent-or-review-output-bit",
+          "jsonPointer": "/energy_community_service_continuity_monitor_urgent_or_review_output_bit",
+          "responseKey": "energy_community_service_continuity_monitor_urgent_or_review_output_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -488,12 +488,12 @@
         }
       },
       {
-        "semantic": "energy-supply-chain-logistics-coordinator-urgent-or-review-output-bit",
+        "semantic": "energy_supply_chain_logistics_coordinator_urgent_or_review_output_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/energy-supply-chain-logistics-coordinator-urgent-or-review-output-bit",
-          "responseKey": "energy-supply-chain-logistics-coordinator-urgent-or-review-output-bit",
+          "jsonPointer": "/energy_supply_chain_logistics_coordinator_urgent_or_review_output_bit",
+          "responseKey": "energy_supply_chain_logistics_coordinator_urgent_or_review_output_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -531,12 +531,12 @@
         }
       },
       {
-        "semantic": "energy-smart-grid-protocol-adapter-health-monitor-urgent-or-review-output-bit",
+        "semantic": "energy_smart_grid_protocol_adapter_health_monitor_urgent_or_review_output_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/energy-smart-grid-protocol-adapter-health-monitor-urgent-or-review-output-bit",
-          "responseKey": "energy-smart-grid-protocol-adapter-health-monitor-urgent-or-review-output-bit",
+          "jsonPointer": "/energy_smart_grid_protocol_adapter_health_monitor_urgent_or_review_output_bit",
+          "responseKey": "energy_smart_grid_protocol_adapter_health_monitor_urgent_or_review_output_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -574,12 +574,12 @@
         }
       },
       {
-        "semantic": "energy-microgrid-cyber-safety-gate-urgent-or-review-output-bit",
+        "semantic": "energy_microgrid_cyber_safety_gate_urgent_or_review_output_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/energy-microgrid-cyber-safety-gate-urgent-or-review-output-bit",
-          "responseKey": "energy-microgrid-cyber-safety-gate-urgent-or-review-output-bit",
+          "jsonPointer": "/energy_microgrid_cyber_safety_gate_urgent_or_review_output_bit",
+          "responseKey": "energy_microgrid_cyber_safety_gate_urgent_or_review_output_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -617,12 +617,12 @@
         }
       },
       {
-        "semantic": "energy-resilient-community-microgrid-operations-stabilizer-urgent-or-review-output-bit",
+        "semantic": "energy_resilient_community_microgrid_operations_stabilizer_urgent_or_review_output_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/energy-resilient-community-microgrid-operations-stabilizer-urgent-or-review-output-bit",
-          "responseKey": "energy-resilient-community-microgrid-operations-stabilizer-urgent-or-review-output-bit",
+          "jsonPointer": "/energy_resilient_community_microgrid_operations_stabilizer_urgent_or_review_output_bit",
+          "responseKey": "energy_resilient_community_microgrid_operations_stabilizer_urgent_or_review_output_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -664,7 +664,7 @@
   "diagnostics": {
     "axisBasis": "inputSemantics",
     "warnings": [
-      "input axes derived from inputSemantics (no length-matched sensorNormalization)"
+      "input axes derived from inputSemantics; openClawProjection.semantics does not name these positions, so the agent's axis names are unverified"
     ],
     "inputLength": 10,
     "sequenceCount": 4

@@ -34,12 +34,12 @@
   },
   "reasoning": {
     "objective": "Produce the normalized input vector for \"Home Transportation Barrier Monitor\" from current observations so RE can evaluate its CES sequences.",
-    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Home Transportation Barrier Monitor\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Monitors transportation access barriers that prevent low- and medium-income home health patients from attending medical appointments, filling prescriptions, and accessing community services. Transportation is a top driver of missed care in rural and low-income urban settings \u2014 more predictive of care gaps than insurance status alone. Output at [2015:2019] feeds the Home Social Isolation Monitor alongside the Medication Cost Barrier Monitor.\n\nPOPULATION: Rural and low-income urban patients; elderly without vehicles; patients relying on public transit or ride programs in transit deserts\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- appointment_attendance_norm (index 0):  0.0 = no appointments attended in past period (complete care avoidance due to transport) | 0.5 = ~50% attendance (some missed due to transport) | 1.0 = all scheduled appointments attended\n- transit_access_norm (index 1):  0.0 = no viable transit options (rural transit desert; no car; no rideshare) | 0.5 = limited access (one-way possible, return uncertain; shared ride program with waitlist) | 1.0 = reliable transit or personal vehicle available\n- missed_critical_care_norm (index 2):  0.0 = critical care missed (dialysis, chemotherapy, specialty follow-up) due to transport | 0.5 = non-critical missed (primary care, routine labs) | 1.0 = no care missed due to transport\n- proximity_norm (index 3):  0.0 = >30 miles from nearest relevant provider with no transit | 0.5 = 10\u201330 miles with unreliable transit | 1.0 = within 5 miles or transport resolved\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- CRITICAL_ACCESS_FAILURE (RED) -> action: route-referral\n- TRANSIT_DEPENDENT_RISK (AMBER) -> action: route-referral\n- TRANSPORTATION_ADEQUATE (AMBER) -> action: continue-monitoring",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Home Transportation Barrier Monitor\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Monitors transportation access barriers that prevent low- and medium-income home health patients from attending medical appointments, filling prescriptions, and accessing community services. Transportation is a top driver of missed care in rural and low-income urban settings \u2014 more predictive of care gaps than insurance status alone. Output at [2015:2019] feeds the Home Social Isolation Monitor alongside the Medication Cost Barrier Monitor.\n\nPOPULATION: Rural and low-income urban patients; elderly without vehicles; patients relying on public transit or ride programs in transit deserts\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- appointment_transport_confirmed_norm (index 0):  0.0 = no appointments attended in past period (complete care avoidance due to transport) | 0.5 = ~50% attendance (some missed due to transport) | 1.0 = all scheduled appointments attended\n- vehicle_or_transit_reliability_norm (index 1):  0.0 = no viable transit options (rural transit desert; no car; no rideshare) | 0.5 = limited access (one-way possible, return uncertain; shared ride program with waitlist) | 1.0 = reliable transit or personal vehicle available\n- ride_support_availability_norm (index 2):  0.0 = critical care missed (dialysis, chemotherapy, specialty follow-up) due to transport | 0.5 = non-critical missed (primary care, routine labs) | 1.0 = no care missed due to transport\n- mobility_access_norm (index 3):  0.0 = >30 miles from nearest relevant provider with no transit | 0.5 = 10\u201330 miles with unreliable transit | 1.0 = within 5 miles or transport resolved\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- CRITICAL_ACCESS_FAILURE (RED) -> action: route-referral\n- TRANSIT_DEPENDENT_RISK (AMBER) -> action: route-referral\n- TRANSPORTATION_ADEQUATE (AMBER) -> action: continue-monitoring",
     "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
     "inputAxes": [
       {
         "index": 0,
-        "key": "appointment_attendance_norm",
+        "key": "appointment_transport_confirmed_norm",
         "anchors": {
           "low": "no appointments attended in past period (complete care avoidance due to transport)",
           "mid": "~50% attendance (some missed due to transport)",
@@ -48,7 +48,7 @@
       },
       {
         "index": 1,
-        "key": "transit_access_norm",
+        "key": "vehicle_or_transit_reliability_norm",
         "anchors": {
           "low": "no viable transit options (rural transit desert; no car; no rideshare)",
           "mid": "limited access (one-way possible, return uncertain; shared ride program with waitlist)",
@@ -57,7 +57,7 @@
       },
       {
         "index": 2,
-        "key": "missed_critical_care_norm",
+        "key": "ride_support_availability_norm",
         "anchors": {
           "low": "critical care missed (dialysis, chemotherapy, specialty follow-up) due to transport",
           "mid": "non-critical missed (primary care, routine labs)",
@@ -66,7 +66,7 @@
       },
       {
         "index": 3,
-        "key": "proximity_norm",
+        "key": "mobility_access_norm",
         "anchors": {
           "low": ">30 miles from nearest relevant provider with no transit",
           "mid": "10\u201330 miles with unreliable transit",
@@ -115,10 +115,10 @@
         "length": 4
       },
       "semantics": [
-        "appointment_attendance_norm",
-        "transit_access_norm",
-        "missed_critical_care_norm",
-        "proximity_norm"
+        "appointment_transport_confirmed_norm",
+        "vehicle_or_transit_reliability_norm",
+        "ride_support_availability_norm",
+        "mobility_access_norm"
       ],
       "ttlMs": 300000,
       "normalization": "already-normalized-0-1",
@@ -163,12 +163,12 @@
     "mode": "advise",
     "fields": [
       {
-        "semantic": "appointment_attendance_norm",
+        "semantic": "appointment_transport_confirmed_norm",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/appointment_attendance_norm",
-          "responseKey": "appointment_attendance_norm",
+          "jsonPointer": "/appointment_transport_confirmed_norm",
+          "responseKey": "appointment_transport_confirmed_norm",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -206,12 +206,12 @@
         }
       },
       {
-        "semantic": "transit_access_norm",
+        "semantic": "vehicle_or_transit_reliability_norm",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/transit_access_norm",
-          "responseKey": "transit_access_norm",
+          "jsonPointer": "/vehicle_or_transit_reliability_norm",
+          "responseKey": "vehicle_or_transit_reliability_norm",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -249,12 +249,12 @@
         }
       },
       {
-        "semantic": "missed_critical_care_norm",
+        "semantic": "ride_support_availability_norm",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/missed_critical_care_norm",
-          "responseKey": "missed_critical_care_norm",
+          "jsonPointer": "/ride_support_availability_norm",
+          "responseKey": "ride_support_availability_norm",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -292,12 +292,12 @@
         }
       },
       {
-        "semantic": "proximity_norm",
+        "semantic": "mobility_access_norm",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/proximity_norm",
-          "responseKey": "proximity_norm",
+          "jsonPointer": "/mobility_access_norm",
+          "responseKey": "mobility_access_norm",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -337,7 +337,7 @@
     ]
   },
   "diagnostics": {
-    "axisBasis": "sensorNormalization",
+    "axisBasis": "openClawProjection",
     "warnings": [],
     "inputLength": 4,
     "sequenceCount": 3

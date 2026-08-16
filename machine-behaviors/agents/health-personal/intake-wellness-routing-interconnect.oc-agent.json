@@ -34,12 +34,12 @@
   },
   "reasoning": {
     "objective": "Produce the normalized input vector for \"Intake Wellness Routing Interconnect\" from current observations so RE can evaluate its CES sequences.",
-    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Intake Wellness Routing Interconnect\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Published personal-health bridge bus that composes intake decisions, wellness routing, transition outcomes, patient wellness, and facilities welfare checks into a compact intake routing lane.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- new-patient-accepted-bit (index 0):\n- new-patient-provisional-reject-bit (index 1):\n- wellness-inflow-evaluation-bit (index 2):\n- wellness-inflow-urgent-bit (index 3):\n- wellness-transition-review-bit (index 4):\n- wellness-transition-escalation-bit (index 5):\n- wellness-transition-urgent-bit (index 6):\n- wellness-improving-bit (index 7):\n- hospital-transfer-bit (index 8):\n- rehab-transfer-bit (index 9):\n- alf-transfer-bit (index 10):\n- transfer-blocked-bit (index 11):\n- emergency-escalation-bit (index 12):\n- patient-wellness-alert-bit (index 13):\n- patient-wellness-critical-bit (index 14):\n- facilities-immediate-welfare-check-bit (index 15):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- URGENT_INTAKE_TRANSITION at [4598 (RED) -> action: urgent-intervention\n- PLACEMENT_READINESS at [4598 (AMBER) -> action: route-referral\n- BARRIER_RESOLUTION at [4598 (AMBER) -> action: route-referral\n- STABLE_ROUTED_CARE at [4598 (GREEN) -> action: continue-monitoring",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Intake Wellness Routing Interconnect\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Published personal-health bridge bus that composes intake decisions, wellness routing, transition outcomes, patient wellness, and facilities welfare checks into a compact intake routing lane.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- new_patient_accepted_bit (index 0):\n- new_patient_provisional_reject_bit (index 1):\n- wellness_inflow_evaluation_bit (index 2):\n- wellness_inflow_urgent_bit (index 3):\n- wellness_transition_review_bit (index 4):\n- wellness_transition_escalation_bit (index 5):\n- wellness_transition_urgent_bit (index 6):\n- wellness_improving_bit (index 7):\n- hospital_transfer_bit (index 8):\n- rehab_transfer_bit (index 9):\n- alf_transfer_bit (index 10):\n- transfer_blocked_bit (index 11):\n- emergency_escalation_bit (index 12):\n- patient_wellness_alert_bit (index 13):\n- patient_wellness_critical_bit (index 14):\n- facilities_immediate_welfare_check_bit (index 15):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- URGENT_INTAKE_TRANSITION at [4598 (RED) -> action: urgent-intervention\n- PLACEMENT_READINESS at [4598 (AMBER) -> action: route-referral\n- BARRIER_RESOLUTION at [4598 (AMBER) -> action: route-referral\n- STABLE_ROUTED_CARE at [4598 (GREEN) -> action: continue-monitoring",
     "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
     "inputAxes": [
       {
         "index": 0,
-        "key": "new-patient-accepted-bit",
+        "key": "new_patient_accepted_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -48,7 +48,7 @@
       },
       {
         "index": 1,
-        "key": "new-patient-provisional-reject-bit",
+        "key": "new_patient_provisional_reject_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -57,7 +57,7 @@
       },
       {
         "index": 2,
-        "key": "wellness-inflow-evaluation-bit",
+        "key": "wellness_inflow_evaluation_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -66,7 +66,7 @@
       },
       {
         "index": 3,
-        "key": "wellness-inflow-urgent-bit",
+        "key": "wellness_inflow_urgent_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -75,7 +75,7 @@
       },
       {
         "index": 4,
-        "key": "wellness-transition-review-bit",
+        "key": "wellness_transition_review_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -84,7 +84,7 @@
       },
       {
         "index": 5,
-        "key": "wellness-transition-escalation-bit",
+        "key": "wellness_transition_escalation_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -93,7 +93,7 @@
       },
       {
         "index": 6,
-        "key": "wellness-transition-urgent-bit",
+        "key": "wellness_transition_urgent_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -102,7 +102,7 @@
       },
       {
         "index": 7,
-        "key": "wellness-improving-bit",
+        "key": "wellness_improving_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -111,7 +111,7 @@
       },
       {
         "index": 8,
-        "key": "hospital-transfer-bit",
+        "key": "hospital_transfer_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -120,7 +120,7 @@
       },
       {
         "index": 9,
-        "key": "rehab-transfer-bit",
+        "key": "rehab_transfer_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -129,7 +129,7 @@
       },
       {
         "index": 10,
-        "key": "alf-transfer-bit",
+        "key": "alf_transfer_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -138,7 +138,7 @@
       },
       {
         "index": 11,
-        "key": "transfer-blocked-bit",
+        "key": "transfer_blocked_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -147,7 +147,7 @@
       },
       {
         "index": 12,
-        "key": "emergency-escalation-bit",
+        "key": "emergency_escalation_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -156,7 +156,7 @@
       },
       {
         "index": 13,
-        "key": "patient-wellness-alert-bit",
+        "key": "patient_wellness_alert_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -165,7 +165,7 @@
       },
       {
         "index": 14,
-        "key": "patient-wellness-critical-bit",
+        "key": "patient_wellness_critical_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -174,7 +174,7 @@
       },
       {
         "index": 15,
-        "key": "facilities-immediate-welfare-check-bit",
+        "key": "facilities_immediate_welfare_check_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -230,22 +230,22 @@
         "length": 16
       },
       "semantics": [
-        "new-patient-accepted-bit",
-        "new-patient-provisional-reject-bit",
-        "wellness-inflow-evaluation-bit",
-        "wellness-inflow-urgent-bit",
-        "wellness-transition-review-bit",
-        "wellness-transition-escalation-bit",
-        "wellness-transition-urgent-bit",
-        "wellness-improving-bit",
-        "hospital-transfer-bit",
-        "rehab-transfer-bit",
-        "alf-transfer-bit",
-        "transfer-blocked-bit",
-        "emergency-escalation-bit",
-        "patient-wellness-alert-bit",
-        "patient-wellness-critical-bit",
-        "facilities-immediate-welfare-check-bit"
+        "new_patient_accepted_bit",
+        "new_patient_provisional_reject_bit",
+        "wellness_inflow_evaluation_bit",
+        "wellness_inflow_urgent_bit",
+        "wellness_transition_review_bit",
+        "wellness_transition_escalation_bit",
+        "wellness_transition_urgent_bit",
+        "wellness_improving_bit",
+        "hospital_transfer_bit",
+        "rehab_transfer_bit",
+        "alf_transfer_bit",
+        "transfer_blocked_bit",
+        "emergency_escalation_bit",
+        "patient_wellness_alert_bit",
+        "patient_wellness_critical_bit",
+        "facilities_immediate_welfare_check_bit"
       ],
       "ttlMs": 300000,
       "normalization": "already-normalized-0-1",
@@ -290,12 +290,12 @@
     "mode": "advise",
     "fields": [
       {
-        "semantic": "new-patient-accepted-bit",
+        "semantic": "new_patient_accepted_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/new-patient-accepted-bit",
-          "responseKey": "new-patient-accepted-bit",
+          "jsonPointer": "/new_patient_accepted_bit",
+          "responseKey": "new_patient_accepted_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -333,12 +333,12 @@
         }
       },
       {
-        "semantic": "new-patient-provisional-reject-bit",
+        "semantic": "new_patient_provisional_reject_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/new-patient-provisional-reject-bit",
-          "responseKey": "new-patient-provisional-reject-bit",
+          "jsonPointer": "/new_patient_provisional_reject_bit",
+          "responseKey": "new_patient_provisional_reject_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -376,12 +376,12 @@
         }
       },
       {
-        "semantic": "wellness-inflow-evaluation-bit",
+        "semantic": "wellness_inflow_evaluation_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/wellness-inflow-evaluation-bit",
-          "responseKey": "wellness-inflow-evaluation-bit",
+          "jsonPointer": "/wellness_inflow_evaluation_bit",
+          "responseKey": "wellness_inflow_evaluation_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -419,12 +419,12 @@
         }
       },
       {
-        "semantic": "wellness-inflow-urgent-bit",
+        "semantic": "wellness_inflow_urgent_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/wellness-inflow-urgent-bit",
-          "responseKey": "wellness-inflow-urgent-bit",
+          "jsonPointer": "/wellness_inflow_urgent_bit",
+          "responseKey": "wellness_inflow_urgent_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -462,12 +462,12 @@
         }
       },
       {
-        "semantic": "wellness-transition-review-bit",
+        "semantic": "wellness_transition_review_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/wellness-transition-review-bit",
-          "responseKey": "wellness-transition-review-bit",
+          "jsonPointer": "/wellness_transition_review_bit",
+          "responseKey": "wellness_transition_review_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -505,12 +505,12 @@
         }
       },
       {
-        "semantic": "wellness-transition-escalation-bit",
+        "semantic": "wellness_transition_escalation_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/wellness-transition-escalation-bit",
-          "responseKey": "wellness-transition-escalation-bit",
+          "jsonPointer": "/wellness_transition_escalation_bit",
+          "responseKey": "wellness_transition_escalation_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -548,12 +548,12 @@
         }
       },
       {
-        "semantic": "wellness-transition-urgent-bit",
+        "semantic": "wellness_transition_urgent_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/wellness-transition-urgent-bit",
-          "responseKey": "wellness-transition-urgent-bit",
+          "jsonPointer": "/wellness_transition_urgent_bit",
+          "responseKey": "wellness_transition_urgent_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -591,12 +591,12 @@
         }
       },
       {
-        "semantic": "wellness-improving-bit",
+        "semantic": "wellness_improving_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/wellness-improving-bit",
-          "responseKey": "wellness-improving-bit",
+          "jsonPointer": "/wellness_improving_bit",
+          "responseKey": "wellness_improving_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -634,12 +634,12 @@
         }
       },
       {
-        "semantic": "hospital-transfer-bit",
+        "semantic": "hospital_transfer_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/hospital-transfer-bit",
-          "responseKey": "hospital-transfer-bit",
+          "jsonPointer": "/hospital_transfer_bit",
+          "responseKey": "hospital_transfer_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -677,12 +677,12 @@
         }
       },
       {
-        "semantic": "rehab-transfer-bit",
+        "semantic": "rehab_transfer_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/rehab-transfer-bit",
-          "responseKey": "rehab-transfer-bit",
+          "jsonPointer": "/rehab_transfer_bit",
+          "responseKey": "rehab_transfer_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -720,12 +720,12 @@
         }
       },
       {
-        "semantic": "alf-transfer-bit",
+        "semantic": "alf_transfer_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/alf-transfer-bit",
-          "responseKey": "alf-transfer-bit",
+          "jsonPointer": "/alf_transfer_bit",
+          "responseKey": "alf_transfer_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -763,12 +763,12 @@
         }
       },
       {
-        "semantic": "transfer-blocked-bit",
+        "semantic": "transfer_blocked_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/transfer-blocked-bit",
-          "responseKey": "transfer-blocked-bit",
+          "jsonPointer": "/transfer_blocked_bit",
+          "responseKey": "transfer_blocked_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -806,12 +806,12 @@
         }
       },
       {
-        "semantic": "emergency-escalation-bit",
+        "semantic": "emergency_escalation_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/emergency-escalation-bit",
-          "responseKey": "emergency-escalation-bit",
+          "jsonPointer": "/emergency_escalation_bit",
+          "responseKey": "emergency_escalation_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -849,12 +849,12 @@
         }
       },
       {
-        "semantic": "patient-wellness-alert-bit",
+        "semantic": "patient_wellness_alert_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/patient-wellness-alert-bit",
-          "responseKey": "patient-wellness-alert-bit",
+          "jsonPointer": "/patient_wellness_alert_bit",
+          "responseKey": "patient_wellness_alert_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -892,12 +892,12 @@
         }
       },
       {
-        "semantic": "patient-wellness-critical-bit",
+        "semantic": "patient_wellness_critical_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/patient-wellness-critical-bit",
-          "responseKey": "patient-wellness-critical-bit",
+          "jsonPointer": "/patient_wellness_critical_bit",
+          "responseKey": "patient_wellness_critical_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -935,12 +935,12 @@
         }
       },
       {
-        "semantic": "facilities-immediate-welfare-check-bit",
+        "semantic": "facilities_immediate_welfare_check_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/facilities-immediate-welfare-check-bit",
-          "responseKey": "facilities-immediate-welfare-check-bit",
+          "jsonPointer": "/facilities_immediate_welfare_check_bit",
+          "responseKey": "facilities_immediate_welfare_check_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -982,7 +982,7 @@
   "diagnostics": {
     "axisBasis": "inputSemantics",
     "warnings": [
-      "input axes derived from inputSemantics (no length-matched sensorNormalization)"
+      "input axes derived from inputSemantics; openClawProjection.semantics does not name these positions, so the agent's axis names are unverified"
     ],
     "inputLength": 16,
     "sequenceCount": 4

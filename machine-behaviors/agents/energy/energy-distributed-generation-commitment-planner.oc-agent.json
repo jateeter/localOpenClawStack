@@ -34,12 +34,12 @@
   },
   "reasoning": {
     "objective": "Produce the normalized input vector for \"Energy Distributed Generation Commitment Planner\" from current observations so RE can evaluate its CES sequences.",
-    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Energy Distributed Generation Commitment Planner\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Combines solar, inverter, weather, backup generation, maintenance restriction, and power quality signals into a generation commitment posture.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- rooftop_solar_available_norm (index 0):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- carport_solar_available_norm (index 1):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- school_campus_solar_available_norm (index 2):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- community_center_solar_available_norm (index 3):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- ground_mount_solar_available_norm (index 4):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- inverter_bank_healthy_norm (index 5):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- irradiance_forecast_favorable_norm (index 6):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- backup_generation_available_norm (index 7):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- generation_maintenance_restriction_active_norm (index 8):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- power_quality_limit_active_norm (index 9):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Distributed Generation Commitment Planner (RED) -> action: route-review\n- Distributed Generation Commitment Planner (AMBER) -> action: adjust-operations\n- Distributed Generation Commitment Planner (AMBER) -> action: adjust-operations\n- Distributed Generation Commitment Planner (GREEN) -> action: continue-monitoring",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Energy Distributed Generation Commitment Planner\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Combines solar, inverter, weather, backup generation, maintenance restriction, and power quality signals into a generation commitment posture.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- rooftop_solar_available (index 0):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- carport_solar_available (index 1):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- school_campus_solar_available (index 2):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- community_center_solar_available (index 3):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- ground_mount_solar_available (index 4):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- inverter_bank_healthy (index 5):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- irradiance_forecast_favorable (index 6):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- backup_generation_available (index 7):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- generation_maintenance_restriction_active (index 8):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- power_quality_limit_active (index 9):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Distributed Generation Commitment Planner (RED) -> action: route-review\n- Distributed Generation Commitment Planner (AMBER) -> action: adjust-operations\n- Distributed Generation Commitment Planner (AMBER) -> action: adjust-operations\n- Distributed Generation Commitment Planner (GREEN) -> action: continue-monitoring",
     "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
     "inputAxes": [
       {
         "index": 0,
-        "key": "rooftop_solar_available_norm",
+        "key": "rooftop_solar_available",
         "anchors": {
           "low": "false/inactive",
           "mid": "",
@@ -48,7 +48,7 @@
       },
       {
         "index": 1,
-        "key": "carport_solar_available_norm",
+        "key": "carport_solar_available",
         "anchors": {
           "low": "false/inactive",
           "mid": "",
@@ -57,7 +57,7 @@
       },
       {
         "index": 2,
-        "key": "school_campus_solar_available_norm",
+        "key": "school_campus_solar_available",
         "anchors": {
           "low": "false/inactive",
           "mid": "",
@@ -66,7 +66,7 @@
       },
       {
         "index": 3,
-        "key": "community_center_solar_available_norm",
+        "key": "community_center_solar_available",
         "anchors": {
           "low": "false/inactive",
           "mid": "",
@@ -75,7 +75,7 @@
       },
       {
         "index": 4,
-        "key": "ground_mount_solar_available_norm",
+        "key": "ground_mount_solar_available",
         "anchors": {
           "low": "false/inactive",
           "mid": "",
@@ -84,7 +84,7 @@
       },
       {
         "index": 5,
-        "key": "inverter_bank_healthy_norm",
+        "key": "inverter_bank_healthy",
         "anchors": {
           "low": "false/inactive",
           "mid": "",
@@ -93,7 +93,7 @@
       },
       {
         "index": 6,
-        "key": "irradiance_forecast_favorable_norm",
+        "key": "irradiance_forecast_favorable",
         "anchors": {
           "low": "false/inactive",
           "mid": "",
@@ -102,7 +102,7 @@
       },
       {
         "index": 7,
-        "key": "backup_generation_available_norm",
+        "key": "backup_generation_available",
         "anchors": {
           "low": "false/inactive",
           "mid": "",
@@ -111,7 +111,7 @@
       },
       {
         "index": 8,
-        "key": "generation_maintenance_restriction_active_norm",
+        "key": "generation_maintenance_restriction_active",
         "anchors": {
           "low": "false/inactive",
           "mid": "",
@@ -120,7 +120,7 @@
       },
       {
         "index": 9,
-        "key": "power_quality_limit_active_norm",
+        "key": "power_quality_limit_active",
         "anchors": {
           "low": "false/inactive",
           "mid": "",
@@ -176,16 +176,16 @@
         "length": 10
       },
       "semantics": [
-        "rooftop_solar_available_norm",
-        "carport_solar_available_norm",
-        "school_campus_solar_available_norm",
-        "community_center_solar_available_norm",
-        "ground_mount_solar_available_norm",
-        "inverter_bank_healthy_norm",
-        "irradiance_forecast_favorable_norm",
-        "backup_generation_available_norm",
-        "generation_maintenance_restriction_active_norm",
-        "power_quality_limit_active_norm"
+        "rooftop_solar_available",
+        "carport_solar_available",
+        "school_campus_solar_available",
+        "community_center_solar_available",
+        "ground_mount_solar_available",
+        "inverter_bank_healthy",
+        "irradiance_forecast_favorable",
+        "backup_generation_available",
+        "generation_maintenance_restriction_active",
+        "power_quality_limit_active"
       ],
       "ttlMs": 300000,
       "normalization": "already-normalized-0-1",
@@ -230,12 +230,12 @@
     "mode": "advise",
     "fields": [
       {
-        "semantic": "rooftop_solar_available_norm",
+        "semantic": "rooftop_solar_available",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/rooftop_solar_available_norm",
-          "responseKey": "rooftop_solar_available_norm",
+          "jsonPointer": "/rooftop_solar_available",
+          "responseKey": "rooftop_solar_available",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -273,12 +273,12 @@
         }
       },
       {
-        "semantic": "carport_solar_available_norm",
+        "semantic": "carport_solar_available",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/carport_solar_available_norm",
-          "responseKey": "carport_solar_available_norm",
+          "jsonPointer": "/carport_solar_available",
+          "responseKey": "carport_solar_available",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -316,12 +316,12 @@
         }
       },
       {
-        "semantic": "school_campus_solar_available_norm",
+        "semantic": "school_campus_solar_available",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/school_campus_solar_available_norm",
-          "responseKey": "school_campus_solar_available_norm",
+          "jsonPointer": "/school_campus_solar_available",
+          "responseKey": "school_campus_solar_available",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -359,12 +359,12 @@
         }
       },
       {
-        "semantic": "community_center_solar_available_norm",
+        "semantic": "community_center_solar_available",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/community_center_solar_available_norm",
-          "responseKey": "community_center_solar_available_norm",
+          "jsonPointer": "/community_center_solar_available",
+          "responseKey": "community_center_solar_available",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -402,12 +402,12 @@
         }
       },
       {
-        "semantic": "ground_mount_solar_available_norm",
+        "semantic": "ground_mount_solar_available",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/ground_mount_solar_available_norm",
-          "responseKey": "ground_mount_solar_available_norm",
+          "jsonPointer": "/ground_mount_solar_available",
+          "responseKey": "ground_mount_solar_available",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -445,12 +445,12 @@
         }
       },
       {
-        "semantic": "inverter_bank_healthy_norm",
+        "semantic": "inverter_bank_healthy",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/inverter_bank_healthy_norm",
-          "responseKey": "inverter_bank_healthy_norm",
+          "jsonPointer": "/inverter_bank_healthy",
+          "responseKey": "inverter_bank_healthy",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -488,12 +488,12 @@
         }
       },
       {
-        "semantic": "irradiance_forecast_favorable_norm",
+        "semantic": "irradiance_forecast_favorable",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/irradiance_forecast_favorable_norm",
-          "responseKey": "irradiance_forecast_favorable_norm",
+          "jsonPointer": "/irradiance_forecast_favorable",
+          "responseKey": "irradiance_forecast_favorable",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -531,12 +531,12 @@
         }
       },
       {
-        "semantic": "backup_generation_available_norm",
+        "semantic": "backup_generation_available",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/backup_generation_available_norm",
-          "responseKey": "backup_generation_available_norm",
+          "jsonPointer": "/backup_generation_available",
+          "responseKey": "backup_generation_available",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -574,12 +574,12 @@
         }
       },
       {
-        "semantic": "generation_maintenance_restriction_active_norm",
+        "semantic": "generation_maintenance_restriction_active",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/generation_maintenance_restriction_active_norm",
-          "responseKey": "generation_maintenance_restriction_active_norm",
+          "jsonPointer": "/generation_maintenance_restriction_active",
+          "responseKey": "generation_maintenance_restriction_active",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -617,12 +617,12 @@
         }
       },
       {
-        "semantic": "power_quality_limit_active_norm",
+        "semantic": "power_quality_limit_active",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/power_quality_limit_active_norm",
-          "responseKey": "power_quality_limit_active_norm",
+          "jsonPointer": "/power_quality_limit_active",
+          "responseKey": "power_quality_limit_active",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -662,7 +662,7 @@
     ]
   },
   "diagnostics": {
-    "axisBasis": "sensorNormalization",
+    "axisBasis": "openClawProjection",
     "warnings": [],
     "inputLength": 10,
     "sequenceCount": 4

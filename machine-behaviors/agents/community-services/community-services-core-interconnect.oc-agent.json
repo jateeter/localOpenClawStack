@@ -34,12 +34,12 @@
   },
   "reasoning": {
     "objective": "Produce the normalized input vector for \"Community Services Core Interconnect\" from current observations so RE can evaluate its CES sequences.",
-    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Community Services Core Interconnect\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Published community-services bridge bus that composes Community Services Core into a compact domain family response lane. PE owns source composition and writes the compact input lane; RE evaluates this machine as ordinary vector state.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- benefits-eligibility-screener-active-output-0-bit (index 0):\n- benefits-eligibility-screener-active-output-1-bit (index 1):\n- benefits-eligibility-screener-active-output-2-bit (index 2):\n- case-worker-capacity-monitor-active-output-0-bit (index 3):\n- case-worker-capacity-monitor-active-output-1-bit (index 4):\n- case-worker-capacity-monitor-active-output-2-bit (index 5):\n- community-access-monitor-active-output-0-bit (index 6):\n- community-access-monitor-active-output-1-bit (index 7):\n- community-access-monitor-active-output-2-bit (index 8):\n- community-outreach-monitor-active-output-0-bit (index 9):\n- community-outreach-monitor-active-output-1-bit (index 10):\n- community-outreach-monitor-active-output-2-bit (index 11):\n- document-signing-workflow-monitor-active-output-0-bit (index 12):\n- document-signing-workflow-monitor-active-output-1-bit (index 13):\n- document-signing-workflow-monitor-active-output-2-bit (index 14):\n- enrollment-coordination-monitor-active-output-0-bit (index 15):\n- enrollment-coordination-monitor-active-output-1-bit (index 16):\n- enrollment-coordination-monitor-active-output-2-bit (index 17):\n- qualification-verification-monitor-active-output-0-bit (index 18):\n- qualification-verification-monitor-active-output-1-bit (index 19):\n- qualification-verification-monitor-active-output-2-bit (index 20):\n- referral-network-monitor-active-output-0-bit (index 21):\n- referral-network-monitor-active-output-1-bit (index 22):\n- referral-network-monitor-active-output-2-bit (index 23):\n- service-delivery-compliance-monitor-active-output-0-bit (index 24):\n- service-delivery-compliance-monitor-active-output-1-bit (index 25):\n- service-delivery-compliance-monitor-active-output-2-bit (index 26):\n- service-delivery-integrity-monitor-active-output-0-bit (index 27):\n- service-delivery-integrity-monitor-active-output-1-bit (index 28):\n- service-delivery-integrity-monitor-active-output-2-bit (index 29):\n- service-intake-assessment-monitor-active-output-0-bit (index 30):\n- service-intake-assessment-monitor-active-output-1-bit (index 31):\n- service-intake-assessment-monitor-active-output-2-bit (index 32):\n- workflow-completion-monitor-active-output-0-bit (index 33):\n- workflow-completion-monitor-active-output-1-bit (index 34):\n- workflow-completion-monitor-active-output-2-bit (index 35):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Community Services Core domain family review at [13794 (RED) -> action: route-review\n- Community Services Core domain family optimization at [13794 (AMBER) -> action: route-review\n- Community Services Core domain family monitoring at [13794 (AMBER) -> action: route-review\n- Community Services Core domain family stable at [13794 (GREEN) -> action: continue-monitoring",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Community Services Core Interconnect\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Published community-services bridge bus that composes Community Services Core into a compact domain family response lane. PE owns source composition and writes the compact input lane; RE evaluates this machine as ordinary vector state.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- benefits_eligibility_screener_active_output_0_bit (index 0):\n- benefits_eligibility_screener_active_output_1_bit (index 1):\n- benefits_eligibility_screener_active_output_2_bit (index 2):\n- case_worker_capacity_monitor_active_output_0_bit (index 3):\n- case_worker_capacity_monitor_active_output_1_bit (index 4):\n- case_worker_capacity_monitor_active_output_2_bit (index 5):\n- community_access_monitor_active_output_0_bit (index 6):\n- community_access_monitor_active_output_1_bit (index 7):\n- community_access_monitor_active_output_2_bit (index 8):\n- community_outreach_monitor_active_output_0_bit (index 9):\n- community_outreach_monitor_active_output_1_bit (index 10):\n- community_outreach_monitor_active_output_2_bit (index 11):\n- document_signing_workflow_monitor_active_output_0_bit (index 12):\n- document_signing_workflow_monitor_active_output_1_bit (index 13):\n- document_signing_workflow_monitor_active_output_2_bit (index 14):\n- enrollment_coordination_monitor_active_output_0_bit (index 15):\n- enrollment_coordination_monitor_active_output_1_bit (index 16):\n- enrollment_coordination_monitor_active_output_2_bit (index 17):\n- qualification_verification_monitor_active_output_0_bit (index 18):\n- qualification_verification_monitor_active_output_1_bit (index 19):\n- qualification_verification_monitor_active_output_2_bit (index 20):\n- referral_network_monitor_active_output_0_bit (index 21):\n- referral_network_monitor_active_output_1_bit (index 22):\n- referral_network_monitor_active_output_2_bit (index 23):\n- service_delivery_compliance_monitor_active_output_0_bit (index 24):\n- service_delivery_compliance_monitor_active_output_1_bit (index 25):\n- service_delivery_compliance_monitor_active_output_2_bit (index 26):\n- service_delivery_integrity_monitor_active_output_0_bit (index 27):\n- service_delivery_integrity_monitor_active_output_1_bit (index 28):\n- service_delivery_integrity_monitor_active_output_2_bit (index 29):\n- service_intake_assessment_monitor_active_output_0_bit (index 30):\n- service_intake_assessment_monitor_active_output_1_bit (index 31):\n- service_intake_assessment_monitor_active_output_2_bit (index 32):\n- workflow_completion_monitor_active_output_0_bit (index 33):\n- workflow_completion_monitor_active_output_1_bit (index 34):\n- workflow_completion_monitor_active_output_2_bit (index 35):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Community Services Core domain family review at [13794 (RED) -> action: route-review\n- Community Services Core domain family optimization at [13794 (AMBER) -> action: route-review\n- Community Services Core domain family monitoring at [13794 (AMBER) -> action: route-review\n- Community Services Core domain family stable at [13794 (GREEN) -> action: continue-monitoring",
     "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
     "inputAxes": [
       {
         "index": 0,
-        "key": "benefits-eligibility-screener-active-output-0-bit",
+        "key": "benefits_eligibility_screener_active_output_0_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -48,7 +48,7 @@
       },
       {
         "index": 1,
-        "key": "benefits-eligibility-screener-active-output-1-bit",
+        "key": "benefits_eligibility_screener_active_output_1_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -57,7 +57,7 @@
       },
       {
         "index": 2,
-        "key": "benefits-eligibility-screener-active-output-2-bit",
+        "key": "benefits_eligibility_screener_active_output_2_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -66,7 +66,7 @@
       },
       {
         "index": 3,
-        "key": "case-worker-capacity-monitor-active-output-0-bit",
+        "key": "case_worker_capacity_monitor_active_output_0_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -75,7 +75,7 @@
       },
       {
         "index": 4,
-        "key": "case-worker-capacity-monitor-active-output-1-bit",
+        "key": "case_worker_capacity_monitor_active_output_1_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -84,7 +84,7 @@
       },
       {
         "index": 5,
-        "key": "case-worker-capacity-monitor-active-output-2-bit",
+        "key": "case_worker_capacity_monitor_active_output_2_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -93,7 +93,7 @@
       },
       {
         "index": 6,
-        "key": "community-access-monitor-active-output-0-bit",
+        "key": "community_access_monitor_active_output_0_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -102,7 +102,7 @@
       },
       {
         "index": 7,
-        "key": "community-access-monitor-active-output-1-bit",
+        "key": "community_access_monitor_active_output_1_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -111,7 +111,7 @@
       },
       {
         "index": 8,
-        "key": "community-access-monitor-active-output-2-bit",
+        "key": "community_access_monitor_active_output_2_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -120,7 +120,7 @@
       },
       {
         "index": 9,
-        "key": "community-outreach-monitor-active-output-0-bit",
+        "key": "community_outreach_monitor_active_output_0_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -129,7 +129,7 @@
       },
       {
         "index": 10,
-        "key": "community-outreach-monitor-active-output-1-bit",
+        "key": "community_outreach_monitor_active_output_1_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -138,7 +138,7 @@
       },
       {
         "index": 11,
-        "key": "community-outreach-monitor-active-output-2-bit",
+        "key": "community_outreach_monitor_active_output_2_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -147,7 +147,7 @@
       },
       {
         "index": 12,
-        "key": "document-signing-workflow-monitor-active-output-0-bit",
+        "key": "document_signing_workflow_monitor_active_output_0_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -156,7 +156,7 @@
       },
       {
         "index": 13,
-        "key": "document-signing-workflow-monitor-active-output-1-bit",
+        "key": "document_signing_workflow_monitor_active_output_1_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -165,7 +165,7 @@
       },
       {
         "index": 14,
-        "key": "document-signing-workflow-monitor-active-output-2-bit",
+        "key": "document_signing_workflow_monitor_active_output_2_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -174,7 +174,7 @@
       },
       {
         "index": 15,
-        "key": "enrollment-coordination-monitor-active-output-0-bit",
+        "key": "enrollment_coordination_monitor_active_output_0_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -183,7 +183,7 @@
       },
       {
         "index": 16,
-        "key": "enrollment-coordination-monitor-active-output-1-bit",
+        "key": "enrollment_coordination_monitor_active_output_1_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -192,7 +192,7 @@
       },
       {
         "index": 17,
-        "key": "enrollment-coordination-monitor-active-output-2-bit",
+        "key": "enrollment_coordination_monitor_active_output_2_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -201,7 +201,7 @@
       },
       {
         "index": 18,
-        "key": "qualification-verification-monitor-active-output-0-bit",
+        "key": "qualification_verification_monitor_active_output_0_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -210,7 +210,7 @@
       },
       {
         "index": 19,
-        "key": "qualification-verification-monitor-active-output-1-bit",
+        "key": "qualification_verification_monitor_active_output_1_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -219,7 +219,7 @@
       },
       {
         "index": 20,
-        "key": "qualification-verification-monitor-active-output-2-bit",
+        "key": "qualification_verification_monitor_active_output_2_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -228,7 +228,7 @@
       },
       {
         "index": 21,
-        "key": "referral-network-monitor-active-output-0-bit",
+        "key": "referral_network_monitor_active_output_0_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -237,7 +237,7 @@
       },
       {
         "index": 22,
-        "key": "referral-network-monitor-active-output-1-bit",
+        "key": "referral_network_monitor_active_output_1_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -246,7 +246,7 @@
       },
       {
         "index": 23,
-        "key": "referral-network-monitor-active-output-2-bit",
+        "key": "referral_network_monitor_active_output_2_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -255,7 +255,7 @@
       },
       {
         "index": 24,
-        "key": "service-delivery-compliance-monitor-active-output-0-bit",
+        "key": "service_delivery_compliance_monitor_active_output_0_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -264,7 +264,7 @@
       },
       {
         "index": 25,
-        "key": "service-delivery-compliance-monitor-active-output-1-bit",
+        "key": "service_delivery_compliance_monitor_active_output_1_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -273,7 +273,7 @@
       },
       {
         "index": 26,
-        "key": "service-delivery-compliance-monitor-active-output-2-bit",
+        "key": "service_delivery_compliance_monitor_active_output_2_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -282,7 +282,7 @@
       },
       {
         "index": 27,
-        "key": "service-delivery-integrity-monitor-active-output-0-bit",
+        "key": "service_delivery_integrity_monitor_active_output_0_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -291,7 +291,7 @@
       },
       {
         "index": 28,
-        "key": "service-delivery-integrity-monitor-active-output-1-bit",
+        "key": "service_delivery_integrity_monitor_active_output_1_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -300,7 +300,7 @@
       },
       {
         "index": 29,
-        "key": "service-delivery-integrity-monitor-active-output-2-bit",
+        "key": "service_delivery_integrity_monitor_active_output_2_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -309,7 +309,7 @@
       },
       {
         "index": 30,
-        "key": "service-intake-assessment-monitor-active-output-0-bit",
+        "key": "service_intake_assessment_monitor_active_output_0_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -318,7 +318,7 @@
       },
       {
         "index": 31,
-        "key": "service-intake-assessment-monitor-active-output-1-bit",
+        "key": "service_intake_assessment_monitor_active_output_1_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -327,7 +327,7 @@
       },
       {
         "index": 32,
-        "key": "service-intake-assessment-monitor-active-output-2-bit",
+        "key": "service_intake_assessment_monitor_active_output_2_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -336,7 +336,7 @@
       },
       {
         "index": 33,
-        "key": "workflow-completion-monitor-active-output-0-bit",
+        "key": "workflow_completion_monitor_active_output_0_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -345,7 +345,7 @@
       },
       {
         "index": 34,
-        "key": "workflow-completion-monitor-active-output-1-bit",
+        "key": "workflow_completion_monitor_active_output_1_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -354,7 +354,7 @@
       },
       {
         "index": 35,
-        "key": "workflow-completion-monitor-active-output-2-bit",
+        "key": "workflow_completion_monitor_active_output_2_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -410,42 +410,42 @@
         "length": 36
       },
       "semantics": [
-        "benefits-eligibility-screener-active-output-0-bit",
-        "benefits-eligibility-screener-active-output-1-bit",
-        "benefits-eligibility-screener-active-output-2-bit",
-        "case-worker-capacity-monitor-active-output-0-bit",
-        "case-worker-capacity-monitor-active-output-1-bit",
-        "case-worker-capacity-monitor-active-output-2-bit",
-        "community-access-monitor-active-output-0-bit",
-        "community-access-monitor-active-output-1-bit",
-        "community-access-monitor-active-output-2-bit",
-        "community-outreach-monitor-active-output-0-bit",
-        "community-outreach-monitor-active-output-1-bit",
-        "community-outreach-monitor-active-output-2-bit",
-        "document-signing-workflow-monitor-active-output-0-bit",
-        "document-signing-workflow-monitor-active-output-1-bit",
-        "document-signing-workflow-monitor-active-output-2-bit",
-        "enrollment-coordination-monitor-active-output-0-bit",
-        "enrollment-coordination-monitor-active-output-1-bit",
-        "enrollment-coordination-monitor-active-output-2-bit",
-        "qualification-verification-monitor-active-output-0-bit",
-        "qualification-verification-monitor-active-output-1-bit",
-        "qualification-verification-monitor-active-output-2-bit",
-        "referral-network-monitor-active-output-0-bit",
-        "referral-network-monitor-active-output-1-bit",
-        "referral-network-monitor-active-output-2-bit",
-        "service-delivery-compliance-monitor-active-output-0-bit",
-        "service-delivery-compliance-monitor-active-output-1-bit",
-        "service-delivery-compliance-monitor-active-output-2-bit",
-        "service-delivery-integrity-monitor-active-output-0-bit",
-        "service-delivery-integrity-monitor-active-output-1-bit",
-        "service-delivery-integrity-monitor-active-output-2-bit",
-        "service-intake-assessment-monitor-active-output-0-bit",
-        "service-intake-assessment-monitor-active-output-1-bit",
-        "service-intake-assessment-monitor-active-output-2-bit",
-        "workflow-completion-monitor-active-output-0-bit",
-        "workflow-completion-monitor-active-output-1-bit",
-        "workflow-completion-monitor-active-output-2-bit"
+        "benefits_eligibility_screener_active_output_0_bit",
+        "benefits_eligibility_screener_active_output_1_bit",
+        "benefits_eligibility_screener_active_output_2_bit",
+        "case_worker_capacity_monitor_active_output_0_bit",
+        "case_worker_capacity_monitor_active_output_1_bit",
+        "case_worker_capacity_monitor_active_output_2_bit",
+        "community_access_monitor_active_output_0_bit",
+        "community_access_monitor_active_output_1_bit",
+        "community_access_monitor_active_output_2_bit",
+        "community_outreach_monitor_active_output_0_bit",
+        "community_outreach_monitor_active_output_1_bit",
+        "community_outreach_monitor_active_output_2_bit",
+        "document_signing_workflow_monitor_active_output_0_bit",
+        "document_signing_workflow_monitor_active_output_1_bit",
+        "document_signing_workflow_monitor_active_output_2_bit",
+        "enrollment_coordination_monitor_active_output_0_bit",
+        "enrollment_coordination_monitor_active_output_1_bit",
+        "enrollment_coordination_monitor_active_output_2_bit",
+        "qualification_verification_monitor_active_output_0_bit",
+        "qualification_verification_monitor_active_output_1_bit",
+        "qualification_verification_monitor_active_output_2_bit",
+        "referral_network_monitor_active_output_0_bit",
+        "referral_network_monitor_active_output_1_bit",
+        "referral_network_monitor_active_output_2_bit",
+        "service_delivery_compliance_monitor_active_output_0_bit",
+        "service_delivery_compliance_monitor_active_output_1_bit",
+        "service_delivery_compliance_monitor_active_output_2_bit",
+        "service_delivery_integrity_monitor_active_output_0_bit",
+        "service_delivery_integrity_monitor_active_output_1_bit",
+        "service_delivery_integrity_monitor_active_output_2_bit",
+        "service_intake_assessment_monitor_active_output_0_bit",
+        "service_intake_assessment_monitor_active_output_1_bit",
+        "service_intake_assessment_monitor_active_output_2_bit",
+        "workflow_completion_monitor_active_output_0_bit",
+        "workflow_completion_monitor_active_output_1_bit",
+        "workflow_completion_monitor_active_output_2_bit"
       ],
       "ttlMs": 300000,
       "normalization": "already-normalized-0-1",
@@ -490,12 +490,12 @@
     "mode": "advise",
     "fields": [
       {
-        "semantic": "benefits-eligibility-screener-active-output-0-bit",
+        "semantic": "benefits_eligibility_screener_active_output_0_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/benefits-eligibility-screener-active-output-0-bit",
-          "responseKey": "benefits-eligibility-screener-active-output-0-bit",
+          "jsonPointer": "/benefits_eligibility_screener_active_output_0_bit",
+          "responseKey": "benefits_eligibility_screener_active_output_0_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -533,12 +533,12 @@
         }
       },
       {
-        "semantic": "benefits-eligibility-screener-active-output-1-bit",
+        "semantic": "benefits_eligibility_screener_active_output_1_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/benefits-eligibility-screener-active-output-1-bit",
-          "responseKey": "benefits-eligibility-screener-active-output-1-bit",
+          "jsonPointer": "/benefits_eligibility_screener_active_output_1_bit",
+          "responseKey": "benefits_eligibility_screener_active_output_1_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -576,12 +576,12 @@
         }
       },
       {
-        "semantic": "benefits-eligibility-screener-active-output-2-bit",
+        "semantic": "benefits_eligibility_screener_active_output_2_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/benefits-eligibility-screener-active-output-2-bit",
-          "responseKey": "benefits-eligibility-screener-active-output-2-bit",
+          "jsonPointer": "/benefits_eligibility_screener_active_output_2_bit",
+          "responseKey": "benefits_eligibility_screener_active_output_2_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -619,12 +619,12 @@
         }
       },
       {
-        "semantic": "case-worker-capacity-monitor-active-output-0-bit",
+        "semantic": "case_worker_capacity_monitor_active_output_0_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/case-worker-capacity-monitor-active-output-0-bit",
-          "responseKey": "case-worker-capacity-monitor-active-output-0-bit",
+          "jsonPointer": "/case_worker_capacity_monitor_active_output_0_bit",
+          "responseKey": "case_worker_capacity_monitor_active_output_0_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -662,12 +662,12 @@
         }
       },
       {
-        "semantic": "case-worker-capacity-monitor-active-output-1-bit",
+        "semantic": "case_worker_capacity_monitor_active_output_1_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/case-worker-capacity-monitor-active-output-1-bit",
-          "responseKey": "case-worker-capacity-monitor-active-output-1-bit",
+          "jsonPointer": "/case_worker_capacity_monitor_active_output_1_bit",
+          "responseKey": "case_worker_capacity_monitor_active_output_1_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -705,12 +705,12 @@
         }
       },
       {
-        "semantic": "case-worker-capacity-monitor-active-output-2-bit",
+        "semantic": "case_worker_capacity_monitor_active_output_2_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/case-worker-capacity-monitor-active-output-2-bit",
-          "responseKey": "case-worker-capacity-monitor-active-output-2-bit",
+          "jsonPointer": "/case_worker_capacity_monitor_active_output_2_bit",
+          "responseKey": "case_worker_capacity_monitor_active_output_2_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -748,12 +748,12 @@
         }
       },
       {
-        "semantic": "community-access-monitor-active-output-0-bit",
+        "semantic": "community_access_monitor_active_output_0_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/community-access-monitor-active-output-0-bit",
-          "responseKey": "community-access-monitor-active-output-0-bit",
+          "jsonPointer": "/community_access_monitor_active_output_0_bit",
+          "responseKey": "community_access_monitor_active_output_0_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -791,12 +791,12 @@
         }
       },
       {
-        "semantic": "community-access-monitor-active-output-1-bit",
+        "semantic": "community_access_monitor_active_output_1_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/community-access-monitor-active-output-1-bit",
-          "responseKey": "community-access-monitor-active-output-1-bit",
+          "jsonPointer": "/community_access_monitor_active_output_1_bit",
+          "responseKey": "community_access_monitor_active_output_1_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -834,12 +834,12 @@
         }
       },
       {
-        "semantic": "community-access-monitor-active-output-2-bit",
+        "semantic": "community_access_monitor_active_output_2_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/community-access-monitor-active-output-2-bit",
-          "responseKey": "community-access-monitor-active-output-2-bit",
+          "jsonPointer": "/community_access_monitor_active_output_2_bit",
+          "responseKey": "community_access_monitor_active_output_2_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -877,12 +877,12 @@
         }
       },
       {
-        "semantic": "community-outreach-monitor-active-output-0-bit",
+        "semantic": "community_outreach_monitor_active_output_0_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/community-outreach-monitor-active-output-0-bit",
-          "responseKey": "community-outreach-monitor-active-output-0-bit",
+          "jsonPointer": "/community_outreach_monitor_active_output_0_bit",
+          "responseKey": "community_outreach_monitor_active_output_0_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -920,12 +920,12 @@
         }
       },
       {
-        "semantic": "community-outreach-monitor-active-output-1-bit",
+        "semantic": "community_outreach_monitor_active_output_1_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/community-outreach-monitor-active-output-1-bit",
-          "responseKey": "community-outreach-monitor-active-output-1-bit",
+          "jsonPointer": "/community_outreach_monitor_active_output_1_bit",
+          "responseKey": "community_outreach_monitor_active_output_1_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -963,12 +963,12 @@
         }
       },
       {
-        "semantic": "community-outreach-monitor-active-output-2-bit",
+        "semantic": "community_outreach_monitor_active_output_2_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/community-outreach-monitor-active-output-2-bit",
-          "responseKey": "community-outreach-monitor-active-output-2-bit",
+          "jsonPointer": "/community_outreach_monitor_active_output_2_bit",
+          "responseKey": "community_outreach_monitor_active_output_2_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1006,12 +1006,12 @@
         }
       },
       {
-        "semantic": "document-signing-workflow-monitor-active-output-0-bit",
+        "semantic": "document_signing_workflow_monitor_active_output_0_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/document-signing-workflow-monitor-active-output-0-bit",
-          "responseKey": "document-signing-workflow-monitor-active-output-0-bit",
+          "jsonPointer": "/document_signing_workflow_monitor_active_output_0_bit",
+          "responseKey": "document_signing_workflow_monitor_active_output_0_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1049,12 +1049,12 @@
         }
       },
       {
-        "semantic": "document-signing-workflow-monitor-active-output-1-bit",
+        "semantic": "document_signing_workflow_monitor_active_output_1_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/document-signing-workflow-monitor-active-output-1-bit",
-          "responseKey": "document-signing-workflow-monitor-active-output-1-bit",
+          "jsonPointer": "/document_signing_workflow_monitor_active_output_1_bit",
+          "responseKey": "document_signing_workflow_monitor_active_output_1_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1092,12 +1092,12 @@
         }
       },
       {
-        "semantic": "document-signing-workflow-monitor-active-output-2-bit",
+        "semantic": "document_signing_workflow_monitor_active_output_2_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/document-signing-workflow-monitor-active-output-2-bit",
-          "responseKey": "document-signing-workflow-monitor-active-output-2-bit",
+          "jsonPointer": "/document_signing_workflow_monitor_active_output_2_bit",
+          "responseKey": "document_signing_workflow_monitor_active_output_2_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1135,12 +1135,12 @@
         }
       },
       {
-        "semantic": "enrollment-coordination-monitor-active-output-0-bit",
+        "semantic": "enrollment_coordination_monitor_active_output_0_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/enrollment-coordination-monitor-active-output-0-bit",
-          "responseKey": "enrollment-coordination-monitor-active-output-0-bit",
+          "jsonPointer": "/enrollment_coordination_monitor_active_output_0_bit",
+          "responseKey": "enrollment_coordination_monitor_active_output_0_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1178,12 +1178,12 @@
         }
       },
       {
-        "semantic": "enrollment-coordination-monitor-active-output-1-bit",
+        "semantic": "enrollment_coordination_monitor_active_output_1_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/enrollment-coordination-monitor-active-output-1-bit",
-          "responseKey": "enrollment-coordination-monitor-active-output-1-bit",
+          "jsonPointer": "/enrollment_coordination_monitor_active_output_1_bit",
+          "responseKey": "enrollment_coordination_monitor_active_output_1_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1221,12 +1221,12 @@
         }
       },
       {
-        "semantic": "enrollment-coordination-monitor-active-output-2-bit",
+        "semantic": "enrollment_coordination_monitor_active_output_2_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/enrollment-coordination-monitor-active-output-2-bit",
-          "responseKey": "enrollment-coordination-monitor-active-output-2-bit",
+          "jsonPointer": "/enrollment_coordination_monitor_active_output_2_bit",
+          "responseKey": "enrollment_coordination_monitor_active_output_2_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1264,12 +1264,12 @@
         }
       },
       {
-        "semantic": "qualification-verification-monitor-active-output-0-bit",
+        "semantic": "qualification_verification_monitor_active_output_0_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/qualification-verification-monitor-active-output-0-bit",
-          "responseKey": "qualification-verification-monitor-active-output-0-bit",
+          "jsonPointer": "/qualification_verification_monitor_active_output_0_bit",
+          "responseKey": "qualification_verification_monitor_active_output_0_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1307,12 +1307,12 @@
         }
       },
       {
-        "semantic": "qualification-verification-monitor-active-output-1-bit",
+        "semantic": "qualification_verification_monitor_active_output_1_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/qualification-verification-monitor-active-output-1-bit",
-          "responseKey": "qualification-verification-monitor-active-output-1-bit",
+          "jsonPointer": "/qualification_verification_monitor_active_output_1_bit",
+          "responseKey": "qualification_verification_monitor_active_output_1_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1350,12 +1350,12 @@
         }
       },
       {
-        "semantic": "qualification-verification-monitor-active-output-2-bit",
+        "semantic": "qualification_verification_monitor_active_output_2_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/qualification-verification-monitor-active-output-2-bit",
-          "responseKey": "qualification-verification-monitor-active-output-2-bit",
+          "jsonPointer": "/qualification_verification_monitor_active_output_2_bit",
+          "responseKey": "qualification_verification_monitor_active_output_2_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1393,12 +1393,12 @@
         }
       },
       {
-        "semantic": "referral-network-monitor-active-output-0-bit",
+        "semantic": "referral_network_monitor_active_output_0_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/referral-network-monitor-active-output-0-bit",
-          "responseKey": "referral-network-monitor-active-output-0-bit",
+          "jsonPointer": "/referral_network_monitor_active_output_0_bit",
+          "responseKey": "referral_network_monitor_active_output_0_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1436,12 +1436,12 @@
         }
       },
       {
-        "semantic": "referral-network-monitor-active-output-1-bit",
+        "semantic": "referral_network_monitor_active_output_1_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/referral-network-monitor-active-output-1-bit",
-          "responseKey": "referral-network-monitor-active-output-1-bit",
+          "jsonPointer": "/referral_network_monitor_active_output_1_bit",
+          "responseKey": "referral_network_monitor_active_output_1_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1479,12 +1479,12 @@
         }
       },
       {
-        "semantic": "referral-network-monitor-active-output-2-bit",
+        "semantic": "referral_network_monitor_active_output_2_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/referral-network-monitor-active-output-2-bit",
-          "responseKey": "referral-network-monitor-active-output-2-bit",
+          "jsonPointer": "/referral_network_monitor_active_output_2_bit",
+          "responseKey": "referral_network_monitor_active_output_2_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1522,12 +1522,12 @@
         }
       },
       {
-        "semantic": "service-delivery-compliance-monitor-active-output-0-bit",
+        "semantic": "service_delivery_compliance_monitor_active_output_0_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/service-delivery-compliance-monitor-active-output-0-bit",
-          "responseKey": "service-delivery-compliance-monitor-active-output-0-bit",
+          "jsonPointer": "/service_delivery_compliance_monitor_active_output_0_bit",
+          "responseKey": "service_delivery_compliance_monitor_active_output_0_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1565,12 +1565,12 @@
         }
       },
       {
-        "semantic": "service-delivery-compliance-monitor-active-output-1-bit",
+        "semantic": "service_delivery_compliance_monitor_active_output_1_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/service-delivery-compliance-monitor-active-output-1-bit",
-          "responseKey": "service-delivery-compliance-monitor-active-output-1-bit",
+          "jsonPointer": "/service_delivery_compliance_monitor_active_output_1_bit",
+          "responseKey": "service_delivery_compliance_monitor_active_output_1_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1608,12 +1608,12 @@
         }
       },
       {
-        "semantic": "service-delivery-compliance-monitor-active-output-2-bit",
+        "semantic": "service_delivery_compliance_monitor_active_output_2_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/service-delivery-compliance-monitor-active-output-2-bit",
-          "responseKey": "service-delivery-compliance-monitor-active-output-2-bit",
+          "jsonPointer": "/service_delivery_compliance_monitor_active_output_2_bit",
+          "responseKey": "service_delivery_compliance_monitor_active_output_2_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1651,12 +1651,12 @@
         }
       },
       {
-        "semantic": "service-delivery-integrity-monitor-active-output-0-bit",
+        "semantic": "service_delivery_integrity_monitor_active_output_0_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/service-delivery-integrity-monitor-active-output-0-bit",
-          "responseKey": "service-delivery-integrity-monitor-active-output-0-bit",
+          "jsonPointer": "/service_delivery_integrity_monitor_active_output_0_bit",
+          "responseKey": "service_delivery_integrity_monitor_active_output_0_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1694,12 +1694,12 @@
         }
       },
       {
-        "semantic": "service-delivery-integrity-monitor-active-output-1-bit",
+        "semantic": "service_delivery_integrity_monitor_active_output_1_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/service-delivery-integrity-monitor-active-output-1-bit",
-          "responseKey": "service-delivery-integrity-monitor-active-output-1-bit",
+          "jsonPointer": "/service_delivery_integrity_monitor_active_output_1_bit",
+          "responseKey": "service_delivery_integrity_monitor_active_output_1_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1737,12 +1737,12 @@
         }
       },
       {
-        "semantic": "service-delivery-integrity-monitor-active-output-2-bit",
+        "semantic": "service_delivery_integrity_monitor_active_output_2_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/service-delivery-integrity-monitor-active-output-2-bit",
-          "responseKey": "service-delivery-integrity-monitor-active-output-2-bit",
+          "jsonPointer": "/service_delivery_integrity_monitor_active_output_2_bit",
+          "responseKey": "service_delivery_integrity_monitor_active_output_2_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1780,12 +1780,12 @@
         }
       },
       {
-        "semantic": "service-intake-assessment-monitor-active-output-0-bit",
+        "semantic": "service_intake_assessment_monitor_active_output_0_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/service-intake-assessment-monitor-active-output-0-bit",
-          "responseKey": "service-intake-assessment-monitor-active-output-0-bit",
+          "jsonPointer": "/service_intake_assessment_monitor_active_output_0_bit",
+          "responseKey": "service_intake_assessment_monitor_active_output_0_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1823,12 +1823,12 @@
         }
       },
       {
-        "semantic": "service-intake-assessment-monitor-active-output-1-bit",
+        "semantic": "service_intake_assessment_monitor_active_output_1_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/service-intake-assessment-monitor-active-output-1-bit",
-          "responseKey": "service-intake-assessment-monitor-active-output-1-bit",
+          "jsonPointer": "/service_intake_assessment_monitor_active_output_1_bit",
+          "responseKey": "service_intake_assessment_monitor_active_output_1_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1866,12 +1866,12 @@
         }
       },
       {
-        "semantic": "service-intake-assessment-monitor-active-output-2-bit",
+        "semantic": "service_intake_assessment_monitor_active_output_2_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/service-intake-assessment-monitor-active-output-2-bit",
-          "responseKey": "service-intake-assessment-monitor-active-output-2-bit",
+          "jsonPointer": "/service_intake_assessment_monitor_active_output_2_bit",
+          "responseKey": "service_intake_assessment_monitor_active_output_2_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1909,12 +1909,12 @@
         }
       },
       {
-        "semantic": "workflow-completion-monitor-active-output-0-bit",
+        "semantic": "workflow_completion_monitor_active_output_0_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/workflow-completion-monitor-active-output-0-bit",
-          "responseKey": "workflow-completion-monitor-active-output-0-bit",
+          "jsonPointer": "/workflow_completion_monitor_active_output_0_bit",
+          "responseKey": "workflow_completion_monitor_active_output_0_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1952,12 +1952,12 @@
         }
       },
       {
-        "semantic": "workflow-completion-monitor-active-output-1-bit",
+        "semantic": "workflow_completion_monitor_active_output_1_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/workflow-completion-monitor-active-output-1-bit",
-          "responseKey": "workflow-completion-monitor-active-output-1-bit",
+          "jsonPointer": "/workflow_completion_monitor_active_output_1_bit",
+          "responseKey": "workflow_completion_monitor_active_output_1_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1995,12 +1995,12 @@
         }
       },
       {
-        "semantic": "workflow-completion-monitor-active-output-2-bit",
+        "semantic": "workflow_completion_monitor_active_output_2_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/workflow-completion-monitor-active-output-2-bit",
-          "responseKey": "workflow-completion-monitor-active-output-2-bit",
+          "jsonPointer": "/workflow_completion_monitor_active_output_2_bit",
+          "responseKey": "workflow_completion_monitor_active_output_2_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -2042,7 +2042,7 @@
   "diagnostics": {
     "axisBasis": "inputSemantics",
     "warnings": [
-      "input axes derived from inputSemantics (no length-matched sensorNormalization)"
+      "input axes derived from inputSemantics; openClawProjection.semantics does not name these positions, so the agent's axis names are unverified"
     ],
     "inputLength": 36,
     "sequenceCount": 4

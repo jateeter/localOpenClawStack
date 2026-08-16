@@ -34,12 +34,12 @@
   },
   "reasoning": {
     "objective": "Produce the normalized input vector for \"Data Center Core Interconnect\" from current observations so RE can evaluate its CES sequences.",
-    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Data Center Core Interconnect\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Published data-center bridge bus that composes Data Center Core into a compact domain family response lane. PE owns source composition and writes the compact input lane; RE evaluates this machine as ordinary vector state.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- dc-cooling-control-flip-flop-active-output-0-bit (index 0):\n- dc-cooling-control-flip-flop-active-output-1-bit (index 1):\n- dc-critical-alert-flip-flop-active-output-0-bit (index 2):\n- dc-critical-alert-flip-flop-active-output-1-bit (index 3):\n- dc-critical-synthesizer-active-output-0-bit (index 4):\n- dc-critical-synthesizer-active-output-1-bit (index 5):\n- dc-memory-alert-flip-flop-active-output-0-bit (index 6):\n- dc-memory-alert-flip-flop-active-output-1-bit (index 7):\n- dc-memory-pressure-detector-active-output-0-bit (index 8):\n- dc-memory-pressure-detector-active-output-1-bit (index 9):\n- dc-network-burst-detector-active-output-0-bit (index 10):\n- dc-network-burst-detector-active-output-1-bit (index 11):\n- dc-network-throttle-flip-flop-active-output-0-bit (index 12):\n- dc-network-throttle-flip-flop-active-output-1-bit (index 13):\n- dc-thermal-escalation-detector-active-output-0-bit (index 14):\n- dc-thermal-escalation-detector-active-output-1-bit (index 15):\n- data-center-monitoring-active-output-0-bit (index 16):\n- data-center-monitoring-active-output-1-bit (index 17):\n- data-center-monitoring-active-output-2-bit (index 18):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Data Center Core domain family review at [14123 (RED) -> action: route-review\n- Data Center Core domain family optimization at [14123 (AMBER) -> action: route-review\n- Data Center Core domain family monitoring at [14123 (AMBER) -> action: route-review\n- Data Center Core domain family stable at [14123 (GREEN) -> action: continue-monitoring",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Data Center Core Interconnect\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Published data-center bridge bus that composes Data Center Core into a compact domain family response lane. PE owns source composition and writes the compact input lane; RE evaluates this machine as ordinary vector state.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- dc_cooling_control_flip_flop_active_output_0_bit (index 0):\n- dc_cooling_control_flip_flop_active_output_1_bit (index 1):\n- dc_critical_alert_flip_flop_active_output_0_bit (index 2):\n- dc_critical_alert_flip_flop_active_output_1_bit (index 3):\n- dc_critical_synthesizer_active_output_0_bit (index 4):\n- dc_critical_synthesizer_active_output_1_bit (index 5):\n- dc_memory_alert_flip_flop_active_output_0_bit (index 6):\n- dc_memory_alert_flip_flop_active_output_1_bit (index 7):\n- dc_memory_pressure_detector_active_output_0_bit (index 8):\n- dc_memory_pressure_detector_active_output_1_bit (index 9):\n- dc_network_burst_detector_active_output_0_bit (index 10):\n- dc_network_burst_detector_active_output_1_bit (index 11):\n- dc_network_throttle_flip_flop_active_output_0_bit (index 12):\n- dc_network_throttle_flip_flop_active_output_1_bit (index 13):\n- dc_thermal_escalation_detector_active_output_0_bit (index 14):\n- dc_thermal_escalation_detector_active_output_1_bit (index 15):\n- data_center_monitoring_active_output_0_bit (index 16):\n- data_center_monitoring_active_output_1_bit (index 17):\n- data_center_monitoring_active_output_2_bit (index 18):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Data Center Core domain family review at [14123 (RED) -> action: route-review\n- Data Center Core domain family optimization at [14123 (AMBER) -> action: route-review\n- Data Center Core domain family monitoring at [14123 (AMBER) -> action: route-review\n- Data Center Core domain family stable at [14123 (GREEN) -> action: continue-monitoring",
     "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
     "inputAxes": [
       {
         "index": 0,
-        "key": "dc-cooling-control-flip-flop-active-output-0-bit",
+        "key": "dc_cooling_control_flip_flop_active_output_0_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -48,7 +48,7 @@
       },
       {
         "index": 1,
-        "key": "dc-cooling-control-flip-flop-active-output-1-bit",
+        "key": "dc_cooling_control_flip_flop_active_output_1_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -57,7 +57,7 @@
       },
       {
         "index": 2,
-        "key": "dc-critical-alert-flip-flop-active-output-0-bit",
+        "key": "dc_critical_alert_flip_flop_active_output_0_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -66,7 +66,7 @@
       },
       {
         "index": 3,
-        "key": "dc-critical-alert-flip-flop-active-output-1-bit",
+        "key": "dc_critical_alert_flip_flop_active_output_1_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -75,7 +75,7 @@
       },
       {
         "index": 4,
-        "key": "dc-critical-synthesizer-active-output-0-bit",
+        "key": "dc_critical_synthesizer_active_output_0_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -84,7 +84,7 @@
       },
       {
         "index": 5,
-        "key": "dc-critical-synthesizer-active-output-1-bit",
+        "key": "dc_critical_synthesizer_active_output_1_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -93,7 +93,7 @@
       },
       {
         "index": 6,
-        "key": "dc-memory-alert-flip-flop-active-output-0-bit",
+        "key": "dc_memory_alert_flip_flop_active_output_0_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -102,7 +102,7 @@
       },
       {
         "index": 7,
-        "key": "dc-memory-alert-flip-flop-active-output-1-bit",
+        "key": "dc_memory_alert_flip_flop_active_output_1_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -111,7 +111,7 @@
       },
       {
         "index": 8,
-        "key": "dc-memory-pressure-detector-active-output-0-bit",
+        "key": "dc_memory_pressure_detector_active_output_0_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -120,7 +120,7 @@
       },
       {
         "index": 9,
-        "key": "dc-memory-pressure-detector-active-output-1-bit",
+        "key": "dc_memory_pressure_detector_active_output_1_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -129,7 +129,7 @@
       },
       {
         "index": 10,
-        "key": "dc-network-burst-detector-active-output-0-bit",
+        "key": "dc_network_burst_detector_active_output_0_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -138,7 +138,7 @@
       },
       {
         "index": 11,
-        "key": "dc-network-burst-detector-active-output-1-bit",
+        "key": "dc_network_burst_detector_active_output_1_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -147,7 +147,7 @@
       },
       {
         "index": 12,
-        "key": "dc-network-throttle-flip-flop-active-output-0-bit",
+        "key": "dc_network_throttle_flip_flop_active_output_0_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -156,7 +156,7 @@
       },
       {
         "index": 13,
-        "key": "dc-network-throttle-flip-flop-active-output-1-bit",
+        "key": "dc_network_throttle_flip_flop_active_output_1_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -165,7 +165,7 @@
       },
       {
         "index": 14,
-        "key": "dc-thermal-escalation-detector-active-output-0-bit",
+        "key": "dc_thermal_escalation_detector_active_output_0_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -174,7 +174,7 @@
       },
       {
         "index": 15,
-        "key": "dc-thermal-escalation-detector-active-output-1-bit",
+        "key": "dc_thermal_escalation_detector_active_output_1_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -183,7 +183,7 @@
       },
       {
         "index": 16,
-        "key": "data-center-monitoring-active-output-0-bit",
+        "key": "data_center_monitoring_active_output_0_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -192,7 +192,7 @@
       },
       {
         "index": 17,
-        "key": "data-center-monitoring-active-output-1-bit",
+        "key": "data_center_monitoring_active_output_1_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -201,7 +201,7 @@
       },
       {
         "index": 18,
-        "key": "data-center-monitoring-active-output-2-bit",
+        "key": "data_center_monitoring_active_output_2_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -257,25 +257,25 @@
         "length": 19
       },
       "semantics": [
-        "dc-cooling-control-flip-flop-active-output-0-bit",
-        "dc-cooling-control-flip-flop-active-output-1-bit",
-        "dc-critical-alert-flip-flop-active-output-0-bit",
-        "dc-critical-alert-flip-flop-active-output-1-bit",
-        "dc-critical-synthesizer-active-output-0-bit",
-        "dc-critical-synthesizer-active-output-1-bit",
-        "dc-memory-alert-flip-flop-active-output-0-bit",
-        "dc-memory-alert-flip-flop-active-output-1-bit",
-        "dc-memory-pressure-detector-active-output-0-bit",
-        "dc-memory-pressure-detector-active-output-1-bit",
-        "dc-network-burst-detector-active-output-0-bit",
-        "dc-network-burst-detector-active-output-1-bit",
-        "dc-network-throttle-flip-flop-active-output-0-bit",
-        "dc-network-throttle-flip-flop-active-output-1-bit",
-        "dc-thermal-escalation-detector-active-output-0-bit",
-        "dc-thermal-escalation-detector-active-output-1-bit",
-        "data-center-monitoring-active-output-0-bit",
-        "data-center-monitoring-active-output-1-bit",
-        "data-center-monitoring-active-output-2-bit"
+        "dc_cooling_control_flip_flop_active_output_0_bit",
+        "dc_cooling_control_flip_flop_active_output_1_bit",
+        "dc_critical_alert_flip_flop_active_output_0_bit",
+        "dc_critical_alert_flip_flop_active_output_1_bit",
+        "dc_critical_synthesizer_active_output_0_bit",
+        "dc_critical_synthesizer_active_output_1_bit",
+        "dc_memory_alert_flip_flop_active_output_0_bit",
+        "dc_memory_alert_flip_flop_active_output_1_bit",
+        "dc_memory_pressure_detector_active_output_0_bit",
+        "dc_memory_pressure_detector_active_output_1_bit",
+        "dc_network_burst_detector_active_output_0_bit",
+        "dc_network_burst_detector_active_output_1_bit",
+        "dc_network_throttle_flip_flop_active_output_0_bit",
+        "dc_network_throttle_flip_flop_active_output_1_bit",
+        "dc_thermal_escalation_detector_active_output_0_bit",
+        "dc_thermal_escalation_detector_active_output_1_bit",
+        "data_center_monitoring_active_output_0_bit",
+        "data_center_monitoring_active_output_1_bit",
+        "data_center_monitoring_active_output_2_bit"
       ],
       "ttlMs": 300000,
       "normalization": "already-normalized-0-1",
@@ -320,12 +320,12 @@
     "mode": "advise",
     "fields": [
       {
-        "semantic": "dc-cooling-control-flip-flop-active-output-0-bit",
+        "semantic": "dc_cooling_control_flip_flop_active_output_0_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/dc-cooling-control-flip-flop-active-output-0-bit",
-          "responseKey": "dc-cooling-control-flip-flop-active-output-0-bit",
+          "jsonPointer": "/dc_cooling_control_flip_flop_active_output_0_bit",
+          "responseKey": "dc_cooling_control_flip_flop_active_output_0_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -363,12 +363,12 @@
         }
       },
       {
-        "semantic": "dc-cooling-control-flip-flop-active-output-1-bit",
+        "semantic": "dc_cooling_control_flip_flop_active_output_1_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/dc-cooling-control-flip-flop-active-output-1-bit",
-          "responseKey": "dc-cooling-control-flip-flop-active-output-1-bit",
+          "jsonPointer": "/dc_cooling_control_flip_flop_active_output_1_bit",
+          "responseKey": "dc_cooling_control_flip_flop_active_output_1_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -406,12 +406,12 @@
         }
       },
       {
-        "semantic": "dc-critical-alert-flip-flop-active-output-0-bit",
+        "semantic": "dc_critical_alert_flip_flop_active_output_0_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/dc-critical-alert-flip-flop-active-output-0-bit",
-          "responseKey": "dc-critical-alert-flip-flop-active-output-0-bit",
+          "jsonPointer": "/dc_critical_alert_flip_flop_active_output_0_bit",
+          "responseKey": "dc_critical_alert_flip_flop_active_output_0_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -449,12 +449,12 @@
         }
       },
       {
-        "semantic": "dc-critical-alert-flip-flop-active-output-1-bit",
+        "semantic": "dc_critical_alert_flip_flop_active_output_1_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/dc-critical-alert-flip-flop-active-output-1-bit",
-          "responseKey": "dc-critical-alert-flip-flop-active-output-1-bit",
+          "jsonPointer": "/dc_critical_alert_flip_flop_active_output_1_bit",
+          "responseKey": "dc_critical_alert_flip_flop_active_output_1_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -492,12 +492,12 @@
         }
       },
       {
-        "semantic": "dc-critical-synthesizer-active-output-0-bit",
+        "semantic": "dc_critical_synthesizer_active_output_0_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/dc-critical-synthesizer-active-output-0-bit",
-          "responseKey": "dc-critical-synthesizer-active-output-0-bit",
+          "jsonPointer": "/dc_critical_synthesizer_active_output_0_bit",
+          "responseKey": "dc_critical_synthesizer_active_output_0_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -535,12 +535,12 @@
         }
       },
       {
-        "semantic": "dc-critical-synthesizer-active-output-1-bit",
+        "semantic": "dc_critical_synthesizer_active_output_1_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/dc-critical-synthesizer-active-output-1-bit",
-          "responseKey": "dc-critical-synthesizer-active-output-1-bit",
+          "jsonPointer": "/dc_critical_synthesizer_active_output_1_bit",
+          "responseKey": "dc_critical_synthesizer_active_output_1_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -578,12 +578,12 @@
         }
       },
       {
-        "semantic": "dc-memory-alert-flip-flop-active-output-0-bit",
+        "semantic": "dc_memory_alert_flip_flop_active_output_0_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/dc-memory-alert-flip-flop-active-output-0-bit",
-          "responseKey": "dc-memory-alert-flip-flop-active-output-0-bit",
+          "jsonPointer": "/dc_memory_alert_flip_flop_active_output_0_bit",
+          "responseKey": "dc_memory_alert_flip_flop_active_output_0_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -621,12 +621,12 @@
         }
       },
       {
-        "semantic": "dc-memory-alert-flip-flop-active-output-1-bit",
+        "semantic": "dc_memory_alert_flip_flop_active_output_1_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/dc-memory-alert-flip-flop-active-output-1-bit",
-          "responseKey": "dc-memory-alert-flip-flop-active-output-1-bit",
+          "jsonPointer": "/dc_memory_alert_flip_flop_active_output_1_bit",
+          "responseKey": "dc_memory_alert_flip_flop_active_output_1_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -664,12 +664,12 @@
         }
       },
       {
-        "semantic": "dc-memory-pressure-detector-active-output-0-bit",
+        "semantic": "dc_memory_pressure_detector_active_output_0_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/dc-memory-pressure-detector-active-output-0-bit",
-          "responseKey": "dc-memory-pressure-detector-active-output-0-bit",
+          "jsonPointer": "/dc_memory_pressure_detector_active_output_0_bit",
+          "responseKey": "dc_memory_pressure_detector_active_output_0_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -707,12 +707,12 @@
         }
       },
       {
-        "semantic": "dc-memory-pressure-detector-active-output-1-bit",
+        "semantic": "dc_memory_pressure_detector_active_output_1_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/dc-memory-pressure-detector-active-output-1-bit",
-          "responseKey": "dc-memory-pressure-detector-active-output-1-bit",
+          "jsonPointer": "/dc_memory_pressure_detector_active_output_1_bit",
+          "responseKey": "dc_memory_pressure_detector_active_output_1_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -750,12 +750,12 @@
         }
       },
       {
-        "semantic": "dc-network-burst-detector-active-output-0-bit",
+        "semantic": "dc_network_burst_detector_active_output_0_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/dc-network-burst-detector-active-output-0-bit",
-          "responseKey": "dc-network-burst-detector-active-output-0-bit",
+          "jsonPointer": "/dc_network_burst_detector_active_output_0_bit",
+          "responseKey": "dc_network_burst_detector_active_output_0_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -793,12 +793,12 @@
         }
       },
       {
-        "semantic": "dc-network-burst-detector-active-output-1-bit",
+        "semantic": "dc_network_burst_detector_active_output_1_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/dc-network-burst-detector-active-output-1-bit",
-          "responseKey": "dc-network-burst-detector-active-output-1-bit",
+          "jsonPointer": "/dc_network_burst_detector_active_output_1_bit",
+          "responseKey": "dc_network_burst_detector_active_output_1_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -836,12 +836,12 @@
         }
       },
       {
-        "semantic": "dc-network-throttle-flip-flop-active-output-0-bit",
+        "semantic": "dc_network_throttle_flip_flop_active_output_0_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/dc-network-throttle-flip-flop-active-output-0-bit",
-          "responseKey": "dc-network-throttle-flip-flop-active-output-0-bit",
+          "jsonPointer": "/dc_network_throttle_flip_flop_active_output_0_bit",
+          "responseKey": "dc_network_throttle_flip_flop_active_output_0_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -879,12 +879,12 @@
         }
       },
       {
-        "semantic": "dc-network-throttle-flip-flop-active-output-1-bit",
+        "semantic": "dc_network_throttle_flip_flop_active_output_1_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/dc-network-throttle-flip-flop-active-output-1-bit",
-          "responseKey": "dc-network-throttle-flip-flop-active-output-1-bit",
+          "jsonPointer": "/dc_network_throttle_flip_flop_active_output_1_bit",
+          "responseKey": "dc_network_throttle_flip_flop_active_output_1_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -922,12 +922,12 @@
         }
       },
       {
-        "semantic": "dc-thermal-escalation-detector-active-output-0-bit",
+        "semantic": "dc_thermal_escalation_detector_active_output_0_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/dc-thermal-escalation-detector-active-output-0-bit",
-          "responseKey": "dc-thermal-escalation-detector-active-output-0-bit",
+          "jsonPointer": "/dc_thermal_escalation_detector_active_output_0_bit",
+          "responseKey": "dc_thermal_escalation_detector_active_output_0_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -965,12 +965,12 @@
         }
       },
       {
-        "semantic": "dc-thermal-escalation-detector-active-output-1-bit",
+        "semantic": "dc_thermal_escalation_detector_active_output_1_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/dc-thermal-escalation-detector-active-output-1-bit",
-          "responseKey": "dc-thermal-escalation-detector-active-output-1-bit",
+          "jsonPointer": "/dc_thermal_escalation_detector_active_output_1_bit",
+          "responseKey": "dc_thermal_escalation_detector_active_output_1_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1008,12 +1008,12 @@
         }
       },
       {
-        "semantic": "data-center-monitoring-active-output-0-bit",
+        "semantic": "data_center_monitoring_active_output_0_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/data-center-monitoring-active-output-0-bit",
-          "responseKey": "data-center-monitoring-active-output-0-bit",
+          "jsonPointer": "/data_center_monitoring_active_output_0_bit",
+          "responseKey": "data_center_monitoring_active_output_0_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1051,12 +1051,12 @@
         }
       },
       {
-        "semantic": "data-center-monitoring-active-output-1-bit",
+        "semantic": "data_center_monitoring_active_output_1_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/data-center-monitoring-active-output-1-bit",
-          "responseKey": "data-center-monitoring-active-output-1-bit",
+          "jsonPointer": "/data_center_monitoring_active_output_1_bit",
+          "responseKey": "data_center_monitoring_active_output_1_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1094,12 +1094,12 @@
         }
       },
       {
-        "semantic": "data-center-monitoring-active-output-2-bit",
+        "semantic": "data_center_monitoring_active_output_2_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/data-center-monitoring-active-output-2-bit",
-          "responseKey": "data-center-monitoring-active-output-2-bit",
+          "jsonPointer": "/data_center_monitoring_active_output_2_bit",
+          "responseKey": "data_center_monitoring_active_output_2_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1141,7 +1141,7 @@
   "diagnostics": {
     "axisBasis": "inputSemantics",
     "warnings": [
-      "input axes derived from inputSemantics (no length-matched sensorNormalization)"
+      "input axes derived from inputSemantics; openClawProjection.semantics does not name these positions, so the agent's axis names are unverified"
     ],
     "inputLength": 19,
     "sequenceCount": 4

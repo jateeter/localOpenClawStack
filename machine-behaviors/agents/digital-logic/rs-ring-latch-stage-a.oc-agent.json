@@ -34,12 +34,12 @@
   },
   "reasoning": {
     "objective": "Produce the normalized input vector for \"RS Ring Latch Stage A\" from current observations so RE can evaluate its CES sequences.",
-    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"RS Ring Latch Stage A\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. RS bistable forming one half of the minimal provable feedback ring. Reads [S,R] at [16920:16922] and emits [Q,/Q] at [16922:16924]. Paired with RS Ring Latch Stage B to close a two-stage latch ring.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- rs-ring-latch-stage-a-set-input-s (index 0):\n- rs-ring-latch-stage-a-reset-input-r (index 1):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- rsr-a-set-sequence (GREEN) -> action: log-activity\n- rsr-a-reset-sequence (GREEN) -> action: log-activity",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"RS Ring Latch Stage A\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. RS bistable forming one half of the minimal provable feedback ring. Reads [S,R] at [16920:16922] and emits [Q,/Q] at [16922:16924]. Paired with RS Ring Latch Stage B to close a two-stage latch ring.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- rs_ring_latch_stage_a_set_input_s (index 0):\n- rs_ring_latch_stage_a_reset_input_r (index 1):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- rsr-a-set-sequence (GREEN) -> action: log-activity\n- rsr-a-reset-sequence (GREEN) -> action: log-activity",
     "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
     "inputAxes": [
       {
         "index": 0,
-        "key": "rs-ring-latch-stage-a-set-input-s",
+        "key": "rs_ring_latch_stage_a_set_input_s",
         "anchors": {
           "low": "",
           "mid": "",
@@ -48,7 +48,7 @@
       },
       {
         "index": 1,
-        "key": "rs-ring-latch-stage-a-reset-input-r",
+        "key": "rs_ring_latch_stage_a_reset_input_r",
         "anchors": {
           "low": "",
           "mid": "",
@@ -90,8 +90,8 @@
         "length": 2
       },
       "semantics": [
-        "rs-ring-latch-stage-a-set-input-s",
-        "rs-ring-latch-stage-a-reset-input-r"
+        "rs_ring_latch_stage_a_set_input_s",
+        "rs_ring_latch_stage_a_reset_input_r"
       ],
       "ttlMs": 300000,
       "normalization": "already-normalized-0-1",
@@ -136,12 +136,12 @@
     "mode": "advise",
     "fields": [
       {
-        "semantic": "rs-ring-latch-stage-a-set-input-s",
+        "semantic": "rs_ring_latch_stage_a_set_input_s",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/rs-ring-latch-stage-a-set-input-s",
-          "responseKey": "rs-ring-latch-stage-a-set-input-s",
+          "jsonPointer": "/rs_ring_latch_stage_a_set_input_s",
+          "responseKey": "rs_ring_latch_stage_a_set_input_s",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -179,12 +179,12 @@
         }
       },
       {
-        "semantic": "rs-ring-latch-stage-a-reset-input-r",
+        "semantic": "rs_ring_latch_stage_a_reset_input_r",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/rs-ring-latch-stage-a-reset-input-r",
-          "responseKey": "rs-ring-latch-stage-a-reset-input-r",
+          "jsonPointer": "/rs_ring_latch_stage_a_reset_input_r",
+          "responseKey": "rs_ring_latch_stage_a_reset_input_r",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -226,7 +226,7 @@
   "diagnostics": {
     "axisBasis": "inputSemantics",
     "warnings": [
-      "input axes derived from inputSemantics (no length-matched sensorNormalization)"
+      "input axes derived from inputSemantics; openClawProjection.semantics does not name these positions, so the agent's axis names are unverified"
     ],
     "inputLength": 2,
     "sequenceCount": 2

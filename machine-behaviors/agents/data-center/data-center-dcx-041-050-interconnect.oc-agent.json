@@ -34,12 +34,12 @@
   },
   "reasoning": {
     "objective": "Produce the normalized input vector for \"Data Center DCX-041-050 Interconnect\" from current observations so RE can evaluate its CES sequences.",
-    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Data Center DCX-041-050 Interconnect\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Published data-center bridge bus that composes Data Center DCX-041-050 into a compact domain family response lane. PE owns source composition and writes the compact input lane; RE evaluates this machine as ordinary vector state.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- data-center-carbon-aware-workload-scheduler-active-output-0-bit (index 0):\n- data-center-carbon-aware-workload-scheduler-active-output-1-bit (index 1):\n- data-center-carbon-aware-workload-scheduler-active-output-2-bit (index 2):\n- data-center-tenant-capacity-guard-active-output-0-bit (index 3):\n- data-center-tenant-capacity-guard-active-output-1-bit (index 4):\n- data-center-tenant-capacity-guard-active-output-2-bit (index 5):\n- data-center-sre-handoff-completeness-active-output-0-bit (index 6):\n- data-center-sre-handoff-completeness-active-output-1-bit (index 7):\n- data-center-sre-handoff-completeness-active-output-2-bit (index 8):\n- data-center-maintenance-blackout-guard-active-output-0-bit (index 9):\n- data-center-maintenance-blackout-guard-active-output-1-bit (index 10):\n- data-center-maintenance-blackout-guard-active-output-2-bit (index 11):\n- data-center-upgrade-wave-planner-active-output-0-bit (index 12):\n- data-center-upgrade-wave-planner-active-output-1-bit (index 13):\n- data-center-upgrade-wave-planner-active-output-2-bit (index 14):\n- data-center-firmware-rollback-readiness-active-output-0-bit (index 15):\n- data-center-firmware-rollback-readiness-active-output-1-bit (index 16):\n- data-center-firmware-rollback-readiness-active-output-2-bit (index 17):\n- data-center-spine-leaf-expansion-planner-active-output-0-bit (index 18):\n- data-center-spine-leaf-expansion-planner-active-output-1-bit (index 19):\n- data-center-spine-leaf-expansion-planner-active-output-2-bit (index 20):\n- data-center-storage-migration-coordinator-active-output-0-bit (index 21):\n- data-center-storage-migration-coordinator-active-output-1-bit (index 22):\n- data-center-storage-migration-coordinator-active-output-2-bit (index 23):\n- data-center-decommission-safety-controller-active-output-0-bit (index 24):\n- data-center-decommission-safety-controller-active-output-1-bit (index 25):\n- data-center-decommission-safety-controller-active-output-2-bit (index 26):\n- data-center-24x7-operations-executive-summary-active-output-0-bit (index 27):\n- data-center-24x7-operations-executive-summary-active-output-1-bit (index 28):\n- data-center-24x7-operations-executive-summary-active-output-2-bit (index 29):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Data Center DCX-041-050 domain family review at [14293 (RED) -> action: route-review\n- Data Center DCX-041-050 domain family optimization at [14293 (AMBER) -> action: route-review\n- Data Center DCX-041-050 domain family monitoring at [14293 (AMBER) -> action: route-review\n- Data Center DCX-041-050 domain family stable at [14293 (GREEN) -> action: continue-monitoring",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Data Center DCX-041-050 Interconnect\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Published data-center bridge bus that composes Data Center DCX-041-050 into a compact domain family response lane. PE owns source composition and writes the compact input lane; RE evaluates this machine as ordinary vector state.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- data_center_carbon_aware_workload_scheduler_active_output_0_bit (index 0):\n- data_center_carbon_aware_workload_scheduler_active_output_1_bit (index 1):\n- data_center_carbon_aware_workload_scheduler_active_output_2_bit (index 2):\n- data_center_tenant_capacity_guard_active_output_0_bit (index 3):\n- data_center_tenant_capacity_guard_active_output_1_bit (index 4):\n- data_center_tenant_capacity_guard_active_output_2_bit (index 5):\n- data_center_sre_handoff_completeness_active_output_0_bit (index 6):\n- data_center_sre_handoff_completeness_active_output_1_bit (index 7):\n- data_center_sre_handoff_completeness_active_output_2_bit (index 8):\n- data_center_maintenance_blackout_guard_active_output_0_bit (index 9):\n- data_center_maintenance_blackout_guard_active_output_1_bit (index 10):\n- data_center_maintenance_blackout_guard_active_output_2_bit (index 11):\n- data_center_upgrade_wave_planner_active_output_0_bit (index 12):\n- data_center_upgrade_wave_planner_active_output_1_bit (index 13):\n- data_center_upgrade_wave_planner_active_output_2_bit (index 14):\n- data_center_firmware_rollback_readiness_active_output_0_bit (index 15):\n- data_center_firmware_rollback_readiness_active_output_1_bit (index 16):\n- data_center_firmware_rollback_readiness_active_output_2_bit (index 17):\n- data_center_spine_leaf_expansion_planner_active_output_0_bit (index 18):\n- data_center_spine_leaf_expansion_planner_active_output_1_bit (index 19):\n- data_center_spine_leaf_expansion_planner_active_output_2_bit (index 20):\n- data_center_storage_migration_coordinator_active_output_0_bit (index 21):\n- data_center_storage_migration_coordinator_active_output_1_bit (index 22):\n- data_center_storage_migration_coordinator_active_output_2_bit (index 23):\n- data_center_decommission_safety_controller_active_output_0_bit (index 24):\n- data_center_decommission_safety_controller_active_output_1_bit (index 25):\n- data_center_decommission_safety_controller_active_output_2_bit (index 26):\n- data_center_24x7_operations_executive_summary_active_output_0_bit (index 27):\n- data_center_24x7_operations_executive_summary_active_output_1_bit (index 28):\n- data_center_24x7_operations_executive_summary_active_output_2_bit (index 29):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Data Center DCX-041-050 domain family review at [14293 (RED) -> action: route-review\n- Data Center DCX-041-050 domain family optimization at [14293 (AMBER) -> action: route-review\n- Data Center DCX-041-050 domain family monitoring at [14293 (AMBER) -> action: route-review\n- Data Center DCX-041-050 domain family stable at [14293 (GREEN) -> action: continue-monitoring",
     "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
     "inputAxes": [
       {
         "index": 0,
-        "key": "data-center-carbon-aware-workload-scheduler-active-output-0-bit",
+        "key": "data_center_carbon_aware_workload_scheduler_active_output_0_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -48,7 +48,7 @@
       },
       {
         "index": 1,
-        "key": "data-center-carbon-aware-workload-scheduler-active-output-1-bit",
+        "key": "data_center_carbon_aware_workload_scheduler_active_output_1_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -57,7 +57,7 @@
       },
       {
         "index": 2,
-        "key": "data-center-carbon-aware-workload-scheduler-active-output-2-bit",
+        "key": "data_center_carbon_aware_workload_scheduler_active_output_2_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -66,7 +66,7 @@
       },
       {
         "index": 3,
-        "key": "data-center-tenant-capacity-guard-active-output-0-bit",
+        "key": "data_center_tenant_capacity_guard_active_output_0_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -75,7 +75,7 @@
       },
       {
         "index": 4,
-        "key": "data-center-tenant-capacity-guard-active-output-1-bit",
+        "key": "data_center_tenant_capacity_guard_active_output_1_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -84,7 +84,7 @@
       },
       {
         "index": 5,
-        "key": "data-center-tenant-capacity-guard-active-output-2-bit",
+        "key": "data_center_tenant_capacity_guard_active_output_2_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -93,7 +93,7 @@
       },
       {
         "index": 6,
-        "key": "data-center-sre-handoff-completeness-active-output-0-bit",
+        "key": "data_center_sre_handoff_completeness_active_output_0_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -102,7 +102,7 @@
       },
       {
         "index": 7,
-        "key": "data-center-sre-handoff-completeness-active-output-1-bit",
+        "key": "data_center_sre_handoff_completeness_active_output_1_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -111,7 +111,7 @@
       },
       {
         "index": 8,
-        "key": "data-center-sre-handoff-completeness-active-output-2-bit",
+        "key": "data_center_sre_handoff_completeness_active_output_2_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -120,7 +120,7 @@
       },
       {
         "index": 9,
-        "key": "data-center-maintenance-blackout-guard-active-output-0-bit",
+        "key": "data_center_maintenance_blackout_guard_active_output_0_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -129,7 +129,7 @@
       },
       {
         "index": 10,
-        "key": "data-center-maintenance-blackout-guard-active-output-1-bit",
+        "key": "data_center_maintenance_blackout_guard_active_output_1_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -138,7 +138,7 @@
       },
       {
         "index": 11,
-        "key": "data-center-maintenance-blackout-guard-active-output-2-bit",
+        "key": "data_center_maintenance_blackout_guard_active_output_2_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -147,7 +147,7 @@
       },
       {
         "index": 12,
-        "key": "data-center-upgrade-wave-planner-active-output-0-bit",
+        "key": "data_center_upgrade_wave_planner_active_output_0_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -156,7 +156,7 @@
       },
       {
         "index": 13,
-        "key": "data-center-upgrade-wave-planner-active-output-1-bit",
+        "key": "data_center_upgrade_wave_planner_active_output_1_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -165,7 +165,7 @@
       },
       {
         "index": 14,
-        "key": "data-center-upgrade-wave-planner-active-output-2-bit",
+        "key": "data_center_upgrade_wave_planner_active_output_2_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -174,7 +174,7 @@
       },
       {
         "index": 15,
-        "key": "data-center-firmware-rollback-readiness-active-output-0-bit",
+        "key": "data_center_firmware_rollback_readiness_active_output_0_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -183,7 +183,7 @@
       },
       {
         "index": 16,
-        "key": "data-center-firmware-rollback-readiness-active-output-1-bit",
+        "key": "data_center_firmware_rollback_readiness_active_output_1_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -192,7 +192,7 @@
       },
       {
         "index": 17,
-        "key": "data-center-firmware-rollback-readiness-active-output-2-bit",
+        "key": "data_center_firmware_rollback_readiness_active_output_2_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -201,7 +201,7 @@
       },
       {
         "index": 18,
-        "key": "data-center-spine-leaf-expansion-planner-active-output-0-bit",
+        "key": "data_center_spine_leaf_expansion_planner_active_output_0_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -210,7 +210,7 @@
       },
       {
         "index": 19,
-        "key": "data-center-spine-leaf-expansion-planner-active-output-1-bit",
+        "key": "data_center_spine_leaf_expansion_planner_active_output_1_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -219,7 +219,7 @@
       },
       {
         "index": 20,
-        "key": "data-center-spine-leaf-expansion-planner-active-output-2-bit",
+        "key": "data_center_spine_leaf_expansion_planner_active_output_2_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -228,7 +228,7 @@
       },
       {
         "index": 21,
-        "key": "data-center-storage-migration-coordinator-active-output-0-bit",
+        "key": "data_center_storage_migration_coordinator_active_output_0_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -237,7 +237,7 @@
       },
       {
         "index": 22,
-        "key": "data-center-storage-migration-coordinator-active-output-1-bit",
+        "key": "data_center_storage_migration_coordinator_active_output_1_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -246,7 +246,7 @@
       },
       {
         "index": 23,
-        "key": "data-center-storage-migration-coordinator-active-output-2-bit",
+        "key": "data_center_storage_migration_coordinator_active_output_2_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -255,7 +255,7 @@
       },
       {
         "index": 24,
-        "key": "data-center-decommission-safety-controller-active-output-0-bit",
+        "key": "data_center_decommission_safety_controller_active_output_0_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -264,7 +264,7 @@
       },
       {
         "index": 25,
-        "key": "data-center-decommission-safety-controller-active-output-1-bit",
+        "key": "data_center_decommission_safety_controller_active_output_1_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -273,7 +273,7 @@
       },
       {
         "index": 26,
-        "key": "data-center-decommission-safety-controller-active-output-2-bit",
+        "key": "data_center_decommission_safety_controller_active_output_2_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -282,7 +282,7 @@
       },
       {
         "index": 27,
-        "key": "data-center-24x7-operations-executive-summary-active-output-0-bit",
+        "key": "data_center_24x7_operations_executive_summary_active_output_0_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -291,7 +291,7 @@
       },
       {
         "index": 28,
-        "key": "data-center-24x7-operations-executive-summary-active-output-1-bit",
+        "key": "data_center_24x7_operations_executive_summary_active_output_1_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -300,7 +300,7 @@
       },
       {
         "index": 29,
-        "key": "data-center-24x7-operations-executive-summary-active-output-2-bit",
+        "key": "data_center_24x7_operations_executive_summary_active_output_2_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -356,36 +356,36 @@
         "length": 30
       },
       "semantics": [
-        "data-center-carbon-aware-workload-scheduler-active-output-0-bit",
-        "data-center-carbon-aware-workload-scheduler-active-output-1-bit",
-        "data-center-carbon-aware-workload-scheduler-active-output-2-bit",
-        "data-center-tenant-capacity-guard-active-output-0-bit",
-        "data-center-tenant-capacity-guard-active-output-1-bit",
-        "data-center-tenant-capacity-guard-active-output-2-bit",
-        "data-center-sre-handoff-completeness-active-output-0-bit",
-        "data-center-sre-handoff-completeness-active-output-1-bit",
-        "data-center-sre-handoff-completeness-active-output-2-bit",
-        "data-center-maintenance-blackout-guard-active-output-0-bit",
-        "data-center-maintenance-blackout-guard-active-output-1-bit",
-        "data-center-maintenance-blackout-guard-active-output-2-bit",
-        "data-center-upgrade-wave-planner-active-output-0-bit",
-        "data-center-upgrade-wave-planner-active-output-1-bit",
-        "data-center-upgrade-wave-planner-active-output-2-bit",
-        "data-center-firmware-rollback-readiness-active-output-0-bit",
-        "data-center-firmware-rollback-readiness-active-output-1-bit",
-        "data-center-firmware-rollback-readiness-active-output-2-bit",
-        "data-center-spine-leaf-expansion-planner-active-output-0-bit",
-        "data-center-spine-leaf-expansion-planner-active-output-1-bit",
-        "data-center-spine-leaf-expansion-planner-active-output-2-bit",
-        "data-center-storage-migration-coordinator-active-output-0-bit",
-        "data-center-storage-migration-coordinator-active-output-1-bit",
-        "data-center-storage-migration-coordinator-active-output-2-bit",
-        "data-center-decommission-safety-controller-active-output-0-bit",
-        "data-center-decommission-safety-controller-active-output-1-bit",
-        "data-center-decommission-safety-controller-active-output-2-bit",
-        "data-center-24x7-operations-executive-summary-active-output-0-bit",
-        "data-center-24x7-operations-executive-summary-active-output-1-bit",
-        "data-center-24x7-operations-executive-summary-active-output-2-bit"
+        "data_center_carbon_aware_workload_scheduler_active_output_0_bit",
+        "data_center_carbon_aware_workload_scheduler_active_output_1_bit",
+        "data_center_carbon_aware_workload_scheduler_active_output_2_bit",
+        "data_center_tenant_capacity_guard_active_output_0_bit",
+        "data_center_tenant_capacity_guard_active_output_1_bit",
+        "data_center_tenant_capacity_guard_active_output_2_bit",
+        "data_center_sre_handoff_completeness_active_output_0_bit",
+        "data_center_sre_handoff_completeness_active_output_1_bit",
+        "data_center_sre_handoff_completeness_active_output_2_bit",
+        "data_center_maintenance_blackout_guard_active_output_0_bit",
+        "data_center_maintenance_blackout_guard_active_output_1_bit",
+        "data_center_maintenance_blackout_guard_active_output_2_bit",
+        "data_center_upgrade_wave_planner_active_output_0_bit",
+        "data_center_upgrade_wave_planner_active_output_1_bit",
+        "data_center_upgrade_wave_planner_active_output_2_bit",
+        "data_center_firmware_rollback_readiness_active_output_0_bit",
+        "data_center_firmware_rollback_readiness_active_output_1_bit",
+        "data_center_firmware_rollback_readiness_active_output_2_bit",
+        "data_center_spine_leaf_expansion_planner_active_output_0_bit",
+        "data_center_spine_leaf_expansion_planner_active_output_1_bit",
+        "data_center_spine_leaf_expansion_planner_active_output_2_bit",
+        "data_center_storage_migration_coordinator_active_output_0_bit",
+        "data_center_storage_migration_coordinator_active_output_1_bit",
+        "data_center_storage_migration_coordinator_active_output_2_bit",
+        "data_center_decommission_safety_controller_active_output_0_bit",
+        "data_center_decommission_safety_controller_active_output_1_bit",
+        "data_center_decommission_safety_controller_active_output_2_bit",
+        "data_center_24x7_operations_executive_summary_active_output_0_bit",
+        "data_center_24x7_operations_executive_summary_active_output_1_bit",
+        "data_center_24x7_operations_executive_summary_active_output_2_bit"
       ],
       "ttlMs": 300000,
       "normalization": "already-normalized-0-1",
@@ -430,12 +430,12 @@
     "mode": "advise",
     "fields": [
       {
-        "semantic": "data-center-carbon-aware-workload-scheduler-active-output-0-bit",
+        "semantic": "data_center_carbon_aware_workload_scheduler_active_output_0_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/data-center-carbon-aware-workload-scheduler-active-output-0-bit",
-          "responseKey": "data-center-carbon-aware-workload-scheduler-active-output-0-bit",
+          "jsonPointer": "/data_center_carbon_aware_workload_scheduler_active_output_0_bit",
+          "responseKey": "data_center_carbon_aware_workload_scheduler_active_output_0_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -473,12 +473,12 @@
         }
       },
       {
-        "semantic": "data-center-carbon-aware-workload-scheduler-active-output-1-bit",
+        "semantic": "data_center_carbon_aware_workload_scheduler_active_output_1_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/data-center-carbon-aware-workload-scheduler-active-output-1-bit",
-          "responseKey": "data-center-carbon-aware-workload-scheduler-active-output-1-bit",
+          "jsonPointer": "/data_center_carbon_aware_workload_scheduler_active_output_1_bit",
+          "responseKey": "data_center_carbon_aware_workload_scheduler_active_output_1_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -516,12 +516,12 @@
         }
       },
       {
-        "semantic": "data-center-carbon-aware-workload-scheduler-active-output-2-bit",
+        "semantic": "data_center_carbon_aware_workload_scheduler_active_output_2_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/data-center-carbon-aware-workload-scheduler-active-output-2-bit",
-          "responseKey": "data-center-carbon-aware-workload-scheduler-active-output-2-bit",
+          "jsonPointer": "/data_center_carbon_aware_workload_scheduler_active_output_2_bit",
+          "responseKey": "data_center_carbon_aware_workload_scheduler_active_output_2_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -559,12 +559,12 @@
         }
       },
       {
-        "semantic": "data-center-tenant-capacity-guard-active-output-0-bit",
+        "semantic": "data_center_tenant_capacity_guard_active_output_0_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/data-center-tenant-capacity-guard-active-output-0-bit",
-          "responseKey": "data-center-tenant-capacity-guard-active-output-0-bit",
+          "jsonPointer": "/data_center_tenant_capacity_guard_active_output_0_bit",
+          "responseKey": "data_center_tenant_capacity_guard_active_output_0_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -602,12 +602,12 @@
         }
       },
       {
-        "semantic": "data-center-tenant-capacity-guard-active-output-1-bit",
+        "semantic": "data_center_tenant_capacity_guard_active_output_1_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/data-center-tenant-capacity-guard-active-output-1-bit",
-          "responseKey": "data-center-tenant-capacity-guard-active-output-1-bit",
+          "jsonPointer": "/data_center_tenant_capacity_guard_active_output_1_bit",
+          "responseKey": "data_center_tenant_capacity_guard_active_output_1_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -645,12 +645,12 @@
         }
       },
       {
-        "semantic": "data-center-tenant-capacity-guard-active-output-2-bit",
+        "semantic": "data_center_tenant_capacity_guard_active_output_2_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/data-center-tenant-capacity-guard-active-output-2-bit",
-          "responseKey": "data-center-tenant-capacity-guard-active-output-2-bit",
+          "jsonPointer": "/data_center_tenant_capacity_guard_active_output_2_bit",
+          "responseKey": "data_center_tenant_capacity_guard_active_output_2_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -688,12 +688,12 @@
         }
       },
       {
-        "semantic": "data-center-sre-handoff-completeness-active-output-0-bit",
+        "semantic": "data_center_sre_handoff_completeness_active_output_0_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/data-center-sre-handoff-completeness-active-output-0-bit",
-          "responseKey": "data-center-sre-handoff-completeness-active-output-0-bit",
+          "jsonPointer": "/data_center_sre_handoff_completeness_active_output_0_bit",
+          "responseKey": "data_center_sre_handoff_completeness_active_output_0_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -731,12 +731,12 @@
         }
       },
       {
-        "semantic": "data-center-sre-handoff-completeness-active-output-1-bit",
+        "semantic": "data_center_sre_handoff_completeness_active_output_1_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/data-center-sre-handoff-completeness-active-output-1-bit",
-          "responseKey": "data-center-sre-handoff-completeness-active-output-1-bit",
+          "jsonPointer": "/data_center_sre_handoff_completeness_active_output_1_bit",
+          "responseKey": "data_center_sre_handoff_completeness_active_output_1_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -774,12 +774,12 @@
         }
       },
       {
-        "semantic": "data-center-sre-handoff-completeness-active-output-2-bit",
+        "semantic": "data_center_sre_handoff_completeness_active_output_2_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/data-center-sre-handoff-completeness-active-output-2-bit",
-          "responseKey": "data-center-sre-handoff-completeness-active-output-2-bit",
+          "jsonPointer": "/data_center_sre_handoff_completeness_active_output_2_bit",
+          "responseKey": "data_center_sre_handoff_completeness_active_output_2_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -817,12 +817,12 @@
         }
       },
       {
-        "semantic": "data-center-maintenance-blackout-guard-active-output-0-bit",
+        "semantic": "data_center_maintenance_blackout_guard_active_output_0_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/data-center-maintenance-blackout-guard-active-output-0-bit",
-          "responseKey": "data-center-maintenance-blackout-guard-active-output-0-bit",
+          "jsonPointer": "/data_center_maintenance_blackout_guard_active_output_0_bit",
+          "responseKey": "data_center_maintenance_blackout_guard_active_output_0_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -860,12 +860,12 @@
         }
       },
       {
-        "semantic": "data-center-maintenance-blackout-guard-active-output-1-bit",
+        "semantic": "data_center_maintenance_blackout_guard_active_output_1_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/data-center-maintenance-blackout-guard-active-output-1-bit",
-          "responseKey": "data-center-maintenance-blackout-guard-active-output-1-bit",
+          "jsonPointer": "/data_center_maintenance_blackout_guard_active_output_1_bit",
+          "responseKey": "data_center_maintenance_blackout_guard_active_output_1_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -903,12 +903,12 @@
         }
       },
       {
-        "semantic": "data-center-maintenance-blackout-guard-active-output-2-bit",
+        "semantic": "data_center_maintenance_blackout_guard_active_output_2_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/data-center-maintenance-blackout-guard-active-output-2-bit",
-          "responseKey": "data-center-maintenance-blackout-guard-active-output-2-bit",
+          "jsonPointer": "/data_center_maintenance_blackout_guard_active_output_2_bit",
+          "responseKey": "data_center_maintenance_blackout_guard_active_output_2_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -946,12 +946,12 @@
         }
       },
       {
-        "semantic": "data-center-upgrade-wave-planner-active-output-0-bit",
+        "semantic": "data_center_upgrade_wave_planner_active_output_0_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/data-center-upgrade-wave-planner-active-output-0-bit",
-          "responseKey": "data-center-upgrade-wave-planner-active-output-0-bit",
+          "jsonPointer": "/data_center_upgrade_wave_planner_active_output_0_bit",
+          "responseKey": "data_center_upgrade_wave_planner_active_output_0_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -989,12 +989,12 @@
         }
       },
       {
-        "semantic": "data-center-upgrade-wave-planner-active-output-1-bit",
+        "semantic": "data_center_upgrade_wave_planner_active_output_1_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/data-center-upgrade-wave-planner-active-output-1-bit",
-          "responseKey": "data-center-upgrade-wave-planner-active-output-1-bit",
+          "jsonPointer": "/data_center_upgrade_wave_planner_active_output_1_bit",
+          "responseKey": "data_center_upgrade_wave_planner_active_output_1_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1032,12 +1032,12 @@
         }
       },
       {
-        "semantic": "data-center-upgrade-wave-planner-active-output-2-bit",
+        "semantic": "data_center_upgrade_wave_planner_active_output_2_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/data-center-upgrade-wave-planner-active-output-2-bit",
-          "responseKey": "data-center-upgrade-wave-planner-active-output-2-bit",
+          "jsonPointer": "/data_center_upgrade_wave_planner_active_output_2_bit",
+          "responseKey": "data_center_upgrade_wave_planner_active_output_2_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1075,12 +1075,12 @@
         }
       },
       {
-        "semantic": "data-center-firmware-rollback-readiness-active-output-0-bit",
+        "semantic": "data_center_firmware_rollback_readiness_active_output_0_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/data-center-firmware-rollback-readiness-active-output-0-bit",
-          "responseKey": "data-center-firmware-rollback-readiness-active-output-0-bit",
+          "jsonPointer": "/data_center_firmware_rollback_readiness_active_output_0_bit",
+          "responseKey": "data_center_firmware_rollback_readiness_active_output_0_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1118,12 +1118,12 @@
         }
       },
       {
-        "semantic": "data-center-firmware-rollback-readiness-active-output-1-bit",
+        "semantic": "data_center_firmware_rollback_readiness_active_output_1_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/data-center-firmware-rollback-readiness-active-output-1-bit",
-          "responseKey": "data-center-firmware-rollback-readiness-active-output-1-bit",
+          "jsonPointer": "/data_center_firmware_rollback_readiness_active_output_1_bit",
+          "responseKey": "data_center_firmware_rollback_readiness_active_output_1_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1161,12 +1161,12 @@
         }
       },
       {
-        "semantic": "data-center-firmware-rollback-readiness-active-output-2-bit",
+        "semantic": "data_center_firmware_rollback_readiness_active_output_2_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/data-center-firmware-rollback-readiness-active-output-2-bit",
-          "responseKey": "data-center-firmware-rollback-readiness-active-output-2-bit",
+          "jsonPointer": "/data_center_firmware_rollback_readiness_active_output_2_bit",
+          "responseKey": "data_center_firmware_rollback_readiness_active_output_2_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1204,12 +1204,12 @@
         }
       },
       {
-        "semantic": "data-center-spine-leaf-expansion-planner-active-output-0-bit",
+        "semantic": "data_center_spine_leaf_expansion_planner_active_output_0_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/data-center-spine-leaf-expansion-planner-active-output-0-bit",
-          "responseKey": "data-center-spine-leaf-expansion-planner-active-output-0-bit",
+          "jsonPointer": "/data_center_spine_leaf_expansion_planner_active_output_0_bit",
+          "responseKey": "data_center_spine_leaf_expansion_planner_active_output_0_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1247,12 +1247,12 @@
         }
       },
       {
-        "semantic": "data-center-spine-leaf-expansion-planner-active-output-1-bit",
+        "semantic": "data_center_spine_leaf_expansion_planner_active_output_1_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/data-center-spine-leaf-expansion-planner-active-output-1-bit",
-          "responseKey": "data-center-spine-leaf-expansion-planner-active-output-1-bit",
+          "jsonPointer": "/data_center_spine_leaf_expansion_planner_active_output_1_bit",
+          "responseKey": "data_center_spine_leaf_expansion_planner_active_output_1_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1290,12 +1290,12 @@
         }
       },
       {
-        "semantic": "data-center-spine-leaf-expansion-planner-active-output-2-bit",
+        "semantic": "data_center_spine_leaf_expansion_planner_active_output_2_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/data-center-spine-leaf-expansion-planner-active-output-2-bit",
-          "responseKey": "data-center-spine-leaf-expansion-planner-active-output-2-bit",
+          "jsonPointer": "/data_center_spine_leaf_expansion_planner_active_output_2_bit",
+          "responseKey": "data_center_spine_leaf_expansion_planner_active_output_2_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1333,12 +1333,12 @@
         }
       },
       {
-        "semantic": "data-center-storage-migration-coordinator-active-output-0-bit",
+        "semantic": "data_center_storage_migration_coordinator_active_output_0_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/data-center-storage-migration-coordinator-active-output-0-bit",
-          "responseKey": "data-center-storage-migration-coordinator-active-output-0-bit",
+          "jsonPointer": "/data_center_storage_migration_coordinator_active_output_0_bit",
+          "responseKey": "data_center_storage_migration_coordinator_active_output_0_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1376,12 +1376,12 @@
         }
       },
       {
-        "semantic": "data-center-storage-migration-coordinator-active-output-1-bit",
+        "semantic": "data_center_storage_migration_coordinator_active_output_1_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/data-center-storage-migration-coordinator-active-output-1-bit",
-          "responseKey": "data-center-storage-migration-coordinator-active-output-1-bit",
+          "jsonPointer": "/data_center_storage_migration_coordinator_active_output_1_bit",
+          "responseKey": "data_center_storage_migration_coordinator_active_output_1_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1419,12 +1419,12 @@
         }
       },
       {
-        "semantic": "data-center-storage-migration-coordinator-active-output-2-bit",
+        "semantic": "data_center_storage_migration_coordinator_active_output_2_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/data-center-storage-migration-coordinator-active-output-2-bit",
-          "responseKey": "data-center-storage-migration-coordinator-active-output-2-bit",
+          "jsonPointer": "/data_center_storage_migration_coordinator_active_output_2_bit",
+          "responseKey": "data_center_storage_migration_coordinator_active_output_2_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1462,12 +1462,12 @@
         }
       },
       {
-        "semantic": "data-center-decommission-safety-controller-active-output-0-bit",
+        "semantic": "data_center_decommission_safety_controller_active_output_0_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/data-center-decommission-safety-controller-active-output-0-bit",
-          "responseKey": "data-center-decommission-safety-controller-active-output-0-bit",
+          "jsonPointer": "/data_center_decommission_safety_controller_active_output_0_bit",
+          "responseKey": "data_center_decommission_safety_controller_active_output_0_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1505,12 +1505,12 @@
         }
       },
       {
-        "semantic": "data-center-decommission-safety-controller-active-output-1-bit",
+        "semantic": "data_center_decommission_safety_controller_active_output_1_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/data-center-decommission-safety-controller-active-output-1-bit",
-          "responseKey": "data-center-decommission-safety-controller-active-output-1-bit",
+          "jsonPointer": "/data_center_decommission_safety_controller_active_output_1_bit",
+          "responseKey": "data_center_decommission_safety_controller_active_output_1_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1548,12 +1548,12 @@
         }
       },
       {
-        "semantic": "data-center-decommission-safety-controller-active-output-2-bit",
+        "semantic": "data_center_decommission_safety_controller_active_output_2_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/data-center-decommission-safety-controller-active-output-2-bit",
-          "responseKey": "data-center-decommission-safety-controller-active-output-2-bit",
+          "jsonPointer": "/data_center_decommission_safety_controller_active_output_2_bit",
+          "responseKey": "data_center_decommission_safety_controller_active_output_2_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1591,12 +1591,12 @@
         }
       },
       {
-        "semantic": "data-center-24x7-operations-executive-summary-active-output-0-bit",
+        "semantic": "data_center_24x7_operations_executive_summary_active_output_0_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/data-center-24x7-operations-executive-summary-active-output-0-bit",
-          "responseKey": "data-center-24x7-operations-executive-summary-active-output-0-bit",
+          "jsonPointer": "/data_center_24x7_operations_executive_summary_active_output_0_bit",
+          "responseKey": "data_center_24x7_operations_executive_summary_active_output_0_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1634,12 +1634,12 @@
         }
       },
       {
-        "semantic": "data-center-24x7-operations-executive-summary-active-output-1-bit",
+        "semantic": "data_center_24x7_operations_executive_summary_active_output_1_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/data-center-24x7-operations-executive-summary-active-output-1-bit",
-          "responseKey": "data-center-24x7-operations-executive-summary-active-output-1-bit",
+          "jsonPointer": "/data_center_24x7_operations_executive_summary_active_output_1_bit",
+          "responseKey": "data_center_24x7_operations_executive_summary_active_output_1_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1677,12 +1677,12 @@
         }
       },
       {
-        "semantic": "data-center-24x7-operations-executive-summary-active-output-2-bit",
+        "semantic": "data_center_24x7_operations_executive_summary_active_output_2_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/data-center-24x7-operations-executive-summary-active-output-2-bit",
-          "responseKey": "data-center-24x7-operations-executive-summary-active-output-2-bit",
+          "jsonPointer": "/data_center_24x7_operations_executive_summary_active_output_2_bit",
+          "responseKey": "data_center_24x7_operations_executive_summary_active_output_2_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1724,7 +1724,7 @@
   "diagnostics": {
     "axisBasis": "inputSemantics",
     "warnings": [
-      "input axes derived from inputSemantics (no length-matched sensorNormalization)"
+      "input axes derived from inputSemantics; openClawProjection.semantics does not name these positions, so the agent's axis names are unverified"
     ],
     "inputLength": 30,
     "sequenceCount": 4

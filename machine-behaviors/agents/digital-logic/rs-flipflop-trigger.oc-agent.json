@@ -34,12 +34,12 @@
   },
   "reasoning": {
     "objective": "Produce the normalized input vector for \"RS Flipflop Trigger\" from current observations so RE can evaluate its CES sequences.",
-    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"RS Flipflop Trigger\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. RS flip-flop whose output transitions fire an upstream GraphQL trigger into the local AI stack. SET drives the machine output to [1,0] (AMBER), RESET drives it to [0,1] (GREEN). The trigger configuration in metadata.triggerConfig is consumed by the dispatcher template at examples/triggers/graphql_trigger_template.py.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- rs-flipflop-trigger-input-1 (index 0):\n- rs-flipflop-trigger-input-2 (index 1):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- rs-set-sequence (AMBER)\n- rs-reset-sequence (GREEN)",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"RS Flipflop Trigger\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. RS flip-flop whose output transitions fire an upstream GraphQL trigger into the local AI stack. SET drives the machine output to [1,0] (AMBER), RESET drives it to [0,1] (GREEN). The trigger configuration in metadata.triggerConfig is consumed by the dispatcher template at examples/triggers/graphql_trigger_template.py.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- rs_flipflop_trigger_input_1 (index 0):\n- rs_flipflop_trigger_input_2 (index 1):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- rs-set-sequence (AMBER)\n- rs-reset-sequence (GREEN)",
     "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
     "inputAxes": [
       {
         "index": 0,
-        "key": "rs-flipflop-trigger-input-1",
+        "key": "rs_flipflop_trigger_input_1",
         "anchors": {
           "low": "",
           "mid": "",
@@ -48,7 +48,7 @@
       },
       {
         "index": 1,
-        "key": "rs-flipflop-trigger-input-2",
+        "key": "rs_flipflop_trigger_input_2",
         "anchors": {
           "low": "",
           "mid": "",
@@ -90,8 +90,8 @@
         "length": 2
       },
       "semantics": [
-        "rs-flipflop-trigger-input-1",
-        "rs-flipflop-trigger-input-2"
+        "rs_flipflop_trigger_input_1",
+        "rs_flipflop_trigger_input_2"
       ],
       "ttlMs": 300000,
       "normalization": "already-normalized-0-1",
@@ -136,12 +136,12 @@
     "mode": "advise",
     "fields": [
       {
-        "semantic": "rs-flipflop-trigger-input-1",
+        "semantic": "rs_flipflop_trigger_input_1",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/rs-flipflop-trigger-input-1",
-          "responseKey": "rs-flipflop-trigger-input-1",
+          "jsonPointer": "/rs_flipflop_trigger_input_1",
+          "responseKey": "rs_flipflop_trigger_input_1",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -179,12 +179,12 @@
         }
       },
       {
-        "semantic": "rs-flipflop-trigger-input-2",
+        "semantic": "rs_flipflop_trigger_input_2",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/rs-flipflop-trigger-input-2",
-          "responseKey": "rs-flipflop-trigger-input-2",
+          "jsonPointer": "/rs_flipflop_trigger_input_2",
+          "responseKey": "rs_flipflop_trigger_input_2",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -224,10 +224,8 @@
     ]
   },
   "diagnostics": {
-    "axisBasis": "inputSemantics",
-    "warnings": [
-      "input axes derived from inputSemantics (no length-matched sensorNormalization)"
-    ],
+    "axisBasis": "openClawProjection",
+    "warnings": [],
     "inputLength": 2,
     "sequenceCount": 2
   }

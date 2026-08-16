@@ -34,12 +34,12 @@
   },
   "reasoning": {
     "objective": "Produce the normalized input vector for \"Fall Detection\" from current observations so RE can evaluate its CES sequences.",
-    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Fall Detection\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Resilient fall classifier. Each candidate fall must survive a multi-step critical event sequence that validates duration AND impact strength before a determination is broadcast to listeners. RED (emergency dispatch) requires six consecutive ticks of progressive evidence: motion onset \u2192 sustained motion \u2192 severe motion \u2192 post-impact stillness onset \u2192 sustained stillness \u2192 very-sustained stillness. AMBER tiers report less-certain patterns (recovered stumbles, recovered impacts, sustained instability) without escalating to emergency.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- motion-progression-ordinal (index 0):\n- stillness-progression-ordinal (index 1):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- fall-nominal (GREEN)\n- fall-stumble-recovered (AMBER) -> action: log-only\n- fall-sustained-instability (AMBER) -> action: caregiver-watch\n- fall-impact-recovered (AMBER) -> action: caregiver-check-in\n- Confirmed fall (RED) -> action: emergency-dispatch\n- fall-slow-collapse (RED) -> action: emergency-dispatch\n- fall-intentional-lying (GREEN) -> action: log-activity",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Fall Detection\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Resilient fall classifier. Each candidate fall must survive a multi-step critical event sequence that validates duration AND impact strength before a determination is broadcast to listeners. RED (emergency dispatch) requires six consecutive ticks of progressive evidence: motion onset \u2192 sustained motion \u2192 severe motion \u2192 post-impact stillness onset \u2192 sustained stillness \u2192 very-sustained stillness. AMBER tiers report less-certain patterns (recovered stumbles, recovered impacts, sustained instability) without escalating to emergency.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- motion_progression_ordinal (index 0):\n- stillness_progression_ordinal (index 1):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- fall-nominal (GREEN)\n- fall-stumble-recovered (AMBER) -> action: log-only\n- fall-sustained-instability (AMBER) -> action: caregiver-watch\n- fall-impact-recovered (AMBER) -> action: caregiver-check-in\n- Confirmed fall (RED) -> action: emergency-dispatch\n- fall-slow-collapse (RED) -> action: emergency-dispatch\n- fall-intentional-lying (GREEN) -> action: log-activity",
     "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
     "inputAxes": [
       {
         "index": 0,
-        "key": "motion-progression-ordinal",
+        "key": "motion_progression_ordinal",
         "anchors": {
           "low": "",
           "mid": "",
@@ -48,7 +48,7 @@
       },
       {
         "index": 1,
-        "key": "stillness-progression-ordinal",
+        "key": "stillness_progression_ordinal",
         "anchors": {
           "low": "",
           "mid": "",
@@ -125,8 +125,8 @@
         "length": 2
       },
       "semantics": [
-        "motion-progression-ordinal",
-        "stillness-progression-ordinal"
+        "motion_progression_ordinal",
+        "stillness_progression_ordinal"
       ],
       "ttlMs": 300000,
       "normalization": "already-normalized-0-1",
@@ -171,12 +171,12 @@
     "mode": "advise",
     "fields": [
       {
-        "semantic": "motion-progression-ordinal",
+        "semantic": "motion_progression_ordinal",
         "valueType": "ordinal",
         "normalization": "machine-native-ordinal",
         "extract": {
-          "jsonPointer": "/motion-progression-ordinal",
-          "responseKey": "motion-progression-ordinal",
+          "jsonPointer": "/motion_progression_ordinal",
+          "responseKey": "motion_progression_ordinal",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -214,12 +214,12 @@
         }
       },
       {
-        "semantic": "stillness-progression-ordinal",
+        "semantic": "stillness_progression_ordinal",
         "valueType": "ordinal",
         "normalization": "machine-native-ordinal",
         "extract": {
-          "jsonPointer": "/stillness-progression-ordinal",
-          "responseKey": "stillness-progression-ordinal",
+          "jsonPointer": "/stillness_progression_ordinal",
+          "responseKey": "stillness_progression_ordinal",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -259,10 +259,8 @@
     ]
   },
   "diagnostics": {
-    "axisBasis": "inputSemantics",
-    "warnings": [
-      "input axes derived from inputSemantics (no length-matched sensorNormalization)"
-    ],
+    "axisBasis": "openClawProjection",
+    "warnings": [],
     "inputLength": 2,
     "sequenceCount": 7
   }

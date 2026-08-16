@@ -34,12 +34,12 @@
   },
   "reasoning": {
     "objective": "Produce the normalized input vector for \"Hydration Risk Response Interconnect\" from current observations so RE can evaluate its CES sequences.",
-    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Hydration Risk Response Interconnect\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Published personal-health bridge bus that composes hydration status, activity tolerance, sleep recovery, and food/fluid access into a compact hydration response lane. PE owns source composition and writes the compact input lane; RE evaluates this machine as ordinary vector state.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- below-half-hydration-target-bit (index 0):\n- below-quarter-hydration-target-bit (index 1):\n- below-baseline-today-bit (index 2):\n- sedentary-streak-active-bit (index 3):\n- short-or-poor-sleep-bit (index 4):\n- disturbed-or-fragmented-sleep-bit (index 5):\n- food-crisis-bit (index 6):\n- food-insecure-bit (index 7):\n- assistance-needed-bit (index 8):\n- food-secure-bit (index 9):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- hydration-risk-urgent-check (RED) -> action: urgent-intervention\n- hydration-risk-electrolyte-review (AMBER) -> action: route-referral\n- hydration-risk-access-support (AMBER) -> action: route-referral\n- hydration-risk-stable-monitoring (GREEN) -> action: continue-monitoring",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Hydration Risk Response Interconnect\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Published personal-health bridge bus that composes hydration status, activity tolerance, sleep recovery, and food/fluid access into a compact hydration response lane. PE owns source composition and writes the compact input lane; RE evaluates this machine as ordinary vector state.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- below_half_hydration_target_bit (index 0):\n- below_quarter_hydration_target_bit (index 1):\n- below_baseline_today_bit (index 2):\n- sedentary_streak_active_bit (index 3):\n- short_or_poor_sleep_bit (index 4):\n- disturbed_or_fragmented_sleep_bit (index 5):\n- food_crisis_bit (index 6):\n- food_insecure_bit (index 7):\n- assistance_needed_bit (index 8):\n- food_secure_bit (index 9):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- hydration-risk-urgent-check (RED) -> action: urgent-intervention\n- hydration-risk-electrolyte-review (AMBER) -> action: route-referral\n- hydration-risk-access-support (AMBER) -> action: route-referral\n- hydration-risk-stable-monitoring (GREEN) -> action: continue-monitoring",
     "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
     "inputAxes": [
       {
         "index": 0,
-        "key": "below-half-hydration-target-bit",
+        "key": "below_half_hydration_target_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -48,7 +48,7 @@
       },
       {
         "index": 1,
-        "key": "below-quarter-hydration-target-bit",
+        "key": "below_quarter_hydration_target_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -57,7 +57,7 @@
       },
       {
         "index": 2,
-        "key": "below-baseline-today-bit",
+        "key": "below_baseline_today_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -66,7 +66,7 @@
       },
       {
         "index": 3,
-        "key": "sedentary-streak-active-bit",
+        "key": "sedentary_streak_active_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -75,7 +75,7 @@
       },
       {
         "index": 4,
-        "key": "short-or-poor-sleep-bit",
+        "key": "short_or_poor_sleep_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -84,7 +84,7 @@
       },
       {
         "index": 5,
-        "key": "disturbed-or-fragmented-sleep-bit",
+        "key": "disturbed_or_fragmented_sleep_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -93,7 +93,7 @@
       },
       {
         "index": 6,
-        "key": "food-crisis-bit",
+        "key": "food_crisis_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -102,7 +102,7 @@
       },
       {
         "index": 7,
-        "key": "food-insecure-bit",
+        "key": "food_insecure_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -111,7 +111,7 @@
       },
       {
         "index": 8,
-        "key": "assistance-needed-bit",
+        "key": "assistance_needed_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -120,7 +120,7 @@
       },
       {
         "index": 9,
-        "key": "food-secure-bit",
+        "key": "food_secure_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -176,16 +176,16 @@
         "length": 10
       },
       "semantics": [
-        "below-half-hydration-target-bit",
-        "below-quarter-hydration-target-bit",
-        "below-baseline-today-bit",
-        "sedentary-streak-active-bit",
-        "short-or-poor-sleep-bit",
-        "disturbed-or-fragmented-sleep-bit",
-        "food-crisis-bit",
-        "food-insecure-bit",
-        "assistance-needed-bit",
-        "food-secure-bit"
+        "below_half_hydration_target_bit",
+        "below_quarter_hydration_target_bit",
+        "below_baseline_today_bit",
+        "sedentary_streak_active_bit",
+        "short_or_poor_sleep_bit",
+        "disturbed_or_fragmented_sleep_bit",
+        "food_crisis_bit",
+        "food_insecure_bit",
+        "assistance_needed_bit",
+        "food_secure_bit"
       ],
       "ttlMs": 300000,
       "normalization": "already-normalized-0-1",
@@ -230,12 +230,12 @@
     "mode": "advise",
     "fields": [
       {
-        "semantic": "below-half-hydration-target-bit",
+        "semantic": "below_half_hydration_target_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/below-half-hydration-target-bit",
-          "responseKey": "below-half-hydration-target-bit",
+          "jsonPointer": "/below_half_hydration_target_bit",
+          "responseKey": "below_half_hydration_target_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -273,12 +273,12 @@
         }
       },
       {
-        "semantic": "below-quarter-hydration-target-bit",
+        "semantic": "below_quarter_hydration_target_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/below-quarter-hydration-target-bit",
-          "responseKey": "below-quarter-hydration-target-bit",
+          "jsonPointer": "/below_quarter_hydration_target_bit",
+          "responseKey": "below_quarter_hydration_target_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -316,12 +316,12 @@
         }
       },
       {
-        "semantic": "below-baseline-today-bit",
+        "semantic": "below_baseline_today_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/below-baseline-today-bit",
-          "responseKey": "below-baseline-today-bit",
+          "jsonPointer": "/below_baseline_today_bit",
+          "responseKey": "below_baseline_today_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -359,12 +359,12 @@
         }
       },
       {
-        "semantic": "sedentary-streak-active-bit",
+        "semantic": "sedentary_streak_active_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/sedentary-streak-active-bit",
-          "responseKey": "sedentary-streak-active-bit",
+          "jsonPointer": "/sedentary_streak_active_bit",
+          "responseKey": "sedentary_streak_active_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -402,12 +402,12 @@
         }
       },
       {
-        "semantic": "short-or-poor-sleep-bit",
+        "semantic": "short_or_poor_sleep_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/short-or-poor-sleep-bit",
-          "responseKey": "short-or-poor-sleep-bit",
+          "jsonPointer": "/short_or_poor_sleep_bit",
+          "responseKey": "short_or_poor_sleep_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -445,12 +445,12 @@
         }
       },
       {
-        "semantic": "disturbed-or-fragmented-sleep-bit",
+        "semantic": "disturbed_or_fragmented_sleep_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/disturbed-or-fragmented-sleep-bit",
-          "responseKey": "disturbed-or-fragmented-sleep-bit",
+          "jsonPointer": "/disturbed_or_fragmented_sleep_bit",
+          "responseKey": "disturbed_or_fragmented_sleep_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -488,12 +488,12 @@
         }
       },
       {
-        "semantic": "food-crisis-bit",
+        "semantic": "food_crisis_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/food-crisis-bit",
-          "responseKey": "food-crisis-bit",
+          "jsonPointer": "/food_crisis_bit",
+          "responseKey": "food_crisis_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -531,12 +531,12 @@
         }
       },
       {
-        "semantic": "food-insecure-bit",
+        "semantic": "food_insecure_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/food-insecure-bit",
-          "responseKey": "food-insecure-bit",
+          "jsonPointer": "/food_insecure_bit",
+          "responseKey": "food_insecure_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -574,12 +574,12 @@
         }
       },
       {
-        "semantic": "assistance-needed-bit",
+        "semantic": "assistance_needed_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/assistance-needed-bit",
-          "responseKey": "assistance-needed-bit",
+          "jsonPointer": "/assistance_needed_bit",
+          "responseKey": "assistance_needed_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -617,12 +617,12 @@
         }
       },
       {
-        "semantic": "food-secure-bit",
+        "semantic": "food_secure_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/food-secure-bit",
-          "responseKey": "food-secure-bit",
+          "jsonPointer": "/food_secure_bit",
+          "responseKey": "food_secure_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -664,7 +664,7 @@
   "diagnostics": {
     "axisBasis": "inputSemantics",
     "warnings": [
-      "input axes derived from inputSemantics (no length-matched sensorNormalization)"
+      "input axes derived from inputSemantics; openClawProjection.semantics does not name these positions, so the agent's axis names are unverified"
     ],
     "inputLength": 10,
     "sequenceCount": 4

@@ -34,12 +34,12 @@
   },
   "reasoning": {
     "objective": "Produce the normalized input vector for \"Care Transition Response Interconnect\" from current observations so RE can evaluate its CES sequences.",
-    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Care Transition Response Interconnect\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Published personal-health bridge bus that composes care transition outcomes, wellness transition routing, patient wellness acuity, daily-care safety, facilities accessibility, and fall criticality into a compact transition-response lane. PE owns source composition and writes the compact input lane; RE evaluates this machine as ordinary vector state.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- care-transition-hospital-transfer-bit (index 0):\n- care-transition-rehab-transfer-bit (index 1):\n- care-transition-assisted-living-transfer-bit (index 2):\n- care-transition-transfer-blocked-bit (index 3):\n- care-transition-emergency-escalation-bit (index 4):\n- wellness-transition-review-bit (index 5):\n- wellness-transition-escalation-bit (index 6):\n- wellness-transition-urgent-bit (index 7):\n- wellness-improving-bit (index 8):\n- patient-wellness-alert-bit (index 9):\n- patient-wellness-critical-bit (index 10):\n- daily-care-fall-confirmed-bit (index 11):\n- daily-care-unresponsive-fall-bit (index 12):\n- daily-care-medication-missed-bit (index 13):\n- facilities-safety-alert-bit (index 14):\n- facilities-wellness-concern-bit (index 15):\n- facilities-inaccessibility-alert-bit (index 16):\n- fall-red-high-confidence-bit (index 17):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- care-transition-response-urgent-transfer (RED) -> action: urgent-intervention\n- care-transition-response-barrier-resolution (AMBER) -> action: route-referral\n- care-transition-response-post-acute-review (AMBER) -> action: route-referral\n- care-transition-response-stable-monitoring (GREEN) -> action: continue-monitoring",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Care Transition Response Interconnect\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Published personal-health bridge bus that composes care transition outcomes, wellness transition routing, patient wellness acuity, daily-care safety, facilities accessibility, and fall criticality into a compact transition-response lane. PE owns source composition and writes the compact input lane; RE evaluates this machine as ordinary vector state.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- care_transition_hospital_transfer_bit (index 0):\n- care_transition_rehab_transfer_bit (index 1):\n- care_transition_assisted_living_transfer_bit (index 2):\n- care_transition_transfer_blocked_bit (index 3):\n- care_transition_emergency_escalation_bit (index 4):\n- wellness_transition_review_bit (index 5):\n- wellness_transition_escalation_bit (index 6):\n- wellness_transition_urgent_bit (index 7):\n- wellness_improving_bit (index 8):\n- patient_wellness_alert_bit (index 9):\n- patient_wellness_critical_bit (index 10):\n- daily_care_fall_confirmed_bit (index 11):\n- daily_care_unresponsive_fall_bit (index 12):\n- daily_care_medication_missed_bit (index 13):\n- facilities_safety_alert_bit (index 14):\n- facilities_wellness_concern_bit (index 15):\n- facilities_inaccessibility_alert_bit (index 16):\n- fall_red_high_confidence_bit (index 17):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- care-transition-response-urgent-transfer (RED) -> action: urgent-intervention\n- care-transition-response-barrier-resolution (AMBER) -> action: route-referral\n- care-transition-response-post-acute-review (AMBER) -> action: route-referral\n- care-transition-response-stable-monitoring (GREEN) -> action: continue-monitoring",
     "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
     "inputAxes": [
       {
         "index": 0,
-        "key": "care-transition-hospital-transfer-bit",
+        "key": "care_transition_hospital_transfer_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -48,7 +48,7 @@
       },
       {
         "index": 1,
-        "key": "care-transition-rehab-transfer-bit",
+        "key": "care_transition_rehab_transfer_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -57,7 +57,7 @@
       },
       {
         "index": 2,
-        "key": "care-transition-assisted-living-transfer-bit",
+        "key": "care_transition_assisted_living_transfer_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -66,7 +66,7 @@
       },
       {
         "index": 3,
-        "key": "care-transition-transfer-blocked-bit",
+        "key": "care_transition_transfer_blocked_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -75,7 +75,7 @@
       },
       {
         "index": 4,
-        "key": "care-transition-emergency-escalation-bit",
+        "key": "care_transition_emergency_escalation_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -84,7 +84,7 @@
       },
       {
         "index": 5,
-        "key": "wellness-transition-review-bit",
+        "key": "wellness_transition_review_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -93,7 +93,7 @@
       },
       {
         "index": 6,
-        "key": "wellness-transition-escalation-bit",
+        "key": "wellness_transition_escalation_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -102,7 +102,7 @@
       },
       {
         "index": 7,
-        "key": "wellness-transition-urgent-bit",
+        "key": "wellness_transition_urgent_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -111,7 +111,7 @@
       },
       {
         "index": 8,
-        "key": "wellness-improving-bit",
+        "key": "wellness_improving_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -120,7 +120,7 @@
       },
       {
         "index": 9,
-        "key": "patient-wellness-alert-bit",
+        "key": "patient_wellness_alert_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -129,7 +129,7 @@
       },
       {
         "index": 10,
-        "key": "patient-wellness-critical-bit",
+        "key": "patient_wellness_critical_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -138,7 +138,7 @@
       },
       {
         "index": 11,
-        "key": "daily-care-fall-confirmed-bit",
+        "key": "daily_care_fall_confirmed_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -147,7 +147,7 @@
       },
       {
         "index": 12,
-        "key": "daily-care-unresponsive-fall-bit",
+        "key": "daily_care_unresponsive_fall_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -156,7 +156,7 @@
       },
       {
         "index": 13,
-        "key": "daily-care-medication-missed-bit",
+        "key": "daily_care_medication_missed_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -165,7 +165,7 @@
       },
       {
         "index": 14,
-        "key": "facilities-safety-alert-bit",
+        "key": "facilities_safety_alert_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -174,7 +174,7 @@
       },
       {
         "index": 15,
-        "key": "facilities-wellness-concern-bit",
+        "key": "facilities_wellness_concern_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -183,7 +183,7 @@
       },
       {
         "index": 16,
-        "key": "facilities-inaccessibility-alert-bit",
+        "key": "facilities_inaccessibility_alert_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -192,7 +192,7 @@
       },
       {
         "index": 17,
-        "key": "fall-red-high-confidence-bit",
+        "key": "fall_red_high_confidence_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -248,24 +248,24 @@
         "length": 18
       },
       "semantics": [
-        "care-transition-hospital-transfer-bit",
-        "care-transition-rehab-transfer-bit",
-        "care-transition-assisted-living-transfer-bit",
-        "care-transition-transfer-blocked-bit",
-        "care-transition-emergency-escalation-bit",
-        "wellness-transition-review-bit",
-        "wellness-transition-escalation-bit",
-        "wellness-transition-urgent-bit",
-        "wellness-improving-bit",
-        "patient-wellness-alert-bit",
-        "patient-wellness-critical-bit",
-        "daily-care-fall-confirmed-bit",
-        "daily-care-unresponsive-fall-bit",
-        "daily-care-medication-missed-bit",
-        "facilities-safety-alert-bit",
-        "facilities-wellness-concern-bit",
-        "facilities-inaccessibility-alert-bit",
-        "fall-red-high-confidence-bit"
+        "care_transition_hospital_transfer_bit",
+        "care_transition_rehab_transfer_bit",
+        "care_transition_assisted_living_transfer_bit",
+        "care_transition_transfer_blocked_bit",
+        "care_transition_emergency_escalation_bit",
+        "wellness_transition_review_bit",
+        "wellness_transition_escalation_bit",
+        "wellness_transition_urgent_bit",
+        "wellness_improving_bit",
+        "patient_wellness_alert_bit",
+        "patient_wellness_critical_bit",
+        "daily_care_fall_confirmed_bit",
+        "daily_care_unresponsive_fall_bit",
+        "daily_care_medication_missed_bit",
+        "facilities_safety_alert_bit",
+        "facilities_wellness_concern_bit",
+        "facilities_inaccessibility_alert_bit",
+        "fall_red_high_confidence_bit"
       ],
       "ttlMs": 300000,
       "normalization": "already-normalized-0-1",
@@ -310,12 +310,12 @@
     "mode": "advise",
     "fields": [
       {
-        "semantic": "care-transition-hospital-transfer-bit",
+        "semantic": "care_transition_hospital_transfer_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/care-transition-hospital-transfer-bit",
-          "responseKey": "care-transition-hospital-transfer-bit",
+          "jsonPointer": "/care_transition_hospital_transfer_bit",
+          "responseKey": "care_transition_hospital_transfer_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -353,12 +353,12 @@
         }
       },
       {
-        "semantic": "care-transition-rehab-transfer-bit",
+        "semantic": "care_transition_rehab_transfer_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/care-transition-rehab-transfer-bit",
-          "responseKey": "care-transition-rehab-transfer-bit",
+          "jsonPointer": "/care_transition_rehab_transfer_bit",
+          "responseKey": "care_transition_rehab_transfer_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -396,12 +396,12 @@
         }
       },
       {
-        "semantic": "care-transition-assisted-living-transfer-bit",
+        "semantic": "care_transition_assisted_living_transfer_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/care-transition-assisted-living-transfer-bit",
-          "responseKey": "care-transition-assisted-living-transfer-bit",
+          "jsonPointer": "/care_transition_assisted_living_transfer_bit",
+          "responseKey": "care_transition_assisted_living_transfer_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -439,12 +439,12 @@
         }
       },
       {
-        "semantic": "care-transition-transfer-blocked-bit",
+        "semantic": "care_transition_transfer_blocked_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/care-transition-transfer-blocked-bit",
-          "responseKey": "care-transition-transfer-blocked-bit",
+          "jsonPointer": "/care_transition_transfer_blocked_bit",
+          "responseKey": "care_transition_transfer_blocked_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -482,12 +482,12 @@
         }
       },
       {
-        "semantic": "care-transition-emergency-escalation-bit",
+        "semantic": "care_transition_emergency_escalation_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/care-transition-emergency-escalation-bit",
-          "responseKey": "care-transition-emergency-escalation-bit",
+          "jsonPointer": "/care_transition_emergency_escalation_bit",
+          "responseKey": "care_transition_emergency_escalation_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -525,12 +525,12 @@
         }
       },
       {
-        "semantic": "wellness-transition-review-bit",
+        "semantic": "wellness_transition_review_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/wellness-transition-review-bit",
-          "responseKey": "wellness-transition-review-bit",
+          "jsonPointer": "/wellness_transition_review_bit",
+          "responseKey": "wellness_transition_review_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -568,12 +568,12 @@
         }
       },
       {
-        "semantic": "wellness-transition-escalation-bit",
+        "semantic": "wellness_transition_escalation_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/wellness-transition-escalation-bit",
-          "responseKey": "wellness-transition-escalation-bit",
+          "jsonPointer": "/wellness_transition_escalation_bit",
+          "responseKey": "wellness_transition_escalation_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -611,12 +611,12 @@
         }
       },
       {
-        "semantic": "wellness-transition-urgent-bit",
+        "semantic": "wellness_transition_urgent_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/wellness-transition-urgent-bit",
-          "responseKey": "wellness-transition-urgent-bit",
+          "jsonPointer": "/wellness_transition_urgent_bit",
+          "responseKey": "wellness_transition_urgent_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -654,12 +654,12 @@
         }
       },
       {
-        "semantic": "wellness-improving-bit",
+        "semantic": "wellness_improving_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/wellness-improving-bit",
-          "responseKey": "wellness-improving-bit",
+          "jsonPointer": "/wellness_improving_bit",
+          "responseKey": "wellness_improving_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -697,12 +697,12 @@
         }
       },
       {
-        "semantic": "patient-wellness-alert-bit",
+        "semantic": "patient_wellness_alert_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/patient-wellness-alert-bit",
-          "responseKey": "patient-wellness-alert-bit",
+          "jsonPointer": "/patient_wellness_alert_bit",
+          "responseKey": "patient_wellness_alert_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -740,12 +740,12 @@
         }
       },
       {
-        "semantic": "patient-wellness-critical-bit",
+        "semantic": "patient_wellness_critical_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/patient-wellness-critical-bit",
-          "responseKey": "patient-wellness-critical-bit",
+          "jsonPointer": "/patient_wellness_critical_bit",
+          "responseKey": "patient_wellness_critical_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -783,12 +783,12 @@
         }
       },
       {
-        "semantic": "daily-care-fall-confirmed-bit",
+        "semantic": "daily_care_fall_confirmed_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/daily-care-fall-confirmed-bit",
-          "responseKey": "daily-care-fall-confirmed-bit",
+          "jsonPointer": "/daily_care_fall_confirmed_bit",
+          "responseKey": "daily_care_fall_confirmed_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -826,12 +826,12 @@
         }
       },
       {
-        "semantic": "daily-care-unresponsive-fall-bit",
+        "semantic": "daily_care_unresponsive_fall_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/daily-care-unresponsive-fall-bit",
-          "responseKey": "daily-care-unresponsive-fall-bit",
+          "jsonPointer": "/daily_care_unresponsive_fall_bit",
+          "responseKey": "daily_care_unresponsive_fall_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -869,12 +869,12 @@
         }
       },
       {
-        "semantic": "daily-care-medication-missed-bit",
+        "semantic": "daily_care_medication_missed_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/daily-care-medication-missed-bit",
-          "responseKey": "daily-care-medication-missed-bit",
+          "jsonPointer": "/daily_care_medication_missed_bit",
+          "responseKey": "daily_care_medication_missed_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -912,12 +912,12 @@
         }
       },
       {
-        "semantic": "facilities-safety-alert-bit",
+        "semantic": "facilities_safety_alert_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/facilities-safety-alert-bit",
-          "responseKey": "facilities-safety-alert-bit",
+          "jsonPointer": "/facilities_safety_alert_bit",
+          "responseKey": "facilities_safety_alert_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -955,12 +955,12 @@
         }
       },
       {
-        "semantic": "facilities-wellness-concern-bit",
+        "semantic": "facilities_wellness_concern_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/facilities-wellness-concern-bit",
-          "responseKey": "facilities-wellness-concern-bit",
+          "jsonPointer": "/facilities_wellness_concern_bit",
+          "responseKey": "facilities_wellness_concern_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -998,12 +998,12 @@
         }
       },
       {
-        "semantic": "facilities-inaccessibility-alert-bit",
+        "semantic": "facilities_inaccessibility_alert_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/facilities-inaccessibility-alert-bit",
-          "responseKey": "facilities-inaccessibility-alert-bit",
+          "jsonPointer": "/facilities_inaccessibility_alert_bit",
+          "responseKey": "facilities_inaccessibility_alert_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1041,12 +1041,12 @@
         }
       },
       {
-        "semantic": "fall-red-high-confidence-bit",
+        "semantic": "fall_red_high_confidence_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/fall-red-high-confidence-bit",
-          "responseKey": "fall-red-high-confidence-bit",
+          "jsonPointer": "/fall_red_high_confidence_bit",
+          "responseKey": "fall_red_high_confidence_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1088,7 +1088,7 @@
   "diagnostics": {
     "axisBasis": "inputSemantics",
     "warnings": [
-      "input axes derived from inputSemantics (no length-matched sensorNormalization)"
+      "input axes derived from inputSemantics; openClawProjection.semantics does not name these positions, so the agent's axis names are unverified"
     ],
     "inputLength": 18,
     "sequenceCount": 4

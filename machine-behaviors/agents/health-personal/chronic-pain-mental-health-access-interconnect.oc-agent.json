@@ -34,12 +34,12 @@
   },
   "reasoning": {
     "objective": "Produce the normalized input vector for \"Chronic Pain Mental Health Access Interconnect\" from current observations so RE can evaluate its CES sequences.",
-    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Chronic Pain Mental Health Access Interconnect\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Published personal-health bridge bus that composes chronic disease burden, chronic pain burden, and mental-health access status into a compact fan-out lane for behavioral health integration, opioid safety review, and managed monitoring. PE owns source composition and writes the compact input lane; RE evaluates this machine as ordinary vector state.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- disease-exacerbation-bit (index 0):\n- disease-poor-control-bit (index 1):\n- disease-borderline-control-bit (index 2):\n- disease-controlled-bit (index 3):\n- pain-crisis-bit (index 4):\n- opioid-risk-elevated-bit (index 5):\n- functional-impairment-bit (index 6):\n- pain-managed-bit (index 7):\n- mental-health-crisis-bit (index 8):\n- mental-health-referral-needed-bit (index 9):\n- comorbidity-risk-bit (index 10):\n- mental-health-access-adequate-bit (index 11):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- chronic-pain-mh-urgent-behavioral-health-response (RED) -> action: urgent-intervention\n- chronic-pain-mh-integrated-referral (AMBER) -> action: publish-bus\n- chronic-pain-mh-opioid-safety-review (AMBER) -> action: route-referral\n- chronic-pain-mh-managed-monitoring (GREEN) -> action: continue-monitoring",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Chronic Pain Mental Health Access Interconnect\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Published personal-health bridge bus that composes chronic disease burden, chronic pain burden, and mental-health access status into a compact fan-out lane for behavioral health integration, opioid safety review, and managed monitoring. PE owns source composition and writes the compact input lane; RE evaluates this machine as ordinary vector state.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- disease_exacerbation_bit (index 0):\n- disease_poor_control_bit (index 1):\n- disease_borderline_control_bit (index 2):\n- disease_controlled_bit (index 3):\n- pain_crisis_bit (index 4):\n- opioid_risk_elevated_bit (index 5):\n- functional_impairment_bit (index 6):\n- pain_managed_bit (index 7):\n- mental_health_crisis_bit (index 8):\n- mental_health_referral_needed_bit (index 9):\n- comorbidity_risk_bit (index 10):\n- mental_health_access_adequate_bit (index 11):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- chronic-pain-mh-urgent-behavioral-health-response (RED) -> action: urgent-intervention\n- chronic-pain-mh-integrated-referral (AMBER) -> action: publish-bus\n- chronic-pain-mh-opioid-safety-review (AMBER) -> action: route-referral\n- chronic-pain-mh-managed-monitoring (GREEN) -> action: continue-monitoring",
     "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
     "inputAxes": [
       {
         "index": 0,
-        "key": "disease-exacerbation-bit",
+        "key": "disease_exacerbation_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -48,7 +48,7 @@
       },
       {
         "index": 1,
-        "key": "disease-poor-control-bit",
+        "key": "disease_poor_control_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -57,7 +57,7 @@
       },
       {
         "index": 2,
-        "key": "disease-borderline-control-bit",
+        "key": "disease_borderline_control_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -66,7 +66,7 @@
       },
       {
         "index": 3,
-        "key": "disease-controlled-bit",
+        "key": "disease_controlled_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -75,7 +75,7 @@
       },
       {
         "index": 4,
-        "key": "pain-crisis-bit",
+        "key": "pain_crisis_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -84,7 +84,7 @@
       },
       {
         "index": 5,
-        "key": "opioid-risk-elevated-bit",
+        "key": "opioid_risk_elevated_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -93,7 +93,7 @@
       },
       {
         "index": 6,
-        "key": "functional-impairment-bit",
+        "key": "functional_impairment_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -102,7 +102,7 @@
       },
       {
         "index": 7,
-        "key": "pain-managed-bit",
+        "key": "pain_managed_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -111,7 +111,7 @@
       },
       {
         "index": 8,
-        "key": "mental-health-crisis-bit",
+        "key": "mental_health_crisis_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -120,7 +120,7 @@
       },
       {
         "index": 9,
-        "key": "mental-health-referral-needed-bit",
+        "key": "mental_health_referral_needed_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -129,7 +129,7 @@
       },
       {
         "index": 10,
-        "key": "comorbidity-risk-bit",
+        "key": "comorbidity_risk_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -138,7 +138,7 @@
       },
       {
         "index": 11,
-        "key": "mental-health-access-adequate-bit",
+        "key": "mental_health_access_adequate_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -194,18 +194,18 @@
         "length": 12
       },
       "semantics": [
-        "disease-exacerbation-bit",
-        "disease-poor-control-bit",
-        "disease-borderline-control-bit",
-        "disease-controlled-bit",
-        "pain-crisis-bit",
-        "opioid-risk-elevated-bit",
-        "functional-impairment-bit",
-        "pain-managed-bit",
-        "mental-health-crisis-bit",
-        "mental-health-referral-needed-bit",
-        "comorbidity-risk-bit",
-        "mental-health-access-adequate-bit"
+        "disease_exacerbation_bit",
+        "disease_poor_control_bit",
+        "disease_borderline_control_bit",
+        "disease_controlled_bit",
+        "pain_crisis_bit",
+        "opioid_risk_elevated_bit",
+        "functional_impairment_bit",
+        "pain_managed_bit",
+        "mental_health_crisis_bit",
+        "mental_health_referral_needed_bit",
+        "comorbidity_risk_bit",
+        "mental_health_access_adequate_bit"
       ],
       "ttlMs": 300000,
       "normalization": "already-normalized-0-1",
@@ -250,12 +250,12 @@
     "mode": "advise",
     "fields": [
       {
-        "semantic": "disease-exacerbation-bit",
+        "semantic": "disease_exacerbation_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/disease-exacerbation-bit",
-          "responseKey": "disease-exacerbation-bit",
+          "jsonPointer": "/disease_exacerbation_bit",
+          "responseKey": "disease_exacerbation_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -293,12 +293,12 @@
         }
       },
       {
-        "semantic": "disease-poor-control-bit",
+        "semantic": "disease_poor_control_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/disease-poor-control-bit",
-          "responseKey": "disease-poor-control-bit",
+          "jsonPointer": "/disease_poor_control_bit",
+          "responseKey": "disease_poor_control_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -336,12 +336,12 @@
         }
       },
       {
-        "semantic": "disease-borderline-control-bit",
+        "semantic": "disease_borderline_control_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/disease-borderline-control-bit",
-          "responseKey": "disease-borderline-control-bit",
+          "jsonPointer": "/disease_borderline_control_bit",
+          "responseKey": "disease_borderline_control_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -379,12 +379,12 @@
         }
       },
       {
-        "semantic": "disease-controlled-bit",
+        "semantic": "disease_controlled_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/disease-controlled-bit",
-          "responseKey": "disease-controlled-bit",
+          "jsonPointer": "/disease_controlled_bit",
+          "responseKey": "disease_controlled_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -422,12 +422,12 @@
         }
       },
       {
-        "semantic": "pain-crisis-bit",
+        "semantic": "pain_crisis_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/pain-crisis-bit",
-          "responseKey": "pain-crisis-bit",
+          "jsonPointer": "/pain_crisis_bit",
+          "responseKey": "pain_crisis_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -465,12 +465,12 @@
         }
       },
       {
-        "semantic": "opioid-risk-elevated-bit",
+        "semantic": "opioid_risk_elevated_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/opioid-risk-elevated-bit",
-          "responseKey": "opioid-risk-elevated-bit",
+          "jsonPointer": "/opioid_risk_elevated_bit",
+          "responseKey": "opioid_risk_elevated_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -508,12 +508,12 @@
         }
       },
       {
-        "semantic": "functional-impairment-bit",
+        "semantic": "functional_impairment_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/functional-impairment-bit",
-          "responseKey": "functional-impairment-bit",
+          "jsonPointer": "/functional_impairment_bit",
+          "responseKey": "functional_impairment_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -551,12 +551,12 @@
         }
       },
       {
-        "semantic": "pain-managed-bit",
+        "semantic": "pain_managed_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/pain-managed-bit",
-          "responseKey": "pain-managed-bit",
+          "jsonPointer": "/pain_managed_bit",
+          "responseKey": "pain_managed_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -594,12 +594,12 @@
         }
       },
       {
-        "semantic": "mental-health-crisis-bit",
+        "semantic": "mental_health_crisis_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/mental-health-crisis-bit",
-          "responseKey": "mental-health-crisis-bit",
+          "jsonPointer": "/mental_health_crisis_bit",
+          "responseKey": "mental_health_crisis_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -637,12 +637,12 @@
         }
       },
       {
-        "semantic": "mental-health-referral-needed-bit",
+        "semantic": "mental_health_referral_needed_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/mental-health-referral-needed-bit",
-          "responseKey": "mental-health-referral-needed-bit",
+          "jsonPointer": "/mental_health_referral_needed_bit",
+          "responseKey": "mental_health_referral_needed_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -680,12 +680,12 @@
         }
       },
       {
-        "semantic": "comorbidity-risk-bit",
+        "semantic": "comorbidity_risk_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/comorbidity-risk-bit",
-          "responseKey": "comorbidity-risk-bit",
+          "jsonPointer": "/comorbidity_risk_bit",
+          "responseKey": "comorbidity_risk_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -723,12 +723,12 @@
         }
       },
       {
-        "semantic": "mental-health-access-adequate-bit",
+        "semantic": "mental_health_access_adequate_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/mental-health-access-adequate-bit",
-          "responseKey": "mental-health-access-adequate-bit",
+          "jsonPointer": "/mental_health_access_adequate_bit",
+          "responseKey": "mental_health_access_adequate_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -770,7 +770,7 @@
   "diagnostics": {
     "axisBasis": "inputSemantics",
     "warnings": [
-      "input axes derived from inputSemantics (no length-matched sensorNormalization)"
+      "input axes derived from inputSemantics; openClawProjection.semantics does not name these positions, so the agent's axis names are unverified"
     ],
     "inputLength": 12,
     "sequenceCount": 4
