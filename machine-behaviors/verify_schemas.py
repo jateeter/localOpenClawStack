@@ -84,6 +84,32 @@ report("sample OpenClaw completion vs localai-completion-writeback.schema.json",
 # invariants a schema cannot state: pointer count against region length,
 # every region inside the declared reserved band, and the declared count
 # against the actual one.
+# Every mapped region must be one the corpus actually allocates.
+#
+# The per-machine completion band this artifact targets — 17000-22307 — was
+# retired in RealityEngine_Machines#63/#64. region-allocation.json now declares
+# reservedBands: [] and a vectorBudget.maxCellExclusive of 16944, and completions
+# reach the vector through a single `acp-openclaw-completion` service lane at
+# [4210:4214] instead. RealityEngine_CI retired its half in #120: its
+# integrations.json went from 1,624 mappings to 408, and 0 now target 17000+.
+#
+# So a mapping above the corpus footprint writes cells no allocation declares and
+# nothing reads. That was true before this check existed and nothing said so,
+# which is how 1,216 of them survived a band retirement. See #16, #18, #23.
+def _allocated_cells(machines_root: Path) -> tuple[set, int]:
+    allocation = machines_root / "domains" / "region-allocation.json"
+    if not allocation.exists():
+        return set(), 0
+    doc = json.loads(allocation.read_text())
+    cells = set()
+    for lane in (doc.get("serviceLanes") or []) + (doc.get("reservedBands") or []):
+        offset, length = lane.get("offset"), lane.get("length")
+        if isinstance(offset, int) and isinstance(length, int):
+            cells |= set(range(offset, offset + length))
+    budget = (doc.get("vectorBudget") or {}).get("maxCellExclusive") or 0
+    return cells, budget
+
+
 sm_path = HERE / "pe-integration" / "corpus.pe-source-mappings.json"
 sm_errs = []
 if sm_path.exists():
@@ -94,6 +120,26 @@ if sm_path.exists():
         declared = doc.get("count")
         if isinstance(declared, int) and declared != len(mappings):
             sm_errs.append(f"count({declared}) != len(sourceMappings)({len(mappings)})")
+        machines_root = Path(__file__).resolve().parents[2] / "RealityEngine_Machines"
+        allocated, budget = _allocated_cells(machines_root)
+        if budget:
+            stray = []
+            for m in mappings:
+                r = m.get("region") or {}
+                offset, length = r.get("offset"), r.get("length")
+                if not isinstance(offset, int) or not isinstance(length, int):
+                    continue
+                span = set(range(offset, offset + length))
+                if offset >= budget and not (span & allocated):
+                    stray.append(f"{m.get('id', '?')}@{offset}")
+            if stray:
+                sm_errs.append(
+                    f"{len(stray)} mapping(s) target cells no allocation declares, above "
+                    f"vectorBudget.maxCellExclusive={budget}: {', '.join(stray[:3])}"
+                    + (" ..." if len(stray) > 3 else "")
+                    + " — the per-machine completion band was retired; completions now"
+                    " use the acp-openclaw-completion service lane"
+                )
         band = doc.get("reservedBand") or []
         low, high = (band + [None, None])[:2]
         for m in mappings:
@@ -107,7 +153,12 @@ if sm_path.exists():
                     sm_errs.append(f"{m.get('id','?')}: region [{off}:{off + ln}] outside reservedBand [{low}:{high}]")
     report(f"{len(mappings)} PE source mappings vs pe-source-mappings.schema.json", sm_errs[:5])
 else:
-    report("PE source-mappings artifact present", [f"missing {sm_path.name} (run domain_sweep.py --all --write)"])
+    # Absent is now correct. The per-machine completion band this artifact
+    # targeted was retired in RealityEngine_Machines#63/#64; completions use the
+    # acp-openclaw-completion service lane at [4210:4214]. The check that used to
+    # demand the file is inverted: if it reappears, the allocation guard above
+    # will fail it. See #16, #18, #23.
+    report("PE source-mappings artifact retired (completion band withdrawn)", [])
 
 print(f"\n  schema gate: {'PASS' if not fails else f'{fails} check(s) FAILED'}")
 sys.exit(1 if fails else 0)

@@ -341,10 +341,21 @@ def main() -> int:
         OUT.mkdir(exist_ok=True)
         (OUT / f"{label}.agents.json").write_text(json.dumps(result, indent=2) + "\n")
         (OUT / f"{label}.report.md").write_text(md_report(result))
-        sm = pe_source_mappings(result)
-        (OUT / f"{label}.pe-source-mappings.json").write_text(json.dumps(sm, indent=2) + "\n")
-        print(f"\nwrote out/{label}.agents.json, out/{label}.report.md, "
-              f"out/{label}.pe-source-mappings.json ({sm['count']} PE source mappings)")
+        # PE source mappings are no longer written.
+        #
+        # The completion band they target was retired in
+        # RealityEngine_Machines#63/#64: region-allocation.json now carries
+        # reservedBands: [] with vectorBudget.maxCellExclusive 16944, and agent
+        # completions reach the vector through one shared service lane,
+        # `acp-openclaw-completion` at [4210:4214], arbitrated like any other
+        # writer. RealityEngine_CI#120 retired its half — integrations.json went
+        # from 1,624 mappings to 408, none above 17000.
+        #
+        # The sweep's per-agent allocation model is superseded by that lane and
+        # still allocates above the corpus footprint; replacing it is #26. Until
+        # then it must not emit an artifact nothing reads, and verify_schemas.py
+        # fails on any mapping above the footprint so it cannot return quietly.
+        print(f"\nwrote out/{label}.agents.json, out/{label}.report.md")
 
     return 1 if (result["validationErrors"] or result["regionCollisions"]) else 0
 
