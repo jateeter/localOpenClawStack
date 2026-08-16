@@ -34,12 +34,12 @@
   },
   "reasoning": {
     "objective": "Produce the normalized input vector for \"AI Capacity Throttler\" from current observations so RE can evaluate its CES sequences.",
-    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"AI Capacity Throttler\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Monitor AI compute capacity \u2014 GPU utilization, job queue depth, memory pressure, thermal headroom. Prevent cascade overloads by triggering throttling before saturation.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- ai-capacity-throttler-input-1 (index 0):\n- ai-capacity-throttler-input-2 (index 1):\n- ai-capacity-throttler-input-3 (index 2):\n- ai-capacity-throttler-input-4 (index 3):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- aict-capacity-escalation (AMBER)\n- aict-capacity-escalation (AMBER)\n- aict-capacity-escalation (RED)\n- Action (AMBER)\n- aict-capacity-escalation (RED)\n- Action (AMBER)\n- Action (AMBER)\n- aict-memory-pressure (RED)\n- Action (AMBER)",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"AI Capacity Throttler\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Monitor AI compute capacity \u2014 GPU utilization, job queue depth, memory pressure, thermal headroom. Prevent cascade overloads by triggering throttling before saturation.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- ai_capacity_throttler_input_1 (index 0):\n- ai_capacity_throttler_input_2 (index 1):\n- ai_capacity_throttler_input_3 (index 2):\n- ai_capacity_throttler_input_4 (index 3):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- aict-capacity-escalation (AMBER)\n- aict-capacity-escalation (AMBER)\n- aict-capacity-escalation (RED)\n- Action (AMBER)\n- aict-capacity-escalation (RED)\n- Action (AMBER)\n- Action (AMBER)\n- aict-memory-pressure (RED)\n- Action (AMBER)",
     "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
     "inputAxes": [
       {
         "index": 0,
-        "key": "ai-capacity-throttler-input-1",
+        "key": "ai_capacity_throttler_input_1",
         "anchors": {
           "low": "",
           "mid": "",
@@ -48,7 +48,7 @@
       },
       {
         "index": 1,
-        "key": "ai-capacity-throttler-input-2",
+        "key": "ai_capacity_throttler_input_2",
         "anchors": {
           "low": "",
           "mid": "",
@@ -57,7 +57,7 @@
       },
       {
         "index": 2,
-        "key": "ai-capacity-throttler-input-3",
+        "key": "ai_capacity_throttler_input_3",
         "anchors": {
           "low": "",
           "mid": "",
@@ -66,7 +66,7 @@
       },
       {
         "index": 3,
-        "key": "ai-capacity-throttler-input-4",
+        "key": "ai_capacity_throttler_input_4",
         "anchors": {
           "low": "",
           "mid": "",
@@ -157,10 +157,10 @@
         "length": 4
       },
       "semantics": [
-        "ai-capacity-throttler-input-1",
-        "ai-capacity-throttler-input-2",
-        "ai-capacity-throttler-input-3",
-        "ai-capacity-throttler-input-4"
+        "ai_capacity_throttler_input_1",
+        "ai_capacity_throttler_input_2",
+        "ai_capacity_throttler_input_3",
+        "ai_capacity_throttler_input_4"
       ],
       "ttlMs": 300000,
       "normalization": "already-normalized-0-1",
@@ -205,12 +205,12 @@
     "mode": "advise",
     "fields": [
       {
-        "semantic": "ai-capacity-throttler-input-1",
+        "semantic": "ai_capacity_throttler_input_1",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/ai-capacity-throttler-input-1",
-          "responseKey": "ai-capacity-throttler-input-1",
+          "jsonPointer": "/ai_capacity_throttler_input_1",
+          "responseKey": "ai_capacity_throttler_input_1",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -248,12 +248,12 @@
         }
       },
       {
-        "semantic": "ai-capacity-throttler-input-2",
+        "semantic": "ai_capacity_throttler_input_2",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/ai-capacity-throttler-input-2",
-          "responseKey": "ai-capacity-throttler-input-2",
+          "jsonPointer": "/ai_capacity_throttler_input_2",
+          "responseKey": "ai_capacity_throttler_input_2",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -291,12 +291,12 @@
         }
       },
       {
-        "semantic": "ai-capacity-throttler-input-3",
+        "semantic": "ai_capacity_throttler_input_3",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/ai-capacity-throttler-input-3",
-          "responseKey": "ai-capacity-throttler-input-3",
+          "jsonPointer": "/ai_capacity_throttler_input_3",
+          "responseKey": "ai_capacity_throttler_input_3",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -334,12 +334,12 @@
         }
       },
       {
-        "semantic": "ai-capacity-throttler-input-4",
+        "semantic": "ai_capacity_throttler_input_4",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/ai-capacity-throttler-input-4",
-          "responseKey": "ai-capacity-throttler-input-4",
+          "jsonPointer": "/ai_capacity_throttler_input_4",
+          "responseKey": "ai_capacity_throttler_input_4",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -379,10 +379,8 @@
     ]
   },
   "diagnostics": {
-    "axisBasis": "inputSemantics",
-    "warnings": [
-      "input axes derived from inputSemantics (no length-matched sensorNormalization)"
-    ],
+    "axisBasis": "openClawProjection",
+    "warnings": [],
     "inputLength": 4,
     "sequenceCount": 9
   }

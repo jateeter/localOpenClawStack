@@ -323,10 +323,8 @@
     ]
   },
   "diagnostics": {
-    "axisBasis": "inputSemantics",
-    "warnings": [
-      "input axes derived from inputSemantics (no length-matched sensorNormalization)"
-    ],
+    "axisBasis": "openClawProjection",
+    "warnings": [],
     "inputLength": 4,
     "sequenceCount": 1
   }

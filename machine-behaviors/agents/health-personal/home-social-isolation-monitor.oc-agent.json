@@ -34,12 +34,12 @@
   },
   "reasoning": {
     "objective": "Produce the normalized input vector for \"Home Social Isolation Monitor\" from current observations so RE can evaluate its CES sequences.",
-    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Home Social Isolation Monitor\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Integration machine that reads combined output signals from the Home Medication Cost Barrier Monitor [2011:2015] and the Home Transportation Barrier Monitor [2015:2019] to detect social isolation driven by access barriers. For low- and medium-income adults managing chronic conditions at home, the combination of medication cost barriers and transportation failures systematically restricts social participation, community connection, and human contact \u2014 accelerating depression, cognitive decline, and self-neglect. Output at [2035:2039] is available to downstream care coordination systems.\n\nPOPULATION: Home-bound adults managing chronic illness; elderly patients without transportation; low-income adults in medication or transport deserts\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- medication-adherence-crisis-bit (index 0):\n- medication-cost-barrier-active-bit (index 1):\n- medication-access-risk-bit (index 2):\n- medication-managed-bit (index 3):\n- transport-critical-access-failure-bit (index 4):\n- transport-appointment-barrier-bit (index 5):\n- transport-dependent-risk-bit (index 6):\n- transportation-adequate-bit (index 7):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- SEVERE_ISOLATION (RED) -> action: urgent-intervention\n- ISOLATION_RISK (AMBER) -> action: route-referral\n- SOCIALLY_CONNECTED (GREEN) -> action: continue-monitoring",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Home Social Isolation Monitor\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Integration machine that reads combined output signals from the Home Medication Cost Barrier Monitor [2011:2015] and the Home Transportation Barrier Monitor [2015:2019] to detect social isolation driven by access barriers. For low- and medium-income adults managing chronic conditions at home, the combination of medication cost barriers and transportation failures systematically restricts social participation, community connection, and human contact \u2014 accelerating depression, cognitive decline, and self-neglect. Output at [2035:2039] is available to downstream care coordination systems.\n\nPOPULATION: Home-bound adults managing chronic illness; elderly patients without transportation; low-income adults in medication or transport deserts\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- medication_adherence_crisis_bit (index 0):\n- medication_cost_barrier_active_bit (index 1):\n- medication_access_risk_bit (index 2):\n- medication_managed_bit (index 3):\n- transport_critical_access_failure_bit (index 4):\n- transport_appointment_barrier_bit (index 5):\n- transport_dependent_risk_bit (index 6):\n- transportation_adequate_bit (index 7):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- SEVERE_ISOLATION (RED) -> action: urgent-intervention\n- ISOLATION_RISK (AMBER) -> action: route-referral\n- SOCIALLY_CONNECTED (GREEN) -> action: continue-monitoring",
     "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
     "inputAxes": [
       {
         "index": 0,
-        "key": "medication-adherence-crisis-bit",
+        "key": "medication_adherence_crisis_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -48,7 +48,7 @@
       },
       {
         "index": 1,
-        "key": "medication-cost-barrier-active-bit",
+        "key": "medication_cost_barrier_active_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -57,7 +57,7 @@
       },
       {
         "index": 2,
-        "key": "medication-access-risk-bit",
+        "key": "medication_access_risk_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -66,7 +66,7 @@
       },
       {
         "index": 3,
-        "key": "medication-managed-bit",
+        "key": "medication_managed_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -75,7 +75,7 @@
       },
       {
         "index": 4,
-        "key": "transport-critical-access-failure-bit",
+        "key": "transport_critical_access_failure_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -84,7 +84,7 @@
       },
       {
         "index": 5,
-        "key": "transport-appointment-barrier-bit",
+        "key": "transport_appointment_barrier_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -93,7 +93,7 @@
       },
       {
         "index": 6,
-        "key": "transport-dependent-risk-bit",
+        "key": "transport_dependent_risk_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -102,7 +102,7 @@
       },
       {
         "index": 7,
-        "key": "transportation-adequate-bit",
+        "key": "transportation_adequate_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -151,14 +151,14 @@
         "length": 8
       },
       "semantics": [
-        "medication-adherence-crisis-bit",
-        "medication-cost-barrier-active-bit",
-        "medication-access-risk-bit",
-        "medication-managed-bit",
-        "transport-critical-access-failure-bit",
-        "transport-appointment-barrier-bit",
-        "transport-dependent-risk-bit",
-        "transportation-adequate-bit"
+        "medication_adherence_crisis_bit",
+        "medication_cost_barrier_active_bit",
+        "medication_access_risk_bit",
+        "medication_managed_bit",
+        "transport_critical_access_failure_bit",
+        "transport_appointment_barrier_bit",
+        "transport_dependent_risk_bit",
+        "transportation_adequate_bit"
       ],
       "ttlMs": 300000,
       "normalization": "already-normalized-0-1",
@@ -203,12 +203,12 @@
     "mode": "advise",
     "fields": [
       {
-        "semantic": "medication-adherence-crisis-bit",
+        "semantic": "medication_adherence_crisis_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/medication-adherence-crisis-bit",
-          "responseKey": "medication-adherence-crisis-bit",
+          "jsonPointer": "/medication_adherence_crisis_bit",
+          "responseKey": "medication_adherence_crisis_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -246,12 +246,12 @@
         }
       },
       {
-        "semantic": "medication-cost-barrier-active-bit",
+        "semantic": "medication_cost_barrier_active_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/medication-cost-barrier-active-bit",
-          "responseKey": "medication-cost-barrier-active-bit",
+          "jsonPointer": "/medication_cost_barrier_active_bit",
+          "responseKey": "medication_cost_barrier_active_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -289,12 +289,12 @@
         }
       },
       {
-        "semantic": "medication-access-risk-bit",
+        "semantic": "medication_access_risk_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/medication-access-risk-bit",
-          "responseKey": "medication-access-risk-bit",
+          "jsonPointer": "/medication_access_risk_bit",
+          "responseKey": "medication_access_risk_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -332,12 +332,12 @@
         }
       },
       {
-        "semantic": "medication-managed-bit",
+        "semantic": "medication_managed_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/medication-managed-bit",
-          "responseKey": "medication-managed-bit",
+          "jsonPointer": "/medication_managed_bit",
+          "responseKey": "medication_managed_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -375,12 +375,12 @@
         }
       },
       {
-        "semantic": "transport-critical-access-failure-bit",
+        "semantic": "transport_critical_access_failure_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/transport-critical-access-failure-bit",
-          "responseKey": "transport-critical-access-failure-bit",
+          "jsonPointer": "/transport_critical_access_failure_bit",
+          "responseKey": "transport_critical_access_failure_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -418,12 +418,12 @@
         }
       },
       {
-        "semantic": "transport-appointment-barrier-bit",
+        "semantic": "transport_appointment_barrier_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/transport-appointment-barrier-bit",
-          "responseKey": "transport-appointment-barrier-bit",
+          "jsonPointer": "/transport_appointment_barrier_bit",
+          "responseKey": "transport_appointment_barrier_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -461,12 +461,12 @@
         }
       },
       {
-        "semantic": "transport-dependent-risk-bit",
+        "semantic": "transport_dependent_risk_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/transport-dependent-risk-bit",
-          "responseKey": "transport-dependent-risk-bit",
+          "jsonPointer": "/transport_dependent_risk_bit",
+          "responseKey": "transport_dependent_risk_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -504,12 +504,12 @@
         }
       },
       {
-        "semantic": "transportation-adequate-bit",
+        "semantic": "transportation_adequate_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/transportation-adequate-bit",
-          "responseKey": "transportation-adequate-bit",
+          "jsonPointer": "/transportation_adequate_bit",
+          "responseKey": "transportation_adequate_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -549,10 +549,8 @@
     ]
   },
   "diagnostics": {
-    "axisBasis": "inputSemantics",
-    "warnings": [
-      "input axes derived from inputSemantics (no length-matched sensorNormalization)"
-    ],
+    "axisBasis": "openClawProjection",
+    "warnings": [],
     "inputLength": 8,
     "sequenceCount": 3
   }

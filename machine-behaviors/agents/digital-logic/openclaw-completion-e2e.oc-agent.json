@@ -34,7 +34,7 @@
   },
   "reasoning": {
     "objective": "Produce the normalized input vector for \"OpenClaw Completion E2E\" from current observations so RE can evaluate its CES sequences.",
-    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"OpenClaw Completion E2E\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Deterministic integration fixture for proving an ACP dispatch handoff followed by OpenClaw completion ingestion through the Perception Engine.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- completed (index 0):  0.0 = pending | 0.5 =  | 1.0 = completed\n- failed (index 1):  0.0 = not failed | 0.5 =  | 1.0 = failed\n- confidence (index 2):  0.0 = no confidence | 0.5 =  | 1.0 = maximum confidence\n- actionClass (index 3):  0.0 = no action | 0.5 =  | 1.0 = action required\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- openclaw-e2e-dispatch-seed (AMBER)\n- openclaw-e2e-completion-accepted (GREEN)",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"OpenClaw Completion E2E\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Deterministic integration fixture for proving an ACP dispatch handoff followed by OpenClaw completion ingestion through the Perception Engine.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- completed (index 0):  0.0 = pending | 0.5 =  | 1.0 = completed\n- failed (index 1):  0.0 = not failed | 0.5 =  | 1.0 = failed\n- confidence (index 2):  0.0 = no confidence | 0.5 =  | 1.0 = maximum confidence\n- actionclass (index 3):  0.0 = no action | 0.5 =  | 1.0 = action required\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- openclaw-e2e-dispatch-seed (AMBER)\n- openclaw-e2e-completion-accepted (GREEN)",
     "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
     "inputAxes": [
       {
@@ -66,7 +66,7 @@
       },
       {
         "index": 3,
-        "key": "actionClass",
+        "key": "actionclass",
         "anchors": {
           "low": "no action",
           "mid": "",
@@ -111,7 +111,7 @@
         "completed",
         "failed",
         "confidence",
-        "actionClass"
+        "actionclass"
       ],
       "ttlMs": 300000,
       "normalization": "already-normalized-0-1",
@@ -285,12 +285,12 @@
         }
       },
       {
-        "semantic": "actionClass",
+        "semantic": "actionclass",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/actionClass",
-          "responseKey": "actionClass",
+          "jsonPointer": "/actionclass",
+          "responseKey": "actionclass",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -330,7 +330,7 @@
     ]
   },
   "diagnostics": {
-    "axisBasis": "sensorNormalization",
+    "axisBasis": "openClawProjection",
     "warnings": [],
     "inputLength": 4,
     "sequenceCount": 2

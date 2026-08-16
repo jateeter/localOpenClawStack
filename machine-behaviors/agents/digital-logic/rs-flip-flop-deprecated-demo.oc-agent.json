@@ -34,12 +34,12 @@
   },
   "reasoning": {
     "objective": "Produce the normalized input vector for \"RS Flip Flop (deprecated demo)\" from current observations so RE can evaluate its CES sequences.",
-    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"RS Flip Flop (deprecated demo)\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Demonstration of CES versioning + deprecation.  The rs-reset-sequence is marked deprecated and replaced by a new sequence \u2014 listeners see the deprecation stamp on fired output, and the ces_deprecated_fires_total counter bumps.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- rs-flip-flop-deprecated-demo-input-1 (index 0):\n- rs-flip-flop-deprecated-demo-input-2 (index 1):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- rs-set-sequence (GREEN)\n- rs-reset-sequence (GREEN)",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"RS Flip Flop (deprecated demo)\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Demonstration of CES versioning + deprecation.  The rs-reset-sequence is marked deprecated and replaced by a new sequence \u2014 listeners see the deprecation stamp on fired output, and the ces_deprecated_fires_total counter bumps.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- rs_flip_flop_deprecated_demo_input_1 (index 0):\n- rs_flip_flop_deprecated_demo_input_2 (index 1):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- rs-set-sequence (GREEN)\n- rs-reset-sequence (GREEN)",
     "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
     "inputAxes": [
       {
         "index": 0,
-        "key": "rs-flip-flop-deprecated-demo-input-1",
+        "key": "rs_flip_flop_deprecated_demo_input_1",
         "anchors": {
           "low": "",
           "mid": "",
@@ -48,7 +48,7 @@
       },
       {
         "index": 1,
-        "key": "rs-flip-flop-deprecated-demo-input-2",
+        "key": "rs_flip_flop_deprecated_demo_input_2",
         "anchors": {
           "low": "",
           "mid": "",
@@ -90,8 +90,8 @@
         "length": 2
       },
       "semantics": [
-        "rs-flip-flop-deprecated-demo-input-1",
-        "rs-flip-flop-deprecated-demo-input-2"
+        "rs_flip_flop_deprecated_demo_input_1",
+        "rs_flip_flop_deprecated_demo_input_2"
       ],
       "ttlMs": 300000,
       "normalization": "already-normalized-0-1",
@@ -136,12 +136,12 @@
     "mode": "advise",
     "fields": [
       {
-        "semantic": "rs-flip-flop-deprecated-demo-input-1",
+        "semantic": "rs_flip_flop_deprecated_demo_input_1",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/rs-flip-flop-deprecated-demo-input-1",
-          "responseKey": "rs-flip-flop-deprecated-demo-input-1",
+          "jsonPointer": "/rs_flip_flop_deprecated_demo_input_1",
+          "responseKey": "rs_flip_flop_deprecated_demo_input_1",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -179,12 +179,12 @@
         }
       },
       {
-        "semantic": "rs-flip-flop-deprecated-demo-input-2",
+        "semantic": "rs_flip_flop_deprecated_demo_input_2",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/rs-flip-flop-deprecated-demo-input-2",
-          "responseKey": "rs-flip-flop-deprecated-demo-input-2",
+          "jsonPointer": "/rs_flip_flop_deprecated_demo_input_2",
+          "responseKey": "rs_flip_flop_deprecated_demo_input_2",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -224,10 +224,8 @@
     ]
   },
   "diagnostics": {
-    "axisBasis": "inputSemantics",
-    "warnings": [
-      "input axes derived from inputSemantics (no length-matched sensorNormalization)"
-    ],
+    "axisBasis": "openClawProjection",
+    "warnings": [],
     "inputLength": 2,
     "sequenceCount": 2
   }

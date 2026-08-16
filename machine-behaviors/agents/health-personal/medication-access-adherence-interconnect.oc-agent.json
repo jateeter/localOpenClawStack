@@ -34,12 +34,12 @@
   },
   "reasoning": {
     "objective": "Produce the normalized input vector for \"Medication Access Adherence Interconnect\" from current observations so RE can evaluate its CES sequences.",
-    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Medication Access Adherence Interconnect\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Published personal-health bridge bus that composes medication adherence, medication cost, daily care, transport, isolation, wellness routing, and hydration into a compact medication access response lane.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- medication-delayed-bit (index 0):\n- medication-missed-bit (index 1):\n- cost-adherence-crisis-bit (index 2):\n- cost-barrier-active-bit (index 3):\n- partial-adherence-bit (index 4):\n- medication-managed-bit (index 5):\n- daily-care-medication-missed-bit (index 6):\n- transport-critical-access-failure-bit (index 7):\n- transport-appointment-barrier-bit (index 8):\n- severe-social-isolation-bit (index 9):\n- isolation-risk-bit (index 10):\n- wellness-inflow-urgent-bit (index 11):\n- wellness-transition-urgent-or-escalated-bit (index 12):\n- hydration-critical-bit (index 13):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- URGENT_MEDICATION_RECOVERY at [4538 (RED) -> action: urgent-intervention\n- AFFORDABILITY_NAVIGATION at [4538 (AMBER) -> action: route-referral\n- CAREGIVER_REMINDER_LOOP at [4538 (AMBER) -> action: route-referral\n- STABLE_MEDICATION_ROUTINE at [4538 (GREEN) -> action: continue-monitoring",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Medication Access Adherence Interconnect\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Published personal-health bridge bus that composes medication adherence, medication cost, daily care, transport, isolation, wellness routing, and hydration into a compact medication access response lane.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- medication_delayed_bit (index 0):\n- medication_missed_bit (index 1):\n- cost_adherence_crisis_bit (index 2):\n- cost_barrier_active_bit (index 3):\n- partial_adherence_bit (index 4):\n- medication_managed_bit (index 5):\n- daily_care_medication_missed_bit (index 6):\n- transport_critical_access_failure_bit (index 7):\n- transport_appointment_barrier_bit (index 8):\n- severe_social_isolation_bit (index 9):\n- isolation_risk_bit (index 10):\n- wellness_inflow_urgent_bit (index 11):\n- wellness_transition_urgent_or_escalated_bit (index 12):\n- hydration_critical_bit (index 13):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- URGENT_MEDICATION_RECOVERY at [4538 (RED) -> action: urgent-intervention\n- AFFORDABILITY_NAVIGATION at [4538 (AMBER) -> action: route-referral\n- CAREGIVER_REMINDER_LOOP at [4538 (AMBER) -> action: route-referral\n- STABLE_MEDICATION_ROUTINE at [4538 (GREEN) -> action: continue-monitoring",
     "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
     "inputAxes": [
       {
         "index": 0,
-        "key": "medication-delayed-bit",
+        "key": "medication_delayed_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -48,7 +48,7 @@
       },
       {
         "index": 1,
-        "key": "medication-missed-bit",
+        "key": "medication_missed_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -57,7 +57,7 @@
       },
       {
         "index": 2,
-        "key": "cost-adherence-crisis-bit",
+        "key": "cost_adherence_crisis_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -66,7 +66,7 @@
       },
       {
         "index": 3,
-        "key": "cost-barrier-active-bit",
+        "key": "cost_barrier_active_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -75,7 +75,7 @@
       },
       {
         "index": 4,
-        "key": "partial-adherence-bit",
+        "key": "partial_adherence_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -84,7 +84,7 @@
       },
       {
         "index": 5,
-        "key": "medication-managed-bit",
+        "key": "medication_managed_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -93,7 +93,7 @@
       },
       {
         "index": 6,
-        "key": "daily-care-medication-missed-bit",
+        "key": "daily_care_medication_missed_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -102,7 +102,7 @@
       },
       {
         "index": 7,
-        "key": "transport-critical-access-failure-bit",
+        "key": "transport_critical_access_failure_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -111,7 +111,7 @@
       },
       {
         "index": 8,
-        "key": "transport-appointment-barrier-bit",
+        "key": "transport_appointment_barrier_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -120,7 +120,7 @@
       },
       {
         "index": 9,
-        "key": "severe-social-isolation-bit",
+        "key": "severe_social_isolation_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -129,7 +129,7 @@
       },
       {
         "index": 10,
-        "key": "isolation-risk-bit",
+        "key": "isolation_risk_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -138,7 +138,7 @@
       },
       {
         "index": 11,
-        "key": "wellness-inflow-urgent-bit",
+        "key": "wellness_inflow_urgent_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -147,7 +147,7 @@
       },
       {
         "index": 12,
-        "key": "wellness-transition-urgent-or-escalated-bit",
+        "key": "wellness_transition_urgent_or_escalated_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -156,7 +156,7 @@
       },
       {
         "index": 13,
-        "key": "hydration-critical-bit",
+        "key": "hydration_critical_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -212,20 +212,20 @@
         "length": 14
       },
       "semantics": [
-        "medication-delayed-bit",
-        "medication-missed-bit",
-        "cost-adherence-crisis-bit",
-        "cost-barrier-active-bit",
-        "partial-adherence-bit",
-        "medication-managed-bit",
-        "daily-care-medication-missed-bit",
-        "transport-critical-access-failure-bit",
-        "transport-appointment-barrier-bit",
-        "severe-social-isolation-bit",
-        "isolation-risk-bit",
-        "wellness-inflow-urgent-bit",
-        "wellness-transition-urgent-or-escalated-bit",
-        "hydration-critical-bit"
+        "medication_delayed_bit",
+        "medication_missed_bit",
+        "cost_adherence_crisis_bit",
+        "cost_barrier_active_bit",
+        "partial_adherence_bit",
+        "medication_managed_bit",
+        "daily_care_medication_missed_bit",
+        "transport_critical_access_failure_bit",
+        "transport_appointment_barrier_bit",
+        "severe_social_isolation_bit",
+        "isolation_risk_bit",
+        "wellness_inflow_urgent_bit",
+        "wellness_transition_urgent_or_escalated_bit",
+        "hydration_critical_bit"
       ],
       "ttlMs": 300000,
       "normalization": "already-normalized-0-1",
@@ -270,12 +270,12 @@
     "mode": "advise",
     "fields": [
       {
-        "semantic": "medication-delayed-bit",
+        "semantic": "medication_delayed_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/medication-delayed-bit",
-          "responseKey": "medication-delayed-bit",
+          "jsonPointer": "/medication_delayed_bit",
+          "responseKey": "medication_delayed_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -313,12 +313,12 @@
         }
       },
       {
-        "semantic": "medication-missed-bit",
+        "semantic": "medication_missed_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/medication-missed-bit",
-          "responseKey": "medication-missed-bit",
+          "jsonPointer": "/medication_missed_bit",
+          "responseKey": "medication_missed_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -356,12 +356,12 @@
         }
       },
       {
-        "semantic": "cost-adherence-crisis-bit",
+        "semantic": "cost_adherence_crisis_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/cost-adherence-crisis-bit",
-          "responseKey": "cost-adherence-crisis-bit",
+          "jsonPointer": "/cost_adherence_crisis_bit",
+          "responseKey": "cost_adherence_crisis_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -399,12 +399,12 @@
         }
       },
       {
-        "semantic": "cost-barrier-active-bit",
+        "semantic": "cost_barrier_active_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/cost-barrier-active-bit",
-          "responseKey": "cost-barrier-active-bit",
+          "jsonPointer": "/cost_barrier_active_bit",
+          "responseKey": "cost_barrier_active_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -442,12 +442,12 @@
         }
       },
       {
-        "semantic": "partial-adherence-bit",
+        "semantic": "partial_adherence_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/partial-adherence-bit",
-          "responseKey": "partial-adherence-bit",
+          "jsonPointer": "/partial_adherence_bit",
+          "responseKey": "partial_adherence_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -485,12 +485,12 @@
         }
       },
       {
-        "semantic": "medication-managed-bit",
+        "semantic": "medication_managed_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/medication-managed-bit",
-          "responseKey": "medication-managed-bit",
+          "jsonPointer": "/medication_managed_bit",
+          "responseKey": "medication_managed_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -528,12 +528,12 @@
         }
       },
       {
-        "semantic": "daily-care-medication-missed-bit",
+        "semantic": "daily_care_medication_missed_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/daily-care-medication-missed-bit",
-          "responseKey": "daily-care-medication-missed-bit",
+          "jsonPointer": "/daily_care_medication_missed_bit",
+          "responseKey": "daily_care_medication_missed_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -571,12 +571,12 @@
         }
       },
       {
-        "semantic": "transport-critical-access-failure-bit",
+        "semantic": "transport_critical_access_failure_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/transport-critical-access-failure-bit",
-          "responseKey": "transport-critical-access-failure-bit",
+          "jsonPointer": "/transport_critical_access_failure_bit",
+          "responseKey": "transport_critical_access_failure_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -614,12 +614,12 @@
         }
       },
       {
-        "semantic": "transport-appointment-barrier-bit",
+        "semantic": "transport_appointment_barrier_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/transport-appointment-barrier-bit",
-          "responseKey": "transport-appointment-barrier-bit",
+          "jsonPointer": "/transport_appointment_barrier_bit",
+          "responseKey": "transport_appointment_barrier_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -657,12 +657,12 @@
         }
       },
       {
-        "semantic": "severe-social-isolation-bit",
+        "semantic": "severe_social_isolation_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/severe-social-isolation-bit",
-          "responseKey": "severe-social-isolation-bit",
+          "jsonPointer": "/severe_social_isolation_bit",
+          "responseKey": "severe_social_isolation_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -700,12 +700,12 @@
         }
       },
       {
-        "semantic": "isolation-risk-bit",
+        "semantic": "isolation_risk_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/isolation-risk-bit",
-          "responseKey": "isolation-risk-bit",
+          "jsonPointer": "/isolation_risk_bit",
+          "responseKey": "isolation_risk_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -743,12 +743,12 @@
         }
       },
       {
-        "semantic": "wellness-inflow-urgent-bit",
+        "semantic": "wellness_inflow_urgent_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/wellness-inflow-urgent-bit",
-          "responseKey": "wellness-inflow-urgent-bit",
+          "jsonPointer": "/wellness_inflow_urgent_bit",
+          "responseKey": "wellness_inflow_urgent_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -786,12 +786,12 @@
         }
       },
       {
-        "semantic": "wellness-transition-urgent-or-escalated-bit",
+        "semantic": "wellness_transition_urgent_or_escalated_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/wellness-transition-urgent-or-escalated-bit",
-          "responseKey": "wellness-transition-urgent-or-escalated-bit",
+          "jsonPointer": "/wellness_transition_urgent_or_escalated_bit",
+          "responseKey": "wellness_transition_urgent_or_escalated_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -829,12 +829,12 @@
         }
       },
       {
-        "semantic": "hydration-critical-bit",
+        "semantic": "hydration_critical_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/hydration-critical-bit",
-          "responseKey": "hydration-critical-bit",
+          "jsonPointer": "/hydration_critical_bit",
+          "responseKey": "hydration_critical_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -876,7 +876,7 @@
   "diagnostics": {
     "axisBasis": "inputSemantics",
     "warnings": [
-      "input axes derived from inputSemantics (no length-matched sensorNormalization)"
+      "input axes derived from inputSemantics; openClawProjection.semantics does not name these positions, so the agent's axis names are unverified"
     ],
     "inputLength": 14,
     "sequenceCount": 4

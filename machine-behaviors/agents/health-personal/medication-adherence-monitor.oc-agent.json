@@ -34,12 +34,12 @@
   },
   "reasoning": {
     "objective": "Produce the normalized input vector for \"Medication Adherence Monitor\" from current observations so RE can evaluate its CES sequences.",
-    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Medication Adherence Monitor\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Tracks whether scheduled medication doses are acknowledged within the allotted window. Signals the local AI to trigger reminders, caregiver alerts, or clinical follow-up when doses are delayed or missed outright.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- medication-adherence-monitor-input-1 (index 0):\n- medication-adherence-monitor-input-2 (index 1):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- med-taken-on-time (GREEN)\n- med-delayed (AMBER)\n- med-missed (RED)",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Medication Adherence Monitor\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Tracks whether scheduled medication doses are acknowledged within the allotted window. Signals the local AI to trigger reminders, caregiver alerts, or clinical follow-up when doses are delayed or missed outright.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- dose_pending_or_delayed_bit (index 0):\n- dose_missed_past_grace_bit (index 1):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- med-taken-on-time (GREEN)\n- med-delayed (AMBER)\n- med-missed (RED)",
     "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
     "inputAxes": [
       {
         "index": 0,
-        "key": "medication-adherence-monitor-input-1",
+        "key": "dose_pending_or_delayed_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -48,7 +48,7 @@
       },
       {
         "index": 1,
-        "key": "medication-adherence-monitor-input-2",
+        "key": "dose_missed_past_grace_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -97,8 +97,8 @@
         "length": 2
       },
       "semantics": [
-        "medication-adherence-monitor-input-1",
-        "medication-adherence-monitor-input-2"
+        "dose_pending_or_delayed_bit",
+        "dose_missed_past_grace_bit"
       ],
       "ttlMs": 300000,
       "normalization": "already-normalized-0-1",
@@ -143,12 +143,12 @@
     "mode": "advise",
     "fields": [
       {
-        "semantic": "medication-adherence-monitor-input-1",
+        "semantic": "dose_pending_or_delayed_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/medication-adherence-monitor-input-1",
-          "responseKey": "medication-adherence-monitor-input-1",
+          "jsonPointer": "/dose_pending_or_delayed_bit",
+          "responseKey": "dose_pending_or_delayed_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -186,12 +186,12 @@
         }
       },
       {
-        "semantic": "medication-adherence-monitor-input-2",
+        "semantic": "dose_missed_past_grace_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/medication-adherence-monitor-input-2",
-          "responseKey": "medication-adherence-monitor-input-2",
+          "jsonPointer": "/dose_missed_past_grace_bit",
+          "responseKey": "dose_missed_past_grace_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -231,10 +231,8 @@
     ]
   },
   "diagnostics": {
-    "axisBasis": "inputSemantics",
-    "warnings": [
-      "input axes derived from inputSemantics (no length-matched sensorNormalization)"
-    ],
+    "axisBasis": "openClawProjection",
+    "warnings": [],
     "inputLength": 2,
     "sequenceCount": 3
   }

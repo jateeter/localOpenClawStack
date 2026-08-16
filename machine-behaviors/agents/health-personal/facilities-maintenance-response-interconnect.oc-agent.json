@@ -34,12 +34,12 @@
   },
   "reasoning": {
     "objective": "Produce the normalized input vector for \"Facilities Maintenance Response Interconnect\" from current observations so RE can evaluate its CES sequences.",
-    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Facilities Maintenance Response Interconnect\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Published personal-health bridge bus that composes facilities maintenance observations, environment safety, food access, transportation access, social isolation, daily care anomalies, and wellness escalation into a compact facilities response lane. PE owns source composition and writes the compact input lane; RE evaluates this machine as ordinary vector state.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- facilities-daily-complete-bit (index 0):\n- facilities-weekly-complete-bit (index 1):\n- facilities-hygiene-alert-bit (index 2):\n- facilities-safety-alert-bit (index 3):\n- facilities-wellness-concern-bit (index 4):\n- facilities-inaccessibility-alert-bit (index 5):\n- environment-unsafe-housing-bit (index 6):\n- environment-utility-failure-bit (index 7):\n- environment-health-hazard-risk-bit (index 8):\n- food-crisis-bit (index 9):\n- food-insecure-bit (index 10):\n- food-assistance-needed-bit (index 11):\n- transport-critical-access-failure-bit (index 12):\n- transport-appointment-barrier-bit (index 13):\n- severe-social-isolation-bit (index 14):\n- daily-care-unresponsive-fall-bit (index 15):\n- daily-care-bathroom-alert-bit (index 16):\n- wellness-transition-urgent-or-escalated-bit (index 17):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- IMMEDIATE_WELFARE_CHECK (RED) -> action: urgent-intervention\n- ENVIRONMENT_REMEDIATION_RESPONSE (AMBER) -> action: route-referral\n- SERVICE_ACCESS_STABILIZATION (AMBER) -> action: route-referral\n- ROUTINE_MAINTENANCE_COMPLETE (GREEN) -> action: continue-monitoring",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Facilities Maintenance Response Interconnect\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Published personal-health bridge bus that composes facilities maintenance observations, environment safety, food access, transportation access, social isolation, daily care anomalies, and wellness escalation into a compact facilities response lane. PE owns source composition and writes the compact input lane; RE evaluates this machine as ordinary vector state.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- facilities_daily_complete_bit (index 0):\n- facilities_weekly_complete_bit (index 1):\n- facilities_hygiene_alert_bit (index 2):\n- facilities_safety_alert_bit (index 3):\n- facilities_wellness_concern_bit (index 4):\n- facilities_inaccessibility_alert_bit (index 5):\n- environment_unsafe_housing_bit (index 6):\n- environment_utility_failure_bit (index 7):\n- environment_health_hazard_risk_bit (index 8):\n- food_crisis_bit (index 9):\n- food_insecure_bit (index 10):\n- food_assistance_needed_bit (index 11):\n- transport_critical_access_failure_bit (index 12):\n- transport_appointment_barrier_bit (index 13):\n- severe_social_isolation_bit (index 14):\n- daily_care_unresponsive_fall_bit (index 15):\n- daily_care_bathroom_alert_bit (index 16):\n- wellness_transition_urgent_or_escalated_bit (index 17):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- IMMEDIATE_WELFARE_CHECK (RED) -> action: urgent-intervention\n- ENVIRONMENT_REMEDIATION_RESPONSE (AMBER) -> action: route-referral\n- SERVICE_ACCESS_STABILIZATION (AMBER) -> action: route-referral\n- ROUTINE_MAINTENANCE_COMPLETE (GREEN) -> action: continue-monitoring",
     "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
     "inputAxes": [
       {
         "index": 0,
-        "key": "facilities-daily-complete-bit",
+        "key": "facilities_daily_complete_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -48,7 +48,7 @@
       },
       {
         "index": 1,
-        "key": "facilities-weekly-complete-bit",
+        "key": "facilities_weekly_complete_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -57,7 +57,7 @@
       },
       {
         "index": 2,
-        "key": "facilities-hygiene-alert-bit",
+        "key": "facilities_hygiene_alert_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -66,7 +66,7 @@
       },
       {
         "index": 3,
-        "key": "facilities-safety-alert-bit",
+        "key": "facilities_safety_alert_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -75,7 +75,7 @@
       },
       {
         "index": 4,
-        "key": "facilities-wellness-concern-bit",
+        "key": "facilities_wellness_concern_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -84,7 +84,7 @@
       },
       {
         "index": 5,
-        "key": "facilities-inaccessibility-alert-bit",
+        "key": "facilities_inaccessibility_alert_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -93,7 +93,7 @@
       },
       {
         "index": 6,
-        "key": "environment-unsafe-housing-bit",
+        "key": "environment_unsafe_housing_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -102,7 +102,7 @@
       },
       {
         "index": 7,
-        "key": "environment-utility-failure-bit",
+        "key": "environment_utility_failure_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -111,7 +111,7 @@
       },
       {
         "index": 8,
-        "key": "environment-health-hazard-risk-bit",
+        "key": "environment_health_hazard_risk_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -120,7 +120,7 @@
       },
       {
         "index": 9,
-        "key": "food-crisis-bit",
+        "key": "food_crisis_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -129,7 +129,7 @@
       },
       {
         "index": 10,
-        "key": "food-insecure-bit",
+        "key": "food_insecure_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -138,7 +138,7 @@
       },
       {
         "index": 11,
-        "key": "food-assistance-needed-bit",
+        "key": "food_assistance_needed_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -147,7 +147,7 @@
       },
       {
         "index": 12,
-        "key": "transport-critical-access-failure-bit",
+        "key": "transport_critical_access_failure_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -156,7 +156,7 @@
       },
       {
         "index": 13,
-        "key": "transport-appointment-barrier-bit",
+        "key": "transport_appointment_barrier_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -165,7 +165,7 @@
       },
       {
         "index": 14,
-        "key": "severe-social-isolation-bit",
+        "key": "severe_social_isolation_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -174,7 +174,7 @@
       },
       {
         "index": 15,
-        "key": "daily-care-unresponsive-fall-bit",
+        "key": "daily_care_unresponsive_fall_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -183,7 +183,7 @@
       },
       {
         "index": 16,
-        "key": "daily-care-bathroom-alert-bit",
+        "key": "daily_care_bathroom_alert_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -192,7 +192,7 @@
       },
       {
         "index": 17,
-        "key": "wellness-transition-urgent-or-escalated-bit",
+        "key": "wellness_transition_urgent_or_escalated_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -248,24 +248,24 @@
         "length": 18
       },
       "semantics": [
-        "facilities-daily-complete-bit",
-        "facilities-weekly-complete-bit",
-        "facilities-hygiene-alert-bit",
-        "facilities-safety-alert-bit",
-        "facilities-wellness-concern-bit",
-        "facilities-inaccessibility-alert-bit",
-        "environment-unsafe-housing-bit",
-        "environment-utility-failure-bit",
-        "environment-health-hazard-risk-bit",
-        "food-crisis-bit",
-        "food-insecure-bit",
-        "food-assistance-needed-bit",
-        "transport-critical-access-failure-bit",
-        "transport-appointment-barrier-bit",
-        "severe-social-isolation-bit",
-        "daily-care-unresponsive-fall-bit",
-        "daily-care-bathroom-alert-bit",
-        "wellness-transition-urgent-or-escalated-bit"
+        "facilities_daily_complete_bit",
+        "facilities_weekly_complete_bit",
+        "facilities_hygiene_alert_bit",
+        "facilities_safety_alert_bit",
+        "facilities_wellness_concern_bit",
+        "facilities_inaccessibility_alert_bit",
+        "environment_unsafe_housing_bit",
+        "environment_utility_failure_bit",
+        "environment_health_hazard_risk_bit",
+        "food_crisis_bit",
+        "food_insecure_bit",
+        "food_assistance_needed_bit",
+        "transport_critical_access_failure_bit",
+        "transport_appointment_barrier_bit",
+        "severe_social_isolation_bit",
+        "daily_care_unresponsive_fall_bit",
+        "daily_care_bathroom_alert_bit",
+        "wellness_transition_urgent_or_escalated_bit"
       ],
       "ttlMs": 300000,
       "normalization": "already-normalized-0-1",
@@ -310,12 +310,12 @@
     "mode": "advise",
     "fields": [
       {
-        "semantic": "facilities-daily-complete-bit",
+        "semantic": "facilities_daily_complete_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/facilities-daily-complete-bit",
-          "responseKey": "facilities-daily-complete-bit",
+          "jsonPointer": "/facilities_daily_complete_bit",
+          "responseKey": "facilities_daily_complete_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -353,12 +353,12 @@
         }
       },
       {
-        "semantic": "facilities-weekly-complete-bit",
+        "semantic": "facilities_weekly_complete_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/facilities-weekly-complete-bit",
-          "responseKey": "facilities-weekly-complete-bit",
+          "jsonPointer": "/facilities_weekly_complete_bit",
+          "responseKey": "facilities_weekly_complete_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -396,12 +396,12 @@
         }
       },
       {
-        "semantic": "facilities-hygiene-alert-bit",
+        "semantic": "facilities_hygiene_alert_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/facilities-hygiene-alert-bit",
-          "responseKey": "facilities-hygiene-alert-bit",
+          "jsonPointer": "/facilities_hygiene_alert_bit",
+          "responseKey": "facilities_hygiene_alert_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -439,12 +439,12 @@
         }
       },
       {
-        "semantic": "facilities-safety-alert-bit",
+        "semantic": "facilities_safety_alert_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/facilities-safety-alert-bit",
-          "responseKey": "facilities-safety-alert-bit",
+          "jsonPointer": "/facilities_safety_alert_bit",
+          "responseKey": "facilities_safety_alert_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -482,12 +482,12 @@
         }
       },
       {
-        "semantic": "facilities-wellness-concern-bit",
+        "semantic": "facilities_wellness_concern_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/facilities-wellness-concern-bit",
-          "responseKey": "facilities-wellness-concern-bit",
+          "jsonPointer": "/facilities_wellness_concern_bit",
+          "responseKey": "facilities_wellness_concern_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -525,12 +525,12 @@
         }
       },
       {
-        "semantic": "facilities-inaccessibility-alert-bit",
+        "semantic": "facilities_inaccessibility_alert_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/facilities-inaccessibility-alert-bit",
-          "responseKey": "facilities-inaccessibility-alert-bit",
+          "jsonPointer": "/facilities_inaccessibility_alert_bit",
+          "responseKey": "facilities_inaccessibility_alert_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -568,12 +568,12 @@
         }
       },
       {
-        "semantic": "environment-unsafe-housing-bit",
+        "semantic": "environment_unsafe_housing_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/environment-unsafe-housing-bit",
-          "responseKey": "environment-unsafe-housing-bit",
+          "jsonPointer": "/environment_unsafe_housing_bit",
+          "responseKey": "environment_unsafe_housing_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -611,12 +611,12 @@
         }
       },
       {
-        "semantic": "environment-utility-failure-bit",
+        "semantic": "environment_utility_failure_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/environment-utility-failure-bit",
-          "responseKey": "environment-utility-failure-bit",
+          "jsonPointer": "/environment_utility_failure_bit",
+          "responseKey": "environment_utility_failure_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -654,12 +654,12 @@
         }
       },
       {
-        "semantic": "environment-health-hazard-risk-bit",
+        "semantic": "environment_health_hazard_risk_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/environment-health-hazard-risk-bit",
-          "responseKey": "environment-health-hazard-risk-bit",
+          "jsonPointer": "/environment_health_hazard_risk_bit",
+          "responseKey": "environment_health_hazard_risk_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -697,12 +697,12 @@
         }
       },
       {
-        "semantic": "food-crisis-bit",
+        "semantic": "food_crisis_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/food-crisis-bit",
-          "responseKey": "food-crisis-bit",
+          "jsonPointer": "/food_crisis_bit",
+          "responseKey": "food_crisis_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -740,12 +740,12 @@
         }
       },
       {
-        "semantic": "food-insecure-bit",
+        "semantic": "food_insecure_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/food-insecure-bit",
-          "responseKey": "food-insecure-bit",
+          "jsonPointer": "/food_insecure_bit",
+          "responseKey": "food_insecure_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -783,12 +783,12 @@
         }
       },
       {
-        "semantic": "food-assistance-needed-bit",
+        "semantic": "food_assistance_needed_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/food-assistance-needed-bit",
-          "responseKey": "food-assistance-needed-bit",
+          "jsonPointer": "/food_assistance_needed_bit",
+          "responseKey": "food_assistance_needed_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -826,12 +826,12 @@
         }
       },
       {
-        "semantic": "transport-critical-access-failure-bit",
+        "semantic": "transport_critical_access_failure_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/transport-critical-access-failure-bit",
-          "responseKey": "transport-critical-access-failure-bit",
+          "jsonPointer": "/transport_critical_access_failure_bit",
+          "responseKey": "transport_critical_access_failure_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -869,12 +869,12 @@
         }
       },
       {
-        "semantic": "transport-appointment-barrier-bit",
+        "semantic": "transport_appointment_barrier_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/transport-appointment-barrier-bit",
-          "responseKey": "transport-appointment-barrier-bit",
+          "jsonPointer": "/transport_appointment_barrier_bit",
+          "responseKey": "transport_appointment_barrier_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -912,12 +912,12 @@
         }
       },
       {
-        "semantic": "severe-social-isolation-bit",
+        "semantic": "severe_social_isolation_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/severe-social-isolation-bit",
-          "responseKey": "severe-social-isolation-bit",
+          "jsonPointer": "/severe_social_isolation_bit",
+          "responseKey": "severe_social_isolation_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -955,12 +955,12 @@
         }
       },
       {
-        "semantic": "daily-care-unresponsive-fall-bit",
+        "semantic": "daily_care_unresponsive_fall_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/daily-care-unresponsive-fall-bit",
-          "responseKey": "daily-care-unresponsive-fall-bit",
+          "jsonPointer": "/daily_care_unresponsive_fall_bit",
+          "responseKey": "daily_care_unresponsive_fall_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -998,12 +998,12 @@
         }
       },
       {
-        "semantic": "daily-care-bathroom-alert-bit",
+        "semantic": "daily_care_bathroom_alert_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/daily-care-bathroom-alert-bit",
-          "responseKey": "daily-care-bathroom-alert-bit",
+          "jsonPointer": "/daily_care_bathroom_alert_bit",
+          "responseKey": "daily_care_bathroom_alert_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1041,12 +1041,12 @@
         }
       },
       {
-        "semantic": "wellness-transition-urgent-or-escalated-bit",
+        "semantic": "wellness_transition_urgent_or_escalated_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/wellness-transition-urgent-or-escalated-bit",
-          "responseKey": "wellness-transition-urgent-or-escalated-bit",
+          "jsonPointer": "/wellness_transition_urgent_or_escalated_bit",
+          "responseKey": "wellness_transition_urgent_or_escalated_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1088,7 +1088,7 @@
   "diagnostics": {
     "axisBasis": "inputSemantics",
     "warnings": [
-      "input axes derived from inputSemantics (no length-matched sensorNormalization)"
+      "input axes derived from inputSemantics; openClawProjection.semantics does not name these positions, so the agent's axis names are unverified"
     ],
     "inputLength": 18,
     "sequenceCount": 4

@@ -34,12 +34,12 @@
   },
   "reasoning": {
     "objective": "Produce the normalized input vector for \"Data Center Monitoring\" from current observations so RE can evaluate its CES sequences.",
-    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Data Center Monitoring\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Complex critical event sequences demonstrating multi-dimensional dependencies, variable thresholds, and correlated failure patterns\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- data-center-monitoring-input-1 (index 0):\n- data-center-monitoring-input-2 (index 1):\n- data-center-monitoring-input-3 (index 2):\n- data-center-monitoring-input-4 (index 3):\n- data-center-monitoring-input-5 (index 4):\n- data-center-monitoring-input-6 (index 5):\n- data-center-monitoring-input-7 (index 6):\n- data-center-monitoring-input-8 (index 7):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Thermal status (GREEN)\n- Thermal warning (AMBER)\n- Thermal warning (AMBER)\n- Thermal CRITICAL (RED)\n- Action (RED)\n- THERMAL EMERGENCY (RED)\n- Action (RED)\n- Action (RED)",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Data Center Monitoring\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Complex critical event sequences demonstrating multi-dimensional dependencies, variable thresholds, and correlated failure patterns\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- data_center_monitoring_input_1 (index 0):\n- data_center_monitoring_input_2 (index 1):\n- data_center_monitoring_input_3 (index 2):\n- data_center_monitoring_input_4 (index 3):\n- data_center_monitoring_input_5 (index 4):\n- data_center_monitoring_input_6 (index 5):\n- data_center_monitoring_input_7 (index 6):\n- data_center_monitoring_input_8 (index 7):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Thermal status (GREEN)\n- Thermal warning (AMBER)\n- Thermal warning (AMBER)\n- Thermal CRITICAL (RED)\n- Action (RED)\n- THERMAL EMERGENCY (RED)\n- Action (RED)\n- Action (RED)",
     "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
     "inputAxes": [
       {
         "index": 0,
-        "key": "data-center-monitoring-input-1",
+        "key": "data_center_monitoring_input_1",
         "anchors": {
           "low": "",
           "mid": "",
@@ -48,7 +48,7 @@
       },
       {
         "index": 1,
-        "key": "data-center-monitoring-input-2",
+        "key": "data_center_monitoring_input_2",
         "anchors": {
           "low": "",
           "mid": "",
@@ -57,7 +57,7 @@
       },
       {
         "index": 2,
-        "key": "data-center-monitoring-input-3",
+        "key": "data_center_monitoring_input_3",
         "anchors": {
           "low": "",
           "mid": "",
@@ -66,7 +66,7 @@
       },
       {
         "index": 3,
-        "key": "data-center-monitoring-input-4",
+        "key": "data_center_monitoring_input_4",
         "anchors": {
           "low": "",
           "mid": "",
@@ -75,7 +75,7 @@
       },
       {
         "index": 4,
-        "key": "data-center-monitoring-input-5",
+        "key": "data_center_monitoring_input_5",
         "anchors": {
           "low": "",
           "mid": "",
@@ -84,7 +84,7 @@
       },
       {
         "index": 5,
-        "key": "data-center-monitoring-input-6",
+        "key": "data_center_monitoring_input_6",
         "anchors": {
           "low": "",
           "mid": "",
@@ -93,7 +93,7 @@
       },
       {
         "index": 6,
-        "key": "data-center-monitoring-input-7",
+        "key": "data_center_monitoring_input_7",
         "anchors": {
           "low": "",
           "mid": "",
@@ -102,7 +102,7 @@
       },
       {
         "index": 7,
-        "key": "data-center-monitoring-input-8",
+        "key": "data_center_monitoring_input_8",
         "anchors": {
           "low": "",
           "mid": "",
@@ -186,14 +186,14 @@
         "length": 8
       },
       "semantics": [
-        "data-center-monitoring-input-1",
-        "data-center-monitoring-input-2",
-        "data-center-monitoring-input-3",
-        "data-center-monitoring-input-4",
-        "data-center-monitoring-input-5",
-        "data-center-monitoring-input-6",
-        "data-center-monitoring-input-7",
-        "data-center-monitoring-input-8"
+        "data_center_monitoring_input_1",
+        "data_center_monitoring_input_2",
+        "data_center_monitoring_input_3",
+        "data_center_monitoring_input_4",
+        "data_center_monitoring_input_5",
+        "data_center_monitoring_input_6",
+        "data_center_monitoring_input_7",
+        "data_center_monitoring_input_8"
       ],
       "ttlMs": 300000,
       "normalization": "already-normalized-0-1",
@@ -238,12 +238,12 @@
     "mode": "advise",
     "fields": [
       {
-        "semantic": "data-center-monitoring-input-1",
+        "semantic": "data_center_monitoring_input_1",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/data-center-monitoring-input-1",
-          "responseKey": "data-center-monitoring-input-1",
+          "jsonPointer": "/data_center_monitoring_input_1",
+          "responseKey": "data_center_monitoring_input_1",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -281,12 +281,12 @@
         }
       },
       {
-        "semantic": "data-center-monitoring-input-2",
+        "semantic": "data_center_monitoring_input_2",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/data-center-monitoring-input-2",
-          "responseKey": "data-center-monitoring-input-2",
+          "jsonPointer": "/data_center_monitoring_input_2",
+          "responseKey": "data_center_monitoring_input_2",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -324,12 +324,12 @@
         }
       },
       {
-        "semantic": "data-center-monitoring-input-3",
+        "semantic": "data_center_monitoring_input_3",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/data-center-monitoring-input-3",
-          "responseKey": "data-center-monitoring-input-3",
+          "jsonPointer": "/data_center_monitoring_input_3",
+          "responseKey": "data_center_monitoring_input_3",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -367,12 +367,12 @@
         }
       },
       {
-        "semantic": "data-center-monitoring-input-4",
+        "semantic": "data_center_monitoring_input_4",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/data-center-monitoring-input-4",
-          "responseKey": "data-center-monitoring-input-4",
+          "jsonPointer": "/data_center_monitoring_input_4",
+          "responseKey": "data_center_monitoring_input_4",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -410,12 +410,12 @@
         }
       },
       {
-        "semantic": "data-center-monitoring-input-5",
+        "semantic": "data_center_monitoring_input_5",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/data-center-monitoring-input-5",
-          "responseKey": "data-center-monitoring-input-5",
+          "jsonPointer": "/data_center_monitoring_input_5",
+          "responseKey": "data_center_monitoring_input_5",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -453,12 +453,12 @@
         }
       },
       {
-        "semantic": "data-center-monitoring-input-6",
+        "semantic": "data_center_monitoring_input_6",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/data-center-monitoring-input-6",
-          "responseKey": "data-center-monitoring-input-6",
+          "jsonPointer": "/data_center_monitoring_input_6",
+          "responseKey": "data_center_monitoring_input_6",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -496,12 +496,12 @@
         }
       },
       {
-        "semantic": "data-center-monitoring-input-7",
+        "semantic": "data_center_monitoring_input_7",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/data-center-monitoring-input-7",
-          "responseKey": "data-center-monitoring-input-7",
+          "jsonPointer": "/data_center_monitoring_input_7",
+          "responseKey": "data_center_monitoring_input_7",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -539,12 +539,12 @@
         }
       },
       {
-        "semantic": "data-center-monitoring-input-8",
+        "semantic": "data_center_monitoring_input_8",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/data-center-monitoring-input-8",
-          "responseKey": "data-center-monitoring-input-8",
+          "jsonPointer": "/data_center_monitoring_input_8",
+          "responseKey": "data_center_monitoring_input_8",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -584,10 +584,8 @@
     ]
   },
   "diagnostics": {
-    "axisBasis": "inputSemantics",
-    "warnings": [
-      "input axes derived from inputSemantics (no length-matched sensorNormalization)"
-    ],
+    "axisBasis": "openClawProjection",
+    "warnings": [],
     "inputLength": 8,
     "sequenceCount": 8
   }

@@ -34,12 +34,12 @@
   },
   "reasoning": {
     "objective": "Produce the normalized input vector for \"Agriculture Yuma DO Probe Reliability Tracker\" from current observations so RE can evaluate its CES sequences.",
-    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Agriculture Yuma DO Probe Reliability Tracker\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Yuma MQTT-driven DO-probe reliability machine. Reads the four DO sensor cells at offsets [84:88) populated by the live LATERAL/DOSuite/DEV0000017/SensorReadings/v1 MQTT stream (DO level + DO temp + their watch bands) and produces a 4-cell probe-reliability signal at offsets [260:264): URGENT_MAINT, FORECAST_MAINT, CALIBRATE, NORMAL. Complements AGX005 (operational DO control) by surfacing probe-health concerns such as drift or sensor failure.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- process_stability_norm (index 0):  0.0 = outside MQTT band; | 0.5 = watch; | 1.0 = in MQTT-defined nominal band\n- resource_efficiency_norm (index 1):  0.0 = wasteful; | 0.5 = acceptable; | 1.0 = efficient\n- biosecurity_or_ipm_norm (index 2):  0.0 = biohazard; | 0.5 = mitigated; | 1.0 = controlled\n- maintenance_readiness_norm (index 3):  0.0 = overdue; | 0.5 = service due; | 1.0 = verified\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- agx-052-urgent-maint (RED) -> action: dispatch-agent\n- agx-052-forecast-maint (AMBER) -> action: schedule-care-review\n- agx-052-calibrate (AMBER) -> action: trigger-agent-workflow\n- agx-052-normal (GREEN) -> action: continue-monitoring",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Agriculture Yuma DO Probe Reliability Tracker\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Yuma MQTT-driven DO-probe reliability machine. Reads the four DO sensor cells at offsets [84:88) populated by the live LATERAL/DOSuite/DEV0000017/SensorReadings/v1 MQTT stream (DO level + DO temp + their watch bands) and produces a 4-cell probe-reliability signal at offsets [260:264): URGENT_MAINT, FORECAST_MAINT, CALIBRATE, NORMAL. Complements AGX005 (operational DO control) by surfacing probe-health concerns such as drift or sensor failure.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- do_level_in_nominal_band (index 0):  0.0 = outside MQTT band; | 0.5 = watch; | 1.0 = in MQTT-defined nominal band\n- do_temp_in_nominal_band (index 1):  0.0 = wasteful; | 0.5 = acceptable; | 1.0 = efficient\n- low_do_watch_band (index 2):  0.0 = biohazard; | 0.5 = mitigated; | 1.0 = controlled\n- high_do_temp_watch_band (index 3):  0.0 = overdue; | 0.5 = service due; | 1.0 = verified\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- agx-052-urgent-maint (RED) -> action: dispatch-agent\n- agx-052-forecast-maint (AMBER) -> action: schedule-care-review\n- agx-052-calibrate (AMBER) -> action: trigger-agent-workflow\n- agx-052-normal (GREEN) -> action: continue-monitoring",
     "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
     "inputAxes": [
       {
         "index": 0,
-        "key": "process_stability_norm",
+        "key": "do_level_in_nominal_band",
         "anchors": {
           "low": "outside MQTT band;",
           "mid": "watch;",
@@ -48,7 +48,7 @@
       },
       {
         "index": 1,
-        "key": "resource_efficiency_norm",
+        "key": "do_temp_in_nominal_band",
         "anchors": {
           "low": "wasteful;",
           "mid": "acceptable;",
@@ -57,7 +57,7 @@
       },
       {
         "index": 2,
-        "key": "biosecurity_or_ipm_norm",
+        "key": "low_do_watch_band",
         "anchors": {
           "low": "biohazard;",
           "mid": "mitigated;",
@@ -66,7 +66,7 @@
       },
       {
         "index": 3,
-        "key": "maintenance_readiness_norm",
+        "key": "high_do_temp_watch_band",
         "anchors": {
           "low": "overdue;",
           "mid": "service due;",
@@ -122,10 +122,10 @@
         "length": 4
       },
       "semantics": [
-        "process_stability_norm",
-        "resource_efficiency_norm",
-        "biosecurity_or_ipm_norm",
-        "maintenance_readiness_norm"
+        "do_level_in_nominal_band",
+        "do_temp_in_nominal_band",
+        "low_do_watch_band",
+        "high_do_temp_watch_band"
       ],
       "ttlMs": 300000,
       "normalization": "already-normalized-0-1",
@@ -170,12 +170,12 @@
     "mode": "advise",
     "fields": [
       {
-        "semantic": "process_stability_norm",
+        "semantic": "do_level_in_nominal_band",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/process_stability_norm",
-          "responseKey": "process_stability_norm",
+          "jsonPointer": "/do_level_in_nominal_band",
+          "responseKey": "do_level_in_nominal_band",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -213,12 +213,12 @@
         }
       },
       {
-        "semantic": "resource_efficiency_norm",
+        "semantic": "do_temp_in_nominal_band",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/resource_efficiency_norm",
-          "responseKey": "resource_efficiency_norm",
+          "jsonPointer": "/do_temp_in_nominal_band",
+          "responseKey": "do_temp_in_nominal_band",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -256,12 +256,12 @@
         }
       },
       {
-        "semantic": "biosecurity_or_ipm_norm",
+        "semantic": "low_do_watch_band",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/biosecurity_or_ipm_norm",
-          "responseKey": "biosecurity_or_ipm_norm",
+          "jsonPointer": "/low_do_watch_band",
+          "responseKey": "low_do_watch_band",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -299,12 +299,12 @@
         }
       },
       {
-        "semantic": "maintenance_readiness_norm",
+        "semantic": "high_do_temp_watch_band",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/maintenance_readiness_norm",
-          "responseKey": "maintenance_readiness_norm",
+          "jsonPointer": "/high_do_temp_watch_band",
+          "responseKey": "high_do_temp_watch_band",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -344,7 +344,7 @@
     ]
   },
   "diagnostics": {
-    "axisBasis": "sensorNormalization",
+    "axisBasis": "openClawProjection",
     "warnings": [],
     "inputLength": 4,
     "sequenceCount": 4

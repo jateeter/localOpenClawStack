@@ -34,12 +34,12 @@
   },
   "reasoning": {
     "objective": "Produce the normalized input vector for \"Energy Resilient Community Microgrid Operations Stabilizer\" from current observations so RE can evaluate its CES sequences.",
-    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Energy Resilient Community Microgrid Operations Stabilizer\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Monitors post-dispatch recovery evidence for critical services, islanded operation, storage, generation, feeder switching, logistics, protocols, and cyber safety.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- critical_load_recovery_confirmed_norm (index 0):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- islanded_or_reconnected_posture_confirmed_norm (index 1):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- storage_reserve_recovered_norm (index 2):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- generation_commitment_recovered_norm (index 3):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- feeder_path_stable_after_action_norm (index 4):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- service_continuity_recovered_norm (index 5):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- supply_chain_action_accepted_norm (index 6):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- smart_grid_protocol_path_stable_norm (index 7):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- cyber_safety_gate_clear_norm (index 8):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- operator_closeout_complete_norm (index 9):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Resilient Community Microgrid Operations Stabilizer (RED) -> action: urgent-intervention\n- Resilient Community Microgrid Operations Stabilizer (AMBER) -> action: urgent-intervention\n- Resilient Community Microgrid Operations Stabilizer (AMBER) -> action: continue-monitoring\n- Resilient Community Microgrid Operations Stabilizer (GREEN) -> action: continue-monitoring",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Energy Resilient Community Microgrid Operations Stabilizer\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Monitors post-dispatch recovery evidence for critical services, islanded operation, storage, generation, feeder switching, logistics, protocols, and cyber safety.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- critical_load_recovery_confirmed (index 0):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- islanded_or_reconnected_posture_confirmed (index 1):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- storage_reserve_recovered (index 2):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- generation_commitment_recovered (index 3):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- feeder_path_stable_after_action (index 4):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- service_continuity_recovered (index 5):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- supply_chain_action_accepted (index 6):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- smart_grid_protocol_path_stable (index 7):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- cyber_safety_gate_clear (index 8):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- operator_closeout_complete (index 9):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Resilient Community Microgrid Operations Stabilizer (RED) -> action: urgent-intervention\n- Resilient Community Microgrid Operations Stabilizer (AMBER) -> action: urgent-intervention\n- Resilient Community Microgrid Operations Stabilizer (AMBER) -> action: continue-monitoring\n- Resilient Community Microgrid Operations Stabilizer (GREEN) -> action: continue-monitoring",
     "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
     "inputAxes": [
       {
         "index": 0,
-        "key": "critical_load_recovery_confirmed_norm",
+        "key": "critical_load_recovery_confirmed",
         "anchors": {
           "low": "false/inactive",
           "mid": "",
@@ -48,7 +48,7 @@
       },
       {
         "index": 1,
-        "key": "islanded_or_reconnected_posture_confirmed_norm",
+        "key": "islanded_or_reconnected_posture_confirmed",
         "anchors": {
           "low": "false/inactive",
           "mid": "",
@@ -57,7 +57,7 @@
       },
       {
         "index": 2,
-        "key": "storage_reserve_recovered_norm",
+        "key": "storage_reserve_recovered",
         "anchors": {
           "low": "false/inactive",
           "mid": "",
@@ -66,7 +66,7 @@
       },
       {
         "index": 3,
-        "key": "generation_commitment_recovered_norm",
+        "key": "generation_commitment_recovered",
         "anchors": {
           "low": "false/inactive",
           "mid": "",
@@ -75,7 +75,7 @@
       },
       {
         "index": 4,
-        "key": "feeder_path_stable_after_action_norm",
+        "key": "feeder_path_stable_after_action",
         "anchors": {
           "low": "false/inactive",
           "mid": "",
@@ -84,7 +84,7 @@
       },
       {
         "index": 5,
-        "key": "service_continuity_recovered_norm",
+        "key": "service_continuity_recovered",
         "anchors": {
           "low": "false/inactive",
           "mid": "",
@@ -93,7 +93,7 @@
       },
       {
         "index": 6,
-        "key": "supply_chain_action_accepted_norm",
+        "key": "supply_chain_action_accepted",
         "anchors": {
           "low": "false/inactive",
           "mid": "",
@@ -102,7 +102,7 @@
       },
       {
         "index": 7,
-        "key": "smart_grid_protocol_path_stable_norm",
+        "key": "smart_grid_protocol_path_stable",
         "anchors": {
           "low": "false/inactive",
           "mid": "",
@@ -111,7 +111,7 @@
       },
       {
         "index": 8,
-        "key": "cyber_safety_gate_clear_norm",
+        "key": "cyber_safety_gate_clear",
         "anchors": {
           "low": "false/inactive",
           "mid": "",
@@ -120,7 +120,7 @@
       },
       {
         "index": 9,
-        "key": "operator_closeout_complete_norm",
+        "key": "operator_closeout_complete",
         "anchors": {
           "low": "false/inactive",
           "mid": "",
@@ -176,16 +176,16 @@
         "length": 10
       },
       "semantics": [
-        "critical_load_recovery_confirmed_norm",
-        "islanded_or_reconnected_posture_confirmed_norm",
-        "storage_reserve_recovered_norm",
-        "generation_commitment_recovered_norm",
-        "feeder_path_stable_after_action_norm",
-        "service_continuity_recovered_norm",
-        "supply_chain_action_accepted_norm",
-        "smart_grid_protocol_path_stable_norm",
-        "cyber_safety_gate_clear_norm",
-        "operator_closeout_complete_norm"
+        "critical_load_recovery_confirmed",
+        "islanded_or_reconnected_posture_confirmed",
+        "storage_reserve_recovered",
+        "generation_commitment_recovered",
+        "feeder_path_stable_after_action",
+        "service_continuity_recovered",
+        "supply_chain_action_accepted",
+        "smart_grid_protocol_path_stable",
+        "cyber_safety_gate_clear",
+        "operator_closeout_complete"
       ],
       "ttlMs": 300000,
       "normalization": "already-normalized-0-1",
@@ -230,12 +230,12 @@
     "mode": "advise",
     "fields": [
       {
-        "semantic": "critical_load_recovery_confirmed_norm",
+        "semantic": "critical_load_recovery_confirmed",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/critical_load_recovery_confirmed_norm",
-          "responseKey": "critical_load_recovery_confirmed_norm",
+          "jsonPointer": "/critical_load_recovery_confirmed",
+          "responseKey": "critical_load_recovery_confirmed",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -273,12 +273,12 @@
         }
       },
       {
-        "semantic": "islanded_or_reconnected_posture_confirmed_norm",
+        "semantic": "islanded_or_reconnected_posture_confirmed",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/islanded_or_reconnected_posture_confirmed_norm",
-          "responseKey": "islanded_or_reconnected_posture_confirmed_norm",
+          "jsonPointer": "/islanded_or_reconnected_posture_confirmed",
+          "responseKey": "islanded_or_reconnected_posture_confirmed",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -316,12 +316,12 @@
         }
       },
       {
-        "semantic": "storage_reserve_recovered_norm",
+        "semantic": "storage_reserve_recovered",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/storage_reserve_recovered_norm",
-          "responseKey": "storage_reserve_recovered_norm",
+          "jsonPointer": "/storage_reserve_recovered",
+          "responseKey": "storage_reserve_recovered",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -359,12 +359,12 @@
         }
       },
       {
-        "semantic": "generation_commitment_recovered_norm",
+        "semantic": "generation_commitment_recovered",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/generation_commitment_recovered_norm",
-          "responseKey": "generation_commitment_recovered_norm",
+          "jsonPointer": "/generation_commitment_recovered",
+          "responseKey": "generation_commitment_recovered",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -402,12 +402,12 @@
         }
       },
       {
-        "semantic": "feeder_path_stable_after_action_norm",
+        "semantic": "feeder_path_stable_after_action",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/feeder_path_stable_after_action_norm",
-          "responseKey": "feeder_path_stable_after_action_norm",
+          "jsonPointer": "/feeder_path_stable_after_action",
+          "responseKey": "feeder_path_stable_after_action",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -445,12 +445,12 @@
         }
       },
       {
-        "semantic": "service_continuity_recovered_norm",
+        "semantic": "service_continuity_recovered",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/service_continuity_recovered_norm",
-          "responseKey": "service_continuity_recovered_norm",
+          "jsonPointer": "/service_continuity_recovered",
+          "responseKey": "service_continuity_recovered",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -488,12 +488,12 @@
         }
       },
       {
-        "semantic": "supply_chain_action_accepted_norm",
+        "semantic": "supply_chain_action_accepted",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/supply_chain_action_accepted_norm",
-          "responseKey": "supply_chain_action_accepted_norm",
+          "jsonPointer": "/supply_chain_action_accepted",
+          "responseKey": "supply_chain_action_accepted",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -531,12 +531,12 @@
         }
       },
       {
-        "semantic": "smart_grid_protocol_path_stable_norm",
+        "semantic": "smart_grid_protocol_path_stable",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/smart_grid_protocol_path_stable_norm",
-          "responseKey": "smart_grid_protocol_path_stable_norm",
+          "jsonPointer": "/smart_grid_protocol_path_stable",
+          "responseKey": "smart_grid_protocol_path_stable",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -574,12 +574,12 @@
         }
       },
       {
-        "semantic": "cyber_safety_gate_clear_norm",
+        "semantic": "cyber_safety_gate_clear",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/cyber_safety_gate_clear_norm",
-          "responseKey": "cyber_safety_gate_clear_norm",
+          "jsonPointer": "/cyber_safety_gate_clear",
+          "responseKey": "cyber_safety_gate_clear",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -617,12 +617,12 @@
         }
       },
       {
-        "semantic": "operator_closeout_complete_norm",
+        "semantic": "operator_closeout_complete",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/operator_closeout_complete_norm",
-          "responseKey": "operator_closeout_complete_norm",
+          "jsonPointer": "/operator_closeout_complete",
+          "responseKey": "operator_closeout_complete",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -662,7 +662,7 @@
     ]
   },
   "diagnostics": {
-    "axisBasis": "sensorNormalization",
+    "axisBasis": "openClawProjection",
     "warnings": [],
     "inputLength": 10,
     "sequenceCount": 4

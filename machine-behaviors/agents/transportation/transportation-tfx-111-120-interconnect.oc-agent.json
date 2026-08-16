@@ -34,12 +34,12 @@
   },
   "reasoning": {
     "objective": "Produce the normalized input vector for \"Transportation TFX-111-120 Interconnect\" from current observations so RE can evaluate its CES sequences.",
-    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Transportation TFX-111-120 Interconnect\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Published transportation bridge bus that composes Transportation TFX-111-120 into a compact domain family response lane. PE owns source composition and writes the compact input lane; RE evaluates this machine as ordinary vector state.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- transportation-fleet-network-planning-stop-demand-forecast-active-output-0-bit (index 0):\n- transportation-fleet-network-planning-stop-demand-forecast-active-output-1-bit (index 1):\n- transportation-fleet-network-planning-stop-demand-forecast-active-output-2-bit (index 2):\n- transportation-fleet-network-planning-route-runtime-calibration-active-output-0-bit (index 3):\n- transportation-fleet-network-planning-route-runtime-calibration-active-output-1-bit (index 4):\n- transportation-fleet-network-planning-route-runtime-calibration-active-output-2-bit (index 5):\n- transportation-fleet-network-planning-stop-spacing-review-active-output-0-bit (index 6):\n- transportation-fleet-network-planning-stop-spacing-review-active-output-1-bit (index 7):\n- transportation-fleet-network-planning-stop-spacing-review-active-output-2-bit (index 8):\n- transportation-fleet-network-planning-service-span-optimization-active-output-0-bit (index 9):\n- transportation-fleet-network-planning-service-span-optimization-active-output-1-bit (index 10):\n- transportation-fleet-network-planning-service-span-optimization-active-output-2-bit (index 11):\n- transportation-fleet-network-planning-frequency-optimization-active-output-0-bit (index 12):\n- transportation-fleet-network-planning-frequency-optimization-active-output-1-bit (index 13):\n- transportation-fleet-network-planning-frequency-optimization-active-output-2-bit (index 14):\n- transportation-fleet-network-planning-bus-priority-signal-monitor-active-output-0-bit (index 15):\n- transportation-fleet-network-planning-bus-priority-signal-monitor-active-output-1-bit (index 16):\n- transportation-fleet-network-planning-bus-priority-signal-monitor-active-output-2-bit (index 17):\n- transportation-fleet-network-planning-bus-lane-reliability-active-output-0-bit (index 18):\n- transportation-fleet-network-planning-bus-lane-reliability-active-output-1-bit (index 19):\n- transportation-fleet-network-planning-bus-lane-reliability-active-output-2-bit (index 20):\n- transportation-fleet-network-planning-construction-impact-planner-active-output-0-bit (index 21):\n- transportation-fleet-network-planning-construction-impact-planner-active-output-1-bit (index 22):\n- transportation-fleet-network-planning-construction-impact-planner-active-output-2-bit (index 23):\n- transportation-fleet-network-planning-ridership-recovery-monitor-active-output-0-bit (index 24):\n- transportation-fleet-network-planning-ridership-recovery-monitor-active-output-1-bit (index 25):\n- transportation-fleet-network-planning-ridership-recovery-monitor-active-output-2-bit (index 26):\n- transportation-fleet-network-planning-planning-executive-scenario-active-output-0-bit (index 27):\n- transportation-fleet-network-planning-planning-executive-scenario-active-output-1-bit (index 28):\n- transportation-fleet-network-planning-planning-executive-scenario-active-output-2-bit (index 29):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Transportation TFX-111-120 domain family review at [16404 (RED) -> action: route-review\n- Transportation TFX-111-120 domain family optimization at [16404 (AMBER) -> action: route-review\n- Transportation TFX-111-120 domain family monitoring at [16404 (AMBER) -> action: route-review\n- Transportation TFX-111-120 domain family stable at [16404 (GREEN) -> action: continue-monitoring",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Transportation TFX-111-120 Interconnect\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Published transportation bridge bus that composes Transportation TFX-111-120 into a compact domain family response lane. PE owns source composition and writes the compact input lane; RE evaluates this machine as ordinary vector state.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- transportation_fleet_network_planning_stop_demand_forecast_active_output_0_bit (index 0):\n- transportation_fleet_network_planning_stop_demand_forecast_active_output_1_bit (index 1):\n- transportation_fleet_network_planning_stop_demand_forecast_active_output_2_bit (index 2):\n- transportation_fleet_network_planning_route_runtime_calibration_active_output_0_bit (index 3):\n- transportation_fleet_network_planning_route_runtime_calibration_active_output_1_bit (index 4):\n- transportation_fleet_network_planning_route_runtime_calibration_active_output_2_bit (index 5):\n- transportation_fleet_network_planning_stop_spacing_review_active_output_0_bit (index 6):\n- transportation_fleet_network_planning_stop_spacing_review_active_output_1_bit (index 7):\n- transportation_fleet_network_planning_stop_spacing_review_active_output_2_bit (index 8):\n- transportation_fleet_network_planning_service_span_optimization_active_output_0_bit (index 9):\n- transportation_fleet_network_planning_service_span_optimization_active_output_1_bit (index 10):\n- transportation_fleet_network_planning_service_span_optimization_active_output_2_bit (index 11):\n- transportation_fleet_network_planning_frequency_optimization_active_output_0_bit (index 12):\n- transportation_fleet_network_planning_frequency_optimization_active_output_1_bit (index 13):\n- transportation_fleet_network_planning_frequency_optimization_active_output_2_bit (index 14):\n- transportation_fleet_network_planning_bus_priority_signal_monitor_active_output_0_bit (index 15):\n- transportation_fleet_network_planning_bus_priority_signal_monitor_active_output_1_bit (index 16):\n- transportation_fleet_network_planning_bus_priority_signal_monitor_active_output_2_bit (index 17):\n- transportation_fleet_network_planning_bus_lane_reliability_active_output_0_bit (index 18):\n- transportation_fleet_network_planning_bus_lane_reliability_active_output_1_bit (index 19):\n- transportation_fleet_network_planning_bus_lane_reliability_active_output_2_bit (index 20):\n- transportation_fleet_network_planning_construction_impact_planner_active_output_0_bit (index 21):\n- transportation_fleet_network_planning_construction_impact_planner_active_output_1_bit (index 22):\n- transportation_fleet_network_planning_construction_impact_planner_active_output_2_bit (index 23):\n- transportation_fleet_network_planning_ridership_recovery_monitor_active_output_0_bit (index 24):\n- transportation_fleet_network_planning_ridership_recovery_monitor_active_output_1_bit (index 25):\n- transportation_fleet_network_planning_ridership_recovery_monitor_active_output_2_bit (index 26):\n- transportation_fleet_network_planning_planning_executive_scenario_active_output_0_bit (index 27):\n- transportation_fleet_network_planning_planning_executive_scenario_active_output_1_bit (index 28):\n- transportation_fleet_network_planning_planning_executive_scenario_active_output_2_bit (index 29):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Transportation TFX-111-120 domain family review at [16404 (RED) -> action: route-review\n- Transportation TFX-111-120 domain family optimization at [16404 (AMBER) -> action: route-review\n- Transportation TFX-111-120 domain family monitoring at [16404 (AMBER) -> action: route-review\n- Transportation TFX-111-120 domain family stable at [16404 (GREEN) -> action: continue-monitoring",
     "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
     "inputAxes": [
       {
         "index": 0,
-        "key": "transportation-fleet-network-planning-stop-demand-forecast-active-output-0-bit",
+        "key": "transportation_fleet_network_planning_stop_demand_forecast_active_output_0_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -48,7 +48,7 @@
       },
       {
         "index": 1,
-        "key": "transportation-fleet-network-planning-stop-demand-forecast-active-output-1-bit",
+        "key": "transportation_fleet_network_planning_stop_demand_forecast_active_output_1_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -57,7 +57,7 @@
       },
       {
         "index": 2,
-        "key": "transportation-fleet-network-planning-stop-demand-forecast-active-output-2-bit",
+        "key": "transportation_fleet_network_planning_stop_demand_forecast_active_output_2_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -66,7 +66,7 @@
       },
       {
         "index": 3,
-        "key": "transportation-fleet-network-planning-route-runtime-calibration-active-output-0-bit",
+        "key": "transportation_fleet_network_planning_route_runtime_calibration_active_output_0_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -75,7 +75,7 @@
       },
       {
         "index": 4,
-        "key": "transportation-fleet-network-planning-route-runtime-calibration-active-output-1-bit",
+        "key": "transportation_fleet_network_planning_route_runtime_calibration_active_output_1_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -84,7 +84,7 @@
       },
       {
         "index": 5,
-        "key": "transportation-fleet-network-planning-route-runtime-calibration-active-output-2-bit",
+        "key": "transportation_fleet_network_planning_route_runtime_calibration_active_output_2_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -93,7 +93,7 @@
       },
       {
         "index": 6,
-        "key": "transportation-fleet-network-planning-stop-spacing-review-active-output-0-bit",
+        "key": "transportation_fleet_network_planning_stop_spacing_review_active_output_0_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -102,7 +102,7 @@
       },
       {
         "index": 7,
-        "key": "transportation-fleet-network-planning-stop-spacing-review-active-output-1-bit",
+        "key": "transportation_fleet_network_planning_stop_spacing_review_active_output_1_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -111,7 +111,7 @@
       },
       {
         "index": 8,
-        "key": "transportation-fleet-network-planning-stop-spacing-review-active-output-2-bit",
+        "key": "transportation_fleet_network_planning_stop_spacing_review_active_output_2_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -120,7 +120,7 @@
       },
       {
         "index": 9,
-        "key": "transportation-fleet-network-planning-service-span-optimization-active-output-0-bit",
+        "key": "transportation_fleet_network_planning_service_span_optimization_active_output_0_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -129,7 +129,7 @@
       },
       {
         "index": 10,
-        "key": "transportation-fleet-network-planning-service-span-optimization-active-output-1-bit",
+        "key": "transportation_fleet_network_planning_service_span_optimization_active_output_1_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -138,7 +138,7 @@
       },
       {
         "index": 11,
-        "key": "transportation-fleet-network-planning-service-span-optimization-active-output-2-bit",
+        "key": "transportation_fleet_network_planning_service_span_optimization_active_output_2_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -147,7 +147,7 @@
       },
       {
         "index": 12,
-        "key": "transportation-fleet-network-planning-frequency-optimization-active-output-0-bit",
+        "key": "transportation_fleet_network_planning_frequency_optimization_active_output_0_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -156,7 +156,7 @@
       },
       {
         "index": 13,
-        "key": "transportation-fleet-network-planning-frequency-optimization-active-output-1-bit",
+        "key": "transportation_fleet_network_planning_frequency_optimization_active_output_1_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -165,7 +165,7 @@
       },
       {
         "index": 14,
-        "key": "transportation-fleet-network-planning-frequency-optimization-active-output-2-bit",
+        "key": "transportation_fleet_network_planning_frequency_optimization_active_output_2_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -174,7 +174,7 @@
       },
       {
         "index": 15,
-        "key": "transportation-fleet-network-planning-bus-priority-signal-monitor-active-output-0-bit",
+        "key": "transportation_fleet_network_planning_bus_priority_signal_monitor_active_output_0_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -183,7 +183,7 @@
       },
       {
         "index": 16,
-        "key": "transportation-fleet-network-planning-bus-priority-signal-monitor-active-output-1-bit",
+        "key": "transportation_fleet_network_planning_bus_priority_signal_monitor_active_output_1_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -192,7 +192,7 @@
       },
       {
         "index": 17,
-        "key": "transportation-fleet-network-planning-bus-priority-signal-monitor-active-output-2-bit",
+        "key": "transportation_fleet_network_planning_bus_priority_signal_monitor_active_output_2_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -201,7 +201,7 @@
       },
       {
         "index": 18,
-        "key": "transportation-fleet-network-planning-bus-lane-reliability-active-output-0-bit",
+        "key": "transportation_fleet_network_planning_bus_lane_reliability_active_output_0_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -210,7 +210,7 @@
       },
       {
         "index": 19,
-        "key": "transportation-fleet-network-planning-bus-lane-reliability-active-output-1-bit",
+        "key": "transportation_fleet_network_planning_bus_lane_reliability_active_output_1_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -219,7 +219,7 @@
       },
       {
         "index": 20,
-        "key": "transportation-fleet-network-planning-bus-lane-reliability-active-output-2-bit",
+        "key": "transportation_fleet_network_planning_bus_lane_reliability_active_output_2_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -228,7 +228,7 @@
       },
       {
         "index": 21,
-        "key": "transportation-fleet-network-planning-construction-impact-planner-active-output-0-bit",
+        "key": "transportation_fleet_network_planning_construction_impact_planner_active_output_0_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -237,7 +237,7 @@
       },
       {
         "index": 22,
-        "key": "transportation-fleet-network-planning-construction-impact-planner-active-output-1-bit",
+        "key": "transportation_fleet_network_planning_construction_impact_planner_active_output_1_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -246,7 +246,7 @@
       },
       {
         "index": 23,
-        "key": "transportation-fleet-network-planning-construction-impact-planner-active-output-2-bit",
+        "key": "transportation_fleet_network_planning_construction_impact_planner_active_output_2_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -255,7 +255,7 @@
       },
       {
         "index": 24,
-        "key": "transportation-fleet-network-planning-ridership-recovery-monitor-active-output-0-bit",
+        "key": "transportation_fleet_network_planning_ridership_recovery_monitor_active_output_0_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -264,7 +264,7 @@
       },
       {
         "index": 25,
-        "key": "transportation-fleet-network-planning-ridership-recovery-monitor-active-output-1-bit",
+        "key": "transportation_fleet_network_planning_ridership_recovery_monitor_active_output_1_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -273,7 +273,7 @@
       },
       {
         "index": 26,
-        "key": "transportation-fleet-network-planning-ridership-recovery-monitor-active-output-2-bit",
+        "key": "transportation_fleet_network_planning_ridership_recovery_monitor_active_output_2_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -282,7 +282,7 @@
       },
       {
         "index": 27,
-        "key": "transportation-fleet-network-planning-planning-executive-scenario-active-output-0-bit",
+        "key": "transportation_fleet_network_planning_planning_executive_scenario_active_output_0_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -291,7 +291,7 @@
       },
       {
         "index": 28,
-        "key": "transportation-fleet-network-planning-planning-executive-scenario-active-output-1-bit",
+        "key": "transportation_fleet_network_planning_planning_executive_scenario_active_output_1_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -300,7 +300,7 @@
       },
       {
         "index": 29,
-        "key": "transportation-fleet-network-planning-planning-executive-scenario-active-output-2-bit",
+        "key": "transportation_fleet_network_planning_planning_executive_scenario_active_output_2_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -356,36 +356,36 @@
         "length": 30
       },
       "semantics": [
-        "transportation-fleet-network-planning-stop-demand-forecast-active-output-0-bit",
-        "transportation-fleet-network-planning-stop-demand-forecast-active-output-1-bit",
-        "transportation-fleet-network-planning-stop-demand-forecast-active-output-2-bit",
-        "transportation-fleet-network-planning-route-runtime-calibration-active-output-0-bit",
-        "transportation-fleet-network-planning-route-runtime-calibration-active-output-1-bit",
-        "transportation-fleet-network-planning-route-runtime-calibration-active-output-2-bit",
-        "transportation-fleet-network-planning-stop-spacing-review-active-output-0-bit",
-        "transportation-fleet-network-planning-stop-spacing-review-active-output-1-bit",
-        "transportation-fleet-network-planning-stop-spacing-review-active-output-2-bit",
-        "transportation-fleet-network-planning-service-span-optimization-active-output-0-bit",
-        "transportation-fleet-network-planning-service-span-optimization-active-output-1-bit",
-        "transportation-fleet-network-planning-service-span-optimization-active-output-2-bit",
-        "transportation-fleet-network-planning-frequency-optimization-active-output-0-bit",
-        "transportation-fleet-network-planning-frequency-optimization-active-output-1-bit",
-        "transportation-fleet-network-planning-frequency-optimization-active-output-2-bit",
-        "transportation-fleet-network-planning-bus-priority-signal-monitor-active-output-0-bit",
-        "transportation-fleet-network-planning-bus-priority-signal-monitor-active-output-1-bit",
-        "transportation-fleet-network-planning-bus-priority-signal-monitor-active-output-2-bit",
-        "transportation-fleet-network-planning-bus-lane-reliability-active-output-0-bit",
-        "transportation-fleet-network-planning-bus-lane-reliability-active-output-1-bit",
-        "transportation-fleet-network-planning-bus-lane-reliability-active-output-2-bit",
-        "transportation-fleet-network-planning-construction-impact-planner-active-output-0-bit",
-        "transportation-fleet-network-planning-construction-impact-planner-active-output-1-bit",
-        "transportation-fleet-network-planning-construction-impact-planner-active-output-2-bit",
-        "transportation-fleet-network-planning-ridership-recovery-monitor-active-output-0-bit",
-        "transportation-fleet-network-planning-ridership-recovery-monitor-active-output-1-bit",
-        "transportation-fleet-network-planning-ridership-recovery-monitor-active-output-2-bit",
-        "transportation-fleet-network-planning-planning-executive-scenario-active-output-0-bit",
-        "transportation-fleet-network-planning-planning-executive-scenario-active-output-1-bit",
-        "transportation-fleet-network-planning-planning-executive-scenario-active-output-2-bit"
+        "transportation_fleet_network_planning_stop_demand_forecast_active_output_0_bit",
+        "transportation_fleet_network_planning_stop_demand_forecast_active_output_1_bit",
+        "transportation_fleet_network_planning_stop_demand_forecast_active_output_2_bit",
+        "transportation_fleet_network_planning_route_runtime_calibration_active_output_0_bit",
+        "transportation_fleet_network_planning_route_runtime_calibration_active_output_1_bit",
+        "transportation_fleet_network_planning_route_runtime_calibration_active_output_2_bit",
+        "transportation_fleet_network_planning_stop_spacing_review_active_output_0_bit",
+        "transportation_fleet_network_planning_stop_spacing_review_active_output_1_bit",
+        "transportation_fleet_network_planning_stop_spacing_review_active_output_2_bit",
+        "transportation_fleet_network_planning_service_span_optimization_active_output_0_bit",
+        "transportation_fleet_network_planning_service_span_optimization_active_output_1_bit",
+        "transportation_fleet_network_planning_service_span_optimization_active_output_2_bit",
+        "transportation_fleet_network_planning_frequency_optimization_active_output_0_bit",
+        "transportation_fleet_network_planning_frequency_optimization_active_output_1_bit",
+        "transportation_fleet_network_planning_frequency_optimization_active_output_2_bit",
+        "transportation_fleet_network_planning_bus_priority_signal_monitor_active_output_0_bit",
+        "transportation_fleet_network_planning_bus_priority_signal_monitor_active_output_1_bit",
+        "transportation_fleet_network_planning_bus_priority_signal_monitor_active_output_2_bit",
+        "transportation_fleet_network_planning_bus_lane_reliability_active_output_0_bit",
+        "transportation_fleet_network_planning_bus_lane_reliability_active_output_1_bit",
+        "transportation_fleet_network_planning_bus_lane_reliability_active_output_2_bit",
+        "transportation_fleet_network_planning_construction_impact_planner_active_output_0_bit",
+        "transportation_fleet_network_planning_construction_impact_planner_active_output_1_bit",
+        "transportation_fleet_network_planning_construction_impact_planner_active_output_2_bit",
+        "transportation_fleet_network_planning_ridership_recovery_monitor_active_output_0_bit",
+        "transportation_fleet_network_planning_ridership_recovery_monitor_active_output_1_bit",
+        "transportation_fleet_network_planning_ridership_recovery_monitor_active_output_2_bit",
+        "transportation_fleet_network_planning_planning_executive_scenario_active_output_0_bit",
+        "transportation_fleet_network_planning_planning_executive_scenario_active_output_1_bit",
+        "transportation_fleet_network_planning_planning_executive_scenario_active_output_2_bit"
       ],
       "ttlMs": 300000,
       "normalization": "already-normalized-0-1",
@@ -430,12 +430,12 @@
     "mode": "advise",
     "fields": [
       {
-        "semantic": "transportation-fleet-network-planning-stop-demand-forecast-active-output-0-bit",
+        "semantic": "transportation_fleet_network_planning_stop_demand_forecast_active_output_0_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/transportation-fleet-network-planning-stop-demand-forecast-active-output-0-bit",
-          "responseKey": "transportation-fleet-network-planning-stop-demand-forecast-active-output-0-bit",
+          "jsonPointer": "/transportation_fleet_network_planning_stop_demand_forecast_active_output_0_bit",
+          "responseKey": "transportation_fleet_network_planning_stop_demand_forecast_active_output_0_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -473,12 +473,12 @@
         }
       },
       {
-        "semantic": "transportation-fleet-network-planning-stop-demand-forecast-active-output-1-bit",
+        "semantic": "transportation_fleet_network_planning_stop_demand_forecast_active_output_1_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/transportation-fleet-network-planning-stop-demand-forecast-active-output-1-bit",
-          "responseKey": "transportation-fleet-network-planning-stop-demand-forecast-active-output-1-bit",
+          "jsonPointer": "/transportation_fleet_network_planning_stop_demand_forecast_active_output_1_bit",
+          "responseKey": "transportation_fleet_network_planning_stop_demand_forecast_active_output_1_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -516,12 +516,12 @@
         }
       },
       {
-        "semantic": "transportation-fleet-network-planning-stop-demand-forecast-active-output-2-bit",
+        "semantic": "transportation_fleet_network_planning_stop_demand_forecast_active_output_2_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/transportation-fleet-network-planning-stop-demand-forecast-active-output-2-bit",
-          "responseKey": "transportation-fleet-network-planning-stop-demand-forecast-active-output-2-bit",
+          "jsonPointer": "/transportation_fleet_network_planning_stop_demand_forecast_active_output_2_bit",
+          "responseKey": "transportation_fleet_network_planning_stop_demand_forecast_active_output_2_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -559,12 +559,12 @@
         }
       },
       {
-        "semantic": "transportation-fleet-network-planning-route-runtime-calibration-active-output-0-bit",
+        "semantic": "transportation_fleet_network_planning_route_runtime_calibration_active_output_0_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/transportation-fleet-network-planning-route-runtime-calibration-active-output-0-bit",
-          "responseKey": "transportation-fleet-network-planning-route-runtime-calibration-active-output-0-bit",
+          "jsonPointer": "/transportation_fleet_network_planning_route_runtime_calibration_active_output_0_bit",
+          "responseKey": "transportation_fleet_network_planning_route_runtime_calibration_active_output_0_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -602,12 +602,12 @@
         }
       },
       {
-        "semantic": "transportation-fleet-network-planning-route-runtime-calibration-active-output-1-bit",
+        "semantic": "transportation_fleet_network_planning_route_runtime_calibration_active_output_1_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/transportation-fleet-network-planning-route-runtime-calibration-active-output-1-bit",
-          "responseKey": "transportation-fleet-network-planning-route-runtime-calibration-active-output-1-bit",
+          "jsonPointer": "/transportation_fleet_network_planning_route_runtime_calibration_active_output_1_bit",
+          "responseKey": "transportation_fleet_network_planning_route_runtime_calibration_active_output_1_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -645,12 +645,12 @@
         }
       },
       {
-        "semantic": "transportation-fleet-network-planning-route-runtime-calibration-active-output-2-bit",
+        "semantic": "transportation_fleet_network_planning_route_runtime_calibration_active_output_2_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/transportation-fleet-network-planning-route-runtime-calibration-active-output-2-bit",
-          "responseKey": "transportation-fleet-network-planning-route-runtime-calibration-active-output-2-bit",
+          "jsonPointer": "/transportation_fleet_network_planning_route_runtime_calibration_active_output_2_bit",
+          "responseKey": "transportation_fleet_network_planning_route_runtime_calibration_active_output_2_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -688,12 +688,12 @@
         }
       },
       {
-        "semantic": "transportation-fleet-network-planning-stop-spacing-review-active-output-0-bit",
+        "semantic": "transportation_fleet_network_planning_stop_spacing_review_active_output_0_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/transportation-fleet-network-planning-stop-spacing-review-active-output-0-bit",
-          "responseKey": "transportation-fleet-network-planning-stop-spacing-review-active-output-0-bit",
+          "jsonPointer": "/transportation_fleet_network_planning_stop_spacing_review_active_output_0_bit",
+          "responseKey": "transportation_fleet_network_planning_stop_spacing_review_active_output_0_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -731,12 +731,12 @@
         }
       },
       {
-        "semantic": "transportation-fleet-network-planning-stop-spacing-review-active-output-1-bit",
+        "semantic": "transportation_fleet_network_planning_stop_spacing_review_active_output_1_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/transportation-fleet-network-planning-stop-spacing-review-active-output-1-bit",
-          "responseKey": "transportation-fleet-network-planning-stop-spacing-review-active-output-1-bit",
+          "jsonPointer": "/transportation_fleet_network_planning_stop_spacing_review_active_output_1_bit",
+          "responseKey": "transportation_fleet_network_planning_stop_spacing_review_active_output_1_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -774,12 +774,12 @@
         }
       },
       {
-        "semantic": "transportation-fleet-network-planning-stop-spacing-review-active-output-2-bit",
+        "semantic": "transportation_fleet_network_planning_stop_spacing_review_active_output_2_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/transportation-fleet-network-planning-stop-spacing-review-active-output-2-bit",
-          "responseKey": "transportation-fleet-network-planning-stop-spacing-review-active-output-2-bit",
+          "jsonPointer": "/transportation_fleet_network_planning_stop_spacing_review_active_output_2_bit",
+          "responseKey": "transportation_fleet_network_planning_stop_spacing_review_active_output_2_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -817,12 +817,12 @@
         }
       },
       {
-        "semantic": "transportation-fleet-network-planning-service-span-optimization-active-output-0-bit",
+        "semantic": "transportation_fleet_network_planning_service_span_optimization_active_output_0_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/transportation-fleet-network-planning-service-span-optimization-active-output-0-bit",
-          "responseKey": "transportation-fleet-network-planning-service-span-optimization-active-output-0-bit",
+          "jsonPointer": "/transportation_fleet_network_planning_service_span_optimization_active_output_0_bit",
+          "responseKey": "transportation_fleet_network_planning_service_span_optimization_active_output_0_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -860,12 +860,12 @@
         }
       },
       {
-        "semantic": "transportation-fleet-network-planning-service-span-optimization-active-output-1-bit",
+        "semantic": "transportation_fleet_network_planning_service_span_optimization_active_output_1_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/transportation-fleet-network-planning-service-span-optimization-active-output-1-bit",
-          "responseKey": "transportation-fleet-network-planning-service-span-optimization-active-output-1-bit",
+          "jsonPointer": "/transportation_fleet_network_planning_service_span_optimization_active_output_1_bit",
+          "responseKey": "transportation_fleet_network_planning_service_span_optimization_active_output_1_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -903,12 +903,12 @@
         }
       },
       {
-        "semantic": "transportation-fleet-network-planning-service-span-optimization-active-output-2-bit",
+        "semantic": "transportation_fleet_network_planning_service_span_optimization_active_output_2_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/transportation-fleet-network-planning-service-span-optimization-active-output-2-bit",
-          "responseKey": "transportation-fleet-network-planning-service-span-optimization-active-output-2-bit",
+          "jsonPointer": "/transportation_fleet_network_planning_service_span_optimization_active_output_2_bit",
+          "responseKey": "transportation_fleet_network_planning_service_span_optimization_active_output_2_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -946,12 +946,12 @@
         }
       },
       {
-        "semantic": "transportation-fleet-network-planning-frequency-optimization-active-output-0-bit",
+        "semantic": "transportation_fleet_network_planning_frequency_optimization_active_output_0_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/transportation-fleet-network-planning-frequency-optimization-active-output-0-bit",
-          "responseKey": "transportation-fleet-network-planning-frequency-optimization-active-output-0-bit",
+          "jsonPointer": "/transportation_fleet_network_planning_frequency_optimization_active_output_0_bit",
+          "responseKey": "transportation_fleet_network_planning_frequency_optimization_active_output_0_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -989,12 +989,12 @@
         }
       },
       {
-        "semantic": "transportation-fleet-network-planning-frequency-optimization-active-output-1-bit",
+        "semantic": "transportation_fleet_network_planning_frequency_optimization_active_output_1_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/transportation-fleet-network-planning-frequency-optimization-active-output-1-bit",
-          "responseKey": "transportation-fleet-network-planning-frequency-optimization-active-output-1-bit",
+          "jsonPointer": "/transportation_fleet_network_planning_frequency_optimization_active_output_1_bit",
+          "responseKey": "transportation_fleet_network_planning_frequency_optimization_active_output_1_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1032,12 +1032,12 @@
         }
       },
       {
-        "semantic": "transportation-fleet-network-planning-frequency-optimization-active-output-2-bit",
+        "semantic": "transportation_fleet_network_planning_frequency_optimization_active_output_2_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/transportation-fleet-network-planning-frequency-optimization-active-output-2-bit",
-          "responseKey": "transportation-fleet-network-planning-frequency-optimization-active-output-2-bit",
+          "jsonPointer": "/transportation_fleet_network_planning_frequency_optimization_active_output_2_bit",
+          "responseKey": "transportation_fleet_network_planning_frequency_optimization_active_output_2_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1075,12 +1075,12 @@
         }
       },
       {
-        "semantic": "transportation-fleet-network-planning-bus-priority-signal-monitor-active-output-0-bit",
+        "semantic": "transportation_fleet_network_planning_bus_priority_signal_monitor_active_output_0_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/transportation-fleet-network-planning-bus-priority-signal-monitor-active-output-0-bit",
-          "responseKey": "transportation-fleet-network-planning-bus-priority-signal-monitor-active-output-0-bit",
+          "jsonPointer": "/transportation_fleet_network_planning_bus_priority_signal_monitor_active_output_0_bit",
+          "responseKey": "transportation_fleet_network_planning_bus_priority_signal_monitor_active_output_0_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1118,12 +1118,12 @@
         }
       },
       {
-        "semantic": "transportation-fleet-network-planning-bus-priority-signal-monitor-active-output-1-bit",
+        "semantic": "transportation_fleet_network_planning_bus_priority_signal_monitor_active_output_1_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/transportation-fleet-network-planning-bus-priority-signal-monitor-active-output-1-bit",
-          "responseKey": "transportation-fleet-network-planning-bus-priority-signal-monitor-active-output-1-bit",
+          "jsonPointer": "/transportation_fleet_network_planning_bus_priority_signal_monitor_active_output_1_bit",
+          "responseKey": "transportation_fleet_network_planning_bus_priority_signal_monitor_active_output_1_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1161,12 +1161,12 @@
         }
       },
       {
-        "semantic": "transportation-fleet-network-planning-bus-priority-signal-monitor-active-output-2-bit",
+        "semantic": "transportation_fleet_network_planning_bus_priority_signal_monitor_active_output_2_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/transportation-fleet-network-planning-bus-priority-signal-monitor-active-output-2-bit",
-          "responseKey": "transportation-fleet-network-planning-bus-priority-signal-monitor-active-output-2-bit",
+          "jsonPointer": "/transportation_fleet_network_planning_bus_priority_signal_monitor_active_output_2_bit",
+          "responseKey": "transportation_fleet_network_planning_bus_priority_signal_monitor_active_output_2_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1204,12 +1204,12 @@
         }
       },
       {
-        "semantic": "transportation-fleet-network-planning-bus-lane-reliability-active-output-0-bit",
+        "semantic": "transportation_fleet_network_planning_bus_lane_reliability_active_output_0_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/transportation-fleet-network-planning-bus-lane-reliability-active-output-0-bit",
-          "responseKey": "transportation-fleet-network-planning-bus-lane-reliability-active-output-0-bit",
+          "jsonPointer": "/transportation_fleet_network_planning_bus_lane_reliability_active_output_0_bit",
+          "responseKey": "transportation_fleet_network_planning_bus_lane_reliability_active_output_0_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1247,12 +1247,12 @@
         }
       },
       {
-        "semantic": "transportation-fleet-network-planning-bus-lane-reliability-active-output-1-bit",
+        "semantic": "transportation_fleet_network_planning_bus_lane_reliability_active_output_1_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/transportation-fleet-network-planning-bus-lane-reliability-active-output-1-bit",
-          "responseKey": "transportation-fleet-network-planning-bus-lane-reliability-active-output-1-bit",
+          "jsonPointer": "/transportation_fleet_network_planning_bus_lane_reliability_active_output_1_bit",
+          "responseKey": "transportation_fleet_network_planning_bus_lane_reliability_active_output_1_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1290,12 +1290,12 @@
         }
       },
       {
-        "semantic": "transportation-fleet-network-planning-bus-lane-reliability-active-output-2-bit",
+        "semantic": "transportation_fleet_network_planning_bus_lane_reliability_active_output_2_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/transportation-fleet-network-planning-bus-lane-reliability-active-output-2-bit",
-          "responseKey": "transportation-fleet-network-planning-bus-lane-reliability-active-output-2-bit",
+          "jsonPointer": "/transportation_fleet_network_planning_bus_lane_reliability_active_output_2_bit",
+          "responseKey": "transportation_fleet_network_planning_bus_lane_reliability_active_output_2_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1333,12 +1333,12 @@
         }
       },
       {
-        "semantic": "transportation-fleet-network-planning-construction-impact-planner-active-output-0-bit",
+        "semantic": "transportation_fleet_network_planning_construction_impact_planner_active_output_0_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/transportation-fleet-network-planning-construction-impact-planner-active-output-0-bit",
-          "responseKey": "transportation-fleet-network-planning-construction-impact-planner-active-output-0-bit",
+          "jsonPointer": "/transportation_fleet_network_planning_construction_impact_planner_active_output_0_bit",
+          "responseKey": "transportation_fleet_network_planning_construction_impact_planner_active_output_0_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1376,12 +1376,12 @@
         }
       },
       {
-        "semantic": "transportation-fleet-network-planning-construction-impact-planner-active-output-1-bit",
+        "semantic": "transportation_fleet_network_planning_construction_impact_planner_active_output_1_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/transportation-fleet-network-planning-construction-impact-planner-active-output-1-bit",
-          "responseKey": "transportation-fleet-network-planning-construction-impact-planner-active-output-1-bit",
+          "jsonPointer": "/transportation_fleet_network_planning_construction_impact_planner_active_output_1_bit",
+          "responseKey": "transportation_fleet_network_planning_construction_impact_planner_active_output_1_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1419,12 +1419,12 @@
         }
       },
       {
-        "semantic": "transportation-fleet-network-planning-construction-impact-planner-active-output-2-bit",
+        "semantic": "transportation_fleet_network_planning_construction_impact_planner_active_output_2_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/transportation-fleet-network-planning-construction-impact-planner-active-output-2-bit",
-          "responseKey": "transportation-fleet-network-planning-construction-impact-planner-active-output-2-bit",
+          "jsonPointer": "/transportation_fleet_network_planning_construction_impact_planner_active_output_2_bit",
+          "responseKey": "transportation_fleet_network_planning_construction_impact_planner_active_output_2_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1462,12 +1462,12 @@
         }
       },
       {
-        "semantic": "transportation-fleet-network-planning-ridership-recovery-monitor-active-output-0-bit",
+        "semantic": "transportation_fleet_network_planning_ridership_recovery_monitor_active_output_0_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/transportation-fleet-network-planning-ridership-recovery-monitor-active-output-0-bit",
-          "responseKey": "transportation-fleet-network-planning-ridership-recovery-monitor-active-output-0-bit",
+          "jsonPointer": "/transportation_fleet_network_planning_ridership_recovery_monitor_active_output_0_bit",
+          "responseKey": "transportation_fleet_network_planning_ridership_recovery_monitor_active_output_0_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1505,12 +1505,12 @@
         }
       },
       {
-        "semantic": "transportation-fleet-network-planning-ridership-recovery-monitor-active-output-1-bit",
+        "semantic": "transportation_fleet_network_planning_ridership_recovery_monitor_active_output_1_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/transportation-fleet-network-planning-ridership-recovery-monitor-active-output-1-bit",
-          "responseKey": "transportation-fleet-network-planning-ridership-recovery-monitor-active-output-1-bit",
+          "jsonPointer": "/transportation_fleet_network_planning_ridership_recovery_monitor_active_output_1_bit",
+          "responseKey": "transportation_fleet_network_planning_ridership_recovery_monitor_active_output_1_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1548,12 +1548,12 @@
         }
       },
       {
-        "semantic": "transportation-fleet-network-planning-ridership-recovery-monitor-active-output-2-bit",
+        "semantic": "transportation_fleet_network_planning_ridership_recovery_monitor_active_output_2_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/transportation-fleet-network-planning-ridership-recovery-monitor-active-output-2-bit",
-          "responseKey": "transportation-fleet-network-planning-ridership-recovery-monitor-active-output-2-bit",
+          "jsonPointer": "/transportation_fleet_network_planning_ridership_recovery_monitor_active_output_2_bit",
+          "responseKey": "transportation_fleet_network_planning_ridership_recovery_monitor_active_output_2_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1591,12 +1591,12 @@
         }
       },
       {
-        "semantic": "transportation-fleet-network-planning-planning-executive-scenario-active-output-0-bit",
+        "semantic": "transportation_fleet_network_planning_planning_executive_scenario_active_output_0_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/transportation-fleet-network-planning-planning-executive-scenario-active-output-0-bit",
-          "responseKey": "transportation-fleet-network-planning-planning-executive-scenario-active-output-0-bit",
+          "jsonPointer": "/transportation_fleet_network_planning_planning_executive_scenario_active_output_0_bit",
+          "responseKey": "transportation_fleet_network_planning_planning_executive_scenario_active_output_0_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1634,12 +1634,12 @@
         }
       },
       {
-        "semantic": "transportation-fleet-network-planning-planning-executive-scenario-active-output-1-bit",
+        "semantic": "transportation_fleet_network_planning_planning_executive_scenario_active_output_1_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/transportation-fleet-network-planning-planning-executive-scenario-active-output-1-bit",
-          "responseKey": "transportation-fleet-network-planning-planning-executive-scenario-active-output-1-bit",
+          "jsonPointer": "/transportation_fleet_network_planning_planning_executive_scenario_active_output_1_bit",
+          "responseKey": "transportation_fleet_network_planning_planning_executive_scenario_active_output_1_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1677,12 +1677,12 @@
         }
       },
       {
-        "semantic": "transportation-fleet-network-planning-planning-executive-scenario-active-output-2-bit",
+        "semantic": "transportation_fleet_network_planning_planning_executive_scenario_active_output_2_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/transportation-fleet-network-planning-planning-executive-scenario-active-output-2-bit",
-          "responseKey": "transportation-fleet-network-planning-planning-executive-scenario-active-output-2-bit",
+          "jsonPointer": "/transportation_fleet_network_planning_planning_executive_scenario_active_output_2_bit",
+          "responseKey": "transportation_fleet_network_planning_planning_executive_scenario_active_output_2_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1724,7 +1724,7 @@
   "diagnostics": {
     "axisBasis": "inputSemantics",
     "warnings": [
-      "input axes derived from inputSemantics (no length-matched sensorNormalization)"
+      "input axes derived from inputSemantics; openClawProjection.semantics does not name these positions, so the agent's axis names are unverified"
     ],
     "inputLength": 30,
     "sequenceCount": 4

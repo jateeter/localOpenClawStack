@@ -34,12 +34,12 @@
   },
   "reasoning": {
     "objective": "Produce the normalized input vector for \"Energy Supply Chain Logistics Coordinator\" from current observations so RE can evaluate its CES sequences.",
-    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Energy Supply Chain Logistics Coordinator\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Manages spare parts, fuel or alternate energy supplies, field crews, mobile battery assets, mutual aid vendors, lead time, and work-order backlog.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- spare_inverter_parts_below_threshold_norm (index 0):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- battery_service_parts_below_threshold_norm (index 1):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- generator_fuel_or_alternate_energy_supply_constrained_norm (index 2):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- field_crew_unavailable_norm (index 3):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- ev_or_mobile_battery_asset_unavailable_norm (index 4):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- food_heating_or_cooking_fuel_support_constrained_norm (index 5):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- communications_repair_part_constrained_norm (index 6):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- mutual_aid_vendor_capacity_available_norm (index 7):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- procurement_lead_time_exceeds_resilience_window_norm (index 8):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- work_order_backlog_active_norm (index 9):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Supply Chain Logistics Coordinator (RED) -> action: route-review\n- Supply Chain Logistics Coordinator (AMBER) -> action: adjust-operations\n- Supply Chain Logistics Coordinator (AMBER) -> action: schedule-care-review\n- Supply Chain Logistics Coordinator (GREEN) -> action: continue-monitoring",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Energy Supply Chain Logistics Coordinator\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Manages spare parts, fuel or alternate energy supplies, field crews, mobile battery assets, mutual aid vendors, lead time, and work-order backlog.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- spare_inverter_parts_below_threshold (index 0):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- battery_service_parts_below_threshold (index 1):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- generator_fuel_or_alternate_energy_supply_constrained (index 2):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- field_crew_unavailable (index 3):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- ev_or_mobile_battery_asset_unavailable (index 4):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- food_heating_or_cooking_fuel_support_constrained (index 5):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- communications_repair_part_constrained (index 6):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- mutual_aid_vendor_capacity_available (index 7):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- procurement_lead_time_exceeds_resilience_window (index 8):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n- work_order_backlog_active (index 9):  0.0 = false/inactive | 0.5 =  | 1.0 = true/active after PE source normalization\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Supply Chain Logistics Coordinator (RED) -> action: route-review\n- Supply Chain Logistics Coordinator (AMBER) -> action: adjust-operations\n- Supply Chain Logistics Coordinator (AMBER) -> action: schedule-care-review\n- Supply Chain Logistics Coordinator (GREEN) -> action: continue-monitoring",
     "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
     "inputAxes": [
       {
         "index": 0,
-        "key": "spare_inverter_parts_below_threshold_norm",
+        "key": "spare_inverter_parts_below_threshold",
         "anchors": {
           "low": "false/inactive",
           "mid": "",
@@ -48,7 +48,7 @@
       },
       {
         "index": 1,
-        "key": "battery_service_parts_below_threshold_norm",
+        "key": "battery_service_parts_below_threshold",
         "anchors": {
           "low": "false/inactive",
           "mid": "",
@@ -57,7 +57,7 @@
       },
       {
         "index": 2,
-        "key": "generator_fuel_or_alternate_energy_supply_constrained_norm",
+        "key": "generator_fuel_or_alternate_energy_supply_constrained",
         "anchors": {
           "low": "false/inactive",
           "mid": "",
@@ -66,7 +66,7 @@
       },
       {
         "index": 3,
-        "key": "field_crew_unavailable_norm",
+        "key": "field_crew_unavailable",
         "anchors": {
           "low": "false/inactive",
           "mid": "",
@@ -75,7 +75,7 @@
       },
       {
         "index": 4,
-        "key": "ev_or_mobile_battery_asset_unavailable_norm",
+        "key": "ev_or_mobile_battery_asset_unavailable",
         "anchors": {
           "low": "false/inactive",
           "mid": "",
@@ -84,7 +84,7 @@
       },
       {
         "index": 5,
-        "key": "food_heating_or_cooking_fuel_support_constrained_norm",
+        "key": "food_heating_or_cooking_fuel_support_constrained",
         "anchors": {
           "low": "false/inactive",
           "mid": "",
@@ -93,7 +93,7 @@
       },
       {
         "index": 6,
-        "key": "communications_repair_part_constrained_norm",
+        "key": "communications_repair_part_constrained",
         "anchors": {
           "low": "false/inactive",
           "mid": "",
@@ -102,7 +102,7 @@
       },
       {
         "index": 7,
-        "key": "mutual_aid_vendor_capacity_available_norm",
+        "key": "mutual_aid_vendor_capacity_available",
         "anchors": {
           "low": "false/inactive",
           "mid": "",
@@ -111,7 +111,7 @@
       },
       {
         "index": 8,
-        "key": "procurement_lead_time_exceeds_resilience_window_norm",
+        "key": "procurement_lead_time_exceeds_resilience_window",
         "anchors": {
           "low": "false/inactive",
           "mid": "",
@@ -120,7 +120,7 @@
       },
       {
         "index": 9,
-        "key": "work_order_backlog_active_norm",
+        "key": "work_order_backlog_active",
         "anchors": {
           "low": "false/inactive",
           "mid": "",
@@ -176,16 +176,16 @@
         "length": 10
       },
       "semantics": [
-        "spare_inverter_parts_below_threshold_norm",
-        "battery_service_parts_below_threshold_norm",
-        "generator_fuel_or_alternate_energy_supply_constrained_norm",
-        "field_crew_unavailable_norm",
-        "ev_or_mobile_battery_asset_unavailable_norm",
-        "food_heating_or_cooking_fuel_support_constrained_norm",
-        "communications_repair_part_constrained_norm",
-        "mutual_aid_vendor_capacity_available_norm",
-        "procurement_lead_time_exceeds_resilience_window_norm",
-        "work_order_backlog_active_norm"
+        "spare_inverter_parts_below_threshold",
+        "battery_service_parts_below_threshold",
+        "generator_fuel_or_alternate_energy_supply_constrained",
+        "field_crew_unavailable",
+        "ev_or_mobile_battery_asset_unavailable",
+        "food_heating_or_cooking_fuel_support_constrained",
+        "communications_repair_part_constrained",
+        "mutual_aid_vendor_capacity_available",
+        "procurement_lead_time_exceeds_resilience_window",
+        "work_order_backlog_active"
       ],
       "ttlMs": 300000,
       "normalization": "already-normalized-0-1",
@@ -230,12 +230,12 @@
     "mode": "advise",
     "fields": [
       {
-        "semantic": "spare_inverter_parts_below_threshold_norm",
+        "semantic": "spare_inverter_parts_below_threshold",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/spare_inverter_parts_below_threshold_norm",
-          "responseKey": "spare_inverter_parts_below_threshold_norm",
+          "jsonPointer": "/spare_inverter_parts_below_threshold",
+          "responseKey": "spare_inverter_parts_below_threshold",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -273,12 +273,12 @@
         }
       },
       {
-        "semantic": "battery_service_parts_below_threshold_norm",
+        "semantic": "battery_service_parts_below_threshold",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/battery_service_parts_below_threshold_norm",
-          "responseKey": "battery_service_parts_below_threshold_norm",
+          "jsonPointer": "/battery_service_parts_below_threshold",
+          "responseKey": "battery_service_parts_below_threshold",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -316,12 +316,12 @@
         }
       },
       {
-        "semantic": "generator_fuel_or_alternate_energy_supply_constrained_norm",
+        "semantic": "generator_fuel_or_alternate_energy_supply_constrained",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/generator_fuel_or_alternate_energy_supply_constrained_norm",
-          "responseKey": "generator_fuel_or_alternate_energy_supply_constrained_norm",
+          "jsonPointer": "/generator_fuel_or_alternate_energy_supply_constrained",
+          "responseKey": "generator_fuel_or_alternate_energy_supply_constrained",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -359,12 +359,12 @@
         }
       },
       {
-        "semantic": "field_crew_unavailable_norm",
+        "semantic": "field_crew_unavailable",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/field_crew_unavailable_norm",
-          "responseKey": "field_crew_unavailable_norm",
+          "jsonPointer": "/field_crew_unavailable",
+          "responseKey": "field_crew_unavailable",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -402,12 +402,12 @@
         }
       },
       {
-        "semantic": "ev_or_mobile_battery_asset_unavailable_norm",
+        "semantic": "ev_or_mobile_battery_asset_unavailable",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/ev_or_mobile_battery_asset_unavailable_norm",
-          "responseKey": "ev_or_mobile_battery_asset_unavailable_norm",
+          "jsonPointer": "/ev_or_mobile_battery_asset_unavailable",
+          "responseKey": "ev_or_mobile_battery_asset_unavailable",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -445,12 +445,12 @@
         }
       },
       {
-        "semantic": "food_heating_or_cooking_fuel_support_constrained_norm",
+        "semantic": "food_heating_or_cooking_fuel_support_constrained",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/food_heating_or_cooking_fuel_support_constrained_norm",
-          "responseKey": "food_heating_or_cooking_fuel_support_constrained_norm",
+          "jsonPointer": "/food_heating_or_cooking_fuel_support_constrained",
+          "responseKey": "food_heating_or_cooking_fuel_support_constrained",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -488,12 +488,12 @@
         }
       },
       {
-        "semantic": "communications_repair_part_constrained_norm",
+        "semantic": "communications_repair_part_constrained",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/communications_repair_part_constrained_norm",
-          "responseKey": "communications_repair_part_constrained_norm",
+          "jsonPointer": "/communications_repair_part_constrained",
+          "responseKey": "communications_repair_part_constrained",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -531,12 +531,12 @@
         }
       },
       {
-        "semantic": "mutual_aid_vendor_capacity_available_norm",
+        "semantic": "mutual_aid_vendor_capacity_available",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/mutual_aid_vendor_capacity_available_norm",
-          "responseKey": "mutual_aid_vendor_capacity_available_norm",
+          "jsonPointer": "/mutual_aid_vendor_capacity_available",
+          "responseKey": "mutual_aid_vendor_capacity_available",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -574,12 +574,12 @@
         }
       },
       {
-        "semantic": "procurement_lead_time_exceeds_resilience_window_norm",
+        "semantic": "procurement_lead_time_exceeds_resilience_window",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/procurement_lead_time_exceeds_resilience_window_norm",
-          "responseKey": "procurement_lead_time_exceeds_resilience_window_norm",
+          "jsonPointer": "/procurement_lead_time_exceeds_resilience_window",
+          "responseKey": "procurement_lead_time_exceeds_resilience_window",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -617,12 +617,12 @@
         }
       },
       {
-        "semantic": "work_order_backlog_active_norm",
+        "semantic": "work_order_backlog_active",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/work_order_backlog_active_norm",
-          "responseKey": "work_order_backlog_active_norm",
+          "jsonPointer": "/work_order_backlog_active",
+          "responseKey": "work_order_backlog_active",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -662,7 +662,7 @@
     ]
   },
   "diagnostics": {
-    "axisBasis": "sensorNormalization",
+    "axisBasis": "openClawProjection",
     "warnings": [],
     "inputLength": 10,
     "sequenceCount": 4

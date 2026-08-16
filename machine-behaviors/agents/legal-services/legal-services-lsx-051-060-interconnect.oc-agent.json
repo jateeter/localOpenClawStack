@@ -34,12 +34,12 @@
   },
   "reasoning": {
     "objective": "Produce the normalized input vector for \"Legal Services LSX-051-060 Interconnect\" from current observations so RE can evaluate its CES sequences.",
-    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Legal Services LSX-051-060 Interconnect\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Published legal-services bridge bus that composes Legal Services LSX-051-060 into a compact domain family response lane. PE owns source composition and writes the compact input lane; RE evaluates this machine as ordinary vector state.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- legal-services-ai-assisted-legal-operations-disclosure-completeness-scorer-active-output-0-bit (index 0):\n- legal-services-ai-assisted-legal-operations-disclosure-completeness-scorer-active-output-1-bit (index 1):\n- legal-services-ai-assisted-legal-operations-disclosure-completeness-scorer-active-output-2-bit (index 2):\n- legal-services-ai-assisted-legal-operations-prior-art-search-agent-dispatcher-active-output-0-bit (index 3):\n- legal-services-ai-assisted-legal-operations-prior-art-search-agent-dispatcher-active-output-1-bit (index 4):\n- legal-services-ai-assisted-legal-operations-prior-art-search-agent-dispatcher-active-output-2-bit (index 5):\n- legal-services-ai-assisted-legal-operations-drafting-checklist-agent-active-output-0-bit (index 6):\n- legal-services-ai-assisted-legal-operations-drafting-checklist-agent-active-output-1-bit (index 7):\n- legal-services-ai-assisted-legal-operations-drafting-checklist-agent-active-output-2-bit (index 8):\n- legal-services-ai-assisted-legal-operations-risk-memo-synthesizer-active-output-0-bit (index 9):\n- legal-services-ai-assisted-legal-operations-risk-memo-synthesizer-active-output-1-bit (index 10):\n- legal-services-ai-assisted-legal-operations-risk-memo-synthesizer-active-output-2-bit (index 11):\n- legal-services-ai-assisted-legal-operations-deadline-projection-agent-active-output-0-bit (index 12):\n- legal-services-ai-assisted-legal-operations-deadline-projection-agent-active-output-1-bit (index 13):\n- legal-services-ai-assisted-legal-operations-deadline-projection-agent-active-output-2-bit (index 14):\n- legal-services-ai-assisted-legal-operations-client-intake-chat-guardrail-active-output-0-bit (index 15):\n- legal-services-ai-assisted-legal-operations-client-intake-chat-guardrail-active-output-1-bit (index 16):\n- legal-services-ai-assisted-legal-operations-client-intake-chat-guardrail-active-output-2-bit (index 17):\n- legal-services-ai-assisted-legal-operations-artifact-classification-agent-active-output-0-bit (index 18):\n- legal-services-ai-assisted-legal-operations-artifact-classification-agent-active-output-1-bit (index 19):\n- legal-services-ai-assisted-legal-operations-artifact-classification-agent-active-output-2-bit (index 20):\n- legal-services-ai-assisted-legal-operations-filing-portal-readiness-agent-active-output-0-bit (index 21):\n- legal-services-ai-assisted-legal-operations-filing-portal-readiness-agent-active-output-1-bit (index 22):\n- legal-services-ai-assisted-legal-operations-filing-portal-readiness-agent-active-output-2-bit (index 23):\n- legal-services-ai-assisted-legal-operations-office-action-triage-agent-active-output-0-bit (index 24):\n- legal-services-ai-assisted-legal-operations-office-action-triage-agent-active-output-1-bit (index 25):\n- legal-services-ai-assisted-legal-operations-office-action-triage-agent-active-output-2-bit (index 26):\n- legal-services-ai-assisted-legal-operations-portfolio-learning-loop-active-output-0-bit (index 27):\n- legal-services-ai-assisted-legal-operations-portfolio-learning-loop-active-output-1-bit (index 28):\n- legal-services-ai-assisted-legal-operations-portfolio-learning-loop-active-output-2-bit (index 29):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Legal Services LSX-051-060 domain family review at [15860 (RED) -> action: route-review\n- Legal Services LSX-051-060 domain family optimization at [15860 (AMBER) -> action: route-review\n- Legal Services LSX-051-060 domain family monitoring at [15860 (AMBER) -> action: route-review\n- Legal Services LSX-051-060 domain family stable at [15860 (GREEN) -> action: continue-monitoring",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Legal Services LSX-051-060 Interconnect\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Published legal-services bridge bus that composes Legal Services LSX-051-060 into a compact domain family response lane. PE owns source composition and writes the compact input lane; RE evaluates this machine as ordinary vector state.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- legal_services_ai_assisted_legal_operations_disclosure_completeness_scorer_active_output_0_bit (index 0):\n- legal_services_ai_assisted_legal_operations_disclosure_completeness_scorer_active_output_1_bit (index 1):\n- legal_services_ai_assisted_legal_operations_disclosure_completeness_scorer_active_output_2_bit (index 2):\n- legal_services_ai_assisted_legal_operations_prior_art_search_agent_dispatcher_active_output_0_bit (index 3):\n- legal_services_ai_assisted_legal_operations_prior_art_search_agent_dispatcher_active_output_1_bit (index 4):\n- legal_services_ai_assisted_legal_operations_prior_art_search_agent_dispatcher_active_output_2_bit (index 5):\n- legal_services_ai_assisted_legal_operations_drafting_checklist_agent_active_output_0_bit (index 6):\n- legal_services_ai_assisted_legal_operations_drafting_checklist_agent_active_output_1_bit (index 7):\n- legal_services_ai_assisted_legal_operations_drafting_checklist_agent_active_output_2_bit (index 8):\n- legal_services_ai_assisted_legal_operations_risk_memo_synthesizer_active_output_0_bit (index 9):\n- legal_services_ai_assisted_legal_operations_risk_memo_synthesizer_active_output_1_bit (index 10):\n- legal_services_ai_assisted_legal_operations_risk_memo_synthesizer_active_output_2_bit (index 11):\n- legal_services_ai_assisted_legal_operations_deadline_projection_agent_active_output_0_bit (index 12):\n- legal_services_ai_assisted_legal_operations_deadline_projection_agent_active_output_1_bit (index 13):\n- legal_services_ai_assisted_legal_operations_deadline_projection_agent_active_output_2_bit (index 14):\n- legal_services_ai_assisted_legal_operations_client_intake_chat_guardrail_active_output_0_bit (index 15):\n- legal_services_ai_assisted_legal_operations_client_intake_chat_guardrail_active_output_1_bit (index 16):\n- legal_services_ai_assisted_legal_operations_client_intake_chat_guardrail_active_output_2_bit (index 17):\n- legal_services_ai_assisted_legal_operations_artifact_classification_agent_active_output_0_bit (index 18):\n- legal_services_ai_assisted_legal_operations_artifact_classification_agent_active_output_1_bit (index 19):\n- legal_services_ai_assisted_legal_operations_artifact_classification_agent_active_output_2_bit (index 20):\n- legal_services_ai_assisted_legal_operations_filing_portal_readiness_agent_active_output_0_bit (index 21):\n- legal_services_ai_assisted_legal_operations_filing_portal_readiness_agent_active_output_1_bit (index 22):\n- legal_services_ai_assisted_legal_operations_filing_portal_readiness_agent_active_output_2_bit (index 23):\n- legal_services_ai_assisted_legal_operations_office_action_triage_agent_active_output_0_bit (index 24):\n- legal_services_ai_assisted_legal_operations_office_action_triage_agent_active_output_1_bit (index 25):\n- legal_services_ai_assisted_legal_operations_office_action_triage_agent_active_output_2_bit (index 26):\n- legal_services_ai_assisted_legal_operations_portfolio_learning_loop_active_output_0_bit (index 27):\n- legal_services_ai_assisted_legal_operations_portfolio_learning_loop_active_output_1_bit (index 28):\n- legal_services_ai_assisted_legal_operations_portfolio_learning_loop_active_output_2_bit (index 29):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Legal Services LSX-051-060 domain family review at [15860 (RED) -> action: route-review\n- Legal Services LSX-051-060 domain family optimization at [15860 (AMBER) -> action: route-review\n- Legal Services LSX-051-060 domain family monitoring at [15860 (AMBER) -> action: route-review\n- Legal Services LSX-051-060 domain family stable at [15860 (GREEN) -> action: continue-monitoring",
     "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
     "inputAxes": [
       {
         "index": 0,
-        "key": "legal-services-ai-assisted-legal-operations-disclosure-completeness-scorer-active-output-0-bit",
+        "key": "legal_services_ai_assisted_legal_operations_disclosure_completeness_scorer_active_output_0_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -48,7 +48,7 @@
       },
       {
         "index": 1,
-        "key": "legal-services-ai-assisted-legal-operations-disclosure-completeness-scorer-active-output-1-bit",
+        "key": "legal_services_ai_assisted_legal_operations_disclosure_completeness_scorer_active_output_1_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -57,7 +57,7 @@
       },
       {
         "index": 2,
-        "key": "legal-services-ai-assisted-legal-operations-disclosure-completeness-scorer-active-output-2-bit",
+        "key": "legal_services_ai_assisted_legal_operations_disclosure_completeness_scorer_active_output_2_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -66,7 +66,7 @@
       },
       {
         "index": 3,
-        "key": "legal-services-ai-assisted-legal-operations-prior-art-search-agent-dispatcher-active-output-0-bit",
+        "key": "legal_services_ai_assisted_legal_operations_prior_art_search_agent_dispatcher_active_output_0_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -75,7 +75,7 @@
       },
       {
         "index": 4,
-        "key": "legal-services-ai-assisted-legal-operations-prior-art-search-agent-dispatcher-active-output-1-bit",
+        "key": "legal_services_ai_assisted_legal_operations_prior_art_search_agent_dispatcher_active_output_1_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -84,7 +84,7 @@
       },
       {
         "index": 5,
-        "key": "legal-services-ai-assisted-legal-operations-prior-art-search-agent-dispatcher-active-output-2-bit",
+        "key": "legal_services_ai_assisted_legal_operations_prior_art_search_agent_dispatcher_active_output_2_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -93,7 +93,7 @@
       },
       {
         "index": 6,
-        "key": "legal-services-ai-assisted-legal-operations-drafting-checklist-agent-active-output-0-bit",
+        "key": "legal_services_ai_assisted_legal_operations_drafting_checklist_agent_active_output_0_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -102,7 +102,7 @@
       },
       {
         "index": 7,
-        "key": "legal-services-ai-assisted-legal-operations-drafting-checklist-agent-active-output-1-bit",
+        "key": "legal_services_ai_assisted_legal_operations_drafting_checklist_agent_active_output_1_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -111,7 +111,7 @@
       },
       {
         "index": 8,
-        "key": "legal-services-ai-assisted-legal-operations-drafting-checklist-agent-active-output-2-bit",
+        "key": "legal_services_ai_assisted_legal_operations_drafting_checklist_agent_active_output_2_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -120,7 +120,7 @@
       },
       {
         "index": 9,
-        "key": "legal-services-ai-assisted-legal-operations-risk-memo-synthesizer-active-output-0-bit",
+        "key": "legal_services_ai_assisted_legal_operations_risk_memo_synthesizer_active_output_0_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -129,7 +129,7 @@
       },
       {
         "index": 10,
-        "key": "legal-services-ai-assisted-legal-operations-risk-memo-synthesizer-active-output-1-bit",
+        "key": "legal_services_ai_assisted_legal_operations_risk_memo_synthesizer_active_output_1_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -138,7 +138,7 @@
       },
       {
         "index": 11,
-        "key": "legal-services-ai-assisted-legal-operations-risk-memo-synthesizer-active-output-2-bit",
+        "key": "legal_services_ai_assisted_legal_operations_risk_memo_synthesizer_active_output_2_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -147,7 +147,7 @@
       },
       {
         "index": 12,
-        "key": "legal-services-ai-assisted-legal-operations-deadline-projection-agent-active-output-0-bit",
+        "key": "legal_services_ai_assisted_legal_operations_deadline_projection_agent_active_output_0_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -156,7 +156,7 @@
       },
       {
         "index": 13,
-        "key": "legal-services-ai-assisted-legal-operations-deadline-projection-agent-active-output-1-bit",
+        "key": "legal_services_ai_assisted_legal_operations_deadline_projection_agent_active_output_1_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -165,7 +165,7 @@
       },
       {
         "index": 14,
-        "key": "legal-services-ai-assisted-legal-operations-deadline-projection-agent-active-output-2-bit",
+        "key": "legal_services_ai_assisted_legal_operations_deadline_projection_agent_active_output_2_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -174,7 +174,7 @@
       },
       {
         "index": 15,
-        "key": "legal-services-ai-assisted-legal-operations-client-intake-chat-guardrail-active-output-0-bit",
+        "key": "legal_services_ai_assisted_legal_operations_client_intake_chat_guardrail_active_output_0_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -183,7 +183,7 @@
       },
       {
         "index": 16,
-        "key": "legal-services-ai-assisted-legal-operations-client-intake-chat-guardrail-active-output-1-bit",
+        "key": "legal_services_ai_assisted_legal_operations_client_intake_chat_guardrail_active_output_1_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -192,7 +192,7 @@
       },
       {
         "index": 17,
-        "key": "legal-services-ai-assisted-legal-operations-client-intake-chat-guardrail-active-output-2-bit",
+        "key": "legal_services_ai_assisted_legal_operations_client_intake_chat_guardrail_active_output_2_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -201,7 +201,7 @@
       },
       {
         "index": 18,
-        "key": "legal-services-ai-assisted-legal-operations-artifact-classification-agent-active-output-0-bit",
+        "key": "legal_services_ai_assisted_legal_operations_artifact_classification_agent_active_output_0_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -210,7 +210,7 @@
       },
       {
         "index": 19,
-        "key": "legal-services-ai-assisted-legal-operations-artifact-classification-agent-active-output-1-bit",
+        "key": "legal_services_ai_assisted_legal_operations_artifact_classification_agent_active_output_1_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -219,7 +219,7 @@
       },
       {
         "index": 20,
-        "key": "legal-services-ai-assisted-legal-operations-artifact-classification-agent-active-output-2-bit",
+        "key": "legal_services_ai_assisted_legal_operations_artifact_classification_agent_active_output_2_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -228,7 +228,7 @@
       },
       {
         "index": 21,
-        "key": "legal-services-ai-assisted-legal-operations-filing-portal-readiness-agent-active-output-0-bit",
+        "key": "legal_services_ai_assisted_legal_operations_filing_portal_readiness_agent_active_output_0_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -237,7 +237,7 @@
       },
       {
         "index": 22,
-        "key": "legal-services-ai-assisted-legal-operations-filing-portal-readiness-agent-active-output-1-bit",
+        "key": "legal_services_ai_assisted_legal_operations_filing_portal_readiness_agent_active_output_1_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -246,7 +246,7 @@
       },
       {
         "index": 23,
-        "key": "legal-services-ai-assisted-legal-operations-filing-portal-readiness-agent-active-output-2-bit",
+        "key": "legal_services_ai_assisted_legal_operations_filing_portal_readiness_agent_active_output_2_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -255,7 +255,7 @@
       },
       {
         "index": 24,
-        "key": "legal-services-ai-assisted-legal-operations-office-action-triage-agent-active-output-0-bit",
+        "key": "legal_services_ai_assisted_legal_operations_office_action_triage_agent_active_output_0_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -264,7 +264,7 @@
       },
       {
         "index": 25,
-        "key": "legal-services-ai-assisted-legal-operations-office-action-triage-agent-active-output-1-bit",
+        "key": "legal_services_ai_assisted_legal_operations_office_action_triage_agent_active_output_1_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -273,7 +273,7 @@
       },
       {
         "index": 26,
-        "key": "legal-services-ai-assisted-legal-operations-office-action-triage-agent-active-output-2-bit",
+        "key": "legal_services_ai_assisted_legal_operations_office_action_triage_agent_active_output_2_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -282,7 +282,7 @@
       },
       {
         "index": 27,
-        "key": "legal-services-ai-assisted-legal-operations-portfolio-learning-loop-active-output-0-bit",
+        "key": "legal_services_ai_assisted_legal_operations_portfolio_learning_loop_active_output_0_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -291,7 +291,7 @@
       },
       {
         "index": 28,
-        "key": "legal-services-ai-assisted-legal-operations-portfolio-learning-loop-active-output-1-bit",
+        "key": "legal_services_ai_assisted_legal_operations_portfolio_learning_loop_active_output_1_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -300,7 +300,7 @@
       },
       {
         "index": 29,
-        "key": "legal-services-ai-assisted-legal-operations-portfolio-learning-loop-active-output-2-bit",
+        "key": "legal_services_ai_assisted_legal_operations_portfolio_learning_loop_active_output_2_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -356,36 +356,36 @@
         "length": 30
       },
       "semantics": [
-        "legal-services-ai-assisted-legal-operations-disclosure-completeness-scorer-active-output-0-bit",
-        "legal-services-ai-assisted-legal-operations-disclosure-completeness-scorer-active-output-1-bit",
-        "legal-services-ai-assisted-legal-operations-disclosure-completeness-scorer-active-output-2-bit",
-        "legal-services-ai-assisted-legal-operations-prior-art-search-agent-dispatcher-active-output-0-bit",
-        "legal-services-ai-assisted-legal-operations-prior-art-search-agent-dispatcher-active-output-1-bit",
-        "legal-services-ai-assisted-legal-operations-prior-art-search-agent-dispatcher-active-output-2-bit",
-        "legal-services-ai-assisted-legal-operations-drafting-checklist-agent-active-output-0-bit",
-        "legal-services-ai-assisted-legal-operations-drafting-checklist-agent-active-output-1-bit",
-        "legal-services-ai-assisted-legal-operations-drafting-checklist-agent-active-output-2-bit",
-        "legal-services-ai-assisted-legal-operations-risk-memo-synthesizer-active-output-0-bit",
-        "legal-services-ai-assisted-legal-operations-risk-memo-synthesizer-active-output-1-bit",
-        "legal-services-ai-assisted-legal-operations-risk-memo-synthesizer-active-output-2-bit",
-        "legal-services-ai-assisted-legal-operations-deadline-projection-agent-active-output-0-bit",
-        "legal-services-ai-assisted-legal-operations-deadline-projection-agent-active-output-1-bit",
-        "legal-services-ai-assisted-legal-operations-deadline-projection-agent-active-output-2-bit",
-        "legal-services-ai-assisted-legal-operations-client-intake-chat-guardrail-active-output-0-bit",
-        "legal-services-ai-assisted-legal-operations-client-intake-chat-guardrail-active-output-1-bit",
-        "legal-services-ai-assisted-legal-operations-client-intake-chat-guardrail-active-output-2-bit",
-        "legal-services-ai-assisted-legal-operations-artifact-classification-agent-active-output-0-bit",
-        "legal-services-ai-assisted-legal-operations-artifact-classification-agent-active-output-1-bit",
-        "legal-services-ai-assisted-legal-operations-artifact-classification-agent-active-output-2-bit",
-        "legal-services-ai-assisted-legal-operations-filing-portal-readiness-agent-active-output-0-bit",
-        "legal-services-ai-assisted-legal-operations-filing-portal-readiness-agent-active-output-1-bit",
-        "legal-services-ai-assisted-legal-operations-filing-portal-readiness-agent-active-output-2-bit",
-        "legal-services-ai-assisted-legal-operations-office-action-triage-agent-active-output-0-bit",
-        "legal-services-ai-assisted-legal-operations-office-action-triage-agent-active-output-1-bit",
-        "legal-services-ai-assisted-legal-operations-office-action-triage-agent-active-output-2-bit",
-        "legal-services-ai-assisted-legal-operations-portfolio-learning-loop-active-output-0-bit",
-        "legal-services-ai-assisted-legal-operations-portfolio-learning-loop-active-output-1-bit",
-        "legal-services-ai-assisted-legal-operations-portfolio-learning-loop-active-output-2-bit"
+        "legal_services_ai_assisted_legal_operations_disclosure_completeness_scorer_active_output_0_bit",
+        "legal_services_ai_assisted_legal_operations_disclosure_completeness_scorer_active_output_1_bit",
+        "legal_services_ai_assisted_legal_operations_disclosure_completeness_scorer_active_output_2_bit",
+        "legal_services_ai_assisted_legal_operations_prior_art_search_agent_dispatcher_active_output_0_bit",
+        "legal_services_ai_assisted_legal_operations_prior_art_search_agent_dispatcher_active_output_1_bit",
+        "legal_services_ai_assisted_legal_operations_prior_art_search_agent_dispatcher_active_output_2_bit",
+        "legal_services_ai_assisted_legal_operations_drafting_checklist_agent_active_output_0_bit",
+        "legal_services_ai_assisted_legal_operations_drafting_checklist_agent_active_output_1_bit",
+        "legal_services_ai_assisted_legal_operations_drafting_checklist_agent_active_output_2_bit",
+        "legal_services_ai_assisted_legal_operations_risk_memo_synthesizer_active_output_0_bit",
+        "legal_services_ai_assisted_legal_operations_risk_memo_synthesizer_active_output_1_bit",
+        "legal_services_ai_assisted_legal_operations_risk_memo_synthesizer_active_output_2_bit",
+        "legal_services_ai_assisted_legal_operations_deadline_projection_agent_active_output_0_bit",
+        "legal_services_ai_assisted_legal_operations_deadline_projection_agent_active_output_1_bit",
+        "legal_services_ai_assisted_legal_operations_deadline_projection_agent_active_output_2_bit",
+        "legal_services_ai_assisted_legal_operations_client_intake_chat_guardrail_active_output_0_bit",
+        "legal_services_ai_assisted_legal_operations_client_intake_chat_guardrail_active_output_1_bit",
+        "legal_services_ai_assisted_legal_operations_client_intake_chat_guardrail_active_output_2_bit",
+        "legal_services_ai_assisted_legal_operations_artifact_classification_agent_active_output_0_bit",
+        "legal_services_ai_assisted_legal_operations_artifact_classification_agent_active_output_1_bit",
+        "legal_services_ai_assisted_legal_operations_artifact_classification_agent_active_output_2_bit",
+        "legal_services_ai_assisted_legal_operations_filing_portal_readiness_agent_active_output_0_bit",
+        "legal_services_ai_assisted_legal_operations_filing_portal_readiness_agent_active_output_1_bit",
+        "legal_services_ai_assisted_legal_operations_filing_portal_readiness_agent_active_output_2_bit",
+        "legal_services_ai_assisted_legal_operations_office_action_triage_agent_active_output_0_bit",
+        "legal_services_ai_assisted_legal_operations_office_action_triage_agent_active_output_1_bit",
+        "legal_services_ai_assisted_legal_operations_office_action_triage_agent_active_output_2_bit",
+        "legal_services_ai_assisted_legal_operations_portfolio_learning_loop_active_output_0_bit",
+        "legal_services_ai_assisted_legal_operations_portfolio_learning_loop_active_output_1_bit",
+        "legal_services_ai_assisted_legal_operations_portfolio_learning_loop_active_output_2_bit"
       ],
       "ttlMs": 300000,
       "normalization": "already-normalized-0-1",
@@ -430,12 +430,12 @@
     "mode": "advise",
     "fields": [
       {
-        "semantic": "legal-services-ai-assisted-legal-operations-disclosure-completeness-scorer-active-output-0-bit",
+        "semantic": "legal_services_ai_assisted_legal_operations_disclosure_completeness_scorer_active_output_0_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/legal-services-ai-assisted-legal-operations-disclosure-completeness-scorer-active-output-0-bit",
-          "responseKey": "legal-services-ai-assisted-legal-operations-disclosure-completeness-scorer-active-output-0-bit",
+          "jsonPointer": "/legal_services_ai_assisted_legal_operations_disclosure_completeness_scorer_active_output_0_bit",
+          "responseKey": "legal_services_ai_assisted_legal_operations_disclosure_completeness_scorer_active_output_0_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -473,12 +473,12 @@
         }
       },
       {
-        "semantic": "legal-services-ai-assisted-legal-operations-disclosure-completeness-scorer-active-output-1-bit",
+        "semantic": "legal_services_ai_assisted_legal_operations_disclosure_completeness_scorer_active_output_1_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/legal-services-ai-assisted-legal-operations-disclosure-completeness-scorer-active-output-1-bit",
-          "responseKey": "legal-services-ai-assisted-legal-operations-disclosure-completeness-scorer-active-output-1-bit",
+          "jsonPointer": "/legal_services_ai_assisted_legal_operations_disclosure_completeness_scorer_active_output_1_bit",
+          "responseKey": "legal_services_ai_assisted_legal_operations_disclosure_completeness_scorer_active_output_1_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -516,12 +516,12 @@
         }
       },
       {
-        "semantic": "legal-services-ai-assisted-legal-operations-disclosure-completeness-scorer-active-output-2-bit",
+        "semantic": "legal_services_ai_assisted_legal_operations_disclosure_completeness_scorer_active_output_2_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/legal-services-ai-assisted-legal-operations-disclosure-completeness-scorer-active-output-2-bit",
-          "responseKey": "legal-services-ai-assisted-legal-operations-disclosure-completeness-scorer-active-output-2-bit",
+          "jsonPointer": "/legal_services_ai_assisted_legal_operations_disclosure_completeness_scorer_active_output_2_bit",
+          "responseKey": "legal_services_ai_assisted_legal_operations_disclosure_completeness_scorer_active_output_2_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -559,12 +559,12 @@
         }
       },
       {
-        "semantic": "legal-services-ai-assisted-legal-operations-prior-art-search-agent-dispatcher-active-output-0-bit",
+        "semantic": "legal_services_ai_assisted_legal_operations_prior_art_search_agent_dispatcher_active_output_0_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/legal-services-ai-assisted-legal-operations-prior-art-search-agent-dispatcher-active-output-0-bit",
-          "responseKey": "legal-services-ai-assisted-legal-operations-prior-art-search-agent-dispatcher-active-output-0-bit",
+          "jsonPointer": "/legal_services_ai_assisted_legal_operations_prior_art_search_agent_dispatcher_active_output_0_bit",
+          "responseKey": "legal_services_ai_assisted_legal_operations_prior_art_search_agent_dispatcher_active_output_0_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -602,12 +602,12 @@
         }
       },
       {
-        "semantic": "legal-services-ai-assisted-legal-operations-prior-art-search-agent-dispatcher-active-output-1-bit",
+        "semantic": "legal_services_ai_assisted_legal_operations_prior_art_search_agent_dispatcher_active_output_1_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/legal-services-ai-assisted-legal-operations-prior-art-search-agent-dispatcher-active-output-1-bit",
-          "responseKey": "legal-services-ai-assisted-legal-operations-prior-art-search-agent-dispatcher-active-output-1-bit",
+          "jsonPointer": "/legal_services_ai_assisted_legal_operations_prior_art_search_agent_dispatcher_active_output_1_bit",
+          "responseKey": "legal_services_ai_assisted_legal_operations_prior_art_search_agent_dispatcher_active_output_1_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -645,12 +645,12 @@
         }
       },
       {
-        "semantic": "legal-services-ai-assisted-legal-operations-prior-art-search-agent-dispatcher-active-output-2-bit",
+        "semantic": "legal_services_ai_assisted_legal_operations_prior_art_search_agent_dispatcher_active_output_2_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/legal-services-ai-assisted-legal-operations-prior-art-search-agent-dispatcher-active-output-2-bit",
-          "responseKey": "legal-services-ai-assisted-legal-operations-prior-art-search-agent-dispatcher-active-output-2-bit",
+          "jsonPointer": "/legal_services_ai_assisted_legal_operations_prior_art_search_agent_dispatcher_active_output_2_bit",
+          "responseKey": "legal_services_ai_assisted_legal_operations_prior_art_search_agent_dispatcher_active_output_2_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -688,12 +688,12 @@
         }
       },
       {
-        "semantic": "legal-services-ai-assisted-legal-operations-drafting-checklist-agent-active-output-0-bit",
+        "semantic": "legal_services_ai_assisted_legal_operations_drafting_checklist_agent_active_output_0_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/legal-services-ai-assisted-legal-operations-drafting-checklist-agent-active-output-0-bit",
-          "responseKey": "legal-services-ai-assisted-legal-operations-drafting-checklist-agent-active-output-0-bit",
+          "jsonPointer": "/legal_services_ai_assisted_legal_operations_drafting_checklist_agent_active_output_0_bit",
+          "responseKey": "legal_services_ai_assisted_legal_operations_drafting_checklist_agent_active_output_0_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -731,12 +731,12 @@
         }
       },
       {
-        "semantic": "legal-services-ai-assisted-legal-operations-drafting-checklist-agent-active-output-1-bit",
+        "semantic": "legal_services_ai_assisted_legal_operations_drafting_checklist_agent_active_output_1_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/legal-services-ai-assisted-legal-operations-drafting-checklist-agent-active-output-1-bit",
-          "responseKey": "legal-services-ai-assisted-legal-operations-drafting-checklist-agent-active-output-1-bit",
+          "jsonPointer": "/legal_services_ai_assisted_legal_operations_drafting_checklist_agent_active_output_1_bit",
+          "responseKey": "legal_services_ai_assisted_legal_operations_drafting_checklist_agent_active_output_1_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -774,12 +774,12 @@
         }
       },
       {
-        "semantic": "legal-services-ai-assisted-legal-operations-drafting-checklist-agent-active-output-2-bit",
+        "semantic": "legal_services_ai_assisted_legal_operations_drafting_checklist_agent_active_output_2_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/legal-services-ai-assisted-legal-operations-drafting-checklist-agent-active-output-2-bit",
-          "responseKey": "legal-services-ai-assisted-legal-operations-drafting-checklist-agent-active-output-2-bit",
+          "jsonPointer": "/legal_services_ai_assisted_legal_operations_drafting_checklist_agent_active_output_2_bit",
+          "responseKey": "legal_services_ai_assisted_legal_operations_drafting_checklist_agent_active_output_2_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -817,12 +817,12 @@
         }
       },
       {
-        "semantic": "legal-services-ai-assisted-legal-operations-risk-memo-synthesizer-active-output-0-bit",
+        "semantic": "legal_services_ai_assisted_legal_operations_risk_memo_synthesizer_active_output_0_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/legal-services-ai-assisted-legal-operations-risk-memo-synthesizer-active-output-0-bit",
-          "responseKey": "legal-services-ai-assisted-legal-operations-risk-memo-synthesizer-active-output-0-bit",
+          "jsonPointer": "/legal_services_ai_assisted_legal_operations_risk_memo_synthesizer_active_output_0_bit",
+          "responseKey": "legal_services_ai_assisted_legal_operations_risk_memo_synthesizer_active_output_0_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -860,12 +860,12 @@
         }
       },
       {
-        "semantic": "legal-services-ai-assisted-legal-operations-risk-memo-synthesizer-active-output-1-bit",
+        "semantic": "legal_services_ai_assisted_legal_operations_risk_memo_synthesizer_active_output_1_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/legal-services-ai-assisted-legal-operations-risk-memo-synthesizer-active-output-1-bit",
-          "responseKey": "legal-services-ai-assisted-legal-operations-risk-memo-synthesizer-active-output-1-bit",
+          "jsonPointer": "/legal_services_ai_assisted_legal_operations_risk_memo_synthesizer_active_output_1_bit",
+          "responseKey": "legal_services_ai_assisted_legal_operations_risk_memo_synthesizer_active_output_1_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -903,12 +903,12 @@
         }
       },
       {
-        "semantic": "legal-services-ai-assisted-legal-operations-risk-memo-synthesizer-active-output-2-bit",
+        "semantic": "legal_services_ai_assisted_legal_operations_risk_memo_synthesizer_active_output_2_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/legal-services-ai-assisted-legal-operations-risk-memo-synthesizer-active-output-2-bit",
-          "responseKey": "legal-services-ai-assisted-legal-operations-risk-memo-synthesizer-active-output-2-bit",
+          "jsonPointer": "/legal_services_ai_assisted_legal_operations_risk_memo_synthesizer_active_output_2_bit",
+          "responseKey": "legal_services_ai_assisted_legal_operations_risk_memo_synthesizer_active_output_2_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -946,12 +946,12 @@
         }
       },
       {
-        "semantic": "legal-services-ai-assisted-legal-operations-deadline-projection-agent-active-output-0-bit",
+        "semantic": "legal_services_ai_assisted_legal_operations_deadline_projection_agent_active_output_0_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/legal-services-ai-assisted-legal-operations-deadline-projection-agent-active-output-0-bit",
-          "responseKey": "legal-services-ai-assisted-legal-operations-deadline-projection-agent-active-output-0-bit",
+          "jsonPointer": "/legal_services_ai_assisted_legal_operations_deadline_projection_agent_active_output_0_bit",
+          "responseKey": "legal_services_ai_assisted_legal_operations_deadline_projection_agent_active_output_0_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -989,12 +989,12 @@
         }
       },
       {
-        "semantic": "legal-services-ai-assisted-legal-operations-deadline-projection-agent-active-output-1-bit",
+        "semantic": "legal_services_ai_assisted_legal_operations_deadline_projection_agent_active_output_1_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/legal-services-ai-assisted-legal-operations-deadline-projection-agent-active-output-1-bit",
-          "responseKey": "legal-services-ai-assisted-legal-operations-deadline-projection-agent-active-output-1-bit",
+          "jsonPointer": "/legal_services_ai_assisted_legal_operations_deadline_projection_agent_active_output_1_bit",
+          "responseKey": "legal_services_ai_assisted_legal_operations_deadline_projection_agent_active_output_1_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1032,12 +1032,12 @@
         }
       },
       {
-        "semantic": "legal-services-ai-assisted-legal-operations-deadline-projection-agent-active-output-2-bit",
+        "semantic": "legal_services_ai_assisted_legal_operations_deadline_projection_agent_active_output_2_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/legal-services-ai-assisted-legal-operations-deadline-projection-agent-active-output-2-bit",
-          "responseKey": "legal-services-ai-assisted-legal-operations-deadline-projection-agent-active-output-2-bit",
+          "jsonPointer": "/legal_services_ai_assisted_legal_operations_deadline_projection_agent_active_output_2_bit",
+          "responseKey": "legal_services_ai_assisted_legal_operations_deadline_projection_agent_active_output_2_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1075,12 +1075,12 @@
         }
       },
       {
-        "semantic": "legal-services-ai-assisted-legal-operations-client-intake-chat-guardrail-active-output-0-bit",
+        "semantic": "legal_services_ai_assisted_legal_operations_client_intake_chat_guardrail_active_output_0_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/legal-services-ai-assisted-legal-operations-client-intake-chat-guardrail-active-output-0-bit",
-          "responseKey": "legal-services-ai-assisted-legal-operations-client-intake-chat-guardrail-active-output-0-bit",
+          "jsonPointer": "/legal_services_ai_assisted_legal_operations_client_intake_chat_guardrail_active_output_0_bit",
+          "responseKey": "legal_services_ai_assisted_legal_operations_client_intake_chat_guardrail_active_output_0_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1118,12 +1118,12 @@
         }
       },
       {
-        "semantic": "legal-services-ai-assisted-legal-operations-client-intake-chat-guardrail-active-output-1-bit",
+        "semantic": "legal_services_ai_assisted_legal_operations_client_intake_chat_guardrail_active_output_1_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/legal-services-ai-assisted-legal-operations-client-intake-chat-guardrail-active-output-1-bit",
-          "responseKey": "legal-services-ai-assisted-legal-operations-client-intake-chat-guardrail-active-output-1-bit",
+          "jsonPointer": "/legal_services_ai_assisted_legal_operations_client_intake_chat_guardrail_active_output_1_bit",
+          "responseKey": "legal_services_ai_assisted_legal_operations_client_intake_chat_guardrail_active_output_1_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1161,12 +1161,12 @@
         }
       },
       {
-        "semantic": "legal-services-ai-assisted-legal-operations-client-intake-chat-guardrail-active-output-2-bit",
+        "semantic": "legal_services_ai_assisted_legal_operations_client_intake_chat_guardrail_active_output_2_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/legal-services-ai-assisted-legal-operations-client-intake-chat-guardrail-active-output-2-bit",
-          "responseKey": "legal-services-ai-assisted-legal-operations-client-intake-chat-guardrail-active-output-2-bit",
+          "jsonPointer": "/legal_services_ai_assisted_legal_operations_client_intake_chat_guardrail_active_output_2_bit",
+          "responseKey": "legal_services_ai_assisted_legal_operations_client_intake_chat_guardrail_active_output_2_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1204,12 +1204,12 @@
         }
       },
       {
-        "semantic": "legal-services-ai-assisted-legal-operations-artifact-classification-agent-active-output-0-bit",
+        "semantic": "legal_services_ai_assisted_legal_operations_artifact_classification_agent_active_output_0_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/legal-services-ai-assisted-legal-operations-artifact-classification-agent-active-output-0-bit",
-          "responseKey": "legal-services-ai-assisted-legal-operations-artifact-classification-agent-active-output-0-bit",
+          "jsonPointer": "/legal_services_ai_assisted_legal_operations_artifact_classification_agent_active_output_0_bit",
+          "responseKey": "legal_services_ai_assisted_legal_operations_artifact_classification_agent_active_output_0_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1247,12 +1247,12 @@
         }
       },
       {
-        "semantic": "legal-services-ai-assisted-legal-operations-artifact-classification-agent-active-output-1-bit",
+        "semantic": "legal_services_ai_assisted_legal_operations_artifact_classification_agent_active_output_1_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/legal-services-ai-assisted-legal-operations-artifact-classification-agent-active-output-1-bit",
-          "responseKey": "legal-services-ai-assisted-legal-operations-artifact-classification-agent-active-output-1-bit",
+          "jsonPointer": "/legal_services_ai_assisted_legal_operations_artifact_classification_agent_active_output_1_bit",
+          "responseKey": "legal_services_ai_assisted_legal_operations_artifact_classification_agent_active_output_1_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1290,12 +1290,12 @@
         }
       },
       {
-        "semantic": "legal-services-ai-assisted-legal-operations-artifact-classification-agent-active-output-2-bit",
+        "semantic": "legal_services_ai_assisted_legal_operations_artifact_classification_agent_active_output_2_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/legal-services-ai-assisted-legal-operations-artifact-classification-agent-active-output-2-bit",
-          "responseKey": "legal-services-ai-assisted-legal-operations-artifact-classification-agent-active-output-2-bit",
+          "jsonPointer": "/legal_services_ai_assisted_legal_operations_artifact_classification_agent_active_output_2_bit",
+          "responseKey": "legal_services_ai_assisted_legal_operations_artifact_classification_agent_active_output_2_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1333,12 +1333,12 @@
         }
       },
       {
-        "semantic": "legal-services-ai-assisted-legal-operations-filing-portal-readiness-agent-active-output-0-bit",
+        "semantic": "legal_services_ai_assisted_legal_operations_filing_portal_readiness_agent_active_output_0_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/legal-services-ai-assisted-legal-operations-filing-portal-readiness-agent-active-output-0-bit",
-          "responseKey": "legal-services-ai-assisted-legal-operations-filing-portal-readiness-agent-active-output-0-bit",
+          "jsonPointer": "/legal_services_ai_assisted_legal_operations_filing_portal_readiness_agent_active_output_0_bit",
+          "responseKey": "legal_services_ai_assisted_legal_operations_filing_portal_readiness_agent_active_output_0_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1376,12 +1376,12 @@
         }
       },
       {
-        "semantic": "legal-services-ai-assisted-legal-operations-filing-portal-readiness-agent-active-output-1-bit",
+        "semantic": "legal_services_ai_assisted_legal_operations_filing_portal_readiness_agent_active_output_1_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/legal-services-ai-assisted-legal-operations-filing-portal-readiness-agent-active-output-1-bit",
-          "responseKey": "legal-services-ai-assisted-legal-operations-filing-portal-readiness-agent-active-output-1-bit",
+          "jsonPointer": "/legal_services_ai_assisted_legal_operations_filing_portal_readiness_agent_active_output_1_bit",
+          "responseKey": "legal_services_ai_assisted_legal_operations_filing_portal_readiness_agent_active_output_1_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1419,12 +1419,12 @@
         }
       },
       {
-        "semantic": "legal-services-ai-assisted-legal-operations-filing-portal-readiness-agent-active-output-2-bit",
+        "semantic": "legal_services_ai_assisted_legal_operations_filing_portal_readiness_agent_active_output_2_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/legal-services-ai-assisted-legal-operations-filing-portal-readiness-agent-active-output-2-bit",
-          "responseKey": "legal-services-ai-assisted-legal-operations-filing-portal-readiness-agent-active-output-2-bit",
+          "jsonPointer": "/legal_services_ai_assisted_legal_operations_filing_portal_readiness_agent_active_output_2_bit",
+          "responseKey": "legal_services_ai_assisted_legal_operations_filing_portal_readiness_agent_active_output_2_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1462,12 +1462,12 @@
         }
       },
       {
-        "semantic": "legal-services-ai-assisted-legal-operations-office-action-triage-agent-active-output-0-bit",
+        "semantic": "legal_services_ai_assisted_legal_operations_office_action_triage_agent_active_output_0_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/legal-services-ai-assisted-legal-operations-office-action-triage-agent-active-output-0-bit",
-          "responseKey": "legal-services-ai-assisted-legal-operations-office-action-triage-agent-active-output-0-bit",
+          "jsonPointer": "/legal_services_ai_assisted_legal_operations_office_action_triage_agent_active_output_0_bit",
+          "responseKey": "legal_services_ai_assisted_legal_operations_office_action_triage_agent_active_output_0_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1505,12 +1505,12 @@
         }
       },
       {
-        "semantic": "legal-services-ai-assisted-legal-operations-office-action-triage-agent-active-output-1-bit",
+        "semantic": "legal_services_ai_assisted_legal_operations_office_action_triage_agent_active_output_1_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/legal-services-ai-assisted-legal-operations-office-action-triage-agent-active-output-1-bit",
-          "responseKey": "legal-services-ai-assisted-legal-operations-office-action-triage-agent-active-output-1-bit",
+          "jsonPointer": "/legal_services_ai_assisted_legal_operations_office_action_triage_agent_active_output_1_bit",
+          "responseKey": "legal_services_ai_assisted_legal_operations_office_action_triage_agent_active_output_1_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1548,12 +1548,12 @@
         }
       },
       {
-        "semantic": "legal-services-ai-assisted-legal-operations-office-action-triage-agent-active-output-2-bit",
+        "semantic": "legal_services_ai_assisted_legal_operations_office_action_triage_agent_active_output_2_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/legal-services-ai-assisted-legal-operations-office-action-triage-agent-active-output-2-bit",
-          "responseKey": "legal-services-ai-assisted-legal-operations-office-action-triage-agent-active-output-2-bit",
+          "jsonPointer": "/legal_services_ai_assisted_legal_operations_office_action_triage_agent_active_output_2_bit",
+          "responseKey": "legal_services_ai_assisted_legal_operations_office_action_triage_agent_active_output_2_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1591,12 +1591,12 @@
         }
       },
       {
-        "semantic": "legal-services-ai-assisted-legal-operations-portfolio-learning-loop-active-output-0-bit",
+        "semantic": "legal_services_ai_assisted_legal_operations_portfolio_learning_loop_active_output_0_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/legal-services-ai-assisted-legal-operations-portfolio-learning-loop-active-output-0-bit",
-          "responseKey": "legal-services-ai-assisted-legal-operations-portfolio-learning-loop-active-output-0-bit",
+          "jsonPointer": "/legal_services_ai_assisted_legal_operations_portfolio_learning_loop_active_output_0_bit",
+          "responseKey": "legal_services_ai_assisted_legal_operations_portfolio_learning_loop_active_output_0_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1634,12 +1634,12 @@
         }
       },
       {
-        "semantic": "legal-services-ai-assisted-legal-operations-portfolio-learning-loop-active-output-1-bit",
+        "semantic": "legal_services_ai_assisted_legal_operations_portfolio_learning_loop_active_output_1_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/legal-services-ai-assisted-legal-operations-portfolio-learning-loop-active-output-1-bit",
-          "responseKey": "legal-services-ai-assisted-legal-operations-portfolio-learning-loop-active-output-1-bit",
+          "jsonPointer": "/legal_services_ai_assisted_legal_operations_portfolio_learning_loop_active_output_1_bit",
+          "responseKey": "legal_services_ai_assisted_legal_operations_portfolio_learning_loop_active_output_1_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1677,12 +1677,12 @@
         }
       },
       {
-        "semantic": "legal-services-ai-assisted-legal-operations-portfolio-learning-loop-active-output-2-bit",
+        "semantic": "legal_services_ai_assisted_legal_operations_portfolio_learning_loop_active_output_2_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/legal-services-ai-assisted-legal-operations-portfolio-learning-loop-active-output-2-bit",
-          "responseKey": "legal-services-ai-assisted-legal-operations-portfolio-learning-loop-active-output-2-bit",
+          "jsonPointer": "/legal_services_ai_assisted_legal_operations_portfolio_learning_loop_active_output_2_bit",
+          "responseKey": "legal_services_ai_assisted_legal_operations_portfolio_learning_loop_active_output_2_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1724,7 +1724,7 @@
   "diagnostics": {
     "axisBasis": "inputSemantics",
     "warnings": [
-      "input axes derived from inputSemantics (no length-matched sensorNormalization)"
+      "input axes derived from inputSemantics; openClawProjection.semantics does not name these positions, so the agent's axis names are unverified"
     ],
     "inputLength": 30,
     "sequenceCount": 4

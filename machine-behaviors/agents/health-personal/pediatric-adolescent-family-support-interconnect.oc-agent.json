@@ -34,12 +34,12 @@
   },
   "reasoning": {
     "objective": "Produce the normalized input vector for \"Pediatric Adolescent Family Support Interconnect\" from current observations so RE can evaluate its CES sequences.",
-    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Pediatric Adolescent Family Support Interconnect\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Published personal-health bridge bus that composes pediatric nutrition, child development, adolescent mental health, caregiver burden, food access, and environment safety into a compact family support lane.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- pediatric-growth-alert-bit (index 0):\n- pediatric-nutrition-deficit-bit (index 1):\n- pediatric-micronutrient-concern-bit (index 2):\n- pediatric-nutrition-ok-bit (index 3):\n- child-referral-needed-bit (index 4):\n- child-social-developmental-concern-bit (index 5):\n- child-learning-concern-bit (index 6):\n- child-development-ok-bit (index 7):\n- adolescent-crisis-risk-bit (index 8):\n- adolescent-behavioral-concern-bit (index 9):\n- adolescent-elevated-stress-bit (index 10):\n- adolescent-mental-health-ok-bit (index 11):\n- caregiver-burnout-bit (index 12):\n- caregiver-high-burden-bit (index 13):\n- caregiver-moderate-burden-bit (index 14):\n- food-crisis-or-insecure-bit (index 15):\n- unsafe-environment-bit (index 16):\n- environment-safe-bit (index 17):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- URGENT_FAMILY_SUPPORT at [4578 (RED) -> action: urgent-intervention\n- NUTRITION_DEVELOPMENT_REFERRAL at [4578 (AMBER) -> action: route-referral\n- ADOLESCENT_BEHAVIORAL_SUPPORT at [4578 (AMBER) -> action: route-referral\n- STABLE_FAMILY_SUPPORT at [4578 (GREEN) -> action: continue-monitoring",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Pediatric Adolescent Family Support Interconnect\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Published personal-health bridge bus that composes pediatric nutrition, child development, adolescent mental health, caregiver burden, food access, and environment safety into a compact family support lane.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- pediatric_growth_alert_bit (index 0):\n- pediatric_nutrition_deficit_bit (index 1):\n- pediatric_micronutrient_concern_bit (index 2):\n- pediatric_nutrition_ok_bit (index 3):\n- child_referral_needed_bit (index 4):\n- child_social_developmental_concern_bit (index 5):\n- child_learning_concern_bit (index 6):\n- child_development_ok_bit (index 7):\n- adolescent_crisis_risk_bit (index 8):\n- adolescent_behavioral_concern_bit (index 9):\n- adolescent_elevated_stress_bit (index 10):\n- adolescent_mental_health_ok_bit (index 11):\n- caregiver_burnout_bit (index 12):\n- caregiver_high_burden_bit (index 13):\n- caregiver_moderate_burden_bit (index 14):\n- food_crisis_or_insecure_bit (index 15):\n- unsafe_environment_bit (index 16):\n- environment_safe_bit (index 17):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- URGENT_FAMILY_SUPPORT at [4578 (RED) -> action: urgent-intervention\n- NUTRITION_DEVELOPMENT_REFERRAL at [4578 (AMBER) -> action: route-referral\n- ADOLESCENT_BEHAVIORAL_SUPPORT at [4578 (AMBER) -> action: route-referral\n- STABLE_FAMILY_SUPPORT at [4578 (GREEN) -> action: continue-monitoring",
     "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
     "inputAxes": [
       {
         "index": 0,
-        "key": "pediatric-growth-alert-bit",
+        "key": "pediatric_growth_alert_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -48,7 +48,7 @@
       },
       {
         "index": 1,
-        "key": "pediatric-nutrition-deficit-bit",
+        "key": "pediatric_nutrition_deficit_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -57,7 +57,7 @@
       },
       {
         "index": 2,
-        "key": "pediatric-micronutrient-concern-bit",
+        "key": "pediatric_micronutrient_concern_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -66,7 +66,7 @@
       },
       {
         "index": 3,
-        "key": "pediatric-nutrition-ok-bit",
+        "key": "pediatric_nutrition_ok_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -75,7 +75,7 @@
       },
       {
         "index": 4,
-        "key": "child-referral-needed-bit",
+        "key": "child_referral_needed_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -84,7 +84,7 @@
       },
       {
         "index": 5,
-        "key": "child-social-developmental-concern-bit",
+        "key": "child_social_developmental_concern_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -93,7 +93,7 @@
       },
       {
         "index": 6,
-        "key": "child-learning-concern-bit",
+        "key": "child_learning_concern_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -102,7 +102,7 @@
       },
       {
         "index": 7,
-        "key": "child-development-ok-bit",
+        "key": "child_development_ok_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -111,7 +111,7 @@
       },
       {
         "index": 8,
-        "key": "adolescent-crisis-risk-bit",
+        "key": "adolescent_crisis_risk_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -120,7 +120,7 @@
       },
       {
         "index": 9,
-        "key": "adolescent-behavioral-concern-bit",
+        "key": "adolescent_behavioral_concern_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -129,7 +129,7 @@
       },
       {
         "index": 10,
-        "key": "adolescent-elevated-stress-bit",
+        "key": "adolescent_elevated_stress_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -138,7 +138,7 @@
       },
       {
         "index": 11,
-        "key": "adolescent-mental-health-ok-bit",
+        "key": "adolescent_mental_health_ok_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -147,7 +147,7 @@
       },
       {
         "index": 12,
-        "key": "caregiver-burnout-bit",
+        "key": "caregiver_burnout_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -156,7 +156,7 @@
       },
       {
         "index": 13,
-        "key": "caregiver-high-burden-bit",
+        "key": "caregiver_high_burden_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -165,7 +165,7 @@
       },
       {
         "index": 14,
-        "key": "caregiver-moderate-burden-bit",
+        "key": "caregiver_moderate_burden_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -174,7 +174,7 @@
       },
       {
         "index": 15,
-        "key": "food-crisis-or-insecure-bit",
+        "key": "food_crisis_or_insecure_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -183,7 +183,7 @@
       },
       {
         "index": 16,
-        "key": "unsafe-environment-bit",
+        "key": "unsafe_environment_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -192,7 +192,7 @@
       },
       {
         "index": 17,
-        "key": "environment-safe-bit",
+        "key": "environment_safe_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -248,24 +248,24 @@
         "length": 18
       },
       "semantics": [
-        "pediatric-growth-alert-bit",
-        "pediatric-nutrition-deficit-bit",
-        "pediatric-micronutrient-concern-bit",
-        "pediatric-nutrition-ok-bit",
-        "child-referral-needed-bit",
-        "child-social-developmental-concern-bit",
-        "child-learning-concern-bit",
-        "child-development-ok-bit",
-        "adolescent-crisis-risk-bit",
-        "adolescent-behavioral-concern-bit",
-        "adolescent-elevated-stress-bit",
-        "adolescent-mental-health-ok-bit",
-        "caregiver-burnout-bit",
-        "caregiver-high-burden-bit",
-        "caregiver-moderate-burden-bit",
-        "food-crisis-or-insecure-bit",
-        "unsafe-environment-bit",
-        "environment-safe-bit"
+        "pediatric_growth_alert_bit",
+        "pediatric_nutrition_deficit_bit",
+        "pediatric_micronutrient_concern_bit",
+        "pediatric_nutrition_ok_bit",
+        "child_referral_needed_bit",
+        "child_social_developmental_concern_bit",
+        "child_learning_concern_bit",
+        "child_development_ok_bit",
+        "adolescent_crisis_risk_bit",
+        "adolescent_behavioral_concern_bit",
+        "adolescent_elevated_stress_bit",
+        "adolescent_mental_health_ok_bit",
+        "caregiver_burnout_bit",
+        "caregiver_high_burden_bit",
+        "caregiver_moderate_burden_bit",
+        "food_crisis_or_insecure_bit",
+        "unsafe_environment_bit",
+        "environment_safe_bit"
       ],
       "ttlMs": 300000,
       "normalization": "already-normalized-0-1",
@@ -310,12 +310,12 @@
     "mode": "advise",
     "fields": [
       {
-        "semantic": "pediatric-growth-alert-bit",
+        "semantic": "pediatric_growth_alert_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/pediatric-growth-alert-bit",
-          "responseKey": "pediatric-growth-alert-bit",
+          "jsonPointer": "/pediatric_growth_alert_bit",
+          "responseKey": "pediatric_growth_alert_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -353,12 +353,12 @@
         }
       },
       {
-        "semantic": "pediatric-nutrition-deficit-bit",
+        "semantic": "pediatric_nutrition_deficit_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/pediatric-nutrition-deficit-bit",
-          "responseKey": "pediatric-nutrition-deficit-bit",
+          "jsonPointer": "/pediatric_nutrition_deficit_bit",
+          "responseKey": "pediatric_nutrition_deficit_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -396,12 +396,12 @@
         }
       },
       {
-        "semantic": "pediatric-micronutrient-concern-bit",
+        "semantic": "pediatric_micronutrient_concern_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/pediatric-micronutrient-concern-bit",
-          "responseKey": "pediatric-micronutrient-concern-bit",
+          "jsonPointer": "/pediatric_micronutrient_concern_bit",
+          "responseKey": "pediatric_micronutrient_concern_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -439,12 +439,12 @@
         }
       },
       {
-        "semantic": "pediatric-nutrition-ok-bit",
+        "semantic": "pediatric_nutrition_ok_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/pediatric-nutrition-ok-bit",
-          "responseKey": "pediatric-nutrition-ok-bit",
+          "jsonPointer": "/pediatric_nutrition_ok_bit",
+          "responseKey": "pediatric_nutrition_ok_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -482,12 +482,12 @@
         }
       },
       {
-        "semantic": "child-referral-needed-bit",
+        "semantic": "child_referral_needed_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/child-referral-needed-bit",
-          "responseKey": "child-referral-needed-bit",
+          "jsonPointer": "/child_referral_needed_bit",
+          "responseKey": "child_referral_needed_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -525,12 +525,12 @@
         }
       },
       {
-        "semantic": "child-social-developmental-concern-bit",
+        "semantic": "child_social_developmental_concern_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/child-social-developmental-concern-bit",
-          "responseKey": "child-social-developmental-concern-bit",
+          "jsonPointer": "/child_social_developmental_concern_bit",
+          "responseKey": "child_social_developmental_concern_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -568,12 +568,12 @@
         }
       },
       {
-        "semantic": "child-learning-concern-bit",
+        "semantic": "child_learning_concern_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/child-learning-concern-bit",
-          "responseKey": "child-learning-concern-bit",
+          "jsonPointer": "/child_learning_concern_bit",
+          "responseKey": "child_learning_concern_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -611,12 +611,12 @@
         }
       },
       {
-        "semantic": "child-development-ok-bit",
+        "semantic": "child_development_ok_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/child-development-ok-bit",
-          "responseKey": "child-development-ok-bit",
+          "jsonPointer": "/child_development_ok_bit",
+          "responseKey": "child_development_ok_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -654,12 +654,12 @@
         }
       },
       {
-        "semantic": "adolescent-crisis-risk-bit",
+        "semantic": "adolescent_crisis_risk_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/adolescent-crisis-risk-bit",
-          "responseKey": "adolescent-crisis-risk-bit",
+          "jsonPointer": "/adolescent_crisis_risk_bit",
+          "responseKey": "adolescent_crisis_risk_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -697,12 +697,12 @@
         }
       },
       {
-        "semantic": "adolescent-behavioral-concern-bit",
+        "semantic": "adolescent_behavioral_concern_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/adolescent-behavioral-concern-bit",
-          "responseKey": "adolescent-behavioral-concern-bit",
+          "jsonPointer": "/adolescent_behavioral_concern_bit",
+          "responseKey": "adolescent_behavioral_concern_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -740,12 +740,12 @@
         }
       },
       {
-        "semantic": "adolescent-elevated-stress-bit",
+        "semantic": "adolescent_elevated_stress_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/adolescent-elevated-stress-bit",
-          "responseKey": "adolescent-elevated-stress-bit",
+          "jsonPointer": "/adolescent_elevated_stress_bit",
+          "responseKey": "adolescent_elevated_stress_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -783,12 +783,12 @@
         }
       },
       {
-        "semantic": "adolescent-mental-health-ok-bit",
+        "semantic": "adolescent_mental_health_ok_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/adolescent-mental-health-ok-bit",
-          "responseKey": "adolescent-mental-health-ok-bit",
+          "jsonPointer": "/adolescent_mental_health_ok_bit",
+          "responseKey": "adolescent_mental_health_ok_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -826,12 +826,12 @@
         }
       },
       {
-        "semantic": "caregiver-burnout-bit",
+        "semantic": "caregiver_burnout_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/caregiver-burnout-bit",
-          "responseKey": "caregiver-burnout-bit",
+          "jsonPointer": "/caregiver_burnout_bit",
+          "responseKey": "caregiver_burnout_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -869,12 +869,12 @@
         }
       },
       {
-        "semantic": "caregiver-high-burden-bit",
+        "semantic": "caregiver_high_burden_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/caregiver-high-burden-bit",
-          "responseKey": "caregiver-high-burden-bit",
+          "jsonPointer": "/caregiver_high_burden_bit",
+          "responseKey": "caregiver_high_burden_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -912,12 +912,12 @@
         }
       },
       {
-        "semantic": "caregiver-moderate-burden-bit",
+        "semantic": "caregiver_moderate_burden_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/caregiver-moderate-burden-bit",
-          "responseKey": "caregiver-moderate-burden-bit",
+          "jsonPointer": "/caregiver_moderate_burden_bit",
+          "responseKey": "caregiver_moderate_burden_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -955,12 +955,12 @@
         }
       },
       {
-        "semantic": "food-crisis-or-insecure-bit",
+        "semantic": "food_crisis_or_insecure_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/food-crisis-or-insecure-bit",
-          "responseKey": "food-crisis-or-insecure-bit",
+          "jsonPointer": "/food_crisis_or_insecure_bit",
+          "responseKey": "food_crisis_or_insecure_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -998,12 +998,12 @@
         }
       },
       {
-        "semantic": "unsafe-environment-bit",
+        "semantic": "unsafe_environment_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/unsafe-environment-bit",
-          "responseKey": "unsafe-environment-bit",
+          "jsonPointer": "/unsafe_environment_bit",
+          "responseKey": "unsafe_environment_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1041,12 +1041,12 @@
         }
       },
       {
-        "semantic": "environment-safe-bit",
+        "semantic": "environment_safe_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/environment-safe-bit",
-          "responseKey": "environment-safe-bit",
+          "jsonPointer": "/environment_safe_bit",
+          "responseKey": "environment_safe_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1088,7 +1088,7 @@
   "diagnostics": {
     "axisBasis": "inputSemantics",
     "warnings": [
-      "input axes derived from inputSemantics (no length-matched sensorNormalization)"
+      "input axes derived from inputSemantics; openClawProjection.semantics does not name these positions, so the agent's axis names are unverified"
     ],
     "inputLength": 18,
     "sequenceCount": 4

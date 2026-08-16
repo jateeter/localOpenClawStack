@@ -34,12 +34,12 @@
   },
   "reasoning": {
     "objective": "Produce the normalized input vector for \"Sleep Recovery Wellness Interconnect\" from current observations so RE can evaluate its CES sequences.",
-    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Sleep Recovery Wellness Interconnect\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Published personal-health bridge bus that composes sleep quality, activity, hydration, wellness, isolation, daily care, and wellness recovery into a compact sleep recovery lane.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- sleep-poor-bit (index 0):\n- sleep-disturbed-bit (index 1):\n- activity-below-baseline-bit (index 2):\n- activity-prolonged-inactivity-bit (index 3):\n- hydration-low-bit (index 4):\n- hydration-critical-bit (index 5):\n- patient-wellness-alert-bit (index 6):\n- patient-wellness-critical-bit (index 7):\n- social-withdrawal-bit (index 8):\n- isolation-risk-bit (index 9):\n- severe-isolation-bit (index 10):\n- daily-care-wandering-alert-bit (index 11):\n- daily-routine-complete-bit (index 12):\n- wellness-improving-bit (index 13):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- SLEEP_CLINICAL_REVIEW at [4556 (RED) -> action: route-referral\n- RECOVERY_ROUTINE_STABILIZATION at [4556 (AMBER) -> action: route-referral\n- MONITORING_ADJUSTMENT at [4556 (AMBER) -> action: route-referral\n- STABLE_SLEEP_WELLNESS at [4556 (GREEN) -> action: continue-monitoring",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Sleep Recovery Wellness Interconnect\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Published personal-health bridge bus that composes sleep quality, activity, hydration, wellness, isolation, daily care, and wellness recovery into a compact sleep recovery lane.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- sleep_poor_bit (index 0):\n- sleep_disturbed_bit (index 1):\n- activity_below_baseline_bit (index 2):\n- activity_prolonged_inactivity_bit (index 3):\n- hydration_low_bit (index 4):\n- hydration_critical_bit (index 5):\n- patient_wellness_alert_bit (index 6):\n- patient_wellness_critical_bit (index 7):\n- social_withdrawal_bit (index 8):\n- isolation_risk_bit (index 9):\n- severe_isolation_bit (index 10):\n- daily_care_wandering_alert_bit (index 11):\n- daily_routine_complete_bit (index 12):\n- wellness_improving_bit (index 13):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- SLEEP_CLINICAL_REVIEW at [4556 (RED) -> action: route-referral\n- RECOVERY_ROUTINE_STABILIZATION at [4556 (AMBER) -> action: route-referral\n- MONITORING_ADJUSTMENT at [4556 (AMBER) -> action: route-referral\n- STABLE_SLEEP_WELLNESS at [4556 (GREEN) -> action: continue-monitoring",
     "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
     "inputAxes": [
       {
         "index": 0,
-        "key": "sleep-poor-bit",
+        "key": "sleep_poor_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -48,7 +48,7 @@
       },
       {
         "index": 1,
-        "key": "sleep-disturbed-bit",
+        "key": "sleep_disturbed_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -57,7 +57,7 @@
       },
       {
         "index": 2,
-        "key": "activity-below-baseline-bit",
+        "key": "activity_below_baseline_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -66,7 +66,7 @@
       },
       {
         "index": 3,
-        "key": "activity-prolonged-inactivity-bit",
+        "key": "activity_prolonged_inactivity_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -75,7 +75,7 @@
       },
       {
         "index": 4,
-        "key": "hydration-low-bit",
+        "key": "hydration_low_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -84,7 +84,7 @@
       },
       {
         "index": 5,
-        "key": "hydration-critical-bit",
+        "key": "hydration_critical_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -93,7 +93,7 @@
       },
       {
         "index": 6,
-        "key": "patient-wellness-alert-bit",
+        "key": "patient_wellness_alert_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -102,7 +102,7 @@
       },
       {
         "index": 7,
-        "key": "patient-wellness-critical-bit",
+        "key": "patient_wellness_critical_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -111,7 +111,7 @@
       },
       {
         "index": 8,
-        "key": "social-withdrawal-bit",
+        "key": "social_withdrawal_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -120,7 +120,7 @@
       },
       {
         "index": 9,
-        "key": "isolation-risk-bit",
+        "key": "isolation_risk_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -129,7 +129,7 @@
       },
       {
         "index": 10,
-        "key": "severe-isolation-bit",
+        "key": "severe_isolation_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -138,7 +138,7 @@
       },
       {
         "index": 11,
-        "key": "daily-care-wandering-alert-bit",
+        "key": "daily_care_wandering_alert_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -147,7 +147,7 @@
       },
       {
         "index": 12,
-        "key": "daily-routine-complete-bit",
+        "key": "daily_routine_complete_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -156,7 +156,7 @@
       },
       {
         "index": 13,
-        "key": "wellness-improving-bit",
+        "key": "wellness_improving_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -212,20 +212,20 @@
         "length": 14
       },
       "semantics": [
-        "sleep-poor-bit",
-        "sleep-disturbed-bit",
-        "activity-below-baseline-bit",
-        "activity-prolonged-inactivity-bit",
-        "hydration-low-bit",
-        "hydration-critical-bit",
-        "patient-wellness-alert-bit",
-        "patient-wellness-critical-bit",
-        "social-withdrawal-bit",
-        "isolation-risk-bit",
-        "severe-isolation-bit",
-        "daily-care-wandering-alert-bit",
-        "daily-routine-complete-bit",
-        "wellness-improving-bit"
+        "sleep_poor_bit",
+        "sleep_disturbed_bit",
+        "activity_below_baseline_bit",
+        "activity_prolonged_inactivity_bit",
+        "hydration_low_bit",
+        "hydration_critical_bit",
+        "patient_wellness_alert_bit",
+        "patient_wellness_critical_bit",
+        "social_withdrawal_bit",
+        "isolation_risk_bit",
+        "severe_isolation_bit",
+        "daily_care_wandering_alert_bit",
+        "daily_routine_complete_bit",
+        "wellness_improving_bit"
       ],
       "ttlMs": 300000,
       "normalization": "already-normalized-0-1",
@@ -270,12 +270,12 @@
     "mode": "advise",
     "fields": [
       {
-        "semantic": "sleep-poor-bit",
+        "semantic": "sleep_poor_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/sleep-poor-bit",
-          "responseKey": "sleep-poor-bit",
+          "jsonPointer": "/sleep_poor_bit",
+          "responseKey": "sleep_poor_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -313,12 +313,12 @@
         }
       },
       {
-        "semantic": "sleep-disturbed-bit",
+        "semantic": "sleep_disturbed_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/sleep-disturbed-bit",
-          "responseKey": "sleep-disturbed-bit",
+          "jsonPointer": "/sleep_disturbed_bit",
+          "responseKey": "sleep_disturbed_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -356,12 +356,12 @@
         }
       },
       {
-        "semantic": "activity-below-baseline-bit",
+        "semantic": "activity_below_baseline_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/activity-below-baseline-bit",
-          "responseKey": "activity-below-baseline-bit",
+          "jsonPointer": "/activity_below_baseline_bit",
+          "responseKey": "activity_below_baseline_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -399,12 +399,12 @@
         }
       },
       {
-        "semantic": "activity-prolonged-inactivity-bit",
+        "semantic": "activity_prolonged_inactivity_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/activity-prolonged-inactivity-bit",
-          "responseKey": "activity-prolonged-inactivity-bit",
+          "jsonPointer": "/activity_prolonged_inactivity_bit",
+          "responseKey": "activity_prolonged_inactivity_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -442,12 +442,12 @@
         }
       },
       {
-        "semantic": "hydration-low-bit",
+        "semantic": "hydration_low_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/hydration-low-bit",
-          "responseKey": "hydration-low-bit",
+          "jsonPointer": "/hydration_low_bit",
+          "responseKey": "hydration_low_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -485,12 +485,12 @@
         }
       },
       {
-        "semantic": "hydration-critical-bit",
+        "semantic": "hydration_critical_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/hydration-critical-bit",
-          "responseKey": "hydration-critical-bit",
+          "jsonPointer": "/hydration_critical_bit",
+          "responseKey": "hydration_critical_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -528,12 +528,12 @@
         }
       },
       {
-        "semantic": "patient-wellness-alert-bit",
+        "semantic": "patient_wellness_alert_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/patient-wellness-alert-bit",
-          "responseKey": "patient-wellness-alert-bit",
+          "jsonPointer": "/patient_wellness_alert_bit",
+          "responseKey": "patient_wellness_alert_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -571,12 +571,12 @@
         }
       },
       {
-        "semantic": "patient-wellness-critical-bit",
+        "semantic": "patient_wellness_critical_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/patient-wellness-critical-bit",
-          "responseKey": "patient-wellness-critical-bit",
+          "jsonPointer": "/patient_wellness_critical_bit",
+          "responseKey": "patient_wellness_critical_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -614,12 +614,12 @@
         }
       },
       {
-        "semantic": "social-withdrawal-bit",
+        "semantic": "social_withdrawal_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/social-withdrawal-bit",
-          "responseKey": "social-withdrawal-bit",
+          "jsonPointer": "/social_withdrawal_bit",
+          "responseKey": "social_withdrawal_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -657,12 +657,12 @@
         }
       },
       {
-        "semantic": "isolation-risk-bit",
+        "semantic": "isolation_risk_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/isolation-risk-bit",
-          "responseKey": "isolation-risk-bit",
+          "jsonPointer": "/isolation_risk_bit",
+          "responseKey": "isolation_risk_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -700,12 +700,12 @@
         }
       },
       {
-        "semantic": "severe-isolation-bit",
+        "semantic": "severe_isolation_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/severe-isolation-bit",
-          "responseKey": "severe-isolation-bit",
+          "jsonPointer": "/severe_isolation_bit",
+          "responseKey": "severe_isolation_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -743,12 +743,12 @@
         }
       },
       {
-        "semantic": "daily-care-wandering-alert-bit",
+        "semantic": "daily_care_wandering_alert_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/daily-care-wandering-alert-bit",
-          "responseKey": "daily-care-wandering-alert-bit",
+          "jsonPointer": "/daily_care_wandering_alert_bit",
+          "responseKey": "daily_care_wandering_alert_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -786,12 +786,12 @@
         }
       },
       {
-        "semantic": "daily-routine-complete-bit",
+        "semantic": "daily_routine_complete_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/daily-routine-complete-bit",
-          "responseKey": "daily-routine-complete-bit",
+          "jsonPointer": "/daily_routine_complete_bit",
+          "responseKey": "daily_routine_complete_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -829,12 +829,12 @@
         }
       },
       {
-        "semantic": "wellness-improving-bit",
+        "semantic": "wellness_improving_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/wellness-improving-bit",
-          "responseKey": "wellness-improving-bit",
+          "jsonPointer": "/wellness_improving_bit",
+          "responseKey": "wellness_improving_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -876,7 +876,7 @@
   "diagnostics": {
     "axisBasis": "inputSemantics",
     "warnings": [
-      "input axes derived from inputSemantics (no length-matched sensorNormalization)"
+      "input axes derived from inputSemantics; openClawProjection.semantics does not name these positions, so the agent's axis names are unverified"
     ],
     "inputLength": 14,
     "sequenceCount": 4

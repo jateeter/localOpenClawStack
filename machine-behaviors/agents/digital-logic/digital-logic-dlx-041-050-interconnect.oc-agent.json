@@ -34,12 +34,12 @@
   },
   "reasoning": {
     "objective": "Produce the normalized input vector for \"Digital Logic DLX-041-050 Interconnect\" from current observations so RE can evaluate its CES sequences.",
-    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Digital Logic DLX-041-050 Interconnect\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Published digital-logic bridge bus that composes Digital Logic DLX-041-050 into a compact domain family response lane. PE owns source composition and writes the compact input lane; RE evaluates this machine as ordinary vector state.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- logical-infrastructure-one-hot-grant-active-output-0-bit (index 0):\n- logical-infrastructure-one-hot-grant-active-output-1-bit (index 1):\n- logical-infrastructure-mutex-lock-unlock-active-output-0-bit (index 2):\n- logical-infrastructure-mutex-lock-unlock-active-output-1-bit (index 3):\n- logical-infrastructure-arbiter-request-grant-release-active-output-0-bit (index 4):\n- logical-infrastructure-arbiter-request-grant-release-active-output-1-bit (index 5):\n- logical-infrastructure-bus-address-data-valid-active-output-0-bit (index 6):\n- logical-infrastructure-bus-address-data-valid-active-output-1-bit (index 7):\n- logical-infrastructure-bus-burst-last-active-output-0-bit (index 8):\n- logical-infrastructure-bus-burst-last-active-output-1-bit (index 9):\n- logical-infrastructure-write-response-active-output-0-bit (index 10):\n- logical-infrastructure-write-response-active-output-1-bit (index 11):\n- logical-infrastructure-read-response-active-output-0-bit (index 12):\n- logical-infrastructure-read-response-active-output-1-bit (index 13):\n- logical-infrastructure-cdc-stable-two-sample-active-output-0-bit (index 14):\n- logical-infrastructure-cdc-stable-two-sample-active-output-1-bit (index 15):\n- logical-infrastructure-cdc-toggle-ack-active-output-0-bit (index 16):\n- logical-infrastructure-cdc-toggle-ack-active-output-1-bit (index 17):\n- logical-infrastructure-metastability-settled-active-output-0-bit (index 18):\n- logical-infrastructure-metastability-settled-active-output-1-bit (index 19):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Digital Logic DLX-041-050 domain family review at [14432 (RED) -> action: route-review\n- Digital Logic DLX-041-050 domain family optimization at [14432 (AMBER) -> action: route-review\n- Digital Logic DLX-041-050 domain family monitoring at [14432 (AMBER) -> action: route-review\n- Digital Logic DLX-041-050 domain family stable at [14432 (GREEN) -> action: continue-monitoring",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Digital Logic DLX-041-050 Interconnect\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Published digital-logic bridge bus that composes Digital Logic DLX-041-050 into a compact domain family response lane. PE owns source composition and writes the compact input lane; RE evaluates this machine as ordinary vector state.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- logical_infrastructure_one_hot_grant_active_output_0_bit (index 0):\n- logical_infrastructure_one_hot_grant_active_output_1_bit (index 1):\n- logical_infrastructure_mutex_lock_unlock_active_output_0_bit (index 2):\n- logical_infrastructure_mutex_lock_unlock_active_output_1_bit (index 3):\n- logical_infrastructure_arbiter_request_grant_release_active_output_0_bit (index 4):\n- logical_infrastructure_arbiter_request_grant_release_active_output_1_bit (index 5):\n- logical_infrastructure_bus_address_data_valid_active_output_0_bit (index 6):\n- logical_infrastructure_bus_address_data_valid_active_output_1_bit (index 7):\n- logical_infrastructure_bus_burst_last_active_output_0_bit (index 8):\n- logical_infrastructure_bus_burst_last_active_output_1_bit (index 9):\n- logical_infrastructure_write_response_active_output_0_bit (index 10):\n- logical_infrastructure_write_response_active_output_1_bit (index 11):\n- logical_infrastructure_read_response_active_output_0_bit (index 12):\n- logical_infrastructure_read_response_active_output_1_bit (index 13):\n- logical_infrastructure_cdc_stable_two_sample_active_output_0_bit (index 14):\n- logical_infrastructure_cdc_stable_two_sample_active_output_1_bit (index 15):\n- logical_infrastructure_cdc_toggle_ack_active_output_0_bit (index 16):\n- logical_infrastructure_cdc_toggle_ack_active_output_1_bit (index 17):\n- logical_infrastructure_metastability_settled_active_output_0_bit (index 18):\n- logical_infrastructure_metastability_settled_active_output_1_bit (index 19):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Digital Logic DLX-041-050 domain family review at [14432 (RED) -> action: route-review\n- Digital Logic DLX-041-050 domain family optimization at [14432 (AMBER) -> action: route-review\n- Digital Logic DLX-041-050 domain family monitoring at [14432 (AMBER) -> action: route-review\n- Digital Logic DLX-041-050 domain family stable at [14432 (GREEN) -> action: continue-monitoring",
     "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
     "inputAxes": [
       {
         "index": 0,
-        "key": "logical-infrastructure-one-hot-grant-active-output-0-bit",
+        "key": "logical_infrastructure_one_hot_grant_active_output_0_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -48,7 +48,7 @@
       },
       {
         "index": 1,
-        "key": "logical-infrastructure-one-hot-grant-active-output-1-bit",
+        "key": "logical_infrastructure_one_hot_grant_active_output_1_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -57,7 +57,7 @@
       },
       {
         "index": 2,
-        "key": "logical-infrastructure-mutex-lock-unlock-active-output-0-bit",
+        "key": "logical_infrastructure_mutex_lock_unlock_active_output_0_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -66,7 +66,7 @@
       },
       {
         "index": 3,
-        "key": "logical-infrastructure-mutex-lock-unlock-active-output-1-bit",
+        "key": "logical_infrastructure_mutex_lock_unlock_active_output_1_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -75,7 +75,7 @@
       },
       {
         "index": 4,
-        "key": "logical-infrastructure-arbiter-request-grant-release-active-output-0-bit",
+        "key": "logical_infrastructure_arbiter_request_grant_release_active_output_0_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -84,7 +84,7 @@
       },
       {
         "index": 5,
-        "key": "logical-infrastructure-arbiter-request-grant-release-active-output-1-bit",
+        "key": "logical_infrastructure_arbiter_request_grant_release_active_output_1_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -93,7 +93,7 @@
       },
       {
         "index": 6,
-        "key": "logical-infrastructure-bus-address-data-valid-active-output-0-bit",
+        "key": "logical_infrastructure_bus_address_data_valid_active_output_0_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -102,7 +102,7 @@
       },
       {
         "index": 7,
-        "key": "logical-infrastructure-bus-address-data-valid-active-output-1-bit",
+        "key": "logical_infrastructure_bus_address_data_valid_active_output_1_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -111,7 +111,7 @@
       },
       {
         "index": 8,
-        "key": "logical-infrastructure-bus-burst-last-active-output-0-bit",
+        "key": "logical_infrastructure_bus_burst_last_active_output_0_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -120,7 +120,7 @@
       },
       {
         "index": 9,
-        "key": "logical-infrastructure-bus-burst-last-active-output-1-bit",
+        "key": "logical_infrastructure_bus_burst_last_active_output_1_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -129,7 +129,7 @@
       },
       {
         "index": 10,
-        "key": "logical-infrastructure-write-response-active-output-0-bit",
+        "key": "logical_infrastructure_write_response_active_output_0_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -138,7 +138,7 @@
       },
       {
         "index": 11,
-        "key": "logical-infrastructure-write-response-active-output-1-bit",
+        "key": "logical_infrastructure_write_response_active_output_1_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -147,7 +147,7 @@
       },
       {
         "index": 12,
-        "key": "logical-infrastructure-read-response-active-output-0-bit",
+        "key": "logical_infrastructure_read_response_active_output_0_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -156,7 +156,7 @@
       },
       {
         "index": 13,
-        "key": "logical-infrastructure-read-response-active-output-1-bit",
+        "key": "logical_infrastructure_read_response_active_output_1_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -165,7 +165,7 @@
       },
       {
         "index": 14,
-        "key": "logical-infrastructure-cdc-stable-two-sample-active-output-0-bit",
+        "key": "logical_infrastructure_cdc_stable_two_sample_active_output_0_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -174,7 +174,7 @@
       },
       {
         "index": 15,
-        "key": "logical-infrastructure-cdc-stable-two-sample-active-output-1-bit",
+        "key": "logical_infrastructure_cdc_stable_two_sample_active_output_1_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -183,7 +183,7 @@
       },
       {
         "index": 16,
-        "key": "logical-infrastructure-cdc-toggle-ack-active-output-0-bit",
+        "key": "logical_infrastructure_cdc_toggle_ack_active_output_0_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -192,7 +192,7 @@
       },
       {
         "index": 17,
-        "key": "logical-infrastructure-cdc-toggle-ack-active-output-1-bit",
+        "key": "logical_infrastructure_cdc_toggle_ack_active_output_1_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -201,7 +201,7 @@
       },
       {
         "index": 18,
-        "key": "logical-infrastructure-metastability-settled-active-output-0-bit",
+        "key": "logical_infrastructure_metastability_settled_active_output_0_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -210,7 +210,7 @@
       },
       {
         "index": 19,
-        "key": "logical-infrastructure-metastability-settled-active-output-1-bit",
+        "key": "logical_infrastructure_metastability_settled_active_output_1_bit",
         "anchors": {
           "low": "",
           "mid": "",
@@ -266,26 +266,26 @@
         "length": 20
       },
       "semantics": [
-        "logical-infrastructure-one-hot-grant-active-output-0-bit",
-        "logical-infrastructure-one-hot-grant-active-output-1-bit",
-        "logical-infrastructure-mutex-lock-unlock-active-output-0-bit",
-        "logical-infrastructure-mutex-lock-unlock-active-output-1-bit",
-        "logical-infrastructure-arbiter-request-grant-release-active-output-0-bit",
-        "logical-infrastructure-arbiter-request-grant-release-active-output-1-bit",
-        "logical-infrastructure-bus-address-data-valid-active-output-0-bit",
-        "logical-infrastructure-bus-address-data-valid-active-output-1-bit",
-        "logical-infrastructure-bus-burst-last-active-output-0-bit",
-        "logical-infrastructure-bus-burst-last-active-output-1-bit",
-        "logical-infrastructure-write-response-active-output-0-bit",
-        "logical-infrastructure-write-response-active-output-1-bit",
-        "logical-infrastructure-read-response-active-output-0-bit",
-        "logical-infrastructure-read-response-active-output-1-bit",
-        "logical-infrastructure-cdc-stable-two-sample-active-output-0-bit",
-        "logical-infrastructure-cdc-stable-two-sample-active-output-1-bit",
-        "logical-infrastructure-cdc-toggle-ack-active-output-0-bit",
-        "logical-infrastructure-cdc-toggle-ack-active-output-1-bit",
-        "logical-infrastructure-metastability-settled-active-output-0-bit",
-        "logical-infrastructure-metastability-settled-active-output-1-bit"
+        "logical_infrastructure_one_hot_grant_active_output_0_bit",
+        "logical_infrastructure_one_hot_grant_active_output_1_bit",
+        "logical_infrastructure_mutex_lock_unlock_active_output_0_bit",
+        "logical_infrastructure_mutex_lock_unlock_active_output_1_bit",
+        "logical_infrastructure_arbiter_request_grant_release_active_output_0_bit",
+        "logical_infrastructure_arbiter_request_grant_release_active_output_1_bit",
+        "logical_infrastructure_bus_address_data_valid_active_output_0_bit",
+        "logical_infrastructure_bus_address_data_valid_active_output_1_bit",
+        "logical_infrastructure_bus_burst_last_active_output_0_bit",
+        "logical_infrastructure_bus_burst_last_active_output_1_bit",
+        "logical_infrastructure_write_response_active_output_0_bit",
+        "logical_infrastructure_write_response_active_output_1_bit",
+        "logical_infrastructure_read_response_active_output_0_bit",
+        "logical_infrastructure_read_response_active_output_1_bit",
+        "logical_infrastructure_cdc_stable_two_sample_active_output_0_bit",
+        "logical_infrastructure_cdc_stable_two_sample_active_output_1_bit",
+        "logical_infrastructure_cdc_toggle_ack_active_output_0_bit",
+        "logical_infrastructure_cdc_toggle_ack_active_output_1_bit",
+        "logical_infrastructure_metastability_settled_active_output_0_bit",
+        "logical_infrastructure_metastability_settled_active_output_1_bit"
       ],
       "ttlMs": 300000,
       "normalization": "already-normalized-0-1",
@@ -330,12 +330,12 @@
     "mode": "advise",
     "fields": [
       {
-        "semantic": "logical-infrastructure-one-hot-grant-active-output-0-bit",
+        "semantic": "logical_infrastructure_one_hot_grant_active_output_0_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/logical-infrastructure-one-hot-grant-active-output-0-bit",
-          "responseKey": "logical-infrastructure-one-hot-grant-active-output-0-bit",
+          "jsonPointer": "/logical_infrastructure_one_hot_grant_active_output_0_bit",
+          "responseKey": "logical_infrastructure_one_hot_grant_active_output_0_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -373,12 +373,12 @@
         }
       },
       {
-        "semantic": "logical-infrastructure-one-hot-grant-active-output-1-bit",
+        "semantic": "logical_infrastructure_one_hot_grant_active_output_1_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/logical-infrastructure-one-hot-grant-active-output-1-bit",
-          "responseKey": "logical-infrastructure-one-hot-grant-active-output-1-bit",
+          "jsonPointer": "/logical_infrastructure_one_hot_grant_active_output_1_bit",
+          "responseKey": "logical_infrastructure_one_hot_grant_active_output_1_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -416,12 +416,12 @@
         }
       },
       {
-        "semantic": "logical-infrastructure-mutex-lock-unlock-active-output-0-bit",
+        "semantic": "logical_infrastructure_mutex_lock_unlock_active_output_0_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/logical-infrastructure-mutex-lock-unlock-active-output-0-bit",
-          "responseKey": "logical-infrastructure-mutex-lock-unlock-active-output-0-bit",
+          "jsonPointer": "/logical_infrastructure_mutex_lock_unlock_active_output_0_bit",
+          "responseKey": "logical_infrastructure_mutex_lock_unlock_active_output_0_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -459,12 +459,12 @@
         }
       },
       {
-        "semantic": "logical-infrastructure-mutex-lock-unlock-active-output-1-bit",
+        "semantic": "logical_infrastructure_mutex_lock_unlock_active_output_1_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/logical-infrastructure-mutex-lock-unlock-active-output-1-bit",
-          "responseKey": "logical-infrastructure-mutex-lock-unlock-active-output-1-bit",
+          "jsonPointer": "/logical_infrastructure_mutex_lock_unlock_active_output_1_bit",
+          "responseKey": "logical_infrastructure_mutex_lock_unlock_active_output_1_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -502,12 +502,12 @@
         }
       },
       {
-        "semantic": "logical-infrastructure-arbiter-request-grant-release-active-output-0-bit",
+        "semantic": "logical_infrastructure_arbiter_request_grant_release_active_output_0_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/logical-infrastructure-arbiter-request-grant-release-active-output-0-bit",
-          "responseKey": "logical-infrastructure-arbiter-request-grant-release-active-output-0-bit",
+          "jsonPointer": "/logical_infrastructure_arbiter_request_grant_release_active_output_0_bit",
+          "responseKey": "logical_infrastructure_arbiter_request_grant_release_active_output_0_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -545,12 +545,12 @@
         }
       },
       {
-        "semantic": "logical-infrastructure-arbiter-request-grant-release-active-output-1-bit",
+        "semantic": "logical_infrastructure_arbiter_request_grant_release_active_output_1_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/logical-infrastructure-arbiter-request-grant-release-active-output-1-bit",
-          "responseKey": "logical-infrastructure-arbiter-request-grant-release-active-output-1-bit",
+          "jsonPointer": "/logical_infrastructure_arbiter_request_grant_release_active_output_1_bit",
+          "responseKey": "logical_infrastructure_arbiter_request_grant_release_active_output_1_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -588,12 +588,12 @@
         }
       },
       {
-        "semantic": "logical-infrastructure-bus-address-data-valid-active-output-0-bit",
+        "semantic": "logical_infrastructure_bus_address_data_valid_active_output_0_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/logical-infrastructure-bus-address-data-valid-active-output-0-bit",
-          "responseKey": "logical-infrastructure-bus-address-data-valid-active-output-0-bit",
+          "jsonPointer": "/logical_infrastructure_bus_address_data_valid_active_output_0_bit",
+          "responseKey": "logical_infrastructure_bus_address_data_valid_active_output_0_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -631,12 +631,12 @@
         }
       },
       {
-        "semantic": "logical-infrastructure-bus-address-data-valid-active-output-1-bit",
+        "semantic": "logical_infrastructure_bus_address_data_valid_active_output_1_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/logical-infrastructure-bus-address-data-valid-active-output-1-bit",
-          "responseKey": "logical-infrastructure-bus-address-data-valid-active-output-1-bit",
+          "jsonPointer": "/logical_infrastructure_bus_address_data_valid_active_output_1_bit",
+          "responseKey": "logical_infrastructure_bus_address_data_valid_active_output_1_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -674,12 +674,12 @@
         }
       },
       {
-        "semantic": "logical-infrastructure-bus-burst-last-active-output-0-bit",
+        "semantic": "logical_infrastructure_bus_burst_last_active_output_0_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/logical-infrastructure-bus-burst-last-active-output-0-bit",
-          "responseKey": "logical-infrastructure-bus-burst-last-active-output-0-bit",
+          "jsonPointer": "/logical_infrastructure_bus_burst_last_active_output_0_bit",
+          "responseKey": "logical_infrastructure_bus_burst_last_active_output_0_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -717,12 +717,12 @@
         }
       },
       {
-        "semantic": "logical-infrastructure-bus-burst-last-active-output-1-bit",
+        "semantic": "logical_infrastructure_bus_burst_last_active_output_1_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/logical-infrastructure-bus-burst-last-active-output-1-bit",
-          "responseKey": "logical-infrastructure-bus-burst-last-active-output-1-bit",
+          "jsonPointer": "/logical_infrastructure_bus_burst_last_active_output_1_bit",
+          "responseKey": "logical_infrastructure_bus_burst_last_active_output_1_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -760,12 +760,12 @@
         }
       },
       {
-        "semantic": "logical-infrastructure-write-response-active-output-0-bit",
+        "semantic": "logical_infrastructure_write_response_active_output_0_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/logical-infrastructure-write-response-active-output-0-bit",
-          "responseKey": "logical-infrastructure-write-response-active-output-0-bit",
+          "jsonPointer": "/logical_infrastructure_write_response_active_output_0_bit",
+          "responseKey": "logical_infrastructure_write_response_active_output_0_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -803,12 +803,12 @@
         }
       },
       {
-        "semantic": "logical-infrastructure-write-response-active-output-1-bit",
+        "semantic": "logical_infrastructure_write_response_active_output_1_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/logical-infrastructure-write-response-active-output-1-bit",
-          "responseKey": "logical-infrastructure-write-response-active-output-1-bit",
+          "jsonPointer": "/logical_infrastructure_write_response_active_output_1_bit",
+          "responseKey": "logical_infrastructure_write_response_active_output_1_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -846,12 +846,12 @@
         }
       },
       {
-        "semantic": "logical-infrastructure-read-response-active-output-0-bit",
+        "semantic": "logical_infrastructure_read_response_active_output_0_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/logical-infrastructure-read-response-active-output-0-bit",
-          "responseKey": "logical-infrastructure-read-response-active-output-0-bit",
+          "jsonPointer": "/logical_infrastructure_read_response_active_output_0_bit",
+          "responseKey": "logical_infrastructure_read_response_active_output_0_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -889,12 +889,12 @@
         }
       },
       {
-        "semantic": "logical-infrastructure-read-response-active-output-1-bit",
+        "semantic": "logical_infrastructure_read_response_active_output_1_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/logical-infrastructure-read-response-active-output-1-bit",
-          "responseKey": "logical-infrastructure-read-response-active-output-1-bit",
+          "jsonPointer": "/logical_infrastructure_read_response_active_output_1_bit",
+          "responseKey": "logical_infrastructure_read_response_active_output_1_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -932,12 +932,12 @@
         }
       },
       {
-        "semantic": "logical-infrastructure-cdc-stable-two-sample-active-output-0-bit",
-        "valueType": "count",
-        "normalization": "machine-native-count",
+        "semantic": "logical_infrastructure_cdc_stable_two_sample_active_output_0_bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/logical-infrastructure-cdc-stable-two-sample-active-output-0-bit",
-          "responseKey": "logical-infrastructure-cdc-stable-two-sample-active-output-0-bit",
+          "jsonPointer": "/logical_infrastructure_cdc_stable_two_sample_active_output_0_bit",
+          "responseKey": "logical_infrastructure_cdc_stable_two_sample_active_output_0_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -975,12 +975,12 @@
         }
       },
       {
-        "semantic": "logical-infrastructure-cdc-stable-two-sample-active-output-1-bit",
-        "valueType": "count",
-        "normalization": "machine-native-count",
+        "semantic": "logical_infrastructure_cdc_stable_two_sample_active_output_1_bit",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/logical-infrastructure-cdc-stable-two-sample-active-output-1-bit",
-          "responseKey": "logical-infrastructure-cdc-stable-two-sample-active-output-1-bit",
+          "jsonPointer": "/logical_infrastructure_cdc_stable_two_sample_active_output_1_bit",
+          "responseKey": "logical_infrastructure_cdc_stable_two_sample_active_output_1_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1018,12 +1018,12 @@
         }
       },
       {
-        "semantic": "logical-infrastructure-cdc-toggle-ack-active-output-0-bit",
+        "semantic": "logical_infrastructure_cdc_toggle_ack_active_output_0_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/logical-infrastructure-cdc-toggle-ack-active-output-0-bit",
-          "responseKey": "logical-infrastructure-cdc-toggle-ack-active-output-0-bit",
+          "jsonPointer": "/logical_infrastructure_cdc_toggle_ack_active_output_0_bit",
+          "responseKey": "logical_infrastructure_cdc_toggle_ack_active_output_0_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1061,12 +1061,12 @@
         }
       },
       {
-        "semantic": "logical-infrastructure-cdc-toggle-ack-active-output-1-bit",
+        "semantic": "logical_infrastructure_cdc_toggle_ack_active_output_1_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/logical-infrastructure-cdc-toggle-ack-active-output-1-bit",
-          "responseKey": "logical-infrastructure-cdc-toggle-ack-active-output-1-bit",
+          "jsonPointer": "/logical_infrastructure_cdc_toggle_ack_active_output_1_bit",
+          "responseKey": "logical_infrastructure_cdc_toggle_ack_active_output_1_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1104,12 +1104,12 @@
         }
       },
       {
-        "semantic": "logical-infrastructure-metastability-settled-active-output-0-bit",
+        "semantic": "logical_infrastructure_metastability_settled_active_output_0_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/logical-infrastructure-metastability-settled-active-output-0-bit",
-          "responseKey": "logical-infrastructure-metastability-settled-active-output-0-bit",
+          "jsonPointer": "/logical_infrastructure_metastability_settled_active_output_0_bit",
+          "responseKey": "logical_infrastructure_metastability_settled_active_output_0_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1147,12 +1147,12 @@
         }
       },
       {
-        "semantic": "logical-infrastructure-metastability-settled-active-output-1-bit",
+        "semantic": "logical_infrastructure_metastability_settled_active_output_1_bit",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/logical-infrastructure-metastability-settled-active-output-1-bit",
-          "responseKey": "logical-infrastructure-metastability-settled-active-output-1-bit",
+          "jsonPointer": "/logical_infrastructure_metastability_settled_active_output_1_bit",
+          "responseKey": "logical_infrastructure_metastability_settled_active_output_1_bit",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -1194,7 +1194,7 @@
   "diagnostics": {
     "axisBasis": "inputSemantics",
     "warnings": [
-      "input axes derived from inputSemantics (no length-matched sensorNormalization)"
+      "input axes derived from inputSemantics; openClawProjection.semantics does not name these positions, so the agent's axis names are unverified"
     ],
     "inputLength": 20,
     "sequenceCount": 4

@@ -34,12 +34,12 @@
   },
   "reasoning": {
     "objective": "Produce the normalized input vector for \"Agriculture Yuma VPD HVAC Service Planner\" from current observations so RE can evaluate its CES sequences.",
-    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Agriculture Yuma VPD HVAC Service Planner\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Yuma MQTT-driven HVAC-service-plan machine. Reads the four VPD climate cells at offsets [184:188) populated by the live LATERAL/AmbientSuite/DEV0000009/SensorReadings/v1 MQTT stream (temp + humidity + their watch bands) and produces a 4-cell HVAC service plan at offsets [264:268): URGENT_MAINT, FORECAST_MAINT, CALIBRATE, NORMAL. Pairs with AGX026 (operational VPD climate management) to drive proactive dehumidifier and cooling service work.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- process_stability_norm (index 0):  0.0 = outside MQTT band; | 0.5 = watch; | 1.0 = in MQTT-defined nominal band\n- resource_efficiency_norm (index 1):  0.0 = wasteful; | 0.5 = acceptable; | 1.0 = efficient\n- biosecurity_or_ipm_norm (index 2):  0.0 = biohazard; | 0.5 = mitigated; | 1.0 = controlled\n- maintenance_readiness_norm (index 3):  0.0 = overdue; | 0.5 = service due; | 1.0 = verified\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- agx-053-urgent-maint (RED) -> action: dispatch-agent\n- agx-053-forecast-maint (AMBER) -> action: schedule-care-review\n- agx-053-calibrate (AMBER) -> action: trigger-agent-workflow\n- agx-053-normal (GREEN) -> action: continue-monitoring",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Agriculture Yuma VPD HVAC Service Planner\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Yuma MQTT-driven HVAC-service-plan machine. Reads the four VPD climate cells at offsets [184:188) populated by the live LATERAL/AmbientSuite/DEV0000009/SensorReadings/v1 MQTT stream (temp + humidity + their watch bands) and produces a 4-cell HVAC service plan at offsets [264:268): URGENT_MAINT, FORECAST_MAINT, CALIBRATE, NORMAL. Pairs with AGX026 (operational VPD climate management) to drive proactive dehumidifier and cooling service work.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- ambient_temp_in_band (index 0):  0.0 = outside MQTT band; | 0.5 = watch; | 1.0 = in MQTT-defined nominal band\n- ambient_humidity_in_band (index 1):  0.0 = wasteful; | 0.5 = acceptable; | 1.0 = efficient\n- ambient_temp_high_watch (index 2):  0.0 = biohazard; | 0.5 = mitigated; | 1.0 = controlled\n- ambient_humidity_low_watch (index 3):  0.0 = overdue; | 0.5 = service due; | 1.0 = verified\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- agx-053-urgent-maint (RED) -> action: dispatch-agent\n- agx-053-forecast-maint (AMBER) -> action: schedule-care-review\n- agx-053-calibrate (AMBER) -> action: trigger-agent-workflow\n- agx-053-normal (GREEN) -> action: continue-monitoring",
     "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
     "inputAxes": [
       {
         "index": 0,
-        "key": "process_stability_norm",
+        "key": "ambient_temp_in_band",
         "anchors": {
           "low": "outside MQTT band;",
           "mid": "watch;",
@@ -48,7 +48,7 @@
       },
       {
         "index": 1,
-        "key": "resource_efficiency_norm",
+        "key": "ambient_humidity_in_band",
         "anchors": {
           "low": "wasteful;",
           "mid": "acceptable;",
@@ -57,7 +57,7 @@
       },
       {
         "index": 2,
-        "key": "biosecurity_or_ipm_norm",
+        "key": "ambient_temp_high_watch",
         "anchors": {
           "low": "biohazard;",
           "mid": "mitigated;",
@@ -66,7 +66,7 @@
       },
       {
         "index": 3,
-        "key": "maintenance_readiness_norm",
+        "key": "ambient_humidity_low_watch",
         "anchors": {
           "low": "overdue;",
           "mid": "service due;",
@@ -122,10 +122,10 @@
         "length": 4
       },
       "semantics": [
-        "process_stability_norm",
-        "resource_efficiency_norm",
-        "biosecurity_or_ipm_norm",
-        "maintenance_readiness_norm"
+        "ambient_temp_in_band",
+        "ambient_humidity_in_band",
+        "ambient_temp_high_watch",
+        "ambient_humidity_low_watch"
       ],
       "ttlMs": 300000,
       "normalization": "already-normalized-0-1",
@@ -170,12 +170,12 @@
     "mode": "advise",
     "fields": [
       {
-        "semantic": "process_stability_norm",
+        "semantic": "ambient_temp_in_band",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/process_stability_norm",
-          "responseKey": "process_stability_norm",
+          "jsonPointer": "/ambient_temp_in_band",
+          "responseKey": "ambient_temp_in_band",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -213,12 +213,12 @@
         }
       },
       {
-        "semantic": "resource_efficiency_norm",
+        "semantic": "ambient_humidity_in_band",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/resource_efficiency_norm",
-          "responseKey": "resource_efficiency_norm",
+          "jsonPointer": "/ambient_humidity_in_band",
+          "responseKey": "ambient_humidity_in_band",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -256,12 +256,12 @@
         }
       },
       {
-        "semantic": "biosecurity_or_ipm_norm",
+        "semantic": "ambient_temp_high_watch",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/biosecurity_or_ipm_norm",
-          "responseKey": "biosecurity_or_ipm_norm",
+          "jsonPointer": "/ambient_temp_high_watch",
+          "responseKey": "ambient_temp_high_watch",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -299,12 +299,12 @@
         }
       },
       {
-        "semantic": "maintenance_readiness_norm",
+        "semantic": "ambient_humidity_low_watch",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/maintenance_readiness_norm",
-          "responseKey": "maintenance_readiness_norm",
+          "jsonPointer": "/ambient_humidity_low_watch",
+          "responseKey": "ambient_humidity_low_watch",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -344,7 +344,7 @@
     ]
   },
   "diagnostics": {
-    "axisBasis": "sensorNormalization",
+    "axisBasis": "openClawProjection",
     "warnings": [],
     "inputLength": 4,
     "sequenceCount": 4

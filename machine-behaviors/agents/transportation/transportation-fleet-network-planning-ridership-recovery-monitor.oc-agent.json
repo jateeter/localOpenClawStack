@@ -34,12 +34,12 @@
   },
   "reasoning": {
     "objective": "Produce the normalized input vector for \"Transportation Fleet Network Planning Ridership Recovery Monitor\" from current observations so RE can evaluate its CES sequences.",
-    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Transportation Fleet Network Planning Ridership Recovery Monitor\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Public transportation fleet machine for ridership recovery monitor in the network planning workstream. It monitors trend, corridor opportunity, service quality, and marketing trigger for a 100-bus 24/7 operation and emits AI-triggered outputs for rider experience, operations, maintenance, cleaning, security, and predictive fleet-flow management.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- service-reliability (index 0):\n- rider-impact (index 1):\n- asset-readiness (index 2):\n- safety-security-risk (index 3):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Ridership Recovery Monitor (AMBER) -> action: dispatch-agent\n- Ridership Recovery Monitor (GREEN) -> action: trigger-agent-workflow\n- Ridership Recovery Monitor (GREEN) -> action: create-work-order\n- Ridership Recovery Monitor (GREEN) -> action: continue-monitoring",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Transportation Fleet Network Planning Ridership Recovery Monitor\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Public transportation fleet machine for ridership recovery monitor in the network planning workstream. It monitors trend, corridor opportunity, service quality, and marketing trigger for a 100-bus 24/7 operation and emits AI-triggered outputs for rider experience, operations, maintenance, cleaning, security, and predictive fleet-flow management.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- service_reliability (index 0):\n- rider_impact (index 1):\n- asset_readiness (index 2):\n- safety_security_risk (index 3):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Ridership Recovery Monitor (AMBER) -> action: dispatch-agent\n- Ridership Recovery Monitor (GREEN) -> action: trigger-agent-workflow\n- Ridership Recovery Monitor (GREEN) -> action: create-work-order\n- Ridership Recovery Monitor (GREEN) -> action: continue-monitoring",
     "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
     "inputAxes": [
       {
         "index": 0,
-        "key": "service-reliability",
+        "key": "service_reliability",
         "anchors": {
           "low": "",
           "mid": "",
@@ -48,7 +48,7 @@
       },
       {
         "index": 1,
-        "key": "rider-impact",
+        "key": "rider_impact",
         "anchors": {
           "low": "",
           "mid": "",
@@ -57,7 +57,7 @@
       },
       {
         "index": 2,
-        "key": "asset-readiness",
+        "key": "asset_readiness",
         "anchors": {
           "low": "",
           "mid": "",
@@ -66,7 +66,7 @@
       },
       {
         "index": 3,
-        "key": "safety-security-risk",
+        "key": "safety_security_risk",
         "anchors": {
           "low": "",
           "mid": "",
@@ -122,10 +122,10 @@
         "length": 4
       },
       "semantics": [
-        "service-reliability",
-        "rider-impact",
-        "asset-readiness",
-        "safety-security-risk"
+        "service_reliability",
+        "rider_impact",
+        "asset_readiness",
+        "safety_security_risk"
       ],
       "ttlMs": 300000,
       "normalization": "already-normalized-0-1",
@@ -170,12 +170,12 @@
     "mode": "advise",
     "fields": [
       {
-        "semantic": "service-reliability",
+        "semantic": "service_reliability",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/service-reliability",
-          "responseKey": "service-reliability",
+          "jsonPointer": "/service_reliability",
+          "responseKey": "service_reliability",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -213,12 +213,12 @@
         }
       },
       {
-        "semantic": "rider-impact",
+        "semantic": "rider_impact",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/rider-impact",
-          "responseKey": "rider-impact",
+          "jsonPointer": "/rider_impact",
+          "responseKey": "rider_impact",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -256,12 +256,12 @@
         }
       },
       {
-        "semantic": "asset-readiness",
+        "semantic": "asset_readiness",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/asset-readiness",
-          "responseKey": "asset-readiness",
+          "jsonPointer": "/asset_readiness",
+          "responseKey": "asset_readiness",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -299,12 +299,12 @@
         }
       },
       {
-        "semantic": "safety-security-risk",
+        "semantic": "safety_security_risk",
         "valueType": "scalar",
         "normalization": "scalar-0-1",
         "extract": {
-          "jsonPointer": "/safety-security-risk",
-          "responseKey": "safety-security-risk",
+          "jsonPointer": "/safety_security_risk",
+          "responseKey": "safety_security_risk",
           "textFallback": {
             "type": "scalar-phrase",
             "onUnresolved": "divert-to-analysis",
@@ -344,10 +344,8 @@
     ]
   },
   "diagnostics": {
-    "axisBasis": "inputSemantics",
-    "warnings": [
-      "input axes derived from inputSemantics (no length-matched sensorNormalization)"
-    ],
+    "axisBasis": "openClawProjection",
+    "warnings": [],
     "inputLength": 4,
     "sequenceCount": 4
   }

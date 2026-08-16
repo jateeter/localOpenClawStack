@@ -92,23 +92,86 @@ def _axis_value_type(key: str, text: str) -> tuple[str, str]:
     return "scalar", "scalar-0-1"
 
 
+_POSITIONAL = re.compile(r"(_input_\d+$|-input-\d+$|\binput \d+$|^reserved_\d+$)", re.I)
+
+
+def _canonical_axis(name: str) -> str:
+    """The corpus canonical axis form: lowercase snake_case.
+
+    Shared with RealityEngine_Machines#81, which canonicalised both corpus
+    sources to it. Applied here so the sidecar reproduces the corpus name
+    exactly rather than a normalisation-equivalent variant.
+    """
+    return re.sub(r"_+", "_", re.sub(r"[^A-Za-z0-9]+", "_", str(name)).strip("_")).lower()
+
+
+def _all_positional(names: list[str]) -> bool:
+    """True when every name is a positional placeholder rather than a meaning.
+
+    16 machines carry `<machine>_input_1..N` in openClawProjection.semantics while
+    sensorNormalization holds the real axis names, so preferring the projection
+    blindly would trade one placeholder for another.
+    """
+    return bool(names) and all(_POSITIONAL.search(n or "") for n in names)
+
+
 def _input_axes(metadata: dict[str, Any], length: int) -> tuple[list[dict[str, Any]], str]:
     """Derive one reasoning axis per input position.
 
-    Preferred source is `sensorNormalization` (carries 0/0.5/1.0 anchors that
-    ground the agent's reasoning).  Falls back to `inputSemantics`, then generic
-    positional keys.  Each axis is also typed (scalar vs machine-native
-    count/ordinal).  Returns (axes, basis).
+    `openClawProjection.semantics` is authoritative and comes first: it is the
+    field the corpus and the OWL layer treat as declaring what each write-back
+    position means, and RealityEngine_Machines#81 makes a disagreement between
+    it and the curated binding a reasoner-level build failure.
+
+    It was not consulted at all before, and `sensorNormalization` was preferred
+    because it carries reasoning anchors. On machines whose sensorNormalization
+    is a leftover generic block that happens to be the right length, that chose
+    the wrong names: AGX051 declares `water_ph_in_band … water_turbidity_in_band`
+    in its projection and `process_stability_norm … maintenance_readiness_norm`
+    in sensorNormalization, so the agent was asked to assess process stability
+    and its answer landed in the cell the machine reads as water pH. Right
+    region, wrong meaning, undetectable downstream — 33 positions across 9
+    machines, all four Yuma agriculture machines among them.
+
+    Anchors are still taken from sensorNormalization where its keys line up, so
+    the reasoning quality that motivated preferring it is not lost — only the
+    naming authority moves. Falls back to sensorNormalization, then
+    `inputSemantics`, then generic positional keys.  Returns (axes, basis).
     """
     norm = as_object(metadata.get("sensorNormalization"))
     keys = list(norm.keys())
+
+    projection = as_object(metadata.get("openClawProjection"))
+    declared = [str(s) for s in as_list(projection.get("semantics"))]
+    sem_names = [str(s) for s in as_list(metadata.get("inputSemantics"))]
+    # Only step past the authoritative field when something else actually carries
+    # meaning. Where every source is positional the projection still wins: the
+    # placeholders are equally uninformative, and matching the corpus exactly is
+    # what keeps the #81 functional-property check meaningful.
+    better_exists = (
+        (len(keys) == length and not _all_positional(keys))
+        or (len(sem_names) == length and not _all_positional(sem_names))
+    )
+    if len(declared) == length and not (_all_positional(declared) and better_exists):
+        anchors = [_split_anchors(str(norm[keys[i]])) if len(keys) == length
+                   else {"low": "", "mid": "", "high": ""}
+                   for i in range(length)]
+        # Verbatim, not _slug(): _slug produces kebab-case and the corpus
+        # canonical form is snake_case. The two must match exactly, not merely
+        # normalise to the same thing — RealityEngine_Machines#81 asserts both
+        # names on one functional property, so `water-ph-in-band` against
+        # `water_ph_in_band` would be a build failure rather than agreement.
+        axes = [{"index": i, "key": _canonical_axis(declared[i]) or f"input_{i}",
+                 "anchors": anchors[i]} for i in range(length)]
+        return axes, "openClawProjection"
+
     if len(keys) == length:
         axes = [{"index": i, "key": keys[i], "anchors": _split_anchors(str(norm[keys[i]]))}
                 for i in range(length)]
         return axes, "sensorNormalization"
     sem = [str(s) for s in as_list(metadata.get("inputSemantics"))]
     if len(sem) == length:
-        axes = [{"index": i, "key": _slug(sem[i]) or f"input_{i}",
+        axes = [{"index": i, "key": _canonical_axis(sem[i]) or f"input_{i}",
                  "anchors": {"low": "", "mid": "", "high": ""}} for i in range(length)]
         return axes, "inputSemantics"
     axes = [{"index": i, "key": f"input_{i}", "anchors": {"low": "", "mid": "", "high": ""}}
@@ -265,9 +328,15 @@ def derive(machine_path: Path, cfg: dict[str, Any] | None = None) -> dict[str, A
         warnings.append("machine has no usable perceptualMapping.input region")
         length = max(length, 0)
     axes, axis_basis = _input_axes(metadata, length)
-    if axis_basis != "sensorNormalization":
-        warnings.append(f"input axes derived from {axis_basis} "
-                        "(no length-matched sensorNormalization)")
+    # openClawProjection is the authoritative source, so deriving from it is the
+    # expected path rather than a degradation. Warn only when the corpus did not
+    # declare the positions there and the deriver had to guess — which is the
+    # case worth surfacing, since those names cannot be cross-checked against the
+    # corpus by RealityEngine_Machines#81's functional-property gate.
+    if axis_basis not in ("openClawProjection", "sensorNormalization"):
+        warnings.append(f"input axes derived from {axis_basis}; "
+                        "openClawProjection.semantics does not name these "
+                        "positions, so the agent's axis names are unverified")
     catalog = _sequence_catalog(machine, metadata)
     if not catalog:
         warnings.append("machine has no triggerConfig.rules (no CES catalog)")
