@@ -103,75 +103,47 @@ def corpus_max_end(machines_dir: Path) -> int:
 
 def sweep(domain: str, cfg: dict[str, Any]) -> dict[str, Any]:
     machines_dir = _abs(cfg["machinesDir"])
-    region_cfg = as_object(cfg.get("completionRegions"))
-    length = int(region_cfg.get("length", 4))
-    configured_base = int(region_cfg.get("baseOffset", 4400))
+    lane_cfg = as_object(cfg.get("completionLane"))
+    lane = {"offset": int(lane_cfg.get("offset", 4210)),
+            "length": int(lane_cfg.get("length", 4)),
+            "id": str(lane_cfg.get("sourceMappingId", "acp-openclaw-completion"))}
 
-    # Prefer the registry-declared reserved band (rangePolicy.reservedRanges) as
-    # the single source of truth.  Fall back to reserving above the corpus max,
-    # rounded to a 100 boundary, when the registration is absent.
+    # No band, no cursor. Completions share one arbitrated service lane, so there
+    # is nothing per-agent left to allocate. corpus_max_end is still reported
+    # because the coverage report states the footprint, not because anything is
+    # placed above it.
     max_end = corpus_max_end(machines_dir)
-    reserved = reserved_band(cfg)
-    if reserved:
-        band_base = int(reserved["offset"])
-        band_limit = int(reserved["offset"]) + int(reserved["length"])
-        band_source = f"registry-reserved:{reserved.get('id')}"
-    else:
-        band_base = max(configured_base, int(math.ceil(max_end / 100.0) * 100))
-        band_limit = None
-        band_source = "dynamic-above-corpus-max"
 
     paths = discover(machines_dir, domain)
     plans: list[dict[str, Any]] = []
-    cursor = band_base
     for path in paths:
-        plan = derive(path, cfg, region_base=cursor)
-        # advance by the total positions actually allocated (regions are variable
-        # length now: advise=4, supervised-act=5, automated-act=6).
-        used = sum(a["realityVectorImpact"]["length"]
-                   for a in plan["agents"] if a["realityVectorImpact"])
-        cursor += used
-        plans.append(plan)
+        plans.append(derive(path, cfg))
 
     schema = minischema.load_schema(_abs(cfg["schemasDir"]) / "agent-binding.schema.json")
     validation_errors: list[str] = []
-    all_regions: list[tuple[int, int]] = []
     for plan in plans:
         for a in plan["agents"]:
             errs = minischema.validate(a["agentBinding"], schema)
             for e in errs:
                 validation_errors.append(f"{plan['machine']['code']}/{a['agent']}: {e}")
-            rv = a["realityVectorImpact"]
-            if rv:
-                all_regions.append((rv["offset"], rv["offset"] + rv["length"]))
+            if a["realityVectorImpact"] is not None:
+                validation_errors.append(
+                    f"{plan['machine']['code']}/{a['agent']}: realityVectorImpact is set, but "
+                    "per-agent completion regions were retired — completions use the "
+                    f"{lane['id']} service lane")
 
-    # global region collisions
-    region_collisions = []
-    ordered = sorted(all_regions)
-    for i in range(1, len(ordered)):
-        if ordered[i][0] < ordered[i - 1][1]:
-            region_collisions.append((ordered[i - 1], ordered[i]))
-
-    # band-vs-corpus collisions (should be empty because band_base > max_end)
-    band_span = (band_base, cursor)
-
-    # allocation must stay inside the registry-reserved band when one exists
-    band_overflow = bool(band_limit is not None and cursor > band_limit)
-    if band_overflow:
-        validation_errors.append(
-            f"completion allocation [{band_base}:{cursor}] overflows reserved band "
-            f"[{band_base}:{band_limit}] — widen reservedRanges length")
+    # Region collisions are no longer possible to have: nothing is allocated
+    # per agent. Kept as an empty list so the shape of the result is stable for
+    # the coverage report and the tests, which assert the absence rather than
+    # dropping the key.
+    region_collisions: list[tuple] = []
 
     return {
         "domain": domain,
         "machineCount": len(plans),
         "corpusMaxEnd": max_end,
-        "bandBase": band_base,
-        "bandLimit": band_limit,
-        "bandSource": band_source,
-        "bandSpan": list(band_span),
-        "bandOverflow": band_overflow,
-        "regionLength": length,
+        "completionLane": lane,
+        "perAgentRegions": False,
         "plans": plans,
         "validationErrors": validation_errors,
         "regionCollisions": region_collisions,
@@ -185,7 +157,9 @@ def summarize(result: dict[str, Any]) -> dict[str, Any]:
     agent_use = Counter(a["agent"] for p in plans for a in p["agents"])
     mode_dist = Counter(o["autonomyMode"] for p in plans for o in p["outputs"])
     class_dist = Counter(p["machine"]["machineClass"] for p in plans)
-    writeback_agents = sum(1 for p in plans for a in p["agents"] if a["realityVectorImpact"])
+    writeback_agents = sum(
+        1 for p in plans for a in p["agents"]
+        if (a.get("agentBinding") or {}).get("writeBack", {}).get("type") != "none")
     observe_agents = bindings - writeback_agents
     low_conf = [(p["machine"]["code"], o["label"], o["agent"])
                 for p in plans for o in p["outputs"] if o.get("lowConfidence")]
@@ -217,10 +191,10 @@ def text_report(result: dict[str, Any]) -> str:
     lines.append(f"machines={s['machines']}  CES-outputs={s['cesOutputs']}  "
                  f"agent-bindings={s['agentBindings']} "
                  f"(write-back={s['writebackAgents']}, observe={s['observeAgents']})")
-    limit = f"/{result['bandLimit']}" if result.get("bandLimit") else ""
+    lane = result["completionLane"]
     lines.append(f"corpus max offset+len={result['corpusMaxEnd']}  "
-                 f"completion band={result['bandSpan'][0]}..{result['bandSpan'][1]}{limit} "
-                 f"[{result['bandSource']}]  overflow={result['bandOverflow']}")
+                 f"completion lane={lane['id']}@[{lane['offset']}:{lane['offset'] + lane['length']}]  "
+                 f"per-agent regions={result['perAgentRegions']}")
     lines.append(f"validation errors={len(result['validationErrors'])}  "
                  f"region collisions={len(result['regionCollisions'])}  "
                  f"low-confidence selections={len(s['lowConfidenceSelections'])}")
@@ -240,9 +214,6 @@ def text_report(result: dict[str, Any]) -> str:
     for p in result["plans"]:
         agents = "; ".join(
             f"{a['agent']}@{a['autonomyMode']}"
-            + (f"[{a['realityVectorImpact']['offset']}:"
-               f"{a['realityVectorImpact']['offset'] + a['realityVectorImpact']['length']}]"
-               if a["realityVectorImpact"] else "[observe]")
             for a in p["agents"])
         lines.append(f"  {p['machine']['code']:40}{p['machine']['machineClass']:24}{agents}")
     if result["validationErrors"]:
@@ -264,8 +235,10 @@ def md_report(result: dict[str, Any]) -> str:
            f"- CES outputs (behaviors): **{s['cesOutputs']}**",
            f"- Agent bindings: **{s['agentBindings']}** "
            f"(write-back **{s['writebackAgents']}**, observe **{s['observeAgents']}**)",
-           f"- Reserved completion band: **{result['bandSpan']}** "
-           f"(corpus max offset+len = {result['corpusMaxEnd']})",
+           f"- Completion lane: **{result['completionLane']['id']}** at "
+           f"**[{result['completionLane']['offset']}:"
+           f"{result['completionLane']['offset'] + result['completionLane']['length']}]** — shared and "
+           f"arbitrated, no per-agent regions (corpus max offset+len = {result['corpusMaxEnd']})",
            f"- Schema validation errors: **{len(result['validationErrors'])}**, "
            f"region collisions: **{len(result['regionCollisions'])}**\n",
            "## Autonomy mode distribution\n",
@@ -278,8 +251,8 @@ def md_report(result: dict[str, Any]) -> str:
             "|---|---|---|---|---|"]
     for p in result["plans"]:
         for a in p["agents"]:
-            rv = a["realityVectorImpact"]
-            rv_s = (f"`[{rv['offset']}:{rv['offset'] + rv['length']}]`" if rv else "none (observe)")
+            wb = (a.get("agentBinding") or {}).get("writeBack", {}).get("type") != "none"
+            rv_s = (f"`{result['completionLane']['id']}`" if wb else "none (observe)")
             out.append(f"| {p['machine']['code']} | {p['machine']['machineClass']} "
                        f"| {a['agent']} | {a['autonomyMode']} | {rv_s} |")
     return "\n".join(out) + "\n"
@@ -293,13 +266,20 @@ def pe_source_mappings(result: dict[str, Any]) -> dict[str, Any]:
     read them — the 'mappings to PE sources for the responses'.  Shape mirrors
     RealityEngine_CPP/config/integrations.example.json `sourceMappings`.
     """
+    # Every write-back agent targets the same lane, so this collapses to a single
+    # mapping. It used to be one per agent, which is what produced the 1,216
+    # stray mappings the band retirement stranded (#16, #18, #23).
     mappings = []
+    seen_ids: set[str] = set()
     for p in result["plans"]:
         for a in p["agents"]:
             wb = a["agentBinding"]["writeBack"]
             if wb.get("type") != "pe-sensor":
                 continue
             sm = wb["sourceMapping"]
+            if sm["id"] in seen_ids:
+                continue
+            seen_ids.add(sm["id"])
             semantics = [f["semantic"] for f in a["responseMapping"]["fields"] if f.get("target")]
             mappings.append({
                 "id": sm["id"],
@@ -322,7 +302,7 @@ def pe_source_mappings(result: dict[str, Any]) -> dict[str, Any]:
                     "Drop into the PE integrations config sourceMappings array.",
         "schemaVersion": "1.0.0",
         "generatedFrom": result["domain"],
-        "reservedBand": result["bandSpan"],
+        "completionLane": result["completionLane"],
         "count": len(mappings),
         "sourceMappings": mappings,
     }

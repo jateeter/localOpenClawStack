@@ -1,11 +1,9 @@
 {
   "_comment": "OpenClaw integration template values + region allocation policy. Copy to config.json and edit. Values mirror RealityEngine_CPP/config/integrations.example.json (openclaw-xacp + acp-openclaw-completion) and localOpenClawStack docker-compose defaults.",
-
   "machinesDir": "../../RealityEngine_Machines/machines",
   "registryPath": "../../RealityEngine_Machines/domains/domain-registry.json",
   "manifestPath": "../../RealityEngine_Machines/domains/domain-manifest.json",
   "schemasDir": "../../RealityEngine_Machines/schemas",
-
   "openclaw": {
     "id": "openclaw-xacp",
     "kind": "acp",
@@ -20,7 +18,6 @@
     "completionMode": "pe-source-mapping",
     "completionSourceMappingId": "acp-openclaw-completion"
   },
-
   "pe": {
     "baseUrl": "http://localhost:5300",
     "dispatchEndpoint": "/api/integrations/acp/dispatch",
@@ -28,12 +25,17 @@
     "ledgerEndpoint": "/api/dispatch/ledger",
     "graphqlEndpoint": "http://localhost:4000/graphql"
   },
-
-  "completionRegions": {
-    "_comment": "Reserved perceptual-space band for derived agent completion sensors. Each unique agent on a machine is assigned a distinct length-4 region from this band so completions never collide and RE can read each agent's result independently. Production must reserve this band in domains/domain-registry.json rangePolicy before live use.",
-    "baseOffset": 4400,
+  "completionLane": {
+    "_comment": "The single arbitrated service lane every agent completion reaches the vector through. Declared as acp-openclaw-completion in RealityEngine_Machines domains/region-allocation.json serviceLanes. Agents do NOT get per-agent regions: the per-machine completion band was retired in RealityEngine_Machines#63/#64, and four cells cannot be subdivided across 1300+ agents. Which agent produced a completion is carried by the dispatch ledger, not by distinct cells.",
+    "sourceMappingId": "acp-openclaw-completion",
+    "offset": 4210,
     "length": 4,
     "ttlMs": 300000,
-    "semantics": ["completed", "failed", "confidence", "actionClass"]
+    "semantics": [
+      "completed",
+      "failed",
+      "confidence",
+      "actionClass"
+    ]
   }
 }

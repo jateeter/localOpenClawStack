@@ -58,7 +58,11 @@ report(f"{len(agents)} agent instances vs oc-agent.schema.json", bad[:5])
 # (b) representative completion payload vs corpus completion schema -----------
 comp_schema = minischema.load_schema(COMPLETION_SCHEMA)
 plan = derive(resolve_machine_file(_abs(CFG["machinesDir"]), "HomeChronicPainMonitor.json"), CFG)
-agent = next(a for a in plan["agents"] if a["realityVectorImpact"])
+# Pick a write-back agent by its binding, not by realityVectorImpact: per-agent
+# regions were retired (#26) and that field is None for every agent now, which
+# made this a StopIteration rather than a wrong answer.
+agent = next(a for a in plan["agents"]
+             if a["agentBinding"]["writeBack"].get("type") == "pe-sensor")
 wb = agent["agentBinding"]["writeBack"]
 completion = {
     "provider": "acp",

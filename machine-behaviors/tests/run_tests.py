@@ -68,29 +68,44 @@ for name, a in agents.items():
     errs = schema_errors(a["agentBinding"], "agent-binding.schema.json")
     check(f"T2 agentBinding valid: {name}", not errs, "; ".join(errs[:3]))
 
-# --- T3: reality-vector regions: distinct, length-4, non-overlapping with machine
-regions = [(a["realityVectorImpact"]["offset"], a["realityVectorImpact"]["length"])
-           for a in plan["agents"] if a["realityVectorImpact"]]
-spans = [(off, off + ln) for off, ln in regions]
-check("T3.1 region length tracks affected positions (4/5/6 by autonomy)",
-      all(a["realityVectorImpact"]["length"] == len(a["affectedPositions"])
-          for a in plan["agents"] if a["realityVectorImpact"]))
-check("T3.2 regions distinct", len(spans) == len({(s, e) for s, e in spans}))
+# --- T3: the shared completion lane (per-agent regions retired, #26)
+# Agents no longer own regions; every write-back targets acp-openclaw-completion.
+# These assert the absence of per-agent allocation rather than being deleted.
+wb_agents = [a for a in plan["agents"]
+             if a["agentBinding"]["writeBack"].get("type") == "pe-sensor"]
+lane_ids = {a["agentBinding"]["writeBack"]["sourceMapping"]["id"] for a in wb_agents}
+lane_regions = {tuple(sorted(a["agentBinding"]["writeBack"]["region"].items()))
+                for a in wb_agents}
+check("T3.1 no agent claims a per-agent completion region",
+      all(a["realityVectorImpact"] is None for a in plan["agents"]),
+      str([a["agent"] for a in plan["agents"] if a["realityVectorImpact"] is not None][:3]))
+check("T3.2 every write-back agent shares one lane id", len(lane_ids) <= 1, str(lane_ids))
+check("T3.3 every write-back agent shares one lane region", len(lane_regions) <= 1,
+      str(lane_regions))
+check("T3.4 fields beyond the lane width carry no vector target",
+      all(f["target"] is None
+          for a in wb_agents
+          for i, f in enumerate(a["responseMapping"]["fields"])
+          if i >= a["agentBinding"]["writeBack"]["region"]["length"]))
 
 
 def overlap(a, b):
     return a[0] < b[1] and b[0] < a[1]
 
 
-pairwise_ok = all(not overlap(spans[i], spans[j])
-                  for i in range(len(spans)) for j in range(i + 1, len(spans)))
-check("T3.3 regions mutually non-overlapping", pairwise_ok, str(spans))
+# Pairwise non-overlap is gone with per-agent regions — there is one lane, and
+# it necessarily "overlaps itself". What still matters is that the lane does not
+# sit on the machine's own input or output window.
 mo = plan["machine"]["outputRegion"]
 mi = plan["machine"]["inputRegion"]
 machine_spans = [(mi["offset"], mi["offset"] + mi["length"]),
                  (mo["offset"], mo["offset"] + mo["length"])]
-no_clash = all(not overlap(s, ms) for s in spans for ms in machine_spans)
-check("T3.4 completion regions clear of machine in/out", no_clash)
+lane_span = [(r["offset"], r["offset"] + r["length"])
+             for r in ({tuple(sorted(a["agentBinding"]["writeBack"]["region"].items())): 
+                        a["agentBinding"]["writeBack"]["region"] for a in wb_agents}).values()]
+check("T3.5 completion lane clear of machine in/out",
+      all(not overlap(s, ms) for s in lane_span for ms in machine_spans),
+      f"lane={lane_span} machine={machine_spans}")
 
 # --- T4: dispatch envelope validates against canonical schema -----------------
 machine_meta = dispatch_side.load_machine_meta(plan, CFG)
@@ -112,8 +127,12 @@ res = openclaw_side.run(env, agents[crisis["agent"]], CFG, o_log, live=False)
 comp = res["completions"][0]
 errs = schema_errors(comp, "localai-completion-writeback.schema.json")
 check("T5.1 completion valid vs localai-completion-writeback.schema", not errs, "; ".join(errs[:3]))
-check("T5.2 completion region == agent reality-vector impact",
-      comp["region"] == agents[crisis["agent"]]["realityVectorImpact"])
+# realityVectorImpact is None now; the completion targets the shared lane, so
+# the binding's writeBack region is what the completion must match.
+check("T5.2 completion region == the shared completion lane",
+      comp["region"] == agents[crisis["agent"]]["agentBinding"]["writeBack"]["region"],
+      f"completion={comp['region']} "
+      f"lane={agents[crisis['agent']]['agentBinding']['writeBack']['region']}")
 ext = {f["semantic"]: f["value"] for f in res["extracted"]}
 check("T5.3 RED crisis at supervised-act is blocked (failed=1 from text)", ext["failed"] == 1.0)
 check("T5.4 completion values length == region length",
@@ -162,8 +181,12 @@ for a in plan["agents"]:
 sup = next(a for a in plan["agents"] if a["autonomyMode"] == "supervised-act")
 check("T9.1 supervised-act affects 5 vector positions", len(sup["affectedPositions"]) == 5,
       str(sup["affectedPositions"]))
-check("T9.2 region length tracks affected positions",
-      sup["realityVectorImpact"]["length"] == len(sup["affectedPositions"]))
+# The response contract still describes 5 positions; the lane carries 4 of them.
+# The 5th is extracted and has target None — see _build_response_mapping.
+check("T9.2 lane carries the first 4 of the 5 affected positions",
+      sum(1 for f in sup["responseMapping"]["fields"] if f["target"] is not None)
+      == sup["agentBinding"]["writeBack"]["region"]["length"],
+      str([f["semantic"] for f in sup["responseMapping"]["fields"] if f["target"]]))
 
 # textual -> value: a known structured-keys response must extract the right vector
 mapping = sup["responseMapping"]
@@ -175,8 +198,11 @@ check("T9.4 text 'failed: no' -> 0.0", fv["failed"] == 0.0)
 check("T9.5 text 'confidence: high' -> 0.9", fv["confidence"] == 0.9)
 check("T9.6 text 'verdict: staged' -> actionClass 0.75", fv["actionClass"] == 0.75)
 check("T9.7 text 'review_required: yes' -> 1.0", fv["review_required"] == 1.0)
-check("T9.8 one target region, values length == positions",
-      len(targets) == 1 and len(targets[0]["values"]) == 5)
+# 5 fields are extracted, 4 reach the vector: the lane is 4 cells wide and
+# review_required is the field that no longer has a target (#26).
+check("T9.8 one target region, values length == lane width",
+      len(targets) == 1 and len(targets[0]["values"]) == 4,
+      str([(t_["region"], len(t_["values"])) for t_ in targets]))
 
 # negative case: 'completed: no / failed: yes' (blocked) flips the vector
 text_blocked = "verdict: blocked\ncompleted: no\nfailed: yes\nconfidence: low"
