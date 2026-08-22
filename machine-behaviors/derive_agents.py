@@ -210,12 +210,20 @@ def _risk_controls(mode: str) -> dict[str, Any]:
     }
 
 
-def _write_back(mode: str, code: str, agent: str, region: dict[str, int],
+def _write_back(mode: str, lane_id: str, region: dict[str, int],
                 ttl: int, semantics: list[str]) -> dict[str, Any]:
+    """The shared completion lane every write-back agent targets.
+
+    sensorId and sourceMapping.id are the SAME for every agent, deliberately.
+    They used to be per-agent (`acp.openclaw.<code>.<agent>.completion`), which
+    only made sense while each agent owned a distinct region. It does not now:
+    one lane, one sensor, one mapping — the id RealityEngine_CI and the Manager
+    already resolve as ACP_COMPLETION_SOURCE_MAPPING_ID.
+    """
     if mode == "observe":
         return {"type": "none"}
-    sensor_id = f"acp.openclaw.{code}.{_short_agent(agent)}.completion"
-    name = f"OpenClaw {code} {agent} completion"
+    sensor_id = lane_id
+    name = "OpenClaw ACP completion"
     return {
         "type": "pe-sensor",
         "provider": "acp",
@@ -232,7 +240,7 @@ def _write_back(mode: str, code: str, agent: str, region: dict[str, int],
             "compactPush": True,
         },
         "sourceMapping": {
-            "id": f"acp-{code}-{_short_agent(agent)}-completion",
+            "id": lane_id,
             "sensorId": sensor_id,
             "name": name,
             "region": dict(region),
@@ -332,10 +340,21 @@ def _build_response_mapping(mode: str, sensor_id: str | None,
         "schemaVersion": "1.0.0",
         "responseContract": "structured-keys-or-text",
         "mode": mode,
+        # The lane is what the vector can carry, and it is 4 cells wide for every
+        # agent. Per-autonomy specs run to 5 (supervised-act) and 6
+        # (automated-act) fields; those extra fields were only expressible while
+        # each agent owned a variable-length region of its own.
+        #
+        # They are still extracted — the response contract is unchanged — but they
+        # carry target: None, the same way an observe agent's field does. Writing
+        # index 4 into a 4-cell lane is what the old code did once the band went
+        # away, and it raised IndexError rather than silently corrupting a
+        # neighbour, which is the only good thing about it.
         "fields": [
             {"semantic": f["semantic"], "valueType": f["valueType"],
              "normalization": f["normalization"], "extract": f["extract"],
-             "target": {"sensorId": sensor_id, "region": dict(region), "index": i}}
+             "target": ({"sensorId": sensor_id, "region": dict(region), "index": i}
+                        if region and i < int(region.get("length", 0)) else None)}
             for i, f in enumerate(fields)
         ],
     }
@@ -404,12 +423,21 @@ def derive(machine_path: Path, cfg: dict[str, Any] | None = None,
             "selectionBasis": selection_basis, "lowConfidence": low_conf,
         })
 
-    # group outputs by agent; allocate a completion region per write-back agent
-    region_cfg = as_object(cfg.get("completionRegions"))
-    base = region_base if region_base is not None else int(region_cfg.get("baseOffset", 4400))
-    length = int(region_cfg.get("length", 4))
-    ttl = int(region_cfg.get("ttlMs", 300000))
-    semantics = [str(x) for x in as_list(region_cfg.get("semantics"))] or \
+    # Completions share ONE arbitrated service lane. There is no per-agent region.
+    #
+    # The per-machine completion band this used to allocate from was retired in
+    # RealityEngine_Machines#63/#64; completions reach the vector through
+    # acp-openclaw-completion at [4210:4214], read and arbitrated like any other
+    # writer. Four cells cannot be subdivided across 1300+ agents — handing each
+    # one a slice is a collision dressed as an allocation, which is what the old
+    # cursor produced once the band went away. Which agent produced a completion
+    # is carried by the dispatch ledger, not by distinct cells.
+    lane_cfg = as_object(cfg.get("completionLane"))
+    lane_offset = int(lane_cfg.get("offset", 4210))
+    lane_length = int(lane_cfg.get("length", 4))
+    lane_id = str(lane_cfg.get("sourceMappingId", "acp-openclaw-completion"))
+    ttl = int(lane_cfg.get("ttlMs", 300000))
+    semantics = [str(x) for x in as_list(lane_cfg.get("semantics"))] or \
         ["completed", "failed", "confidence", "actionClass"]
 
     by_agent: dict[str, list[dict[str, Any]]] = {}
@@ -417,7 +445,6 @@ def derive(machine_path: Path, cfg: dict[str, Any] | None = None,
         by_agent.setdefault(out["agent"], []).append(out)
 
     agents: list[dict[str, Any]] = []
-    cursor = base  # next free perceptual-space offset for a completion region
     for agent in sorted(by_agent):
         handled = by_agent[agent]
         # the agent's effective autonomy is the most-permissive across its outputs
@@ -432,10 +459,9 @@ def derive(machine_path: Path, cfg: dict[str, Any] | None = None,
         # the response field spec determines how many vector positions this agent
         # affects on completion, hence the region length (variable per autonomy).
         fields = _response_field_spec(mode) if mode != "observe" else []
-        region = None
-        if mode != "observe":
-            region = {"offset": cursor, "length": len(fields)}
-            cursor += len(fields)
+        # Every write-back agent targets the same lane. An observe agent writes
+        # nothing and has no region, as before.
+        region = None if mode == "observe" else {"offset": lane_offset, "length": lane_length}
         field_semantics = [f["semantic"] for f in fields] or list(semantics)
 
         trigger_hook = f"{code}-{'-'.join(sorted({h['sequenceId'] for h in handled}))}"[:120]
@@ -444,7 +470,7 @@ def derive(machine_path: Path, cfg: dict[str, Any] | None = None,
             "mode": mode,
             "trigger": trigger_hook,
             "allowedActions": actions,
-            "writeBack": _write_back(mode, code, agent, region or {}, ttl, field_semantics),
+            "writeBack": _write_back(mode, lane_id, region or {}, ttl, field_semantics),
             "autonomyPolicy": _autonomy_policy(mode),
             "riskControls": _risk_controls(mode),
         }
@@ -455,7 +481,9 @@ def derive(machine_path: Path, cfg: dict[str, Any] | None = None,
             "autonomyMode": mode,
             "handlesOutputs": [h["index"] for h in handled],
             "handlesSequences": [h["sequenceId"] for h in handled],
-            "realityVectorImpact": region,           # the PE region written on completion
+            # No per-agent region exists any more; the lane is shared and is
+            # described by writeBack.sourceMapping, not by this field.
+            "realityVectorImpact": None,
             "affectedPositions": field_semantics if region else [],
             "completionSensorId": binding["writeBack"].get("sensorId"),
             "openclaw": _openclaw_template(cfg, agent),

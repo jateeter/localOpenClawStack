@@ -68,56 +68,54 @@ for p in result["plans"]:
 check("D2 all agentBindings schema-valid", not bad, str(bad[:3]))
 check("D2b sweep reports zero validation errors", len(result["validationErrors"]) == 0)
 
-# D3: global region governance
-regions = [(a["realityVectorImpact"]["offset"],
-            a["realityVectorImpact"]["offset"] + a["realityVectorImpact"]["length"])
-           for p in result["plans"] for a in p["agents"] if a["realityVectorImpact"]]
-ordered = sorted(regions)
-overlaps = [(ordered[i - 1], ordered[i]) for i in range(1, len(ordered))
-            if ordered[i][0] < ordered[i - 1][1]]
-check("D3.1 no two agents share/overlap a completion region", not overlaps, str(overlaps[:3]))
-check("D3.2 sweep reports zero region collisions", len(result["regionCollisions"]) == 0)
-check("D3.3 completion band sits above corpus max offset",
-      result["bandBase"] > result["corpusMaxEnd"],
-      f"base={result['bandBase']} max={result['corpusMaxEnd']}")
-# band must not overlap any machine's input/output anywhere in the corpus
-band_lo, band_hi = result["bandSpan"]
-corpus_clash = 0
-for pth in machines_dir.rglob("*.json"):
-    try:
-        pm = (json.loads(pth.read_text()).get("machine", {}) or {}).get("perceptualMapping", {}) or {}
-    except json.JSONDecodeError:
-        continue
-    for key in ("input", "output"):
-        r = pm.get(key) or {}
-        if "offset" in r and "length" in r:
-            if r["offset"] < band_hi and band_lo < r["offset"] + r["length"]:
-                corpus_clash += 1
-check("D3.4 reserved band clear of every machine in the corpus", corpus_clash == 0, str(corpus_clash))
+# D3: completion lane governance
+#
+# The per-agent completion band was retired (RealityEngine_Machines#63/#64) and
+# this repo's #26 settled the replacement: agents get NO region. Completions reach
+# the vector through the single arbitrated acp-openclaw-completion lane at
+# [4210:4214]. These checks assert the absence of allocation rather than being
+# deleted — the old band assertions are replaced, not dropped, so a regression
+# back to per-agent regions fails here.
+lane = result["completionLane"]
 
-# D3.5/6: allocation is bound to the registry-declared reserved band (M5)
-from domain_sweep import reserved_band  # noqa: E402
-rb = reserved_band(CFG)
-check("D3.5 registry declares the ACP completion reserved range", rb is not None,
-      "rangePolicy.reservedRanges missing")
-check("D3.6 sweep uses the registry-reserved band as source",
-      result["bandSource"].startswith("registry-reserved:"), result["bandSource"])
-# D3.7 has nothing to assert without a declared band, and used to crash on
-# `bandSpan[1] <= None` the moment reserved_band() stopped returning someone
-# else's band. It fails with a reason instead — the same posture as D3.5/D3.6,
-# which are left failing deliberately until the allocation model is replaced (#26).
-check("D3.7 allocation stays inside the reserved band (no overflow)",
-      result["bandLimit"] is not None
-      and result["bandOverflow"] is False
-      and result["bandSpan"][1] <= result["bandLimit"],
-      f"span={result['bandSpan']} limit={result['bandLimit']}"
-      + (" (no ACP band declared — nothing to contain)" if result["bandLimit"] is None else ""))
-if rb:
-    lo, hi = rb["offset"], rb["offset"] + rb["length"]
-    inside = all(lo <= off and off + length <= hi for off, length in
-                 [(a["realityVectorImpact"]["offset"], a["realityVectorImpact"]["length"])
-                  for p in result["plans"] for a in p["agents"] if a["realityVectorImpact"]])
-    check("D3.8 every completion region lies within the reserved band", inside)
+check("D3.1 no agent claims a per-agent completion region",
+      all(a["realityVectorImpact"] is None for p in result["plans"] for a in p["agents"]),
+      str([a["agent"] for p in result["plans"] for a in p["agents"]
+           if a["realityVectorImpact"] is not None][:3]))
+check("D3.2 sweep reports zero region collisions", len(result["regionCollisions"]) == 0)
+check("D3.3 sweep declares per-agent regions retired", result["perAgentRegions"] is False,
+      str(result["perAgentRegions"]))
+
+# D3.4: the lane is a declared service lane in region-allocation.json, and it is
+# the one the config names as ACP_COMPLETION_SOURCE_MAPPING_ID.
+_alloc = json.loads((_abs(CFG["machinesDir"]).parent / "domains" / "region-allocation.json").read_text())
+_lanes = {sl["id"]: sl for sl in (_alloc.get("serviceLanes") or [])}
+_declared = _lanes.get(lane["id"])
+check("D3.4 completion lane is a declared service lane", _declared is not None, lane["id"])
+check("D3.5 lane matches the registry's declared offset/length",
+      bool(_declared) and _declared["offset"] == lane["offset"]
+      and _declared["length"] == lane["length"],
+      f"sweep={lane} registry={_declared}")
+check("D3.6 lane is the configured completion source mapping id",
+      lane["id"] == CFG["openclaw"]["completionSourceMappingId"],
+      f"{lane['id']} != {CFG['openclaw']['completionSourceMappingId']}")
+
+# D3.7: every write-back agent targets that lane and nothing else.
+_wb = [(p["machine"]["code"], a["agent"], a["agentBinding"]["writeBack"])
+       for p in result["plans"] for a in p["agents"]
+       if a["agentBinding"]["writeBack"].get("type") == "pe-sensor"]
+check("D3.7 every write-back agent targets the shared lane",
+      all(w["sourceMapping"]["id"] == lane["id"]
+          and w["region"] == {"offset": lane["offset"], "length": lane["length"]}
+          for _, _, w in _wb),
+      str([(c, a) for c, a, w in _wb if w["sourceMapping"]["id"] != lane["id"]][:3]))
+
+# D3.8: nothing is emitted above the corpus footprint any more. This is the
+# condition that stranded 1,216 mappings when the band was retired.
+_budget = (_alloc.get("vectorBudget") or {}).get("maxCellExclusive", 0)
+check("D3.8 no completion target sits above the corpus footprint",
+      lane["offset"] + lane["length"] <= _budget,
+      f"lane={lane} budget={_budget}")
 
 # D4: autonomy safety — health domain must never reach automated-act
 modes = [o["autonomyMode"] for p in result["plans"] for o in p["outputs"]]

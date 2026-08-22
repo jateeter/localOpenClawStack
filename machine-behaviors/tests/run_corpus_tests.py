@@ -82,34 +82,42 @@ check("C2.2 all responseMappings schema-valid corpus-wide", rm_bad == 0, f"{rm_b
 check("C2.3 sweep reports zero validation errors", len(result["validationErrors"]) == 0,
       str(result["validationErrors"][:2]))
 
-# C3: global region integrity within the reserved band
-regions = sorted((a["realityVectorImpact"]["offset"],
-                  a["realityVectorImpact"]["offset"] + a["realityVectorImpact"]["length"])
-                 for p in result["plans"] for a in p["agents"] if a["realityVectorImpact"])
-overlaps = [(regions[i - 1], regions[i]) for i in range(1, len(regions)) if regions[i][0] < regions[i - 1][1]]
-check("C3.1 no completion region overlaps another (corpus-wide)", not overlaps, str(overlaps[:2]))
+# C3: the shared completion lane, corpus-wide (per-agent regions retired, #26)
+lane = result["completionLane"]
+check("C3.1 no agent claims a per-agent completion region",
+      all(a["realityVectorImpact"] is None for p in result["plans"] for a in p["agents"]),
+      str([a["agent"] for p in result["plans"] for a in p["agents"]
+           if a["realityVectorImpact"] is not None][:3]))
 check("C3.2 zero region collisions reported", len(result["regionCollisions"]) == 0)
-rb = reserved_band(CFG)
-lo, hi = rb["offset"], rb["offset"] + rb["length"]
-check("C3.3 all regions inside registry-reserved band", regions[0][0] >= lo and regions[-1][1] <= hi,
-      f"alloc {regions[0][0]}..{regions[-1][1]} band [{lo}:{hi}]")
-check("C3.4 no band overflow", result["bandOverflow"] is False)
-check("C3.5 band sits above corpus max offset", rb["offset"] > result["corpusMaxEnd"],
-      f"base={rb['offset']} max={result['corpusMaxEnd']}")
+check("C3.3 sweep declares per-agent regions retired", result["perAgentRegions"] is False)
+
+_wb = [a["agentBinding"]["writeBack"] for p in result["plans"] for a in p["agents"]
+       if a["agentBinding"]["writeBack"].get("type") == "pe-sensor"]
+check("C3.4 every write-back agent corpus-wide targets the one lane",
+      {w["sourceMapping"]["id"] for w in _wb} <= {lane["id"]},
+      str({w["sourceMapping"]["id"] for w in _wb} - {lane["id"]}))
+check("C3.5 the lane sits inside the corpus footprint, not above it",
+      lane["offset"] + lane["length"] <= result["corpusMaxEnd"],
+      f"lane={lane} corpusMaxEnd={result['corpusMaxEnd']}")
 
 # C4: PE source mappings — one per write-back agent, pointers match positions
 sm = pe_source_mappings(result)
-writeback = sum(1 for p in result["plans"] for a in p["agents"] if a["realityVectorImpact"])
-check("C4.1 one PE source mapping per write-back agent", sm["count"] == writeback,
-      f"{sm['count']} vs {writeback}")
+# One mapping TOTAL now, not one per agent: every write-back agent shares the
+# acp-openclaw-completion lane, so emitting per-agent records would repeat the
+# same one — which is how 1,216 stray mappings survived the band retirement.
+check("C4.1 the corpus emits exactly one completion source mapping",
+      sm["count"] == 1, f"count={sm['count']} ids={[m['id'] for m in sm['sourceMappings']][:3]}")
 ids = [m["id"] for m in sm["sourceMappings"]]
 check("C4.2 PE source-mapping ids are unique", len(ids) == len(set(ids)),
       f"{len(ids) - len(set(ids))} dupes")
-check("C4.3 extract pointers count == region length for every mapping",
+check("C4.3 the mapping is the configured completion lane id",
+      ids == [lane["id"]], str(ids))
+check("C4.4 extract pointers count == region length for every mapping",
       all(len(m["extract"]["pointers"]) == m["region"]["length"] for m in sm["sourceMappings"]))
-check("C4.4 every mapping region inside reserved band",
-      all(lo <= m["region"]["offset"] and m["region"]["offset"] + m["region"]["length"] <= hi
-          for m in sm["sourceMappings"]))
+check("C4.5 every mapping region is the declared lane",
+      all(m["region"] == {"offset": lane["offset"], "length": lane["length"]}
+          for m in sm["sourceMappings"]),
+      str([m["region"] for m in sm["sourceMappings"]]))
 
 # C5: input-analyst coverage — one schema-valid agent per machine, materialized on disk
 import oc_agent_template as _oct  # noqa: E402
@@ -141,8 +149,21 @@ check("C5.3 input-analyst agent ids unique per domain", len(_ia_ids) == s["machi
 _index_path = ROOT / "agents" / "INDEX.json"
 if _index_path.exists():
     _idx = _json.loads(_index_path.read_text())
-    check("C5.4 agents/INDEX.json total == corpus machine count",
-          _idx.get("total") == s["machines"], f"index={_idx.get('total')} machines={s['machines']}")
+    # Not == machine count. materialize_agents.py deliberately skips the
+    # arbitration fixtures: an agent is a `generated` contributor, which is the
+    # non-determinism those fixtures exist to disprove. RealityEngine_Machines
+    # corpus-exit-v1.0 §3.3 states a regeneration producing 1,328 specs rather
+    # than 1,323 is wrong, so asserting equality asserts the wrong number.
+    #
+    # The exclusion is counted from the corpus, not hardcoded at 5, so adding a
+    # fixture does not fail this.
+    _fixtures = sum(
+        1 for _f in _files
+        if str(((_json.loads(_f.read_text()).get("machine") or {}).get("metadata") or {})
+               .get("tagging", {}).get("family", "")) == "arbitration-fixture")
+    check("C5.4 agents/INDEX.json total == corpus machines minus arbitration fixtures",
+          _idx.get("total") == s["machines"] - _fixtures,
+          f"index={_idx.get('total')} machines={s['machines']} fixtures={_fixtures}")
 
 # C6: PE input bridges — leaf source mappings are clean and complete
 import register_input_mappings as _reg  # noqa: E402
@@ -195,8 +216,9 @@ for _p in _files:
 check("C7.4 machine-native normalization is rare/targeted (<=10 machines)", _native <= 10, str(_native))
 
 print(f"\ncoverage: {s['machines']} machines, {s['cesOutputs']} behaviors, "
-      f"{s['agentBindings']} output-actor bindings, {writeback} PE completion mappings, "
+      f"{s['agentBindings']} output-actor bindings ({s['writebackAgents']} write-back), "
+      f"{sm['count']} PE completion mapping, "
       f"{_ia_ok} input-analyst agents ({_native} machine-native), {len(_br['mappings'])} PE input bridges, "
-      f"band [{lo}:{hi}] used {regions[0][0]}..{regions[-1][1]}")
+      f"completion lane {lane['id']}@[{lane['offset']}:{lane['offset'] + lane['length']}]")
 print(f"{_PASS} passed, {_FAIL} failed")
 sys.exit(1 if _FAIL else 0)
