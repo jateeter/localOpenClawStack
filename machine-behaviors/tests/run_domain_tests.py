@@ -6,6 +6,7 @@ Run:  MB_DEBUG=0 python3.13 tests/run_domain_tests.py
 
 from __future__ import annotations
 
+import json
 import os
 import sys
 from pathlib import Path
@@ -42,7 +43,15 @@ s = summarize(result)
 # D1: discovery / coverage
 machines_dir = _abs(CFG["machinesDir"])
 discovered = discover(machines_dir, DOMAIN)
-check("D1.1 discovered the full domain (42 machines)", len(discovered) == 42, str(len(discovered)))
+# The count comes from domain-manifest.json, the authoritative domain inventory,
+# rather than a literal. It was 42 here and 43 in the corpus: HealthKitVitalsMonitor
+# landed in RealityEngine_Machines on 2026-07-14 and this expectation was never
+# updated. A hand-maintained count drifts silently every time the corpus grows.
+_manifest = json.loads((_abs(CFG["machinesDir"]).parent / "domains" / "domain-manifest.json").read_text())
+_expected = (_manifest.get("domains") or {}).get(DOMAIN, {}).get("currentMachineCount")
+check(f"D1.1 discovered the full domain ({_expected} machines, per domain-manifest)",
+      _expected is not None and len(discovered) == _expected,
+      f"discovered={len(discovered)} manifest={_expected}")
 check("D1.2 every discovered machine produced a plan", len(result["plans"]) == len(discovered))
 check("D1.3 every machine yields >=1 agent",
       all(len(p["agents"]) >= 1 for p in result["plans"]),
@@ -74,7 +83,6 @@ check("D3.3 completion band sits above corpus max offset",
 # band must not overlap any machine's input/output anywhere in the corpus
 band_lo, band_hi = result["bandSpan"]
 corpus_clash = 0
-import json
 for pth in machines_dir.rglob("*.json"):
     try:
         pm = (json.loads(pth.read_text()).get("machine", {}) or {}).get("perceptualMapping", {}) or {}
@@ -94,9 +102,16 @@ check("D3.5 registry declares the ACP completion reserved range", rb is not None
       "rangePolicy.reservedRanges missing")
 check("D3.6 sweep uses the registry-reserved band as source",
       result["bandSource"].startswith("registry-reserved:"), result["bandSource"])
+# D3.7 has nothing to assert without a declared band, and used to crash on
+# `bandSpan[1] <= None` the moment reserved_band() stopped returning someone
+# else's band. It fails with a reason instead — the same posture as D3.5/D3.6,
+# which are left failing deliberately until the allocation model is replaced (#26).
 check("D3.7 allocation stays inside the reserved band (no overflow)",
-      result["bandOverflow"] is False and result["bandSpan"][1] <= result["bandLimit"],
-      f"span={result['bandSpan']} limit={result['bandLimit']}")
+      result["bandLimit"] is not None
+      and result["bandOverflow"] is False
+      and result["bandSpan"][1] <= result["bandLimit"],
+      f"span={result['bandSpan']} limit={result['bandLimit']}"
+      + (" (no ACP band declared — nothing to contain)" if result["bandLimit"] is None else ""))
 if rb:
     lo, hi = rb["offset"], rb["offset"] + rb["length"]
     inside = all(lo <= off and off + length <= hi for off, length in

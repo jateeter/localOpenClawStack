@@ -56,11 +56,23 @@ def discover(machines_dir: Path, domain: str | None) -> list[Path]:
 
 
 def reserved_band(cfg: dict[str, Any]) -> dict[str, Any] | None:
-    """The registry-declared ACP completion band, the single source of truth.
+    """The registry-declared ACP completion band, if one exists.
 
-    Returns the reservedRange owned by provider 'acp' (or any write-back range)
-    from domains/domain-registry.json -> rangePolicy.reservedRanges, or None if the
-    registration has not been added.
+    Matches ONLY an ACP write-back range from
+    domains/domain-registry.json -> rangePolicy.reservedRanges. Returns None when
+    there is no such range, including when the list holds other providers' bands.
+
+    This used to end `return ranges[0] if ranges else None`, which was safe only
+    while reservedRanges was either empty or held the ACP band alone. That stopped
+    being true the moment another provider reserved a band:
+    jateeter/RealityEngine_Machines#97 added `localaistack-integration` at
+    [7440:7952], and this function handed it back as the completion band. The
+    sweep then allocated agent completion regions inside cells localAIStack's
+    machines write, and D3.5/D3.6 — which exist to assert the ACP registration —
+    flipped from correctly failing to passing against the wrong band.
+
+    A band belonging to someone else is not a fallback. It is a different answer
+    to a different question.
     """
     try:
         registry = json.loads(_abs(cfg["registryPath"]).read_text())
@@ -69,9 +81,9 @@ def reserved_band(cfg: dict[str, Any]) -> dict[str, Any] | None:
     ranges = as_list(as_object(registry.get("rangePolicy")).get("reservedRanges"))
     for r in ranges:
         r = as_object(r)
-        if r.get("provider") == "acp" or r.get("writeBack"):
+        if r.get("provider") == "acp" and r.get("writeBack"):
             return r
-    return ranges[0] if ranges else None
+    return None
 
 
 def corpus_max_end(machines_dir: Path) -> int:
