@@ -22,6 +22,18 @@ CONTAINER_AGENT_ROOT="/home/node/.openclaw/agents"
 [[ -f "$CONFIG_PATH" ]] || { echo "[machine-agents] missing $CONFIG_PATH" >&2; exit 1; }
 command -v jq >/dev/null || { echo "[machine-agents] jq is required" >&2; exit 1; }
 
+# Report the profile the resolved index actually came from, not the AGENT_PROFILE
+# default. A caller may hand us OPENCLAW_AGENT_INDEX_PATH on its own; announcing
+# `full` while syncing 12 regression agents is exactly the kind of noise that
+# sends a profile bug hunt down the wrong path. Generated indexes carry their own
+# `profile`; the canonical INDEX.json is the whole corpus by definition.
+INDEX_PROFILE="$(jq -r '.profile // empty' "$INDEX_PATH" 2>/dev/null || true)"
+if [[ -n "$INDEX_PROFILE" ]]; then
+  AGENT_PROFILE="$INDEX_PROFILE"
+elif [[ "$INDEX_PATH" -ef "$ROOT_DIR/machine-behaviors/agents/INDEX.json" ]]; then
+  AGENT_PROFILE="full"
+fi
+
 DEFAULT_MODEL="$(jq -er '.agents.defaults.model.primary // "ollama/llama3.1:8b"' "$CONFIG_PATH")"
 CONFIG_TMP="$(mktemp)"
 
@@ -170,3 +182,8 @@ chmod 600 "$CONFIG_PATH"
 
 COUNT="$(jq -r '.total' "$INDEX_PATH")"
 echo "[machine-agents] synced $COUNT machine-behavior agents from machine-behaviors/agents (profile: $AGENT_PROFILE)"
+
+# The config we just wrote is now the intended one. Move OpenClaw's clobber-guard
+# baseline onto it, or the gateway will restore the previous profile's config on
+# its next start and undo everything above. See scripts/adopt-config-baseline.sh.
+"$ROOT_DIR/scripts/adopt-config-baseline.sh"

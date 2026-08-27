@@ -1,6 +1,6 @@
 # localOpenClawStack Guidance
 
-Last reviewed: 2026-08-09
+Last reviewed: 2026-08-26
 
 See `/Users/johnt/workspace/GitHub/claude.md` for the integrated application map. Update both this file and the root map when OpenClaw versioning, gateway wiring, auth/bootstrap, or Manager/PE integration expectations change.
 
@@ -47,6 +47,7 @@ Use the repo's actual scripts when present; Docker Compose state is time-sensiti
 - Agent loading is profile-selected. `--agent-profile=full` (the default) loads the whole 1320-agent corpus; `--agent-profile=regression` loads only the 12 agents bound to the RealityEngine regression machine corpus. `start.sh` resolves the profile once and hands the same index to the sync, the config verifier, and the live count gate.
 - `machine-behaviors/agents/profiles/regression.txt` is generated from `RealityEngine_CI/config/standard-deployment-corpus.txt`, not hand-maintained. Re-run `./scripts/generate-regression-profile.py` when that corpus changes; `--check` is the drift guard and fails when the two disagree.
 - Narrowing the profile prunes the previous profile's workspaces and agent directories. Switching back re-materializes them; the sibling repos are needed only to regenerate or check a profile, not to start the stack.
+- The gateway auto-restores `openclaw.json` from `openclaw.json.bak` when a read looks like a clobber, and a narrowed profile is a >50% size drop. `scripts/adopt-config-baseline.sh` moves that guard's baseline (`.bak`, `.last-good`, and `openclaw/logs/config-health.json`) onto each deliberate config rewrite so the profile survives the restart; `sync-machine-agents.sh` calls it. Anything else that rewrites `openclaw/openclaw.json` must call it too.
 - Treat upstream version freshness as time-sensitive; re-check before claiming current release status.
 
 ## LSP Support
