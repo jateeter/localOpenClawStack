@@ -135,8 +135,17 @@ const fs = require("fs");
 const cfg = JSON.parse(fs.readFileSync("/home/node/.openclaw/openclaw.json", "utf8"));
 console.log((cfg.agents?.list || []).length);
 '"'"'' | tr -d '\r')"
-if [[ "$LIVE_AGENT_COUNT" -lt "$EXPECTED_AGENT_COUNT" ]]; then
-  die "OpenClaw loaded $LIVE_AGENT_COUNT agents, expected at least $EXPECTED_AGENT_COUNT"
+# Exact, not "at least": a wider count is the signature of the gateway restoring
+# an older, wider config over the profile-narrowed one, and `-lt` waved that
+# through here only for verify-deployment.sh to fail on the same file minutes
+# later with no hint about when it changed.
+if [[ "$LIVE_AGENT_COUNT" != "$EXPECTED_AGENT_COUNT" ]]; then
+  CLOBBERED="$(ls -t "$ROOT_DIR"/openclaw/openclaw.json.clobbered.* 2>/dev/null | head -n 1 || true)"
+  if [[ -n "$CLOBBERED" ]]; then
+    warn "OpenClaw quarantined the synced config as $(basename "$CLOBBERED") and restored a backup"
+    warn "Its clobber guard reads openclaw/logs/config-health.json and openclaw.json.bak as the baseline; scripts/adopt-config-baseline.sh keeps them in step with the active profile"
+  fi
+  die "OpenClaw loaded $LIVE_AGENT_COUNT agents, expected exactly $EXPECTED_AGENT_COUNT for profile '$AGENT_PROFILE'"
 fi
 ok "OpenClaw machine agents loaded ($LIVE_AGENT_COUNT total)"
 
