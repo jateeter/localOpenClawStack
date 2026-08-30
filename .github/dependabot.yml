@@ -1,0 +1,49 @@
+version: 2
+
+updates:
+
+  # Container images — the OpenClaw gateway build base and the two third-party
+  # packages this stack runs (Open WebUI, the OpenClaw browser).
+  #
+  # Currency for these is an intentional act, not a side effect of a regression
+  # run (RealityEngine_CI#206). Dependabot is that act: it proposes the bump as
+  # a reviewable PR, the pins move when someone merges it, and a run that did
+  # not merge one keeps using the images already on disk.
+  #
+  # Note on what Dependabot can and cannot see here. docker-compose.yml refers
+  # to images as ${OPEN_WEBUI_IMAGE:-ghcr.io/open-webui/open-webui:v0.9.6} —
+  # Dependabot reads the literal default, which is the tag, and cannot read
+  # .env, where the authoritative `@sha256:` pin lives. So a Dependabot PR here
+  # is a *notification that a newer tag exists*, and the pin is refreshed by
+  # running ./scripts/update-versions.sh (or ./scripts/start.sh --update) as
+  # part of reviewing it. That is deliberate: the digest is what the runtime
+  # trusts, and it should be recomputed locally rather than transcribed.
+  - package-ecosystem: docker
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      time: "06:00"
+      timezone: America/Chicago
+    groups:
+      openclaw-stack:
+        patterns:
+          - "ghcr.io/open-webui/open-webui"
+          - "coollabsio/openclaw-browser"
+    ignore:
+      # Major version bumps reviewed manually — these are multi-GB images whose
+      # first boot populates a model cache, so a major move is a scheduled
+      # activity rather than a merge.
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
+    open-pull-requests-limit: 5
+
+  # GitHub Actions
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      time: "06:00"
+      timezone: America/Chicago
+    open-pull-requests-limit: 5
