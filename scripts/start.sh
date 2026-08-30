@@ -13,15 +13,19 @@ cd "$ROOT_DIR"
 # ── Flags ─────────────────────────────────────────────────────────────────────
 FRESH=false
 UPDATE=false
+PURGE_CACHES=false
 AGENT_PROFILE="${OPENCLAW_AGENT_PROFILE:-full}"
 for arg in "$@"; do
   case "$arg" in
     --fresh) FRESH=true ;;
+    --purge-caches) PURGE_CACHES=true ;;
     --update) UPDATE=true ;;
     --agent-profile=*) AGENT_PROFILE="${arg#*=}" ;;
     --help|-h)
-      echo "Usage: $0 [--fresh] [--update] [--agent-profile=NAME]"
-      echo "  --fresh           wipe openclaw/, openwebui-data/, and browser-config/ before starting"
+      echo "Usage: $0 [--fresh] [--purge-caches] [--update] [--agent-profile=NAME]"
+      echo "  --fresh           reset application state (openclaw/, browser-config/) before starting"
+      echo "  --purge-caches    ALSO drop package caches and volumes — forces Open WebUI to"
+      echo "                    re-download its embedding model (~5 min). Rarely wanted."
       echo "  --update          resolve current stable releases and refresh immutable image pins"
       echo "  --agent-profile   which machine-behavior agents to load (default: full)"
       echo "                      full        the whole corpus (1320 agents)"
@@ -54,14 +58,42 @@ for REQUIRED_VAR in WEBUI_ADMIN_EMAIL WEBUI_ADMIN_PASSWORD WEBUI_SECRET_KEY; do
 done
 
 # ── Optional fresh wipe ───────────────────────────────────────────────────────
+#
+# Resetting application state and destroying package caches are two different
+# operations, and conflating them made every regression run pay a cold-download
+# tax (RealityEngine_CI#206).
+#
+# `openwebui-data` holds Open WebUI's first-boot embedding-model cache
+# (sentence-transformers/all-MiniLM-L6-v2 under
+# /app/backend/data/cache/embedding). Removing it makes the container re-fetch
+# ~30 files before it will answer /health — about five minutes, which is longer
+# than the readiness gate below used to allow, so a "fresh" run reliably
+# aborted startUniverse before the live tests ran. That cache is a property of
+# the pinned image, not of the previous run, and nothing a regression is
+# testing depends on it being cold.
+#
+# So --fresh now resets what a run actually dirties: the openclaw runtime state
+# and the browser profile. Volumes and the model cache survive, and a re-run on
+# an unchanged pin set starts fast.
+#
+# --purge-caches is the old behaviour, kept for when the caches are genuinely
+# suspect. `--update` changes the pins and is the ordinary way to move versions.
 if [[ "$FRESH" == true ]]; then
-  warn "--fresh: removing openclaw/, openwebui-data/, browser-config/"
-  docker compose down --volumes 2>/dev/null || true
+  warn "--fresh: resetting application state (openclaw/, browser-config/)"
+  docker compose down 2>/dev/null || true
   if [[ -d openclaw ]]; then
     find openclaw -mindepth 1 -maxdepth 1 ! -name claude.md -exec rm -rf {} +
   fi
-  rm -rf openwebui-data browser-config
-  ok "Data directories cleared"
+  rm -rf browser-config
+  ok "Application state cleared (package caches preserved)"
+fi
+
+if [[ "$PURGE_CACHES" == true ]]; then
+  warn "--purge-caches: dropping volumes and openwebui-data/"
+  warn "  Open WebUI will re-download its embedding model on next boot (~5 min)."
+  docker compose down --volumes 2>/dev/null || true
+  rm -rf openwebui-data
+  ok "Package caches cleared"
 fi
 
 if [[ "$UPDATE" == true ]]; then
@@ -108,8 +140,30 @@ fi
 
 # ── Docker services ───────────────────────────────────────────────────────────
 info "Starting Docker services (browser, openclaw-gateway, open-webui)..."
-docker compose pull --quiet browser open-webui
-docker compose build --pull openclaw-gateway
+# Pull only what is not already on disk. The images are digest-pinned, so a pin
+# that is present locally is byte-identical to the one upstream — re-pulling it
+# fetches multi-GB layers to arrive at the same content, churns the Docker VM
+# disk, and contributed to the out-of-disk failures during regression runs
+# (RealityEngine_CI#206).
+#
+# `--update` is what moves a pin; Dependabot is what proposes the move. Absent
+# either, a run has nothing to fetch.
+for IMAGE_VAR in OPEN_WEBUI_IMAGE BROWSER_IMAGE; do
+  IMAGE_REF="${!IMAGE_VAR:-}"
+  if [[ -z "$IMAGE_REF" ]]; then
+    warn "$IMAGE_VAR is unset — skipping"
+    continue
+  fi
+  if docker image inspect "$IMAGE_REF" >/dev/null 2>&1; then
+    info "$IMAGE_VAR already present at its pinned digest — not pulling"
+  else
+    info "Pulling $IMAGE_VAR ($IMAGE_REF)"
+    docker pull --quiet "$IMAGE_REF"
+  fi
+done
+# --pull only when the base moved: the gateway image is built here, and forcing
+# a base re-pull on every run is the same tax in a smaller package.
+docker compose build openclaw-gateway
 docker compose up -d --remove-orphans
 if [[ -n "$EXISTING_GATEWAY_CID" ]]; then
   info "Restarting openclaw-gateway to reload synced machine agents..."
@@ -151,15 +205,27 @@ ok "OpenClaw machine agents loaded ($LIVE_AGENT_COUNT total)"
 
 # ── Wait for open-webui ───────────────────────────────────────────────────────
 info "Waiting for open-webui (port $UI_PORT)..."
-for i in $(seq 1 60); do
+# Configurable, and defaulted high enough for a genuine first-boot population.
+#
+# This was a hard-coded 180s. On a cache-less boot Open WebUI downloads its
+# embedding model — ~30 files, about five minutes — before it answers /health,
+# so the gate expired mid-download and `die`d, aborting startUniverse before
+# the regression's live phases ran. It ignored --warn-only, so a cold run could
+# not proceed at all (RealityEngine_CI#206).
+#
+# Preserving the cache above means this rarely matters now; the default covers
+# the case where it legitimately does — the first boot after a pin change.
+OPENWEBUI_READY_TIMEOUT="${OPENWEBUI_READY_TIMEOUT:-600}"
+OPENWEBUI_READY_ATTEMPTS=$(( OPENWEBUI_READY_TIMEOUT / 3 ))
+for i in $(seq 1 "$OPENWEBUI_READY_ATTEMPTS"); do
   HTTP_STATUS=$(curl -so /dev/null -w "%{http_code}" "http://localhost:${UI_PORT}/health" 2>/dev/null || true)
   if [[ "$HTTP_STATUS" == "200" ]]; then
     ok "open-webui ready"
     break
   fi
   sleep 3
-  if [[ $i -eq 60 ]]; then
-    die "open-webui not ready after 180s; check docker compose logs open-webui"
+  if [[ $i -eq "$OPENWEBUI_READY_ATTEMPTS" ]]; then
+    die "open-webui not ready after ${OPENWEBUI_READY_TIMEOUT}s; check docker compose logs open-webui (raise OPENWEBUI_READY_TIMEOUT for a first-boot model download)"
   fi
 done
 
