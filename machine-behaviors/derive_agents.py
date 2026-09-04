@@ -58,6 +58,33 @@ def as_list(value: Any) -> list[Any]:
     return value if isinstance(value, list) else []
 
 
+# RealityEngine_CI#220 layer 1 renames the keys that describe a machine's event
+# structure: `vectors` -> `events` and `outputVectors` -> `outputEvents`. The
+# canonical corpus carries the new spelling; machines from other corpora and
+# from generators may still carry the old one, and the engines accept both for
+# the duration of layer 1. So the readers here accept both, and layer 1c drops
+# the fallback.
+#
+# These are accessors rather than inline `x.get("events") or x.get("vectors")`
+# because the failure is silent: every read is a `.get()` feeding `as_list`, so
+# looking for a key that is gone yields an empty list and the caller reports
+# success on nothing. That is exactly what happened here — after the corpus was
+# rewritten, `_action_for_sequence` returned "" for every sequence in the
+# corpus, and `_firing_input` returned None for every machine, with no error.
+def sequence_events(sequence: Any) -> list[Any]:
+    """The events of a critical event sequence."""
+    seq = as_object(sequence)
+    events = seq.get("events")
+    return as_list(events if events is not None else seq.get("vectors"))
+
+
+def output_events(event: Any) -> list[Any]:
+    """The output events a Reality Event fires when it matches."""
+    vec = as_object(event)
+    outputs = vec.get("outputEvents")
+    return as_list(outputs if outputs is not None else vec.get("outputVectors"))
+
+
 def load_config() -> dict[str, Any]:
     for name in ("config.json", "config.example.json"):
         path = HERE / name
@@ -129,8 +156,8 @@ def _action_for_sequence(machine: dict[str, Any], sequence_id: str) -> str:
         seq = as_object(seq)
         if seq.get("id") != sequence_id:
             continue
-        for vec in as_list(seq.get("vectors")):
-            for out in as_list(as_object(vec).get("outputVectors")):
+        for vec in sequence_events(seq):
+            for out in output_events(vec):
                 action = as_object(as_object(out).get("metadata")).get("action")
                 if action:
                     return str(action)
