@@ -34,8 +34,7 @@ from pathlib import Path
 from typing import Any
 
 import oc_agent_template as tmpl
-from derive_agents import (as_object, as_list, load_config, _abs, primary_domain,
-                           sequence_events, output_events)
+from derive_agents import as_object, as_list, load_config, _abs, primary_domain
 
 HERE = Path(__file__).parent
 CI_CONFIG_DIR = (HERE / "../../RealityEngine_CI/config").resolve()
@@ -165,9 +164,9 @@ def _firing_input(machine_path: Path, in_len: int) -> dict[str, Any] | None:
     machine = as_object(data.get("machine"))
     for seq in as_list(machine.get("sequences")):
         seq = as_object(seq)
-        for vec in sequence_events(seq):
+        for vec in as_list(seq.get("events")):
             vec = as_object(vec)
-            if not vec.get("isInitial") or not output_events(vec):
+            if not vec.get("isInitial") or not as_list(vec.get("outputEvents")):
                 continue
             elems = as_list(vec.get("elements"))
             if len(elems) != in_len:
@@ -179,7 +178,7 @@ def _firing_input(machine_path: Path, in_len: int) -> dict[str, Any] | None:
                 hi = (e.get("value", 0) or 0) >= thr
                 values.append(round(min(0.99, thr + 0.3), 3) if hi
                               else round(max(0.01, thr - 0.3), 3))
-            out = as_object(output_events(vec)[0]).get("vector")
+            out = as_object(as_list(vec.get("outputEvents"))[0]).get("vector")
             return {"values": values, "sequenceId": seq.get("id"), "expectedOutput": out}
     return None
 
