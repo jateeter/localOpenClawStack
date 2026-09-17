@@ -1,6 +1,6 @@
 # Codex Guidance: localOpenClawStack
 
-Read `claude.md` for the current codebase map and OpenClaw integration context.
+Read `CLAUDE.md` for the current codebase map and OpenClaw integration context.
 
 ## Role
 
@@ -32,5 +32,5 @@ curl -sf http://localhost:18789/v1/models
 
 ## Artifact Hygiene
 
-`openclaw/` is mostly runtime state. Only documentation files such as `openclaw/claude.md` should be force-added when explicitly intended.
+`openclaw/` is mostly runtime state. Only documentation files such as `openclaw/CLAUDE.md` should be force-added when explicitly intended.
 
