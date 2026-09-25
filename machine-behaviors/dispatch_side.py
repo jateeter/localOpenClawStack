@@ -24,6 +24,19 @@ from behavior_log import BehaviorLogger, SIDE_DISPATCH
 _STATUS_FROM_RAG = {"RED": "error", "AMBER": "warning", "GREEN": "info"}
 
 
+
+def semantic_label(envelope: dict[str, Any]) -> str:
+    """The human label(s) of the envelope's non-zero output cells.
+
+    `assertedLabel` carries the schema's positional form (`cell_0`); the meaning
+    of each cell is in `outputVector.semantics`. Readers that need the meaning,
+    such as an agent prompt, resolve it here rather than from assertedLabel.
+    """
+    ov = envelope["outputVector"]
+    by_index = {s["index"]: s.get("label", "") for s in ov.get("semantics", [])}
+    labels = [by_index.get(i, f"cell_{i}") for i, v in enumerate(ov["values"]) if v]
+    return "+".join(labels) or "none"
+
 def _as_object(v: Any) -> dict[str, Any]:
     return v if isinstance(v, dict) else {}
 
@@ -57,8 +70,13 @@ def build_envelope(plan: dict[str, Any], machine_meta: dict[str, Any],
         "envelopeType": "ces.terminal.event",
         "envelopeId": str(uuid4()),
         "correlationId": correlation_id,
-        "emittedAt": datetime.now(timezone.utc).isoformat(),
-        "source": {"engine": "RE", "instance": "local",
+        # Epoch milliseconds, as the runtimes emit it. ai-trigger-envelope.schema
+        # requires emittedAtMs and allows no other keys (RealityEngine_Machines#168,
+        # 2026-09-23); the ISO `emittedAt` this used to carry failed T4.1.
+        "emittedAtMs": int(datetime.now(timezone.utc).timestamp() * 1000),
+        # The PE builds the envelope from what it observed of the RE: the
+        # shape ai-trigger-envelope.schema fixes (RealityEngine_Machines#168).
+        "source": {"engine": "PE", "observedEngine": "RE",
                    "endpoint": pe.get("baseUrl", "http://localhost:5300")},
         "ces": {
             "machineId": machine["id"],
@@ -68,15 +86,17 @@ def build_envelope(plan: dict[str, Any], machine_meta: dict[str, Any],
             "sequenceName": output["sequenceId"],
             "outputIndex": output["index"],
             "stepNumber": 0,
-            "perceptualMapping": {"input": machine["inputRegion"], "output": machine["outputRegion"]},
+            "perceptualMapping": {"output": machine["outputRegion"]},
             "provenance": [output["sequenceId"]],
             "deprecation": None,
         },
         "outputVector": {
             "values": values,
-            "encoding": "one-hot",
+            "encoding": "vector",
             "semantics": [{"index": o["index"], "label": o["label"]} for o in plan["outputs"]],
-            "assertedLabel": output["label"],
+            # The schema's form, `cell_<i>+cell_<j>` over the non-zero cells.
+            # The human label is semantics[index].label; see semantic_label().
+            "assertedLabel": "+".join(f"cell_{i}" for i, v in enumerate(values) if v) or "none",
         },
         "projection": None,
         "governance": _governance(machine_meta, output),
@@ -96,7 +116,6 @@ def build_envelope(plan: dict[str, Any], machine_meta: dict[str, Any],
                 "schemaRef": "localAIStack/services/api/routers/graphql_endpoint.py",
             },
         },
-        "mqttContext": None,
     }
 
 
@@ -111,6 +130,7 @@ def dispatch(envelope: dict[str, Any], agent_rec: dict[str, Any], cfg: dict[str,
         machineCode=envelope["ces"]["machineCode"],
         sequenceId=envelope["ces"]["sequenceId"],
         assertedLabel=envelope["outputVector"]["assertedLabel"],
+        label=semantic_label(envelope),
         rag=envelope["governance"]["ragStatusCode"],
         agent=envelope["dispatch"]["agent"],
         autonomyMode=envelope["dispatch"]["autonomyMode"],

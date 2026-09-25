@@ -3,10 +3,26 @@
 
 The regression profile must name exactly the machine-behavior agents bound to the
 machines the Perception Engines load during a regression run. Those machines are
-listed in RealityEngine_CI/config/standard-deployment-corpus.txt, so the profile
-is generated from that manifest rather than maintained by hand — a hand-kept list
+listed in RealityEngine_CI/config/regression-corpus.txt, so the profile is
+generated from that manifest rather than maintained by hand — a hand-kept list
 drifts silently, and a profile that disagrees with the corpus is precisely the
 failure this profile exists to prevent.
+
+The regression-test corpus is the corpus of interest (decided 2026-09-25; see
+CLAUDE.md, "Which agent corpus matters"). This used to read the 12-machine
+standard-deployment list, which the regression corpus superseded, so the profile
+loaded 12 of the regression corpus's 15 agents.
+
+Two kinds of manifest entry carry no agent, **by rule**, and are reported in the
+profile header rather than failing or being dropped silently:
+
+  * arbitration conformance fixtures: agent-free because an agent is a
+    `generated` contributor, the non-determinism they exist to disprove
+    (RealityEngine_Machines/docs/CORPUS_EXIT_CRITERIA.md §3.3);
+  * localAIStack machines (localAIStack/data/machines/): contracted in that repo,
+    not in the machine corpus, and OpenClaw derives no agent for them.
+
+Any other entry that resolves to no agent is still an error.
 
     ./scripts/generate-regression-profile.py            # write the profile
     ./scripts/generate-regression-profile.py --check    # fail if it is stale
@@ -29,8 +45,10 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 WORKSPACE = ROOT.parent
 
-DEFAULT_MANIFEST = WORKSPACE / "RealityEngine_CI" / "config" / "standard-deployment-corpus.txt"
+DEFAULT_MANIFEST = WORKSPACE / "RealityEngine_CI" / "config" / "regression-corpus.txt"
 DEFAULT_MACHINES_ROOT = WORKSPACE / "RealityEngine_Machines" / "machines"
+DEFAULT_LOCAL_AI_MACHINES = WORKSPACE / "localAIStack" / "data" / "machines"
+FIXTURE_TAG = "arbitration-fixture"
 DEFAULT_INDEX = ROOT / "machine-behaviors" / "agents" / "INDEX.json"
 DEFAULT_OUT = ROOT / "machine-behaviors" / "agents" / "profiles" / "regression.txt"
 
@@ -75,16 +93,31 @@ def resolve_machine(machines_root: Path, entry: str) -> Path:
     return matches[0]
 
 
-def machine_name(path: Path) -> str:
+def load_machine(path: Path) -> dict:
     document = json.loads(path.read_text(encoding="utf-8"))
-    machine = document.get("machine") or document
-    name = machine.get("name")
+    return document.get("machine") or document
+
+
+def machine_name(path: Path) -> str:
+    name = load_machine(path).get("name")
     if not name:
         raise LookupError(f"machine has no name: {path}")
     return name
 
 
-def build(manifest: Path, machines_root: Path, index: Path) -> str:
+def is_conformance_fixture(path: Path) -> bool:
+    """Match `arbitration-fixture` in tagging.family *or* tagging.workflowTags.
+
+    RealityEngine_Machines#110 moved the tag from the first to the second; the
+    agent generator's guard broke on exactly that (localOpenClawStack#46).
+    """
+    tagging = (load_machine(path).get("metadata") or {}).get("tagging") or {}
+    return (tagging.get("family") == FIXTURE_TAG
+            or FIXTURE_TAG in [str(t) for t in tagging.get("workflowTags") or []])
+
+
+def build(manifest: Path, machines_root: Path, index: Path,
+          local_ai_machines: Path = DEFAULT_LOCAL_AI_MACHINES) -> str:
     agents = json.loads(index.read_text(encoding="utf-8"))["agents"]
     by_name: dict[str, list[dict]] = {}
     for agent in agents:
@@ -95,10 +128,24 @@ def build(manifest: Path, machines_root: Path, index: Path) -> str:
         raise LookupError(f"manifest selected no machines: {manifest}")
 
     rows: list[tuple[str, str]] = []
+    excluded: list[tuple[str, str]] = []
     problems: list[str] = []
     for entry in entries:
         try:
-            name = machine_name(resolve_machine(machines_root, entry))
+            path = resolve_machine(machines_root, entry)
+        except LookupError as exc:
+            # Not in the machine corpus. A localAIStack machine is expected to
+            # be absent here and carries no agent; anything else is an error.
+            if (local_ai_machines / Path(entry).name).is_file():
+                excluded.append((entry, "localAIStack machine: no OpenClaw agent"))
+            else:
+                problems.append(str(exc))
+            continue
+        if is_conformance_fixture(path):
+            excluded.append((entry, "arbitration conformance fixture: agent-free by rule"))
+            continue
+        try:
+            name = machine_name(path)
         except LookupError as exc:
             problems.append(str(exc))
             continue
@@ -116,15 +163,26 @@ def build(manifest: Path, machines_root: Path, index: Path) -> str:
     if problems:
         raise LookupError("\n".join(f"  {p}" for p in problems))
 
+    if not rows:
+        raise LookupError(f"manifest selected no agent-bearing machines: {manifest}")
+
     width = max(len(agent_id) for agent_id, _ in rows)
     lines = [
         "# Machine-behavior agents for the RealityEngine regression corpus.",
         "#",
         "# GENERATED — do not edit by hand.",
-        f"#   source:     RealityEngine_CI/config/{manifest.name} ({len(rows)} machines)",
+        f"#   source:     RealityEngine_CI/config/{manifest.name} ({len(entries)} entries:"
+        f" {len(rows)} agents, {len(excluded)} excluded by rule)",
         "#   regenerate: ./scripts/generate-regression-profile.py",
         "#   verify:     ./scripts/generate-regression-profile.py --check",
         "#",
+    ]
+    if excluded:
+        lines.append("# Excluded by rule, carrying no agent:")
+        ew = max(len(e) for e, _ in excluded)
+        lines += [f"#   {e:<{ew}}  {why}" for e, why in excluded]
+        lines.append("#")
+    lines += [
         "# One agentId per line, in corpus order; the trailing comment is the machine",
         "# it is bound to.",
         "",
@@ -138,6 +196,8 @@ def main() -> int:
     parser.add_argument("--check", action="store_true", help="fail if the committed profile is stale")
     parser.add_argument("--manifest", type=Path, default=DEFAULT_MANIFEST)
     parser.add_argument("--machines-root", type=Path, default=DEFAULT_MACHINES_ROOT)
+    parser.add_argument("--local-ai-machines", type=Path, default=DEFAULT_LOCAL_AI_MACHINES,
+                        help="localAIStack/data/machines; entries found here carry no agent")
     parser.add_argument("--index", type=Path, default=DEFAULT_INDEX)
     parser.add_argument("--out", type=Path, default=DEFAULT_OUT)
     args = parser.parse_args()
@@ -149,7 +209,7 @@ def main() -> int:
             return 1
 
     try:
-        content = build(args.manifest, args.machines_root, args.index)
+        content = build(args.manifest, args.machines_root, args.index, args.local_ai_machines)
     except LookupError as exc:
         print("[profile] cannot derive the regression profile:", file=sys.stderr)
         print(str(exc), file=sys.stderr)
