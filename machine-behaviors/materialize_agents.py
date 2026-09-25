@@ -37,6 +37,46 @@ def _domain_slug(domain: str) -> str:
     return re.sub(r"[^a-z0-9]+", "-", domain.lower()).strip("-") or "uncategorized"
 
 
+CORPUS_CONTRACT = "RealityEngine_Machines corpus-exit-v1.0 (docs/CORPUS_EXIT_CRITERIA.md §3.7)"
+
+
+def _provenance(mdir: Path, skipped_fixtures: list[str]) -> dict:
+    """What this index was generated from, per CORPUS_EXIT_CRITERIA §3.7 item 4.
+
+    §3.7 asks a regeneration to record `corpus-exit-v1.0` in its output. The tag
+    alone would overstate it: the corpus moves on after the tag (the 2026-09-16
+    action changes of Machines#154 are after it), and an index stamped only with
+    the tag reads as generated *from* the tagged corpus. So record both — the
+    contract this output satisfies, and the corpus it was actually derived from.
+
+    The fingerprint is the corpus repo's own definition
+    (`scripts/ces_corpus_fingerprint.py`), imported rather than restated, so this
+    and the CES contract shards cannot disagree about what "the corpus changed"
+    means. Content-derived, never time-derived: two regenerations of the same
+    corpus stamp the same digest. Only the rolled-up digest is kept — per-file
+    members for 1,328 machines would dwarf the index they describe.
+    """
+    corpus: dict = {"machineCount": None, "digest": None}
+    scripts = mdir.parent / "scripts"
+    try:
+        sys.path.insert(0, str(scripts))
+        import ces_corpus_fingerprint as fp  # type: ignore[import-not-found]
+        f = fp.fingerprint_paths(sorted(mdir.rglob("*.json")), mdir)
+        corpus = {"algorithm": f["algorithm"], "machineCount": f["machineCount"], "digest": f["digest"]}
+    except ImportError as exc:
+        corpus["unavailable"] = f"{scripts}/ces_corpus_fingerprint.py not importable: {exc}"
+        print(f"warning: corpus fingerprint unavailable ({exc}); provenance records no digest", file=sys.stderr)
+    finally:
+        if sys.path and sys.path[0] == str(scripts):
+            sys.path.pop(0)
+    return {
+        "generator": "machine-behaviors/materialize_agents.py",
+        "conformsTo": CORPUS_CONTRACT,
+        "corpus": corpus,
+        "skippedConformanceFixtures": skipped_fixtures,
+    }
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description="Materialize OC agent specs by domain.")
     ap.add_argument("--fresh", action="store_true", help="clear agents/ before writing")
@@ -83,7 +123,14 @@ def main() -> int:
         # RealityEngine_Machines corpus-exit-v1.0 §3.3, which states that a
         # regeneration producing 1,328 specs rather than 1,323 is wrong. It was:
         # a --fresh run produced agents for all five before this guard existed.
-        if str(as_object(meta.get("tagging")).get("family", "")) == "arbitration-fixture":
+        #
+        # Matched on the family *or* the workflow tags. RealityEngine_Machines#110
+        # (2026-09-06) moved `arbitration-fixture` from `tagging.family` into
+        # `tagging.workflowTags`; a family-only test then matched nothing, and
+        # a 2026-09-25 regeneration produced 1,328 specs.
+        tagging = as_object(meta.get("tagging"))
+        if (str(tagging.get("family", "")) == "arbitration-fixture"
+                or "arbitration-fixture" in [str(t) for t in tagging.get("workflowTags") or []]):
             skipped_fixtures.append(f.stem)
             continue
         try:
@@ -121,8 +168,10 @@ def main() -> int:
         })
 
     # indexes
+    provenance = _provenance(mdir, sorted(skipped_fixtures))
     (AGENTS_DIR / "INDEX.json").write_text(json.dumps({
         "total": written, "byDomain": dict(sorted(per_domain.items())),
+        "provenance": provenance,
         "agents": sorted(index, key=lambda r: (r["domain"], r["code"])),
     }, indent=2) + "\n")
 
@@ -133,6 +182,9 @@ def main() -> int:
         lines.append(f"| {dom} | {n} |")
     lines += ["", f"**total: {written}**", "",
               "axis grounding: " + ", ".join(f"{k}={v}" for k, v in sorted(axis_basis.items())),
+              "", f"Conforms to: {provenance['conformsTo']}. "
+              f"Corpus: {provenance['corpus'].get('machineCount')} machines, "
+              f"`{provenance['corpus'].get('digest')}`.",
               "", "Regenerate: `python3 materialize_agents.py --fresh`."]
     (AGENTS_DIR / "INDEX.md").write_text("\n".join(lines) + "\n")
 

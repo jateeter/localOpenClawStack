@@ -34,7 +34,7 @@
   },
   "reasoning": {
     "objective": "Produce the normalized input vector for \"FacilitiesMaintenance\" from current observations so RE can evaluate its CES sequences.",
-    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"FacilitiesMaintenance\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Integrates facilities maintenance workflows into the eldercare patient health pipeline. Models janitorial, hygiene, and general living space maintenance activities as structured observational sequences. Each maintenance visit is an observational opportunity \u2014 facilities staff serve as a frontline sensing layer, reporting hygiene deficits, fall hazards, nutritional gaps, and patient wellness concerns to the clinical care workflow engines (DailyPatientCare, WellnessAnalytics). Produces six outputs: two completion signals (daily, weekly) and four clinical alert signals feeding downstream eldercare machines.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- visit_active_bit (index 0):\n- unit_accessible_bit (index 1):\n- hygiene_normal_bit (index 2):\n- space_safe_bit (index 3):\n- nutrition_normal_bit (index 4):\n- patient_observed_normal_bit (index 5):\n- deep_clean_done_bit (index 6):\n- concern_or_alert_active_bit (index 7):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- maint-daily-routine (GREEN) -> action: log-activity\n- maint-weekly-deep-clean (GREEN) -> action: route-referral\n- HYGIENE_ALERT \u2014 bathroom or linen hygiene deficit observed by facilities staff. Downstream (AMBER) -> action: urgent-intervention\n- SAFETY_ALERT \u2014 fall hazard or unsafe living space condition identified by facilities staff. Downstream (RED) -> action: urgent-intervention\n- WELLNESS_CONCERN \u2014 patient observation by facilities staff raised welfare flag. Downstream (AMBER) -> action: urgent-intervention\n- INACCESSIBILITY_ALERT \u2014 unit inaccessible after multiple attempts by facilities staff. Welfare check protocol activated. Potential downstream (RED) -> action: urgent-intervention",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"FacilitiesMaintenance\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Integrates facilities maintenance workflows into the eldercare patient health pipeline. Models janitorial, hygiene, and general living space maintenance activities as structured observational sequences. Each maintenance visit is an observational opportunity \u2014 facilities staff serve as a frontline sensing layer, reporting hygiene deficits, fall hazards, nutritional gaps, and patient wellness concerns to the clinical care workflow engines (DailyPatientCare, WellnessAnalytics). Produces six outputs: two completion signals (daily, weekly) and four clinical alert signals feeding downstream eldercare machines.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- visit_active_bit (index 0):\n- unit_accessible_bit (index 1):\n- hygiene_normal_bit (index 2):\n- space_safe_bit (index 3):\n- nutrition_normal_bit (index 4):\n- patient_observed_normal_bit (index 5):\n- deep_clean_done_bit (index 6):\n- concern_or_alert_active_bit (index 7):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- maint-daily-routine (GREEN) -> action: log-activity\n- maint-weekly-deep-clean (GREEN) -> action: route-referral\n- HYGIENE_ALERT \u2014 bathroom or linen hygiene deficit observed by facilities staff. Downstream (RED) -> action: urgent-intervention\n- SAFETY_ALERT \u2014 fall hazard or unsafe living space condition identified by facilities staff. Downstream (RED) -> action: urgent-intervention\n- WELLNESS_CONCERN \u2014 patient observation by facilities staff raised welfare flag. Downstream (RED) -> action: urgent-intervention\n- INACCESSIBILITY_ALERT \u2014 unit inaccessible after multiple attempts by facilities staff. Welfare check protocol activated. Potential downstream (RED) -> action: urgent-intervention",
     "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
     "inputAxes": [
       {
@@ -128,7 +128,7 @@
       {
         "sequenceId": "maint-hygiene-concern",
         "label": "HYGIENE_ALERT \u2014 bathroom or linen hygiene deficit observed by facilities staff. Downstream",
-        "rag": "AMBER",
+        "rag": "RED",
         "outputIndex": 2,
         "action": "urgent-intervention"
       },
@@ -142,7 +142,7 @@
       {
         "sequenceId": "maint-wellness-concern",
         "label": "WELLNESS_CONCERN \u2014 patient observation by facilities staff raised welfare flag. Downstream",
-        "rag": "AMBER",
+        "rag": "RED",
         "outputIndex": 4,
         "action": "urgent-intervention"
       },

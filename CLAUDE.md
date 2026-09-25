@@ -15,7 +15,7 @@ This repo provides the local OpenClaw ACP/xACP gateway and Open WebUI stack used
 - `openclaw/identity/`: identity/session material.
 - `openclaw/logs/`: runtime logs.
 - `scripts/`: start/stop/bootstrap and validation helpers.
-- `machine-behaviors/agents/`: generated machine-behavior agent specs and `INDEX.json`.
+- `machine-behaviors/agents/`: generated input-analyst agent specs, one per corpus machine except the five arbitration conformance fixtures, plus `INDEX.json` (whose `provenance` records the corpus fingerprint they were derived from). Regenerate with `python3 machine-behaviors/materialize_agents.py --fresh` whenever the machine corpus changes; see `machine-behaviors/OC_AGENT_TEMPLATE.md` §8.
 - `machine-behaviors/agents/profiles/`: agent profiles — which subset of the corpus a deployment loads.
 - `browser-config/`: browser/OpenWebUI runtime configuration.
 - Compose files: local gateway, Open WebUI, and supporting containers.
@@ -44,11 +44,27 @@ Use the repo's actual scripts when present; Docker Compose state is time-sensiti
 - Release refresh is explicit through `update-versions.sh` or `start.sh --update`; ordinary startup consumes the existing pins without mutating versions.
 - `start.sh` owns persisted gateway hardening, WebUI administrator synchronization, and live deployment verification. CI delegates to this entrypoint.
 - RealityEngine PE tests should use `ACP_ENABLED=true`, gateway URL, session key, target agent, and `ACP_COMPLETION_SOURCE_MAPPING_ID=acp-openclaw-completion`.
-- Agent loading is profile-selected. `--agent-profile=full` (the default) loads the whole 1320-agent corpus; `--agent-profile=regression` loads only the 12 agents bound to the RealityEngine regression machine corpus. `start.sh` resolves the profile once and hands the same index to the sync, the config verifier, and the live count gate.
-- `machine-behaviors/agents/profiles/regression.txt` is generated from `RealityEngine_CI/config/standard-deployment-corpus.txt`, not hand-maintained. Re-run `./scripts/generate-regression-profile.py` when that corpus changes; `--check` is the drift guard and fails when the two disagree.
+- Agent loading is profile-selected. `--agent-profile=full` (the default) loads the whole 1323-agent corpus; `--agent-profile=regression` loads the agents of the regression corpus (see "Which agent corpus matters" below; today 12, which should be 15). `start.sh` resolves the profile once and hands the same index to the sync, the config verifier, and the live count gate.
+- `machine-behaviors/agents/profiles/regression.txt` is generated, not hand-maintained. **Today it is generated from `RealityEngine_CI/config/standard-deployment-corpus.txt` (12 machines). That is the wrong source**; it should be `config/regression-corpus.txt` (RealityEngine_CI#467). Re-run `./scripts/generate-regression-profile.py` when the corpus changes; `--check` is the drift guard and fails when the two disagree.
 - Narrowing the profile prunes the previous profile's workspaces and agent directories. Switching back re-materializes them; the sibling repos are needed only to regenerate or check a profile, not to start the stack.
 - The gateway auto-restores `openclaw.json` from `openclaw.json.bak` when a read looks like a clobber, and a narrowed profile is a >50% size drop. `scripts/adopt-config-baseline.sh` moves that guard's baseline (`.bak`, `.last-good`, and `openclaw/logs/config-health.json`) onto each deliberate config rewrite so the profile survives the restart; `sync-machine-agents.sh` calls it. Anything else that rewrites `openclaw/openclaw.json` must call it too.
 - Treat upstream version freshness as time-sensitive; re-check before claiming current release status.
+
+## Which agent corpus matters
+
+**Decided 2026-09-25. Do not re-derive it.**
+
+- **The regression-test corpus is the corpus of interest.** It is `RealityEngine_CI/config/regression-corpus.txt`, the corpus the regression lanes boot, and its agents must be current on every regression run. Of its 21 entries, **15 carry an agent**. The other 6 are 3 arbitration conformance fixtures, agent-free by rule (`RealityEngine_Machines/docs/CORPUS_EXIT_CRITERIA.md` §3.3), and 3 localAIStack machines (`rag_corrective_cycle`, `session_rag_context`, `session_agent_context`) that OpenClaw does not cover.
+- **The full agent corpus (1,323) is constructed once per week**, as part of the full-corpus regression test. It is not rebuilt per change, and a change is not verified against it. Construct it with `python3 machine-behaviors/materialize_agents.py --fresh` and verify it with `RealityEngine_CI/scripts/check-corpus-exit-criteria.py --machines ../RealityEngine_Machines --openclaw .`.
+- **Current against *which* corpus.** `agents/INDEX.json` → `provenance.corpus.digest` names the corpus the agents were derived from. It is the fingerprint the released OWL baselines carry. When the digest does not match the machine corpus, the agents are stale, even if every count gate passes.
+
+**Not enforced yet: RealityEngine_CI#467.** No gate detects a stale agent corpus:
+- The exit-criteria check tests counts, joins and axis names, not actions or RAG.
+- `materialize_agents.py` has no `--check`.
+- The regression profile still derives from the 12-machine standard-deployment list, so it misses `fall-detection`, `rs-ring-latch-stage-a` and `rs-ring-latch-stage-b`.
+- The full-corpus job (`full-corpus-cycle.yml`) runs every 5 days and does not build agents.
+
+Because of this, the agent corpus sat five weeks behind the machine corpus, through the #154 action changes, with every check green. Until #467 lands, regenerate by hand after any corpus change that touches a regression machine, and say in the PR that you did.
 
 ## LSP Support
 
