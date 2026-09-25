@@ -3,6 +3,12 @@
 Reviewed 2026-08-10 against `RealityEngine_Machines` @ 1321 machines and
 `machine-behaviors/agents` @ 1320 agents.
 
+> **A dated snapshot. Its counts are not current.** The counts every regeneration
+> must reconcile against are in `RealityEngine_Machines/docs/CORPUS_EXIT_CRITERIA.md`
+> §3.3 (1,328 machines, 1,323 agents, 5 fixtures deliberately uncovered), enforced by
+> `RealityEngine_CI/scripts/check-corpus-exit-criteria.py`. The corpus an index was
+> derived from is recorded in `agents/INDEX.json` → `provenance`.
+
 Every existing gate passes: 54 corpus contract tests, 1328 schema-valid
 artifacts, `corpus-index --check`, `region-allocation --check`,
 `generate-owl --manifest-check`, `verify_schemas.py`, and

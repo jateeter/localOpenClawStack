@@ -207,20 +207,49 @@ improvement for analyst quality.
 ## 8. Materialized corpus
 
 `python3 materialize_agents.py --fresh` writes **one agent spec per machine**,
+except the five conformance fixtures below,
 named by `agentId` (slug of the machine name — unique corpus-wide, unlike the
-`triggerConfig.processId`-derived code), under `agents/<domain>/`:
+`triggerConfig.processId`-derived code), under `agents/<domain>/`.
+As of the 2026-09-25 regeneration, against a 1,328-machine corpus:
 
 | domain | agents | | domain | agents |
 |---|---|---|---|---|
-| agriculture | 64 | | health-services | 200 |
-| ai-services | 8 | | legal-services | 100 |
-| built-space | 150 | | life-balance | 100 |
-| community-services | 103 | | transportation | 150 |
-| data-center | 59 | | digital-logic | 57 |
-| health-personal | 24 | | **total** | **1015** |
+| agriculture | 71 | | energy | 187 |
+| ai-services | 9 | | health-personal | 43 |
+| built-space | 165 | | health-services | 220 |
+| community-services | 113 | | legal-services | 110 |
+| data-center | 65 | | life-balance | 110 |
+| digital-logic | 65 | | transportation | 165 |
+| | | | **total** | **1323** |
+
+**The five arbitration conformance fixtures get no agent**:
+`ArbitrationProviderPeer`, `ArbitrationProviderTarget`, `ArbitrationReader`,
+`ArbitrationWriterA` and `ArbitrationWriterB`, all in `digital-logic`, which is
+why that domain has 65 agents for 70 machines. They exist to prove arbitration is
+deterministic, and an agent is a `generated` contributor. So a regeneration
+that produces 1,328 specs is wrong
+(`RealityEngine_Machines/docs/CORPUS_EXIT_CRITERIA.md` §3.3). The guard matches
+`arbitration-fixture` in `tagging.family` *or* `tagging.workflowTags`;
+RealityEngine_Machines#110 moved it from the first to the second.
 
 Indexes: `agents/INDEX.json` (machine→agent→domain→path, axis basis, input region)
-and `agents/INDEX.md`. Axis grounding across the corpus: `sensorNormalization`
-279, `inputSemantics` 736. The specs are deterministic and regenerable — a spec
-exists for every machine, but only **leaf** machines get a *live* PE input mapping
-(§ bridge-fed exclusion in `register_input_mappings.py`).
+and `agents/INDEX.md`. Axis grounding: `openClawProjection` 1184, `inputSemantics`
+139. The specs are deterministic and regenerable, but only **leaf** machines get a
+*live* PE input mapping (§ bridge-fed exclusion in `register_input_mappings.py`).
+
+**`INDEX.json` carries `provenance`**: the contract the output satisfies
+(`corpus-exit-v1.0`, §3.7 item 4) and the fingerprint of the corpus it was
+actually derived from, using the corpus repo's own
+`scripts/ces_corpus_fingerprint.py`. The digest is the one the released OWL
+baselines are stamped with (`1.0.0+corpus.<first 12 hex>`), so the two can be
+compared directly. The tag alone is not enough: the corpus keeps moving after
+it, and specs derived from an older corpus carry that corpus's actions and RAG
+determinations. The 2026-08-16 specs still stated pre-#154 actions until this
+regeneration.
+
+**Regenerate whenever the machine corpus changes**, then verify with
+`RealityEngine_CI/scripts/check-corpus-exit-criteria.py --machines
+../RealityEngine_Machines --openclaw .`. That gate checks counts, the join, the
+fixtures and axis names. It does **not** compare actions or RAG, so a stale
+index passes it. Comparing `provenance.corpus.digest` with the current corpus is
+the staleness check.

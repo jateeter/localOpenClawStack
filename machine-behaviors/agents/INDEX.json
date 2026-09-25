@@ -14,6 +14,22 @@
     "life-balance": 110,
     "transportation": 165
   },
+  "provenance": {
+    "generator": "machine-behaviors/materialize_agents.py",
+    "conformsTo": "RealityEngine_Machines corpus-exit-v1.0 (docs/CORPUS_EXIT_CRITERIA.md \u00a73.7)",
+    "corpus": {
+      "algorithm": "sha256/relfile-sorted-v1",
+      "machineCount": 1328,
+      "digest": "sha256:cba104f1972db03bb925e51d478541ceb47711854b8a254c04a8d0c6d7ab2e0c"
+    },
+    "skippedConformanceFixtures": [
+      "ArbitrationProviderPeer",
+      "ArbitrationProviderTarget",
+      "ArbitrationReader",
+      "ArbitrationWriterA",
+      "ArbitrationWriterB"
+    ]
+  },
   "agents": [
     {
       "machineId": "AgAtmosphericController",
