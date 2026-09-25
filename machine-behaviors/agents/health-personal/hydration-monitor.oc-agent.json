@@ -34,7 +34,7 @@
   },
   "reasoning": {
     "objective": "Produce the normalized input vector for \"Hydration Monitor\" from current observations so RE can evaluate its CES sequences.",
-    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Hydration Monitor\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Infers hydration status from in-home intake proxies (smart-cup sips, fridge/faucet opens, bathroom visits). Signals the local AI when intake falls below daily targets so it can surface reminders or caregiver check-ins.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- below_half_daily_intake_target_bit (index 0):\n- below_quarter_daily_intake_target_bit (index 1):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- hydration-adequate (GREEN)\n- hydration-low (AMBER)\n- hydration-critical (RED)",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Hydration Monitor\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Infers hydration status from in-home intake proxies (smart-cup sips, fridge/faucet opens, bathroom visits). Signals the local AI when intake falls below daily targets so it can surface reminders or caregiver check-ins.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- below_half_daily_intake_target_bit (index 0):\n- below_quarter_daily_intake_target_bit (index 1):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- hydration-adequate (GREEN)\n- hydration-low (AMBER)\n- hydration-critical (RED) -> action: notify-care-team",
     "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
     "inputAxes": [
       {
@@ -76,7 +76,7 @@
         "label": "hydration-critical",
         "rag": "RED",
         "outputIndex": 0,
-        "action": ""
+        "action": "notify-care-team"
       }
     ]
   },

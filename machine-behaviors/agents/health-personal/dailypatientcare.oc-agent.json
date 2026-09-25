@@ -34,7 +34,7 @@
   },
   "reasoning": {
     "objective": "Produce the normalized input vector for \"DailyPatientCare\" from current observations so RE can evaluate its CES sequences.",
-    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"DailyPatientCare\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Ongoing daily patient care monitoring for an assisted living eldercare community. Recognizes normal daily routines (morning hygiene, meals, medications, evening wind-down) and detects anomalies including fall events, bathroom non-use, missed medications, and nighttime wandering.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- ambulatory_or_moving_bit (index 0):\n- bathroom_use_bit (index 1):\n- meal_context_bit (index 2):\n- medication_confirmed_bit (index 3):\n- evening_meal_context_bit (index 4):\n- alert_active_bit (index 5):\n- fall_event_bit (index 6):\n- night_monitoring_bit (index 7):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Event (GREEN)\n- Event (GREEN)\n- Alert (AMBER)\n- CRITICAL ALERT (RED)\n- Alert (AMBER)\n- Alert (AMBER)\n- Alert (AMBER)",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"DailyPatientCare\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Ongoing daily patient care monitoring for an assisted living eldercare community. Recognizes normal daily routines (morning hygiene, meals, medications, evening wind-down) and detects anomalies including fall events, bathroom non-use, missed medications, and nighttime wandering.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- ambulatory_or_moving_bit (index 0):\n- bathroom_use_bit (index 1):\n- meal_context_bit (index 2):\n- medication_confirmed_bit (index 3):\n- evening_meal_context_bit (index 4):\n- alert_active_bit (index 5):\n- fall_event_bit (index 6):\n- night_monitoring_bit (index 7):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Event (GREEN)\n- Event (GREEN)\n- Alert (AMBER)\n- CRITICAL ALERT (RED) -> action: urgent-intervention\n- Alert (AMBER)\n- Alert (AMBER)\n- Alert (AMBER)",
     "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
     "inputAxes": [
       {
@@ -137,7 +137,7 @@
         "label": "CRITICAL ALERT",
         "rag": "RED",
         "outputIndex": 3,
-        "action": ""
+        "action": "urgent-intervention"
       },
       {
         "sequenceId": "daily-bathroom-nonuse",

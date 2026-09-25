@@ -83,7 +83,14 @@ def main() -> int:
         # RealityEngine_Machines corpus-exit-v1.0 §3.3, which states that a
         # regeneration producing 1,328 specs rather than 1,323 is wrong. It was:
         # a --fresh run produced agents for all five before this guard existed.
-        if str(as_object(meta.get("tagging")).get("family", "")) == "arbitration-fixture":
+        #
+        # Matched on the family *or* the workflow tags. RealityEngine_Machines#110
+        # (2026-09-06) moved `arbitration-fixture` from `tagging.family` into
+        # `tagging.workflowTags`; a family-only test then matched nothing, and
+        # a 2026-09-25 regeneration produced 1,328 specs.
+        tagging = as_object(meta.get("tagging"))
+        if (str(tagging.get("family", "")) == "arbitration-fixture"
+                or "arbitration-fixture" in [str(t) for t in tagging.get("workflowTags") or []]):
             skipped_fixtures.append(f.stem)
             continue
         try:

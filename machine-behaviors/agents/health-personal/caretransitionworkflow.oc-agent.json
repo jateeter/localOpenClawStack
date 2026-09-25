@@ -34,7 +34,7 @@
   },
   "reasoning": {
     "objective": "Produce the normalized input vector for \"CareTransitionWorkflow\" from current observations so RE can evaluate its CES sequences.",
-    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"CareTransitionWorkflow\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Models patient readiness for changes in living situation across three care transition scenarios: (1) non-assisted home/community living to acute hospital admission for life-threatening conditions; (2) acute hospital discharge to a rehabilitation facility as a transitional environment; (3) rehabilitation facility discharge to assisted living for the next phase of life. Produces transition-specific readiness outputs with embedded external communication requirements.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- clinical_criterion_met_bit (index 0):\n- administrative_authorization_obtained_or_waived_bit (index 1):\n- receiving_facility_ready_bit (index 2):\n- family_or_proxy_notified_bit (index 3):\n- care_documents_ready_bit (index 4):\n- transport_arranged_bit (index 5):\n- transition_barrier_active_bit (index 6):\n- emergency_mode_active_bit (index 7):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- transition-acute-emergency (RED)\n- transition-hospital-to-rehab (GREEN)\n- transition-rehab-to-alf (GREEN)\n- transition-blocked (AMBER)\n- transition-emergency-escalation (RED)",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"CareTransitionWorkflow\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Models patient readiness for changes in living situation across three care transition scenarios: (1) non-assisted home/community living to acute hospital admission for life-threatening conditions; (2) acute hospital discharge to a rehabilitation facility as a transitional environment; (3) rehabilitation facility discharge to assisted living for the next phase of life. Produces transition-specific readiness outputs with embedded external communication requirements.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- clinical_criterion_met_bit (index 0):\n- administrative_authorization_obtained_or_waived_bit (index 1):\n- receiving_facility_ready_bit (index 2):\n- family_or_proxy_notified_bit (index 3):\n- care_documents_ready_bit (index 4):\n- transport_arranged_bit (index 5):\n- transition_barrier_active_bit (index 6):\n- emergency_mode_active_bit (index 7):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- transition-acute-emergency (RED) -> action: notify-care-team\n- transition-hospital-to-rehab (GREEN)\n- transition-rehab-to-alf (GREEN)\n- transition-blocked (AMBER)\n- transition-emergency-escalation (RED) -> action: urgent-intervention",
     "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
     "inputAxes": [
       {
@@ -116,7 +116,7 @@
         "label": "transition-acute-emergency",
         "rag": "RED",
         "outputIndex": 0,
-        "action": ""
+        "action": "notify-care-team"
       },
       {
         "sequenceId": "transition-hospital-to-rehab",
@@ -144,7 +144,7 @@
         "label": "transition-emergency-escalation",
         "rag": "RED",
         "outputIndex": 4,
-        "action": ""
+        "action": "urgent-intervention"
       }
     ]
   },
