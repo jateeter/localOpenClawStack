@@ -33,6 +33,7 @@ from urllib import request, error
 from uuid import uuid4
 
 from behavior_log import BehaviorLogger
+from dispatch_side import semantic_label
 
 
 def _as_object(v: Any) -> dict[str, Any]:
@@ -230,7 +231,7 @@ def _simulate_textual_response(envelope: dict[str, Any], agent_rec: dict[str, An
     """Deterministic stand-in for an OpenClaw ACP turn: structured-keys text."""
     mode = envelope["dispatch"]["autonomyMode"]
     rag = envelope["governance"]["ragStatusCode"]
-    label = envelope["outputVector"]["assertedLabel"]
+    label = semantic_label(envelope)
     agent = agent_rec["agent"]
     blocked = rag in agent_rec["agentBinding"]["riskControls"]["blockedWhenRag"]
     seed = hashlib.sha256((envelope["correlationId"] + agent).encode()).hexdigest()

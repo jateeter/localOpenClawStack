@@ -1,9 +1,17 @@
 # Machine-behavior agents for the RealityEngine regression corpus.
 #
 # GENERATED — do not edit by hand.
-#   source:     RealityEngine_CI/config/standard-deployment-corpus.txt (12 machines)
+#   source:     RealityEngine_CI/config/regression-corpus.txt (21 entries: 15 agents, 6 excluded by rule)
 #   regenerate: ./scripts/generate-regression-profile.py
 #   verify:     ./scripts/generate-regression-profile.py --check
+#
+# Excluded by rule, carrying no agent:
+#   domains/digital-logic/ArbitrationWriterA.json  arbitration conformance fixture: agent-free by rule
+#   domains/digital-logic/ArbitrationWriterB.json  arbitration conformance fixture: agent-free by rule
+#   domains/digital-logic/ArbitrationReader.json   arbitration conformance fixture: agent-free by rule
+#   rag_corrective_cycle.json                      localAIStack machine: no OpenClaw agent
+#   session_rag_context.json                       localAIStack machine: no OpenClaw agent
+#   session_agent_context.json                     localAIStack machine: no OpenClaw agent
 #
 # One agentId per line, in corpus order; the trailing comment is the machine
 # it is bound to.
@@ -20,3 +28,6 @@ qualification-verification-monitor           # domains/community-services/Qualif
 home-transportation-barrier-monitor          # domains/health-personal/HomeTransportationBarrierMonitor.json
 data-center-dcx-001-010-interconnect         # domains/data-center/DataCenterDcx001010Interconnect.json
 digital-logic-dlx-021-030-interconnect       # domains/digital-logic/DigitalLogicDlx021030Interconnect.json
+rs-ring-latch-stage-a                        # domains/digital-logic/RSRingLatchStageA.json
+rs-ring-latch-stage-b                        # domains/digital-logic/RSRingLatchStageB.json
+fall-detection                               # domains/health-personal/FallDetection.json

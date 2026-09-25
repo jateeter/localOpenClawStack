@@ -12,8 +12,10 @@ This directory contains operational helpers for OpenClaw startup, shutdown, boot
 - `agent-profile.sh NAME` resolves a profile to an agent index path and is the only
   place that knows profiles exist. Everything downstream reads an index of one shape.
 - `generate-regression-profile.py` derives `profiles/regression.txt` from
-  `RealityEngine_CI/config/standard-deployment-corpus.txt`. Run `--check` after any
-  corpus change; a stale profile is the failure the profile exists to prevent.
+  `RealityEngine_CI/config/regression-corpus.txt`, the regression-test corpus. Entries
+  with no agent *by rule* (arbitration fixtures, localAIStack machines) are excluded
+  and named in the header; any other unresolved entry is an error. Run `--check`
+  after any corpus change; a stale profile is the failure the profile exists to prevent.
 - Filtered indexes land in `machine-behaviors/agents/.generated/` and are not tracked.
 - `sync-machine-agents.sh` prunes machine-behavior agents outside the active profile.
   It identifies them by their generated workspace path, so a hand-added agent survives.

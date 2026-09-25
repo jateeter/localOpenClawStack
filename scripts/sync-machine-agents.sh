@@ -6,8 +6,8 @@ cd "$ROOT_DIR"
 
 # Which agents this deployment loads. `full` is the whole corpus and remains the
 # default; a named profile (machine-behaviors/agents/profiles/<name>.txt) narrows
-# it. The regression profile exists because loading 1320 agents to exercise 12
-# machines costs time and memory on every start.
+# it. The regression profile exists because loading 1,323 agents to exercise the
+# 15 of the regression-test corpus costs time and memory on every start.
 AGENT_PROFILE="${OPENCLAW_AGENT_PROFILE:-full}"
 INDEX_PATH="${OPENCLAW_AGENT_INDEX_PATH:-$("$ROOT_DIR/scripts/agent-profile.sh" "$AGENT_PROFILE")}"
 CONFIG_PATH="$ROOT_DIR/openclaw/openclaw.json"

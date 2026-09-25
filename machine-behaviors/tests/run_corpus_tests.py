@@ -157,10 +157,18 @@ if _index_path.exists():
     #
     # The exclusion is counted from the corpus, not hardcoded at 5, so adding a
     # fixture does not fail this.
-    _fixtures = sum(
-        1 for _f in _files
-        if str(((_json.loads(_f.read_text()).get("machine") or {}).get("metadata") or {})
-               .get("tagging", {}).get("family", "")) == "arbitration-fixture")
+    #
+    # Matched on tagging.family *or* tagging.workflowTags, as the generator does:
+    # RealityEngine_Machines#110 moved the tag into workflowTags, and a
+    # family-only count found 0 fixtures. Unseen until 2026-09-25, because
+    # run_all.sh is `set -e` and T4.1 had failed since 2026-09-23, so this
+    # suite never ran.
+    def _is_fixture(_f):
+        _t = (((_json.loads(_f.read_text()).get("machine") or {}).get("metadata") or {})
+              .get("tagging") or {})
+        return (str(_t.get("family", "")) == "arbitration-fixture"
+                or "arbitration-fixture" in [str(x) for x in _t.get("workflowTags") or []])
+    _fixtures = sum(1 for _f in _files if _is_fixture(_f))
     check("C5.4 agents/INDEX.json total == corpus machines minus arbitration fixtures",
           _idx.get("total") == s["machines"] - _fixtures,
           f"index={_idx.get('total')} machines={s['machines']} fixtures={_fixtures}")
