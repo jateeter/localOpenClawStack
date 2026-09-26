@@ -152,8 +152,9 @@ if _index_path.exists():
     # Not == machine count. materialize_agents.py deliberately skips the
     # arbitration fixtures: an agent is a `generated` contributor, which is the
     # non-determinism those fixtures exist to disprove. RealityEngine_Machines
-    # corpus-exit-v1.0 §3.3 states a regeneration producing 1,328 specs rather
-    # than 1,323 is wrong, so asserting equality asserts the wrong number.
+    # CORPUS_EXIT_CRITERIA §3.3 states a regeneration producing one spec per
+    # machine (1,327 at corpus-exit-v2.0) rather than 1,322 is wrong, so asserting
+    # equality asserts the wrong number.
     #
     # The exclusion is counted from the corpus, not hardcoded at 5, so adding a
     # fixture does not fail this.

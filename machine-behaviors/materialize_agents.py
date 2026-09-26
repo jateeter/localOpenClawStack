@@ -37,13 +37,13 @@ def _domain_slug(domain: str) -> str:
     return re.sub(r"[^a-z0-9]+", "-", domain.lower()).strip("-") or "uncategorized"
 
 
-CORPUS_CONTRACT = "RealityEngine_Machines corpus-exit-v1.0 (docs/CORPUS_EXIT_CRITERIA.md §3.7)"
+CORPUS_CONTRACT = "RealityEngine_Machines corpus-exit-v2.0 (docs/CORPUS_EXIT_CRITERIA.md §3.7)"
 
 
 def _provenance(mdir: Path, skipped_fixtures: list[str]) -> dict:
     """What this index was generated from, per CORPUS_EXIT_CRITERIA §3.7 item 4.
 
-    §3.7 asks a regeneration to record `corpus-exit-v1.0` in its output. The tag
+    §3.7 asks a regeneration to record the tag (`corpus-exit-v2.0`) in its output. The tag
     alone would overstate it: the corpus moves on after the tag (the 2026-09-16
     action changes of Machines#154 are after it), and an index stamped only with
     the tag reads as generated *from* the tagged corpus. So record both — the
@@ -54,7 +54,7 @@ def _provenance(mdir: Path, skipped_fixtures: list[str]) -> dict:
     and the CES contract shards cannot disagree about what "the corpus changed"
     means. Content-derived, never time-derived: two regenerations of the same
     corpus stamp the same digest. Only the rolled-up digest is kept — per-file
-    members for 1,328 machines would dwarf the index they describe.
+    members for 1,327 machines would dwarf the index they describe.
     """
     corpus: dict = {"machineCount": None, "digest": None}
     scripts = mdir.parent / "scripts"
@@ -120,8 +120,9 @@ def main() -> int:
         # The five arbitration fixtures exist to prove resolution is
         # deterministic, and an agent is a `generated` contributor — exactly the
         # non-determinism that would invalidate what they test. Recorded in
-        # RealityEngine_Machines corpus-exit-v1.0 §3.3, which states that a
-        # regeneration producing 1,328 specs rather than 1,323 is wrong. It was:
+        # RealityEngine_Machines CORPUS_EXIT_CRITERIA §3.3, which states that a
+        # regeneration producing one spec per machine (1,327 at corpus-exit-v2.0)
+        # rather than 1,322 is wrong. It was:
         # a --fresh run produced agents for all five before this guard existed.
         #
         # Matched on the family *or* the workflow tags. RealityEngine_Machines#110

@@ -16,7 +16,7 @@
   },
   "provenance": {
     "generator": "machine-behaviors/materialize_agents.py",
-    "conformsTo": "RealityEngine_Machines corpus-exit-v1.0 (docs/CORPUS_EXIT_CRITERIA.md \u00a73.7)",
+    "conformsTo": "RealityEngine_Machines corpus-exit-v2.0 (docs/CORPUS_EXIT_CRITERIA.md \u00a73.7)",
     "corpus": {
       "algorithm": "sha256/relfile-sorted-v1",
       "machineCount": 1327,
