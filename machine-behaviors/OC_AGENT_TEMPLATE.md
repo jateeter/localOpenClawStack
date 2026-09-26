@@ -210,7 +210,7 @@ improvement for analyst quality.
 except the five conformance fixtures below,
 named by `agentId` (slug of the machine name — unique corpus-wide, unlike the
 `triggerConfig.processId`-derived code), under `agents/<domain>/`.
-As of the 2026-09-25 regeneration, against a 1,328-machine corpus:
+As of the `corpus-exit-v2.0` regeneration (2026-09-26), against a 1,327-machine corpus:
 
 | domain | agents | | domain | agents |
 |---|---|---|---|---|
@@ -219,15 +219,15 @@ As of the 2026-09-25 regeneration, against a 1,328-machine corpus:
 | built-space | 165 | | health-services | 220 |
 | community-services | 113 | | legal-services | 110 |
 | data-center | 65 | | life-balance | 110 |
-| digital-logic | 65 | | transportation | 165 |
-| | | | **total** | **1323** |
+| digital-logic | 64 | | transportation | 165 |
+| | | | **total** | **1322** |
 
 **The five arbitration conformance fixtures get no agent**:
 `ArbitrationProviderPeer`, `ArbitrationProviderTarget`, `ArbitrationReader`,
 `ArbitrationWriterA` and `ArbitrationWriterB`, all in `digital-logic`, which is
-why that domain has 65 agents for 70 machines. They exist to prove arbitration is
+why that domain has 64 agents for 69 machines. They exist to prove arbitration is
 deterministic, and an agent is a `generated` contributor. So a regeneration
-that produces 1,328 specs is wrong
+that produces 1,327 specs is wrong
 (`RealityEngine_Machines/docs/CORPUS_EXIT_CRITERIA.md` §3.3). The guard matches
 `arbitration-fixture` in `tagging.family` *or* `tagging.workflowTags`;
 RealityEngine_Machines#110 moved it from the first to the second.
@@ -238,7 +238,7 @@ and `agents/INDEX.md`. Axis grounding: `openClawProjection` 1184, `inputSemantic
 *live* PE input mapping (§ bridge-fed exclusion in `register_input_mappings.py`).
 
 **`INDEX.json` carries `provenance`**: the contract the output satisfies
-(`corpus-exit-v1.0`, §3.7 item 4) and the fingerprint of the corpus it was
+(`corpus-exit-v2.0`, §3.7 item 4) and the fingerprint of the corpus it was
 actually derived from, using the corpus repo's own
 `scripts/ces_corpus_fingerprint.py`. The digest is the one the released OWL
 baselines are stamped with (`1.0.0+corpus.<first 12 hex>`), so the two can be
