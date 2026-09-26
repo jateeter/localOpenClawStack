@@ -1,12 +1,12 @@
 {
-  "total": 1323,
+  "total": 1322,
   "byDomain": {
     "agriculture": 71,
     "ai-services": 9,
     "built-space": 165,
     "community-services": 113,
     "data-center": 65,
-    "digital-logic": 65,
+    "digital-logic": 64,
     "energy": 187,
     "health-personal": 43,
     "health-services": 220,
@@ -19,8 +19,8 @@
     "conformsTo": "RealityEngine_Machines corpus-exit-v1.0 (docs/CORPUS_EXIT_CRITERIA.md \u00a73.7)",
     "corpus": {
       "algorithm": "sha256/relfile-sorted-v1",
-      "machineCount": 1328,
-      "digest": "sha256:cba104f1972db03bb925e51d478541ceb47711854b8a254c04a8d0c6d7ab2e0c"
+      "machineCount": 1327,
+      "digest": "sha256:d550be8da2c3e2896458129c8f840b60c3f4428fd1b2e63f9cc22eaee531d887"
     },
     "skippedConformanceFixtures": [
       "ArbitrationProviderPeer",
@@ -7305,21 +7305,6 @@
       },
       "axisBasis": "openClawProjection",
       "path": "digital-logic/rs-flip-flop.oc-agent.json"
-    },
-    {
-      "machineId": "machine-rsflipflop-deprecated-demo",
-      "machineName": "RS Flip Flop (deprecated demo)",
-      "code": "rsflipflop",
-      "agentId": "rs-flip-flop-deprecated-demo",
-      "domain": "digital-logic",
-      "machineClass": "signal-monitor",
-      "role": "input-analyst",
-      "inputRegion": {
-        "offset": 4200,
-        "length": 2
-      },
-      "axisBasis": "openClawProjection",
-      "path": "digital-logic/rs-flip-flop-deprecated-demo.oc-agent.json"
     },
     {
       "machineId": "RSRingLatchStageA",
