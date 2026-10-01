@@ -1,6 +1,6 @@
 # localOpenClawStack Guidance
 
-Last reviewed: 2026-09-25
+Last reviewed: 2026-10-01
 
 See `/Users/johnt/workspace/GitHub/CLAUDE.md` for the integrated application map. Update both this file and the root map when OpenClaw versioning, gateway wiring, auth/bootstrap, or Manager/PE integration expectations change.
 
@@ -60,7 +60,7 @@ Use the repo's actual scripts when present; Docker Compose state is time-sensiti
 
 **Not enforced yet: RealityEngine_CI#467.** No gate detects a stale agent corpus:
 - The exit-criteria check tests counts, joins and axis names, not actions or RAG.
-- `materialize_agents.py` has no `--check`.
+- ~~`materialize_agents.py` has no `--check`~~ **Fixed 2026-10-01 (#467 item 2):** `python3 machine-behaviors/materialize_agents.py --check --manifest ../RealityEngine_CI/config/regression-corpus.txt` derives the 15 regression agents in memory and fails on any spec that differs from the committed one. It writes nothing and needs no live universe. RealityEngine_CI's regression harness runs it on every run. `--check` without `--manifest` covers the whole corpus, including `INDEX.*` and orphaned specs.
 - ~~The regression profile derives from the 12-machine standard-deployment list~~ **Fixed 2026-09-25:** it derives from `regression-corpus.txt` and loads all 15 agents, including `fall-detection`, `rs-ring-latch-stage-a` and `rs-ring-latch-stage-b`.
 - ~~The full-corpus job runs every 5 days and does not build agents~~ **Fixed 2026-09-25 (RealityEngine_CI#468):** `full-corpus-cycle.yml` runs weekly (Sunday 05:00 UTC) and rebuilds all 1,323 agents, failing if the committed specs differ. Stale agents are therefore caught within a week; a per-run check is what #467 still asks for.
 

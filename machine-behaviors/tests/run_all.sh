@@ -10,3 +10,6 @@ MB_DEBUG=0 python3.13 tests/run_domain_tests.py
 echo ""
 echo "── corpus-wide suite ──"
 MB_DEBUG=0 python3.13 tests/run_corpus_tests.py
+echo ""
+echo "── materialize --check suite ──"
+MB_DEBUG=0 python3.13 tests/run_materialize_check_tests.py
