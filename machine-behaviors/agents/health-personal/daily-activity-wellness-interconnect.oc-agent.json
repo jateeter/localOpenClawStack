@@ -11,11 +11,11 @@
     "machineClass": "bridge",
     "domain": "health-personal",
     "inputRegion": {
-      "offset": 4310,
+      "offset": 4960,
       "length": 10
     },
     "outputRegion": {
-      "offset": 4320,
+      "offset": 4970,
       "length": 4
     }
   },
@@ -164,7 +164,7 @@
     "mode": "advise",
     "trigger": "daily_activity_wellness_interconnect-input-assessment",
     "allowedActions": [
-      "Assess current \"Daily Activity Wellness Interconnect\" state from available observations and write the normalized input vector to the PE input region [4310:4320] for RE to evaluate."
+      "Assess current \"Daily Activity Wellness Interconnect\" state from available observations and write the normalized input vector to the PE input region [4960:4970] for RE to evaluate."
     ],
     "writeBack": {
       "type": "pe-sensor",
@@ -172,7 +172,7 @@
       "sensorId": "acp.openclaw.daily_activity_wellness_interconnect.input-analyst.assessment",
       "name": "OpenClaw daily_activity_wellness_interconnect input-analyst assessment",
       "region": {
-        "offset": 4310,
+        "offset": 4960,
         "length": 10
       },
       "semantics": [
@@ -200,7 +200,7 @@
         "sensorId": "acp.openclaw.daily_activity_wellness_interconnect.input-analyst.assessment",
         "name": "OpenClaw daily_activity_wellness_interconnect input-analyst assessment",
         "region": {
-          "offset": 4310,
+          "offset": 4960,
           "length": 10
         },
         "ttlMs": 300000
@@ -266,7 +266,7 @@
         "target": {
           "sensorId": "acp.openclaw.daily_activity_wellness_interconnect.input-analyst.assessment",
           "region": {
-            "offset": 4310,
+            "offset": 4960,
             "length": 10
           },
           "index": 0
@@ -309,7 +309,7 @@
         "target": {
           "sensorId": "acp.openclaw.daily_activity_wellness_interconnect.input-analyst.assessment",
           "region": {
-            "offset": 4310,
+            "offset": 4960,
             "length": 10
           },
           "index": 1
@@ -352,7 +352,7 @@
         "target": {
           "sensorId": "acp.openclaw.daily_activity_wellness_interconnect.input-analyst.assessment",
           "region": {
-            "offset": 4310,
+            "offset": 4960,
             "length": 10
           },
           "index": 2
@@ -395,7 +395,7 @@
         "target": {
           "sensorId": "acp.openclaw.daily_activity_wellness_interconnect.input-analyst.assessment",
           "region": {
-            "offset": 4310,
+            "offset": 4960,
             "length": 10
           },
           "index": 3
@@ -438,7 +438,7 @@
         "target": {
           "sensorId": "acp.openclaw.daily_activity_wellness_interconnect.input-analyst.assessment",
           "region": {
-            "offset": 4310,
+            "offset": 4960,
             "length": 10
           },
           "index": 4
@@ -481,7 +481,7 @@
         "target": {
           "sensorId": "acp.openclaw.daily_activity_wellness_interconnect.input-analyst.assessment",
           "region": {
-            "offset": 4310,
+            "offset": 4960,
             "length": 10
           },
           "index": 5
@@ -524,7 +524,7 @@
         "target": {
           "sensorId": "acp.openclaw.daily_activity_wellness_interconnect.input-analyst.assessment",
           "region": {
-            "offset": 4310,
+            "offset": 4960,
             "length": 10
           },
           "index": 6
@@ -567,7 +567,7 @@
         "target": {
           "sensorId": "acp.openclaw.daily_activity_wellness_interconnect.input-analyst.assessment",
           "region": {
-            "offset": 4310,
+            "offset": 4960,
             "length": 10
           },
           "index": 7
@@ -610,7 +610,7 @@
         "target": {
           "sensorId": "acp.openclaw.daily_activity_wellness_interconnect.input-analyst.assessment",
           "region": {
-            "offset": 4310,
+            "offset": 4960,
             "length": 10
           },
           "index": 8
@@ -653,7 +653,7 @@
         "target": {
           "sensorId": "acp.openclaw.daily_activity_wellness_interconnect.input-analyst.assessment",
           "region": {
-            "offset": 4310,
+            "offset": 4960,
             "length": 10
           },
           "index": 9

@@ -11,11 +11,11 @@
     "machineClass": "bridge",
     "domain": "health-personal",
     "inputRegion": {
-      "offset": 4320,
+      "offset": 4974,
       "length": 12
     },
     "outputRegion": {
-      "offset": 4332,
+      "offset": 4986,
       "length": 4
     }
   },
@@ -182,7 +182,7 @@
     "mode": "advise",
     "trigger": "chronic_pain_mental_health_access_interconnect-input-assessment",
     "allowedActions": [
-      "Assess current \"Chronic Pain Mental Health Access Interconnect\" state from available observations and write the normalized input vector to the PE input region [4320:4332] for RE to evaluate."
+      "Assess current \"Chronic Pain Mental Health Access Interconnect\" state from available observations and write the normalized input vector to the PE input region [4974:4986] for RE to evaluate."
     ],
     "writeBack": {
       "type": "pe-sensor",
@@ -190,7 +190,7 @@
       "sensorId": "acp.openclaw.chronic_pain_mental_health_access_interconnect.input-analyst.assessment",
       "name": "OpenClaw chronic_pain_mental_health_access_interconnect input-analyst assessment",
       "region": {
-        "offset": 4320,
+        "offset": 4974,
         "length": 12
       },
       "semantics": [
@@ -220,7 +220,7 @@
         "sensorId": "acp.openclaw.chronic_pain_mental_health_access_interconnect.input-analyst.assessment",
         "name": "OpenClaw chronic_pain_mental_health_access_interconnect input-analyst assessment",
         "region": {
-          "offset": 4320,
+          "offset": 4974,
           "length": 12
         },
         "ttlMs": 300000
@@ -286,7 +286,7 @@
         "target": {
           "sensorId": "acp.openclaw.chronic_pain_mental_health_access_interconnect.input-analyst.assessment",
           "region": {
-            "offset": 4320,
+            "offset": 4974,
             "length": 12
           },
           "index": 0
@@ -329,7 +329,7 @@
         "target": {
           "sensorId": "acp.openclaw.chronic_pain_mental_health_access_interconnect.input-analyst.assessment",
           "region": {
-            "offset": 4320,
+            "offset": 4974,
             "length": 12
           },
           "index": 1
@@ -372,7 +372,7 @@
         "target": {
           "sensorId": "acp.openclaw.chronic_pain_mental_health_access_interconnect.input-analyst.assessment",
           "region": {
-            "offset": 4320,
+            "offset": 4974,
             "length": 12
           },
           "index": 2
@@ -415,7 +415,7 @@
         "target": {
           "sensorId": "acp.openclaw.chronic_pain_mental_health_access_interconnect.input-analyst.assessment",
           "region": {
-            "offset": 4320,
+            "offset": 4974,
             "length": 12
           },
           "index": 3
@@ -458,7 +458,7 @@
         "target": {
           "sensorId": "acp.openclaw.chronic_pain_mental_health_access_interconnect.input-analyst.assessment",
           "region": {
-            "offset": 4320,
+            "offset": 4974,
             "length": 12
           },
           "index": 4
@@ -501,7 +501,7 @@
         "target": {
           "sensorId": "acp.openclaw.chronic_pain_mental_health_access_interconnect.input-analyst.assessment",
           "region": {
-            "offset": 4320,
+            "offset": 4974,
             "length": 12
           },
           "index": 5
@@ -544,7 +544,7 @@
         "target": {
           "sensorId": "acp.openclaw.chronic_pain_mental_health_access_interconnect.input-analyst.assessment",
           "region": {
-            "offset": 4320,
+            "offset": 4974,
             "length": 12
           },
           "index": 6
@@ -587,7 +587,7 @@
         "target": {
           "sensorId": "acp.openclaw.chronic_pain_mental_health_access_interconnect.input-analyst.assessment",
           "region": {
-            "offset": 4320,
+            "offset": 4974,
             "length": 12
           },
           "index": 7
@@ -630,7 +630,7 @@
         "target": {
           "sensorId": "acp.openclaw.chronic_pain_mental_health_access_interconnect.input-analyst.assessment",
           "region": {
-            "offset": 4320,
+            "offset": 4974,
             "length": 12
           },
           "index": 8
@@ -673,7 +673,7 @@
         "target": {
           "sensorId": "acp.openclaw.chronic_pain_mental_health_access_interconnect.input-analyst.assessment",
           "region": {
-            "offset": 4320,
+            "offset": 4974,
             "length": 12
           },
           "index": 9
@@ -716,7 +716,7 @@
         "target": {
           "sensorId": "acp.openclaw.chronic_pain_mental_health_access_interconnect.input-analyst.assessment",
           "region": {
-            "offset": 4320,
+            "offset": 4974,
             "length": 12
           },
           "index": 10
@@ -759,7 +759,7 @@
         "target": {
           "sensorId": "acp.openclaw.chronic_pain_mental_health_access_interconnect.input-analyst.assessment",
           "region": {
-            "offset": 4320,
+            "offset": 4974,
             "length": 12
           },
           "index": 11
