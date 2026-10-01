@@ -14,6 +14,21 @@ Usage:
     python3 materialize_agents.py             # write the whole corpus
     python3 materialize_agents.py --fresh     # wipe agents/ first, then write
     python3 materialize_agents.py --domain health-personal   # one domain only
+    python3 materialize_agents.py --check --manifest ../../RealityEngine_CI/config/regression-corpus.txt
+                                              # fail if any agent the manifest's
+                                              # machines derive differs from disk
+
+--check writes nothing. It derives in memory and compares byte for byte with the
+committed specs. With --manifest it covers only the machines that manifest lists
+(the regression corpus: RealityEngine_CI#467 item 2) and leaves the INDEX files
+alone, since they describe the whole corpus. Without it, it covers the whole
+corpus including INDEX.json/INDEX.md and also reports committed specs that the
+corpus no longer derives.
+
+Nothing used to detect a stale agent corpus. `agents/` sat five weeks behind
+RealityEngine_Machines#146/#154 while every check passed, and the analyst kept
+receiving the pre-#154 actions (CSX030 said `dispatch-agent` where the corpus
+said `urgent-intervention`).
 """
 
 from __future__ import annotations
@@ -77,14 +92,61 @@ def _provenance(mdir: Path, skipped_fixtures: list[str]) -> dict:
     }
 
 
+def read_manifest(path: Path) -> list[str]:
+    """Corpus-relative machine paths, one per line; blanks and # comments skipped."""
+    entries = []
+    for line in path.read_text(encoding="utf-8").splitlines():
+        line = line.split("#", 1)[0].strip()
+        if line:
+            entries.append(line)
+    return entries
+
+
+def check_outputs(planned: dict[Path, str], stale_scope: Path | None) -> list[str]:
+    """Differences between what would be written and what is on disk."""
+    problems = []
+    for path, content in sorted(planned.items()):
+        rel = path.relative_to(AGENTS_DIR)
+        if not path.exists():
+            problems.append(f"missing  {rel}")
+        elif path.read_text(encoding="utf-8") != content:
+            problems.append(f"differs  {rel}")
+    if stale_scope is not None:
+        for path in sorted(stale_scope.glob("*/*.oc-agent.json")):
+            if path not in planned:
+                problems.append(f"orphan   {path.relative_to(AGENTS_DIR)} (no machine derives it)")
+    return problems
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description="Materialize OC agent specs by domain.")
     ap.add_argument("--fresh", action="store_true", help="clear agents/ before writing")
     ap.add_argument("--domain", default=None, help="restrict to one domain")
+    ap.add_argument("--check", action="store_true",
+                    help="write nothing; fail if the committed specs differ from what the corpus derives")
+    ap.add_argument("--manifest", type=Path, default=None,
+                    help="with --check: only the machines this corpus manifest lists")
     args = ap.parse_args()
+    if args.manifest and not args.check:
+        ap.error("--manifest selects a subset to verify; it requires --check "
+                 "(writing a subset would leave INDEX.json describing a corpus that is not on disk)")
+    if args.check and args.fresh:
+        ap.error("--check writes nothing, so --fresh has nothing to clear")
 
     cfg = load_config()
     mdir = _abs(cfg["machinesDir"])
+    selected: set[Path] | None = None
+    not_in_corpus: list[str] = []
+    if args.manifest:
+        selected = set()
+        for entry in read_manifest(args.manifest):
+            path = (mdir / entry).resolve()
+            if path.is_file():
+                selected.add(path)
+            else:
+                # localAIStack machines are listed in the regression corpus but
+                # contracted in localAIStack; OpenClaw derives no agent for them.
+                not_in_corpus.append(entry)
     if args.fresh and AGENTS_DIR.exists():
         # --fresh clears generated specs, not everything under agents/.
         # agents/profiles/ holds hand-maintained corpus selections —
@@ -95,8 +157,10 @@ def main() -> int:
             if child.name == "profiles":
                 continue
             shutil.rmtree(child) if child.is_dir() else child.unlink()
-    AGENTS_DIR.mkdir(parents=True, exist_ok=True)
+    if not args.check:
+        AGENTS_DIR.mkdir(parents=True, exist_ok=True)
 
+    planned: dict[Path, str] = {}
     index = []
     per_domain = Counter()
     axis_basis = Counter()
@@ -106,6 +170,8 @@ def main() -> int:
     skipped_fixtures: list[str] = []  # output path -> machine stem, to catch collisions
 
     for f in sorted(mdir.rglob("*.json")):  # rglob: cover machines/domains/** subdirs
+        if selected is not None and f.resolve() not in selected:
+            continue
         try:
             data = json.loads(f.read_text())
         except Exception as exc:
@@ -141,7 +207,6 @@ def main() -> int:
             continue
         dom_slug = _domain_slug(domain)
         out_dir = AGENTS_DIR / dom_slug
-        out_dir.mkdir(parents=True, exist_ok=True)
         code = inst["machine"]["code"]
         # filename keys off agentId (slug of machine name) — unique corpus-wide,
         # unlike code (triggerConfig.processId can repeat, e.g. RSFlipFlop variants).
@@ -151,7 +216,7 @@ def main() -> int:
             errors.append((f.stem, f"filename collision with {seen_paths[key]} -> {out.name}"))
             continue
         seen_paths[key] = f.stem
-        out.write_text(json.dumps(inst, indent=2) + "\n")
+        planned[out] = json.dumps(inst, indent=2) + "\n"
         written += 1
         per_domain[dom_slug] += 1
         axis_basis[inst["diagnostics"]["axisBasis"]] += 1
@@ -168,13 +233,40 @@ def main() -> int:
             "path": str(out.relative_to(AGENTS_DIR)),
         })
 
+    def report_errors() -> None:
+        print(f"\n{len(errors)} error(s):")
+        for name, msg in errors[:20]:
+            print(f"  {name}: {msg}")
+
+    # A check that could not derive every agent has not verified them.
+    if args.check and errors:
+        report_errors()
+        return 1
+
+    if selected is not None:
+        # Subset check: the specs only. INDEX.* describe the whole corpus.
+        problems = check_outputs(planned, None)
+        print(f"checked {len(planned)} agent(s) derived from {args.manifest}")
+        if skipped_fixtures:
+            print(f"  excluded by rule (conformance fixtures): {sorted(skipped_fixtures)}")
+        if not_in_corpus:
+            print(f"  excluded by rule (not in the machine corpus): {not_in_corpus}")
+        for line in problems:
+            print(f"  STALE {line}")
+        if problems:
+            print(f"\n{len(problems)} agent spec(s) are stale against the corpus. Regenerate:\n"
+                  "  python3 machine-behaviors/materialize_agents.py --fresh")
+            return 1
+        print("agent specs are current")
+        return 0
+
     # indexes
     provenance = _provenance(mdir, sorted(skipped_fixtures))
-    (AGENTS_DIR / "INDEX.json").write_text(json.dumps({
+    planned[AGENTS_DIR / "INDEX.json"] = json.dumps({
         "total": written, "byDomain": dict(sorted(per_domain.items())),
         "provenance": provenance,
         "agents": sorted(index, key=lambda r: (r["domain"], r["code"])),
-    }, indent=2) + "\n")
+    }, indent=2) + "\n"
 
     lines = ["# OC-Agent corpus — index", "",
              f"One input-analyst agent per machine ({written} total), under `agents/<domain>/`.",
@@ -187,7 +279,22 @@ def main() -> int:
               f"Corpus: {provenance['corpus'].get('machineCount')} machines, "
               f"`{provenance['corpus'].get('digest')}`.",
               "", "Regenerate: `python3 materialize_agents.py --fresh`."]
-    (AGENTS_DIR / "INDEX.md").write_text("\n".join(lines) + "\n")
+    planned[AGENTS_DIR / "INDEX.md"] = "\n".join(lines) + "\n"
+
+    if args.check:
+        problems = check_outputs(planned, None if args.domain else AGENTS_DIR)
+        for line in problems:
+            print(f"  STALE {line}")
+        if problems:
+            print(f"\n{len(problems)} file(s) are stale against the corpus. Regenerate:\n"
+                  "  python3 machine-behaviors/materialize_agents.py --fresh")
+            return 1
+        print(f"agent corpus is current ({written} agents)")
+        return 0
+
+    for path, content in planned.items():
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(content)
 
     print(f"materialized {written} agents across {len(per_domain)} domains")
     for dom, n in sorted(per_domain.items()):
@@ -196,9 +303,7 @@ def main() -> int:
     print(f"skipped conformance fixtures: {len(skipped_fixtures)} "
           f"{sorted(skipped_fixtures)}")
     if errors:
-        print(f"\n{len(errors)} error(s):")
-        for name, msg in errors[:20]:
-            print(f"  {name}: {msg}")
+        report_errors()
     return 0 if not errors else 1
 
 
