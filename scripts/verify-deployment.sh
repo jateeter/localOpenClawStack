@@ -75,9 +75,24 @@ login_status="$(curl --silent --max-time 10 --output /dev/null --write-out '%{ht
 [[ "$login_status" == "200" ]] || fail "WebUI admin sign-in returned HTTP $login_status"
 pass "WebUI admin credentials authenticate successfully"
 
-audit_json="$(docker compose exec -T openclaw-gateway sh -lc \
-  'chmod 700 "$HOME/.openclaw" && timeout 45s openclaw security audit --json')" || \
-  fail "OpenClaw security audit did not complete successfully within 45s"
+# The audit walks every loaded agent, so its duration follows the agent profile.
+# Under `regression` (15 agents) it finishes well inside 45s; under `full`
+# (1,322 agents) it passes clean but takes about two minutes on a loaded host.
+# A fixed 45s budget failed a healthy full-profile start (#51). The profile is
+# exported by start.sh; OPENCLAW_SECURITY_AUDIT_TIMEOUT overrides either default.
+case "${OPENCLAW_AGENT_PROFILE:-full}" in
+  full) default_audit_timeout=300 ;;
+  *)    default_audit_timeout=45 ;;
+esac
+audit_timeout="${OPENCLAW_SECURITY_AUDIT_TIMEOUT:-$default_audit_timeout}"
+audit_rc=0
+audit_json="$(docker compose exec -T -e AUDIT_TIMEOUT="$audit_timeout" openclaw-gateway sh -lc \
+  'chmod 700 "$HOME/.openclaw" && timeout "${AUDIT_TIMEOUT}s" openclaw security audit --json')" || audit_rc=$?
+if [[ "$audit_rc" == "124" ]]; then
+  fail "OpenClaw security audit timed out after ${audit_timeout}s (profile ${OPENCLAW_AGENT_PROFILE:-full}; set OPENCLAW_SECURITY_AUDIT_TIMEOUT to raise it)"
+elif [[ "$audit_rc" != "0" ]]; then
+  fail "OpenClaw security audit failed (exit $audit_rc)"
+fi
 audit_critical="$(printf '%s' "$audit_json" | jq -r '.summary.critical // 0')"
 audit_warn="$(printf '%s' "$audit_json" | jq -r '.summary.warn // 0')"
 audit_info="$(printf '%s' "$audit_json" | jq -r '.summary.info // 0')"
