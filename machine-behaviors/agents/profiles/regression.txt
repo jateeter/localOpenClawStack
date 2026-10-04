@@ -1,17 +1,19 @@
 # Machine-behavior agents for the RealityEngine regression corpus.
 #
 # GENERATED — do not edit by hand.
-#   source:     RealityEngine_CI/config/regression-corpus.txt (21 entries: 15 agents, 6 excluded by rule)
+#   source:     RealityEngine_CI/config/regression-corpus.txt (23 entries: 15 agents, 8 excluded by rule)
 #   regenerate: ./scripts/generate-regression-profile.py
 #   verify:     ./scripts/generate-regression-profile.py --check
 #
 # Excluded by rule, carrying no agent:
-#   domains/digital-logic/ArbitrationWriterA.json  arbitration conformance fixture: agent-free by rule
-#   domains/digital-logic/ArbitrationWriterB.json  arbitration conformance fixture: agent-free by rule
-#   domains/digital-logic/ArbitrationReader.json   arbitration conformance fixture: agent-free by rule
-#   rag_corrective_cycle.json                      localAIStack machine: no OpenClaw agent
-#   session_rag_context.json                       localAIStack machine: no OpenClaw agent
-#   session_agent_context.json                     localAIStack machine: no OpenClaw agent
+#   domains/digital-logic/ArbitrationWriterA.json         arbitration conformance fixture: agent-free by rule
+#   domains/digital-logic/ArbitrationWriterB.json         arbitration conformance fixture: agent-free by rule
+#   domains/digital-logic/ArbitrationReader.json          arbitration conformance fixture: agent-free by rule
+#   domains/digital-logic/ArbitrationProviderPeer.json    arbitration conformance fixture: agent-free by rule
+#   domains/digital-logic/ArbitrationProviderTarget.json  arbitration conformance fixture: agent-free by rule
+#   rag_corrective_cycle.json                             localAIStack machine: no OpenClaw agent
+#   session_rag_context.json                              localAIStack machine: no OpenClaw agent
+#   session_agent_context.json                            localAIStack machine: no OpenClaw agent
 #
 # One agentId per line, in corpus order; the trailing comment is the machine
 # it is bound to.
