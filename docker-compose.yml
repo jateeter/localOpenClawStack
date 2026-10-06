@@ -6,7 +6,7 @@ services:
       dockerfile: Dockerfile.openclaw-gateway
       args:
         OPENCLAW_VERSION: ${OPENCLAW_VERSION:-2026.6.34}
-        NODE_IMAGE: ${NODE_IMAGE:-node:24-bookworm-slim}
+        NODE_IMAGE: ${NODE_IMAGE:-node:26.8-bookworm-slim}
     ports:
       - "127.0.0.1:${OPENCLAW_GATEWAY_PORT:-18789}:18789"
     environment:
