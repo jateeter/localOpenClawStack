@@ -23,6 +23,25 @@ This directory contains operational helpers for OpenClaw startup, shutdown, boot
   `OPENCLAW_AGENT_PROFILE` default, so an explicit `OPENCLAW_AGENT_INDEX_PATH` cannot
   make the log claim a profile it did not sync.
 
+## Agents follow the deployed corpus (owner rule, 2026-10-06)
+
+If the engines load the regression corpus, OpenClaw loads the regression agents;
+full corpus, full agents. Never a profile chosen by corpus *name*.
+
+- `agent-profile.sh manifest:<path>` is the agents of exactly the machines that
+  manifest deploys, through `generate-regression-profile.py --allow-empty`
+  (`OPENCLAW_CORPUS_MACHINES_ROOT` resolves entries). `startUniverse.sh` passes
+  the manifest it materialised, so standard-deployment gets its 12 agents, not
+  the regression profile's 15.
+- `start.sh` records what it loaded as `.generated/INDEX.deployed.json`, and
+  `verify-openclaw-config.sh` defaults to it. Run on its own, the verifier used
+  to compare a 16-agent regression deployment with the full 1,323-agent index.
+- `verify-agents-match-corpus.py` (from `verify-deployment.sh`) reads the
+  running universe from the instance registry, asks every engine what it loaded
+  (`GET /api/machines/json/list`), requires them to agree, and fails if the
+  deployed agents are not exactly that corpus's. No universe, or none of its
+  engines answering, is reported, not failed. Test: `test-agents-follow-corpus.sh`.
+
 ## Config clobber guard
 
 - OpenClaw's gateway auto-restores `openclaw.json` from `openclaw.json.bak` when a

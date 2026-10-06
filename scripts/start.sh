@@ -119,6 +119,13 @@ info "Agent profile: $AGENT_PROFILE ($(jq -r '.total' "$OPENCLAW_AGENT_INDEX_PAT
 "$ROOT_DIR/scripts/harden-config.sh"
 "$ROOT_DIR/scripts/sync-machine-agents.sh"
 "$ROOT_DIR/scripts/verify-openclaw-config.sh"
+# Record what this deployment loaded. verify-deployment.sh, run on its own
+# later, has no start.sh environment; without this it compared a correct
+# 16-agent regression deployment with the full 1,323-agent index and failed.
+# Outside openclaw/, which is mounted into the gateway.
+mkdir -p "$ROOT_DIR/machine-behaviors/agents/.generated"
+cp "$OPENCLAW_AGENT_INDEX_PATH" "$ROOT_DIR/machine-behaviors/agents/.generated/INDEX.deployed.json.tmp"
+mv "$ROOT_DIR/machine-behaviors/agents/.generated/INDEX.deployed.json.tmp" "$ROOT_DIR/machine-behaviors/agents/.generated/INDEX.deployed.json"
 chmod 700 "$ROOT_DIR/openclaw" "$ROOT_DIR/openwebui-data" "$ROOT_DIR/browser-config" 2>/dev/null || true
 EXPECTED_AGENT_COUNT="$(( $(jq -r '.total' "$OPENCLAW_AGENT_INDEX_PATH") + 1 ))"
 

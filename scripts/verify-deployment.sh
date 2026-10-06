@@ -30,6 +30,10 @@ fi
 
 "$ROOT_DIR/scripts/verify-openclaw-config.sh"
 
+# The agents must be the deployed corpus's agents, read from the running
+# engines, not from a fixed index (owner rule 2026-10-06).
+python3 "$ROOT_DIR/scripts/verify-agents-match-corpus.py" || fail "OpenClaw agents do not follow the deployed machine corpus"
+
 for service in openclaw-gateway open-webui browser; do
   cid="$(docker compose ps -q "$service")"
   [[ -n "$cid" ]] || fail "$service is not running"

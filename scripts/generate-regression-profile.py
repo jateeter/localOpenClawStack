@@ -117,7 +117,7 @@ def is_conformance_fixture(path: Path) -> bool:
 
 
 def build(manifest: Path, machines_root: Path, index: Path,
-          local_ai_machines: Path = DEFAULT_LOCAL_AI_MACHINES) -> str:
+          local_ai_machines: Path = DEFAULT_LOCAL_AI_MACHINES, allow_empty: bool = False) -> str:
     agents = json.loads(index.read_text(encoding="utf-8"))["agents"]
     by_name: dict[str, list[dict]] = {}
     for agent in agents:
@@ -163,10 +163,12 @@ def build(manifest: Path, machines_root: Path, index: Path,
     if problems:
         raise LookupError("\n".join(f"  {p}" for p in problems))
 
-    if not rows:
+    # A deployed corpus may be agent-free by rule (an arbitration-fixture run):
+    # then OpenClaw loads main alone, and that is the right answer, not an error.
+    if not rows and not allow_empty:
         raise LookupError(f"manifest selected no agent-bearing machines: {manifest}")
 
-    width = max(len(agent_id) for agent_id, _ in rows)
+    width = max((len(agent_id) for agent_id, _ in rows), default=0)
     lines = [
         "# Machine-behavior agents for the RealityEngine regression corpus.",
         "#",
@@ -200,6 +202,8 @@ def main() -> int:
                         help="localAIStack/data/machines; entries found here carry no agent")
     parser.add_argument("--index", type=Path, default=DEFAULT_INDEX)
     parser.add_argument("--out", type=Path, default=DEFAULT_OUT)
+    parser.add_argument("--allow-empty", action="store_true",
+                        help="a manifest with no agent-bearing machines yields an empty profile, not an error")
     args = parser.parse_args()
 
     for label, path in (("manifest", args.manifest), ("machines root", args.machines_root), ("agent index", args.index)):
@@ -209,7 +213,8 @@ def main() -> int:
             return 1
 
     try:
-        content = build(args.manifest, args.machines_root, args.index, args.local_ai_machines)
+        content = build(args.manifest, args.machines_root, args.index, args.local_ai_machines,
+                        allow_empty=args.allow_empty)
     except LookupError as exc:
         print("[profile] cannot derive the regression profile:", file=sys.stderr)
         print(str(exc), file=sys.stderr)
@@ -231,7 +236,11 @@ def main() -> int:
 
     args.out.parent.mkdir(parents=True, exist_ok=True)
     args.out.write_text(content, encoding="utf-8")
-    print(f"[profile] wrote {args.out.relative_to(ROOT)} ({count} agents)")
+    try:
+        shown = args.out.relative_to(ROOT)
+    except ValueError:
+        shown = args.out
+    print(f"[profile] wrote {shown} ({count} agents)")
     return 0
 
 
