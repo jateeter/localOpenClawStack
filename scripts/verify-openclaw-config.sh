@@ -5,7 +5,18 @@ ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT_DIR"
 
 CONFIG_PATH="${OPENCLAW_CONFIG_PATH:-$ROOT_DIR/openclaw/openclaw.json}"
-INDEX_PATH="${OPENCLAW_AGENT_INDEX_PATH:-$ROOT_DIR/machine-behaviors/agents/INDEX.json}"
+# The index this deployment loaded: start.sh hands it over, and records it as
+# INDEX.deployed.json for a verifier run on its own. The full index is the
+# fallback only for a stack that never recorded one. Defaulting to it failed a
+# correct regression deployment as "config has 16, index expects 1323".
+DEPLOYED_INDEX="$ROOT_DIR/machine-behaviors/agents/.generated/INDEX.deployed.json"
+if [[ -n "${OPENCLAW_AGENT_INDEX_PATH:-}" ]]; then
+  INDEX_PATH="$OPENCLAW_AGENT_INDEX_PATH"
+elif [[ -f "$DEPLOYED_INDEX" ]]; then
+  INDEX_PATH="$DEPLOYED_INDEX"
+else
+  INDEX_PATH="$ROOT_DIR/machine-behaviors/agents/INDEX.json"
+fi
 
 fail() { echo "[fail] $*" >&2; exit 1; }
 pass() { echo "[ok]   $*"; }
