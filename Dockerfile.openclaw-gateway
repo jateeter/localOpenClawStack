@@ -1,4 +1,4 @@
-ARG NODE_IMAGE=node:24-bookworm-slim
+ARG NODE_IMAGE=node:26.8-bookworm-slim
 FROM ${NODE_IMAGE}
 
 ARG OPENCLAW_VERSION=2026.6.34
