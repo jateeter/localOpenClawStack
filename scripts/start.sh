@@ -82,7 +82,7 @@ if [[ "$FRESH" == true ]]; then
   warn "--fresh: resetting application state (openclaw/, browser-config/)"
   docker compose down 2>/dev/null || true
   if [[ -d openclaw ]]; then
-    find openclaw -mindepth 1 -maxdepth 1 ! -name claude.md -exec rm -rf {} +
+    find openclaw -mindepth 1 -maxdepth 1 ! -name CLAUDE.md -exec rm -rf {} +  # -name is case-sensitive, even on macOS
   fi
   rm -rf browser-config
   ok "Application state cleared (package caches preserved)"

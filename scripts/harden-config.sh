@@ -94,4 +94,7 @@ for path in openclaw openwebui-data browser-config; do
 done
 
 # This tracked documentation file lives beside ignored runtime state.
-[[ -f openclaw/claude.md ]] && chmod 644 openclaw/claude.md
+# The name is CLAUDE.md, uppercase (the engineering contract's naming rule): on a
+# case-sensitive filesystem (Linux, a container) the lowercase test never
+# matched, and as the script's last command it failed the script.
+if [[ -f openclaw/CLAUDE.md ]]; then chmod 644 openclaw/CLAUDE.md; fi

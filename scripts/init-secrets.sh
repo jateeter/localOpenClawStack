@@ -68,6 +68,9 @@ for path in openclaw openwebui-data browser-config; do
   find "$path" -type d -exec chmod 700 {} +
   find "$path" -type f -exec chmod 600 {} +
 done
-[[ -f openclaw/claude.md ]] && chmod 644 openclaw/claude.md
+# The name is CLAUDE.md, uppercase (the engineering contract's naming rule): on a
+# case-sensitive filesystem (Linux, a container) the lowercase test never
+# matched, and as the script's last command it failed the script.
+if [[ -f openclaw/CLAUDE.md ]]; then chmod 644 openclaw/CLAUDE.md; fi
 
 echo "Secrets initialized in owner-only .env for WEBUI_ADMIN_EMAIL=$(current_value WEBUI_ADMIN_EMAIL)."
