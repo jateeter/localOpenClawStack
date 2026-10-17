@@ -11,7 +11,7 @@ updates:
   # not merge one keeps using the images already on disk.
   #
   # Note on what Dependabot can and cannot see here. docker-compose.yml refers
-  # to images as ${OPEN_WEBUI_IMAGE:-ghcr.io/open-webui/open-webui:v0.9.6} —
+  # to images as ${OPEN_WEBUI_IMAGE:-ghcr.io/open-webui/open-webui:v0.11.3} —
   # Dependabot reads the literal default, which is the tag, and cannot read
   # .env, where the authoritative `@sha256:` pin lives. So a Dependabot PR here
   # is a *notification that a newer tag exists*, and the pin is refreshed by
