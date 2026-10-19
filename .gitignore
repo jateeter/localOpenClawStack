@@ -7,3 +7,6 @@ browser-config/
 
 # Generated corpus reports
 output/
+
+# Local machine files
+.claude/settings.local.json
