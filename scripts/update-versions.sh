@@ -55,7 +55,9 @@ openclaw_version="$(latest_npm_version openclaw)"
 openwebui_tag="$(latest_release open-webui/open-webui)"
 
 upsert_env OPENCLAW_VERSION "$openclaw_version"
-pin_image NODE_IMAGE "node:26.8-bookworm-slim"
+# The Node base is the one-minor tag the Dockerfile names (RealityEngine_CI
+# scripts/advance-node.sh moves it); this resolves it to a digest.
+pin_image NODE_IMAGE "$(sed -n 's/^ARG NODE_IMAGE=//p' Dockerfile.openclaw-gateway)"
 pin_image OPEN_WEBUI_IMAGE "ghcr.io/open-webui/open-webui:${openwebui_tag}"
 pin_image BROWSER_IMAGE "coollabsio/openclaw-browser:0.3.0"
 
