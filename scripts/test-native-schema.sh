@@ -84,6 +84,15 @@ else
   grep -q "a-machine-agent-id-that-is-much-longer" "$T/long.out" && ok "entries: a 90-character agent id is refused, named" || bad "entries: refused without naming the id"
 fi
 
+# a remapped gateway port is generated and verified as the same port
+E3="$T/port"; mkdir -p "$E3"
+run_schema entries "$E3" "$E3" env OPENCLAW_GATEWAY_PORT=18795 "$ROOT_DIR/scripts/harden-config.sh" >/dev/null
+run_schema entries "$E3" "$E3" env OPENCLAW_GATEWAY_PORT=18795 "$ROOT_DIR/scripts/sync-machine-agents.sh" >/dev/null
+OPENCLAW_GATEWAY_PORT=18795 run_schema entries "$E3" "$E3" "$ROOT_DIR/scripts/verify-openclaw-config.sh" >/dev/null 2>&1 \
+  && ok "entries: a remapped gateway port (18795) is verified as configured" || bad "entries: a remapped port fails the verifier"
+check "entries: the remapped port is in the config and its origins" \
+  jq -e '.gateway.port == 18795 and (.gateway.controlUi.allowedOrigins | index("http://127.0.0.1:18795"))' "$E3/openclaw.json"
+
 # ── list (container image) is unchanged in shape ─────────────────────────────
 L="$T/container"; mkdir -p "$L"
 run_schema list "$L" /home/node/.openclaw "$ROOT_DIR/scripts/harden-config.sh" >/dev/null
