@@ -55,10 +55,12 @@ jq -e "$OC_JQ_DEFS"'
 ' "$CONFIG_PATH" >/dev/null || fail "OpenClaw generated agents must run with sandbox.mode=all"
 pass "OpenClaw generated agents are sandboxed"
 
-jq -e '
+# The port is the one the generator was told (OPENCLAW_GATEWAY_PORT); a native
+# gateway on a remapped port (RE_PORT_OPENCLAW) is not a misconfigured one.
+jq -e --argjson port "${OPENCLAW_GATEWAY_PORT:-18789}" '
   .gateway.mode == "local" and
   .gateway.auth.mode == "token" and
-  .gateway.port == 18789 and
+  .gateway.port == $port and
   (.gateway.bind == "lan" or .gateway.bind == "loopback") and
   ((.gateway.nodes.commands.deny // .gateway.nodes.denyCommands) as $deny |
    ($deny | type == "array") and
