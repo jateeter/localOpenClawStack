@@ -50,6 +50,8 @@ Use the repo's actual scripts when present; Docker Compose state is time-sensiti
 - The gateway auto-restores `openclaw.json` from `openclaw.json.bak` when a read looks like a clobber, and a narrowed profile is a >50% size drop. `scripts/adopt-config-baseline.sh` moves that guard's baseline (`.bak`, `.last-good`, and `openclaw/logs/config-health.json`) onto each deliberate config rewrite so the profile survives the restart; `sync-machine-agents.sh` calls it. Anything else that rewrites `openclaw/openclaw.json` must call it too.
 - Treat upstream version freshness as time-sensitive; re-check before claiming current release status.
 
+- **The default model is `ollama/nemotron-3-nano:4b`**, the RealityEngine universe model (RC3). `OPENCLAW_DEFAULT_MODEL` only seeds a *fresh* `openclaw.json`; an existing config keeps its model. Switch on command with `scripts/set-model.sh <ollama-tag>`, which rewrites `agents.defaults.model.primary`, re-runs `harden-config.sh` so the Ollama provider lists the model, and adopts the result as the config baseline. It does not restart the gateway. The model calls tools; Ollama refuses `format` for it, which matters to the PEs' dispatch and not to the gateway (`RealityEngine_CI/docs/OLLAMA_INTEGRATION.md`).
+
 ## Which agent corpus matters
 
 **Decided 2026-09-25. Do not re-derive it.**
