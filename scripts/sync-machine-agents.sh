@@ -34,7 +34,7 @@ elif [[ "$INDEX_PATH" -ef "$ROOT_DIR/machine-behaviors/agents/INDEX.json" ]]; th
   AGENT_PROFILE="full"
 fi
 
-DEFAULT_MODEL="$(jq -er '.agents.defaults.model.primary // "ollama/llama3.1:8b"' "$CONFIG_PATH")"
+DEFAULT_MODEL="$(jq -er '.agents.defaults.model.primary // "ollama/nemotron-3-nano:4b"' "$CONFIG_PATH")"
 CONFIG_TMP="$(mktemp)"
 
 jq --slurpfile idx "$INDEX_PATH" \

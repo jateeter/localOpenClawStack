@@ -15,7 +15,7 @@ GROUP="${LOCAL_GROUP:-$(id -gn)}"
 
 if [[ ! -f openclaw/openclaw.json ]]; then
   jq -n \
-    --arg model "${OPENCLAW_DEFAULT_MODEL:-ollama/llama3.1:8b}" \
+    --arg model "${OPENCLAW_DEFAULT_MODEL:-ollama/nemotron-3-nano:4b}" \
     '{
       gateway: {},
       agents: {
@@ -31,7 +31,7 @@ fi
 
 tmp="$(mktemp)"
 port="${OPENCLAW_GATEWAY_PORT:-18789}"
-model="$(jq -r '.agents.defaults.model.primary // "ollama/llama3.1:8b"' openclaw/openclaw.json)"
+model="$(jq -r '.agents.defaults.model.primary // "ollama/nemotron-3-nano:4b"' openclaw/openclaw.json)"
 ollama_base="${OLLAMA_BASE_URL:-http://host.docker.internal:11434}"
 ollama_model="${model#ollama/}"   # provider model id without the "ollama/" prefix
 jq --arg localhost_origin "http://localhost:${port}" \
