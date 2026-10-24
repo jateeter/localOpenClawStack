@@ -52,6 +52,22 @@ Use the repo's actual scripts when present; Docker Compose state is time-sensiti
 
 - **The default model is `ollama/nemotron-3-nano:4b`**, the RealityEngine universe model (RC3). `OPENCLAW_DEFAULT_MODEL` only seeds a *fresh* `openclaw.json`; an existing config keeps its model. Switch on command with `scripts/set-model.sh <ollama-tag>`, which rewrites `agents.defaults.model.primary` and every agent whose own model was the old default (main included, since `sync-machine-agents.sh` keeps main's model; an agent pinned elsewhere keeps it and is reported; `test-set-model.sh`), re-runs `harden-config.sh` so the Ollama provider lists the model, and adopts the result as the config baseline. It does not restart the gateway. The model calls tools; Ollama refuses `format` for it, which matters to the PEs' dispatch and not to the gateway (`RealityEngine_CI/docs/OLLAMA_INTEGRATION.md`).
 
+- **Two OpenClaw config schemas (RealityEngine_CI#592).** The container image is
+  OpenClaw 2026.6.x (`agents.list`); a native host gateway is >= 2026.10
+  (`agents.entries` keyed by id, `gateway.nodes.commands.deny`,
+  `agents.defaults.modelPolicy.allow`, `agents.ownership: "explicit"`, and an agent
+  id of at most 64 characters, so 548 of the 1,322 full-corpus ids are not valid
+  keys and `sync-machine-agents.sh` refuses them by name; the regression profile's
+  longest is 43). Every script that reads or writes `openclaw.json` goes through
+  `scripts/lib/oc-config.sh`: an existing config decides its own schema, a fresh one
+  takes `OPENCLAW_SCHEMA` (default `list`). `OPENCLAW_STATE_DIR` moves the state
+  directory, `OPENCLAW_HOME_DIR` is that directory as the gateway sees it (the
+  paths written into the config; `/home/node/.openclaw` in the container),
+  `OPENCLAW_GATEWAY_BIND` and `OPENCLAW_HTTP_ENDPOINTS=true` (the `/v1` API) cover
+  what the container's compose environment did. `scripts/test-native-schema.sh`
+  runs the generators for both schemas and, when `openclaw` is installed, the real
+  `openclaw config validate`.
+
 ## Which agent corpus matters
 
 **Decided 2026-09-25. Do not re-derive it.**

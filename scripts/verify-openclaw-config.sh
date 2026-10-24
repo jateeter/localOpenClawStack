@@ -3,8 +3,10 @@ set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT_DIR"
+# shellcheck source=lib/oc-config.sh
+source "$ROOT_DIR/scripts/lib/oc-config.sh"
 
-CONFIG_PATH="${OPENCLAW_CONFIG_PATH:-$ROOT_DIR/openclaw/openclaw.json}"
+CONFIG_PATH="$OC_CONFIG"
 # The index this deployment loaded: start.sh hands it over, and records it as
 # INDEX.deployed.json for a verifier run on its own. The full index is the
 # fallback only for a stack that never recorded one. Defaulting to it failed a
@@ -29,22 +31,27 @@ jq . "$CONFIG_PATH" >/dev/null || fail "OpenClaw config is not valid JSON"
 jq . "$INDEX_PATH" >/dev/null || fail "OpenClaw agent index is not valid JSON"
 
 expected_count="$(jq -r '.total + 1' "$INDEX_PATH")"
-actual_count="$(jq -r '.agents.list | length' "$CONFIG_PATH")"
+actual_count="$(jq -r "$OC_JQ_DEFS"' oc_agents | length' "$CONFIG_PATH")"
 [[ "$actual_count" == "$expected_count" ]] || \
   fail "OpenClaw agent count mismatch: config has $actual_count, index expects $expected_count including main"
 pass "OpenClaw agent count matches index ($actual_count)"
 
-jq -e '
-  (.agents.defaults.workspace == "/home/node/.openclaw/workspace") and
+# `main` is the agent flagged default in the list schema; in the entries schema
+# the default is the agent that agents.ownership names for heartbeat and system work.
+jq -e --arg home "$OC_HOME" "$OC_JQ_DEFS"'
+  (.agents.defaults.workspace == ($home + "/workspace")) and
   (.agents.defaults.model.primary | type == "string") and
   (.agents.defaults.model.primary | length > 0) and
   (.agents.defaults.sandbox.mode == "all") and
-  (.agents.list | map(select(.id == "main" and .default == true)) | length == 1)
+  (if ((.agents // {}) | has("entries"))
+   then (.agents.ownership == "explicit" and .agents.defaults.heartbeat.agentId == "main" and
+         (.agents.entries | has("main")))
+   else (oc_agents | map(select(.id == "main" and .default == true)) | length == 1) end)
 ' "$CONFIG_PATH" >/dev/null || fail "OpenClaw defaults/main agent contract is invalid"
 pass "OpenClaw default workspace, model, sandbox, and main agent are configured"
 
-jq -e '
-  .agents.list | all(.[]; .sandbox.mode == "all")
+jq -e "$OC_JQ_DEFS"'
+  oc_agents | all(.[]; .sandbox.mode == "all")
 ' "$CONFIG_PATH" >/dev/null || fail "OpenClaw generated agents must run with sandbox.mode=all"
 pass "OpenClaw generated agents are sandboxed"
 
@@ -53,10 +60,11 @@ jq -e '
   .gateway.auth.mode == "token" and
   .gateway.port == 18789 and
   (.gateway.bind == "lan" or .gateway.bind == "loopback") and
-  (.gateway.nodes.denyCommands | type == "array") and
-  (.gateway.nodes.denyCommands | index("camera.snap")) and
-  (.gateway.nodes.denyCommands | index("screen.record")) and
-  (.gateway.nodes.denyCommands | index("sms.send"))
+  ((.gateway.nodes.commands.deny // .gateway.nodes.denyCommands) as $deny |
+   ($deny | type == "array") and
+   ($deny | index("camera.snap")) and
+   ($deny | index("screen.record")) and
+   ($deny | index("sms.send")))
 ' "$CONFIG_PATH" >/dev/null || fail "OpenClaw gateway security contract is invalid"
 pass "OpenClaw gateway security contract is configured"
 
@@ -78,7 +86,7 @@ pass "OpenClaw small-model web/browser tool deny is configured"
 
 missing="$(
   jq -r '.agents[].agentId' "$INDEX_PATH" | sort > /tmp/openclaw-index-agent-ids.$$.txt
-  jq -r '.agents.list[].id' "$CONFIG_PATH" | sort > /tmp/openclaw-config-agent-ids.$$.txt
+  jq -r "$OC_JQ_DEFS"' oc_agents[].id' "$CONFIG_PATH" | sort > /tmp/openclaw-config-agent-ids.$$.txt
   comm -23 /tmp/openclaw-index-agent-ids.$$.txt /tmp/openclaw-config-agent-ids.$$.txt
   rm -f /tmp/openclaw-index-agent-ids.$$.txt /tmp/openclaw-config-agent-ids.$$.txt
 )"
@@ -87,7 +95,7 @@ pass "OpenClaw config contains every indexed machine agent"
 
 extra="$(
   jq -r '.agents[].agentId' "$INDEX_PATH" | sort > /tmp/openclaw-index-agent-ids.$$.txt
-  jq -r '.agents.list[].id' "$CONFIG_PATH" | grep -v '^main$' | sort > /tmp/openclaw-config-agent-ids.$$.txt
+  jq -r "$OC_JQ_DEFS"' oc_agents[].id' "$CONFIG_PATH" | grep -v '^main$' | sort > /tmp/openclaw-config-agent-ids.$$.txt
   comm -13 /tmp/openclaw-index-agent-ids.$$.txt /tmp/openclaw-config-agent-ids.$$.txt
   rm -f /tmp/openclaw-index-agent-ids.$$.txt /tmp/openclaw-config-agent-ids.$$.txt
 )"

@@ -3,6 +3,8 @@ set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT_DIR"
+# shellcheck source=lib/oc-config.sh
+source "$ROOT_DIR/scripts/lib/oc-config.sh"
 
 # Which agents this deployment loads. `full` is the whole corpus and remains the
 # default; a named profile (machine-behaviors/agents/profiles/<name>.txt) narrows
@@ -10,13 +12,16 @@ cd "$ROOT_DIR"
 # 15 of the regression-test corpus costs time and memory on every start.
 AGENT_PROFILE="${OPENCLAW_AGENT_PROFILE:-full}"
 INDEX_PATH="${OPENCLAW_AGENT_INDEX_PATH:-$("$ROOT_DIR/scripts/agent-profile.sh" "$AGENT_PROFILE")}"
-CONFIG_PATH="$ROOT_DIR/openclaw/openclaw.json"
-WORKSPACE_ROOT="$ROOT_DIR/openclaw/workspaces/machine-behaviors"
-AGENT_ROOT="$ROOT_DIR/openclaw/agents"
-MAIN_WORKSPACE="$ROOT_DIR/openclaw/workspace"
-CONTAINER_MAIN_WORKSPACE="/home/node/.openclaw/workspace"
-CONTAINER_WORKSPACE_ROOT="/home/node/.openclaw/workspaces/machine-behaviors"
-CONTAINER_AGENT_ROOT="/home/node/.openclaw/agents"
+CONFIG_PATH="$OC_CONFIG"
+WORKSPACE_ROOT="$OC_DIR/workspaces/machine-behaviors"
+AGENT_ROOT="$OC_DIR/agents"
+MAIN_WORKSPACE="$OC_DIR/workspace"
+# The same directories as the gateway sees them: /home/node/.openclaw in the
+# container, the state directory itself for a native gateway.
+CONTAINER_MAIN_WORKSPACE="$OC_HOME/workspace"
+CONTAINER_WORKSPACE_ROOT="$OC_HOME/workspaces/machine-behaviors"
+CONTAINER_AGENT_ROOT="$OC_HOME/agents"
+SCHEMA="$(oc_schema "$CONFIG_PATH")"
 
 [[ -f "$INDEX_PATH" ]] || { echo "[machine-agents] missing $INDEX_PATH" >&2; exit 1; }
 [[ -f "$CONFIG_PATH" ]] || { echo "[machine-agents] missing $CONFIG_PATH" >&2; exit 1; }
@@ -34,6 +39,17 @@ elif [[ "$INDEX_PATH" -ef "$ROOT_DIR/machine-behaviors/agents/INDEX.json" ]]; th
   AGENT_PROFILE="full"
 fi
 
+# OpenClaw >= 2026.10 keys agents by id, and an id is at most 64 characters of
+# [a-z0-9_-]. A longer one makes the whole config invalid, so refuse here and name
+# them rather than let the gateway refuse the file.
+if [[ "$SCHEMA" == "entries" ]]; then
+  too_long="$(jq -r '.agents[].agentId | select((test("^[a-z0-9_][a-z0-9_-]{0,63}$")) | not)' "$INDEX_PATH")"
+  if [[ -n "$too_long" ]]; then
+    echo "[machine-agents] $(printf '%s\n' "$too_long" | wc -l | tr -d ' ') agent id(s) are not valid OpenClaw agent keys (max 64 chars, [a-z0-9_-]); first: $(printf '%s\n' "$too_long" | head -1)" >&2
+    exit 1
+  fi
+fi
+
 DEFAULT_MODEL="$(jq -er '.agents.defaults.model.primary // "ollama/nemotron-3-nano:4b"' "$CONFIG_PATH")"
 CONFIG_TMP="$(mktemp)"
 
@@ -41,7 +57,10 @@ jq --slurpfile idx "$INDEX_PATH" \
   --arg defaultModel "$DEFAULT_MODEL" \
   --arg mainWorkspace "$CONTAINER_MAIN_WORKSPACE" \
   --arg containerAgentRoot "$CONTAINER_AGENT_ROOT" \
-  --arg machineWorkspacePrefix "$CONTAINER_WORKSPACE_ROOT/" '
+  --arg machineWorkspacePrefix "$CONTAINER_WORKSPACE_ROOT/" \
+  --arg workspaceRoot "$CONTAINER_WORKSPACE_ROOT" \
+  --arg schema "$SCHEMA" \
+  "$OC_JQ_DEFS"'
   ($idx[0].agents | map(.agentId)) as $managedIds |
   .agents = (.agents // {}) |
   .agents.defaults = (.agents.defaults // {}) |
@@ -49,7 +68,7 @@ jq --slurpfile idx "$INDEX_PATH" \
   .agents.defaults.model = (.agents.defaults.model // {primary: $defaultModel}) |
   .agents.defaults.models = (.agents.defaults.models // {}) |
   .agents.defaults.models[$defaultModel] = (.agents.defaults.models[$defaultModel] // {}) |
-  (.agents.list // []) as $existing |
+  oc_agents as $existing |
   # Entries this sync does not manage are kept, so a hand-added agent survives.
   # A machine-behavior agent from a *previous* profile is not kept: it is
   # identified by its generated workspace path and dropped, otherwise narrowing
@@ -82,8 +101,8 @@ jq --slurpfile idx "$INDEX_PATH" \
   ($idx[0].agents | map({
     id: .agentId,
     name: .machineName,
-    workspace: ("/home/node/.openclaw/workspaces/machine-behaviors/" + .agentId),
-    agentDir: ("/home/node/.openclaw/agents/" + .agentId + "/agent"),
+    workspace: ($workspaceRoot + "/" + .agentId),
+    agentDir: ($containerAgentRoot + "/" + .agentId + "/agent"),
     model: {primary: $defaultModel},
     identity: {
       name: .machineName,
@@ -99,7 +118,7 @@ jq --slurpfile idx "$INDEX_PATH" \
       localModelLean: true
     }
   })) as $machineAgents |
-  .agents.list = ($preservedWithMain + $machineAgents)
+  oc_with_agents($preservedWithMain + $machineAgents; $schema)
 ' "$CONFIG_PATH" > "$CONFIG_TMP"
 
 jq . "$CONFIG_TMP" >/dev/null
@@ -110,7 +129,7 @@ cp "$INDEX_PATH" "$WORKSPACE_ROOT/INDEX.json"
 {
   printf '# OpenClaw Machine Behaviors\n\n'
   printf 'This deployment workspace is generated from the `%s` agent profile of `machine-behaviors/agents/INDEX.json`.\n\n' "$AGENT_PROFILE"
-  printf 'It loads `%s` machine-behavior agents under `/home/node/.openclaw/workspaces/machine-behaviors`. Each agent subdirectory contains an `oc-agent.json` binding contract and an `AGENTS.md` bootstrap prompt.\n\n' "$(jq -r '.total' "$INDEX_PATH")"
+  printf 'It loads `%s` machine-behavior agents under `%s`. Each agent subdirectory contains an `oc-agent.json` binding contract and an `AGENTS.md` bootstrap prompt.\n\n' "$(jq -r '.total' "$INDEX_PATH")" "$CONTAINER_WORKSPACE_ROOT"
   printf 'Use `openclaw agents list` to enumerate the loaded agents, or select a specific agent id when dispatching through the gateway.\n'
 } > "$MAIN_WORKSPACE/AGENTS.md"
 cp "$INDEX_PATH" "$MAIN_WORKSPACE/INDEX.json"
@@ -175,7 +194,7 @@ if [[ "$PRUNED_WORKSPACES" != "0" || "$PRUNED_AGENTS" != "0" ]]; then
   echo "[machine-agents] pruned $PRUNED_WORKSPACES workspace(s) and $PRUNED_AGENTS agent dir(s) outside the '$AGENT_PROFILE' profile"
 fi
 
-chmod 700 "$ROOT_DIR/openclaw" "$MAIN_WORKSPACE" "$ROOT_DIR/openclaw/workspaces" "$WORKSPACE_ROOT" "$AGENT_ROOT" 2>/dev/null || true
+chmod 700 "$OC_DIR" "$MAIN_WORKSPACE" "$OC_DIR/workspaces" "$WORKSPACE_ROOT" "$AGENT_ROOT" 2>/dev/null || true
 find "$MAIN_WORKSPACE" "$WORKSPACE_ROOT" "$AGENT_ROOT" -type d -exec chmod 700 {} + 2>/dev/null || true
 find "$MAIN_WORKSPACE" "$WORKSPACE_ROOT" "$AGENT_ROOT" -type f -exec chmod 600 {} + 2>/dev/null || true
 chmod 600 "$CONFIG_PATH"
