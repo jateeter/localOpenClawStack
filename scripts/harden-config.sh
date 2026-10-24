@@ -44,6 +44,10 @@ bind="${OPENCLAW_GATEWAY_BIND:-lan}"
 # The OpenAI-compatible /v1 API. The container image is told by environment
 # variables in its compose service; a native gateway has only this file.
 http_endpoints="${OPENCLAW_HTTP_ENDPOINTS:-false}"
+# A browser sidecar to attach to over CDP (attach-only: the gateway never launches
+# one). The container image's BROWSER_CDP_URL environment variable is not read by
+# OpenClaw itself, so a native gateway needs it in the config.
+browser_cdp="${OPENCLAW_BROWSER_CDP_URL:-}"
 model="$(jq -r '.agents.defaults.model.primary // "ollama/nemotron-3-nano:4b"' "$OC_CONFIG")"
 ollama_base="${OLLAMA_BASE_URL:-http://host.docker.internal:11434}"
 ollama_model="${model#ollama/}"   # provider model id without the "ollama/" prefix
@@ -53,6 +57,7 @@ jq --arg localhost_origin "http://localhost:${port}" \
    --arg bind "$bind" \
    --arg schema "$SCHEMA" \
    --argjson http_endpoints "$http_endpoints" \
+   --arg browser_cdp "$browser_cdp" \
    --arg ollama_base "$ollama_base" \
    --arg ollama_model "$ollama_model" \
    --arg model "$model" '
@@ -69,6 +74,16 @@ jq --arg localhost_origin "http://localhost:${port}" \
       .gateway.nodes.denyCommands = (((.gateway.nodes.denyCommands // []) + $denied) | unique)
     end |
     (if $http_endpoints then .gateway.http.endpoints.chatCompletions.enabled = true else . end) |
+    # The sidecar host is allowed by the browser SSRF policy; nothing else
+    # is opened up. (The gateway resolves the host of a page URL on the Mac itself, so
+    # host.docker.internal only helps where the Mac can resolve it.)
+    (if $browser_cdp != "" then
+       .browser.enabled = true | .browser.attachOnly = true |
+       .browser.defaultProfile = "sidecar" |
+       .browser.profiles.sidecar.cdpUrl = $browser_cdp |
+       .browser.ssrfPolicy.allowedHostnames =
+         (((.browser.ssrfPolicy.allowedHostnames // []) + ["host.docker.internal"]) | unique)
+     else . end) |
     .agents = (.agents // {}) |
     .agents.defaults = (.agents.defaults // {}) |
     .agents.defaults.sandbox = ((.agents.defaults.sandbox // {}) + {mode: "all"}) |

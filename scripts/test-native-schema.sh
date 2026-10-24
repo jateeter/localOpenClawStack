@@ -93,6 +93,20 @@ OPENCLAW_GATEWAY_PORT=18795 run_schema entries "$E3" "$E3" "$ROOT_DIR/scripts/ve
 check "entries: the remapped port is in the config and its origins" \
   jq -e '.gateway.port == 18795 and (.gateway.controlUi.allowedOrigins | index("http://127.0.0.1:18795"))' "$E3/openclaw.json"
 
+# a browser sidecar is attached over CDP from the config
+E4="$T/browser"; mkdir -p "$E4"
+run_schema entries "$E4" "$E4" env OPENCLAW_BROWSER_CDP_URL=http://127.0.0.1:9222 "$ROOT_DIR/scripts/harden-config.sh" >/dev/null
+run_schema entries "$E4" "$E4" env OPENCLAW_BROWSER_CDP_URL=http://127.0.0.1:9222 "$ROOT_DIR/scripts/sync-machine-agents.sh" >/dev/null
+check "entries: the browser sidecar is an attach-only CDP profile" \
+  jq -e '.browser.attachOnly == true and .browser.defaultProfile == "sidecar" and .browser.profiles.sidecar.cdpUrl == "http://127.0.0.1:9222" and (.browser.ssrfPolicy.allowedHostnames == ["host.docker.internal"])' "$E4/openclaw.json"
+check "entries: no browser block without a sidecar" jq -e 'has("browser") | not' "$E/openclaw.json"
+OC="$(command -v openclaw || true)"
+[[ -n "$OC" ]] || for n in "$HOME"/.nvm/versions/node/*/bin/openclaw; do [[ -x "$n" ]] && OC="$n"; done
+if [[ -n "$OC" ]]; then
+  PATH="$(dirname "$OC"):$PATH" OPENCLAW_STATE_DIR="$E4" OPENCLAW_CONFIG_PATH="$E4/openclaw.json" openclaw config validate >/dev/null 2>&1 \
+    && ok "openclaw accepts the browser block" || bad "openclaw rejects the browser block"
+fi
+
 # ── list (container image) is unchanged in shape ─────────────────────────────
 L="$T/container"; mkdir -p "$L"
 run_schema list "$L" /home/node/.openclaw "$ROOT_DIR/scripts/harden-config.sh" >/dev/null
