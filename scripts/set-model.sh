@@ -15,11 +15,14 @@ set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT_DIR"
+# shellcheck source=lib/oc-config.sh
+source "$ROOT_DIR/scripts/lib/oc-config.sh"
 
 tag="${1:-}"
 tag="${tag#ollama/}"
 [[ -n "$tag" ]] || { echo "usage: scripts/set-model.sh <ollama-tag>   e.g. nemotron-3-nano:4b" >&2; exit 2; }
-[[ -f openclaw/openclaw.json ]] || { echo "openclaw/openclaw.json not found — run scripts/start.sh first" >&2; exit 1; }
+[[ -f "$OC_CONFIG" ]] || { echo "$OC_CONFIG not found — run scripts/start.sh first" >&2; exit 1; }
+SCHEMA="$(oc_schema "$OC_CONFIG")"
 
 if command -v ollama >/dev/null 2>&1 && ! ollama list 2>/dev/null | awk 'NR>1 {print $1}' | grep -qx "$tag"; then
   echo "warning: '$tag' is not installed in Ollama — run: ollama pull $tag" >&2
@@ -28,17 +31,22 @@ fi
 # Agents that carry the old default as their own model (main always does, and
 # sync-machine-agents.sh keeps main's existing model) move with it; an agent
 # pinned to some other model keeps it and is named below.
-old="$(jq -r '.agents.defaults.model.primary // ""' openclaw/openclaw.json)"
+old="$(jq -r '.agents.defaults.model.primary // ""' "$OC_CONFIG")"
 tmp="$(mktemp)"
-jq --arg model "ollama/${tag}" --arg old "$old" '
+jq --arg model "ollama/${tag}" --arg old "$old" --arg schema "$SCHEMA" "$OC_JQ_DEFS"'
   .agents.defaults.model.primary = $model |
-  .agents.list = ((.agents.list // []) | map(
-    if (.model.primary // null) == $old then .model.primary = $model else . end))
-' openclaw/openclaw.json > "$tmp"
-mv "$tmp" openclaw/openclaw.json
-jq -r --arg model "ollama/${tag}" '.agents.list[]?
+  # The model allow-list moves with the default (modelPolicy.allow on the new schema).
+  (if $schema == "entries"
+   then .agents.defaults.modelPolicy.allow = (((.agents.defaults.modelPolicy.allow // []) - [$old] + [$model]) | unique)
+   else . end) |
+  .agents.defaults.models = (((.agents.defaults.models // {}) | del(.[$old])) + {($model): {}}) |
+  oc_with_agents(oc_agents | map(
+    if (.model.primary // null) == $old then .model.primary = $model else . end); $schema)
+' "$OC_CONFIG" > "$tmp"
+mv "$tmp" "$OC_CONFIG"
+jq -r --arg model "ollama/${tag}" "$OC_JQ_DEFS"'oc_agents[]
   | select(.model.primary != null and .model.primary != $model)
-  | "kept: agent \(.id) stays on \(.model.primary)"' openclaw/openclaw.json
+  | "kept: agent \(.id) stays on \(.model.primary)"' "$OC_CONFIG"
 
 "$ROOT_DIR/scripts/harden-config.sh"
 "$ROOT_DIR/scripts/adopt-config-baseline.sh"

@@ -28,11 +28,13 @@
 set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+# shellcheck source=lib/oc-config.sh
+source "$ROOT_DIR/scripts/lib/oc-config.sh"
 
-CONFIG_PATH="${OPENCLAW_CONFIG_PATH:-$ROOT_DIR/openclaw/openclaw.json}"
+CONFIG_PATH="$OC_CONFIG"
 BACKUP_PATH="$CONFIG_PATH.bak"
 LAST_GOOD_PATH="$CONFIG_PATH.last-good"
-HEALTH_PATH="${OPENCLAW_CONFIG_HEALTH_PATH:-$ROOT_DIR/openclaw/logs/config-health.json}"
+HEALTH_PATH="${OPENCLAW_CONFIG_HEALTH_PATH:-$OC_DIR/logs/config-health.json}"
 
 note() { echo "[config-baseline] $*"; }
 die()  { echo "[config-baseline] $*" >&2; exit 1; }
@@ -43,8 +45,8 @@ command -v jq >/dev/null || die "jq is required"
 # Refuse to promote something the gateway would itself reject. `gateway.mode` is
 # the field the guard treats as proof a config is a real config, so adopting a
 # baseline without it would arm the guard against every later start.
-jq -e '.gateway.mode == "local" and ((.agents.list | type) == "array")' "$CONFIG_PATH" >/dev/null 2>&1 || \
-  die "refusing to adopt $CONFIG_PATH as baseline: gateway.mode is not \"local\" or agents.list is missing"
+jq -e '.gateway.mode == "local" and (((.agents.list | type) == "array") or ((.agents.entries | type) == "object"))' "$CONFIG_PATH" >/dev/null 2>&1 || \
+  die "refusing to adopt $CONFIG_PATH as baseline: gateway.mode is not \"local\" or agents.list / agents.entries is missing"
 
 copy_baseline() {
   local target="$1" tmp
@@ -91,7 +93,7 @@ fi
 
 chmod 600 "$CONFIG_PATH" 2>/dev/null || true
 
-AGENT_COUNT="$(jq -r '.agents.list | length' "$CONFIG_PATH")"
+AGENT_COUNT="$(jq -r "$OC_JQ_DEFS"' oc_agents | length' "$CONFIG_PATH")"
 if [[ ${#UPDATED[@]} -eq 0 ]]; then
   note "baseline already matches openclaw.json ($AGENT_COUNT agents)"
 else
