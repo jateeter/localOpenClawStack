@@ -50,7 +50,7 @@ if [[ "$SCHEMA" == "entries" ]]; then
   fi
 fi
 
-DEFAULT_MODEL="$(jq -er '.agents.defaults.model.primary // "ollama/nemotron-3-nano:4b"' "$CONFIG_PATH")"
+DEFAULT_MODEL="$(jq -er '.agents.defaults.model.primary // "ollama/nemotron-3-nano:4b-mlx"' "$CONFIG_PATH")"
 CONFIG_TMP="$(mktemp)"
 
 jq --slurpfile idx "$INDEX_PATH" \
