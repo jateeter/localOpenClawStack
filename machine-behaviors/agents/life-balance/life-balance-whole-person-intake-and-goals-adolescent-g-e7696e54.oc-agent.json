@@ -1,0 +1,352 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "oc-agent-template",
+  "role": "input-analyst",
+  "agentId": "life-balance-whole-person-intake-and-goals-adolescent-g-e7696e54",
+  "displayName": "Life Balance Whole Person Intake And Goals Adolescent Guardian Alignment",
+  "machine": {
+    "id": "LBL006_whole-person-intake-and-goals-adolescent-guardian-alignment",
+    "name": "Life Balance Whole Person Intake And Goals Adolescent Guardian Alignment",
+    "code": "lbl006_whole_person_intake_and_goals_adolescent_guardian_alignment",
+    "machineClass": "agent-dispatcher",
+    "domain": "life-balance",
+    "inputRegion": {
+      "offset": 2863,
+      "length": 4
+    },
+    "outputRegion": {
+      "offset": 2867,
+      "length": 4
+    }
+  },
+  "openclaw": {
+    "id": "openclaw-xacp",
+    "kind": "acp",
+    "platform": "OpenClaw",
+    "surface": "xACP",
+    "command": "openclaw acp",
+    "gatewayUrl": "ws://127.0.0.1:18789",
+    "sessionKey": "agent:main:main",
+    "targetAgent": "life-balance-whole-person-intake-and-goals-adolescent-g-e7696e54",
+    "dispatchMode": "accepted-no-wait",
+    "completionMode": "pe-source-mapping",
+    "completionSourceMappingId": "acp-life-balance-whole-person-intake-and-goals-adolescent-g-e7696e54-input-assessment"
+  },
+  "reasoning": {
+    "objective": "Produce the normalized input vector for \"Life Balance Whole Person Intake And Goals Adolescent Guardian Alignment\" from current observations so RE can evaluate its CES sequences.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Life Balance Whole Person Intake And Goals Adolescent Guardian Alignment\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Life-balance machine for adolescent guardian alignment in the whole person intake and goals workstream. It monitors youth goals, guardian concerns, school schedule, consent, and privacy boundaries to support lifestyle-psychiatry workflows spanning psychiatric care, nutrition, sleep, movement, stress resilience, monitoring, and projection. Example only; not medical advice.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- symptom_or_functional_concern (index 0):\n- lifestyle_barrier_or_preference (index 1):\n- monitoring_data_quality_or_readiness (index 2):\n- risk_safety_or_care_team_urgency (index 3):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Adolescent Guardian Alignment (AMBER) -> action: route-review\n- Adolescent Guardian Alignment (GREEN) -> action: adjust-operations\n- Adolescent Guardian Alignment (GREEN) -> action: create-work-order\n- Adolescent Guardian Alignment (GREEN) -> action: continue-monitoring",
+    "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
+    "inputAxes": [
+      {
+        "index": 0,
+        "key": "symptom_or_functional_concern",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 1,
+        "key": "lifestyle_barrier_or_preference",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 2,
+        "key": "monitoring_data_quality_or_readiness",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 3,
+        "key": "risk_safety_or_care_team_urgency",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      }
+    ],
+    "sequenceCatalog": [
+      {
+        "sequenceId": "lbl-006-care-team-review",
+        "label": "Adolescent Guardian Alignment",
+        "rag": "AMBER",
+        "outputIndex": 0,
+        "action": "route-review"
+      },
+      {
+        "sequenceId": "lbl-006-plan-adjust",
+        "label": "Adolescent Guardian Alignment",
+        "rag": "GREEN",
+        "outputIndex": 1,
+        "action": "adjust-operations"
+      },
+      {
+        "sequenceId": "lbl-006-monitoring-task",
+        "label": "Adolescent Guardian Alignment",
+        "rag": "GREEN",
+        "outputIndex": 2,
+        "action": "create-work-order"
+      },
+      {
+        "sequenceId": "lbl-006-stable-balance",
+        "label": "Adolescent Guardian Alignment",
+        "rag": "GREEN",
+        "outputIndex": 3,
+        "action": "continue-monitoring"
+      }
+    ]
+  },
+  "agentBinding": {
+    "agent": "life-balance-whole-person-intake-and-goals-adolescent-g-e7696e54",
+    "mode": "advise",
+    "trigger": "lbl006_whole_person_intake_and_goals_adolescent_guardian_alignment-input-assessment",
+    "allowedActions": [
+      "Assess current \"Life Balance Whole Person Intake And Goals Adolescent Guardian Alignment\" state from available observations and write the normalized input vector to the PE input region [2863:2867] for RE to evaluate."
+    ],
+    "writeBack": {
+      "type": "pe-sensor",
+      "provider": "acp",
+      "sensorId": "acp.openclaw.lbl006_whole_person_intake_and_goals_adolescent_guardian_alignment.input-analyst.assessment",
+      "name": "OpenClaw lbl006_whole_person_intake_and_goals_adolescent_guardian_alignment input-analyst assessment",
+      "region": {
+        "offset": 2863,
+        "length": 4
+      },
+      "semantics": [
+        "symptom_or_functional_concern",
+        "lifestyle_barrier_or_preference",
+        "monitoring_data_quality_or_readiness",
+        "risk_safety_or_care_team_urgency"
+      ],
+      "ttlMs": 300000,
+      "normalization": "already-normalized-0-1",
+      "ingest": {
+        "endpoint": "/api/integrations/completions",
+        "method": "POST",
+        "triggerPush": false,
+        "compactPush": true
+      },
+      "sourceMapping": {
+        "id": "acp-lbl006_whole_person_intake_and_goals_adolescent_guardian_alignment-input-assessment",
+        "sensorId": "acp.openclaw.lbl006_whole_person_intake_and_goals_adolescent_guardian_alignment.input-analyst.assessment",
+        "name": "OpenClaw lbl006_whole_person_intake_and_goals_adolescent_guardian_alignment input-analyst assessment",
+        "region": {
+          "offset": 2863,
+          "length": 4
+        },
+        "ttlMs": 300000
+      }
+    },
+    "autonomyPolicy": {
+      "mode": "advise",
+      "stage": 1,
+      "writeBackType": "pe-sensor",
+      "canWriteBack": true,
+      "canStageActions": false,
+      "canExecuteActions": false,
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "blockedWhenRag": []
+    },
+    "riskControls": {
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "maxAutonomy": "advise",
+      "blockedWhenRag": []
+    }
+  },
+  "responseMapping": {
+    "schemaVersion": "1.0.0",
+    "responseContract": "structured-keys-or-text",
+    "mode": "advise",
+    "fields": [
+      {
+        "semantic": "symptom_or_functional_concern",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/symptom_or_functional_concern",
+          "responseKey": "symptom_or_functional_concern",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "onUnresolved": "divert-to-analysis",
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lbl006_whole_person_intake_and_goals_adolescent_guardian_alignment.input-analyst.assessment",
+          "region": {
+            "offset": 2863,
+            "length": 4
+          },
+          "index": 0
+        }
+      },
+      {
+        "semantic": "lifestyle_barrier_or_preference",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/lifestyle_barrier_or_preference",
+          "responseKey": "lifestyle_barrier_or_preference",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "onUnresolved": "divert-to-analysis",
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lbl006_whole_person_intake_and_goals_adolescent_guardian_alignment.input-analyst.assessment",
+          "region": {
+            "offset": 2863,
+            "length": 4
+          },
+          "index": 1
+        }
+      },
+      {
+        "semantic": "monitoring_data_quality_or_readiness",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/monitoring_data_quality_or_readiness",
+          "responseKey": "monitoring_data_quality_or_readiness",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "onUnresolved": "divert-to-analysis",
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lbl006_whole_person_intake_and_goals_adolescent_guardian_alignment.input-analyst.assessment",
+          "region": {
+            "offset": 2863,
+            "length": 4
+          },
+          "index": 2
+        }
+      },
+      {
+        "semantic": "risk_safety_or_care_team_urgency",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/risk_safety_or_care_team_urgency",
+          "responseKey": "risk_safety_or_care_team_urgency",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "onUnresolved": "divert-to-analysis",
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.lbl006_whole_person_intake_and_goals_adolescent_guardian_alignment.input-analyst.assessment",
+          "region": {
+            "offset": 2863,
+            "length": 4
+          },
+          "index": 3
+        }
+      }
+    ]
+  },
+  "diagnostics": {
+    "axisBasis": "openClawProjection",
+    "warnings": [],
+    "inputLength": 4,
+    "sequenceCount": 4
+  }
+}

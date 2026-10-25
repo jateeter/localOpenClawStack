@@ -120,10 +120,14 @@ check("C4.5 every mapping region is the declared lane",
       str([m["region"] for m in sm["sourceMappings"]]))
 
 # C5: input-analyst coverage — one schema-valid agent per machine, materialized on disk
+import hashlib as _hashlib  # noqa: E402
+import re as _re  # noqa: E402
+
 import oc_agent_template as _oct  # noqa: E402
 _oc_schema = minischema.load_schema(ROOT / "templates" / "oc-agent.schema.json")
 _ia_ok = _ia_bad = _ia_err = 0
 _ia_ids = set()
+_id_rows: list[tuple[str, str, str]] = []  # (agentId, name slug, machine id)
 for _p in _files:
     try:
         _dd = _json.loads(_p.read_text())
@@ -141,10 +145,25 @@ for _p in _files:
     else:
         _ia_ok += 1
     _ia_ids.add((_inst["machine"]["domain"], _inst["agentId"]))
+    _id_rows.append((_inst["agentId"], _oct._slug(_inst["displayName"]), _inst["machine"]["id"]))
 check("C5.1 one schema-valid input-analyst agent per machine",
       _ia_ok == s["machines"] and _ia_bad == 0, f"ok={_ia_ok} bad={_ia_bad} machines={s['machines']}")
 check("C5.2 no input-analyst derive errors across the corpus", _ia_err == 0, str(_ia_err))
 check("C5.3 input-analyst agent ids unique per domain", len(_ia_ids) == s["machines"], str(len(_ia_ids)))
+
+# C5.10-C5.13: every agent id is one OpenClaw 2026.9+ accepts (#72, owner option
+# A). A slug that fits is kept unchanged; a longer one is its first 55
+# characters, a hyphen and the first 8 hex digits of sha256(machine id).
+_id_bad = [a for a, _, _ in _id_rows if not _re.fullmatch(r"[a-z0-9_][a-z0-9_-]{0,63}", a)]
+_id_off = [a for a, sl, mid in _id_rows
+           if a != (sl if len(sl) <= 64
+                    else f"{sl[:55].rstrip('-')}-{_hashlib.sha256(mid.encode()).hexdigest()[:8]}")]
+check("C5.10 every agent id matches OpenClaw's id pattern (<= 64 chars)", not _id_bad, str(_id_bad[:3]))
+check("C5.11 agent ids are unique corpus-wide", len({a for a, _, _ in _id_rows}) == len(_id_rows),
+      f"{len({a for a, _, _ in _id_rows})} distinct of {len(_id_rows)}")
+check("C5.12 a slug that fits is kept; a longer one is cut + hashed", not _id_off, str(_id_off[:3]))
+check("C5.13 the cut is exact: 93 characters -> 64, 64 -> unchanged",
+      len(_oct.agent_id_for("x" * 93, "machine-x")) == 64 and _oct.agent_id_for("y" * 64, "m") == "y" * 64)
 # materialized on disk: agents/INDEX.json total == machine count (after materialize_agents.py)
 _index_path = ROOT / "agents" / "INDEX.json"
 if _index_path.exists():
