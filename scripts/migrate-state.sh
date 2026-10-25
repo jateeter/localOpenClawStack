@@ -43,7 +43,8 @@ if [[ -f .env ]]; then
 fi
 # shellcheck source=lib/oc-config.sh
 source "$ROOT_DIR/scripts/lib/oc-config.sh"
-TARGET="${OPENCLAW_VERSION:-$(sed -n 's/^ARG OPENCLAW_VERSION=//p' Dockerfile.openclaw-gateway)}"
+TARGET="${OPENCLAW_VERSION:-$(sed -n 's/^ARG OPENCLAW_VERSION=//p' Dockerfile.openclaw-gateway 2>/dev/null || true)}"
+[[ -n "$TARGET" ]] || { echo "[migrate-state] no OpenClaw version to migrate to: set OPENCLAW_VERSION" >&2; exit 1; }
 # The last release whose doctor accepts state from before July 2026.
 STEP_VERSION="2026.9.7"
 NATIVE=false
