@@ -2,6 +2,7 @@
 # The OpenClaw gateway on the Mac itself, not in a container (RealityEngine_CI#592).
 #
 #   scripts/native-gateway.sh up [--agent-profile=NAME]   generate, migrate, start
+#   scripts/native-gateway.sh up --no-generate            start a home someone else generated
 #   scripts/native-gateway.sh down                        stop and unload
 #   scripts/native-gateway.sh status                      what is running, and where
 #   scripts/native-gateway.sh check                       preflight only, changes nothing
@@ -17,6 +18,11 @@
 # container uses: harden-config.sh, sync-machine-agents.sh (the agents of the
 # chosen profile), verify-openclaw-config.sh. migrate-state.sh runs first, so an
 # upgrade of the host openclaw is migrated before the new gateway starts.
+#
+# --no-generate starts a home that is already generated: the release's re-init
+# writes it, because only re-init can resolve the agent profile against the
+# install's machine catalog, a Docker volume (RealityEngine_CI#592). The
+# expected agents are then the config's own entries.
 #
 # Agents run sandboxed in Docker (sandbox.mode "all"). The sandbox image OpenClaw
 # expects, openclaw-sandbox:bookworm-slim, is not in the npm package; it is built
@@ -37,9 +43,11 @@ die()  { echo -e "${RED}[error]${NC} $*" >&2; exit 1; }
 
 CMD="${1:-}"; shift || true
 AGENT_PROFILE="${OPENCLAW_AGENT_PROFILE:-regression}"
+GENERATE=true
 for arg in "$@"; do
   case "$arg" in
     --agent-profile=*) AGENT_PROFILE="${arg#*=}" ;;
+    --no-generate) GENERATE=false ;;
     *) die "Unknown argument: $arg" ;;
   esac
 done
@@ -53,7 +61,9 @@ if [[ -f .env ]]; then
   set -a; source .env; set +a
   eval "$_caller_env"
 fi
-PIN="${OPENCLAW_VERSION:-$(sed -n 's/^ARG OPENCLAW_VERSION=//p' Dockerfile.openclaw-gateway)}"
+# The release's copy of these scripts has no Dockerfile; its caller passes the pin.
+PIN="${OPENCLAW_VERSION:-$(sed -n 's/^ARG OPENCLAW_VERSION=//p' Dockerfile.openclaw-gateway 2>/dev/null || true)}"
+[[ -n "$PIN" ]] || die "no OpenClaw version to check against: set OPENCLAW_VERSION"
 NATIVE_HOME="${OPENCLAW_NATIVE_HOME:-$HOME/.realityengine/openclaw}"
 PORT="${OPENCLAW_GATEWAY_PORT:-18789}"
 LABEL="${OPENCLAW_NATIVE_LABEL:-org.realityengine.openclaw-gateway}"
@@ -240,7 +250,14 @@ case "$CMD" in
       die "port $PORT is held by another process ($(lsof -nP -iTCP:"$PORT" -sTCP:LISTEN | awk 'NR==2{print $1" pid "$2}')); stop it first (the container gateway: docker compose stop openclaw-gateway)"
     fi
     unload
-    generate
+    if [[ "$GENERATE" == true ]]; then
+      generate
+    else
+      [[ -f "$NATIVE_HOME/openclaw.json" ]] || die "--no-generate: $NATIVE_HOME/openclaw.json does not exist"
+      env PATH="$BIN_PATH:$PATH" OPENCLAW_STATE_DIR="$NATIVE_HOME" "$ROOT_DIR/scripts/migrate-state.sh"
+      EXPECTED_IDS="$(jq -r '.agents.entries // {} | keys[] | select(. != "main")' "$NATIVE_HOME/openclaw.json")"
+      ok "using the generated home $NATIVE_HOME ($(grep -c . <<<"$EXPECTED_IDS") machine agents)"
+    fi
     ensure_sandbox_image
     write_plist
     launchctl bootstrap "gui/$(id -u)" "$PLIST"
