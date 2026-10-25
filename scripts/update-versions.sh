@@ -34,7 +34,7 @@ latest_release() {
 }
 
 latest_npm_version() {
-  local package="$1" dist_tag="${2:-extended-stable}" version
+  local package="$1" dist_tag="${2:-latest}" version
   version="$(curl --fail --silent --show-error --retry 3 \
     --connect-timeout 10 --max-time 30 \
     "https://registry.npmjs.org/${package}/${dist_tag}" | \

@@ -41,9 +41,15 @@ port="${OPENCLAW_GATEWAY_PORT:-18789}"
 # The container gateway listens on the LAN side of its network; the native one is
 # on the loopback of the Mac and containers reach it through host.docker.internal.
 bind="${OPENCLAW_GATEWAY_BIND:-lan}"
-# The OpenAI-compatible /v1 API. The container image is told by environment
-# variables in its compose service; a native gateway has only this file.
-http_endpoints="${OPENCLAW_HTTP_ENDPOINTS:-false}"
+# The OpenAI-compatible /v1 API: Open WebUI (OPENAI_API_BASE_URL .../v1), the
+# ACP adapter and verify-deployment.sh all use it. It is off by default, and the
+# compose environment variables that were meant to turn it on are not read by
+# 2026.10, so the config says so. Token auth and the loopback-only port still apply.
+http_endpoints="${OPENCLAW_HTTP_ENDPOINTS:-true}"
+# Ollama's context window for the gateway's requests. Ollama's own default (4096)
+# truncates an agent's bootstrap prompt: on 2026-10-24 every completion failed
+# with a context overflow until num_ctx was raised. nemotron-3-nano:4b holds 256K.
+ollama_num_ctx="${OPENCLAW_OLLAMA_NUM_CTX:-32768}"
 # A browser sidecar to attach to over CDP (attach-only: the gateway never launches
 # one). The container image's BROWSER_CDP_URL environment variable is not read by
 # OpenClaw itself, so a native gateway needs it in the config.
@@ -59,6 +65,7 @@ jq --arg localhost_origin "http://localhost:${port}" \
    --argjson http_endpoints "$http_endpoints" \
    --arg browser_cdp "$browser_cdp" \
    --arg ollama_base "$ollama_base" \
+   --argjson ollama_num_ctx "$ollama_num_ctx" \
    --arg ollama_model "$ollama_model" \
    --arg model "$model" '
     .gateway.mode = "local" |
@@ -107,6 +114,7 @@ jq --arg localhost_origin "http://localhost:${port}" \
     .models.providers.ollama = (.models.providers.ollama // {}) |
     .models.providers.ollama.api = "ollama" |
     .models.providers.ollama.baseUrl = $ollama_base |
+    .models.providers.ollama.params = ((.models.providers.ollama.params // {}) + {num_ctx: $ollama_num_ctx}) |
     # OpenClaw requires model *objects* here ({id, name, ...}); appending the
     # bare id produced "models.providers.ollama.models.0: Invalid input" and
     # `unique` could not dedupe a string against the equivalent object, so the

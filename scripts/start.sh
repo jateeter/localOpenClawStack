@@ -116,6 +116,10 @@ export OPENCLAW_AGENT_PROFILE="$AGENT_PROFILE"
 export OPENCLAW_AGENT_INDEX_PATH
 info "Agent profile: $AGENT_PROFILE ($(jq -r '.total' "$OPENCLAW_AGENT_INDEX_PATH") machine agents)"
 
+# State an older gateway wrote must be migrated, offline, before the pinned one
+# will boot on it (scripts/migrate-state.sh).
+docker compose build openclaw-gateway
+"$ROOT_DIR/scripts/migrate-state.sh"
 "$ROOT_DIR/scripts/harden-config.sh"
 "$ROOT_DIR/scripts/sync-machine-agents.sh"
 "$ROOT_DIR/scripts/verify-openclaw-config.sh"
@@ -194,7 +198,7 @@ done
 LIVE_AGENT_COUNT="$(docker compose exec -T openclaw-gateway sh -lc 'node -e '"'"'
 const fs = require("fs");
 const cfg = JSON.parse(fs.readFileSync("/home/node/.openclaw/openclaw.json", "utf8"));
-console.log((cfg.agents?.list || []).length);
+console.log(cfg.agents?.entries ? Object.keys(cfg.agents.entries).length : (cfg.agents?.list || []).length);
 '"'"'' | tr -d '\r')"
 # Exact, not "at least": a wider count is the signature of the gateway restoring
 # an older, wider config over the profile-narrowed one, and `-lt` waved that

@@ -47,10 +47,16 @@ if jq -e '
   .gateway.auth.mode == "token" and
   .gateway.port == 18789 and
   (.gateway.bind == "lan" or .gateway.bind == "loopback") and
-  (.gateway.nodes.denyCommands | type == "array") and
-  (.gateway.nodes.denyCommands | index("camera.snap")) and
-  (.gateway.nodes.denyCommands | index("screen.record")) and
-  (.gateway.nodes.denyCommands | index("sms.send")) and
+  (.gateway.nodes.commands.deny | type == "array") and
+  (.gateway.nodes.commands.deny | index("camera.snap")) and
+  (.gateway.nodes.commands.deny | index("screen.record")) and
+  (.gateway.nodes.commands.deny | index("sms.send")) and
+  # 2026.9+ format: agents keyed by id, the default model allow-listed, /v1 on,
+  # and an Ollama context large enough for an agent bootstrap prompt
+  ((.agents // {}) | has("entries")) and
+  ((.agents.defaults.model.primary) as $m | (.agents.defaults.modelPolicy.allow // []) | index($m)) and
+  (.gateway.http.endpoints.chatCompletions.enabled == true) and
+  ((.models.providers.ollama.params.num_ctx // 0) >= 32768) and
   # Ollama provider contract
   (.models.providers.ollama.api == "ollama") and
   (.models.providers.ollama.baseUrl | type == "string") and

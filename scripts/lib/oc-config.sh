@@ -3,15 +3,17 @@
 #
 # Two OpenClaw config schemas are in use (RealityEngine_CI#592):
 #
-#   list     OpenClaw 2026.6.x, the container image: agents.list is an array of
-#            {id, ...}, gateway.nodes.denyCommands, agents live at /home/node/.openclaw.
-#   entries  OpenClaw >= 2026.10, the native host install: agents.entries is an
-#            object keyed by agent id (a key is [a-z0-9_][a-z0-9_-]{0,63}),
-#            gateway.nodes.commands.deny, agents.ownership "explicit", and a model
-#            allow-list under agents.defaults.modelPolicy.allow.
+#   list     OpenClaw <= 2026.6.x: agents.list is an array of {id, ...},
+#            gateway.nodes.denyCommands. Read only to migrate it: no gateway this
+#            stack pins writes it any more (scripts/migrate-state.sh).
+#   entries  OpenClaw >= 2026.9, the container image and the native host install:
+#            agents.entries is an object keyed by agent id (a key is
+#            [a-z0-9_][a-z0-9_-]{0,63}), gateway.nodes.commands.deny,
+#            agents.ownership "explicit", and a model allow-list under
+#            agents.defaults.modelPolicy.allow.
 #
 # A config that exists decides for itself (agents.entries or agents.list); a fresh
-# one takes OPENCLAW_SCHEMA, default `list`, so the container path is unchanged.
+# one takes OPENCLAW_SCHEMA, default `entries`.
 #
 # Where things are:
 #   OC_DIR     the state directory on this machine   (OPENCLAW_STATE_DIR, else <repo>/openclaw)
@@ -31,7 +33,7 @@ oc_schema() {
     if jq -e '(.agents // {}) | has("entries")' "$cfg" >/dev/null 2>&1; then echo entries; return; fi
     if jq -e '(.agents // {}) | has("list")' "$cfg" >/dev/null 2>&1; then echo list; return; fi
   fi
-  case "${OPENCLAW_SCHEMA:-list}" in entries) echo entries ;; *) echo list ;; esac
+  case "${OPENCLAW_SCHEMA:-entries}" in list) echo list ;; *) echo entries ;; esac
 }
 
 # jq definitions: `oc_agents` is the agents as an array of {id, ...} in either
