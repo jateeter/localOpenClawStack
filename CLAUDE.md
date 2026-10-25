@@ -52,21 +52,36 @@ Use the repo's actual scripts when present; Docker Compose state is time-sensiti
 
 - **The default model is `ollama/nemotron-3-nano:4b`**, the RealityEngine universe model (RC3). `OPENCLAW_DEFAULT_MODEL` only seeds a *fresh* `openclaw.json`; an existing config keeps its model. Switch on command with `scripts/set-model.sh <ollama-tag>`, which rewrites `agents.defaults.model.primary` and every agent whose own model was the old default (main included, since `sync-machine-agents.sh` keeps main's model; an agent pinned elsewhere keeps it and is reported; `test-set-model.sh`), re-runs `harden-config.sh` so the Ollama provider lists the model, and adopts the result as the config baseline. It does not restart the gateway. The model calls tools; Ollama refuses `format` for it, which matters to the PEs' dispatch and not to the gateway (`RealityEngine_CI/docs/OLLAMA_INTEGRATION.md`).
 
-- **Two OpenClaw config schemas (RealityEngine_CI#592).** The container image is
-  OpenClaw 2026.6.x (`agents.list`); a native host gateway is >= 2026.10
-  (`agents.entries` keyed by id, `gateway.nodes.commands.deny`,
-  `agents.defaults.modelPolicy.allow`, `agents.ownership: "explicit"`, and an agent
-  id of at most 64 characters, so 548 of the 1,322 full-corpus ids are not valid
-  keys and `sync-machine-agents.sh` refuses them by name; the regression profile's
-  longest is 43). Every script that reads or writes `openclaw.json` goes through
-  `scripts/lib/oc-config.sh`: an existing config decides its own schema, a fresh one
-  takes `OPENCLAW_SCHEMA` (default `list`). `OPENCLAW_STATE_DIR` moves the state
-  directory, `OPENCLAW_HOME_DIR` is that directory as the gateway sees it (the
-  paths written into the config; `/home/node/.openclaw` in the container),
-  `OPENCLAW_GATEWAY_BIND` and `OPENCLAW_HTTP_ENDPOINTS=true` (the `/v1` API) cover
-  what the container's compose environment did. `scripts/test-native-schema.sh`
-  runs the generators for both schemas and, when `openclaw` is installed, the real
-  `openclaw config validate`.
+- **One OpenClaw release, one config format (RealityEngine_CI#592).** The container
+  image and the native host gateway both run the pinned release, 2026.10.7, npm
+  `latest` (`update-versions.sh` reads that dist-tag; it read `extended-stable`
+  until 2026-10-24, when the stack sat on 2026.6.10). A local `.env`
+  `OPENCLAW_VERSION` overrides the compose default, so a stale `.env` pins an old
+  gateway. The release needs Node `>=26.12.1`; the `.env` `NODE_IMAGE` digest must
+  resolve to it.
+  - Its format is `agents.entries` keyed by id, `gateway.nodes.commands.deny`,
+    `agents.defaults.modelPolicy.allow`, `agents.ownership: "explicit"`, and an
+    agent id of at most 64 characters. **548 of the 1,322 full-corpus ids are
+    longer, so `--agent-profile=full` cannot load**; `sync-machine-agents.sh`
+    refuses them by name. The regression and standard-deployment profiles (longest
+    id 43) are unaffected.
+  - Every script that reads or writes `openclaw.json` goes through
+    `scripts/lib/oc-config.sh`: an existing config decides its own format, a fresh
+    one takes `OPENCLAW_SCHEMA` (default `entries`; `list` is the pre-2026.9
+    format, read only to migrate it). `OPENCLAW_STATE_DIR` moves the state
+    directory, `OPENCLAW_HOME_DIR` is that directory as the gateway sees it
+    (`/home/node/.openclaw` in the container), `OPENCLAW_GATEWAY_BIND`,
+    `OPENCLAW_HTTP_ENDPOINTS` (the `/v1` API, default on: Open WebUI and
+    `verify-deployment.sh` use it) and `OPENCLAW_OLLAMA_NUM_CTX` (default 32768;
+    Ollama's 4096 truncates an agent's bootstrap prompt).
+  - **State migrates before a gateway starts.** `scripts/migrate-state.sh`, run by
+    `start.sh`: when the config was last written by another version, or is still
+    in the `list` format, it backs the state directory up to `.state-backups/`,
+    stops the gateway and runs `openclaw doctor --fix` offline, stepping through
+    2026.9.7 for container state older than it. With `OPENCLAW_STATE_DIR` it runs
+    the host's `openclaw`, which must be the pin.
+  - `scripts/test-native-schema.sh` runs the generators for both formats and, when
+    `openclaw` is installed, the real `openclaw config validate`.
 
 ## Which agent corpus matters
 

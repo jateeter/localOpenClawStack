@@ -4,6 +4,7 @@ openclaw/
 machine-behaviors/agents/.generated/
 openwebui-data/
 browser-config/
+.state-backups/
 
 # Generated corpus reports
 output/

@@ -20,14 +20,15 @@ command -v jq >/dev/null || { echo "[FAIL] jq is required" >&2; exit 1; }
 TMP="$(mktemp -d)"
 trap 'rm -rf "$TMP"' EXIT
 mkdir -p "$TMP/scripts" "$TMP/openclaw"
-cp "$ROOT_DIR"/scripts/*.sh "$TMP/scripts/"
+cp -R "$ROOT_DIR"/scripts/. "$TMP/scripts/"
 : > "$TMP/.env"
 cat > "$TMP/openclaw/openclaw.json" <<'JSON'
-{"agents": {"defaults": {"model": {"primary": "ollama/llama3.1:8b"}, "models": {}},
-            "list": [{"id": "main", "model": {"primary": "ollama/llama3.1:8b"}},
-                     {"id": "machine-a", "model": {"primary": "ollama/llama3.1:8b"}},
-                     {"id": "pinned", "model": {"primary": "openai-codex/gpt-5.5"}},
-                     {"id": "inherits"}]}}
+{"agents": {"defaults": {"model": {"primary": "ollama/llama3.1:8b"}, "models": {},
+                         "modelPolicy": {"allow": ["ollama/llama3.1:8b", "openai/gpt-5.5"]}},
+            "entries": {"main": {"model": {"primary": "ollama/llama3.1:8b"}},
+                        "machine-a": {"model": {"primary": "ollama/llama3.1:8b"}},
+                        "pinned": {"model": {"primary": "openai/gpt-5.5"}},
+                        "inherits": {}}}}
 JSON
 
 out="$("$TMP/scripts/set-model.sh" ollama/nemotron-3-nano:4b 2>/dev/null)"
@@ -38,17 +39,18 @@ check() { # <name> <expected> <actual>
   if [ "$2" == "$3" ]; then echo "  ok   $1"
   else echo "  FAIL $1"; echo "       expected: $2"; echo "       actual:   $3"; fails=$((fails + 1)); fi
 }
-model_of() { jq -r --arg id "$1" '.agents.list[] | select(.id == $id) | .model.primary // "none"' "$cfg"; }
+model_of() { jq -r --arg id "$1" '.agents.entries[$id].model.primary // "none"' "$cfg"; }
 
 check "default moves"              "ollama/nemotron-3-nano:4b" "$(jq -r '.agents.defaults.model.primary' "$cfg")"
 check "main moves with the default" "ollama/nemotron-3-nano:4b" "$(model_of main)"
 check "agent on old default moves" "ollama/nemotron-3-nano:4b" "$(model_of machine-a)"
-check "pinned agent keeps its model" "openai-codex/gpt-5.5"     "$(model_of pinned)"
+check "pinned agent keeps its model" "openai/gpt-5.5"           "$(model_of pinned)"
 check "agent without a model still inherits" "none"             "$(model_of inherits)"
-check "kept agent is reported"     "1" "$(grep -c '^kept: agent pinned stays on openai-codex/gpt-5.5$' <<<"$out")"
+check "kept agent is reported"     "1" "$(grep -c '^kept: agent pinned stays on openai/gpt-5.5$' <<<"$out")"
 check "provider lists the new model" "1" "$(jq '[.models.providers.ollama.models[] | select(.id == "nemotron-3-nano:4b")] | length' "$cfg")"
+check "allowlist gains the new model" "1" "$(jq '[.agents.defaults.modelPolicy.allow[] | select(. == "ollama/nemotron-3-nano:4b")] | length' "$cfg")"
 check "baseline adopted"           "yes" "$(if [ -f "$TMP/openclaw/openclaw.json.last-good" ]; then echo yes; else echo no; fi)"
-check "no llama assignment left"   "0" "$(jq '[.agents.defaults, .agents.list[]] | map(select(.model.primary == "ollama/llama3.1:8b")) | length' "$cfg")"
+check "no llama assignment left"   "0" "$(jq '[.agents.defaults, .agents.entries[]] | map(select(.model.primary == "ollama/llama3.1:8b")) | length' "$cfg")"
 
 if [ "$fails" -ne 0 ]; then echo "$fails check(s) failed"; exit 1; fi
 echo "all checks passed"
