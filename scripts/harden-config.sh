@@ -26,7 +26,7 @@ SCHEMA="$(oc_schema "$OC_CONFIG")"
 
 if [[ ! -f "$OC_CONFIG" ]]; then
   jq -n \
-    --arg model "${OPENCLAW_DEFAULT_MODEL:-ollama/nemotron-3-nano:4b}" \
+    --arg model "${OPENCLAW_DEFAULT_MODEL:-ollama/nemotron-3-nano:4b-mlx}" \
     --arg schema "$SCHEMA" '
     {
       gateway: {},
@@ -53,13 +53,13 @@ bind="${OPENCLAW_GATEWAY_BIND:-lan}"
 http_endpoints="${OPENCLAW_HTTP_ENDPOINTS:-true}"
 # Ollama's context window for the gateway's requests. Ollama's own default (4096)
 # truncates an agent's bootstrap prompt: on 2026-10-24 every completion failed
-# with a context overflow until num_ctx was raised. nemotron-3-nano:4b holds 256K.
+# with a context overflow until num_ctx was raised. nemotron-3-nano:4b-mlx holds 256K.
 ollama_num_ctx="${OPENCLAW_OLLAMA_NUM_CTX:-32768}"
 # A browser sidecar to attach to over CDP (attach-only: the gateway never launches
 # one). The container image's BROWSER_CDP_URL environment variable is not read by
 # OpenClaw itself, so a native gateway needs it in the config.
 browser_cdp="${OPENCLAW_BROWSER_CDP_URL:-}"
-model="$(jq -r '.agents.defaults.model.primary // "ollama/nemotron-3-nano:4b"' "$OC_CONFIG")"
+model="$(jq -r '.agents.defaults.model.primary // "ollama/nemotron-3-nano:4b-mlx"' "$OC_CONFIG")"
 ollama_base="${OLLAMA_BASE_URL:-http://host.docker.internal:11434}"
 ollama_model="${model#ollama/}"   # provider model id without the "ollama/" prefix
 jq --arg localhost_origin "http://localhost:${port}" \
