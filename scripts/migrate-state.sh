@@ -33,8 +33,13 @@ CHECK=false
 [[ "${1:-}" == "--check" ]] && CHECK=true
 
 if [[ -f .env ]]; then
+  # The caller's environment wins over .env: native-gateway.sh passes the native
+  # gateway's values (Ollama on loopback, its port), which .env sets for the
+  # container. Sourcing .env alone overwrote them (2026-10-25).
+  _caller_env="$(export -p)"
   # shellcheck source=/dev/null
   set -a; source .env; set +a
+  eval "$_caller_env"
 fi
 # shellcheck source=lib/oc-config.sh
 source "$ROOT_DIR/scripts/lib/oc-config.sh"
@@ -57,6 +62,12 @@ legacy=false
 
 if [[ "$touched" == "$TARGET" && "$legacy" == false ]]; then
   note "state is current ($TARGET)"
+  exit 0
+fi
+# No stamp, entries format: this stack's scripts wrote it for the pin, and no
+# gateway has rewritten it yet. There is nothing older to migrate.
+if [[ "$touched" == 0 && "$legacy" == false ]]; then
+  note "state was generated for $TARGET and not yet stamped by a gateway; nothing to migrate"
   exit 0
 fi
 if [[ "$CHECK" == true ]]; then

@@ -32,6 +32,12 @@ check "written by the pin: current" 0 "$(run --check)"
 config "{\"meta\":{\"lastTouchedVersion\":\"$PIN\"},\"agents\":{\"list\":[]}}"
 check "agents.list at the pin: needs migrating" 1 "$(run --check)"
 
+config '{"agents":{"entries":{}}}'
+check "generated, not yet stamped: current" 0 "$(run --check)"
+
+config '{"agents":{"list":[]}}'
+check "unstamped agents.list: needs migrating" 1 "$(run --check)"
+
 config '{"meta":{"lastTouchedVersion":"2026.6.10"},"agents":{"list":[]}}'
 check "older version: needs migrating" 1 "$(run --check)"
 

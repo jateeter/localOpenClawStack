@@ -58,7 +58,9 @@ services:
     ports:
       - "127.0.0.1:${OPEN_WEBUI_PORT:-8080}:8080"
     environment:
-      OPENAI_API_BASE_URL: http://openclaw-gateway:18789/v1
+      # The container gateway by default; a native gateway on the Mac is
+      # http://host.docker.internal:<port>/v1 (scripts/start.sh --native sets it).
+      OPENAI_API_BASE_URL: ${OPENWEBUI_OPENAI_BASE_URL:-http://openclaw-gateway:18789/v1}
       OPENAI_API_KEY: ${OPENCLAW_GATEWAY_TOKEN}
       OLLAMA_BASE_URL: ${OLLAMA_BASE_URL:-http://host.docker.internal:11434}
       ENABLE_OPENAI_API: "true"
@@ -85,7 +87,15 @@ services:
 
   browser:
     image: ${BROWSER_IMAGE:-coollabsio/openclaw-browser:0.3.0}
+    # CDP for a native gateway on the Mac. Loopback only: CDP is unauthenticated,
+    # so it must never be reachable from the LAN (RealityEngine_CI#592). The image
+    # starts Chromium as `wrapped-chromium ${CHROME_CLI}` and proxies its debugging
+    # port (127.0.0.1:9222 inside the container) through nginx on 9223; without
+    # CHROME_CLI Chromium has no debugging port and the proxy answers 502.
+    ports:
+      - "127.0.0.1:${RE_PORT_BROWSER_CDP:-9222}:9223"
     environment:
+      CHROME_CLI: ${BROWSER_CHROME_CLI:---remote-debugging-port=9222}
       PUID: ${LOCAL_UID:-1000}
       PGID: ${LOCAL_GID:-1000}
       TZ: ${OPENCLAW_TZ:-UTC}

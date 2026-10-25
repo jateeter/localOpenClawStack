@@ -83,6 +83,40 @@ Use the repo's actual scripts when present; Docker Compose state is time-sensiti
   - `scripts/test-native-schema.sh` runs the generators for both formats and, when
     `openclaw` is installed, the real `openclaw config validate`.
 
+- **The native gateway (RealityEngine_CI#592).** `scripts/start.sh --native` (what
+  `startUniverse.sh --openclaw` runs by default) puts the gateway on the Mac and
+  keeps only the browser sidecar and Open WebUI in Docker.
+  - `scripts/native-gateway.sh up|down|status|check|render` runs the host's own
+    `openclaw` (npm -g, the pin, on a Node its `engines` accepts; Homebrew's prefix
+    first) as the user LaunchAgent `org.realityengine.openclaw-gateway` on
+    127.0.0.1. Its home is `~/.realityengine/openclaw` (`OPENCLAW_NATIVE_HOME`,
+    handed to OpenClaw as `OPENCLAW_STATE_DIR`); `~/.openclaw` is never touched.
+  - `up` runs `migrate-state.sh`, `harden-config.sh`, `sync-machine-agents.sh` and
+    `verify-openclaw-config.sh` against that home, checks the config binds
+    loopback with Ollama on 127.0.0.1, builds the sandbox image, loads the
+    LaunchAgent, and checks `/v1/models` lists every agent of the profile and
+    refuses a call without the token.
+  - The LaunchAgent runs `scripts/native-gateway-run.sh`, which reads only
+    `OPENCLAW_GATEWAY_TOKEN` from `.env` at start: no secret is in the plist.
+  - Agents run sandboxed in Docker. `openclaw-sandbox:bookworm-slim` is built from
+    `docker/sandbox/Dockerfile`, vendored from OpenClaw's source at the pinned
+    release (the npm package names the image but does not ship it).
+  - The browser sidecar publishes CDP on `127.0.0.1:${RE_PORT_BROWSER_CDP:-9222}`
+    only. The image starts Chromium as `wrapped-chromium ${CHROME_CLI}` and proxies
+    its debugging port through nginx on 9223; compose sets
+    `CHROME_CLI=--remote-debugging-port=9222`, without which the proxy answers 502
+    and no gateway, container or native, could attach. `/json/version` returns a
+    port-less `ws://localhost/...`; OpenClaw attaches regardless.
+  - Open WebUI reaches the native gateway at
+    `http://host.docker.internal:<port>/v1` (`OPENWEBUI_OPENAI_BASE_URL`).
+  - **Not done:** a page the Mac serves (Manager, PIM, Open WebUI) cannot be opened
+    in the sidecar yet. The gateway resolves a page's host on the Mac, which does
+    not resolve `host.docker.internal`, and `localhost` in the sidecar is the
+    container. #592 lists the URL translation still needed.
+  - The scripts that generate the native home take the caller's environment over
+    `.env`: `.env` holds the container's values (`OLLAMA_BASE_URL` on
+    host.docker.internal), and sourcing it alone pointed the native gateway there.
+
 ## Which agent corpus matters
 
 **Decided 2026-09-25. Do not re-derive it.**

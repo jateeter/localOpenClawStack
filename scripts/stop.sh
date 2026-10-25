@@ -14,13 +14,21 @@ VOLUMES=false
 for arg in "$@"; do
   case "$arg" in
     --volumes) VOLUMES=true ;;
+    --native) ;;  # accepted for symmetry with start.sh; a loaded native gateway is always stopped
     --help|-h)
-      echo "Usage: $0 [--volumes]"
+      echo "Usage: $0 [--volumes] [--native]"
       echo "  --volumes   also delete openclaw/, openwebui-data/, and browser-config/"
       exit 0 ;;
     *) echo "Unknown argument: $arg"; exit 1 ;;
   esac
 done
+
+# ── Native gateway ────────────────────────────────────────────────────────────
+# Before the containers: it attaches to the browser sidecar (RealityEngine_CI#592).
+if launchctl print "gui/$(id -u)/${OPENCLAW_NATIVE_LABEL:-org.realityengine.openclaw-gateway}" >/dev/null 2>&1; then
+  info "Stopping the native gateway..."
+  "$ROOT_DIR/scripts/native-gateway.sh" down
+fi
 
 # ── Docker services ───────────────────────────────────────────────────────────
 info "Stopping Docker services..."

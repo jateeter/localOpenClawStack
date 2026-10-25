@@ -5,8 +5,13 @@ ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT_DIR"
 
 if [[ -f .env ]]; then
+  # The caller's environment wins over .env: native-gateway.sh passes the native
+  # gateway's values (Ollama on loopback, its port), which .env sets for the
+  # container. Sourcing .env alone overwrote them (2026-10-25).
+  _caller_env="$(export -p)"
   # shellcheck source=/dev/null
   set -a; source .env; set +a
+  eval "$_caller_env"
 fi
 # shellcheck source=lib/oc-config.sh
 source "$ROOT_DIR/scripts/lib/oc-config.sh"
