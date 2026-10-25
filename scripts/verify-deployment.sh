@@ -9,6 +9,27 @@ set -a; source .env; set +a
 fail() { echo "[fail] $*" >&2; exit 1; }
 pass() { echo "[ok]   $*"; }
 
+# container: the gateway is the openclaw-gateway service. native: it is the host's
+# openclaw under the LaunchAgent scripts/native-gateway.sh loads (RealityEngine_CI#592).
+RUNTIME="${OPENCLAW_RUNTIME:-container}"
+NATIVE_HOME="${OPENCLAW_NATIVE_HOME:-$HOME/.realityengine/openclaw}"
+NATIVE_LABEL="${OPENCLAW_NATIVE_LABEL:-org.realityengine.openclaw-gateway}"
+OC_BIN="${OPENCLAW_BIN:-$( [[ -x /opt/homebrew/bin/openclaw ]] && echo /opt/homebrew/bin/openclaw || command -v openclaw || true)}"
+
+# Run `openclaw <args>` where the gateway runs, under a time limit in seconds;
+# exit 124 when the limit is hit, as timeout(1) does.
+oc_run() {
+  local limit="$1" rc=0; shift
+  if [[ "$RUNTIME" == native ]]; then
+    env PATH="$(dirname "$OC_BIN"):$PATH" OPENCLAW_STATE_DIR="$NATIVE_HOME" \
+      perl -e 'alarm shift @ARGV; exec @ARGV or die "exec: $!"' "$limit" "$OC_BIN" "$@" || rc=$?
+    [[ "$rc" == 142 ]] && return 124
+    return "$rc"
+  fi
+  docker compose exec -T openclaw-gateway sh -lc \
+    "chmod 700 \"\$HOME/.openclaw\" && timeout ${limit}s openclaw $*"
+}
+
 [[ "$OPEN_WEBUI_IMAGE" == *@sha256:* ]] || fail "Open WebUI image is not digest-pinned"
 [[ "$BROWSER_IMAGE" == *@sha256:* ]] || fail "Browser image is not digest-pinned"
 [[ "$NODE_IMAGE" == *@sha256:* ]] || fail "Node base image is not digest-pinned"
@@ -34,7 +55,15 @@ fi
 # engines, not from a fixed index (owner rule 2026-10-06).
 python3 "$ROOT_DIR/scripts/verify-agents-match-corpus.py" || fail "OpenClaw agents do not follow the deployed machine corpus"
 
-for service in openclaw-gateway open-webui browser; do
+services=(openclaw-gateway open-webui browser)
+if [[ "$RUNTIME" == native ]]; then
+  services=(open-webui browser)
+  launchctl print "gui/$(id -u)/$NATIVE_LABEL" >/dev/null 2>&1 || fail "the native gateway LaunchAgent $NATIVE_LABEL is not loaded"
+  pass "native gateway LaunchAgent $NATIVE_LABEL is loaded (home $NATIVE_HOME)"
+  [[ -z "$(docker compose ps -q openclaw-gateway 2>/dev/null)" ]] || fail "the openclaw-gateway container is running beside the native gateway"
+  pass "no openclaw-gateway container is running"
+fi
+for service in "${services[@]}"; do
   cid="$(docker compose ps -q "$service")"
   [[ -n "$cid" ]] || fail "$service is not running"
   running_id="$(docker inspect -f '{{.Image}}' "$cid")"
@@ -44,7 +73,7 @@ for service in openclaw-gateway open-webui browser; do
   pass "$service image identity matches ($running_id)"
 done
 
-actual_version="$(docker compose exec -T openclaw-gateway openclaw --version | tr -d '\r')"
+actual_version="$(oc_run 30 --version | tr -d '\r')"
 [[ "$actual_version" == *"$OPENCLAW_VERSION"* ]] || fail "OpenClaw version mismatch: $actual_version"
 pass "OpenClaw runtime is $OPENCLAW_VERSION"
 
@@ -90,8 +119,7 @@ case "${OPENCLAW_AGENT_PROFILE:-full}" in
 esac
 audit_timeout="${OPENCLAW_SECURITY_AUDIT_TIMEOUT:-$default_audit_timeout}"
 audit_rc=0
-audit_json="$(docker compose exec -T -e AUDIT_TIMEOUT="$audit_timeout" openclaw-gateway sh -lc \
-  'chmod 700 "$HOME/.openclaw" && timeout "${AUDIT_TIMEOUT}s" openclaw security audit --json')" || audit_rc=$?
+audit_json="$(oc_run "$audit_timeout" security audit --json)" || audit_rc=$?
 if [[ "$audit_rc" == "124" ]]; then
   fail "OpenClaw security audit timed out after ${audit_timeout}s (profile ${OPENCLAW_AGENT_PROFILE:-full}; set OPENCLAW_SECURITY_AUDIT_TIMEOUT to raise it)"
 elif [[ "$audit_rc" != "0" ]]; then
@@ -104,8 +132,7 @@ audit_info="$(printf '%s' "$audit_json" | jq -r '.summary.info // 0')"
 pass "OpenClaw security audit passed (${audit_critical} critical, ${audit_warn} warn, ${audit_info} info)"
 
 if [[ "${OPENCLAW_DEEP_SECURITY_AUDIT:-false}" == "true" ]]; then
-  docker compose exec -T openclaw-gateway sh -lc \
-    'timeout "${OPENCLAW_DEEP_SECURITY_AUDIT_TIMEOUT:-180}s" openclaw security audit --deep' || \
+  oc_run "${OPENCLAW_DEEP_SECURITY_AUDIT_TIMEOUT:-180}" security audit --deep || \
     fail "OpenClaw deep security audit did not complete successfully"
   pass "OpenClaw deep security audit completed"
 else

@@ -14,19 +14,23 @@ cd "$ROOT_DIR"
 FRESH=false
 UPDATE=false
 PURGE_CACHES=false
+NATIVE="${OPENCLAW_NATIVE:-false}"
 AGENT_PROFILE="${OPENCLAW_AGENT_PROFILE:-full}"
 for arg in "$@"; do
   case "$arg" in
     --fresh) FRESH=true ;;
     --purge-caches) PURGE_CACHES=true ;;
     --update) UPDATE=true ;;
+    --native) NATIVE=true ;;
     --agent-profile=*) AGENT_PROFILE="${arg#*=}" ;;
     --help|-h)
-      echo "Usage: $0 [--fresh] [--purge-caches] [--update] [--agent-profile=NAME]"
+      echo "Usage: $0 [--fresh] [--purge-caches] [--update] [--native] [--agent-profile=NAME]"
       echo "  --fresh           reset application state (openclaw/, browser-config/) before starting"
       echo "  --purge-caches    ALSO drop package caches and volumes — forces Open WebUI to"
       echo "                    re-download its embedding model (~5 min). Rarely wanted."
       echo "  --update          resolve current stable releases and refresh immutable image pins"
+      echo "  --native          run the gateway on the Mac (scripts/native-gateway.sh, a LaunchAgent"
+      echo "                    on 127.0.0.1); Open WebUI and the browser sidecar stay in Docker"
       echo "  --agent-profile   which machine-behavior agents to load (default: full)"
       echo "                      full        the whole corpus (1320 agents)"
       echo "                      regression  only the agents bound to the RealityEngine"
@@ -115,6 +119,50 @@ OPENCLAW_AGENT_INDEX_PATH="$("$ROOT_DIR/scripts/agent-profile.sh" "$AGENT_PROFIL
 export OPENCLAW_AGENT_PROFILE="$AGENT_PROFILE"
 export OPENCLAW_AGENT_INDEX_PATH
 info "Agent profile: $AGENT_PROFILE ($(jq -r '.total' "$OPENCLAW_AGENT_INDEX_PATH") machine agents)"
+
+# ── Native gateway (RealityEngine_CI#592) ─────────────────────────────────────
+# The gateway is the host's openclaw under a LaunchAgent; Docker runs only the
+# browser sidecar (CDP published on loopback) and Open WebUI, which reaches the
+# gateway through host.docker.internal. The container gateway is stopped: it
+# would hold the same port.
+if [[ "$NATIVE" == true ]]; then
+  GW_PORT="${OPENCLAW_GATEWAY_PORT:-18789}"
+  UI_PORT="${OPEN_WEBUI_PORT:-8080}"
+  CDP_PORT="${RE_PORT_BROWSER_CDP:-9222}"
+  docker compose stop openclaw-gateway >/dev/null 2>&1 || true
+  docker compose rm -f openclaw-gateway >/dev/null 2>&1 || true
+  info "Starting the browser sidecar and Open WebUI (Docker) for the native gateway..."
+  OPENWEBUI_OPENAI_BASE_URL="http://host.docker.internal:${GW_PORT}/v1" \
+    docker compose up -d --no-deps browser open-webui
+  for i in $(seq 1 30); do
+    curl -sf -m 3 "http://127.0.0.1:${CDP_PORT}/json/version" >/dev/null 2>&1 && break
+    sleep 2
+  done
+  if curl -sf -m 3 "http://127.0.0.1:${CDP_PORT}/json/version" >/dev/null 2>&1; then
+    ok "browser sidecar CDP on 127.0.0.1:${CDP_PORT}"
+  else
+    warn "browser sidecar CDP did not answer on 127.0.0.1:${CDP_PORT}; the gateway starts without a browser profile"
+  fi
+  "$ROOT_DIR/scripts/native-gateway.sh" up --agent-profile="$AGENT_PROFILE"
+  OPENWEBUI_READY_TIMEOUT="${OPENWEBUI_READY_TIMEOUT:-600}"
+  for i in $(seq 1 $(( OPENWEBUI_READY_TIMEOUT / 3 ))); do
+    [[ "$(curl -so /dev/null -w "%{http_code}" "http://localhost:${UI_PORT}/health" 2>/dev/null || true)" == 200 ]] && break
+    sleep 3
+  done
+  [[ "$(curl -so /dev/null -w "%{http_code}" "http://localhost:${UI_PORT}/health" 2>/dev/null || true)" == 200 ]] || \
+    die "open-webui not ready after ${OPENWEBUI_READY_TIMEOUT}s; check docker compose logs open-webui"
+  ok "open-webui ready"
+  "$ROOT_DIR/scripts/sync-webui-admin.sh" || \
+    warn "sync-webui-admin did not complete — run ./scripts/sync-webui-admin.sh manually if login fails"
+  echo ""
+  echo -e "${GREEN}localOpenClawStack running (native gateway).${NC}"
+  echo "  OpenClaw gateway  →  http://127.0.0.1:${GW_PORT}   (LaunchAgent; scripts/native-gateway.sh status)"
+  echo "  Open WebUI        →  http://localhost:${UI_PORT}"
+  echo "  Stop:  ./scripts/stop.sh --native"
+  echo ""
+  OPENCLAW_RUNTIME=native "$ROOT_DIR/scripts/verify-deployment.sh"
+  exit 0
+fi
 
 # State an older gateway wrote must be migrated, offline, before the pinned one
 # will boot on it (scripts/migrate-state.sh).
