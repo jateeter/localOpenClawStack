@@ -61,10 +61,14 @@ Use the repo's actual scripts when present; Docker Compose state is time-sensiti
   resolve to it.
   - Its format is `agents.entries` keyed by id, `gateway.nodes.commands.deny`,
     `agents.defaults.modelPolicy.allow`, `agents.ownership: "explicit"`, and an
-    agent id of at most 64 characters. **548 of the 1,322 full-corpus ids are
-    longer, so `--agent-profile=full` cannot load**; `sync-machine-agents.sh`
-    refuses them by name. The regression and standard-deployment profiles (longest
-    id 43) are unaffected.
+    agent id of at most 64 characters. 548 of the 1,322 machine-name slugs are
+    longer (#72), so `oc_agent_template.agent_id_for` keeps a slug that fits and
+    cuts a longer one to 55 characters plus `-` and the first 8 hex digits of
+    sha256(machine id) (owner option A, 2026-10-25); `displayName` keeps the full
+    name, and `run_corpus_tests.py` C5.10-C5.13 hold the rule. Engines and PEs
+    address OpenClaw sensors by machine code, not agent id, so the change is
+    local to this repo. `sync-machine-agents.sh` still refuses an invalid id by
+    name.
   - Every script that reads or writes `openclaw.json` goes through
     `scripts/lib/oc-config.sh`: an existing config decides its own format, a fresh
     one takes `OPENCLAW_SCHEMA` (default `entries`; `list` is the pre-2026.9

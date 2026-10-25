@@ -31,6 +31,7 @@ Usage:
 
 from __future__ import annotations
 
+import hashlib
 import json
 import re
 from pathlib import Path
@@ -50,6 +51,26 @@ _ANALYST_MODE = "advise"
 
 def _slug(text: str) -> str:
     return re.sub(r"[^a-z0-9]+", "-", text.lower()).strip("-")
+
+
+# OpenClaw 2026.9+ keys agents by id and refuses one longer than 64 characters
+# ([a-z0-9_][a-z0-9_-]{0,63}). 548 of the 1,322 machine-name slugs were longer
+# (the longest 93), so the full profile could not load (#72). Owner decision
+# 2026-10-25, option A: an id that fits is the slug unchanged; a longer one is
+# its first 55 characters, a hyphen and the first 8 hex digits of the sha256 of
+# the machine id, which is unique across the corpus and stable while the
+# machine id stands. The full name stays in displayName.
+AGENT_ID_MAX = 64
+_AGENT_ID_HASH = 8
+_AGENT_ID_PREFIX = AGENT_ID_MAX - _AGENT_ID_HASH - 1
+
+
+def agent_id_for(name: str, machine_id: str) -> str:
+    slug = _slug(name)
+    if len(slug) <= AGENT_ID_MAX:
+        return slug
+    digest = hashlib.sha256(machine_id.encode("utf-8")).hexdigest()[:_AGENT_ID_HASH]
+    return f"{slug[:_AGENT_ID_PREFIX].rstrip('-')}-{digest}"
 
 
 def _split_anchors(spec: str) -> dict[str, str]:
@@ -319,7 +340,8 @@ def derive(machine_path: Path, cfg: dict[str, Any] | None = None) -> dict[str, A
 
     code = machine_code(machine, metadata, Path(machine_path))
     name = str(machine.get("name") or code)
-    agent_id = _slug(name)
+    machine_id = str(machine.get("id") or Path(machine_path).stem)
+    agent_id = agent_id_for(name, machine_id)
     domain = primary_domain(metadata)
     machine_class = str(metadata.get("machineClass", "signal-monitor"))
 
@@ -381,7 +403,7 @@ def derive(machine_path: Path, cfg: dict[str, Any] | None = None) -> dict[str, A
         "agentId": agent_id,
         "displayName": name,
         "machine": {
-            "id": str(machine.get("id") or Path(machine_path).stem),
+            "id": machine_id,
             "name": name, "code": code, "machineClass": machine_class,
             "domain": domain, "inputRegion": in_region, "outputRegion": out_region,
         },

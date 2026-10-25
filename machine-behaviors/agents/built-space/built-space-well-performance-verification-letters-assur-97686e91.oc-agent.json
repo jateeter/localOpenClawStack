@@ -1,0 +1,359 @@
+{
+  "schemaVersion": "1.0.0",
+  "templateId": "oc-agent-template",
+  "role": "input-analyst",
+  "agentId": "built-space-well-performance-verification-letters-assur-97686e91",
+  "displayName": "Built Space WELL Performance Verification Letters Assurance Tracker",
+  "machine": {
+    "id": "BSX131_performance-verification-letters-assurance-tracker",
+    "name": "Built Space WELL Performance Verification Letters Assurance Tracker",
+    "code": "bsx131_performance_verification_letters_assurance_tracker",
+    "machineClass": "agent-dispatcher",
+    "domain": "built-space",
+    "inputRegion": {
+      "offset": 796,
+      "length": 4
+    },
+    "outputRegion": {
+      "offset": 840,
+      "length": 4
+    }
+  },
+  "openclaw": {
+    "id": "openclaw-xacp",
+    "kind": "acp",
+    "platform": "OpenClaw",
+    "surface": "xACP",
+    "command": "openclaw acp",
+    "gatewayUrl": "ws://127.0.0.1:18789",
+    "sessionKey": "agent:main:main",
+    "targetAgent": "built-space-well-performance-verification-letters-assur-97686e91",
+    "dispatchMode": "accepted-no-wait",
+    "completionMode": "pe-source-mapping",
+    "completionSourceMappingId": "acp-built-space-well-performance-verification-letters-assur-97686e91-input-assessment"
+  },
+  "reasoning": {
+    "objective": "Produce the normalized input vector for \"Built Space WELL Performance Verification Letters Assurance Tracker\" from current observations so RE can evaluate its CES sequences.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"Built Space WELL Performance Verification Letters Assurance Tracker\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Built-Space domain machine for WELL-oriented letters assurance tracker in the performance verification workstream. It monitors architect, engineer, contractor, and owner letters of assurance status and emits AI-triggered outputs for verification, predictive optimization, operations work, and sustained compliant operation.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- health_performance_signal_stable (index 0):\n- evidence_or_policy_current (index 1):\n- maintenance_or_operational_drift_pressure (index 2):\n- occupant_impact_or_wellness_risk (index 3):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Letters Assurance Tracker (AMBER) -> action: dispatch-agent\n- Letters Assurance Tracker (AMBER) -> action: trigger-agent-workflow\n- Letters Assurance Tracker (GREEN) -> action: create-work-order\n- Letters Assurance Tracker (GREEN) -> action: continue-monitoring\n- Letters Assurance Tracker (GREEN) -> action: trigger-agent-workflow",
+    "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
+    "inputAxes": [
+      {
+        "index": 0,
+        "key": "health_performance_signal_stable",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 1,
+        "key": "evidence_or_policy_current",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 2,
+        "key": "maintenance_or_operational_drift_pressure",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 3,
+        "key": "occupant_impact_or_wellness_risk",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      }
+    ],
+    "sequenceCatalog": [
+      {
+        "sequenceId": "bsx-131-verify",
+        "label": "Letters Assurance Tracker",
+        "rag": "AMBER",
+        "outputIndex": 0,
+        "action": "dispatch-agent"
+      },
+      {
+        "sequenceId": "bsx-131-optimize",
+        "label": "Letters Assurance Tracker",
+        "rag": "AMBER",
+        "outputIndex": 1,
+        "action": "trigger-agent-workflow"
+      },
+      {
+        "sequenceId": "bsx-131-work-order",
+        "label": "Letters Assurance Tracker",
+        "rag": "GREEN",
+        "outputIndex": 2,
+        "action": "create-work-order"
+      },
+      {
+        "sequenceId": "bsx-131-compliant",
+        "label": "Letters Assurance Tracker",
+        "rag": "GREEN",
+        "outputIndex": 3,
+        "action": "continue-monitoring"
+      },
+      {
+        "sequenceId": "bsx-131-predictive-24h",
+        "label": "Letters Assurance Tracker",
+        "rag": "GREEN",
+        "outputIndex": 1,
+        "action": "trigger-agent-workflow"
+      }
+    ]
+  },
+  "agentBinding": {
+    "agent": "built-space-well-performance-verification-letters-assur-97686e91",
+    "mode": "advise",
+    "trigger": "bsx131_performance_verification_letters_assurance_tracker-input-assessment",
+    "allowedActions": [
+      "Assess current \"Built Space WELL Performance Verification Letters Assurance Tracker\" state from available observations and write the normalized input vector to the PE input region [796:800] for RE to evaluate."
+    ],
+    "writeBack": {
+      "type": "pe-sensor",
+      "provider": "acp",
+      "sensorId": "acp.openclaw.bsx131_performance_verification_letters_assurance_tracker.input-analyst.assessment",
+      "name": "OpenClaw bsx131_performance_verification_letters_assurance_tracker input-analyst assessment",
+      "region": {
+        "offset": 796,
+        "length": 4
+      },
+      "semantics": [
+        "health_performance_signal_stable",
+        "evidence_or_policy_current",
+        "maintenance_or_operational_drift_pressure",
+        "occupant_impact_or_wellness_risk"
+      ],
+      "ttlMs": 300000,
+      "normalization": "already-normalized-0-1",
+      "ingest": {
+        "endpoint": "/api/integrations/completions",
+        "method": "POST",
+        "triggerPush": false,
+        "compactPush": true
+      },
+      "sourceMapping": {
+        "id": "acp-bsx131_performance_verification_letters_assurance_tracker-input-assessment",
+        "sensorId": "acp.openclaw.bsx131_performance_verification_letters_assurance_tracker.input-analyst.assessment",
+        "name": "OpenClaw bsx131_performance_verification_letters_assurance_tracker input-analyst assessment",
+        "region": {
+          "offset": 796,
+          "length": 4
+        },
+        "ttlMs": 300000
+      }
+    },
+    "autonomyPolicy": {
+      "mode": "advise",
+      "stage": 1,
+      "writeBackType": "pe-sensor",
+      "canWriteBack": true,
+      "canStageActions": false,
+      "canExecuteActions": false,
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "blockedWhenRag": []
+    },
+    "riskControls": {
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "maxAutonomy": "advise",
+      "blockedWhenRag": []
+    }
+  },
+  "responseMapping": {
+    "schemaVersion": "1.0.0",
+    "responseContract": "structured-keys-or-text",
+    "mode": "advise",
+    "fields": [
+      {
+        "semantic": "health_performance_signal_stable",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/health_performance_signal_stable",
+          "responseKey": "health_performance_signal_stable",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "onUnresolved": "divert-to-analysis",
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.bsx131_performance_verification_letters_assurance_tracker.input-analyst.assessment",
+          "region": {
+            "offset": 796,
+            "length": 4
+          },
+          "index": 0
+        }
+      },
+      {
+        "semantic": "evidence_or_policy_current",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/evidence_or_policy_current",
+          "responseKey": "evidence_or_policy_current",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "onUnresolved": "divert-to-analysis",
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.bsx131_performance_verification_letters_assurance_tracker.input-analyst.assessment",
+          "region": {
+            "offset": 796,
+            "length": 4
+          },
+          "index": 1
+        }
+      },
+      {
+        "semantic": "maintenance_or_operational_drift_pressure",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/maintenance_or_operational_drift_pressure",
+          "responseKey": "maintenance_or_operational_drift_pressure",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "onUnresolved": "divert-to-analysis",
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.bsx131_performance_verification_letters_assurance_tracker.input-analyst.assessment",
+          "region": {
+            "offset": 796,
+            "length": 4
+          },
+          "index": 2
+        }
+      },
+      {
+        "semantic": "occupant_impact_or_wellness_risk",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/occupant_impact_or_wellness_risk",
+          "responseKey": "occupant_impact_or_wellness_risk",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "onUnresolved": "divert-to-analysis",
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.bsx131_performance_verification_letters_assurance_tracker.input-analyst.assessment",
+          "region": {
+            "offset": 796,
+            "length": 4
+          },
+          "index": 3
+        }
+      }
+    ]
+  },
+  "diagnostics": {
+    "axisBasis": "openClawProjection",
+    "warnings": [],
+    "inputLength": 4,
+    "sequenceCount": 5
+  }
+}
