@@ -49,7 +49,16 @@ else
   pass "OpenClaw schema gate skipped (machine-behaviors or python3 unavailable)"
 fi
 
-"$ROOT_DIR/scripts/verify-openclaw-config.sh"
+# The config the running gateway reads: the native home's, not <repo>/openclaw.
+# Without this a native run checked the container-era <repo>/openclaw/openclaw.json:
+# a stale one passed in an operator checkout, and a fresh worktree has none
+# (RealityEngine_CI e2-native-rc3-20261025a).
+if [[ "$RUNTIME" == native ]]; then
+  env OPENCLAW_STATE_DIR="$NATIVE_HOME" OPENCLAW_HOME_DIR="$NATIVE_HOME" OPENCLAW_SCHEMA=entries \
+    "$ROOT_DIR/scripts/verify-openclaw-config.sh"
+else
+  "$ROOT_DIR/scripts/verify-openclaw-config.sh"
+fi
 
 # The agents must be the deployed corpus's agents, read from the running
 # engines, not from a fixed index (owner rule 2026-10-06).
