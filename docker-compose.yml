@@ -63,6 +63,15 @@ services:
       OPENAI_API_BASE_URL: ${OPENWEBUI_OPENAI_BASE_URL:-http://openclaw-gateway:18789/v1}
       OPENAI_API_KEY: ${OPENCLAW_GATEWAY_TOKEN}
       OLLAMA_BASE_URL: ${OLLAMA_BASE_URL:-http://host.docker.internal:11434}
+      # Embed through the host Ollama, with the model localAI already requires,
+      # as the release bundle does (RealityEngine_CI#590). The default engine
+      # downloads sentence-transformers/all-MiniLM-L6-v2 from Hugging Face on a
+      # fresh openwebui-data, unauthenticated, before the service is ready: on
+      # 2026-10-25 it sat at 0 of 30 files for 36 minutes and failed the
+      # regression lane's 600s wait (local-clean-20261025b); offline it never
+      # finishes.
+      RAG_EMBEDDING_ENGINE: ollama
+      RAG_EMBEDDING_MODEL: ${OPENWEBUI_EMBED_MODEL:-embeddinggemma-2:270m}
       ENABLE_OPENAI_API: "true"
       WEBUI_AUTH: "true"
       WEBUI_NAME: OpenClaw-WebUI
