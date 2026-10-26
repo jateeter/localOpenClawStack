@@ -92,8 +92,11 @@ resolve_bins() {
   [[ -n "$NODE_BIN" && -x "$NODE_BIN" ]] || die "no node found for $OPENCLAW_BIN"
   BIN_PATH="$(dirname "$NODE_BIN"):$(dirname "$OPENCLAW_BIN"):/usr/bin:/bin:/usr/sbin:/sbin"
   # Docker for the sandboxes. Docker Desktop's CLI is a symlink in one of these.
+  # An `if`, not `[[ ]] &&`: when the last candidate has no docker the loop (and so
+  # this function) would return 1, and under set -e the script exited silently,
+  # before any check or message, on a Mac without ~/.docker/bin/docker.
   for d in /usr/local/bin /opt/homebrew/bin "$HOME/.docker/bin"; do
-    [[ -x "$d/docker" ]] && BIN_PATH="$BIN_PATH:$d"
+    if [[ -x "$d/docker" ]]; then BIN_PATH="$BIN_PATH:$d"; fi
   done
 }
 
