@@ -67,7 +67,7 @@ REG_INDEX="$("$ROOT_DIR/scripts/agent-profile.sh" regression)"
 FIX_INDEX="$("$ROOT_DIR/scripts/agent-profile.sh" "manifest:$FIX")"
 
 echo "agent-profile.sh manifest:<file>"
-check "$(jq .total "$SD_INDEX")" 12 "standard-deployment deploys its own 12 agents, not the regression profile's 15"
+check "$(jq .total "$SD_INDEX")" 12 "standard-deployment deploys its own 12 agents, not the regression profile's 18"
 check "$(jq -r '.agents[].agentId' "$("$ROOT_DIR/scripts/agent-profile.sh" "manifest:$REG")" | sort | tr '\n' ' ')" \
       "$(jq -r '.agents[].agentId' "$REG_INDEX" | sort | tr '\n' ' ')" "the regression manifest yields exactly the regression profile"
 check "$(jq -r .manifest "$SD_INDEX")" "$SD" "the index records the manifest it came from"
@@ -80,7 +80,8 @@ registry "$P1" "$P2" "$P3"
 check "$(verify "$SD_INDEX" | cut -d'|' -f1)" 0 "engines on standard-deployment, OpenClaw on its 12 agents: passes"
 r="$(verify "$REG_INDEX")"
 check "${r%%|*}" 1 "engines on standard-deployment, OpenClaw on the regression profile: fails"
-check "$(grep -c 'not in the deployed corpus 3' <<<"$r")" 1 "and names the 3 agents the deployed corpus does not have"
+extra=$(( $(jq .total "$REG_INDEX") - $(jq .total "$SD_INDEX") ))
+check "$(grep -c "not in the deployed corpus $extra" <<<"$r")" 1 "and names the $extra agents the deployed corpus does not have"
 registry "$P1" "$P2" "$P4"
 r="$(verify "$SD_INDEX")"
 check "${r%%|*}" 1 "engines disagree on the corpus: fails"

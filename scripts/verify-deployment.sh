@@ -118,7 +118,7 @@ login_status="$(curl --silent --max-time 10 --output /dev/null --write-out '%{ht
 pass "WebUI admin credentials authenticate successfully"
 
 # The audit walks every loaded agent, so its duration follows the agent profile.
-# Under `regression` (15 agents) it finishes well inside 45s; under `full`
+# Under `regression` (18 agents) it finishes well inside 45s; under `full`
 # (1,322 agents) it passes clean but takes about two minutes on a loaded host.
 # A fixed 45s budget failed a healthy full-profile start (#51). The profile is
 # exported by start.sh; OPENCLAW_SECURITY_AUDIT_TIMEOUT overrides either default.

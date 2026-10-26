@@ -1,7 +1,7 @@
 # Machine-behavior agents for the RealityEngine regression corpus.
 #
 # GENERATED — do not edit by hand.
-#   source:     RealityEngine_CI/config/regression-corpus.txt (23 entries: 15 agents, 8 excluded by rule)
+#   source:     RealityEngine_CI/config/regression-corpus.txt (26 entries: 18 agents, 8 excluded by rule)
 #   regenerate: ./scripts/generate-regression-profile.py
 #   verify:     ./scripts/generate-regression-profile.py --check
 #
@@ -18,18 +18,21 @@
 # One agentId per line, in corpus order; the trailing comment is the machine
 # it is bound to.
 
-logical-infrastructure-req-ack-handshake     # domains/digital-logic/DLX011_req-ack-handshake.json
-logical-infrastructure-start-busy-done       # domains/digital-logic/DLX017_start-busy-done.json
-logical-infrastructure-watchdog-kick-window  # domains/digital-logic/DLX034_watchdog-kick-window.json
-logical-infrastructure-one-hot-grant         # domains/digital-logic/DLX041_one-hot-grant.json
-dc-memory-alert-flip-flop                    # domains/data-center/DCMemoryAlertFF.json
-dc-network-throttle-flip-flop                # domains/data-center/DCNetworkThrottleFF.json
-openclaw-completion-e2e                      # domains/digital-logic/OpenClawCompletionE2E.json
-document-signing-workflow-monitor            # domains/community-services/DocumentSigningWorkflowMonitor.json
-qualification-verification-monitor           # domains/community-services/QualificationVerificationMonitor.json
-home-transportation-barrier-monitor          # domains/health-personal/HomeTransportationBarrierMonitor.json
-data-center-dcx-001-010-interconnect         # domains/data-center/DataCenterDcx001010Interconnect.json
-digital-logic-dlx-021-030-interconnect       # domains/digital-logic/DigitalLogicDlx021030Interconnect.json
-rs-ring-latch-stage-a                        # domains/digital-logic/RSRingLatchStageA.json
-rs-ring-latch-stage-b                        # domains/digital-logic/RSRingLatchStageB.json
-fall-detection                               # domains/health-personal/FallDetection.json
+logical-infrastructure-req-ack-handshake                          # domains/digital-logic/DLX011_req-ack-handshake.json
+logical-infrastructure-start-busy-done                            # domains/digital-logic/DLX017_start-busy-done.json
+logical-infrastructure-watchdog-kick-window                       # domains/digital-logic/DLX034_watchdog-kick-window.json
+logical-infrastructure-one-hot-grant                              # domains/digital-logic/DLX041_one-hot-grant.json
+dc-memory-alert-flip-flop                                         # domains/data-center/DCMemoryAlertFF.json
+dc-network-throttle-flip-flop                                     # domains/data-center/DCNetworkThrottleFF.json
+openclaw-completion-e2e                                           # domains/digital-logic/OpenClawCompletionE2E.json
+document-signing-workflow-monitor                                 # domains/community-services/DocumentSigningWorkflowMonitor.json
+qualification-verification-monitor                                # domains/community-services/QualificationVerificationMonitor.json
+home-transportation-barrier-monitor                               # domains/health-personal/HomeTransportationBarrierMonitor.json
+data-center-dcx-001-010-interconnect                              # domains/data-center/DataCenterDcx001010Interconnect.json
+digital-logic-dlx-021-030-interconnect                            # domains/digital-logic/DigitalLogicDlx021030Interconnect.json
+rs-ring-latch-stage-a                                             # domains/digital-logic/RSRingLatchStageA.json
+rs-ring-latch-stage-b                                             # domains/digital-logic/RSRingLatchStageB.json
+fall-detection                                                    # domains/health-personal/FallDetection.json
+built-space-well-community-and-hr-emergency-preparednes-93ab427c  # domains/built-space/BSX118_community-and-hr-emergency-preparedness-wellness.json
+community-services-behavioral-health-and-crisis-mobile-be7694f0   # domains/community-services/CSX022_behavioral-health-and-crisis-mobile-crisis-co-response.json
+transportation-fleet-security-and-safety-emergency-detour-safety  # domains/transportation/TFX047_security-and-safety-emergency-detour-safety.json
