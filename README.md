@@ -95,7 +95,7 @@ never blocks on the external agent.
 
 | Variable | Description |
 |---|---|
-| `OPENCLAW_VERSION` | OpenClaw npm package version used to build the gateway image (default: `2026.10.7`; run `./scripts/update-versions.sh` to refresh to the current npm `latest` release) |
+| `OPENCLAW_VERSION` | OpenClaw npm package version used to build the gateway image (default: `2026.10.8`; run `./scripts/update-versions.sh` to refresh to the current npm `latest` release) |
 | `OPENCLAW_GATEWAY_URL` | Base URL for the OpenClaw gateway (e.g. `http://localhost:18789`) |
 | `ACP_SESSION_KEY` | Shared secret used when dispatching to the gateway |
 
