@@ -163,3 +163,27 @@ def test_typed_eligibility_renderer_uses_pinned_facts_and_keeps_missing_profile_
     assert revision["content"]["conclusion"] == "ELIGIBLE_SUBJECT_TO_REVIEW"
     assert revision["content"]["publicMarkets"] is None
     assert "publicMarkets" in revision["content"]["unresolved"]
+
+
+@pytest.mark.parametrize("control,section,facts,expected", [
+    ("version-3-period-applicability", "A", dict(edition="IFRS_FOR_SMES_2025_THIRD_EDITION", annualPeriod=True, periodStart="2027-01-01", periodEnd="2027-12-31"), "EFFECTIVE_PERIOD_SUBJECT_TO_REVIEW"),
+    ("section-2-recognition-screen", "02", dict(element="asset", specificSectionApplies=False, definitionMet=True, relevantInformation=True, faithfulRepresentation=True, uncertaintyAssessed=True), "GENERAL_RECOGNITION_SCREEN_PASSED_SUBJECT_TO_REVIEW"),
+    ("section-2-substance-screen", "02", dict(legalFormDiffersFromSubstance=True, substanceRepresented=True, faithfulRepresentationAssessed=True), "SUBSTANCE_SCREEN_PASSED_SUBJECT_TO_REVIEW"),
+])
+def test_foundation_calculation_requires_matching_source_scope(service, control, section, facts, expected):
+    # Synthetic protocol proof only: these passages are not normative source receipts.
+    context = {**CONTEXT, "factsByCase": {"foundation": {"control": control, "facts": {**facts, "evidenceRefs": ["synthetic:record"]}}}}
+    call(service, "event", {"event": dict(type="period-opened", entityId=context["entityId"], period=context["period"]), "applicableAssetTypeIds": ["SOURCE-REGISTER"]}, principal(service, role="operator"), context=context)
+    args = dict(caseId="foundation", interactionId="fixture-interaction")
+    with pytest.raises(ValueError, match="source scope"):
+        call(service, "calculate", args, context=context)
+    def transport(request):
+        receipt = rag_transport(request).json()
+        receipt["request"]["sectionId"] = section
+        receipt["passages"][0]["sectionId"] = section
+        return httpx.Response(200, json=receipt)
+    service.http = httpx.Client(transport=httpx.MockTransport(transport))
+    result = call(service, "calculate", args, context=context)["result"]
+    assert result["determination"]["decision"] == expected
+    assert result["reviewRequired"] is True
+    assert result["nativeProjection"] == "NOT_AUTOMATIC"
