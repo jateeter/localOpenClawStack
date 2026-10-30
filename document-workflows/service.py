@@ -303,30 +303,48 @@ class WorkflowService:
             elif op == "draft":
                 if aid not in self.store._read(applicability_key, []):
                     raise ValueError("Asset applicability has not been operator-assessed")
+                if "typedProducerReceipt" in args["content"]:
+                    raise ValueError("Typed producer provenance is server-owned; use draft-from-case")
                 validate_quantities(args["content"])
                 result = self.store.draft(c, aid, args["content"], args["evidenceRefs"], args.get("expectedRevision", 0), args.get("changeReason", ""))
             elif op == "draft-from-case":
-                if aid != "ELIGIBILITY-MEMO" or aid not in self.store._read(applicability_key, []):
-                    raise ValueError("Only an applicable eligibility memo supports this typed renderer")
+                reporting_targets = {"DIVIDEND-REGISTER": "section-6-dividend-note", "FINANCING-RECONCILIATION": "section-7-financing-reconciliation", "SUPPLIER-FINANCE-NOTE": "section-7-supplier-finance-note"}
+                if aid not in {"ELIGIBILITY-MEMO", *reporting_targets} or aid not in self.store._read(applicability_key, []):
+                    raise ValueError("Applicable supported typed document required")
                 case = c.get("factsByCase", {}).get(args["caseId"])
-                if not case or case["control"] != "section-1-eligibility":
-                    raise ValueError("An operator-pinned eligibility case is required")
+                expected_control = reporting_targets.get(aid, "section-1-eligibility")
+                if not case or case["control"] != expected_control:
+                    raise ValueError("A matching operator-pinned typed case is required")
                 refs = case["facts"].get("evidenceRefs", [])
                 if not refs or not set(refs) <= set(c.get("evidenceRefAllowlist", [])):
                     raise ValueError("Case evidence is outside this entity/period")
                 receipt = self.verify_rag(c, args["interactionId"])
-                if receipt["request"].get("sectionId") != "01" or any(p.get("sectionId") != "01" for p in receipt["passages"]):
-                    raise ValueError("Eligibility requires Section 1 source context")
                 spec = importlib.util.spec_from_file_location("ifrs_controls", self.assets / "tools/accounting_controls.py")
                 controls = importlib.util.module_from_spec(spec); spec.loader.exec_module(controls)
+                section = controls.source_section(case["control"], case["facts"])
+                if receipt["request"].get("sectionId") != section or any(p.get("sectionId") != section for p in receipt["passages"]):
+                    raise ValueError("Typed document source scope does not match the control")
                 determination = controls.determine(case["control"], case["facts"])
                 records = [r for r in c.get("evidenceRecords", []) if r.get("recordId") in refs]
                 if any(r.get("entityId") != c["entityId"] or r.get("period") != c["period"] for r in records):
                     raise ValueError("Record scope differs from the canonical document scope")
-                profile = next((r["profile"] for r in records if isinstance(r.get("profile"), dict)), {})
-                content = {key: profile.get(key) for key in self.store.catalog[aid]["requiredFields"]}
-                content["conclusion"] = determination.get("decision")
-                content["advisoryDetermination"] = determination
+                if aid in reporting_targets:
+                    if case["facts"].get("period") != c["period"] or set(refs) != {r.get("recordId") for r in records}:
+                        raise ValueError("Reporting requires complete scoped supporting record bindings")
+                    if determination.get("status") != "ADVISORY" or determination.get("documentAssetTypeId") != aid:
+                        raise ValueError("Unresolved reporting facts cannot produce a financial draft")
+                    content = dict(determination["documentContent"])
+                    for field in self.store.catalog[aid]["requiredFields"]:
+                        content.setdefault(field, None)
+                    content["advisoryDetermination"] = {k: v for k, v in determination.items() if k != "documentContent"}
+                    content["typedProducerReceipt"] = dict(caseId=args["caseId"], control=case["control"], sourceInteractionId=receipt["interactionId"],
+                        implementationSHA256=hashlib.sha256((self.assets / "tools/reporting_controls.py").read_bytes()).hexdigest(), entityId=c["entityId"], period=c["period"], evidenceClass=c["evidenceClass"])
+                    validate_quantities(content)
+                else:
+                    profile = next((r["profile"] for r in records if isinstance(r.get("profile"), dict)), {})
+                    content = {key: profile.get(key) for key in self.store.catalog[aid]["requiredFields"]}
+                    content["conclusion"] = determination.get("decision")
+                    content["advisoryDetermination"] = determination
                 content["sourceInteractionId"] = receipt["interactionId"]
                 content["unresolved"] = [key for key in self.store.catalog[aid]["requiredFields"] if content[key] is None]
                 result = self.store.draft(c, aid, content, refs + [receipt["interactionId"]], args["expectedRevision"], args.get("changeReason", ""))
@@ -343,6 +361,9 @@ class WorkflowService:
                 section = controls.source_section(case["control"], case["facts"])
                 if not section or receipt["request"].get("sectionId") != section or any(p.get("sectionId") != section for p in receipt["passages"]):
                     raise ValueError("Calculation source scope does not match the control")
+                reporting_controls = {"section-6-dividend-note", "section-7-financing-reconciliation", "section-7-supplier-finance-note", "section-8-note-structure-screen"}
+                if case["control"] in reporting_controls and case["facts"].get("period") != c["period"]:
+                    raise ValueError("Reporting case period differs from current context")
                 determination = controls.determine(case["control"], case["facts"])
                 compliance_hash = None
                 if case["control"] == "section-3-compliance-evidence-screen":
@@ -355,6 +376,7 @@ class WorkflowService:
                     compliance_hash = hashlib.sha256(path.read_bytes()).hexdigest()
                 result = {"caseId": args["caseId"], "determination": determination,
                           "canonicalEvidenceImplementationSHA256": compliance_hash,
+                          "reportingImplementationSHA256": hashlib.sha256((self.assets / "tools/reporting_controls.py").read_bytes()).hexdigest() if case["control"] in reporting_controls else None,
                           "sourceInteractionId": receipt["interactionId"], "evidenceClass": c.get("evidenceClass", "synthetic"),
                           "controlImplementationSHA256": hashlib.sha256((self.assets / "tools/accounting_controls.py").read_bytes()).hexdigest(),
                           "reviewRequired": True, "nativeProjection": "NOT_AUTOMATIC"}

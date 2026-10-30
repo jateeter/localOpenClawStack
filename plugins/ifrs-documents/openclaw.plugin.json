@@ -19,7 +19,8 @@
       "ifrs_contribution_resolve",
       "ifrs_observation_assess",
       "ifrs_assessment_resolve",
-      "ifrs_eligibility_draft"
+      "ifrs_eligibility_draft",
+      "ifrs_reporting_draft"
     ]
   },
   "toolMetadata": {
@@ -60,6 +61,9 @@
       "optional": true
     },
     "ifrs_eligibility_draft": {
+      "optional": true
+    },
+    "ifrs_reporting_draft": {
       "optional": true
     }
   },

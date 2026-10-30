@@ -28,6 +28,9 @@ test('trusted agent binding supplies credential and scope, never model arguments
   await explicit.find(tool => tool.name === 'ifrs_document_inspect').execute('read-2', {assetTypeId: 'SOURCE-REGISTER'});
   assert.deepEqual(JSON.parse(captured.body).arguments, {assetTypeId: 'SOURCE-REGISTER'});
   assert.equal(JSON.parse(captured.body).operation, 'inspect');
+  await explicit.find(tool => tool.name === 'ifrs_reporting_draft').execute('report-3', {assetTypeId: 'DIVIDEND-REGISTER', caseId: 'synthetic-case', interactionId: 'synthetic-source', expectedRevision: 0});
+  assert.equal(JSON.parse(captured.body).arguments.assetTypeId, 'DIVIDEND-REGISTER');
+  assert.equal(JSON.parse(captured.body).operation, 'draft-from-case');
   assert(!toolNames.some(name => /approve|release|posting/.test(name)));
   await assert.rejects(tool.execute('call-2', {operation: 'approve', arguments: {}}));
   await assert.rejects(tool.execute('call-3', {operation: 'inspect', arguments: {}, context: {entityId: 'other'}}));

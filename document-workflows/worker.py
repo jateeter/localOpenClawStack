@@ -55,6 +55,19 @@ def dispatch_once(config, client=None, limit=1, task_ids=None):
                     source = command("retrieve", {"domain": "ifrs-accounting", "documentRole": "standard_source", "edition": "February 2025 third edition", "sectionId": "01", "question": "SME eligibility, public accountability and jurisdictional permission", "limit": 4}, route["token"])
                     for case_id in facts:
                         calculations.append(command("calculate", {"caseId": case_id, "interactionId": source["interactionId"]}, route["token"])["result"])
+                reporting_types = {"DIVIDEND-REGISTER": ("section-6-dividend-note", "06"), "FINANCING-RECONCILIATION": ("section-7-financing-reconciliation", "07"), "SUPPLIER-FINANCE-NOTE": ("section-7-supplier-finance-note", "07")}
+                reporting_case = None
+                if aid in reporting_types:
+                    control, section = reporting_types[aid]
+                    facts = {key: value for key, value in facts.items() if value["control"] == control and (not route.get("caseId") or key == route["caseId"])}
+                    source = command("retrieve", {"domain": "ifrs-accounting", "documentRole": "standard_source", "edition": "February 2025 third edition", "sectionId": section, "question": "Return the required reporting and disclosure source context for " + aid, "limit": 4}, route["token"])
+                    for case_id in facts:
+                        calculation = command("calculate", {"caseId": case_id, "interactionId": source["interactionId"]}, route["token"])["result"]
+                        calculations.append(calculation)
+                        if calculation["determination"].get("status") == "ADVISORY" and calculation["determination"].get("documentAssetTypeId") == aid and reporting_case is None:
+                            reporting_case = case_id
+                    if reporting_case is None:
+                        raise ValueError("No resolved scoped reporting case; financial facts must remain unresolved")
                 prompt = ("Execute this document task now; do not merely describe work or wait for another agent. "
                           "Use ifrs_document_draft to persist an owned DRAFT. First call ifrs_document_resource with "
                           + json.dumps({"assetTypeId": aid})
@@ -75,6 +88,10 @@ def dispatch_once(config, client=None, limit=1, task_ids=None):
                               + json.dumps({"caseId": next(iter(facts)), "interactionId": source["interactionId"], "expectedRevision": before["head"]["revision"] if before["head"] else 0, "changeReason": "Render current operator-pinned eligibility case"})
                               + ". This tool computes the advisory result from the pinned facts and verified source and renders the owned template. Do not write free-form financial facts, invent a hash, or approve the draft. Report only the actual canonical revision and hash returned by the tool. "
                               + json.dumps({"taskId": task["taskId"], "entityId": config["context"]["entityId"], "period": config["context"]["period"], "evidenceClass": config["context"].get("evidenceClass"), "advisoryDetermination": calculations}))
+                if reporting_case:
+                    prompt = ("Execute this scoped reporting task now. Call ifrs_reporting_draft with exactly these parameters: "
+                              + json.dumps({"assetTypeId": aid, "caseId": reporting_case, "interactionId": source["interactionId"], "expectedRevision": before["head"]["revision"] if before["head"] else 0, "changeReason": "Render current operator-pinned reporting case"})
+                              + ". The server computes decimal financial data and emits an owned DRAFT with server-only provenance. Do not use generic draft, invent financial content, approve, post or release. Report the actual revision/hash returned.")
                 response = client.post(config["gatewayURL"].rstrip("/") + "/v1/chat/completions", headers={"Authorization": "Bearer " + config["gatewayToken"]},
                                        json={"model": "openclaw:" + route["agentId"], "user": "ifrs-document-task-" + lease, "stream": False,
                                              "messages": [{"role": "user", "content": prompt}]})
@@ -82,6 +99,11 @@ def dispatch_once(config, client=None, limit=1, task_ids=None):
                 after = command("inspect", {"assetTypeId": aid}, route["token"])
                 head = after["head"]
                 changed = head is not None and head != before["head"]
+                if reporting_case and changed:
+                    proof = (after.get("revision") or {}).get("content", {}).get("typedProducerReceipt", {})
+                    if head.get("status") != "DRAFT" or proof.get("caseId") != reporting_case or proof.get("sourceInteractionId") != source["interactionId"]:
+                        raise ValueError("Changed draft lacks the exact server-owned typed reporting provenance")
+
                 attempt.update(status="ARTIFACT_OBSERVED_REVIEW_REQUIRED" if changed else "UNRESOLVED_NO_ARTIFACT_CHANGE",
                                headBefore=before["head"], headAfter=head, gatewayObservation=response.json())
                 if task["action"] == "ASSESS_DOCUMENT_IMPACT":
