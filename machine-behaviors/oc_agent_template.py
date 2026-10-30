@@ -396,7 +396,9 @@ def derive(machine_path: Path, cfg: dict[str, Any] | None = None) -> dict[str, A
     response_mapping = _response_mapping(axes, sensor_id, region,
                                          as_object(metadata.get("sensorNormalization")))
 
+    from document_binding import derive as derive_document_binding
     return {
+        **derive_document_binding(machine_path, metadata),
         "schemaVersion": "1.0.0",
         "templateId": "oc-agent-template",
         "role": "input-analyst",

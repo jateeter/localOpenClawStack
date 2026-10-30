@@ -17,6 +17,7 @@ This repo provides the local OpenClaw ACP/xACP gateway and Open WebUI stack used
 - `scripts/`: start/stop/bootstrap and validation helpers.
 - `machine-behaviors/agents/`: generated input-analyst agent specs, one per corpus machine except the five arbitration conformance fixtures, plus `INDEX.json` (whose `provenance` records the corpus fingerprint they were derived from). Regenerate with `python3 machine-behaviors/materialize_agents.py --fresh` whenever the machine corpus changes; see `machine-behaviors/OC_AGENT_TEMPLATE.md` §8.
 - `machine-behaviors/agents/profiles/`: agent profiles — which subset of the corpus a deployment loads.
+- IFRS candidate: `document-workflows/service.py` owns transactional document heads, revisions, review boundaries and task/contribution outbox; `worker.py` dispatches leased work in fresh gateway sessions. `plugins/ifrs-documents` exposes the separately authorized document tool channel. `scripts/configure-ifrs-workflows.py` materializes private scoped credentials/configuration without changing a running gateway. The existing advise-only numeric PE channel is unchanged; see `document-workflows/README.md`.
 - `browser-config/`: browser/OpenWebUI runtime configuration.
 - Compose files: local gateway, Open WebUI, and supporting containers.
 
