@@ -22,6 +22,6 @@ One input-analyst agent per machine (1547 total), under `agents/<domain>/`.
 
 axis grounding: inputSemantics=364, openClawProjection=1183
 
-Conforms to: RealityEngine_Machines corpus-exit-v2.0 (docs/CORPUS_EXIT_CRITERIA.md §3.7). Corpus: 1552 machines, `sha256:c1d56cda2aca3e48adfb2ef7e9ede5e67c7815312cd6397de7902526dc77fbc1`.
+Conforms to: RealityEngine_Machines corpus-exit-v2.0 (docs/CORPUS_EXIT_CRITERIA.md §3.7). Corpus: 1552 machines, `sha256:70755eaeb21f67bbbc79c76ca56d415f2287538118519b50020cc5991028304b`.
 
 Regenerate: `python3 materialize_agents.py --fresh`.

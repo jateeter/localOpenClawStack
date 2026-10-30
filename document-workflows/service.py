@@ -340,10 +340,21 @@ class WorkflowService:
                 if not case["facts"].get("evidenceRefs") or not set(case["facts"]["evidenceRefs"]) <= set(c.get("evidenceRefAllowlist", [])):
                     raise ValueError("Calculation evidence is outside this entity/period")
                 receipt = self.verify_rag(c, args["interactionId"])
-                section = {"section-1-eligibility": "01", "section-23-contract-cost": "23", "trial-balance": "03", "version-3-period-applicability": "A", "section-2-recognition-screen": "02", "section-2-substance-screen": "02", "section-1-fiduciary-screen": "01", "section-2-undue-cost-screen": "02", "section-12-bid-ask-screen": "12", "section-18-useful-life-screen": "18", "section-19-goodwill-life-screen": "19", "section-28-actuarial-policy-screen": "28"}.get(case["control"])
+                section = {"section-1-eligibility": "01", "section-23-contract-cost": "23", "trial-balance": "03", "version-3-period-applicability": "A", "section-2-recognition-screen": "02", "section-2-substance-screen": "02", "section-1-fiduciary-screen": "01", "section-2-undue-cost-screen": "02", "section-12-bid-ask-screen": "12", "section-18-useful-life-screen": "18", "section-19-goodwill-life-screen": "19", "section-28-actuarial-policy-screen": "28", "section-3-compliance-evidence-screen": "03", "section-20-classification-screen": "20", "section-20-finance-initial-measurement": "20"}.get(case["control"])
                 if not section or receipt["request"].get("sectionId") != section or any(p.get("sectionId") != section for p in receipt["passages"]):
                     raise ValueError("Calculation source scope does not match the control")
-                result = {"caseId": args["caseId"], "determination": controls.determine(case["control"], case["facts"]),
+                determination = controls.determine(case["control"], case["facts"])
+                compliance_hash = None
+                if case["control"] == "section-3-compliance-evidence-screen":
+                    path = self.assets / "tools/compliance_evidence.py"
+                    spec = importlib.util.spec_from_file_location("ifrs_compliance", path)
+                    module = importlib.util.module_from_spec(spec); spec.loader.exec_module(module)
+                    determination = module.assess(self.store, self.rules, c,
+                        json.loads((self.assets / "source-requirements.json").read_text()),
+                        json.loads((self.assets / "document-asset-catalog.json").read_text()))
+                    compliance_hash = hashlib.sha256(path.read_bytes()).hexdigest()
+                result = {"caseId": args["caseId"], "determination": determination,
+                          "canonicalEvidenceImplementationSHA256": compliance_hash,
                           "sourceInteractionId": receipt["interactionId"], "evidenceClass": c.get("evidenceClass", "synthetic"),
                           "controlImplementationSHA256": hashlib.sha256((self.assets / "tools/accounting_controls.py").read_bytes()).hexdigest(),
                           "reviewRequired": True, "nativeProjection": "NOT_AUTOMATIC"}

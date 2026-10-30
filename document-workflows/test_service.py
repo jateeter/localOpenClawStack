@@ -189,9 +189,9 @@ def test_foundation_calculation_requires_matching_source_scope(service, control,
     assert result["nativeProjection"] == "NOT_AUTOMATIC"
 
 
-@pytest.mark.parametrize("case", json.loads((ASSETS / "acceptance/synthetic/policy-cases.json").read_text())["cases"], ids=lambda c: c["caseId"])
+@pytest.mark.parametrize("case", (json.loads((ASSETS / "acceptance/synthetic/policy-cases.json").read_text())["cases"] + json.loads((ASSETS / "acceptance/synthetic/lease-compliance-cases.json").read_text())["cases"]), ids=lambda c: c["caseId"])
 def test_policy_calculation_alternatives_use_scoped_receipts(service, case):
-    context = {**CONTEXT, "evidenceRefAllowlist": CONTEXT["evidenceRefAllowlist"] + ["SYNTHETIC-POLICY-RECORD"],
+    context = {**CONTEXT, "evidenceRefAllowlist": CONTEXT["evidenceRefAllowlist"] + ["SYNTHETIC-POLICY-RECORD", "SYNTHETIC-LEASE-RECORD"],
                "factsByCase": {case["caseId"]: {"control": case["control"], "facts": case["facts"]}}}
     call(service, "event", {"event": dict(type="period-opened", entityId=context["entityId"], period=context["period"]), "applicableAssetTypeIds": ["SOURCE-REGISTER"]}, principal(service, role="operator"), context=context)
     def transport(section):
@@ -202,7 +202,7 @@ def test_policy_calculation_alternatives_use_scoped_receipts(service, case):
             return httpx.Response(200, json=receipt)
         return httpx.MockTransport(respond)
     args = dict(caseId=case["caseId"], interactionId="fixture-interaction")
-    service.http = httpx.Client(transport=transport("03"))
+    service.http = httpx.Client(transport=transport("01" if case["sourceSection"] == "03" else "03"))
     with pytest.raises(ValueError, match="source scope"):
         call(service, "calculate", args, context=context)
     service.http = httpx.Client(transport=transport(case["sourceSection"]))
