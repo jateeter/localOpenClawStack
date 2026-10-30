@@ -70,6 +70,11 @@ def dispatch_once(config, client=None, limit=1, task_ids=None):
                                         "supportingRecords": [record for record in config["context"].get("evidenceRecords", []) if record["recordId"] in {ref for case in facts.values() for ref in case["facts"].get("evidenceRefs", [])}],
                                         "verifiedAdvisoryDeterminations": calculations,
                                         "evidenceRefAllowlist": config["context"].get("evidenceRefAllowlist", []), "headBefore": before["head"]}))
+                if aid == "ELIGIBILITY-MEMO" and calculations:
+                    prompt = ("Execute this scoped document task now. Call ifrs_eligibility_draft with exactly these parameters: "
+                              + json.dumps({"caseId": next(iter(facts)), "interactionId": source["interactionId"], "expectedRevision": before["head"]["revision"] if before["head"] else 0, "changeReason": "Render current operator-pinned eligibility case"})
+                              + ". This tool computes the advisory result from the pinned facts and verified source and renders the owned template. Do not write free-form financial facts, invent a hash, or approve the draft. Report only the actual canonical revision and hash returned by the tool. "
+                              + json.dumps({"taskId": task["taskId"], "entityId": config["context"]["entityId"], "period": config["context"]["period"], "evidenceClass": config["context"].get("evidenceClass"), "advisoryDetermination": calculations}))
                 response = client.post(config["gatewayURL"].rstrip("/") + "/v1/chat/completions", headers={"Authorization": "Bearer " + config["gatewayToken"]},
                                        json={"model": "openclaw:" + route["agentId"], "user": "ifrs-document-task-" + lease, "stream": False,
                                              "messages": [{"role": "user", "content": prompt}]})

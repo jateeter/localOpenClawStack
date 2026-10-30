@@ -189,8 +189,8 @@ class WorkflowService:
             references = {d["assetTypeId"] for d in m["metadata"]["documentAssetWorkflow"]["duties"]} | set(m["metadata"].get("documentStewardship", []))
             owned = {aid for aid, asset in self.store.catalog.items() if asset["familyId"] == family and aid in references}
             aid = args.get("assetTypeId")
-            allowed = {"inspect", "tasks", "retrieve", "calculate", "resource", "observe", "contribute", "resolve-contribution", "draft", "request-review", "resolve-assessment"}
-            if op not in allowed or (op in {"draft", "request-review"} and aid not in owned):
+            allowed = {"inspect", "tasks", "retrieve", "calculate", "resource", "observe", "contribute", "resolve-contribution", "draft", "draft-from-case", "request-review", "resolve-assessment"}
+            if op not in allowed or (op in {"draft", "draft-from-case", "request-review"} and aid not in owned):
                 raise PermissionError("Operation or asset is outside agent document binding")
             if op == "resolve-assessment":
                 task = self.store._read(self.store.root / "outbox.json", {}).get(args["taskId"], {})
@@ -305,6 +305,31 @@ class WorkflowService:
                     raise ValueError("Asset applicability has not been operator-assessed")
                 validate_quantities(args["content"])
                 result = self.store.draft(c, aid, args["content"], args["evidenceRefs"], args.get("expectedRevision", 0), args.get("changeReason", ""))
+            elif op == "draft-from-case":
+                if aid != "ELIGIBILITY-MEMO" or aid not in self.store._read(applicability_key, []):
+                    raise ValueError("Only an applicable eligibility memo supports this typed renderer")
+                case = c.get("factsByCase", {}).get(args["caseId"])
+                if not case or case["control"] != "section-1-eligibility":
+                    raise ValueError("An operator-pinned eligibility case is required")
+                refs = case["facts"].get("evidenceRefs", [])
+                if not refs or not set(refs) <= set(c.get("evidenceRefAllowlist", [])):
+                    raise ValueError("Case evidence is outside this entity/period")
+                receipt = self.verify_rag(c, args["interactionId"])
+                if receipt["request"].get("sectionId") != "01" or any(p.get("sectionId") != "01" for p in receipt["passages"]):
+                    raise ValueError("Eligibility requires Section 1 source context")
+                spec = importlib.util.spec_from_file_location("ifrs_controls", self.assets / "tools/accounting_controls.py")
+                controls = importlib.util.module_from_spec(spec); spec.loader.exec_module(controls)
+                determination = controls.determine(case["control"], case["facts"])
+                records = [r for r in c.get("evidenceRecords", []) if r.get("recordId") in refs]
+                if any(r.get("entityId") != c["entityId"] or r.get("period") != c["period"] for r in records):
+                    raise ValueError("Record scope differs from the canonical document scope")
+                profile = next((r["profile"] for r in records if isinstance(r.get("profile"), dict)), {})
+                content = {key: profile.get(key) for key in self.store.catalog[aid]["requiredFields"]}
+                content["conclusion"] = determination.get("decision")
+                content["advisoryDetermination"] = determination
+                content["sourceInteractionId"] = receipt["interactionId"]
+                content["unresolved"] = [key for key in self.store.catalog[aid]["requiredFields"] if content[key] is None]
+                result = self.store.draft(c, aid, content, refs + [receipt["interactionId"]], args["expectedRevision"], args.get("changeReason", ""))
             elif op == "calculate":
                 spec = importlib.util.spec_from_file_location("ifrs_controls", self.assets / "tools/accounting_controls.py")
                 controls = importlib.util.module_from_spec(spec)
@@ -393,9 +418,9 @@ class WorkflowService:
                 result = contribution
             else:
                 raise PermissionError("Unknown/forbidden document operation")
-            if op in {"draft", "approve", "reject"}:
+            if op in {"draft", "draft-from-case", "approve", "reject"}:
                 self.store.reconcile_event(c, {"type": "period-close-requested", "entityId": c["entityId"], "period": c["period"], "eventId": command.dispatchId}, self.store._read(applicability_key, []))
-            if op in {"event", "draft", "approve", "reject"}:
+            if op in {"event", "draft", "draft-from-case", "approve", "reject"}:
                 for path_key, body in list(db.execute("SELECT key,body FROM objects WHERE key LIKE 'contributions/%'")):
                     item = json.loads(body)
                     if item["entityId"] == c["entityId"] and item["period"] == c["period"] and item["status"] == "OPEN" and item["inputFingerprint"] != self.rules.input_fingerprint(c, self.store._upstream(c, item["assetTypeId"])):

@@ -1,6 +1,6 @@
 import fs from 'node:fs';
 
-const operations = ['inspect', 'tasks', 'retrieve', 'calculate', 'resource', 'observe', 'contribute', 'resolve-contribution', 'draft', 'request-review', 'resolve-assessment'];
+const operations = ['inspect', 'tasks', 'retrieve', 'calculate', 'resource', 'observe', 'contribute', 'resolve-contribution', 'draft', 'draft-from-case', 'request-review', 'resolve-assessment'];
 
 export function toolFor(context, configurationFile, fetcher = fetch) {
   if (!context.agentId || !configurationFile) return null;
@@ -52,6 +52,7 @@ const blueprints = [
   ['ifrs_document_resource', 'resource', 'Read the template, required fields and available source controls for one document type. Runbook/control text is fetched explicitly.', {...asset, resourceKind: {enum: ['template', 'runbook', 'controls']}, controlIds: {type: 'array', items: text}}, ['assetTypeId']],
   ['ifrs_source_retrieve', 'retrieve', 'Retrieve version-3 standard passages with hashes and a durable interactionId. A question is required; sectionId narrows the actual search. No engine writes.', {question: text, sectionId: text, documentId: text, documentRole: {enum: ['standard_source', 'derived_review', 'workflow_guidance']}, limit: {type: 'integer', minimum: 1, maximum: 20}}, ['question']],
   ['ifrs_document_draft', 'draft', 'Persist a DRAFT for an owned type. Supply current expectedRevision (0 if no head), a content object and permitted evidence references. Keep missing fields null/unresolved. This never approves or releases.', {...asset, ...evidence, evidenceClass: {enum: ['synthetic', 'actual']}, content: {type: 'object'}, expectedRevision: {type: 'integer', minimum: 0}, changeReason: {type: 'string'}}, ['assetTypeId', 'content', 'evidenceRefs', 'expectedRevision']],
+  ['ifrs_eligibility_draft', 'draft-from-case', 'Render an eligibility DRAFT from an operator-pinned case and verified Section 1 interactionId. The server computes the advisory result and copies scoped supporting records; do not supply a conclusion or fabricated content. Missing data stays unresolved. This never approves.', {caseId: text, interactionId: text, expectedRevision: {type: 'integer', minimum: 0}, changeReason: {type: 'string'}}, ['caseId', 'interactionId', 'expectedRevision']],
   ['ifrs_document_tasks', 'tasks', 'Read current owned document tasks and incoming contributions for the configured entity/period.', {}, []],
   ['ifrs_accounting_calculate', 'calculate', 'Run a declared advisory control using operator-pinned case facts and a verified standard-source interactionId. Does not project native tokens or approve accounting.', {caseId: text, interactionId: text}, ['caseId', 'interactionId']],
   ['ifrs_document_request_review', 'request-review', 'Submit the exact current draft revision to an independent reviewer. This is not approval.', {...asset, expectedRevision: {type: 'integer', minimum: 1}}, ['assetTypeId', 'expectedRevision']],
@@ -69,7 +70,7 @@ export function toolsFor(context, configurationFile, fetcher = fetch) {
   return blueprints.map(([name, operation, description, properties, required]) => ({
     name, description, parameters: {type: 'object', additionalProperties: false, properties, required},
     execute(callId, parameters) {
-      const args = operation === 'retrieve' ? {domain: 'ifrs-accounting', documentRole: 'standard_source', edition: 'February 2025 third edition', ...parameters} : parameters;
+      const args = operation === 'retrieve' ? {domain: 'ifrs-accounting', documentRole: 'standard_source', edition: 'February 2025 third edition', ...parameters} : operation === 'draft-from-case' ? {...parameters, assetTypeId: 'ELIGIBILITY-MEMO'} : parameters;
       return boundary.execute(callId, {operation, arguments: args});
     },
   }));

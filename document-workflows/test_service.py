@@ -21,7 +21,7 @@ PASSAGE = dict(chunkId="fixture-chunk", text=TEXT, textSHA256=hashlib.sha256(TEX
 
 
 def rag_transport(request):
-    return httpx.Response(200, json=dict(interactionId="fixture-interaction", indexSnapshot="fixture-index", sourceFingerprint="fixture-source", request=dict(domain="ifrs-accounting", documentRole="standard_source", question="fixture", edition="February 2025 third edition"), passages=[PASSAGE]))
+    return httpx.Response(200, json=dict(interactionId="fixture-interaction", indexSnapshot="fixture-index", sourceFingerprint="fixture-source", request=dict(domain="ifrs-accounting", documentRole="standard_source", sectionId="01", question="fixture", edition="February 2025 third edition"), passages=[{**PASSAGE, "sectionId": "01"}]))
 
 
 @pytest.fixture
@@ -151,3 +151,15 @@ def test_resource_delivery_is_bounded_and_unresolved_placeholders_cannot_be_appr
     head = call(service, "draft", dict(assetTypeId="SOURCE-REGISTER", content=fields, evidenceRefs=["synthetic:record"], expectedRevision=0))["result"]
     with pytest.raises(ValueError, match="Unresolved required field"):
         approve(service, "SOURCE-REGISTER", head)
+
+
+def test_typed_eligibility_renderer_uses_pinned_facts_and_keeps_missing_profile_fields_unresolved(service):
+    context = {**CONTEXT, "factsByCase": {"fixture-case": {"control": "section-1-eligibility", "facts": {"publicAccountability": False, "generalPurposeStatements": True, "jurisdictionPermits": True, "evidenceRefs": ["synthetic:record"]}}},
+               "evidenceRecords": [{"recordId": "synthetic:record", "entityId": CONTEXT["entityId"], "period": CONTEXT["period"], "synthetic": True, "profile": {"entityFacts": "Fictional private entity"}}]}
+    call(service, "event", {"event": dict(type="period-opened", entityId=context["entityId"], period=context["period"]), "applicableAssetTypeIds": ["ELIGIBILITY-MEMO"]}, principal(service, role="operator"), context=context)
+    head = call(service, "draft-from-case", dict(assetTypeId="ELIGIBILITY-MEMO", caseId="fixture-case", interactionId="fixture-interaction", expectedRevision=0), principal(service, "ELIGIBILITY-MEMO"), context=context)["result"]
+    revision = service.store.revision(context, "ELIGIBILITY-MEMO", head["revision"])
+    assert head["status"] == "DRAFT"
+    assert revision["content"]["conclusion"] == "ELIGIBLE_SUBJECT_TO_REVIEW"
+    assert revision["content"]["publicMarkets"] is None
+    assert "publicMarkets" in revision["content"]["unresolved"]
