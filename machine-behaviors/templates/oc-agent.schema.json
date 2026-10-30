@@ -17,69 +17,190 @@
     "responseMapping"
   ],
   "properties": {
-    "schemaVersion": { "const": "1.0.0" },
-    "templateId": { "const": "oc-agent-template" },
-    "role": { "enum": ["input-analyst"] },
-    "agentId": { "type": "string", "minLength": 1 },
-    "displayName": { "type": "string", "minLength": 1 },
+    "schemaVersion": {
+      "const": "1.0.0"
+    },
+    "templateId": {
+      "const": "oc-agent-template"
+    },
+    "role": {
+      "enum": [
+        "input-analyst"
+      ]
+    },
+    "agentId": {
+      "type": "string",
+      "minLength": 1
+    },
+    "displayName": {
+      "type": "string",
+      "minLength": 1
+    },
     "machine": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["id", "name", "code", "machineClass", "domain", "inputRegion", "outputRegion"],
+      "required": [
+        "id",
+        "name",
+        "code",
+        "machineClass",
+        "domain",
+        "inputRegion",
+        "outputRegion"
+      ],
       "properties": {
-        "id": { "type": "string", "minLength": 1 },
-        "name": { "type": "string", "minLength": 1 },
-        "code": { "type": "string", "minLength": 1 },
-        "machineClass": { "type": "string", "minLength": 1 },
-        "domain": { "type": "string", "minLength": 1 },
-        "inputRegion": { "$ref": "#/$defs/region" },
-        "outputRegion": { "$ref": "#/$defs/region" }
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "code": {
+          "type": "string",
+          "minLength": 1
+        },
+        "machineClass": {
+          "type": "string",
+          "minLength": 1
+        },
+        "domain": {
+          "type": "string",
+          "minLength": 1
+        },
+        "inputRegion": {
+          "$ref": "#/$defs/region"
+        },
+        "outputRegion": {
+          "$ref": "#/$defs/region"
+        }
       }
     },
     "openclaw": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["id", "kind", "platform", "surface", "command", "gatewayUrl", "sessionKey", "targetAgent", "dispatchMode", "completionMode", "completionSourceMappingId"],
+      "required": [
+        "id",
+        "kind",
+        "platform",
+        "surface",
+        "command",
+        "gatewayUrl",
+        "sessionKey",
+        "targetAgent",
+        "dispatchMode",
+        "completionMode",
+        "completionSourceMappingId"
+      ],
       "properties": {
-        "id": { "type": "string", "minLength": 1 },
-        "kind": { "type": "string", "minLength": 1 },
-        "platform": { "type": "string", "minLength": 1 },
-        "surface": { "type": "string", "minLength": 1 },
-        "command": { "type": "string", "minLength": 1 },
-        "gatewayUrl": { "type": "string", "minLength": 1 },
-        "sessionKey": { "type": "string", "minLength": 1 },
-        "targetAgent": { "type": "string", "minLength": 1 },
-        "dispatchMode": { "type": "string", "minLength": 1 },
-        "completionMode": { "type": "string", "minLength": 1 },
-        "completionSourceMappingId": { "type": "string", "minLength": 1 }
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "type": "string",
+          "minLength": 1
+        },
+        "platform": {
+          "type": "string",
+          "minLength": 1
+        },
+        "surface": {
+          "type": "string",
+          "minLength": 1
+        },
+        "command": {
+          "type": "string",
+          "minLength": 1
+        },
+        "gatewayUrl": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sessionKey": {
+          "type": "string",
+          "minLength": 1
+        },
+        "targetAgent": {
+          "type": "string",
+          "minLength": 1
+        },
+        "dispatchMode": {
+          "type": "string",
+          "minLength": 1
+        },
+        "completionMode": {
+          "type": "string",
+          "minLength": 1
+        },
+        "completionSourceMappingId": {
+          "type": "string",
+          "minLength": 1
+        }
       }
     },
     "reasoning": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["objective", "inputAxes", "sequenceCatalog", "systemPrompt", "outputContract"],
+      "required": [
+        "objective",
+        "inputAxes",
+        "sequenceCatalog",
+        "systemPrompt",
+        "outputContract"
+      ],
       "properties": {
-        "objective": { "type": "string", "minLength": 1 },
-        "systemPrompt": { "type": "string", "minLength": 1 },
-        "outputContract": { "type": "string", "minLength": 1 },
+        "objective": {
+          "type": "string",
+          "minLength": 1
+        },
+        "systemPrompt": {
+          "type": "string",
+          "minLength": 1
+        },
+        "outputContract": {
+          "type": "string",
+          "minLength": 1
+        },
         "inputAxes": {
           "type": "array",
           "minItems": 1,
           "items": {
             "type": "object",
             "additionalProperties": false,
-            "required": ["index", "key", "anchors"],
+            "required": [
+              "index",
+              "key",
+              "anchors"
+            ],
             "properties": {
-              "index": { "type": "integer", "minimum": 0 },
-              "key": { "type": "string", "minLength": 1 },
+              "index": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "key": {
+                "type": "string",
+                "minLength": 1
+              },
               "anchors": {
                 "type": "object",
                 "additionalProperties": false,
-                "required": ["low", "mid", "high"],
+                "required": [
+                  "low",
+                  "mid",
+                  "high"
+                ],
                 "properties": {
-                  "low": { "type": "string" },
-                  "mid": { "type": "string" },
-                  "high": { "type": "string" }
+                  "low": {
+                    "type": "string"
+                  },
+                  "mid": {
+                    "type": "string"
+                  },
+                  "high": {
+                    "type": "string"
+                  }
                 }
               }
             }
@@ -91,13 +212,38 @@
           "items": {
             "type": "object",
             "additionalProperties": false,
-            "required": ["sequenceId", "label", "rag", "outputIndex", "action"],
+            "required": [
+              "sequenceId",
+              "label",
+              "rag",
+              "outputIndex",
+              "action"
+            ],
             "properties": {
-              "sequenceId": { "type": "string", "minLength": 1 },
-              "label": { "type": "string", "minLength": 1 },
-              "rag": { "type": "string", "enum": ["GREEN", "AMBER", "RED", ""] },
-              "outputIndex": { "type": "integer", "minimum": 0 },
-              "action": { "type": "string" }
+              "sequenceId": {
+                "type": "string",
+                "minLength": 1
+              },
+              "label": {
+                "type": "string",
+                "minLength": 1
+              },
+              "rag": {
+                "type": "string",
+                "enum": [
+                  "GREEN",
+                  "AMBER",
+                  "RED",
+                  ""
+                ]
+              },
+              "outputIndex": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "action": {
+                "type": "string"
+              }
             }
           }
         }
@@ -109,31 +255,82 @@
     "responseMapping": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["schemaVersion", "responseContract", "mode", "fields"],
+      "required": [
+        "schemaVersion",
+        "responseContract",
+        "mode",
+        "fields"
+      ],
       "properties": {
-        "schemaVersion": { "const": "1.0.0" },
-        "responseContract": { "type": "string", "minLength": 1 },
-        "mode": { "enum": ["observe", "advise", "supervised-act", "automated-act"] },
+        "schemaVersion": {
+          "const": "1.0.0"
+        },
+        "responseContract": {
+          "type": "string",
+          "minLength": 1
+        },
+        "mode": {
+          "enum": [
+            "observe",
+            "advise",
+            "supervised-act",
+            "automated-act"
+          ]
+        },
         "fields": {
           "type": "array",
           "minItems": 1,
           "items": {
             "type": "object",
             "additionalProperties": false,
-            "required": ["semantic", "valueType", "normalization", "extract", "target"],
+            "required": [
+              "semantic",
+              "valueType",
+              "normalization",
+              "extract",
+              "target"
+            ],
             "properties": {
-              "semantic": { "type": "string", "minLength": 1 },
-              "valueType": { "enum": ["scalar", "binary", "enum", "ordinal", "count"] },
-              "normalization": { "type": "string", "minLength": 1 },
-              "extract": { "type": "object" },
+              "semantic": {
+                "type": "string",
+                "minLength": 1
+              },
+              "valueType": {
+                "enum": [
+                  "scalar",
+                  "binary",
+                  "enum",
+                  "ordinal",
+                  "count"
+                ]
+              },
+              "normalization": {
+                "type": "string",
+                "minLength": 1
+              },
+              "extract": {
+                "type": "object"
+              },
               "target": {
                 "type": "object",
                 "additionalProperties": false,
-                "required": ["sensorId", "region", "index"],
+                "required": [
+                  "sensorId",
+                  "region",
+                  "index"
+                ],
                 "properties": {
-                  "sensorId": { "type": "string", "minLength": 1 },
-                  "region": { "$ref": "#/$defs/region" },
-                  "index": { "type": "integer", "minimum": 0 }
+                  "sensorId": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "region": {
+                    "$ref": "#/$defs/region"
+                  },
+                  "index": {
+                    "type": "integer",
+                    "minimum": 0
+                  }
                 }
               }
             }
@@ -144,16 +341,125 @@
     "diagnostics": {
       "type": "object",
       "additionalProperties": true
+    },
+    "documentAssetWorkflow": {
+      "type": "object",
+      "required": [
+        "schemaVersion",
+        "contractRef",
+        "familyId",
+        "duties"
+      ],
+      "properties": {
+        "duties": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "assetTypeId",
+              "responsibility",
+              "doneWhen"
+            ]
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "documentWorkflowBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "contractRef",
+        "mode",
+        "familyId",
+        "actorOwnerName",
+        "ownedAssetTypeIds",
+        "requestOnlyAssetTypeIds",
+        "allowedOperations",
+        "forbiddenOperations",
+        "outputChannel",
+        "nativeCompletionContractUnchanged"
+      ],
+      "properties": {
+        "contractRef": {
+          "const": "urn:re:ifrs:document-workflow:v1"
+        },
+        "mode": {
+          "const": "draft-and-maintain"
+        },
+        "familyId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "actorOwnerName": {
+          "type": "string",
+          "minLength": 1
+        },
+        "ownedAssetTypeIds": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string"
+          }
+        },
+        "requestOnlyAssetTypeIds": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string"
+          }
+        },
+        "outputChannel": {
+          "const": "document-task-and-artifact-sidecar"
+        },
+        "nativeCompletionContractUnchanged": {
+          "const": true
+        },
+        "allowedOperations": {
+          "const": [
+            "inspect-current-head",
+            "assess-document-impact",
+            "resolve-owned-assessment",
+            "request-authentic-evidence",
+            "submit-contribution",
+            "resolve-owned-contribution",
+            "calculate-reviewed-controls",
+            "create-draft-for-owned-type",
+            "revise-owned-draft",
+            "reconcile-and-invalidate",
+            "request-independent-review"
+          ]
+        },
+        "forbiddenOperations": {
+          "const": [
+            "approve-own-or-other-draft",
+            "forge-issuer-evidence",
+            "post-journal",
+            "file-report",
+            "publish",
+            "release-financial-statements"
+          ]
+        }
+      }
     }
   },
   "$defs": {
     "region": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["offset", "length"],
+      "required": [
+        "offset",
+        "length"
+      ],
       "properties": {
-        "offset": { "type": "integer", "minimum": 0 },
-        "length": { "type": "integer", "minimum": 1 }
+        "offset": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "length": {
+          "type": "integer",
+          "minimum": 1
+        }
       }
     }
   }
