@@ -13,7 +13,7 @@ import uuid
 import httpx
 
 
-def dispatch(config, client=None, limit=1):
+def dispatch_once(config, client=None, limit=1, task_ids=None):
     client = client or httpx.Client(timeout=240)
     state = Path(config["stateDirectory"]); state.mkdir(parents=True, exist_ok=True, mode=0o700)
     def command(op, args, token):
@@ -30,6 +30,8 @@ def dispatch(config, client=None, limit=1):
             if len(results) >= limit:
                 break
             if task["status"] != "OPEN":
+                continue
+            if task_ids is not None and task["taskId"] not in task_ids:
                 continue
             aid = task["assetTypeId"]
             route = config["assetRoutes"].get(aid)
@@ -90,17 +92,41 @@ def dispatch(config, client=None, limit=1):
     return {"attempts": results, "nativeWrites": 0, "automaticApproval": False}
 
 
+def dispatch(config, client=None, limit=1, max_attempts=3):
+    """Retry unresolved work in new sessions; preserve every failed observation.
+
+    A retry is another actual tool/model attempt, never replayed expected output.
+    Only the same selected canonical tasks are retried. Permissions, CAS and
+    artifact verification are identical on every attempt.
+    """
+    if not 1 <= max_attempts <= 5:
+        raise ValueError("Choose one to five bounded attempts per task")
+    attempts = []
+    pending = None
+    for _ in range(max_attempts):
+        result = dispatch_once(config, client=client, limit=limit if pending is None else len(pending), task_ids=pending)
+        attempts.extend(result["attempts"])
+        if not result["attempts"]:
+            break
+        pending = {attempt["taskId"] for attempt in result["attempts"] if attempt["status"] != "ARTIFACT_OBSERVED_REVIEW_REQUIRED"}
+        if not pending:
+            break
+    return {"attempts": attempts, "nativeWrites": 0, "automaticApproval": False, "maxAttemptsPerTask": max_attempts}
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--config", type=Path, required=True)
     parser.add_argument("--limit", type=int, default=1)
+    parser.add_argument("--max-attempts", type=int, default=3)
     args = parser.parse_args()
     if args.config.stat().st_mode & 0o077:
         raise SystemExit("Worker config must be private (0600)")
-    result = dispatch(json.loads(args.config.read_text()), limit=args.limit)
+    result = dispatch(json.loads(args.config.read_text()), limit=args.limit, max_attempts=args.max_attempts)
     # Full private attempts live in worker.sqlite; stdout is a safe status summary.
     print(json.dumps({"attempts": [{k: a[k] for k in ("attemptId", "taskId", "assetTypeId", "status")} for a in result["attempts"]], "automaticApproval": False}))
-    return 0 if result["attempts"] and all(a["status"] == "ARTIFACT_OBSERVED_REVIEW_REQUIRED" for a in result["attempts"]) else 1
+    final_by_task = {a["taskId"]: a for a in result["attempts"]}
+    return 0 if final_by_task and all(a["status"] == "ARTIFACT_OBSERVED_REVIEW_REQUIRED" for a in final_by_task.values()) else 1
 
 
 if __name__ == "__main__":

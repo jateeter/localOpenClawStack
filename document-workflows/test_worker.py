@@ -21,7 +21,10 @@ def test_model_narrative_does_not_complete_work(tmp_path):
     config = dict(stateDirectory=str(tmp_path), documentURL="http://fixture-doc", gatewayURL="http://fixture-gateway", gatewayToken="fixture-gateway-secret", operatorToken="fixture-operator-secret", context={"entityId": "SYNTHETIC-A", "period": "2027"}, assetRoutes={"SOURCE-REGISTER": {"agentId": "fixture-agent", "token": "fixture-agent-secret"}})
     result = worker.dispatch(config, httpx.Client(transport=httpx.MockTransport(transport)))
     assert result["attempts"][0]["status"] == "UNRESOLVED_NO_ARTIFACT_CHANGE"
+    assert len(result["attempts"]) == 3
     assert result["automaticApproval"] is False
     prompt = next(c for c in calls if "messages" in c)
     assert prompt["user"].startswith("ifrs-document-task-")
     assert "fixture-operator-secret" not in json.dumps(prompt)
+    sessions = [c["user"] for c in calls if "messages" in c]
+    assert len(sessions) == len(set(sessions)) == 3
