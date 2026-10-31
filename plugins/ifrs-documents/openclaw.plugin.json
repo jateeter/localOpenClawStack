@@ -1,0 +1,86 @@
+{
+  "id": "ifrs-documents",
+  "name": "IFRS document workflows",
+  "description": "Scoped source-evidence and document sidecar tools; separate from native PE completion.",
+  "categories": [
+    "other"
+  ],
+  "contracts": {
+    "tools": [
+      "ifrs_document_workflow",
+      "ifrs_document_inspect",
+      "ifrs_document_resource",
+      "ifrs_source_retrieve",
+      "ifrs_document_draft",
+      "ifrs_document_tasks",
+      "ifrs_accounting_calculate",
+      "ifrs_document_request_review",
+      "ifrs_document_contribute",
+      "ifrs_contribution_resolve",
+      "ifrs_observation_assess",
+      "ifrs_assessment_resolve",
+      "ifrs_eligibility_draft",
+      "ifrs_reporting_draft"
+    ]
+  },
+  "toolMetadata": {
+    "ifrs_document_workflow": {
+      "optional": true
+    },
+    "ifrs_document_inspect": {
+      "optional": true
+    },
+    "ifrs_document_resource": {
+      "optional": true
+    },
+    "ifrs_source_retrieve": {
+      "optional": true
+    },
+    "ifrs_document_draft": {
+      "optional": true
+    },
+    "ifrs_document_tasks": {
+      "optional": true
+    },
+    "ifrs_accounting_calculate": {
+      "optional": true
+    },
+    "ifrs_document_request_review": {
+      "optional": true
+    },
+    "ifrs_document_contribute": {
+      "optional": true
+    },
+    "ifrs_contribution_resolve": {
+      "optional": true
+    },
+    "ifrs_observation_assess": {
+      "optional": true
+    },
+    "ifrs_assessment_resolve": {
+      "optional": true
+    },
+    "ifrs_eligibility_draft": {
+      "optional": true
+    },
+    "ifrs_reporting_draft": {
+      "optional": true
+    }
+  },
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+      "configurationFile"
+    ],
+    "properties": {
+      "configurationFile": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  },
+  "activation": {
+    "onStartup": false
+  }
+}

@@ -11,3 +11,8 @@ output/
 
 # Local machine files
 .claude/settings.local.json
+
+# Python document-sidecar development caches
+__pycache__/
+*.py[cod]
+.pytest_cache/

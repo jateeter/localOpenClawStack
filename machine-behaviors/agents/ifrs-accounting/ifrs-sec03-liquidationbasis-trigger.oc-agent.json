@@ -1,0 +1,822 @@
+{
+  "documentAssetWorkflow": {
+    "schemaVersion": "1.0.0",
+    "contractRef": "urn:re:ifrs:document-workflow:v1",
+    "familyId": "ifrs_reporting_review_agent",
+    "objective": "Proactively create, reconcile and maintain applicable accounting document assets with current evidence and independent review.",
+    "motivations": [
+      {
+        "assetTypeId": "DISCLOSURE-CHECKLIST",
+        "purpose": "Make each applicable disclosure fulfilled or explicitly unresolved rather than assuming completeness from note presence",
+        "priority": "evidence-correctness-before-apparent-completion"
+      },
+      {
+        "assetTypeId": "EVIDENCE-REGISTER",
+        "purpose": "Maintain an obtainable evidence trail without fabricating third-party facts",
+        "priority": "evidence-correctness-before-apparent-completion"
+      },
+      {
+        "assetTypeId": "GOING-CONCERN-MEMO",
+        "purpose": "Require evidenced assessment and disclosures before presentation or compliance claims",
+        "priority": "evidence-correctness-before-apparent-completion"
+      },
+      {
+        "assetTypeId": "POLICY-REGISTER",
+        "purpose": "Keep policy choices consistent and distinguish retrospective corrections from prospective estimates",
+        "priority": "evidence-correctness-before-apparent-completion"
+      },
+      {
+        "assetTypeId": "RAG-RECEIPTS",
+        "purpose": "Make model interpretations challengeable and reproducible rather than trusting plausible answers",
+        "priority": "evidence-correctness-before-apparent-completion"
+      },
+      {
+        "assetTypeId": "SOURCE-REGISTER",
+        "purpose": "Keep every accounting interpretation bound to an applicable edition and verified passages",
+        "priority": "evidence-correctness-before-apparent-completion"
+      }
+    ],
+    "duties": [
+      {
+        "assetTypeId": "DISCLOSURE-CHECKLIST",
+        "responsibility": "supply-evidence-or-request-owner-action",
+        "assetOwnerName": "IFRS::Financial Reporting and Disclosure Lead",
+        "motivation": "Make each applicable disclosure fulfilled or explicitly unresolved rather than assuming completeness from note presence",
+        "contribution": "For IFRS_Sec03_LiquidationBasis_Trigger: Consume evidenced accounting determination produced by connected typed evaluator; emit only bounded assertion projection after accounting evaluation and review. Current process name is not evidence of implementing that verb. Section3 requires alternative basis/reasons when not going concern; it does not prescribe a standalone liquidation valuation formula. Record the supported determination, evidence/calculation references, contrary evidence and document impact in Applicable disclosure requirement and evidence register. If evidence or applicability is unresolved, create an assigned work item instead of asserting completion.",
+        "triggers": [
+          "period-opened",
+          "period-close-requested",
+          "facts-changed",
+          "upstream-revised",
+          "policy-changed",
+          "edition-changed",
+          "review-rejected",
+          "contradictory-evidence",
+          "source-citation-failed",
+          "authorisation-received",
+          "recognizer-observed"
+        ],
+        "doneWhen": [
+          "Applicability resolved with basis and source evidence",
+          "All required fields populated or individually justified not applicable",
+          "Current source/evidence and upstream revision references",
+          "Reconciliations and calculation references inspected, not inferred from token values",
+          "No unresolved required inputs or contradictory evidence",
+          "Independent named review for this exact revision"
+        ],
+        "workflowContract": "urn:re:ifrs:document-workflow:v1"
+      },
+      {
+        "assetTypeId": "EVIDENCE-REGISTER",
+        "responsibility": "supply-evidence-or-request-owner-action",
+        "assetOwnerName": "IFRS::Technical Accounting and Adoption Lead",
+        "motivation": "Maintain an obtainable evidence trail without fabricating third-party facts",
+        "contribution": "For IFRS_Sec03_LiquidationBasis_Trigger: Consume evidenced accounting determination produced by connected typed evaluator; emit only bounded assertion projection after accounting evaluation and review. Current process name is not evidence of implementing that verb. Section3 requires alternative basis/reasons when not going concern; it does not prescribe a standalone liquidation valuation formula. Record the supported determination, evidence/calculation references, contrary evidence and document impact in Entity accounting evidence register. If evidence or applicability is unresolved, create an assigned work item instead of asserting completion.",
+        "triggers": [
+          "period-opened",
+          "period-close-requested",
+          "facts-changed",
+          "upstream-revised",
+          "policy-changed",
+          "edition-changed",
+          "review-rejected",
+          "contradictory-evidence",
+          "source-citation-failed",
+          "authorisation-received",
+          "recognizer-observed"
+        ],
+        "doneWhen": [
+          "Applicability resolved with basis and source evidence",
+          "All required fields populated or individually justified not applicable",
+          "Current source/evidence and upstream revision references",
+          "Reconciliations and calculation references inspected, not inferred from token values",
+          "No unresolved required inputs or contradictory evidence",
+          "Independent named review for this exact revision"
+        ],
+        "workflowContract": "urn:re:ifrs:document-workflow:v1"
+      },
+      {
+        "assetTypeId": "GOING-CONCERN-MEMO",
+        "responsibility": "contribute-and-maintain",
+        "assetOwnerName": "IFRS::Financial Reporting and Disclosure Lead",
+        "motivation": "Require evidenced assessment and disclosures before presentation or compliance claims",
+        "contribution": "For IFRS_Sec03_LiquidationBasis_Trigger: Consume evidenced accounting determination produced by connected typed evaluator; emit only bounded assertion projection after accounting evaluation and review. Current process name is not evidence of implementing that verb. Section3 requires alternative basis/reasons when not going concern; it does not prescribe a standalone liquidation valuation formula. Record the supported determination, evidence/calculation references, contrary evidence and document impact in Going concern assessment and uncertainty disclosure working paper. If evidence or applicability is unresolved, create an assigned work item instead of asserting completion.",
+        "triggers": [
+          "period-opened",
+          "period-close-requested",
+          "facts-changed",
+          "upstream-revised",
+          "policy-changed",
+          "edition-changed",
+          "review-rejected",
+          "contradictory-evidence",
+          "source-citation-failed",
+          "authorisation-received",
+          "recognizer-observed"
+        ],
+        "doneWhen": [
+          "Applicability resolved with basis and source evidence",
+          "All required fields populated or individually justified not applicable",
+          "Current source/evidence and upstream revision references",
+          "Reconciliations and calculation references inspected, not inferred from token values",
+          "No unresolved required inputs or contradictory evidence",
+          "Independent named review for this exact revision"
+        ],
+        "workflowContract": "urn:re:ifrs:document-workflow:v1"
+      },
+      {
+        "assetTypeId": "POLICY-REGISTER",
+        "responsibility": "supply-evidence-or-request-owner-action",
+        "assetOwnerName": "IFRS::Technical Accounting and Adoption Lead",
+        "motivation": "Keep policy choices consistent and distinguish retrospective corrections from prospective estimates",
+        "contribution": "For IFRS_Sec03_LiquidationBasis_Trigger: Consume evidenced accounting determination produced by connected typed evaluator; emit only bounded assertion projection after accounting evaluation and review. Current process name is not evidence of implementing that verb. Section3 requires alternative basis/reasons when not going concern; it does not prescribe a standalone liquidation valuation formula. Record the supported determination, evidence/calculation references, contrary evidence and document impact in Accounting policy election estimate and error register. If evidence or applicability is unresolved, create an assigned work item instead of asserting completion.",
+        "triggers": [
+          "period-opened",
+          "period-close-requested",
+          "facts-changed",
+          "upstream-revised",
+          "policy-changed",
+          "edition-changed",
+          "review-rejected",
+          "contradictory-evidence",
+          "source-citation-failed",
+          "authorisation-received",
+          "recognizer-observed"
+        ],
+        "doneWhen": [
+          "Applicability resolved with basis and source evidence",
+          "All required fields populated or individually justified not applicable",
+          "Current source/evidence and upstream revision references",
+          "Reconciliations and calculation references inspected, not inferred from token values",
+          "No unresolved required inputs or contradictory evidence",
+          "Independent named review for this exact revision"
+        ],
+        "workflowContract": "urn:re:ifrs:document-workflow:v1"
+      },
+      {
+        "assetTypeId": "RAG-RECEIPTS",
+        "responsibility": "supply-evidence-or-request-owner-action",
+        "assetOwnerName": "IFRS::Technical Accounting and Adoption Lead",
+        "motivation": "Make model interpretations challengeable and reproducible rather than trusting plausible answers",
+        "contribution": "For IFRS_Sec03_LiquidationBasis_Trigger: Consume evidenced accounting determination produced by connected typed evaluator; emit only bounded assertion projection after accounting evaluation and review. Current process name is not evidence of implementing that verb. Section3 requires alternative basis/reasons when not going concern; it does not prescribe a standalone liquidation valuation formula. Record the supported determination, evidence/calculation references, contrary evidence and document impact in Source retrieval and citation review register. If evidence or applicability is unresolved, create an assigned work item instead of asserting completion.",
+        "triggers": [
+          "period-opened",
+          "period-close-requested",
+          "facts-changed",
+          "upstream-revised",
+          "policy-changed",
+          "edition-changed",
+          "review-rejected",
+          "contradictory-evidence",
+          "source-citation-failed",
+          "authorisation-received",
+          "recognizer-observed"
+        ],
+        "doneWhen": [
+          "Applicability resolved with basis and source evidence",
+          "All required fields populated or individually justified not applicable",
+          "Current source/evidence and upstream revision references",
+          "Reconciliations and calculation references inspected, not inferred from token values",
+          "No unresolved required inputs or contradictory evidence",
+          "Independent named review for this exact revision"
+        ],
+        "workflowContract": "urn:re:ifrs:document-workflow:v1"
+      },
+      {
+        "assetTypeId": "SOURCE-REGISTER",
+        "responsibility": "supply-evidence-or-request-owner-action",
+        "assetOwnerName": "IFRS::Technical Accounting and Adoption Lead",
+        "motivation": "Keep every accounting interpretation bound to an applicable edition and verified passages",
+        "contribution": "For IFRS_Sec03_LiquidationBasis_Trigger: Consume evidenced accounting determination produced by connected typed evaluator; emit only bounded assertion projection after accounting evaluation and review. Current process name is not evidence of implementing that verb. Section3 requires alternative basis/reasons when not going concern; it does not prescribe a standalone liquidation valuation formula. Record the supported determination, evidence/calculation references, contrary evidence and document impact in Edition and authority source register. If evidence or applicability is unresolved, create an assigned work item instead of asserting completion.",
+        "triggers": [
+          "period-opened",
+          "period-close-requested",
+          "facts-changed",
+          "upstream-revised",
+          "policy-changed",
+          "edition-changed",
+          "review-rejected",
+          "contradictory-evidence",
+          "source-citation-failed",
+          "authorisation-received",
+          "recognizer-observed"
+        ],
+        "doneWhen": [
+          "Applicability resolved with basis and source evidence",
+          "All required fields populated or individually justified not applicable",
+          "Current source/evidence and upstream revision references",
+          "Reconciliations and calculation references inspected, not inferred from token values",
+          "No unresolved required inputs or contradictory evidence",
+          "Independent named review for this exact revision"
+        ],
+        "workflowContract": "urn:re:ifrs:document-workflow:v1"
+      }
+    ],
+    "orchestration": {
+      "eventAdapter": "Reference observe_machine validates machine identity, known sequence, bounded nominal output and provider reference, then queues document-impact assessment only. Production dispatch must supply current entity/period/source context. Native observations never assert financial fact changes or document completion.",
+      "referenceImplementation": "tools/document_workflow.py",
+      "executionBoundary": "Local reference lifecycle/outbox is supplied; native engine dispatch, LLM generation and source/repository connectors require integration.",
+      "outputContract": "Versioned document draft/revision, lineage, unresolved work items, reconciliations and exact-revision reviewer disposition.",
+      "triggerPolicy": "React to period, fact, policy, source, review and upstream revision events; invalidate affected downstream assets and queue fresh review.",
+      "autonomy": "Draft, request evidence, reconcile and propose updates. No autonomous journal posting, external filing, signature, approval or financial-statement release.",
+      "concurrency": "Reference store uses local process locking, immutable revisions and compare-and-swap heads; distributed execution needs an equivalent atomic connector.",
+      "idempotency": "Coalesce work by entity, period, asset, action and input fingerprint."
+    },
+    "successCriteria": [
+      "Required applicable assets exist at current revisions with traceable source/evidence",
+      "Open deficits are visible, assigned and carried downstream",
+      "Approval is invalidated by relevant upstream/source/fact changes",
+      "No unsupported assertion of IFRS compliance or publication"
+    ],
+    "nativeProjectionPolicy": "The existing bounded nominal encoding and PRECEDENCE/MAX remain unchanged. Document amounts and decisions stay in typed records."
+  },
+  "documentWorkflowBinding": {
+    "contractRef": "urn:re:ifrs:document-workflow:v1",
+    "mode": "draft-and-maintain",
+    "familyId": "ifrs_reporting_review_agent",
+    "actorOwnerName": "IFRS::Financial Reporting and Disclosure Lead",
+    "ownedAssetTypeIds": [
+      "DISCLOSURE-CHECKLIST",
+      "GOING-CONCERN-MEMO"
+    ],
+    "requestOnlyAssetTypeIds": [
+      "EVIDENCE-REGISTER",
+      "POLICY-REGISTER",
+      "RAG-RECEIPTS",
+      "SOURCE-REGISTER"
+    ],
+    "allowedOperations": [
+      "inspect-current-head",
+      "assess-document-impact",
+      "resolve-owned-assessment",
+      "request-authentic-evidence",
+      "submit-contribution",
+      "resolve-owned-contribution",
+      "calculate-reviewed-controls",
+      "create-draft-for-owned-type",
+      "revise-owned-draft",
+      "reconcile-and-invalidate",
+      "request-independent-review"
+    ],
+    "forbiddenOperations": [
+      "approve-own-or-other-draft",
+      "forge-issuer-evidence",
+      "post-journal",
+      "file-report",
+      "publish",
+      "release-financial-statements"
+    ],
+    "outputChannel": "document-task-and-artifact-sidecar",
+    "nativeCompletionContractUnchanged": true
+  },
+  "schemaVersion": "1.0.0",
+  "templateId": "oc-agent-template",
+  "role": "input-analyst",
+  "agentId": "ifrs-sec03-liquidationbasis-trigger",
+  "displayName": "IFRS_Sec03_LiquidationBasis_Trigger",
+  "machine": {
+    "id": "IFRS_Sec03_LiquidationBasis_Trigger",
+    "name": "IFRS_Sec03_LiquidationBasis_Trigger",
+    "code": "ifrs_sec03_liquidationbasis_trigger",
+    "machineClass": "signal-monitor",
+    "domain": "ifrs-accounting",
+    "inputRegion": {
+      "offset": 8180,
+      "length": 8
+    },
+    "outputRegion": {
+      "offset": 8188,
+      "length": 4
+    }
+  },
+  "openclaw": {
+    "id": "openclaw-xacp",
+    "kind": "acp",
+    "platform": "OpenClaw",
+    "surface": "xACP",
+    "command": "openclaw acp",
+    "gatewayUrl": "ws://127.0.0.1:18789",
+    "sessionKey": "agent:main:main",
+    "targetAgent": "ifrs-sec03-liquidationbasis-trigger",
+    "dispatchMode": "accepted-no-wait",
+    "completionMode": "pe-source-mapping",
+    "completionSourceMappingId": "acp-ifrs-sec03-liquidationbasis-trigger-input-assessment"
+  },
+  "reasoning": {
+    "objective": "Produce the normalized input vector for \"IFRS_Sec03_LiquidationBasis_Trigger\" from current observations so RE can evaluate its CES sequences.",
+    "systemPrompt": "You are the OpenClaw input-analyst agent for the RealityEngine machine \"IFRS_Sec03_LiquidationBasis_Trigger\".\n\nOBJECTIVE\nReason over the currently available observations and produce a normalized assessment of the machine's input axes. Recognizes an externally supplied assertion. Assess going concern under 3.8\u20133.9. Non-going-concern preparation requires disclosure of fact, separately supported basis and reasons; no automatic liquidation valuation follows from the label. The linked rem-going-concern control is advisory and requires scoped source/fact evidence and independent review; this native recognizer performs no financial calculation, posting or release.\n\nINPUT AXES (return one value in [0.0, 1.0] for each; anchors define the scale):\n- source_token_1_at_canonical_0_5_primary_assertion (index 0):\n- source_token_2_at_canonical_1_0_secondary_assertion (index 1):\n- reserved_nonnegative_bounded_cell_2 (index 2):\n- reserved_nonnegative_bounded_cell_3 (index 3):\n- reserved_nonnegative_bounded_cell_4 (index 4):\n- reserved_nonnegative_bounded_cell_5 (index 5):\n- reserved_nonnegative_bounded_cell_6 (index 6):\n- reserved_nonnegative_bounded_cell_7 (index 7):\n\nWHAT YOUR INPUTS TRIGGER (RE evaluates the CES deterministically; you assert your expectation, RE decides):\n- Observed supplied assertion (AMBER)\n- Observed supplied assertion (AMBER)",
+    "outputContract": "Return one structured line per input axis as `<axis_key>: <0.0-1.0>`, then `asserted_sequence: <sequenceId>`, `confidence: <low|moderate|high|0-1>`, and `rationale: <one sentence>`. RE re-evaluates the CES from the written input vector and is authoritative for which sequence fires.",
+    "inputAxes": [
+      {
+        "index": 0,
+        "key": "source_token_1_at_canonical_0_5_primary_assertion",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 1,
+        "key": "source_token_2_at_canonical_1_0_secondary_assertion",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 2,
+        "key": "reserved_nonnegative_bounded_cell_2",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 3,
+        "key": "reserved_nonnegative_bounded_cell_3",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 4,
+        "key": "reserved_nonnegative_bounded_cell_4",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 5,
+        "key": "reserved_nonnegative_bounded_cell_5",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 6,
+        "key": "reserved_nonnegative_bounded_cell_6",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      },
+      {
+        "index": 7,
+        "key": "reserved_nonnegative_bounded_cell_7",
+        "anchors": {
+          "low": "",
+          "mid": "",
+          "high": ""
+        }
+      }
+    ],
+    "sequenceCatalog": [
+      {
+        "sequenceId": "ces_trigger_ifrs_sec03_liquidationbasis_trigger_primary",
+        "label": "Observed supplied assertion",
+        "rag": "AMBER",
+        "outputIndex": 0,
+        "action": ""
+      },
+      {
+        "sequenceId": "ces_trigger_ifrs_sec03_liquidationbasis_trigger_secondary",
+        "label": "Observed supplied assertion",
+        "rag": "AMBER",
+        "outputIndex": 1,
+        "action": ""
+      }
+    ]
+  },
+  "agentBinding": {
+    "agent": "ifrs-sec03-liquidationbasis-trigger",
+    "mode": "advise",
+    "trigger": "ifrs_sec03_liquidationbasis_trigger-input-assessment",
+    "allowedActions": [
+      "Assess current \"IFRS_Sec03_LiquidationBasis_Trigger\" state from available observations and write the normalized input vector to the PE input region [8180:8188] for RE to evaluate."
+    ],
+    "writeBack": {
+      "type": "pe-sensor",
+      "provider": "acp",
+      "sensorId": "acp.openclaw.ifrs_sec03_liquidationbasis_trigger.input-analyst.assessment",
+      "name": "OpenClaw ifrs_sec03_liquidationbasis_trigger input-analyst assessment",
+      "region": {
+        "offset": 8180,
+        "length": 8
+      },
+      "semantics": [
+        "source_token_1_at_canonical_0_5_primary_assertion",
+        "source_token_2_at_canonical_1_0_secondary_assertion",
+        "reserved_nonnegative_bounded_cell_2",
+        "reserved_nonnegative_bounded_cell_3",
+        "reserved_nonnegative_bounded_cell_4",
+        "reserved_nonnegative_bounded_cell_5",
+        "reserved_nonnegative_bounded_cell_6",
+        "reserved_nonnegative_bounded_cell_7"
+      ],
+      "ttlMs": 300000,
+      "normalization": "already-normalized-0-1",
+      "ingest": {
+        "endpoint": "/api/integrations/completions",
+        "method": "POST",
+        "triggerPush": false,
+        "compactPush": true
+      },
+      "sourceMapping": {
+        "id": "acp-ifrs_sec03_liquidationbasis_trigger-input-assessment",
+        "sensorId": "acp.openclaw.ifrs_sec03_liquidationbasis_trigger.input-analyst.assessment",
+        "name": "OpenClaw ifrs_sec03_liquidationbasis_trigger input-analyst assessment",
+        "region": {
+          "offset": 8180,
+          "length": 8
+        },
+        "ttlMs": 300000
+      }
+    },
+    "autonomyPolicy": {
+      "mode": "advise",
+      "stage": 1,
+      "writeBackType": "pe-sensor",
+      "canWriteBack": true,
+      "canStageActions": false,
+      "canExecuteActions": false,
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "blockedWhenRag": []
+    },
+    "riskControls": {
+      "requiresHumanApproval": false,
+      "requiresRunbook": false,
+      "maxAutonomy": "advise",
+      "blockedWhenRag": []
+    }
+  },
+  "responseMapping": {
+    "schemaVersion": "1.0.0",
+    "responseContract": "structured-keys-or-text",
+    "mode": "advise",
+    "fields": [
+      {
+        "semantic": "source_token_1_at_canonical_0_5_primary_assertion",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/source_token_1_at_canonical_0_5_primary_assertion",
+          "responseKey": "source_token_1_at_canonical_0_5_primary_assertion",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "onUnresolved": "divert-to-analysis",
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.ifrs_sec03_liquidationbasis_trigger.input-analyst.assessment",
+          "region": {
+            "offset": 8180,
+            "length": 8
+          },
+          "index": 0
+        }
+      },
+      {
+        "semantic": "source_token_2_at_canonical_1_0_secondary_assertion",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/source_token_2_at_canonical_1_0_secondary_assertion",
+          "responseKey": "source_token_2_at_canonical_1_0_secondary_assertion",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "onUnresolved": "divert-to-analysis",
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.ifrs_sec03_liquidationbasis_trigger.input-analyst.assessment",
+          "region": {
+            "offset": 8180,
+            "length": 8
+          },
+          "index": 1
+        }
+      },
+      {
+        "semantic": "reserved_nonnegative_bounded_cell_2",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/reserved_nonnegative_bounded_cell_2",
+          "responseKey": "reserved_nonnegative_bounded_cell_2",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "onUnresolved": "divert-to-analysis",
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.ifrs_sec03_liquidationbasis_trigger.input-analyst.assessment",
+          "region": {
+            "offset": 8180,
+            "length": 8
+          },
+          "index": 2
+        }
+      },
+      {
+        "semantic": "reserved_nonnegative_bounded_cell_3",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/reserved_nonnegative_bounded_cell_3",
+          "responseKey": "reserved_nonnegative_bounded_cell_3",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "onUnresolved": "divert-to-analysis",
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.ifrs_sec03_liquidationbasis_trigger.input-analyst.assessment",
+          "region": {
+            "offset": 8180,
+            "length": 8
+          },
+          "index": 3
+        }
+      },
+      {
+        "semantic": "reserved_nonnegative_bounded_cell_4",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/reserved_nonnegative_bounded_cell_4",
+          "responseKey": "reserved_nonnegative_bounded_cell_4",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "onUnresolved": "divert-to-analysis",
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.ifrs_sec03_liquidationbasis_trigger.input-analyst.assessment",
+          "region": {
+            "offset": 8180,
+            "length": 8
+          },
+          "index": 4
+        }
+      },
+      {
+        "semantic": "reserved_nonnegative_bounded_cell_5",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/reserved_nonnegative_bounded_cell_5",
+          "responseKey": "reserved_nonnegative_bounded_cell_5",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "onUnresolved": "divert-to-analysis",
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.ifrs_sec03_liquidationbasis_trigger.input-analyst.assessment",
+          "region": {
+            "offset": 8180,
+            "length": 8
+          },
+          "index": 5
+        }
+      },
+      {
+        "semantic": "reserved_nonnegative_bounded_cell_6",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/reserved_nonnegative_bounded_cell_6",
+          "responseKey": "reserved_nonnegative_bounded_cell_6",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "onUnresolved": "divert-to-analysis",
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.ifrs_sec03_liquidationbasis_trigger.input-analyst.assessment",
+          "region": {
+            "offset": 8180,
+            "length": 8
+          },
+          "index": 6
+        }
+      },
+      {
+        "semantic": "reserved_nonnegative_bounded_cell_7",
+        "valueType": "scalar",
+        "normalization": "scalar-0-1",
+        "extract": {
+          "jsonPointer": "/reserved_nonnegative_bounded_cell_7",
+          "responseKey": "reserved_nonnegative_bounded_cell_7",
+          "textFallback": {
+            "type": "scalar-phrase",
+            "onUnresolved": "divert-to-analysis",
+            "phrases": {
+              "crisis": 0.05,
+              "severe": 0.15,
+              "very high": 0.15,
+              "high": 0.3,
+              "elevated": 0.3,
+              "poor": 0.3,
+              "significant": 0.35,
+              "moderate": 0.5,
+              "borderline": 0.5,
+              "manageable": 0.6,
+              "fair": 0.6,
+              "mild": 0.7,
+              "low": 0.8,
+              "stable": 0.8,
+              "controlled": 0.8,
+              "good": 0.85,
+              "minimal": 0.9,
+              "none": 1.0,
+              "absent": 1.0
+            },
+            "numberRegex": "(\\d+(?:\\.\\d+)?)"
+          }
+        },
+        "target": {
+          "sensorId": "acp.openclaw.ifrs_sec03_liquidationbasis_trigger.input-analyst.assessment",
+          "region": {
+            "offset": 8180,
+            "length": 8
+          },
+          "index": 7
+        }
+      }
+    ]
+  },
+  "diagnostics": {
+    "axisBasis": "inputSemantics",
+    "warnings": [
+      "input axes derived from inputSemantics; openClawProjection.semantics does not name these positions, so the agent's axis names are unverified"
+    ],
+    "inputLength": 8,
+    "sequenceCount": 2
+  }
+}

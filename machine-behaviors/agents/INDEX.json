@@ -1,5 +1,5 @@
 {
-  "total": 1322,
+  "total": 1547,
   "byDomain": {
     "agriculture": 71,
     "ai-services": 9,
@@ -10,6 +10,7 @@
     "energy": 187,
     "health-personal": 43,
     "health-services": 220,
+    "ifrs-accounting": 225,
     "legal-services": 110,
     "life-balance": 110,
     "transportation": 165
@@ -19,8 +20,8 @@
     "conformsTo": "RealityEngine_Machines corpus-exit-v2.0 (docs/CORPUS_EXIT_CRITERIA.md \u00a73.7)",
     "corpus": {
       "algorithm": "sha256/relfile-sorted-v1",
-      "machineCount": 1327,
-      "digest": "sha256:db2cbb45b46f2298e9e6784221b4af6e73aebb3692081abb54ba628860b2d96a"
+      "machineCount": 1552,
+      "digest": "sha256:37d4a6aea71a2f64579ef11e479dab0d83effd6ce096ecabec87f31946bd6398"
     },
     "skippedConformanceFixtures": [
       "ArbitrationProviderPeer",
@@ -14085,6 +14086,3381 @@
       },
       "axisBasis": "openClawProjection",
       "path": "health-services/health-services-learning-health-system-outcome-stabilizer.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec01_GeneralPurposeFS_Verifier",
+      "machineName": "IFRS_Sec01_GeneralPurposeFS_Verifier",
+      "code": "ifrs_sec01_generalpurposefs_verifier",
+      "agentId": "ifrs-sec01-generalpurposefs-verifier",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 8036,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec01-generalpurposefs-verifier.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec01_IncidentalFiduciary_Assessor",
+      "machineName": "IFRS_Sec01_IncidentalFiduciary_Assessor",
+      "code": "ifrs_sec01_incidentalfiduciary_assessor",
+      "agentId": "ifrs-sec01-incidentalfiduciary-assessor",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 8024,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec01-incidentalfiduciary-assessor.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec01_PrimaryFiduciary_Evaluator",
+      "machineName": "IFRS_Sec01_PrimaryFiduciary_Evaluator",
+      "code": "ifrs_sec01_primaryfiduciary_evaluator",
+      "agentId": "ifrs-sec01-primaryfiduciary-evaluator",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 8012,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec01-primaryfiduciary-evaluator.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec01_PublicMarket_DebtEquity_Checker",
+      "machineName": "IFRS_Sec01_PublicMarket_DebtEquity_Checker",
+      "code": "ifrs_sec01_publicmarket_debtequity_checker",
+      "agentId": "ifrs-sec01-publicmarket-debtequity-checker",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 8000,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec01-publicmarket-debtequity-checker.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec01_SME_Eligibility_Arbiter",
+      "machineName": "IFRS_Sec01_SME_Eligibility_Arbiter",
+      "code": "ifrs_sec01_sme_eligibility_arbiter",
+      "agentId": "ifrs-sec01-sme-eligibility-arbiter",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 8048,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec01-sme-eligibility-arbiter.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec02_Asset_Recognition_Verifier",
+      "machineName": "IFRS_Sec02_Asset_Recognition_Verifier",
+      "code": "ifrs_sec02_asset_recognition_verifier",
+      "agentId": "ifrs-sec02-asset-recognition-verifier",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 8060,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec02-asset-recognition-verifier.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec02_Expense_Recognition_Verifier",
+      "machineName": "IFRS_Sec02_Expense_Recognition_Verifier",
+      "code": "ifrs_sec02_expense_recognition_verifier",
+      "agentId": "ifrs-sec02-expense-recognition-verifier",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 8096,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec02-expense-recognition-verifier.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec02_Income_Recognition_Verifier",
+      "machineName": "IFRS_Sec02_Income_Recognition_Verifier",
+      "code": "ifrs_sec02_income_recognition_verifier",
+      "agentId": "ifrs-sec02-income-recognition-verifier",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 8084,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec02-income-recognition-verifier.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec02_Liability_Recognition_Verifier",
+      "machineName": "IFRS_Sec02_Liability_Recognition_Verifier",
+      "code": "ifrs_sec02_liability_recognition_verifier",
+      "agentId": "ifrs-sec02-liability-recognition-verifier",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 8072,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec02-liability-recognition-verifier.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec02_Offsetting_Prohibition_Enforcer",
+      "machineName": "IFRS_Sec02_Offsetting_Prohibition_Enforcer",
+      "code": "ifrs_sec02_offsetting_prohibition_enforcer",
+      "agentId": "ifrs-sec02-offsetting-prohibition-enforcer",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 8144,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec02-offsetting-prohibition-enforcer.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec02_Prudence_Neutrality_Checker",
+      "machineName": "IFRS_Sec02_Prudence_Neutrality_Checker",
+      "code": "ifrs_sec02_prudence_neutrality_checker",
+      "agentId": "ifrs-sec02-prudence-neutrality-checker",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 8132,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec02-prudence-neutrality-checker.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec02_SubstanceOverForm_Evaluator",
+      "machineName": "IFRS_Sec02_SubstanceOverForm_Evaluator",
+      "code": "ifrs_sec02_substanceoverform_evaluator",
+      "agentId": "ifrs-sec02-substanceoverform-evaluator",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 8120,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec02-substanceoverform-evaluator.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec02_UndueCostEffort_Assessor",
+      "machineName": "IFRS_Sec02_UndueCostEffort_Assessor",
+      "code": "ifrs_sec02_unduecosteffort_assessor",
+      "agentId": "ifrs-sec02-unduecosteffort-assessor",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 8108,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec02-unduecosteffort-assessor.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec03_ComparativeInfo_Enforcer",
+      "machineName": "IFRS_Sec03_ComparativeInfo_Enforcer",
+      "code": "ifrs_sec03_comparativeinfo_enforcer",
+      "agentId": "ifrs-sec03-comparativeinfo-enforcer",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 8204,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec03-comparativeinfo-enforcer.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec03_Compliance_Assertion_Arbiter",
+      "machineName": "IFRS_Sec03_Compliance_Assertion_Arbiter",
+      "code": "ifrs_sec03_compliance_assertion_arbiter",
+      "agentId": "ifrs-sec03-compliance-assertion-arbiter",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 8156,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec03-compliance-assertion-arbiter.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec03_Consistency_Presentation_Verifier",
+      "machineName": "IFRS_Sec03_Consistency_Presentation_Verifier",
+      "code": "ifrs_sec03_consistency_presentation_verifier",
+      "agentId": "ifrs-sec03-consistency-presentation-verifier",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 8192,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec03-consistency-presentation-verifier.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec03_GoingConcern_12Mo_Assessor",
+      "machineName": "IFRS_Sec03_GoingConcern_12Mo_Assessor",
+      "code": "ifrs_sec03_goingconcern_12mo_assessor",
+      "agentId": "ifrs-sec03-goingconcern-12mo-assessor",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 8168,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec03-goingconcern-12mo-assessor.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec03_LiquidationBasis_Trigger",
+      "machineName": "IFRS_Sec03_LiquidationBasis_Trigger",
+      "code": "ifrs_sec03_liquidationbasis_trigger",
+      "agentId": "ifrs-sec03-liquidationbasis-trigger",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 8180,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec03-liquidationbasis-trigger.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec03_Materiality_Aggregation_Evaluator",
+      "machineName": "IFRS_Sec03_Materiality_Aggregation_Evaluator",
+      "code": "ifrs_sec03_materiality_aggregation_evaluator",
+      "agentId": "ifrs-sec03-materiality-aggregation-evaluator",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 8216,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec03-materiality-aggregation-evaluator.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec04_CurrentAsset_Classifier",
+      "machineName": "IFRS_Sec04_CurrentAsset_Classifier",
+      "code": "ifrs_sec04_currentasset_classifier",
+      "agentId": "ifrs-sec04-currentasset-classifier",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 8228,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec04-currentasset-classifier.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec04_CurrentLiability_Classifier",
+      "machineName": "IFRS_Sec04_CurrentLiability_Classifier",
+      "code": "ifrs_sec04_currentliability_classifier",
+      "agentId": "ifrs-sec04-currentliability-classifier",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 8252,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec04-currentliability-classifier.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec04_MandatoryLineItem_Completeness_Checker",
+      "machineName": "IFRS_Sec04_MandatoryLineItem_Completeness_Checker",
+      "code": "ifrs_sec04_mandatorylineitem_completeness_checker",
+      "agentId": "ifrs-sec04-mandatorylineitem-completeness-checker",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 8288,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec04-mandatorylineitem-completeness-checker.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec04_NonCurrentAsset_Classifier",
+      "machineName": "IFRS_Sec04_NonCurrentAsset_Classifier",
+      "code": "ifrs_sec04_noncurrentasset_classifier",
+      "agentId": "ifrs-sec04-noncurrentasset-classifier",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 8240,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec04-noncurrentasset-classifier.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec04_NonCurrentLiability_Classifier",
+      "machineName": "IFRS_Sec04_NonCurrentLiability_Classifier",
+      "code": "ifrs_sec04_noncurrentliability_classifier",
+      "agentId": "ifrs-sec04-noncurrentliability-classifier",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 8264,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec04-noncurrentliability-classifier.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec04_Refinancing_Breach_Assessor",
+      "machineName": "IFRS_Sec04_Refinancing_Breach_Assessor",
+      "code": "ifrs_sec04_refinancing_breach_assessor",
+      "agentId": "ifrs-sec04-refinancing-breach-assessor",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 8276,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec04-refinancing-breach-assessor.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec05_DiscontinuedOps_Segregator",
+      "machineName": "IFRS_Sec05_DiscontinuedOps_Segregator",
+      "code": "ifrs_sec05_discontinuedops_segregator",
+      "agentId": "ifrs-sec05-discontinuedops-segregator",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 8348,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec05-discontinuedops-segregator.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec05_Expense_Nature_vs_Function_Classifier",
+      "machineName": "IFRS_Sec05_Expense_Nature_vs_Function_Classifier",
+      "code": "ifrs_sec05_expense_nature_vs_function_classifier",
+      "agentId": "ifrs-sec05-expense-nature-vs-function-classifier",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 8312,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec05-expense-nature-vs-function-classifier.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec05_OCI_NonReclassifiable_Tracker",
+      "machineName": "IFRS_Sec05_OCI_NonReclassifiable_Tracker",
+      "code": "ifrs_sec05_oci_nonreclassifiable_tracker",
+      "agentId": "ifrs-sec05-oci-nonreclassifiable-tracker",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 8336,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec05-oci-nonreclassifiable-tracker.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec05_OCI_Reclassifiable_Tracker",
+      "machineName": "IFRS_Sec05_OCI_Reclassifiable_Tracker",
+      "code": "ifrs_sec05_oci_reclassifiable_tracker",
+      "agentId": "ifrs-sec05-oci-reclassifiable-tracker",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 8324,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec05-oci-reclassifiable-tracker.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec05_Single_vs_TwoStatement_Selector",
+      "machineName": "IFRS_Sec05_Single_vs_TwoStatement_Selector",
+      "code": "ifrs_sec05_single_vs_twostatement_selector",
+      "agentId": "ifrs-sec05-single-vs-twostatement-selector",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 8300,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec05-single-vs-twostatement-selector.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec06_Dividend_Distribution_Validator",
+      "machineName": "IFRS_Sec06_Dividend_Distribution_Validator",
+      "code": "ifrs_sec06_dividend_distribution_validator",
+      "agentId": "ifrs-sec06-dividend-distribution-validator",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 8396,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec06-dividend-distribution-validator.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec06_OCI_Reserve_Reconciliation_Engine",
+      "machineName": "IFRS_Sec06_OCI_Reserve_Reconciliation_Engine",
+      "code": "ifrs_sec06_oci_reserve_reconciliation_engine",
+      "agentId": "ifrs-sec06-oci-reserve-reconciliation-engine",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 8384,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec06-oci-reserve-reconciliation-engine.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec06_RetainedEarnings_Reconciliation_Engine",
+      "machineName": "IFRS_Sec06_RetainedEarnings_Reconciliation_Engine",
+      "code": "ifrs_sec06_retainedearnings_reconciliation_engine",
+      "agentId": "ifrs-sec06-retainedearnings-reconciliation-engine",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 8372,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec06-retainedearnings-reconciliation-engine.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec06_ShareCapital_Reconciliation_Engine",
+      "machineName": "IFRS_Sec06_ShareCapital_Reconciliation_Engine",
+      "code": "ifrs_sec06_sharecapital_reconciliation_engine",
+      "agentId": "ifrs-sec06-sharecapital-reconciliation-engine",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 8360,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec06-sharecapital-reconciliation-engine.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec07_FinancingCashFlow_Classifier",
+      "machineName": "IFRS_Sec07_FinancingCashFlow_Classifier",
+      "code": "ifrs_sec07_financingcashflow_classifier",
+      "agentId": "ifrs-sec07-financingcashflow-classifier",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 8444,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec07-financingcashflow-classifier.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec07_ForeignCurrency_CashFlow_Translator",
+      "machineName": "IFRS_Sec07_ForeignCurrency_CashFlow_Translator",
+      "code": "ifrs_sec07_foreigncurrency_cashflow_translator",
+      "agentId": "ifrs-sec07-foreigncurrency-cashflow-translator",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 8456,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec07-foreigncurrency-cashflow-translator.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec07_InvestingCashFlow_Classifier",
+      "machineName": "IFRS_Sec07_InvestingCashFlow_Classifier",
+      "code": "ifrs_sec07_investingcashflow_classifier",
+      "agentId": "ifrs-sec07-investingcashflow-classifier",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 8432,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec07-investingcashflow-classifier.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec07_NonCash_Transaction_Discloser",
+      "machineName": "IFRS_Sec07_NonCash_Transaction_Discloser",
+      "code": "ifrs_sec07_noncash_transaction_discloser",
+      "agentId": "ifrs-sec07-noncash-transaction-discloser",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 8468,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec07-noncash-transaction-discloser.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec07_OperatingCashFlow_DirectMethod_Engine",
+      "machineName": "IFRS_Sec07_OperatingCashFlow_DirectMethod_Engine",
+      "code": "ifrs_sec07_operatingcashflow_directmethod_engine",
+      "agentId": "ifrs-sec07-operatingcashflow-directmethod-engine",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 8408,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec07-operatingcashflow-directmethod-engine.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec07_OperatingCashFlow_IndirectMethod_Engine",
+      "machineName": "IFRS_Sec07_OperatingCashFlow_IndirectMethod_Engine",
+      "code": "ifrs_sec07_operatingcashflow_indirectmethod_engine",
+      "agentId": "ifrs-sec07-operatingcashflow-indirectmethod-engine",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 8420,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec07-operatingcashflow-indirectmethod-engine.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec08_AccountingPolicy_Disclosure_Checker",
+      "machineName": "IFRS_Sec08_AccountingPolicy_Disclosure_Checker",
+      "code": "ifrs_sec08_accountingpolicy_disclosure_checker",
+      "agentId": "ifrs-sec08-accountingpolicy-disclosure-checker",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 8492,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec08-accountingpolicy-disclosure-checker.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec08_CapitalManagement_Disclosure_Verifier",
+      "machineName": "IFRS_Sec08_CapitalManagement_Disclosure_Verifier",
+      "code": "ifrs_sec08_capitalmanagement_disclosure_verifier",
+      "agentId": "ifrs-sec08-capitalmanagement-disclosure-verifier",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 8516,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec08-capitalmanagement-disclosure-verifier.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec08_Judgments_Uncertainty_Tracker",
+      "machineName": "IFRS_Sec08_Judgments_Uncertainty_Tracker",
+      "code": "ifrs_sec08_judgments_uncertainty_tracker",
+      "agentId": "ifrs-sec08-judgments-uncertainty-tracker",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 8504,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec08-judgments-uncertainty-tracker.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec08_NoteStructure_CrossRef_Verifier",
+      "machineName": "IFRS_Sec08_NoteStructure_CrossRef_Verifier",
+      "code": "ifrs_sec08_notestructure_crossref_verifier",
+      "agentId": "ifrs-sec08-notestructure-crossref-verifier",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 8480,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec08-notestructure-crossref-verifier.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec09_Control_Power_Assessment_Engine",
+      "machineName": "IFRS_Sec09_Control_Power_Assessment_Engine",
+      "code": "ifrs_sec09_control_power_assessment_engine",
+      "agentId": "ifrs-sec09-control-power-assessment-engine",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 8528,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec09-control-power-assessment-engine.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec09_Intercompany_Elimination_Engine",
+      "machineName": "IFRS_Sec09_Intercompany_Elimination_Engine",
+      "code": "ifrs_sec09_intercompany_elimination_engine",
+      "agentId": "ifrs-sec09-intercompany-elimination-engine",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 8552,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec09-intercompany-elimination-engine.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec09_LossOfControl_Disposal_Engine",
+      "machineName": "IFRS_Sec09_LossOfControl_Disposal_Engine",
+      "code": "ifrs_sec09_lossofcontrol_disposal_engine",
+      "agentId": "ifrs-sec09-lossofcontrol-disposal-engine",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 8588,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec09-lossofcontrol-disposal-engine.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec09_NCI_ProportionateShare_Calculator",
+      "machineName": "IFRS_Sec09_NCI_ProportionateShare_Calculator",
+      "code": "ifrs_sec09_nci_proportionateshare_calculator",
+      "agentId": "ifrs-sec09-nci-proportionateshare-calculator",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 8576,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec09-nci-proportionateshare-calculator.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec09_SeparateFS_Cost_vs_FairValue_Selector",
+      "machineName": "IFRS_Sec09_SeparateFS_Cost_vs_FairValue_Selector",
+      "code": "ifrs_sec09_separatefs_cost_vs_fairvalue_selector",
+      "agentId": "ifrs-sec09-separatefs-cost-vs-fairvalue-selector",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 8600,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec09-separatefs-cost-vs-fairvalue-selector.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec09_UniformAccountingPolicies_Enforcer",
+      "machineName": "IFRS_Sec09_UniformAccountingPolicies_Enforcer",
+      "code": "ifrs_sec09_uniformaccountingpolicies_enforcer",
+      "agentId": "ifrs-sec09-uniformaccountingpolicies-enforcer",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 8564,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec09-uniformaccountingpolicies-enforcer.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec09_VariableReturns_Exposure_Assessor",
+      "machineName": "IFRS_Sec09_VariableReturns_Exposure_Assessor",
+      "code": "ifrs_sec09_variablereturns_exposure_assessor",
+      "agentId": "ifrs-sec09-variablereturns-exposure-assessor",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 8540,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec09-variablereturns-exposure-assessor.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec10_AccountingPolicy_Hierarchy_Selector",
+      "machineName": "IFRS_Sec10_AccountingPolicy_Hierarchy_Selector",
+      "code": "ifrs_sec10_accountingpolicy_hierarchy_selector",
+      "agentId": "ifrs-sec10-accountingpolicy-hierarchy-selector",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 8612,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec10-accountingpolicy-hierarchy-selector.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec10_Impracticability_Exemption_Assessor",
+      "machineName": "IFRS_Sec10_Impracticability_Exemption_Assessor",
+      "code": "ifrs_sec10_impracticability_exemption_assessor",
+      "agentId": "ifrs-sec10-impracticability-exemption-assessor",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 8660,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec10-impracticability-exemption-assessor.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec10_PriorPeriodError_Restatement_Engine",
+      "machineName": "IFRS_Sec10_PriorPeriodError_Restatement_Engine",
+      "code": "ifrs_sec10_priorperioderror_restatement_engine",
+      "agentId": "ifrs-sec10-priorperioderror-restatement-engine",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 8648,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec10-priorperioderror-restatement-engine.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec10_Prospective_EstimateChange_Engine",
+      "machineName": "IFRS_Sec10_Prospective_EstimateChange_Engine",
+      "code": "ifrs_sec10_prospective_estimatechange_engine",
+      "agentId": "ifrs-sec10-prospective-estimatechange-engine",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 8636,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec10-prospective-estimatechange-engine.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec10_Retrospective_PolicyChange_Engine",
+      "machineName": "IFRS_Sec10_Retrospective_PolicyChange_Engine",
+      "code": "ifrs_sec10_retrospective_policychange_engine",
+      "agentId": "ifrs-sec10-retrospective-policychange-engine",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 8624,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec10-retrospective-policychange-engine.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec11_BasicDebt_AmortisedCost_Engine",
+      "machineName": "IFRS_Sec11_BasicDebt_AmortisedCost_Engine",
+      "code": "ifrs_sec11_basicdebt_amortisedcost_engine",
+      "agentId": "ifrs-sec11-basicdebt-amortisedcost-engine",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 8684,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec11-basicdebt-amortisedcost-engine.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec11_Derecognition_FinancialAsset_PassThrough",
+      "machineName": "IFRS_Sec11_Derecognition_FinancialAsset_PassThrough",
+      "code": "ifrs_sec11_derecognition_financialasset_passthrough",
+      "agentId": "ifrs-sec11-derecognition-financialasset-passthrough",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 8780,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec11-derecognition-financialasset-passthrough.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec11_Derecognition_FinancialLiability_Extinguisher",
+      "machineName": "IFRS_Sec11_Derecognition_FinancialLiability_Extinguisher",
+      "code": "ifrs_sec11_derecognition_financialliability_extinguisher",
+      "agentId": "ifrs-sec11-derecognition-financialliability-extinguisher",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 8792,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec11-derecognition-financialliability-extinguisher.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec11_EffectiveInterestMethod_Calculator",
+      "machineName": "IFRS_Sec11_EffectiveInterestMethod_Calculator",
+      "code": "ifrs_sec11_effectiveinterestmethod_calculator",
+      "agentId": "ifrs-sec11-effectiveinterestmethod-calculator",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 8696,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec11-effectiveinterestmethod-calculator.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec11_EquityInvestment_Cost_vs_FV_Selector",
+      "machineName": "IFRS_Sec11_EquityInvestment_Cost_vs_FV_Selector",
+      "code": "ifrs_sec11_equityinvestment_cost_vs_fv_selector",
+      "agentId": "ifrs-sec11-equityinvestment-cost-vs-fv-selector",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 8744,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec11-equityinvestment-cost-vs-fv-selector.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec11_FairValueOption_Disqualification_Enforcer",
+      "machineName": "IFRS_Sec11_FairValueOption_Disqualification_Enforcer",
+      "code": "ifrs_sec11_fairvalueoption_disqualification_enforcer",
+      "agentId": "ifrs-sec11-fairvalueoption-disqualification-enforcer",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 8804,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec11-fairvalueoption-disqualification-enforcer.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec11_FinancialLiability_AmortisedCost_Engine",
+      "machineName": "IFRS_Sec11_FinancialLiability_AmortisedCost_Engine",
+      "code": "ifrs_sec11_financialliability_amortisedcost_engine",
+      "agentId": "ifrs-sec11-financialliability-amortisedcost-engine",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 8756,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec11-financialliability-amortisedcost-engine.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec11_Impairment_IncurredLoss_Evaluator",
+      "machineName": "IFRS_Sec11_Impairment_IncurredLoss_Evaluator",
+      "code": "ifrs_sec11_impairment_incurredloss_evaluator",
+      "agentId": "ifrs-sec11-impairment-incurredloss-evaluator",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 8720,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec11-impairment-incurredloss-evaluator.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec11_Impairment_Reversal_Engine",
+      "machineName": "IFRS_Sec11_Impairment_Reversal_Engine",
+      "code": "ifrs_sec11_impairment_reversal_engine",
+      "agentId": "ifrs-sec11-impairment-reversal-engine",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 8732,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec11-impairment-reversal-engine.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec11_Modification_DebtTerms_Assessor",
+      "machineName": "IFRS_Sec11_Modification_DebtTerms_Assessor",
+      "code": "ifrs_sec11_modification_debtterms_assessor",
+      "agentId": "ifrs-sec11-modification-debtterms-assessor",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 8768,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec11-modification-debtterms-assessor.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec11_SPPI_CashFlow_Classifier",
+      "machineName": "IFRS_Sec11_SPPI_CashFlow_Classifier",
+      "code": "ifrs_sec11_sppi_cashflow_classifier",
+      "agentId": "ifrs-sec11-sppi-cashflow-classifier",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 8672,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec11-sppi-cashflow-classifier.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec11_TradeReceivable_Factoring_Derecognizer",
+      "machineName": "IFRS_Sec11_TradeReceivable_Factoring_Derecognizer",
+      "code": "ifrs_sec11_tradereceivable_factoring_derecognizer",
+      "agentId": "ifrs-sec11-tradereceivable-factoring-derecognizer",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 8708,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec11-tradereceivable-factoring-derecognizer.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec12_BidAsk_Spread_Adjuster",
+      "machineName": "IFRS_Sec12_BidAsk_Spread_Adjuster",
+      "code": "ifrs_sec12_bidask_spread_adjuster",
+      "agentId": "ifrs-sec12-bidask-spread-adjuster",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 8876,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec12-bidask-spread-adjuster.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec12_CashFlowHedge_OCI_Engine",
+      "machineName": "IFRS_Sec12_CashFlowHedge_OCI_Engine",
+      "code": "ifrs_sec12_cashflowhedge_oci_engine",
+      "agentId": "ifrs-sec12-cashflowhedge-oci-engine",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 8912,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec12-cashflowhedge-oci-engine.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec12_FVTPL_Derivative_Valuation_Engine",
+      "machineName": "IFRS_Sec12_FVTPL_Derivative_Valuation_Engine",
+      "code": "ifrs_sec12_fvtpl_derivative_valuation_engine",
+      "agentId": "ifrs-sec12-fvtpl-derivative-valuation-engine",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 8816,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec12-fvtpl-derivative-valuation-engine.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec12_HedgeAccounting_Eligibility_Assessor",
+      "machineName": "IFRS_Sec12_HedgeAccounting_Eligibility_Assessor",
+      "code": "ifrs_sec12_hedgeaccounting_eligibility_assessor",
+      "agentId": "ifrs-sec12-hedgeaccounting-eligibility-assessor",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 8888,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec12-hedgeaccounting-eligibility-assessor.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec12_HedgeEffectiveness_Tester",
+      "machineName": "IFRS_Sec12_HedgeEffectiveness_Tester",
+      "code": "ifrs_sec12_hedgeeffectiveness_tester",
+      "agentId": "ifrs-sec12-hedgeeffectiveness-tester",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 8900,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec12-hedgeeffectiveness-tester.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec12_HedgeIneffectiveness_P&L_Engine",
+      "machineName": "IFRS_Sec12_HedgeIneffectiveness_P&L_Engine",
+      "code": "ifrs_sec12_hedgeineffectiveness_p&l_engine",
+      "agentId": "ifrs-sec12-hedgeineffectiveness-p-l-engine",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 8924,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec12-hedgeineffectiveness-p-l-engine.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec12_Level1_ActiveMarket_Price_Verifier",
+      "machineName": "IFRS_Sec12_Level1_ActiveMarket_Price_Verifier",
+      "code": "ifrs_sec12_level1_activemarket_price_verifier",
+      "agentId": "ifrs-sec12-level1-activemarket-price-verifier",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 8828,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec12-level1-activemarket-price-verifier.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec12_Level2_ObservableInput_Mapper",
+      "machineName": "IFRS_Sec12_Level2_ObservableInput_Mapper",
+      "code": "ifrs_sec12_level2_observableinput_mapper",
+      "agentId": "ifrs-sec12-level2-observableinput-mapper",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 8840,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec12-level2-observableinput-mapper.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec12_Level3_Unobservable_Valuation_Engine",
+      "machineName": "IFRS_Sec12_Level3_Unobservable_Valuation_Engine",
+      "code": "ifrs_sec12_level3_unobservable_valuation_engine",
+      "agentId": "ifrs-sec12-level3-unobservable-valuation-engine",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 8852,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec12-level3-unobservable-valuation-engine.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec12_ValuationTechnique_Consistency_Checker",
+      "machineName": "IFRS_Sec12_ValuationTechnique_Consistency_Checker",
+      "code": "ifrs_sec12_valuationtechnique_consistency_checker",
+      "agentId": "ifrs-sec12-valuationtechnique-consistency-checker",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 8864,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec12-valuationtechnique-consistency-checker.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec13_CostOfConversion_Allocation_Engine",
+      "machineName": "IFRS_Sec13_CostOfConversion_Allocation_Engine",
+      "code": "ifrs_sec13_costofconversion_allocation_engine",
+      "agentId": "ifrs-sec13-costofconversion-allocation-engine",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 8948,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec13-costofconversion-allocation-engine.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec13_CostOfPurchase_Inclusion_Engine",
+      "machineName": "IFRS_Sec13_CostOfPurchase_Inclusion_Engine",
+      "code": "ifrs_sec13_costofpurchase_inclusion_engine",
+      "agentId": "ifrs-sec13-costofpurchase-inclusion-engine",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 8936,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec13-costofpurchase-inclusion-engine.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec13_FIFO_vs_WeightedAverage_CostFormula",
+      "machineName": "IFRS_Sec13_FIFO_vs_WeightedAverage_CostFormula",
+      "code": "ifrs_sec13_fifo_vs_weightedaverage_costformula",
+      "agentId": "ifrs-sec13-fifo-vs-weightedaverage-costformula",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 8960,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec13-fifo-vs-weightedaverage-costformula.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec13_NetRealisableValue_NRV_Tester",
+      "machineName": "IFRS_Sec13_NetRealisableValue_NRV_Tester",
+      "code": "ifrs_sec13_netrealisablevalue_nrv_tester",
+      "agentId": "ifrs-sec13-netrealisablevalue-nrv-tester",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 8972,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec13-netrealisablevalue-nrv-tester.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec13_WriteDown_Expense_Engine",
+      "machineName": "IFRS_Sec13_WriteDown_Expense_Engine",
+      "code": "ifrs_sec13_writedown_expense_engine",
+      "agentId": "ifrs-sec13-writedown-expense-engine",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 8984,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec13-writedown-expense-engine.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec13_WriteDown_Reversal_Engine",
+      "machineName": "IFRS_Sec13_WriteDown_Reversal_Engine",
+      "code": "ifrs_sec13_writedown_reversal_engine",
+      "agentId": "ifrs-sec13-writedown-reversal-engine",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 8996,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec13-writedown-reversal-engine.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec14_Associate_Impairment_Tester",
+      "machineName": "IFRS_Sec14_Associate_Impairment_Tester",
+      "code": "ifrs_sec14_associate_impairment_tester",
+      "agentId": "ifrs-sec14-associate-impairment-tester",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 9044,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec14-associate-impairment-tester.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec14_Cost_vs_FairValue_AlternateModel_Selector",
+      "machineName": "IFRS_Sec14_Cost_vs_FairValue_AlternateModel_Selector",
+      "code": "ifrs_sec14_cost_vs_fairvalue_alternatemodel_selector",
+      "agentId": "ifrs-sec14-cost-vs-fairvalue-alternatemodel-selector",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 9056,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec14-cost-vs-fairvalue-alternatemodel-selector.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec14_EquityMethod_InitialCost_Engine",
+      "machineName": "IFRS_Sec14_EquityMethod_InitialCost_Engine",
+      "code": "ifrs_sec14_equitymethod_initialcost_engine",
+      "agentId": "ifrs-sec14-equitymethod-initialcost-engine",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 9020,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec14-equitymethod-initialcost-engine.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec14_EquityMethod_PostAcquisition_Share_P&L",
+      "machineName": "IFRS_Sec14_EquityMethod_PostAcquisition_Share_P&L",
+      "code": "ifrs_sec14_equitymethod_postacquisition_share_p&l",
+      "agentId": "ifrs-sec14-equitymethod-postacquisition-share-p-l",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 9032,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec14-equitymethod-postacquisition-share-p-l.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec14_SignificantInfluence_Presumption_Assessor",
+      "machineName": "IFRS_Sec14_SignificantInfluence_Presumption_Assessor",
+      "code": "ifrs_sec14_significantinfluence_presumption_assessor",
+      "agentId": "ifrs-sec14-significantinfluence-presumption-assessor",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 9008,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec14-significantinfluence-presumption-assessor.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec15_JointControl_Contractual_Assessor",
+      "machineName": "IFRS_Sec15_JointControl_Contractual_Assessor",
+      "code": "ifrs_sec15_jointcontrol_contractual_assessor",
+      "agentId": "ifrs-sec15-jointcontrol-contractual-assessor",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 9068,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec15-jointcontrol-contractual-assessor.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec15_JointOperation_AssetLiab_Proportionator",
+      "machineName": "IFRS_Sec15_JointOperation_AssetLiab_Proportionator",
+      "code": "ifrs_sec15_jointoperation_assetliab_proportionator",
+      "agentId": "ifrs-sec15-jointoperation-assetliab-proportionator",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 9080,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec15-jointoperation-assetliab-proportionator.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec15_JointVenture_CostModel_Engine",
+      "machineName": "IFRS_Sec15_JointVenture_CostModel_Engine",
+      "code": "ifrs_sec15_jointventure_costmodel_engine",
+      "agentId": "ifrs-sec15-jointventure-costmodel-engine",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 9104,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec15-jointventure-costmodel-engine.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec15_JointVenture_EquityMethod_Engine",
+      "machineName": "IFRS_Sec15_JointVenture_EquityMethod_Engine",
+      "code": "ifrs_sec15_jointventure_equitymethod_engine",
+      "agentId": "ifrs-sec15-jointventure-equitymethod-engine",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 9092,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec15-jointventure-equitymethod-engine.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec15_JointVenture_FairValueModel_Engine",
+      "machineName": "IFRS_Sec15_JointVenture_FairValueModel_Engine",
+      "code": "ifrs_sec15_jointventure_fairvaluemodel_engine",
+      "agentId": "ifrs-sec15-jointventure-fairvaluemodel-engine",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 9116,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec15-jointventure-fairvaluemodel-engine.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec16_CostModel_FallBack_Engine",
+      "machineName": "IFRS_Sec16_CostModel_FallBack_Engine",
+      "code": "ifrs_sec16_costmodel_fallback_engine",
+      "agentId": "ifrs-sec16-costmodel-fallback-engine",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 9152,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec16-costmodel-fallback-engine.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec16_Disposal_GainLoss_Calculator",
+      "machineName": "IFRS_Sec16_Disposal_GainLoss_Calculator",
+      "code": "ifrs_sec16_disposal_gainloss_calculator",
+      "agentId": "ifrs-sec16-disposal-gainloss-calculator",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 9176,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec16-disposal-gainloss-calculator.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec16_Eligibility_Rental_CapitalAppreciation",
+      "machineName": "IFRS_Sec16_Eligibility_Rental_CapitalAppreciation",
+      "code": "ifrs_sec16_eligibility_rental_capitalappreciation",
+      "agentId": "ifrs-sec16-eligibility-rental-capitalappreciation",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 9128,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec16-eligibility-rental-capitalappreciation.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec16_FairValueModel_P&L_Engine",
+      "machineName": "IFRS_Sec16_FairValueModel_P&L_Engine",
+      "code": "ifrs_sec16_fairvaluemodel_p&l_engine",
+      "agentId": "ifrs-sec16-fairvaluemodel-p-l-engine",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 9140,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec16-fairvaluemodel-p-l-engine.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec16_Transfer_Property_Classification_Engine",
+      "machineName": "IFRS_Sec16_Transfer_Property_Classification_Engine",
+      "code": "ifrs_sec16_transfer_property_classification_engine",
+      "agentId": "ifrs-sec16-transfer-property-classification-engine",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 9164,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec16-transfer-property-classification-engine.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec17_ComponentDepreciation_Splitter",
+      "machineName": "IFRS_Sec17_ComponentDepreciation_Splitter",
+      "code": "ifrs_sec17_componentdepreciation_splitter",
+      "agentId": "ifrs-sec17-componentdepreciation-splitter",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 9236,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec17-componentdepreciation-splitter.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec17_CostModel_Depreciation_Engine",
+      "machineName": "IFRS_Sec17_CostModel_Depreciation_Engine",
+      "code": "ifrs_sec17_costmodel_depreciation_engine",
+      "agentId": "ifrs-sec17-costmodel-depreciation-engine",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 9212,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec17-costmodel-depreciation-engine.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec17_Derecognition_Disposal_GainLoss",
+      "machineName": "IFRS_Sec17_Derecognition_Disposal_GainLoss",
+      "code": "ifrs_sec17_derecognition_disposal_gainloss",
+      "agentId": "ifrs-sec17-derecognition-disposal-gainloss",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 9272,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec17-derecognition-disposal-gainloss.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec17_Dismantling_Decommissioning_Provision_Init",
+      "machineName": "IFRS_Sec17_Dismantling_Decommissioning_Provision_Init",
+      "code": "ifrs_sec17_dismantling_decommissioning_provision_init",
+      "agentId": "ifrs-sec17-dismantling-decommissioning-provision-init",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 9200,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec17-dismantling-decommissioning-provision-init.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec17_Impairment_CrossLink_Engine",
+      "machineName": "IFRS_Sec17_Impairment_CrossLink_Engine",
+      "code": "ifrs_sec17_impairment_crosslink_engine",
+      "agentId": "ifrs-sec17-impairment-crosslink-engine",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 9260,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec17-impairment-crosslink-engine.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec17_InitialCost_Recognition_Engine",
+      "machineName": "IFRS_Sec17_InitialCost_Recognition_Engine",
+      "code": "ifrs_sec17_initialcost_recognition_engine",
+      "agentId": "ifrs-sec17-initialcost-recognition-engine",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 9188,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec17-initialcost-recognition-engine.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec17_RevaluationModel_Surplus_OCI_Engine",
+      "machineName": "IFRS_Sec17_RevaluationModel_Surplus_OCI_Engine",
+      "code": "ifrs_sec17_revaluationmodel_surplus_oci_engine",
+      "agentId": "ifrs-sec17-revaluationmodel-surplus-oci-engine",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 9224,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec17-revaluationmodel-surplus-oci-engine.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec17_UsefulLife_ResidualValue_AnnualReview",
+      "machineName": "IFRS_Sec17_UsefulLife_ResidualValue_AnnualReview",
+      "code": "ifrs_sec17_usefullife_residualvalue_annualreview",
+      "agentId": "ifrs-sec17-usefullife-residualvalue-annualreview",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 9248,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec17-usefullife-residualvalue-annualreview.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec18_Derecognition_Disposal_Engine",
+      "machineName": "IFRS_Sec18_Derecognition_Disposal_Engine",
+      "code": "ifrs_sec18_derecognition_disposal_engine",
+      "agentId": "ifrs-sec18-derecognition-disposal-engine",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 9356,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec18-derecognition-disposal-engine.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec18_FiniteLife_Amortisation_Engine",
+      "machineName": "IFRS_Sec18_FiniteLife_Amortisation_Engine",
+      "code": "ifrs_sec18_finitelife_amortisation_engine",
+      "agentId": "ifrs-sec18-finitelife-amortisation-engine",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 9320,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec18-finitelife-amortisation-engine.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec18_Identifiability_Control_FutureBenefits",
+      "machineName": "IFRS_Sec18_Identifiability_Control_FutureBenefits",
+      "code": "ifrs_sec18_identifiability_control_futurebenefits",
+      "agentId": "ifrs-sec18-identifiability-control-futurebenefits",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 9284,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec18-identifiability-control-futurebenefits.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec18_Impairment_Annual_Tester",
+      "machineName": "IFRS_Sec18_Impairment_Annual_Tester",
+      "code": "ifrs_sec18_impairment_annual_tester",
+      "agentId": "ifrs-sec18-impairment-annual-tester",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 9344,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec18-impairment-annual-tester.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec18_IndefiniteLife_Rebuttable_Presumption",
+      "machineName": "IFRS_Sec18_IndefiniteLife_Rebuttable_Presumption",
+      "code": "ifrs_sec18_indefinitelife_rebuttable_presumption",
+      "agentId": "ifrs-sec18-indefinitelife-rebuttable-presumption",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 9332,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec18-indefinitelife-rebuttable-presumption.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec18_Internal_RD_Expense_Mandatory_Enforcer",
+      "machineName": "IFRS_Sec18_Internal_RD_Expense_Mandatory_Enforcer",
+      "code": "ifrs_sec18_internal_rd_expense_mandatory_enforcer",
+      "agentId": "ifrs-sec18-internal-rd-expense-mandatory-enforcer",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 9296,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec18-internal-rd-expense-mandatory-enforcer.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec18_SeparateAcquisition_Cost_Engine",
+      "machineName": "IFRS_Sec18_SeparateAcquisition_Cost_Engine",
+      "code": "ifrs_sec18_separateacquisition_cost_engine",
+      "agentId": "ifrs-sec18-separateacquisition-cost-engine",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 9308,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec18-separateacquisition-cost-engine.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec19_Acquirer_Identification_Engine",
+      "machineName": "IFRS_Sec19_Acquirer_Identification_Engine",
+      "code": "ifrs_sec19_acquirer_identification_engine",
+      "agentId": "ifrs-sec19-acquirer-identification-engine",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 9368,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec19-acquirer-identification-engine.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec19_AcquisitionDate_ControlTransfer",
+      "machineName": "IFRS_Sec19_AcquisitionDate_ControlTransfer",
+      "code": "ifrs_sec19_acquisitiondate_controltransfer",
+      "agentId": "ifrs-sec19-acquisitiondate-controltransfer",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 9380,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec19-acquisitiondate-controltransfer.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec19_BargainPurchase_NegativeGoodwill_P&L",
+      "machineName": "IFRS_Sec19_BargainPurchase_NegativeGoodwill_P&L",
+      "code": "ifrs_sec19_bargainpurchase_negativegoodwill_p&l",
+      "agentId": "ifrs-sec19-bargainpurchase-negativegoodwill-p-l",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 9428,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec19-bargainpurchase-negativegoodwill-p-l.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec19_ConsiderationTransferred_FairValue",
+      "machineName": "IFRS_Sec19_ConsiderationTransferred_FairValue",
+      "code": "ifrs_sec19_considerationtransferred_fairvalue",
+      "agentId": "ifrs-sec19-considerationtransferred-fairvalue",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 9392,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec19-considerationtransferred-fairvalue.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec19_Goodwill_Amortisation_UsefulLife_Engine",
+      "machineName": "IFRS_Sec19_Goodwill_Amortisation_UsefulLife_Engine",
+      "code": "ifrs_sec19_goodwill_amortisation_usefullife_engine",
+      "agentId": "ifrs-sec19-goodwill-amortisation-usefullife-engine",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 9440,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec19-goodwill-amortisation-usefullife-engine.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec19_Goodwill_Calculation_Engine",
+      "machineName": "IFRS_Sec19_Goodwill_Calculation_Engine",
+      "code": "ifrs_sec19_goodwill_calculation_engine",
+      "agentId": "ifrs-sec19-goodwill-calculation-engine",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 9416,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec19-goodwill-calculation-engine.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec19_Goodwill_CGU_Allocation_Impairment",
+      "machineName": "IFRS_Sec19_Goodwill_CGU_Allocation_Impairment",
+      "code": "ifrs_sec19_goodwill_cgu_allocation_impairment",
+      "agentId": "ifrs-sec19-goodwill-cgu-allocation-impairment",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 9452,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec19-goodwill-cgu-allocation-impairment.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec19_IdentifiableAssets_Liabilities_Acquired",
+      "machineName": "IFRS_Sec19_IdentifiableAssets_Liabilities_Acquired",
+      "code": "ifrs_sec19_identifiableassets_liabilities_acquired",
+      "agentId": "ifrs-sec19-identifiableassets-liabilities-acquired",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 9404,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec19-identifiableassets-liabilities-acquired.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec20_BargainPurchaseOption_Evaluator",
+      "machineName": "IFRS_Sec20_BargainPurchaseOption_Evaluator",
+      "code": "ifrs_sec20_bargainpurchaseoption_evaluator",
+      "agentId": "ifrs-sec20-bargainpurchaseoption-evaluator",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 9488,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec20-bargainpurchaseoption-evaluator.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec20_FinanceLease_Liability_Amortizer",
+      "machineName": "IFRS_Sec20_FinanceLease_Liability_Amortizer",
+      "code": "ifrs_sec20_financelease_liability_amortizer",
+      "agentId": "ifrs-sec20-financelease-liability-amortizer",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 9548,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec20-financelease-liability-amortizer.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec20_Lease_Contract_Definition_Checker",
+      "machineName": "IFRS_Sec20_Lease_Contract_Definition_Checker",
+      "code": "ifrs_sec20_lease_contract_definition_checker",
+      "agentId": "ifrs-sec20-lease-contract-definition-checker",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 9464,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec20-lease-contract-definition-checker.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec20_MajorLife_UsefulLife_Ratio_Tester",
+      "machineName": "IFRS_Sec20_MajorLife_UsefulLife_Ratio_Tester",
+      "code": "ifrs_sec20_majorlife_usefullife_ratio_tester",
+      "agentId": "ifrs-sec20-majorlife-usefullife-ratio-tester",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 9500,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec20-majorlife-usefullife-ratio-tester.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec20_OperatingLease_StraightLine_Engine",
+      "machineName": "IFRS_Sec20_OperatingLease_StraightLine_Engine",
+      "code": "ifrs_sec20_operatinglease_straightline_engine",
+      "agentId": "ifrs-sec20-operatinglease-straightline-engine",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 9560,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec20-operatinglease-straightline-engine.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec20_OwnershipTransfer_Criteria_Evaluator",
+      "machineName": "IFRS_Sec20_OwnershipTransfer_Criteria_Evaluator",
+      "code": "ifrs_sec20_ownershiptransfer_criteria_evaluator",
+      "agentId": "ifrs-sec20-ownershiptransfer-criteria-evaluator",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 9476,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec20-ownershiptransfer-criteria-evaluator.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec20_PV_MinLeasePayments_Ratio_Tester",
+      "machineName": "IFRS_Sec20_PV_MinLeasePayments_Ratio_Tester",
+      "code": "ifrs_sec20_pv_minleasepayments_ratio_tester",
+      "agentId": "ifrs-sec20-pv-minleasepayments-ratio-tester",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 9512,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec20-pv-minleasepayments-ratio-tester.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec20_ROU_Asset_InitialMeasurement_Engine",
+      "machineName": "IFRS_Sec20_ROU_Asset_InitialMeasurement_Engine",
+      "code": "ifrs_sec20_rou_asset_initialmeasurement_engine",
+      "agentId": "ifrs-sec20-rou-asset-initialmeasurement-engine",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 9536,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec20-rou-asset-initialmeasurement-engine.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec20_SpecialisedAsset_Classification_Tester",
+      "machineName": "IFRS_Sec20_SpecialisedAsset_Classification_Tester",
+      "code": "ifrs_sec20_specialisedasset_classification_tester",
+      "agentId": "ifrs-sec20-specialisedasset-classification-tester",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 9524,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec20-specialisedasset-classification-tester.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec21_ContingentLiability_Asset_Discloser",
+      "machineName": "IFRS_Sec21_ContingentLiability_Asset_Discloser",
+      "code": "ifrs_sec21_contingentliability_asset_discloser",
+      "agentId": "ifrs-sec21-contingentliability-asset-discloser",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 9632,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec21-contingentliability-asset-discloser.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec21_OnerousContract_Provision_Engine",
+      "machineName": "IFRS_Sec21_OnerousContract_Provision_Engine",
+      "code": "ifrs_sec21_onerouscontract_provision_engine",
+      "agentId": "ifrs-sec21-onerouscontract-provision-engine",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 9620,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec21-onerouscontract-provision-engine.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec21_PresentObligation_PastEvent_Verifier",
+      "machineName": "IFRS_Sec21_PresentObligation_PastEvent_Verifier",
+      "code": "ifrs_sec21_presentobligation_pastevent_verifier",
+      "agentId": "ifrs-sec21-presentobligation-pastevent-verifier",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 9572,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec21-presentobligation-pastevent-verifier.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec21_ProbableOutflow_Threshold_Tester",
+      "machineName": "IFRS_Sec21_ProbableOutflow_Threshold_Tester",
+      "code": "ifrs_sec21_probableoutflow_threshold_tester",
+      "agentId": "ifrs-sec21-probableoutflow-threshold-tester",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 9584,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec21-probableoutflow-threshold-tester.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec21_ReliableEstimate_Measurement_Engine",
+      "machineName": "IFRS_Sec21_ReliableEstimate_Measurement_Engine",
+      "code": "ifrs_sec21_reliableestimate_measurement_engine",
+      "agentId": "ifrs-sec21-reliableestimate-measurement-engine",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 9596,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec21-reliableestimate-measurement-engine.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec21_Restructuring_Provision_Gatekeeper",
+      "machineName": "IFRS_Sec21_Restructuring_Provision_Gatekeeper",
+      "code": "ifrs_sec21_restructuring_provision_gatekeeper",
+      "agentId": "ifrs-sec21-restructuring-provision-gatekeeper",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 9608,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec21-restructuring-provision-gatekeeper.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec22_CompoundInstrument_SplitAccounting",
+      "machineName": "IFRS_Sec22_CompoundInstrument_SplitAccounting",
+      "code": "ifrs_sec22_compoundinstrument_splitaccounting",
+      "agentId": "ifrs-sec22-compoundinstrument-splitaccounting",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 9656,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec22-compoundinstrument-splitaccounting.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec22_ExtinguishingLiability_EquityInstruments",
+      "machineName": "IFRS_Sec22_ExtinguishingLiability_EquityInstruments",
+      "code": "ifrs_sec22_extinguishingliability_equityinstruments",
+      "agentId": "ifrs-sec22-extinguishingliability-equityinstruments",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 9704,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec22-extinguishingliability-equityinstruments.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec22_FinancialLiability_vs_Equity_Classifier",
+      "machineName": "IFRS_Sec22_FinancialLiability_vs_Equity_Classifier",
+      "code": "ifrs_sec22_financialliability_vs_equity_classifier",
+      "agentId": "ifrs-sec22-financialliability-vs-equity-classifier",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 9644,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec22-financialliability-vs-equity-classifier.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec22_NonCash_Distribution_EquityHolders",
+      "machineName": "IFRS_Sec22_NonCash_Distribution_EquityHolders",
+      "code": "ifrs_sec22_noncash_distribution_equityholders",
+      "agentId": "ifrs-sec22-noncash-distribution-equityholders",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 9692,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec22-noncash-distribution-equityholders.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec22_PuttableInstrument_EquityClassification",
+      "machineName": "IFRS_Sec22_PuttableInstrument_EquityClassification",
+      "code": "ifrs_sec22_puttableinstrument_equityclassification",
+      "agentId": "ifrs-sec22-puttableinstrument-equityclassification",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 9716,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec22-puttableinstrument-equityclassification.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec22_ShareIssuance_Cost_Deduction_Engine",
+      "machineName": "IFRS_Sec22_ShareIssuance_Cost_Deduction_Engine",
+      "code": "ifrs_sec22_shareissuance_cost_deduction_engine",
+      "agentId": "ifrs-sec22-shareissuance-cost-deduction-engine",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 9668,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec22-shareissuance-cost-deduction-engine.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec22_TreasuryShares_Repurchase_Deduction",
+      "machineName": "IFRS_Sec22_TreasuryShares_Repurchase_Deduction",
+      "code": "ifrs_sec22_treasuryshares_repurchase_deduction",
+      "agentId": "ifrs-sec22-treasuryshares-repurchase-deduction",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 9680,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec22-treasuryshares-repurchase-deduction.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec23_ContractAsset_ContractLiability_Tracker",
+      "machineName": "IFRS_Sec23_ContractAsset_ContractLiability_Tracker",
+      "code": "ifrs_sec23_contractasset_contractliability_tracker",
+      "agentId": "ifrs-sec23-contractasset-contractliability-tracker",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 9824,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec23-contractasset-contractliability-tracker.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec23_ContractCriteria_Validation_Engine",
+      "machineName": "IFRS_Sec23_ContractCriteria_Validation_Engine",
+      "code": "ifrs_sec23_contractcriteria_validation_engine",
+      "agentId": "ifrs-sec23-contractcriteria-validation-engine",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 9728,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec23-contractcriteria-validation-engine.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec23_IncrementalCosts_ObtainingContract",
+      "machineName": "IFRS_Sec23_IncrementalCosts_ObtainingContract",
+      "code": "ifrs_sec23_incrementalcosts_obtainingcontract",
+      "agentId": "ifrs-sec23-incrementalcosts-obtainingcontract",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 9836,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec23-incrementalcosts-obtainingcontract.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec23_OverTime_Progress_InputOutput_Engine",
+      "machineName": "IFRS_Sec23_OverTime_Progress_InputOutput_Engine",
+      "code": "ifrs_sec23_overtime_progress_inputoutput_engine",
+      "agentId": "ifrs-sec23-overtime-progress-inputoutput-engine",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 9812,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec23-overtime-progress-inputoutput-engine.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec23_PerformanceObligation_Identification",
+      "machineName": "IFRS_Sec23_PerformanceObligation_Identification",
+      "code": "ifrs_sec23_performanceobligation_identification",
+      "agentId": "ifrs-sec23-performanceobligation-identification",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 9740,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec23-performanceobligation-identification.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec23_PointInTime_ControlTransfer_Tester",
+      "machineName": "IFRS_Sec23_PointInTime_ControlTransfer_Tester",
+      "code": "ifrs_sec23_pointintime_controltransfer_tester",
+      "agentId": "ifrs-sec23-pointintime-controltransfer-tester",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 9800,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec23-pointintime-controltransfer-tester.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec23_SignificantFinancingComponent_Adjuster",
+      "machineName": "IFRS_Sec23_SignificantFinancingComponent_Adjuster",
+      "code": "ifrs_sec23_significantfinancingcomponent_adjuster",
+      "agentId": "ifrs-sec23-significantfinancingcomponent-adjuster",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 9776,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec23-significantfinancingcomponent-adjuster.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec23_StandAlone_Price_Allocation_Engine",
+      "machineName": "IFRS_Sec23_StandAlone_Price_Allocation_Engine",
+      "code": "ifrs_sec23_standalone_price_allocation_engine",
+      "agentId": "ifrs-sec23-standalone-price-allocation-engine",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 9788,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec23-standalone-price-allocation-engine.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec23_TransactionPrice_Determination_Engine",
+      "machineName": "IFRS_Sec23_TransactionPrice_Determination_Engine",
+      "code": "ifrs_sec23_transactionprice_determination_engine",
+      "agentId": "ifrs-sec23-transactionprice-determination-engine",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 9752,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec23-transactionprice-determination-engine.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec23_VariableConsideration_Constraint_Tester",
+      "machineName": "IFRS_Sec23_VariableConsideration_Constraint_Tester",
+      "code": "ifrs_sec23_variableconsideration_constraint_tester",
+      "agentId": "ifrs-sec23-variableconsideration-constraint-tester",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 9764,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec23-variableconsideration-constraint-tester.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec24_ConditionalGrant_DeferredIncome_Engine",
+      "machineName": "IFRS_Sec24_ConditionalGrant_DeferredIncome_Engine",
+      "code": "ifrs_sec24_conditionalgrant_deferredincome_engine",
+      "agentId": "ifrs-sec24-conditionalgrant-deferredincome-engine",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 9872,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec24-conditionalgrant-deferredincome-engine.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec24_NonMonetaryGrant_FairValue_Engine",
+      "machineName": "IFRS_Sec24_NonMonetaryGrant_FairValue_Engine",
+      "code": "ifrs_sec24_nonmonetarygrant_fairvalue_engine",
+      "agentId": "ifrs-sec24-nonmonetarygrant-fairvalue-engine",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 9884,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec24-nonmonetarygrant-fairvalue-engine.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec24_Recognition_Conditions_Satisfied",
+      "machineName": "IFRS_Sec24_Recognition_Conditions_Satisfied",
+      "code": "ifrs_sec24_recognition_conditions_satisfied",
+      "agentId": "ifrs-sec24-recognition-conditions-satisfied",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 9848,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec24-recognition-conditions-satisfied.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec24_UnconditionalGrant_ImmediateIncome",
+      "machineName": "IFRS_Sec24_UnconditionalGrant_ImmediateIncome",
+      "code": "ifrs_sec24_unconditionalgrant_immediateincome",
+      "agentId": "ifrs-sec24-unconditionalgrant-immediateincome",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 9860,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec24-unconditionalgrant-immediateincome.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec25_Capitalization_Prohibition_Auditor",
+      "machineName": "IFRS_Sec25_Capitalization_Prohibition_Auditor",
+      "code": "ifrs_sec25_capitalization_prohibition_auditor",
+      "agentId": "ifrs-sec25-capitalization-prohibition-auditor",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 9920,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec25-capitalization-prohibition-auditor.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec25_FinancingCost_P&L_Calculator",
+      "machineName": "IFRS_Sec25_FinancingCost_P&L_Calculator",
+      "code": "ifrs_sec25_financingcost_p&l_calculator",
+      "agentId": "ifrs-sec25-financingcost-p-l-calculator",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 9908,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec25-financingcost-p-l-calculator.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec25_ImmediateExpense_Mandatory_Enforcer",
+      "machineName": "IFRS_Sec25_ImmediateExpense_Mandatory_Enforcer",
+      "code": "ifrs_sec25_immediateexpense_mandatory_enforcer",
+      "agentId": "ifrs-sec25-immediateexpense-mandatory-enforcer",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 9896,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec25-immediateexpense-mandatory-enforcer.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec26_Cancellation_Settlement_Engine",
+      "machineName": "IFRS_Sec26_Cancellation_Settlement_Engine",
+      "code": "ifrs_sec26_cancellation_settlement_engine",
+      "agentId": "ifrs-sec26-cancellation-settlement-engine",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 9980,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec26-cancellation-settlement-engine.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec26_CashSettled_Liability_Revaluation",
+      "machineName": "IFRS_Sec26_CashSettled_Liability_Revaluation",
+      "code": "ifrs_sec26_cashsettled_liability_revaluation",
+      "agentId": "ifrs-sec26-cashsettled-liability-revaluation",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 9944,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec26-cashsettled-liability-revaluation.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec26_EquitySettled_GrantDate_FairValue",
+      "machineName": "IFRS_Sec26_EquitySettled_GrantDate_FairValue",
+      "code": "ifrs_sec26_equitysettled_grantdate_fairvalue",
+      "agentId": "ifrs-sec26-equitysettled-grantdate-fairvalue",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 9932,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec26-equitysettled-grantdate-fairvalue.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec26_Group_ShareBasedPayment_Allocation",
+      "machineName": "IFRS_Sec26_Group_ShareBasedPayment_Allocation",
+      "code": "ifrs_sec26_group_sharebasedpayment_allocation",
+      "agentId": "ifrs-sec26-group-sharebasedpayment-allocation",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 9992,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec26-group-sharebasedpayment-allocation.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec26_Modification_GrantTerms_Assessor",
+      "machineName": "IFRS_Sec26_Modification_GrantTerms_Assessor",
+      "code": "ifrs_sec26_modification_grantterms_assessor",
+      "agentId": "ifrs-sec26-modification-grantterms-assessor",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 9968,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec26-modification-grantterms-assessor.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec26_VestingConditions_Service_Performance",
+      "machineName": "IFRS_Sec26_VestingConditions_Service_Performance",
+      "code": "ifrs_sec26_vestingconditions_service_performance",
+      "agentId": "ifrs-sec26-vestingconditions-service-performance",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 9956,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec26-vestingconditions-service-performance.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec27_CashGeneratingUnit_CGU_Loss_ProRata",
+      "machineName": "IFRS_Sec27_CashGeneratingUnit_CGU_Loss_ProRata",
+      "code": "ifrs_sec27_cashgeneratingunit_cgu_loss_prorata",
+      "agentId": "ifrs-sec27-cashgeneratingunit-cgu-loss-prorata",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 10076,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec27-cashgeneratingunit-cgu-loss-prorata.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec27_FairValueLessCostsToSell_Estimator",
+      "machineName": "IFRS_Sec27_FairValueLessCostsToSell_Estimator",
+      "code": "ifrs_sec27_fairvaluelesscoststosell_estimator",
+      "agentId": "ifrs-sec27-fairvaluelesscoststosell-estimator",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 10028,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec27-fairvaluelesscoststosell-estimator.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec27_ImpairmentLoss_P&L_Allocation_Engine",
+      "machineName": "IFRS_Sec27_ImpairmentLoss_P&L_Allocation_Engine",
+      "code": "ifrs_sec27_impairmentloss_p&l_allocation_engine",
+      "agentId": "ifrs-sec27-impairmentloss-p-l-allocation-engine",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 10064,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec27-impairmentloss-p-l-allocation-engine.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec27_ImpairmentReversal_Cap_HistoricalCost",
+      "machineName": "IFRS_Sec27_ImpairmentReversal_Cap_HistoricalCost",
+      "code": "ifrs_sec27_impairmentreversal_cap_historicalcost",
+      "agentId": "ifrs-sec27-impairmentreversal-cap-historicalcost",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 10088,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec27-impairmentreversal-cap-historicalcost.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec27_Inventory_NRV_Impairment_Engine",
+      "machineName": "IFRS_Sec27_Inventory_NRV_Impairment_Engine",
+      "code": "ifrs_sec27_inventory_nrv_impairment_engine",
+      "agentId": "ifrs-sec27-inventory-nrv-impairment-engine",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 10004,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec27-inventory-nrv-impairment-engine.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec27_NonCurrentAsset_Impairment_Indicator",
+      "machineName": "IFRS_Sec27_NonCurrentAsset_Impairment_Indicator",
+      "code": "ifrs_sec27_noncurrentasset_impairment_indicator",
+      "agentId": "ifrs-sec27-noncurrentasset-impairment-indicator",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 10016,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec27-noncurrentasset-impairment-indicator.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec27_RecoverableAmount_HigherOf_Selector",
+      "machineName": "IFRS_Sec27_RecoverableAmount_HigherOf_Selector",
+      "code": "ifrs_sec27_recoverableamount_higherof_selector",
+      "agentId": "ifrs-sec27-recoverableamount-higherof-selector",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 10052,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec27-recoverableamount-higherof-selector.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec27_ValueInUse_DiscountedCashFlow_Engine",
+      "machineName": "IFRS_Sec27_ValueInUse_DiscountedCashFlow_Engine",
+      "code": "ifrs_sec27_valueinuse_discountedcashflow_engine",
+      "agentId": "ifrs-sec27-valueinuse-discountedcashflow-engine",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 10040,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec27-valueinuse-discountedcashflow-engine.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec28_Actuarial_GainsLosses_OCI_Engine",
+      "machineName": "IFRS_Sec28_Actuarial_GainsLosses_OCI_Engine",
+      "code": "ifrs_sec28_actuarial_gainslosses_oci_engine",
+      "agentId": "ifrs-sec28-actuarial-gainslosses-oci-engine",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 10160,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec28-actuarial-gainslosses-oci-engine.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec28_DefinedBenefit_DBO_Actuarial_Engine",
+      "machineName": "IFRS_Sec28_DefinedBenefit_DBO_Actuarial_Engine",
+      "code": "ifrs_sec28_definedbenefit_dbo_actuarial_engine",
+      "agentId": "ifrs-sec28-definedbenefit-dbo-actuarial-engine",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 10124,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec28-definedbenefit-dbo-actuarial-engine.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec28_DefinedBenefit_NetLiability_AssetCeiling",
+      "machineName": "IFRS_Sec28_DefinedBenefit_NetLiability_AssetCeiling",
+      "code": "ifrs_sec28_definedbenefit_netliability_assetceiling",
+      "agentId": "ifrs-sec28-definedbenefit-netliability-assetceiling",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 10148,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec28-definedbenefit-netliability-assetceiling.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec28_DefinedContribution_Expense_Engine",
+      "machineName": "IFRS_Sec28_DefinedContribution_Expense_Engine",
+      "code": "ifrs_sec28_definedcontribution_expense_engine",
+      "agentId": "ifrs-sec28-definedcontribution-expense-engine",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 10112,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec28-definedcontribution-expense-engine.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec28_OtherLongTerm_Benefits_Engine",
+      "machineName": "IFRS_Sec28_OtherLongTerm_Benefits_Engine",
+      "code": "ifrs_sec28_otherlongterm_benefits_engine",
+      "agentId": "ifrs-sec28-otherlongterm-benefits-engine",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 10172,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec28-otherlongterm-benefits-engine.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec28_PlanAssets_FairValue_Reconciliation",
+      "machineName": "IFRS_Sec28_PlanAssets_FairValue_Reconciliation",
+      "code": "ifrs_sec28_planassets_fairvalue_reconciliation",
+      "agentId": "ifrs-sec28-planassets-fairvalue-reconciliation",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 10136,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec28-planassets-fairvalue-reconciliation.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec28_ShortTerm_EmployeeBenefits_Accrual",
+      "machineName": "IFRS_Sec28_ShortTerm_EmployeeBenefits_Accrual",
+      "code": "ifrs_sec28_shortterm_employeebenefits_accrual",
+      "agentId": "ifrs-sec28-shortterm-employeebenefits-accrual",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 10100,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec28-shortterm-employeebenefits-accrual.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec28_TerminationBenefits_Provision_Engine",
+      "machineName": "IFRS_Sec28_TerminationBenefits_Provision_Engine",
+      "code": "ifrs_sec28_terminationbenefits_provision_engine",
+      "agentId": "ifrs-sec28-terminationbenefits-provision-engine",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 10184,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec28-terminationbenefits-provision-engine.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec29_Current_DeferredTax_P&L_OCI_Split",
+      "machineName": "IFRS_Sec29_Current_DeferredTax_P&L_OCI_Split",
+      "code": "ifrs_sec29_current_deferredtax_p&l_oci_split",
+      "agentId": "ifrs-sec29-current-deferredtax-p-l-oci-split",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 10268,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec29-current-deferredtax-p-l-oci-split.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec29_CurrentTax_Liability_Asset_Engine",
+      "machineName": "IFRS_Sec29_CurrentTax_Liability_Asset_Engine",
+      "code": "ifrs_sec29_currenttax_liability_asset_engine",
+      "agentId": "ifrs-sec29-currenttax-liability-asset-engine",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 10196,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec29-currenttax-liability-asset-engine.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec29_Deductible_TemporaryDifference_DTA_Engine",
+      "machineName": "IFRS_Sec29_Deductible_TemporaryDifference_DTA_Engine",
+      "code": "ifrs_sec29_deductible_temporarydifference_dta_engine",
+      "agentId": "ifrs-sec29-deductible-temporarydifference-dta-engine",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 10232,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec29-deductible-temporarydifference-dta-engine.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec29_DTA_ValuationAllowance_Probability",
+      "machineName": "IFRS_Sec29_DTA_ValuationAllowance_Probability",
+      "code": "ifrs_sec29_dta_valuationallowance_probability",
+      "agentId": "ifrs-sec29-dta-valuationallowance-probability",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 10244,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec29-dta-valuationallowance-probability.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec29_OECD_PillarTwo_Exception_Enforcer",
+      "machineName": "IFRS_Sec29_OECD_PillarTwo_Exception_Enforcer",
+      "code": "ifrs_sec29_oecd_pillartwo_exception_enforcer",
+      "agentId": "ifrs-sec29-oecd-pillartwo-exception-enforcer",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 10280,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec29-oecd-pillartwo-exception-enforcer.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec29_Taxable_TemporaryDifference_DTL_Engine",
+      "machineName": "IFRS_Sec29_Taxable_TemporaryDifference_DTL_Engine",
+      "code": "ifrs_sec29_taxable_temporarydifference_dtl_engine",
+      "agentId": "ifrs-sec29-taxable-temporarydifference-dtl-engine",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 10220,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec29-taxable-temporarydifference-dtl-engine.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec29_TaxBase_Asset_Liability_Calculator",
+      "machineName": "IFRS_Sec29_TaxBase_Asset_Liability_Calculator",
+      "code": "ifrs_sec29_taxbase_asset_liability_calculator",
+      "agentId": "ifrs-sec29-taxbase-asset-liability-calculator",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 10208,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec29-taxbase-asset-liability-calculator.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec29_TaxRate_Enacted_SubstantiallyEnacted",
+      "machineName": "IFRS_Sec29_TaxRate_Enacted_SubstantiallyEnacted",
+      "code": "ifrs_sec29_taxrate_enacted_substantiallyenacted",
+      "agentId": "ifrs-sec29-taxrate-enacted-substantiallyenacted",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 10256,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec29-taxrate-enacted-substantiallyenacted.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec30_CTA_CumulativeTranslationReserve_OCI",
+      "machineName": "IFRS_Sec30_CTA_CumulativeTranslationReserve_OCI",
+      "code": "ifrs_sec30_cta_cumulativetranslationreserve_oci",
+      "agentId": "ifrs-sec30-cta-cumulativetranslationreserve-oci",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 10352,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec30-cta-cumulativetranslationreserve-oci.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec30_ForeignCurrency_Transaction_SpotRate",
+      "machineName": "IFRS_Sec30_ForeignCurrency_Transaction_SpotRate",
+      "code": "ifrs_sec30_foreigncurrency_transaction_spotrate",
+      "agentId": "ifrs-sec30-foreigncurrency-transaction-spotrate",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 10304,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec30-foreigncurrency-transaction-spotrate.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec30_FunctionalCurrency_PrimaryIndicators",
+      "machineName": "IFRS_Sec30_FunctionalCurrency_PrimaryIndicators",
+      "code": "ifrs_sec30_functionalcurrency_primaryindicators",
+      "agentId": "ifrs-sec30-functionalcurrency-primaryindicators",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 10292,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec30-functionalcurrency-primaryindicators.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec30_Monetary_Item_ClosingRate_Revaluation",
+      "machineName": "IFRS_Sec30_Monetary_Item_ClosingRate_Revaluation",
+      "code": "ifrs_sec30_monetary_item_closingrate_revaluation",
+      "agentId": "ifrs-sec30-monetary-item-closingrate-revaluation",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 10316,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec30-monetary-item-closingrate-revaluation.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec30_NonMonetary_Item_HistoricalRate_Enforcer",
+      "machineName": "IFRS_Sec30_NonMonetary_Item_HistoricalRate_Enforcer",
+      "code": "ifrs_sec30_nonmonetary_item_historicalrate_enforcer",
+      "agentId": "ifrs-sec30-nonmonetary-item-historicalrate-enforcer",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 10328,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec30-nonmonetary-item-historicalrate-enforcer.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec30_PresentationCurrency_Translation_Engine",
+      "machineName": "IFRS_Sec30_PresentationCurrency_Translation_Engine",
+      "code": "ifrs_sec30_presentationcurrency_translation_engine",
+      "agentId": "ifrs-sec30-presentationcurrency-translation-engine",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 10340,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec30-presentationcurrency-translation-engine.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec31_Comparative_Restatement_ClosingRate",
+      "machineName": "IFRS_Sec31_Comparative_Restatement_ClosingRate",
+      "code": "ifrs_sec31_comparative_restatement_closingrate",
+      "agentId": "ifrs-sec31-comparative-restatement-closingrate",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 10400,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec31-comparative-restatement-closingrate.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec31_Hyperinflation_Indicator_Assessor",
+      "machineName": "IFRS_Sec31_Hyperinflation_Indicator_Assessor",
+      "code": "ifrs_sec31_hyperinflation_indicator_assessor",
+      "agentId": "ifrs-sec31-hyperinflation-indicator-assessor",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 10364,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec31-hyperinflation-indicator-assessor.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec31_NetMonetaryPosition_GainLoss_P&L",
+      "machineName": "IFRS_Sec31_NetMonetaryPosition_GainLoss_P&L",
+      "code": "ifrs_sec31_netmonetaryposition_gainloss_p&l",
+      "agentId": "ifrs-sec31-netmonetaryposition-gainloss-p-l",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 10388,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec31-netmonetaryposition-gainloss-p-l.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec31_NonMonetaryItem_Restatement_CPI",
+      "machineName": "IFRS_Sec31_NonMonetaryItem_Restatement_CPI",
+      "code": "ifrs_sec31_nonmonetaryitem_restatement_cpi",
+      "agentId": "ifrs-sec31-nonmonetaryitem-restatement-cpi",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 10376,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec31-nonmonetaryitem-restatement-cpi.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec32_AdjustingEvent_Evidence_Engine",
+      "machineName": "IFRS_Sec32_AdjustingEvent_Evidence_Engine",
+      "code": "ifrs_sec32_adjustingevent_evidence_engine",
+      "agentId": "ifrs-sec32-adjustingevent-evidence-engine",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 10412,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec32-adjustingevent-evidence-engine.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec32_Dividend_Declared_PostPeriod_NonLiability",
+      "machineName": "IFRS_Sec32_Dividend_Declared_PostPeriod_NonLiability",
+      "code": "ifrs_sec32_dividend_declared_postperiod_nonliability",
+      "agentId": "ifrs-sec32-dividend-declared-postperiod-nonliability",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 10436,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec32-dividend-declared-postperiod-nonliability.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec32_GoingConcern_Deterioration_Override",
+      "machineName": "IFRS_Sec32_GoingConcern_Deterioration_Override",
+      "code": "ifrs_sec32_goingconcern_deterioration_override",
+      "agentId": "ifrs-sec32-goingconcern-deterioration-override",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 10448,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec32-goingconcern-deterioration-override.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec32_NonAdjustingEvent_Disclosure_Engine",
+      "machineName": "IFRS_Sec32_NonAdjustingEvent_Disclosure_Engine",
+      "code": "ifrs_sec32_nonadjustingevent_disclosure_engine",
+      "agentId": "ifrs-sec32-nonadjustingevent-disclosure-engine",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 10424,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec32-nonadjustingevent-disclosure-engine.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec33_KeyManagement_Compensation_Aggregator",
+      "machineName": "IFRS_Sec33_KeyManagement_Compensation_Aggregator",
+      "code": "ifrs_sec33_keymanagement_compensation_aggregator",
+      "agentId": "ifrs-sec33-keymanagement-compensation-aggregator",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 10484,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec33-keymanagement-compensation-aggregator.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec33_Parent_Subsidiary_Relationship_Discloser",
+      "machineName": "IFRS_Sec33_Parent_Subsidiary_Relationship_Discloser",
+      "code": "ifrs_sec33_parent_subsidiary_relationship_discloser",
+      "agentId": "ifrs-sec33-parent-subsidiary-relationship-discloser",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 10472,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec33-parent-subsidiary-relationship-discloser.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec33_RelatedParty_Relationship_Classifier",
+      "machineName": "IFRS_Sec33_RelatedParty_Relationship_Classifier",
+      "code": "ifrs_sec33_relatedparty_relationship_classifier",
+      "agentId": "ifrs-sec33-relatedparty-relationship-classifier",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 10460,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec33-relatedparty-relationship-classifier.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec33_RelatedParty_Transaction_Balance_Discloser",
+      "machineName": "IFRS_Sec33_RelatedParty_Transaction_Balance_Discloser",
+      "code": "ifrs_sec33_relatedparty_transaction_balance_discloser",
+      "agentId": "ifrs-sec33-relatedparty-transaction-balance-discloser",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 10496,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec33-relatedparty-transaction-balance-discloser.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec34_AgriculturalProduce_Harvest_FairValue",
+      "machineName": "IFRS_Sec34_AgriculturalProduce_Harvest_FairValue",
+      "code": "ifrs_sec34_agriculturalproduce_harvest_fairvalue",
+      "agentId": "ifrs-sec34-agriculturalproduce-harvest-fairvalue",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 10532,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec34-agriculturalproduce-harvest-fairvalue.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec34_BiologicalAssets_CostModel_Fallback",
+      "machineName": "IFRS_Sec34_BiologicalAssets_CostModel_Fallback",
+      "code": "ifrs_sec34_biologicalassets_costmodel_fallback",
+      "agentId": "ifrs-sec34-biologicalassets-costmodel-fallback",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 10520,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec34-biologicalassets-costmodel-fallback.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec34_BiologicalAssets_FairValue_Engine",
+      "machineName": "IFRS_Sec34_BiologicalAssets_FairValue_Engine",
+      "code": "ifrs_sec34_biologicalassets_fairvalue_engine",
+      "agentId": "ifrs-sec34-biologicalassets-fairvalue-engine",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 10508,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec34-biologicalassets-fairvalue-engine.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec34_Extractive_Exploration_Evaluation_Assets",
+      "machineName": "IFRS_Sec34_Extractive_Exploration_Evaluation_Assets",
+      "code": "ifrs_sec34_extractive_exploration_evaluation_assets",
+      "agentId": "ifrs-sec34-extractive-exploration-evaluation-assets",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 10544,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec34-extractive-exploration-evaluation-assets.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec34_ServiceConcession_FinancialAsset_Model",
+      "machineName": "IFRS_Sec34_ServiceConcession_FinancialAsset_Model",
+      "code": "ifrs_sec34_serviceconcession_financialasset_model",
+      "agentId": "ifrs-sec34-serviceconcession-financialasset-model",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 10556,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec34-serviceconcession-financialasset-model.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec34_ServiceConcession_IntangibleAsset_Model",
+      "machineName": "IFRS_Sec34_ServiceConcession_IntangibleAsset_Model",
+      "code": "ifrs_sec34_serviceconcession_intangibleasset_model",
+      "agentId": "ifrs-sec34-serviceconcession-intangibleasset-model",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 10568,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec34-serviceconcession-intangibleasset-model.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec35_FirstTimeAdoption_Date_OpeningBS",
+      "machineName": "IFRS_Sec35_FirstTimeAdoption_Date_OpeningBS",
+      "code": "ifrs_sec35_firsttimeadoption_date_openingbs",
+      "agentId": "ifrs-sec35-firsttimeadoption-date-openingbs",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 10580,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec35-firsttimeadoption-date-openingbs.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec35_Mandatory_Exceptions_Prohibition_Retrospective",
+      "machineName": "IFRS_Sec35_Mandatory_Exceptions_Prohibition_Retrospective",
+      "code": "ifrs_sec35_mandatory_exceptions_prohibition_retrospective",
+      "agentId": "ifrs-sec35-mandatory-exceptions-prohibition-retrospective",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 10592,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec35-mandatory-exceptions-prohibition-retrospective.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec35_Optional_Exemptions_DeemedCost_Selector",
+      "machineName": "IFRS_Sec35_Optional_Exemptions_DeemedCost_Selector",
+      "code": "ifrs_sec35_optional_exemptions_deemedcost_selector",
+      "agentId": "ifrs-sec35-optional-exemptions-deemedcost-selector",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 10604,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec35-optional-exemptions-deemedcost-selector.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec35_Reconciliation_PriorGAAP_Equity",
+      "machineName": "IFRS_Sec35_Reconciliation_PriorGAAP_Equity",
+      "code": "ifrs_sec35_reconciliation_priorgaap_equity",
+      "agentId": "ifrs-sec35-reconciliation-priorgaap-equity",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 10616,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec35-reconciliation-priorgaap-equity.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_Sec35_Reconciliation_PriorGAAP_ProfitLoss",
+      "machineName": "IFRS_Sec35_Reconciliation_PriorGAAP_ProfitLoss",
+      "code": "ifrs_sec35_reconciliation_priorgaap_profitloss",
+      "agentId": "ifrs-sec35-reconciliation-priorgaap-profitloss",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 10628,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-sec35-reconciliation-priorgaap-profitloss.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_SecA_EarlyAdoption_Disclosure_Enforcer",
+      "machineName": "IFRS_SecA_EarlyAdoption_Disclosure_Enforcer",
+      "code": "ifrs_seca_earlyadoption_disclosure_enforcer",
+      "agentId": "ifrs-seca-earlyadoption-disclosure-enforcer",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 10652,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-seca-earlyadoption-disclosure-enforcer.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_SecA_EffectiveDate_Feb2025_Compliance_Checker",
+      "machineName": "IFRS_SecA_EffectiveDate_Feb2025_Compliance_Checker",
+      "code": "ifrs_seca_effectivedate_feb2025_compliance_checker",
+      "agentId": "ifrs-seca-effectivedate-feb2025-compliance-checker",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 10640,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-seca-effectivedate-feb2025-compliance-checker.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_SecB_CrossStandard_Taxonomy_Integrity_Checker",
+      "machineName": "IFRS_SecB_CrossStandard_Taxonomy_Integrity_Checker",
+      "code": "ifrs_secb_crossstandard_taxonomy_integrity_checker",
+      "agentId": "ifrs-secb-crossstandard-taxonomy-integrity-checker",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 10676,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-secb-crossstandard-taxonomy-integrity-checker.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_SecB_Glossary_Term_Definition_Validator",
+      "machineName": "IFRS_SecB_Glossary_Term_Definition_Validator",
+      "code": "ifrs_secb_glossary_term_definition_validator",
+      "agentId": "ifrs-secb-glossary-term-definition-validator",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 10664,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-secb-glossary-term-definition-validator.oc-agent.json"
+    },
+    {
+      "machineId": "IFRS_SecB_STA_MemoryMap_Conflict_Resolver",
+      "machineName": "IFRS_SecB_STA_MemoryMap_Conflict_Resolver",
+      "code": "ifrs_secb_sta_memorymap_conflict_resolver",
+      "agentId": "ifrs-secb-sta-memorymap-conflict-resolver",
+      "domain": "ifrs-accounting",
+      "machineClass": "signal-monitor",
+      "role": "input-analyst",
+      "inputRegion": {
+        "offset": 10688,
+        "length": 8
+      },
+      "axisBasis": "inputSemantics",
+      "path": "ifrs-accounting/ifrs-secb-sta-memorymap-conflict-resolver.oc-agent.json"
     },
     {
       "machineId": "LegalServicesLsx001010Interconnect",
