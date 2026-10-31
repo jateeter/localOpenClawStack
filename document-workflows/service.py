@@ -374,7 +374,22 @@ class WorkflowService:
                         json.loads((self.assets / "source-requirements.json").read_text()),
                         json.loads((self.assets / "document-asset-catalog.json").read_text()))
                     compliance_hash = hashlib.sha256(path.read_bytes()).hexdigest()
+                required_sections = set(determination.get("requiredSections", [])) - {section}
+                verified_dependencies = []
+                supplied = args.get("dependencyInteractionIds", [])
+                if not isinstance(supplied, list) or len(supplied) > 10 or any(not isinstance(ref, str) for ref in supplied):
+                    raise ValueError("Bounded dependency source receipt list required")
+                for ref in supplied:
+                    dependency = self.verify_rag(c, ref)
+                    dependency_section = dependency["request"].get("sectionId")
+                    if any(p.get("sectionId") != dependency_section for p in dependency["passages"]):
+                        raise ValueError("Dependency source section mismatch")
+                    verified_dependencies.append(dict(sectionId=dependency_section, interactionId=ref))
+                if determination.get("status") == "ADVISORY" and not required_sections <= {d["sectionId"] for d in verified_dependencies}:
+                    raise ValueError("Missing verified dependency-section source context")
                 result = {"caseId": args["caseId"], "determination": determination,
+                          "verifiedDependencyInteractions": verified_dependencies,
+                          "remediationImplementationSHA256": hashlib.sha256((self.assets / "tools/remaining_controls.py").read_bytes()).hexdigest() if case["control"].startswith("rem-") else None,
                           "canonicalEvidenceImplementationSHA256": compliance_hash,
                           "reportingImplementationSHA256": hashlib.sha256((self.assets / "tools/reporting_controls.py").read_bytes()).hexdigest() if case["control"] in reporting_controls else None,
                           "sourceInteractionId": receipt["interactionId"], "evidenceClass": c.get("evidenceClass", "synthetic"),

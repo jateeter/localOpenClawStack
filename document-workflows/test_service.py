@@ -189,9 +189,9 @@ def test_foundation_calculation_requires_matching_source_scope(service, control,
     assert result["nativeProjection"] == "NOT_AUTOMATIC"
 
 
-@pytest.mark.parametrize("case", (json.loads((ASSETS / "acceptance/synthetic/policy-cases.json").read_text())["cases"] + json.loads((ASSETS / "acceptance/synthetic/lease-compliance-cases.json").read_text())["cases"] + json.loads((ASSETS / "acceptance/synthetic/source-disclosure-cases.json").read_text())["cases"] + json.loads((ASSETS / "acceptance/synthetic/reporting-cases.json").read_text())["cases"]), ids=lambda c: c["caseId"])
+@pytest.mark.parametrize("case", (json.loads((ASSETS / "acceptance/synthetic/policy-cases.json").read_text())["cases"] + json.loads((ASSETS / "acceptance/synthetic/lease-compliance-cases.json").read_text())["cases"] + json.loads((ASSETS / "acceptance/synthetic/source-disclosure-cases.json").read_text())["cases"] + json.loads((ASSETS / "acceptance/synthetic/reporting-cases.json").read_text())["cases"] + json.loads((ASSETS / "acceptance/synthetic/remaining-cases.json").read_text())["cases"]), ids=lambda c: c["caseId"])
 def test_policy_calculation_alternatives_use_scoped_receipts(service, case):
-    context = {**CONTEXT, "period": case["period"], "evidenceRefAllowlist": CONTEXT["evidenceRefAllowlist"] + ["SYNTHETIC-POLICY-RECORD", "SYNTHETIC-LEASE-RECORD", "SYNTHETIC-SOURCE-RECORD", "SYNTHETIC-REPORTING-RECORD"],
+    context = {**CONTEXT, "period": case["period"], "evidenceRefAllowlist": CONTEXT["evidenceRefAllowlist"] + ["SYNTHETIC-POLICY-RECORD", "SYNTHETIC-LEASE-RECORD", "SYNTHETIC-SOURCE-RECORD", "SYNTHETIC-REPORTING-RECORD", "SYNTHETIC-COMPLETION-RECORD"],
                "factsByCase": {case["caseId"]: {"control": case["control"], "facts": case["facts"]}}}
     operator = principal(service, role="operator"); operator["scopes"] = [[context["entityId"], context["period"]]]
     agent = principal(service); agent["scopes"] = operator["scopes"]
@@ -199,15 +199,19 @@ def test_policy_calculation_alternatives_use_scoped_receipts(service, case):
     def transport(section):
         def respond(request):
             receipt = rag_transport(request).json()
-            receipt["request"]["sectionId"] = section
-            receipt["passages"][0]["sectionId"] = section
+            actual = json.loads(request.content).get("sectionId", section) if request.method == "POST" else request.url.path.rsplit("fixture-dep-", 1)[-1] if "fixture-dep-" in request.url.path else section
+            receipt["request"]["sectionId"] = actual
+            receipt["passages"][0]["sectionId"] = actual
             return httpx.Response(200, json=receipt)
         return httpx.MockTransport(respond)
-    args = dict(caseId=case["caseId"], interactionId="fixture-interaction")
+    args = dict(caseId=case["caseId"], interactionId="fixture-interaction", dependencyInteractionIds=["fixture-dep-"+section for section in case.get("dependencySections", []) if section != case["sourceSection"]])
     service.http = httpx.Client(transport=transport("01" if case["sourceSection"] == "03" else "03"))
     with pytest.raises(ValueError, match="source scope"):
         call(service, "calculate", args, agent, context=context)
     service.http = httpx.Client(transport=transport(case["sourceSection"]))
+    if case.get("dependencySections") and case["expected"]["status"] == "ADVISORY" and any(s != case["sourceSection"] for s in case["dependencySections"]):
+        with pytest.raises(ValueError, match="dependency-section"):
+            call(service, "calculate", dict(args, dependencyInteractionIds=[]), agent, context=context)
     result = call(service, "calculate", args, agent, context=context)["result"]
     for key, expected in case["expected"].items():
         assert result["determination"][key] == expected
@@ -219,7 +223,7 @@ def test_policy_calculation_alternatives_use_scoped_receipts(service, case):
 def test_owned_typed_reporting_drafts_and_unresolved_rejection(service, case):
     targets = {"section-6-dividend-note": "DIVIDEND-REGISTER", "section-7-financing-reconciliation": "FINANCING-RECONCILIATION", "section-7-supplier-finance-note": "SUPPLIER-FINANCE-NOTE"}
     aid = targets[case["control"]]
-    context = {**CONTEXT, "period": case["period"], "evidenceRefAllowlist": ["SYNTHETIC-REPORTING-RECORD"],
+    context = {**CONTEXT, "period": case["period"], "evidenceRefAllowlist": ["SYNTHETIC-REPORTING-RECORD", "SYNTHETIC-COMPLETION-RECORD"],
                "factsByCase": {case["caseId"]: {"control": case["control"], "facts": case["facts"]}},
                "evidenceRecords": [dict(recordId="SYNTHETIC-REPORTING-RECORD", entityId=CONTEXT["entityId"], period=case["period"], synthetic=True)]}
     actor = principal(service, aid); actor["scopes"] = [[context["entityId"], context["period"]]]
@@ -242,7 +246,7 @@ def test_owned_typed_reporting_drafts_and_unresolved_rejection(service, case):
         assert revision["content"]["unresolved"] == []
         assert set(service.store.catalog[aid]["requiredFields"]) <= set(revision["content"])
         with pytest.raises(ValueError, match="server-owned"):
-            call(service, "draft", dict(assetTypeId=aid, content=revision["content"], evidenceRefs=["SYNTHETIC-REPORTING-RECORD"], expectedRevision=1), actor, context=context)
+            call(service, "draft", dict(assetTypeId=aid, content=revision["content"], evidenceRefs=["SYNTHETIC-REPORTING-RECORD", "SYNTHETIC-COMPLETION-RECORD"], expectedRevision=1), actor, context=context)
         # The owner cannot review its own financial draft.
         with pytest.raises(PermissionError):
             call(service, "approve", dict(assetTypeId=aid), actor, context=context)
