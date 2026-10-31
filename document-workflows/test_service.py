@@ -250,3 +250,19 @@ def test_owned_typed_reporting_drafts_and_unresolved_rejection(service, case):
         # The owner cannot review its own financial draft.
         with pytest.raises(PermissionError):
             call(service, "approve", dict(assetTypeId=aid), actor, context=context)
+
+
+def test_declared_steward_can_contribute_without_legacy_duty_but_foreign_agent_cannot(service):
+    open_period(service)
+    aid = "REVENUE-GUIDANCE-MEMO"
+    owner = principal(service, aid)
+    machine = json.loads((service.machines / (owner["machineId"] + ".json")).read_text())["machine"]
+    assert aid in machine["metadata"]["documentStewardship"]
+    assert aid not in {d["assetTypeId"] for d in machine["metadata"]["documentAssetWorkflow"]["duties"]}
+    args = dict(assetTypeId=aid, content={"finding": "synthetic conditional judgment"}, evidenceRefs=["synthetic:record"])
+    result = call(service, "contribute", args, owner)
+    assert result["result"]["status"] == "OPEN"
+    assert result["result"]["targetMachine"] == owner["machineId"]
+    assert result["nativeWrites"] == 0
+    with pytest.raises(PermissionError):
+        call(service, "contribute", args, principal(service, "ELIGIBILITY-MEMO"))

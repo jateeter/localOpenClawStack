@@ -427,7 +427,7 @@ class WorkflowService:
             elif op == "resolve-assessment":
                 result = self.store.resolve_assessment(c, args["taskId"], args["resolution"])
             elif op == "contribute":
-                if not m or aid not in {d["assetTypeId"] for d in m["metadata"]["documentAssetWorkflow"]["duties"]}:
+                if not m or aid not in ({d["assetTypeId"] for d in m["metadata"]["documentAssetWorkflow"]["duties"]} | set(m["metadata"].get("documentStewardship", []))):
                     raise PermissionError("Contribution is outside declared duties")
                 if not args.get("evidenceRefs") or not args.get("content"):
                     raise ValueError("Contribution requires evidence and content")
