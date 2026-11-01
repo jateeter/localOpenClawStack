@@ -69,9 +69,9 @@ check "entries: every workspace and agentDir is under the state directory" \
 
 # set-model moves default, allow-list and every agent that followed it
 OPENCLAW_SCHEMA=entries OPENCLAW_STATE_DIR="$E" OPENCLAW_HOME_DIR="$E" OPENCLAW_GATEWAY_BIND=loopback \
-  OLLAMA_BASE_URL=http://127.0.0.1:11434 "$ROOT_DIR/scripts/set-model.sh" llama3.1:8b >/dev/null 2>&1 || true
+  OLLAMA_BASE_URL=http://127.0.0.1:11434 "$ROOT_DIR/scripts/set-model.sh" gemma3:4b >/dev/null 2>&1 || true
 check "entries: set-model.sh moves the default, the allow-list and the agents" \
-  jq -e '.agents.defaults.model.primary == "ollama/llama3.1:8b" and (.agents.defaults.modelPolicy.allow | index("ollama/llama3.1:8b")) and ((.agents.defaults.modelPolicy.allow | index("ollama/nemotron-3-nano:4b")) | not) and ([.agents.entries[].model.primary] | all(. == "ollama/llama3.1:8b"))' "$CFG"
+  jq -e '.agents.defaults.model.primary == "ollama/gemma3:4b" and (.agents.defaults.modelPolicy.allow | index("ollama/gemma3:4b")) and ((.agents.defaults.modelPolicy.allow | index("ollama/nemotron-3-nano:4b")) | not) and ([.agents.entries[].model.primary] | all(. == "ollama/gemma3:4b"))' "$CFG"
 
 # an id the new schema rejects is refused, by name
 LONG="$T/INDEX-long.json"

@@ -20,7 +20,7 @@
     },
     "ollama": {
       "baseUrl": "http://localhost:11434",
-      "model": "llama3.1:8b-q4_K_M"
+      "model": "nemotron-3-nano:4b-mlx"
     }
   },
   "agents": [
@@ -189,7 +189,7 @@
       "provider": "localAIStack",
       "endpoint": "/chat",
       "modelProvider": "ollama",
-      "model": "llama3.1:8b-q4_K_M",
+      "model": "nemotron-3-nano:4b-mlx",
       "systemPrompt": "Resolve the patient-safety transport event into a concise care-coordination handoff. Do not change PE or RE state directly; return a completion suitable for PE source ingestion."
     },
     "peWriteBack": {
