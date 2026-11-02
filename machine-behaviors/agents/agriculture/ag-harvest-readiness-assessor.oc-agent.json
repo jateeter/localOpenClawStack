@@ -555,56 +555,6 @@
       }
     ]
   },
-  "syntheticBody": {
-    "schemaVersion": "1.0.0",
-    "mode": "off",
-    "strategy": "seeded-random",
-    "strategies": [
-      "seeded-random",
-      "round-robin",
-      "sequence-walk"
-    ],
-    "source": "corpus-inputSequences",
-    "seedBasis": "sha256(agentId|seedKey); seedKey = correlationId, else step",
-    "ordinality": 2,
-    "responses": [
-      {
-        "id": "Healthy Growth Cycle Leading to Harvest Ready#0",
-        "inputSequence": "Healthy Growth Cycle Leading to Harvest Ready",
-        "step": 0,
-        "expectedSequenceId": null,
-        "values": [
-          0.1,
-          0.1,
-          0.1,
-          0.9,
-          0.1,
-          0.1,
-          0.1,
-          0.9
-        ]
-      },
-      {
-        "id": "Healthy Growth Cycle Leading to Harvest Ready#3",
-        "inputSequence": "Healthy Growth Cycle Leading to Harvest Ready",
-        "step": 3,
-        "expectedSequenceId": null,
-        "values": [
-          0.1,
-          0.1,
-          0.1,
-          0.9,
-          0.1,
-          0.1,
-          0.9,
-          0.9
-        ]
-      }
-    ],
-    "roundRobin": [
-      "Healthy Growth Cycle Leading to Harvest Ready#0"
-    ]
-  },
   "diagnostics": {
     "axisBasis": "openClawProjection",
     "warnings": [],

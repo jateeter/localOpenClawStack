@@ -39,7 +39,7 @@
     ]
   },
   "syntheticBody": {
-    "_comment": "Synthetic agent body (synthetic_body.py). mode: off | fallback (answer synthetically only when the model gives no mappable answer) | always (never call the model). strategy, used when an agent has more than one admissible response: seeded-random | round-robin | sequence-walk. domains.<domain> overrides this block; OC_SYNTHETIC_MODE / OC_SYNTHETIC_STRATEGY override both. Every synthetic completion carries metadata.synthetic=true.",
+    "_comment": "Synthetic action answer (synthetic_body.py, README §1.3a). When an action's real turn fails to report, it answers on the completion lane with an answer the action contract admits. mode: off | fallback (only when the model fails or does not resolve) | always (never call the model). strategy: seeded-random | round-robin. domains.<domain> overrides this block; OC_SYNTHETIC_MODE / OC_SYNTHETIC_STRATEGY override both. Synthetic completions carry metadata.synthetic=true.",
     "mode": "off",
     "strategy": "seeded-random",
     "domains": {}

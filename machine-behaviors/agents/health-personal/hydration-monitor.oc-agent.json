@@ -230,54 +230,6 @@
       }
     ]
   },
-  "syntheticBody": {
-    "schemaVersion": "1.0.0",
-    "mode": "off",
-    "strategy": "seeded-random",
-    "strategies": [
-      "seeded-random",
-      "round-robin",
-      "sequence-walk"
-    ],
-    "source": "corpus-inputSequences",
-    "seedBasis": "sha256(agentId|seedKey); seedKey = correlationId, else step",
-    "ordinality": 3,
-    "responses": [
-      {
-        "id": "Normal hydration day#0",
-        "inputSequence": "Normal hydration day",
-        "step": 0,
-        "expectedSequenceId": null,
-        "values": [
-          0.0,
-          0.0
-        ]
-      },
-      {
-        "id": "Low \u2192 critical descent#1",
-        "inputSequence": "Low \u2192 critical descent",
-        "step": 1,
-        "expectedSequenceId": null,
-        "values": [
-          1.0,
-          0.0
-        ]
-      },
-      {
-        "id": "Low \u2192 critical descent#2",
-        "inputSequence": "Low \u2192 critical descent",
-        "step": 2,
-        "expectedSequenceId": null,
-        "values": [
-          1.0,
-          1.0
-        ]
-      }
-    ],
-    "roundRobin": [
-      "Normal hydration day#0"
-    ]
-  },
   "diagnostics": {
     "axisBasis": "openClawProjection",
     "warnings": [],

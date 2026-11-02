@@ -1,198 +1,145 @@
 #!/usr/bin/env python3
-"""Synthetic agent body — every generated agent can always answer.
+"""Synthetic action answer — an action agent can always complete.
 
-An agent's real turn can fail to close the loop: the gateway is unreachable,
-the model times out, or its answer does not resolve through the agent's
-`responseMapping`. With the synthetic body enabled, the agent answers anyway,
-with a response that is admissible for its machine and that says it is
-synthetic.
+An action agent is dispatched after a CES fires (`derive_agents.py`), performs
+or recommends the action, and reports back on the shared completion lane:
+`acp-openclaw-completion`, cells [4210:4214], `[completed, failed, confidence,
+actionClass]`. When its real turn cannot report (the gateway is unreachable,
+the model times out, or the answer does not resolve), the loop stays open.
 
-Where the admissible responses come from
-    The machine's own corpus `inputSequences` — the stimulus fixtures the
-    corpus declares for it and the parity loop replays. Every vector there
-    drives one of the machine's CES, so a synthetic answer is never an
-    invented input. The body does not re-derive CES matching rules: the
-    corpus is the oracle, not an engine (no reference implementation).
+The synthetic body answers in its place, on exactly that path. It is an action
+answer in the action's own response contract, mapped by the action's own
+`responseMapping` onto the same lane, and labelled synthetic. It never writes
+anywhere a real action answer could not.
 
-    Each distinct vector is one admissible response. Its `values` are what the
-    PE actually receives: the vector passed through the agent's own
-    `responseMapping` (the same extractor a model answer goes through). Where
-    that normalization changes a corpus value, the response is kept but marked
-    `normalizationShift` so the difference is visible, never hidden.
+The admissible answers
+    What an action agent may answer for its autonomy mode and the dispatch's
+    RAG status, as the action contract defines it:
+
+      blocked (RAG in the mode's blockedWhenRag)
+          verdict blocked, completed no, failed yes
+          (+ review_required yes at supervised-act / automated-act)
+      otherwise
+          verdict = the mode's own verdict (advise -> advised,
+          supervised-act -> staged, automated-act -> executed),
+          completed yes, failed no
+          (+ review_required yes at supervised-act;
+             executed yes, rollback_ok yes at automated-act)
+
+    each at every confidence anchor (low, moderate, high). `observe` writes no
+    vector, so it has no synthetic answer.
 
 Ordinality and selection
-    `ordinality` is the number of admissible responses. With one, the answer is
-    that response. With more than one, the agent's `strategy` chooses:
+    `ordinality` is the number of admissible answers (three, one per confidence
+    anchor). With more than one, `strategy` chooses:
 
-      seeded-random   SHA-256(agentId | seedKey) mod ordinality. Reproducible:
-                      the same agent and seed key give the same answer on every
-                      host and for every engine, so engines in parity receive
-                      the same value (it is computed once, then fanned out).
-      round-robin     the first vector of each input sequence in turn, so
-                      successive turns cover every scenario the corpus declares
-                      for the machine: each CES, and the corpus's own fixtures
-                      that fire none (e.g. "no assertion") or several.
-      sequence-walk   every vector of every input sequence in corpus order, so
-                      successive turns walk each sequence step by step.
+      seeded-random   SHA-256(agent | seedKey) mod ordinality. Reproducible on
+                      every host, so every engine in parity receives the same
+                      completion. seedKey is the dispatch's correlation id.
+      round-robin     step mod ordinality, in the order above.
 
-    The algorithmic strategies advance by `step` (the caller's turn counter);
-    seeded-random keys on `seedKey` (default: correlation id, else step).
+Mode — when the action answers synthetically
+    off       never (default).
+    fallback  only when the real turn produced no mappable answer, or failed.
+    always    never call the model.
 
-Mode — when the agent answers synthetically
-    off       never (default). The agent answers only from its model.
-    fallback  only when the real turn produced no mappable answer.
-    always    never call the model; answer synthetically.
+    Resolution, first match wins: OC_SYNTHETIC_MODE / OC_SYNTHETIC_STRATEGY;
+    config `syntheticBody.domains.<domain>`; config `syntheticBody`.
 
-    Resolution, first match wins: OC_SYNTHETIC_MODE / OC_SYNTHETIC_STRATEGY
-    environment; config `syntheticBody.domains.<domain>`; config
-    `syntheticBody` (global); the agent's own `syntheticBody`.
-
-Every synthetic completion carries `metadata.synthetic: true` and the
-selection that produced it, so it can never be mistaken for agent reasoning or
-counted as LLM drift.
+A synthetic completion carries `metadata.synthetic: true` and the selection
+that produced it (`completion_metadata`), so it is never read as agent
+reasoning or counted as LLM drift.
 """
 
 from __future__ import annotations
 
 import hashlib
-import json
 import os
 from collections.abc import Mapping
 from typing import Any
 
-SCHEMA_VERSION = "1.0.0"
 MODES = ("off", "fallback", "always")
-STRATEGIES = ("seeded-random", "round-robin", "sequence-walk")
+STRATEGIES = ("seeded-random", "round-robin")
 DEFAULT_MODE = "off"
 DEFAULT_STRATEGY = "seeded-random"
-VALUE_DIGITS = 4
+
+# The action contract's verdict per autonomy mode, and its confidence anchors
+# (derive_agents._VERDICT_CLASS / _CONFIDENCE_PHRASE map them to lane values).
+VERDICT_BY_MODE = {"advise": "advised", "supervised-act": "staged", "automated-act": "executed"}
+CONFIDENCE_ANCHORS = ("low", "moderate", "high")
+
+LANE = {"sourceMappingId": "acp-openclaw-completion", "offset": 4210, "length": 4,
+        "semantics": ["completed", "failed", "confidence", "actionClass"]}
 
 
 def _as_object(v: Any) -> dict[str, Any]:
     return v if isinstance(v, dict) else {}
 
 
-def _as_list(v: Any) -> list[Any]:
-    return v if isinstance(v, list) else []
+def blocked_when_rag(mode: str, risk_controls: dict[str, Any] | None = None) -> list[str]:
+    """The RAG statuses that block this action: its own riskControls, else the
+    contract's default for the mode (derive_agents._risk_controls)."""
+    declared = _as_object(risk_controls).get("blockedWhenRag")
+    if isinstance(declared, list):
+        return [str(x) for x in declared]
+    from derive_agents import _risk_controls
+    return list(_risk_controls(mode)["blockedWhenRag"])
 
 
-def _num(x: Any) -> float | None:
-    if isinstance(x, bool) or not isinstance(x, (int, float)):
-        return None
-    return float(x)
+def admissible(mode: str, rag: str = "", risk_controls: dict[str, Any] | None = None) -> list[dict[str, str]]:
+    """Every answer the action contract admits for this mode and RAG status."""
+    if mode not in VERDICT_BY_MODE:
+        return []   # observe writes no vector; an unknown mode admits nothing
+    blocked = bool(rag) and rag in blocked_when_rag(mode, risk_controls)
+    answers = []
+    for confidence in CONFIDENCE_ANCHORS:
+        if blocked:
+            answer = {"verdict": "blocked", "completed": "no", "failed": "yes", "confidence": confidence}
+            if mode in ("supervised-act", "automated-act"):
+                answer["review_required"] = "yes"
+        else:
+            answer = {"verdict": VERDICT_BY_MODE[mode], "completed": "yes", "failed": "no",
+                      "confidence": confidence}
+            if mode == "supervised-act":
+                answer["review_required"] = "yes"
+            if mode == "automated-act":
+                answer["executed"] = "yes"
+                answer["rollback_ok"] = "yes"
+        answers.append(answer)
+    return answers
 
 
-# --- declaration (generation time) -------------------------------------------
+def action_mapping(mode: str) -> dict[str, Any]:
+    """The action's own responseMapping onto the completion lane."""
+    from derive_agents import _build_response_mapping, _response_field_spec
+    region = {"offset": LANE["offset"], "length": LANE["length"]}
+    return _build_response_mapping(mode, LANE["sourceMappingId"], region, _response_field_spec(mode))
 
-def _mapped(vector: list[float], mapping: dict[str, Any]) -> tuple[list[float] | None, list[str]]:
-    """The values the PE receives for `vector`, through the agent's own mapping.
 
-    Returns (values, problems). values is None when the mapping does not
-    resolve every input position — such a vector cannot be a complete answer.
+def lane_values(answer: dict[str, Any], mapping: dict[str, Any]) -> list[float]:
+    """The lane values a real action answer like this one is posted with.
+
+    Through the same extractor as a model answer. A position the answer does
+    not resolve (a blocked answer has no actionClass) is posted as 0.0, as the
+    action path already posts it (openclaw_side._build_completion).
     """
-    from openclaw_side import apply_response_mapping
-
-    fields = _as_list(mapping.get("fields"))
-    response: dict[str, Any] = {}
-    problems: list[str] = []
-    for field in fields:
-        index = _as_object(field.get("target")).get("index")
-        pointer = str(_as_object(field.get("extract")).get("jsonPointer", ""))
-        if not isinstance(index, int) or not pointer.startswith("/") or "/" in pointer[1:]:
-            problems.append(f"field {field.get('semantic')!r} has no single-key jsonPointer and index")
-            continue
-        if index >= len(vector):
-            problems.append(f"field {field.get('semantic')!r} index {index} is outside the vector")
-            continue
-        response[pointer[1:]] = vector[index]
-    if problems:
-        return None, problems
-    targets, _extracted, unresolved = apply_response_mapping(response, mapping)
-    if unresolved:
-        return None, [f"unresolved: {u['semantic']}" for u in unresolved]
-    if len(targets) != 1:
-        return None, [f"mapping fans out to {len(targets)} targets, expected 1"]
-    target = targets[0]
-    if not all(target["present"]):
-        return None, ["mapping leaves input positions unwritten"]
-    return [round(float(v), VALUE_DIGITS) for v in target["values"]], []
+    from openclaw_side import _round_value, apply_response_mapping
+    targets, _extracted, _unresolved = apply_response_mapping(answer, mapping)
+    if not targets:
+        return []
+    return [_round_value(v) for v in targets[0]["values"]]
 
 
-def declare(machine: dict[str, Any], response_mapping: dict[str, Any],
-            agent_id: str) -> dict[str, Any]:
-    """The `syntheticBody` block written into a generated agent spec."""
-    length = int(_as_object(_as_object(machine.get("perceptualMapping")).get("input")).get("length", 0) or 0)
-    responses: list[dict[str, Any]] = []
-    excluded: list[dict[str, Any]] = []
-    seen: dict[tuple, str] = {}
-    sequence_starts: list[str] = []
-    for s_index, seq in enumerate(_as_list(machine.get("inputSequences"))):
-        seq = _as_object(seq)
-        seq_name = str(seq.get("name") or f"inputSequence-{s_index}")
-        expected = str(_as_object(seq.get("metadata")).get("expectedSequenceId") or "")
-        for step, raw in enumerate(_as_list(seq.get("events"))):
-            parsed = [_num(x) for x in _as_list(raw)]
-            rid = f"{seq_name}#{step}"
-            vector = [v for v in parsed if v is not None]
-            if len(parsed) != length or len(vector) != length:
-                excluded.append({"id": rid, "reason": f"not a numeric vector of length {length}"})
-                continue
-            if any(v < 0.0 or v > 1.0 for v in vector):
-                excluded.append({"id": rid, "reason": "values outside [0, 1]; an analyst answer is normalized to [0, 1]"})
-                continue
-            key = tuple(vector)
-            if key in seen:
-                if step == 0:
-                    sequence_starts.append(seen[key])
-                continue
-            values, problems = _mapped(vector, response_mapping)
-            if values is None:
-                excluded.append({"id": rid, "reason": "; ".join(problems)})
-                continue
-            entry = {"id": rid, "inputSequence": seq_name, "step": step,
-                     "expectedSequenceId": expected or None, "values": values}
-            if values != [round(v, VALUE_DIGITS) for v in vector]:
-                entry["normalizationShift"] = {"corpus": [round(v, VALUE_DIGITS) for v in vector]}
-            seen[key] = rid
-            responses.append(entry)
-            if step == 0:
-                sequence_starts.append(rid)
-    body = {
-        "schemaVersion": SCHEMA_VERSION,
-        "mode": DEFAULT_MODE,
-        "strategy": DEFAULT_STRATEGY,
-        "strategies": list(STRATEGIES),
-        "source": "corpus-inputSequences",
-        "seedBasis": "sha256(agentId|seedKey); seedKey = correlationId, else step",
-        "ordinality": len(responses),
-        "responses": responses,
-        "roundRobin": [r for r in dict.fromkeys(sequence_starts) if any(x["id"] == r for x in responses)],
-    }
-    if excluded:
-        body["excluded"] = excluded
-    if not responses:
-        body["unavailable"] = "no admissible response: the corpus declares no usable input vector for this machine"
-    return body
-
-
-# --- resolution and selection (turn time) ------------------------------------
-
-def resolve(agent: dict[str, Any], cfg: dict[str, Any] | None = None,
+def resolve(cfg: dict[str, Any] | None = None, domain: str = "",
             env: Mapping[str, str] | None = None) -> dict[str, str]:
-    """Effective {mode, strategy} for one agent; first match wins."""
+    """Effective {mode, strategy}; first match wins."""
     env = os.environ if env is None else env
-    cfg = _as_object(cfg)
-    body = _as_object(agent.get("syntheticBody"))
-    domain = str(_as_object(agent.get("machine")).get("domain") or "")
-    global_cfg = _as_object(cfg.get("syntheticBody"))
+    global_cfg = _as_object(_as_object(cfg).get("syntheticBody"))
     domain_cfg = _as_object(_as_object(global_cfg.get("domains")).get(domain))
-    layers = [
-        {"mode": env.get("OC_SYNTHETIC_MODE"), "strategy": env.get("OC_SYNTHETIC_STRATEGY")},
-        domain_cfg, global_cfg, body,
-    ]
+    layers = [{"mode": env.get("OC_SYNTHETIC_MODE"), "strategy": env.get("OC_SYNTHETIC_STRATEGY")},
+              domain_cfg, global_cfg]
     out: dict[str, str] = {}
-    for key, allowed, default in (("mode", MODES, DEFAULT_MODE),
-                                  ("strategy", STRATEGIES, DEFAULT_STRATEGY)):
+    for key, allowed, default in (("mode", MODES, DEFAULT_MODE), ("strategy", STRATEGIES, DEFAULT_STRATEGY)):
         chosen = next((str(layer[key]) for layer in layers
                        if isinstance(layer.get(key), str) and layer.get(key)), default)
         if chosen not in allowed:
@@ -201,112 +148,53 @@ def resolve(agent: dict[str, Any], cfg: dict[str, Any] | None = None,
     return out
 
 
-def _index(n: int, strategy: str, agent_id: str, seed_key: str, step: int,
-           round_robin: list[int]) -> int:
-    if n == 1:
-        return 0
-    if strategy == "seeded-random":
-        digest = hashlib.sha256(f"{agent_id}|{seed_key}".encode()).hexdigest()
-        return int(digest[:16], 16) % n
-    if strategy == "round-robin":
-        cycle = round_robin or list(range(n))
-        return cycle[step % len(cycle)]
-    if strategy == "sequence-walk":
-        return step % n
-    raise ValueError(f"unknown strategy {strategy!r}")
-
-
-def select(agent: dict[str, Any], *, strategy: str, step: int = 0,
-           seed_key: str | None = None) -> dict[str, Any]:
-    """Choose one admissible response. Pure: no I/O, no clock, no global state."""
-    body = _as_object(agent.get("syntheticBody"))
-    responses = _as_list(body.get("responses"))
-    if not responses:
-        raise LookupError(body.get("unavailable") or "agent declares no synthetic responses")
-    agent_id = str(agent.get("agentId") or "")
+def select(answers: list[dict[str, str]], *, agent: str, strategy: str,
+           seed_key: str | None = None, step: int = 0) -> tuple[int, dict[str, Any]]:
+    """Choose one admissible answer. Pure: no I/O, no clock, no global state."""
+    if not answers:
+        raise LookupError("no admissible synthetic answer (observe mode writes no vector)")
+    n = len(answers)
     key = seed_key if seed_key not in (None, "") else str(step)
-    ids = [r["id"] for r in responses]
-    rr = [ids.index(r) for r in _as_list(body.get("roundRobin")) if r in ids]
-    i = _index(len(responses), strategy, agent_id, key, step, rr)
-    chosen = responses[i]
-    return {
-        "values": list(chosen["values"]),
-        "provenance": {
-            "synthetic": True,
-            "agentId": agent_id,
-            "strategy": strategy if len(responses) > 1 else "only-admissible",
-            "ordinality": len(responses),
-            "responseId": chosen["id"],
-            "expectedSequenceId": chosen.get("expectedSequenceId"),
-            "seedKey": key if strategy == "seeded-random" else None,
-            "step": step,
-            "source": body.get("source"),
-            **({"normalizationShift": chosen["normalizationShift"]}
-               if "normalizationShift" in chosen else {}),
-        },
+    if n == 1:
+        index = 0
+    elif strategy == "seeded-random":
+        index = int(hashlib.sha256(f"{agent}|{key}".encode()).hexdigest()[:16], 16) % n
+    elif strategy == "round-robin":
+        index = step % n
+    else:
+        raise ValueError(f"unknown strategy {strategy!r}")
+    return index, {
+        "synthetic": True,
+        "agent": agent,
+        "strategy": strategy if n > 1 else "only-admissible",
+        "ordinality": n,
+        "answerIndex": index,
+        "seedKey": key if strategy == "seeded-random" else None,
+        "step": step,
+        "source": "action-contract",
     }
 
 
-def response_object(agent: dict[str, Any], values: list[float]) -> dict[str, Any]:
-    """The synthetic answer as the JSON object a model would return.
-
-    Keyed by each field's own jsonPointer, so it goes through the agent's
-    `responseMapping` exactly as a model's structured answer does.
-    """
-    out: dict[str, Any] = {}
-    for field in _as_list(_as_object(agent.get("responseMapping")).get("fields")):
-        pointer = str(_as_object(field.get("extract")).get("jsonPointer", ""))
-        index = _as_object(field.get("target")).get("index")
-        if pointer.startswith("/") and isinstance(index, int) and index < len(values):
-            out[pointer[1:]] = values[index]
-    out["synthetic"] = True
-    return out
+def answer_text(answer: dict[str, str], agent: str, label: str = "") -> str:
+    """The answer as structured-keys text, the action contract's turn form."""
+    lines = [f"{k}: {answer[k]}" for k in ("verdict", "completed", "failed", "confidence",
+                                            "review_required", "executed", "rollback_ok") if k in answer]
+    lines.append("synthetic: yes")
+    lines.append(f"summary: synthetic {answer['verdict']} answer from {agent}"
+                 + (f" for {label}." if label else "."))
+    return "\n".join(lines)
 
 
-def turn(agent: dict[str, Any], *, cfg: dict[str, Any] | None = None,
-         model_turn=None, step: int = 0, seed_key: str | None = None,
-         env: Mapping[str, str] | None = None) -> dict[str, Any]:
-    """One analyst turn with the synthetic body in force.
-
-    `model_turn` is a callable returning the model's answer (text or object),
-    or raising when the model cannot be reached. Returns
-    {source: model|synthetic|none, response, targets, unresolved, provenance}.
-    """
-    from openclaw_side import apply_response_mapping
-
-    effective = resolve(agent, cfg, env)
-    mapping = _as_object(agent.get("responseMapping"))
-    failure = None
-    if effective["mode"] != "always" and model_turn is not None:
-        try:
-            response = model_turn(agent)
-            targets, _extracted, unresolved = apply_response_mapping(response, mapping)
-            if targets and not unresolved:
-                return {"source": "model", "response": response, "targets": targets,
-                        "unresolved": [], "provenance": {"synthetic": False}}
-            failure = f"model answer did not resolve ({len(unresolved)} unresolved position(s))"
-            if effective["mode"] == "off":
-                return {"source": "model", "response": response, "targets": targets,
-                        "unresolved": unresolved, "provenance": {"synthetic": False}}
-        except Exception as exc:  # unreachable, timeout, refused
-            failure = f"model turn failed: {exc}"
-            if effective["mode"] == "off":
-                return {"source": "none", "response": None, "targets": [], "unresolved": [],
-                        "provenance": {"synthetic": False, "failure": failure}}
-    elif effective["mode"] == "off":
-        return {"source": "none", "response": None, "targets": [], "unresolved": [],
-                "provenance": {"synthetic": False, "failure": "no model turn and synthetic body off"}}
-
-    chosen = select(agent, strategy=effective["strategy"], step=step, seed_key=seed_key)
-    response = response_object(agent, chosen["values"])
-    targets, _extracted, unresolved = apply_response_mapping(response, mapping)
-    provenance = {**chosen["provenance"], "mode": effective["mode"]}
-    if failure:
-        provenance["replaced"] = failure
-    for target in targets:
-        target["synthetic"] = True
-    return {"source": "synthetic", "response": response, "targets": targets,
-            "unresolved": unresolved, "provenance": provenance}
+def synthesize(*, agent: str, mode: str, rag: str = "", risk_controls: dict[str, Any] | None = None,
+               strategy: str = DEFAULT_STRATEGY, seed_key: str | None = None,
+               step: int = 0) -> dict[str, Any]:
+    """One synthetic action answer: {answer, values, provenance}."""
+    answers = admissible(mode, rag, risk_controls)
+    index, provenance = select(answers, agent=agent, strategy=strategy, seed_key=seed_key, step=step)
+    answer = answers[index]
+    provenance.update({"autonomyMode": mode, "ragStatusCode": rag or None,
+                       "blocked": answer["verdict"] == "blocked"})
+    return {"answer": answer, "values": lane_values(answer, action_mapping(mode)), "provenance": provenance}
 
 
 def completion_metadata(provenance: dict[str, Any]) -> dict[str, Any]:
@@ -314,12 +202,3 @@ def completion_metadata(provenance: dict[str, Any]) -> dict[str, Any]:
     if not provenance.get("synthetic"):
         return {}
     return {"synthetic": True, "syntheticBody": {k: v for k, v in provenance.items() if k != "synthetic"}}
-
-
-if __name__ == "__main__":  # pragma: no cover - manual inspection helper
-    import sys
-
-    spec = json.load(open(sys.argv[1]))
-    strategy = sys.argv[2] if len(sys.argv) > 2 else DEFAULT_STRATEGY
-    for k in range(int(sys.argv[3]) if len(sys.argv) > 3 else 4):
-        print(json.dumps(select(spec, strategy=strategy, step=k, seed_key=f"demo-{k}")))

@@ -184,66 +184,10 @@
       }
     ]
   },
-  "syntheticBody": {
-    "schemaVersion": "1.0.0",
-    "mode": "off",
-    "strategy": "seeded-random",
-    "strategies": [
-      "seeded-random",
-      "round-robin",
-      "sequence-walk"
-    ],
-    "source": "corpus-inputSequences",
-    "seedBasis": "sha256(agentId|seedKey); seedKey = correlationId, else step",
-    "ordinality": 2,
-    "responses": [
-      {
-        "id": "Quiescent \u2014 no above-threshold samples#0",
-        "inputSequence": "Quiescent \u2014 no above-threshold samples",
-        "step": 0,
-        "expectedSequenceId": null,
-        "values": [
-          0.0
-        ]
-      },
-      {
-        "id": "Brief motion \u2014 count 1#0",
-        "inputSequence": "Brief motion \u2014 count 1",
-        "step": 0,
-        "expectedSequenceId": null,
-        "values": [
-          1.0
-        ]
-      }
-    ],
-    "roundRobin": [
-      "Quiescent \u2014 no above-threshold samples#0",
-      "Brief motion \u2014 count 1#0"
-    ],
-    "excluded": [
-      {
-        "id": "Brief motion \u2014 count 2#0",
-        "reason": "values outside [0, 1]; an analyst answer is normalized to [0, 1]"
-      },
-      {
-        "id": "Sustained motion \u2014 count 4#0",
-        "reason": "values outside [0, 1]; an analyst answer is normalized to [0, 1]"
-      },
-      {
-        "id": "Escalation \u2014 quiescent through severe#2",
-        "reason": "values outside [0, 1]; an analyst answer is normalized to [0, 1]"
-      },
-      {
-        "id": "Escalation \u2014 quiescent through severe#3",
-        "reason": "values outside [0, 1]; an analyst answer is normalized to [0, 1]"
-      }
-    ]
-  },
   "diagnostics": {
     "axisBasis": "inputSemantics",
     "warnings": [
-      "input axes derived from inputSemantics; openClawProjection.semantics does not name these positions, so the agent's axis names are unverified",
-      "synthetic body excludes 4 corpus vector(s); see syntheticBody.excluded"
+      "input axes derived from inputSemantics; openClawProjection.semantics does not name these positions, so the agent's axis names are unverified"
     ],
     "inputLength": 1,
     "sequenceCount": 4

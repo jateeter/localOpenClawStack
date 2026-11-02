@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Tests for synthetic_body.py — every generated agent can always answer.
+"""Tests for synthetic_body.py — a synthetic action answer on the action path.
 
 Run: MB_DEBUG=0 python3.13 tests/run_synthetic_body_tests.py
 """
@@ -12,16 +12,19 @@ import os
 import subprocess
 import sys
 from pathlib import Path
+from uuid import uuid4
 
 os.environ.setdefault("MB_DEBUG", "0")
 HERE = Path(__file__).parent
 ROOT = HERE.parent
 sys.path.insert(0, str(ROOT))
 
-import oc_agent_template as tmpl  # noqa: E402
+import minischema  # noqa: E402
+import dispatch_side  # noqa: E402
+import openclaw_side  # noqa: E402
 import synthetic_body as sb  # noqa: E402
-from derive_agents import load_config  # noqa: E402
-from openclaw_side import apply_response_mapping  # noqa: E402
+from behavior_log import SIDE_OPENCLAW, BehaviorLogger  # noqa: E402
+from derive_agents import _abs, derive, load_config, resolve_machine_file  # noqa: E402
 
 _PASS = _FAIL = 0
 
@@ -37,182 +40,144 @@ def check(name, cond, detail=""):
 
 
 CFG = load_config()
-MDIR = (ROOT / CFG["machinesDir"]).resolve() if not Path(CFG["machinesDir"]).is_absolute() else Path(CFG["machinesDir"])
 NO_ENV: dict[str, str] = {}
+SCHEMAS = _abs(CFG["schemasDir"])
+
+print("== the admissible answers are the action contract's ==")
+check("observe writes no vector, so it admits no synthetic answer", sb.admissible("observe", "GREEN") == [])
+for mode, verdict, action_class in (("advise", "advised", 0.5), ("supervised-act", "staged", 0.75),
+                                    ("automated-act", "executed", 1.0)):
+    answers = sb.admissible(mode, "GREEN")
+    check(f"{mode}: three answers, one per confidence anchor, all '{verdict}'",
+          len(answers) == 3 and {a["verdict"] for a in answers} == {verdict}
+          and [a["confidence"] for a in answers] == list(sb.CONFIDENCE_ANCHORS))
+    values = [sb.lane_values(a, sb.action_mapping(mode)) for a in answers]
+    check(f"{mode}: lane values are [completed 1, failed 0, confidence, actionClass {action_class}]",
+          values == [[1.0, 0.0, c, action_class] for c in (0.3, 0.6, 0.9)], values)
+check("supervised-act answers carry review_required", all(a.get("review_required") == "yes"
+                                                           for a in sb.admissible("supervised-act", "GREEN")))
+check("automated-act answers carry executed and rollback_ok",
+      all(a.get("executed") == "yes" and a.get("rollback_ok") == "yes" for a in sb.admissible("automated-act", "GREEN")))
+
+print("== blocking follows the mode's riskControls ==")
+check("advise is never blocked", sb.admissible("advise", "RED")[0]["verdict"] == "advised")
+check("supervised-act is blocked at RED, not AMBER",
+      sb.admissible("supervised-act", "RED")[0]["verdict"] == "blocked"
+      and sb.admissible("supervised-act", "AMBER")[0]["verdict"] == "staged")
+check("automated-act is blocked at AMBER and RED",
+      all(sb.admissible("automated-act", r)[0]["verdict"] == "blocked" for r in ("AMBER", "RED")))
+blocked = sb.admissible("supervised-act", "RED")
+check("a blocked answer is completed 0, failed 1, actionClass 0 (unresolved, posted as 0 like a real one)",
+      [sb.lane_values(a, sb.action_mapping("supervised-act")) for a in blocked]
+      == [[0.0, 1.0, c, 0.0] for c in (0.3, 0.6, 0.9)])
+check("an agent's own riskControls override the mode default",
+      sb.admissible("advise", "AMBER", {"blockedWhenRag": ["AMBER"]})[0]["verdict"] == "blocked")
+
+print("== selection ==")
+answers = sb.admissible("advise", "GREEN")
+picks = collections.Counter(sb.select(answers, agent="a1", strategy="seeded-random", seed_key=f"c{k}")[0] for k in range(300))
+check("seeded-random reaches every answer over 300 seed keys", len(picks) == 3, picks)
+check("seeded-random is roughly uniform", all(50 <= c <= 150 for c in picks.values()), picks)
+check("seeded-random is reproducible",
+      sb.select(answers, agent="a1", strategy="seeded-random", seed_key="c7")
+      == sb.select(answers, agent="a1", strategy="seeded-random", seed_key="c7"))
+check("round-robin cycles in contract order",
+      [sb.select(answers, agent="a1", strategy="round-robin", step=s)[0] for s in range(6)] == [0, 1, 2, 0, 1, 2])
+check("an empty seed key falls back to the step",
+      sb.select(answers, agent="a1", strategy="seeded-random", seed_key="", step=4)
+      == sb.select(answers, agent="a1", strategy="seeded-random", seed_key="4", step=4))
+code = ("import sys; sys.path.insert(0, %r); import synthetic_body as s, json;"
+        "a = s.admissible('advise', 'GREEN');"
+        "print(json.dumps([s.select(a, agent='agent-x', strategy='seeded-random', seed_key='k%%d' %% i)[0] for i in range(30)]))"
+        % str(ROOT))
+outs = {subprocess.run([sys.executable, "-c", code], capture_output=True, text=True, cwd=ROOT,
+                       env={**os.environ, "PYTHONHASHSEED": str(h)}).stdout for h in (1, 2, 3)}
+check("identical selections across processes and hash seeds (engines in parity get one value)",
+      len(outs) == 1 and next(iter(outs)).startswith("["), outs)
+
+print("== resolution: env > domain > global ==")
+cfg = {"syntheticBody": {"mode": "fallback", "strategy": "round-robin", "domains": {"health-personal": {"mode": "always"}}}}
+check("domain overrides global", sb.resolve(cfg, "health-personal", NO_ENV) == {"mode": "always", "strategy": "round-robin"})
+check("global applies to another domain", sb.resolve(cfg, "transportation", NO_ENV)["mode"] == "fallback")
+check("environment overrides both", sb.resolve(cfg, "health-personal", {"OC_SYNTHETIC_MODE": "off"})["mode"] == "off")
+check("nothing configured: off, seeded-random", sb.resolve({}, "", NO_ENV) == {"mode": "off", "strategy": "seeded-random"})
+try:
+    sb.resolve({"syntheticBody": {"strategy": "sequence-walk"}}, "", NO_ENV)
+    check("an unknown strategy is refused", False)
+except ValueError:
+    check("an unknown strategy is refused", True)
+
+print("== on the action path (openclaw_side.run) ==")
+plan = derive(resolve_machine_file(_abs(CFG["machinesDir"]), "HomeChronicPainMonitor.json"), CFG)
+agents = {a["agent"]: a for a in plan["agents"]}
+meta = dispatch_side.load_machine_meta(plan, CFG)
+out = next(o for o in plan["outputs"] if o["autonomyMode"] != "observe")
+rec = agents[out["agent"]]
+env = dispatch_side.build_envelope(plan, meta, out, rec, CFG, str(uuid4()))
+log = BehaviorLogger(SIDE_OPENCLAW, env["correlationId"])
+lane = CFG["completionLane"]
 
 
-def agent_for(rel: str) -> dict:
-    return tmpl.derive(MDIR / rel, CFG)
+def run(cfg, model_turn=None):
+    os.environ.pop("OC_SYNTHETIC_MODE", None)
+    return openclaw_side.run(env, rec, cfg, log, live=False, model_turn=model_turn)
 
 
-def failing_model(_agent):
+r = run(CFG)
+comp = r["completions"][0]
+check("with no model, the action's answer is the synthetic body's, labelled",
+      r["provenance"]["synthetic"] and comp["metadata"]["synthetic"] is True)
+check("it travels the current completion path: acp-openclaw-completion at [4210:4214]",
+      comp["sourceMapping"]["id"] == lane["sourceMappingId"]
+      and comp["region"] == {"offset": lane["offset"], "length": lane["length"]}, comp["region"])
+check("its values are one of the admissible answers' lane values",
+      comp["values"] in [sb.lane_values(a, sb.action_mapping(env["dispatch"]["autonomyMode"]))
+                         for a in sb.admissible(env["dispatch"]["autonomyMode"], env["governance"]["ragStatusCode"],
+                                                rec["agentBinding"].get("riskControls"))], comp["values"])
+errs = minischema.validate(comp, minischema.load_schema(SCHEMAS / "localai-completion-writeback.schema.json"))
+check("the labelled completion is valid against localai-completion-writeback.schema", not errs, errs[:3])
+
+
+def unreachable(_e, _r):
     raise ConnectionError("gateway unreachable")
 
 
-print("== declaration from the corpus ==")
-IFRS = "domains/ifrs-accounting/IFRS_Sec01_GeneralPurposeFS_Verifier.json"
-a = agent_for(IFRS)
-body = a["syntheticBody"]
-L = a["machine"]["inputRegion"]["length"]
-check("every agent carries a syntheticBody, off by default", body["mode"] == "off")
-check("default strategy is seeded-random", body["strategy"] == "seeded-random")
-N = body["ordinality"]
-seqs = [s["name"] for s in json.loads((MDIR / IFRS).read_text())["machine"]["inputSequences"]]
-check("ordinality is the number of distinct corpus input vectors (IFRS Sec01: 4 sequences, one vector each)",
-      N == 4 and len(seqs) == 4, (N, seqs))
-check("round-robin holds the first vector of every input sequence", len(body["roundRobin"]) == len(seqs), body["roundRobin"])
-check("every response is a full input vector in [0, 1]",
-      all(len(r["values"]) == L and all(0 <= v <= 1 for v in r["values"]) for r in body["responses"]))
-named = {r["expectedSequenceId"] for r in body["responses"]} - {None}
-check("every CES in the machine's catalog is driven by some admissible response",
-      named == {c["sequenceId"] for c in a["reasoning"]["sequenceCatalog"]}, named)
-check("the corpus's no-trigger fixtures are kept as admissible answers",
-      any(r["expectedSequenceId"] is None for r in body["responses"]))
-
-print("== the synthetic answer survives the real extractor ==")
-for r in body["responses"]:
-    obj = sb.response_object(a, r["values"])
-    targets, _ex, unresolved = apply_response_mapping(obj, a["responseMapping"])
-    check(f"{r['id']} maps exactly to its declared values",
-          not unresolved and len(targets) == 1 and targets[0]["values"] == r["values"] and all(targets[0]["present"]),
-          (targets, unresolved))
-check("the answer object says it is synthetic", sb.response_object(a, body["responses"][0]["values"])["synthetic"] is True)
-
-print("== selection ==")
-picks = [sb.select(a, strategy="seeded-random", seed_key=f"corr-{k}")["provenance"]["responseId"] for k in range(200)]
-check("seeded-random is reproducible for a seed key",
-      sb.select(a, strategy="seeded-random", seed_key="corr-7")["values"]
-      == sb.select(a, strategy="seeded-random", seed_key="corr-7")["values"])
-counts = collections.Counter(picks)
-check("seeded-random reaches every admissible response over 200 keys", len(counts) == body["ordinality"], counts)
-check("seeded-random is roughly uniform (each within half to one-and-a-half times 200/N)",
-      all(0.5 * 200 / N <= c <= 1.5 * 200 / N for c in counts.values()), counts)
-rr = [sb.select(a, strategy="round-robin", step=k)["provenance"]["responseId"] for k in range(2 * N)]
-check("round-robin visits every input sequence once per cycle, then repeats",
-      len(set(rr[:N])) == N and rr[:N] == rr[N:], rr)
-
-# a machine with several vectors per sequence, for sequence-walk
-multi = None
-for f in sorted(MDIR.rglob("*.json")):
-    try:
-        m = json.loads(f.read_text())["machine"]
-    except Exception:
-        continue
-    seqs = m.get("inputSequences") or []
-    if seqs and max(len(s.get("events") or []) for s in seqs) >= 3:
-        multi = str(f.relative_to(MDIR))
-        break
-check("found a corpus machine with a multi-step input sequence", multi is not None)
-if multi:
-    b = agent_for(multi)
-    n = b["syntheticBody"]["ordinality"]
-    walk = [sb.select(b, strategy="sequence-walk", step=k)["provenance"]["responseId"] for k in range(n)]
-    check(f"sequence-walk visits all {n} responses in corpus order ({Path(multi).stem})",
-          walk == [r["id"] for r in b["syntheticBody"]["responses"]], walk)
-    check("sequence-walk wraps after the last response",
-          sb.select(b, strategy="sequence-walk", step=n)["provenance"]["responseId"] == walk[0])
-
-print("== same answer in every process (engines in parity get one value) ==")
-code = ("import sys; sys.path.insert(0, %r); import oc_agent_template as t, synthetic_body as s, json;"
-        "from derive_agents import load_config; c=load_config();"
-        "a=t.derive(%r, c); print(json.dumps([s.select(a, strategy='seeded-random', seed_key='k%%d'%%i)['values'] for i in range(20)]))"
-        % (str(ROOT), str(MDIR / IFRS)))
-outs = {subprocess.run([sys.executable, "-c", code], capture_output=True, text=True,
-                       env={**os.environ, "PYTHONHASHSEED": str(h)}, cwd=ROOT).stdout for h in (1, 2, 3)}
-check("seeded-random gives identical answers across processes and hash seeds", len(outs) == 1 and "[" in next(iter(outs)), outs)
-
-print("== modes ==")
-r = sb.turn(a, model_turn=failing_model, env=NO_ENV)
-check("off: an unreachable model leaves no answer and no synthetic", r["source"] == "none" and not r["targets"])
-r = sb.turn(a, cfg={"syntheticBody": {"mode": "fallback"}}, model_turn=failing_model, seed_key="c1", env=NO_ENV)
-check("fallback: an unreachable model is replaced by a synthetic answer",
-      r["source"] == "synthetic" and r["targets"] and r["provenance"]["replaced"].startswith("model turn failed"))
-check("fallback: the synthetic targets are marked synthetic", all(t.get("synthetic") for t in r["targets"]))
-good = {k: v for k, v in sb.response_object(a, body["responses"][1]["values"]).items() if k != "synthetic"}
-r = sb.turn(a, cfg={"syntheticBody": {"mode": "fallback"}}, model_turn=lambda _a: good, env=NO_ENV)
-check("fallback: a mappable model answer is used, not replaced", r["source"] == "model" and r["provenance"]["synthetic"] is False)
-r = sb.turn(a, cfg={"syntheticBody": {"mode": "fallback"}}, model_turn=lambda _a: "i cannot tell", env=NO_ENV)
-check("fallback: an unmappable model answer is replaced",
-      r["source"] == "synthetic" and "did not resolve" in r["provenance"]["replaced"])
-r = sb.turn(a, cfg={"syntheticBody": {"mode": "off"}}, model_turn=lambda _a: "i cannot tell", env=NO_ENV)
-check("off: an unmappable model answer stays unresolved (no substitution)", r["source"] == "model" and r["unresolved"])
-called = []
-r = sb.turn(a, cfg={"syntheticBody": {"mode": "always"}}, model_turn=lambda _a: called.append(1), env=NO_ENV)
-check("always: the model is never called", r["source"] == "synthetic" and not called)
-
-print("== resolution: env > domain > global > agent ==")
-dom = a["machine"]["domain"]
-cfg = {"syntheticBody": {"mode": "fallback", "strategy": "round-robin",
-                         "domains": {dom: {"mode": "always"}}}}
-check("domain overrides global mode", sb.resolve(a, cfg, NO_ENV)["mode"] == "always")
-check("global strategy applies when the domain names none", sb.resolve(a, cfg, NO_ENV)["strategy"] == "round-robin")
-check("environment overrides both",
-      sb.resolve(a, cfg, {"OC_SYNTHETIC_MODE": "off", "OC_SYNTHETIC_STRATEGY": "sequence-walk"})
-      == {"mode": "off", "strategy": "sequence-walk"})
-check("with nothing configured, the agent's own declaration applies", sb.resolve(a, {}, NO_ENV) == {"mode": "off", "strategy": "seeded-random"})
+fallback = {**CFG, "syntheticBody": {"mode": "fallback"}}
+r = run(fallback, unreachable)
+check("fallback: an unreachable model is answered synthetically, saying what it replaced",
+      r["provenance"]["synthetic"] and r["provenance"]["replaced"].startswith("model turn failed")
+      and r["completions"])
+mode = env["dispatch"]["autonomyMode"]
+real = {**sb.admissible(mode, env["governance"]["ragStatusCode"], rec["agentBinding"].get("riskControls"))[0],
+        "confidence": "0.42"}
+good = "\n".join(f"{k}: {v}" for k, v in real.items())
+print(f"        (action under test: {rec['agent']}, {mode})")
+r = run(fallback, lambda _e, _r: good)
+check("fallback: a resolving model answer is used as given",
+      not r["provenance"]["synthetic"] and r["completions"][0]["values"][2] == 0.42
+      and "synthetic" not in r["completions"][0]["metadata"])
+blocked_real = "verdict: blocked\ncompleted: no\nfailed: yes\nconfidence: high\nreview_required: yes"
+r = run({**CFG, "syntheticBody": {"mode": "fallback"}}, lambda _e, _r: blocked_real)
+check("fallback: a real blocked answer (no actionClass, by contract) is used, not replaced",
+      not r["provenance"]["synthetic"] and r["completions"][0]["values"][:2] == [0.0, 1.0])
+r = run(fallback, lambda _e, _r: "no idea")
+check("fallback: an unresolving model answer is replaced",
+      r["provenance"]["synthetic"] and "did not resolve" in r["provenance"]["replaced"])
 try:
-    sb.resolve(a, {"syntheticBody": {"mode": "sometimes"}}, NO_ENV)
-    check("an unknown mode is refused", False)
-except ValueError:
-    check("an unknown mode is refused", True)
+    run({**CFG, "syntheticBody": {"mode": "off"}}, unreachable)
+    check("off: an unreachable model is not substituted (the failure surfaces)", False)
+except ConnectionError:
+    check("off: an unreachable model is not substituted (the failure surfaces)", True)
+called = []
+r = run({**CFG, "syntheticBody": {"mode": "always"}}, lambda _e, _r: called.append(1))
+check("always: the model is never called", not called and r["provenance"]["synthetic"])
 
-print("== completion labelling ==")
-r = sb.turn(a, cfg={"syntheticBody": {"mode": "always"}}, seed_key="c9", env=NO_ENV)
-meta = sb.completion_metadata(r["provenance"])
-check("a synthetic completion carries metadata.synthetic=true and its selection",
-      meta.get("synthetic") is True and meta["syntheticBody"]["responseId"] and meta["syntheticBody"]["ordinality"] == N)
-check("a model completion carries no synthetic label", sb.completion_metadata({"synthetic": False}) == {})
-
-print("== ordinality 1 ==")
-one = None
-for f in sorted(MDIR.rglob("*.json")):
-    try:
-        d = json.loads(f.read_text())
-        m = d["machine"]
-    except Exception:
-        continue
-    vecs = {tuple(v) for s in (m.get("inputSequences") or d.get("inputSequences") or []) for v in (s.get("events") or [])}
-    if len(vecs) == 1:
-        one = str(f.relative_to(MDIR))
-        break
-check("found an ordinality-1 machine", one is not None)
-if one:
-    o = agent_for(one)
-    answers = {json.dumps(sb.select(o, strategy=s, step=k, seed_key=f"x{k}")["values"])
-               for s in sb.STRATEGIES for k in range(5)}
-    check(f"ordinality 1 gives the one admissible answer under every strategy ({Path(one).stem})",
-          len(answers) == 1 and o["syntheticBody"]["ordinality"] == 1)
-    check("and reports it as the only admissible answer",
-          sb.select(o, strategy="seeded-random", seed_key="z")["provenance"]["strategy"] == "only-admissible")
-
-print("== corpus-wide: every generated agent can answer ==")
-stats = collections.Counter()
-unavailable, bad = [], []
-for f in sorted(MDIR.rglob("*.json")):
-    try:
-        d = json.loads(f.read_text())
-    except Exception:
-        continue
-    if not isinstance(d, dict) or not isinstance(d.get("machine"), dict):
-        continue
-    if not ((d["machine"].get("perceptualMapping") or {}).get("input") or {}).get("length"):
-        continue
-    ag = tmpl.derive(f, CFG)
-    sbody = ag["syntheticBody"]
-    stats["agents"] += 1
-    if sbody.get("unavailable"):
-        unavailable.append(str(f.relative_to(MDIR)))
-        continue
-    stats["ordinality>1" if sbody["ordinality"] > 1 else "ordinality=1"] += 1
-    stats["withExcluded"] += bool(sbody.get("excluded"))
-    stats["withNormalizationShift"] += any("normalizationShift" in r for r in sbody["responses"])
-    sel = sb.select(ag, strategy="seeded-random", seed_key="sweep")
-    targets, _ex, unres = apply_response_mapping(sb.response_object(ag, sel["values"]), ag["responseMapping"])
-    if unres or len(targets) != 1 or targets[0]["values"] != sel["values"]:
-        bad.append(str(f.relative_to(MDIR)))
-print("       ", dict(stats))
-check("every agent with an input region can produce a synthetic answer", not unavailable, unavailable[:5])
-check("every agent's synthetic answer maps through its own responseMapping exactly", not bad, bad[:5])
+print("== vectors pinned in RealityEngine_CI's adapter tests ==")
+vec = {mode: {rag: [sb.select(sb.admissible(mode, rag), agent="vector-agent", strategy="seeded-random",
+                              seed_key=k)[0] for k in ("corr-0", "corr-1", "corr-2", "dispatch-abc", "")]
+              for rag in ("GREEN", "RED")} for mode in ("advise", "supervised-act")}
+print("       ", json.dumps(vec))
+check("vectors computed", bool(vec))
 
 print(f"\n{_PASS} passed, {_FAIL} failed")
 sys.exit(1 if _FAIL else 0)

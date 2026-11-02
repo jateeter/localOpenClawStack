@@ -322,48 +322,6 @@
       }
     ]
   },
-  "syntheticBody": {
-    "schemaVersion": "1.0.0",
-    "mode": "off",
-    "strategy": "seeded-random",
-    "strategies": [
-      "seeded-random",
-      "round-robin",
-      "sequence-walk"
-    ],
-    "source": "corpus-inputSequences",
-    "seedBasis": "sha256(agentId|seedKey); seedKey = correlationId, else step",
-    "ordinality": 2,
-    "responses": [
-      {
-        "id": "Pulse Stretch End match path#0",
-        "inputSequence": "Pulse Stretch End match path",
-        "step": 0,
-        "expectedSequenceId": null,
-        "values": [
-          1.0,
-          0.0,
-          0.0,
-          0.0
-        ]
-      },
-      {
-        "id": "Pulse Stretch End match path#2",
-        "inputSequence": "Pulse Stretch End match path",
-        "step": 2,
-        "expectedSequenceId": null,
-        "values": [
-          0.0,
-          0.0,
-          0.0,
-          0.0
-        ]
-      }
-    ],
-    "roundRobin": [
-      "Pulse Stretch End match path#0"
-    ]
-  },
   "diagnostics": {
     "axisBasis": "openClawProjection",
     "warnings": [],

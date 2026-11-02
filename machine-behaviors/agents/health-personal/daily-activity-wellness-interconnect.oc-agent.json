@@ -661,61 +661,6 @@
       }
     ]
   },
-  "syntheticBody": {
-    "schemaVersion": "1.0.0",
-    "mode": "off",
-    "strategy": "seeded-random",
-    "strategies": [
-      "seeded-random",
-      "round-robin",
-      "sequence-walk"
-    ],
-    "source": "corpus-inputSequences",
-    "seedBasis": "sha256(agentId|seedKey); seedKey = correlationId, else step",
-    "ordinality": 2,
-    "responses": [
-      {
-        "id": "Daily activity urgent wellness fan-out#0",
-        "inputSequence": "Daily activity urgent wellness fan-out",
-        "step": 0,
-        "expectedSequenceId": null,
-        "values": [
-          1.0,
-          1.0,
-          1.0,
-          1.0,
-          1.0,
-          1.0,
-          1.0,
-          0.0,
-          0.0,
-          0.0
-        ]
-      },
-      {
-        "id": "Daily activity stable routine#0",
-        "inputSequence": "Daily activity stable routine",
-        "step": 0,
-        "expectedSequenceId": null,
-        "values": [
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          1.0
-        ]
-      }
-    ],
-    "roundRobin": [
-      "Daily activity urgent wellness fan-out#0",
-      "Daily activity stable routine#0"
-    ]
-  },
   "diagnostics": {
     "axisBasis": "inputSemantics",
     "warnings": [

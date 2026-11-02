@@ -873,69 +873,6 @@
       }
     ]
   },
-  "syntheticBody": {
-    "schemaVersion": "1.0.0",
-    "mode": "off",
-    "strategy": "seeded-random",
-    "strategies": [
-      "seeded-random",
-      "round-robin",
-      "sequence-walk"
-    ],
-    "source": "corpus-inputSequences",
-    "seedBasis": "sha256(agentId|seedKey); seedKey = correlationId, else step",
-    "ordinality": 2,
-    "responses": [
-      {
-        "id": "Food security urgent response fan-out#0",
-        "inputSequence": "Food security urgent response fan-out",
-        "step": 0,
-        "expectedSequenceId": null,
-        "values": [
-          1.0,
-          0.0,
-          0.0,
-          0.0,
-          1.0,
-          0.0,
-          0.0,
-          0.0,
-          1.0,
-          0.0,
-          0.0,
-          0.0,
-          1.0,
-          1.0
-        ]
-      },
-      {
-        "id": "Food security benefits access fan-out#0",
-        "inputSequence": "Food security benefits access fan-out",
-        "step": 0,
-        "expectedSequenceId": null,
-        "values": [
-          0.0,
-          0.0,
-          1.0,
-          0.0,
-          0.0,
-          0.0,
-          0.0,
-          1.0,
-          0.0,
-          0.0,
-          0.0,
-          1.0,
-          0.0,
-          0.0
-        ]
-      }
-    ],
-    "roundRobin": [
-      "Food security urgent response fan-out#0",
-      "Food security benefits access fan-out#0"
-    ]
-  },
   "diagnostics": {
     "axisBasis": "inputSemantics",
     "warnings": [

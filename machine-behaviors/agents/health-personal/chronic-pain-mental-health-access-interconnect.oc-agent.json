@@ -767,44 +767,6 @@
       }
     ]
   },
-  "syntheticBody": {
-    "schemaVersion": "1.0.0",
-    "mode": "off",
-    "strategy": "seeded-random",
-    "strategies": [
-      "seeded-random",
-      "round-robin",
-      "sequence-walk"
-    ],
-    "source": "corpus-inputSequences",
-    "seedBasis": "sha256(agentId|seedKey); seedKey = correlationId, else step",
-    "ordinality": 1,
-    "responses": [
-      {
-        "id": "Chronic disease and pain crisis with mental-health fan-out#0",
-        "inputSequence": "Chronic disease and pain crisis with mental-health fan-out",
-        "step": 0,
-        "expectedSequenceId": null,
-        "values": [
-          1.0,
-          0.0,
-          0.0,
-          0.0,
-          1.0,
-          0.0,
-          0.0,
-          0.0,
-          1.0,
-          0.0,
-          0.0,
-          0.0
-        ]
-      }
-    ],
-    "roundRobin": [
-      "Chronic disease and pain crisis with mental-health fan-out#0"
-    ]
-  },
   "diagnostics": {
     "axisBasis": "inputSemantics",
     "warnings": [

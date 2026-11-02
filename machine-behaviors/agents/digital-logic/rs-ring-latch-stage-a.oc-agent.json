@@ -223,55 +223,6 @@
       }
     ]
   },
-  "syntheticBody": {
-    "schemaVersion": "1.0.0",
-    "mode": "off",
-    "strategy": "seeded-random",
-    "strategies": [
-      "seeded-random",
-      "round-robin",
-      "sequence-walk"
-    ],
-    "source": "corpus-inputSequences",
-    "seedBasis": "sha256(agentId|seedKey); seedKey = correlationId, else step",
-    "ordinality": 3,
-    "responses": [
-      {
-        "id": "SET Operation#0",
-        "inputSequence": "SET Operation",
-        "step": 0,
-        "expectedSequenceId": null,
-        "values": [
-          0.0,
-          0.0
-        ]
-      },
-      {
-        "id": "SET Operation#1",
-        "inputSequence": "SET Operation",
-        "step": 1,
-        "expectedSequenceId": null,
-        "values": [
-          1.0,
-          0.0
-        ]
-      },
-      {
-        "id": "RESET Operation#1",
-        "inputSequence": "RESET Operation",
-        "step": 1,
-        "expectedSequenceId": null,
-        "values": [
-          0.0,
-          1.0
-        ]
-      }
-    ],
-    "roundRobin": [
-      "SET Operation#0",
-      "SET Operation#1"
-    ]
-  },
   "diagnostics": {
     "axisBasis": "inputSemantics",
     "warnings": [
