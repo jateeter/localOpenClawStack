@@ -72,6 +72,44 @@ For Home Chronic Pain Monitor (output region `[2023:2027]`):
 
 \* RED is blocked from direct action → governance escalation.
 
+(The per-agent bands above are historical: completions now share one lane,
+`acp-openclaw-completion` at `[4210:4214]`; see `config.example.json`
+`completionLane`.)
+
+### 1.3a The synthetic action answer: the loop always closes
+
+An action's real turn can fail to report: the gateway is unreachable, the model
+times out, or its answer does not resolve. `synthetic_body.py` answers in its
+place **on the current completion path**:
+
+- **It is an action answer.** It uses the action contract's own keys (`verdict`,
+  `completed`, `failed`, `confidence`, plus `review_required`, `executed` and
+  `rollback_ok` by autonomy mode). It is mapped by the action's own
+  `responseMapping` onto `acp-openclaw-completion` at `[4210:4214]` as
+  `[completed, failed, confidence, actionClass]`, exactly as a real answer is.
+- **The admissible answers are the contract's.** The mode's own verdict (advised
+  0.5, staged 0.75, executed 1.0) with `completed yes, failed no`; or, when the
+  dispatch's RAG is in the mode's `blockedWhenRag`, `blocked` with
+  `completed no, failed yes` (actionClass 0, as a real blocked answer posts).
+  Each comes at every confidence anchor (low 0.3, moderate 0.6, high 0.9).
+  `observe` writes no vector and has none.
+- **Ordinality > 1, so a strategy chooses:** `seeded-random` (default;
+  SHA-256(agent | correlationId) mod ordinality, the same on every host, so
+  every engine in parity receives one completion) or `round-robin`.
+- **Mode:** `off` (default), `fallback` (only when the model fails or does not
+  resolve; a real blocked answer's missing actionClass is not a failure), or
+  `always` (the model is never called). Resolution: `OC_SYNTHETIC_MODE` /
+  `OC_SYNTHETIC_STRATEGY`, then config `syntheticBody.domains.<domain>`, then
+  `syntheticBody`.
+- **It says what it is:** `synthetic: yes` in the answer, and
+  `metadata.synthetic: true` plus the selection in the completion, which stays
+  valid against `localai-completion-writeback.schema.json`.
+
+`openclaw_side.run` takes the action's turn this way. With no model turn
+supplied, its answer is the synthetic body's, labelled; this replaces the
+unlabelled simulated answer it used to make. RealityEngine_CI's
+`openclaw-acp-adapter.mjs` does the same on the live path.
+
 ### 1.4 Agent definition template values (from OpenClaw integration docs)
 Two contracts are populated end-to-end:
 
