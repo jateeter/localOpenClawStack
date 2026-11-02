@@ -223,6 +223,45 @@
       }
     ]
   },
+  "syntheticBody": {
+    "schemaVersion": "1.0.0",
+    "mode": "off",
+    "strategy": "seeded-random",
+    "strategies": [
+      "seeded-random",
+      "round-robin",
+      "sequence-walk"
+    ],
+    "source": "corpus-inputSequences",
+    "seedBasis": "sha256(agentId|seedKey); seedKey = correlationId, else step",
+    "ordinality": 2,
+    "responses": [
+      {
+        "id": "Memory Alarm Activation#0",
+        "inputSequence": "Memory Alarm Activation",
+        "step": 0,
+        "expectedSequenceId": null,
+        "values": [
+          0.0,
+          1.0
+        ]
+      },
+      {
+        "id": "Memory Alarm Activation#1",
+        "inputSequence": "Memory Alarm Activation",
+        "step": 1,
+        "expectedSequenceId": null,
+        "values": [
+          1.0,
+          0.0
+        ]
+      }
+    ],
+    "roundRobin": [
+      "Memory Alarm Activation#0",
+      "Memory Alarm Activation#1"
+    ]
+  },
   "diagnostics": {
     "axisBasis": "openClawProjection",
     "warnings": [],

@@ -343,6 +343,145 @@
       }
     ]
   },
+  "syntheticBody": {
+    "schemaVersion": "1.0.0",
+    "mode": "off",
+    "strategy": "seeded-random",
+    "strategies": [
+      "seeded-random",
+      "round-robin",
+      "sequence-walk"
+    ],
+    "source": "corpus-inputSequences",
+    "seedBasis": "sha256(agentId|seedKey); seedKey = correlationId, else step",
+    "ordinality": 10,
+    "responses": [
+      {
+        "id": "Month-End Financial Stress Cycle#0",
+        "inputSequence": "Month-End Financial Stress Cycle",
+        "step": 0,
+        "expectedSequenceId": null,
+        "values": [
+          0.62,
+          0.6,
+          0.58,
+          0.9
+        ]
+      },
+      {
+        "id": "Month-End Financial Stress Cycle#1",
+        "inputSequence": "Month-End Financial Stress Cycle",
+        "step": 1,
+        "expectedSequenceId": null,
+        "values": [
+          0.6,
+          0.57,
+          0.55,
+          0.88
+        ]
+      },
+      {
+        "id": "Month-End Financial Stress Cycle#2",
+        "inputSequence": "Month-End Financial Stress Cycle",
+        "step": 2,
+        "expectedSequenceId": null,
+        "values": [
+          0.37,
+          0.34,
+          0.29,
+          0.45
+        ]
+      },
+      {
+        "id": "Month-End Financial Stress Cycle#3",
+        "inputSequence": "Month-End Financial Stress Cycle",
+        "step": 3,
+        "expectedSequenceId": null,
+        "values": [
+          0.21,
+          0.19,
+          0.14,
+          0.12
+        ]
+      },
+      {
+        "id": "Month-End Financial Stress Cycle#4",
+        "inputSequence": "Month-End Financial Stress Cycle",
+        "step": 4,
+        "expectedSequenceId": null,
+        "values": [
+          0.05,
+          0.04,
+          0.03,
+          0.08
+        ]
+      },
+      {
+        "id": "Month-End Financial Stress Cycle#5",
+        "inputSequence": "Month-End Financial Stress Cycle",
+        "step": 5,
+        "expectedSequenceId": null,
+        "values": [
+          0.63,
+          0.61,
+          0.57,
+          0.92
+        ]
+      },
+      {
+        "id": "Working Family Without Benefits#0",
+        "inputSequence": "Working Family Without Benefits",
+        "step": 0,
+        "expectedSequenceId": null,
+        "values": [
+          0.34,
+          0.31,
+          0.27,
+          0.08
+        ]
+      },
+      {
+        "id": "Working Family Without Benefits#1",
+        "inputSequence": "Working Family Without Benefits",
+        "step": 1,
+        "expectedSequenceId": null,
+        "values": [
+          0.35,
+          0.32,
+          0.29,
+          0.09
+        ]
+      },
+      {
+        "id": "Working Family Without Benefits#2",
+        "inputSequence": "Working Family Without Benefits",
+        "step": 2,
+        "expectedSequenceId": null,
+        "values": [
+          0.33,
+          0.3,
+          0.27,
+          0.1
+        ]
+      },
+      {
+        "id": "Working Family Without Benefits#3",
+        "inputSequence": "Working Family Without Benefits",
+        "step": 3,
+        "expectedSequenceId": null,
+        "values": [
+          0.34,
+          0.33,
+          0.28,
+          0.09
+        ]
+      }
+    ],
+    "roundRobin": [
+      "Month-End Financial Stress Cycle#0",
+      "Working Family Without Benefits#0"
+    ]
+  },
   "diagnostics": {
     "axisBasis": "openClawProjection",
     "warnings": [],

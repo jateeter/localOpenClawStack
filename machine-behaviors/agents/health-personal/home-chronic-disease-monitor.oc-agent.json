@@ -343,6 +343,96 @@
       }
     ]
   },
+  "syntheticBody": {
+    "schemaVersion": "1.0.0",
+    "mode": "off",
+    "strategy": "seeded-random",
+    "strategies": [
+      "seeded-random",
+      "round-robin",
+      "sequence-walk"
+    ],
+    "source": "corpus-inputSequences",
+    "seedBasis": "sha256(agentId|seedKey); seedKey = correlationId, else step",
+    "ordinality": 6,
+    "responses": [
+      {
+        "id": "Diabetic Control Loss During Job Loss#0",
+        "inputSequence": "Diabetic Control Loss During Job Loss",
+        "step": 0,
+        "expectedSequenceId": null,
+        "values": [
+          0.63,
+          0.61,
+          0.59,
+          0.56
+        ]
+      },
+      {
+        "id": "Diabetic Control Loss During Job Loss#1",
+        "inputSequence": "Diabetic Control Loss During Job Loss",
+        "step": 1,
+        "expectedSequenceId": null,
+        "values": [
+          0.61,
+          0.59,
+          0.57,
+          0.54
+        ]
+      },
+      {
+        "id": "Diabetic Control Loss During Job Loss#2",
+        "inputSequence": "Diabetic Control Loss During Job Loss",
+        "step": 2,
+        "expectedSequenceId": null,
+        "values": [
+          0.37,
+          0.41,
+          0.34,
+          0.37
+        ]
+      },
+      {
+        "id": "Diabetic Control Loss During Job Loss#3",
+        "inputSequence": "Diabetic Control Loss During Job Loss",
+        "step": 3,
+        "expectedSequenceId": null,
+        "values": [
+          0.21,
+          0.24,
+          0.19,
+          0.21
+        ]
+      },
+      {
+        "id": "Diabetic Control Loss During Job Loss#4",
+        "inputSequence": "Diabetic Control Loss During Job Loss",
+        "step": 4,
+        "expectedSequenceId": null,
+        "values": [
+          0.07,
+          0.09,
+          0.07,
+          0.09
+        ]
+      },
+      {
+        "id": "Diabetic Control Loss During Job Loss#5",
+        "inputSequence": "Diabetic Control Loss During Job Loss",
+        "step": 5,
+        "expectedSequenceId": null,
+        "values": [
+          0.64,
+          0.62,
+          0.6,
+          0.57
+        ]
+      }
+    ],
+    "roundRobin": [
+      "Diabetic Control Loss During Job Loss#0"
+    ]
+  },
   "diagnostics": {
     "axisBasis": "openClawProjection",
     "warnings": [],

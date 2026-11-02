@@ -138,6 +138,37 @@ The completion leg is identical to the existing actor path — only the **target
 region is the input band, not the reserved completion band** — so no PE-loader or
 corpus change is required.
 
+### 4.1 The synthetic body: the loop always closes
+
+A real turn can fail to close the loop: the gateway is unreachable, the model
+times out, or its answer does not resolve through `responseMapping`. Every
+generated agent therefore carries a `syntheticBody` (`synthetic_body.py`), the
+answers it may give in place of its model:
+
+- **Admissible answers come from the corpus**, never invented: each distinct
+  vector of the machine's own `inputSequences` (the fixtures the parity loop
+  replays), stored as the values the PE receives after the agent's own
+  `responseMapping`. The corpus's no-trigger fixtures (e.g. "no assertion") are
+  admissible too. A corpus value an analyst cannot express (outside [0, 1]) is
+  listed under `excluded`; a value the mapping would change is marked
+  `normalizationShift`.
+- **Ordinality** is the number of admissible answers. With one, that is the
+  answer. With more, `strategy` chooses: `seeded-random` (default;
+  SHA-256(agentId | seedKey) mod ordinality, the same on every host, so every
+  engine in parity receives the same value), `round-robin` (the first vector of
+  each input sequence in turn), or `sequence-walk` (every vector in corpus order).
+- **Mode**: `off` (default; model only), `fallback` (synthetic only when the
+  model gives no mappable answer), `always` (never call the model). Resolution,
+  first match wins: `OC_SYNTHETIC_MODE` / `OC_SYNTHETIC_STRATEGY`; config
+  `syntheticBody.domains.<domain>`; config `syntheticBody`; the agent's own block.
+- **It says what it is.** A synthetic answer carries `synthetic: true`, and its
+  completion `metadata.synthetic: true` with the selection that produced it
+  (`completion_metadata`), so it is never read as agent reasoning or LLM drift.
+
+Corpus-wide (1552 machines, `tests/run_synthetic_body_tests.py`): every agent can
+answer; 6 have ordinality 1, 1546 more; two fall-detection agents exclude corpus
+vectors above 1 and still have admissible answers.
+
 ---
 
 ## 5. Files

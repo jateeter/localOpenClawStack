@@ -343,6 +343,123 @@
       }
     ]
   },
+  "syntheticBody": {
+    "schemaVersion": "1.0.0",
+    "mode": "off",
+    "strategy": "seeded-random",
+    "strategies": [
+      "seeded-random",
+      "round-robin",
+      "sequence-walk"
+    ],
+    "source": "corpus-inputSequences",
+    "seedBasis": "sha256(agentId|seedKey); seedKey = correlationId, else step",
+    "ordinality": 8,
+    "responses": [
+      {
+        "id": "Critical event sequence#0",
+        "inputSequence": "Critical event sequence",
+        "step": 0,
+        "expectedSequenceId": null,
+        "values": [
+          1.0,
+          1.0,
+          1.0,
+          0.0
+        ]
+      },
+      {
+        "id": "Critical event sequence#1",
+        "inputSequence": "Critical event sequence",
+        "step": 1,
+        "expectedSequenceId": null,
+        "values": [
+          1.0,
+          1.0,
+          0.0,
+          1.0
+        ]
+      },
+      {
+        "id": "Critical event sequence#2",
+        "inputSequence": "Critical event sequence",
+        "step": 2,
+        "expectedSequenceId": null,
+        "values": [
+          1.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      },
+      {
+        "id": "Critical event sequence#3",
+        "inputSequence": "Critical event sequence",
+        "step": 3,
+        "expectedSequenceId": null,
+        "values": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      },
+      {
+        "id": "Critical event sequence#4",
+        "inputSequence": "Critical event sequence",
+        "step": 4,
+        "expectedSequenceId": null,
+        "values": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "id": "Predictive flow adjustment#0",
+        "inputSequence": "Predictive flow adjustment",
+        "step": 0,
+        "expectedSequenceId": null,
+        "values": [
+          0.0,
+          1.0,
+          1.0,
+          0.0
+        ]
+      },
+      {
+        "id": "Operations task#0",
+        "inputSequence": "Operations task",
+        "step": 0,
+        "expectedSequenceId": null,
+        "values": [
+          1.0,
+          0.0,
+          1.0,
+          1.0
+        ]
+      },
+      {
+        "id": "Nominal service#0",
+        "inputSequence": "Nominal service",
+        "step": 0,
+        "expectedSequenceId": null,
+        "values": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    ],
+    "roundRobin": [
+      "Critical event sequence#0",
+      "Predictive flow adjustment#0",
+      "Operations task#0",
+      "Nominal service#0"
+    ]
+  },
   "diagnostics": {
     "axisBasis": "openClawProjection",
     "warnings": [],

@@ -329,6 +329,168 @@
       }
     ]
   },
+  "syntheticBody": {
+    "schemaVersion": "1.0.0",
+    "mode": "off",
+    "strategy": "seeded-random",
+    "strategies": [
+      "seeded-random",
+      "round-robin",
+      "sequence-walk"
+    ],
+    "source": "corpus-inputSequences",
+    "seedBasis": "sha256(agentId|seedKey); seedKey = correlationId, else step",
+    "ordinality": 12,
+    "responses": [
+      {
+        "id": "Gradual Thermal Escalation to Emergency#0",
+        "inputSequence": "Gradual Thermal Escalation to Emergency",
+        "step": 0,
+        "expectedSequenceId": null,
+        "values": [
+          0.3,
+          0.35,
+          0.5,
+          0.5
+        ]
+      },
+      {
+        "id": "Gradual Thermal Escalation to Emergency#1",
+        "inputSequence": "Gradual Thermal Escalation to Emergency",
+        "step": 1,
+        "expectedSequenceId": null,
+        "values": [
+          0.32,
+          0.38,
+          0.5,
+          0.5
+        ]
+      },
+      {
+        "id": "Gradual Thermal Escalation to Emergency#2",
+        "inputSequence": "Gradual Thermal Escalation to Emergency",
+        "step": 2,
+        "expectedSequenceId": null,
+        "values": [
+          0.5,
+          0.6,
+          0.5,
+          0.5
+        ]
+      },
+      {
+        "id": "Gradual Thermal Escalation to Emergency#3",
+        "inputSequence": "Gradual Thermal Escalation to Emergency",
+        "step": 3,
+        "expectedSequenceId": null,
+        "values": [
+          0.58,
+          0.67,
+          0.5,
+          0.5
+        ]
+      },
+      {
+        "id": "Gradual Thermal Escalation to Emergency#4",
+        "inputSequence": "Gradual Thermal Escalation to Emergency",
+        "step": 4,
+        "expectedSequenceId": null,
+        "values": [
+          0.62,
+          0.72,
+          0.5,
+          0.5
+        ]
+      },
+      {
+        "id": "Gradual Thermal Escalation to Emergency#5",
+        "inputSequence": "Gradual Thermal Escalation to Emergency",
+        "step": 5,
+        "expectedSequenceId": null,
+        "values": [
+          0.72,
+          0.82,
+          0.5,
+          0.5
+        ]
+      },
+      {
+        "id": "Gradual Thermal Escalation to Emergency#6",
+        "inputSequence": "Gradual Thermal Escalation to Emergency",
+        "step": 6,
+        "expectedSequenceId": null,
+        "values": [
+          0.84,
+          0.9,
+          0.5,
+          0.5
+        ]
+      },
+      {
+        "id": "Gradual Thermal Escalation to Emergency#7",
+        "inputSequence": "Gradual Thermal Escalation to Emergency",
+        "step": 7,
+        "expectedSequenceId": null,
+        "values": [
+          0.89,
+          0.93,
+          0.5,
+          0.5
+        ]
+      },
+      {
+        "id": "Gradual Thermal Escalation to Emergency#8",
+        "inputSequence": "Gradual Thermal Escalation to Emergency",
+        "step": 8,
+        "expectedSequenceId": null,
+        "values": [
+          0.95,
+          0.97,
+          0.5,
+          0.5
+        ]
+      },
+      {
+        "id": "Gradual Thermal Escalation to Emergency#9",
+        "inputSequence": "Gradual Thermal Escalation to Emergency",
+        "step": 9,
+        "expectedSequenceId": null,
+        "values": [
+          0.96,
+          0.98,
+          0.5,
+          0.5
+        ]
+      },
+      {
+        "id": "Gradual Thermal Escalation to Emergency#10",
+        "inputSequence": "Gradual Thermal Escalation to Emergency",
+        "step": 10,
+        "expectedSequenceId": null,
+        "values": [
+          0.58,
+          0.65,
+          0.5,
+          0.5
+        ]
+      },
+      {
+        "id": "Abrupt Spike (Non-Escalating)#1",
+        "inputSequence": "Abrupt Spike (Non-Escalating)",
+        "step": 1,
+        "expectedSequenceId": null,
+        "values": [
+          0.75,
+          0.85,
+          0.5,
+          0.5
+        ]
+      }
+    ],
+    "roundRobin": [
+      "Gradual Thermal Escalation to Emergency#0"
+    ]
+  },
   "diagnostics": {
     "axisBasis": "openClawProjection",
     "warnings": [],

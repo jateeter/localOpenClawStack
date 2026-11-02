@@ -1191,6 +1191,110 @@
       }
     ]
   },
+  "syntheticBody": {
+    "schemaVersion": "1.0.0",
+    "mode": "off",
+    "strategy": "seeded-random",
+    "strategies": [
+      "seeded-random",
+      "round-robin",
+      "sequence-walk"
+    ],
+    "source": "corpus-inputSequences",
+    "seedBasis": "sha256(agentId|seedKey); seedKey = correlationId, else step",
+    "ordinality": 3,
+    "responses": [
+      {
+        "id": "Digital Logic DLX-011-020 review fan-out#0",
+        "inputSequence": "Digital Logic DLX-011-020 review fan-out",
+        "step": 0,
+        "expectedSequenceId": null,
+        "values": [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "id": "Digital Logic DLX-011-020 optimization fan-out#0",
+        "inputSequence": "Digital Logic DLX-011-020 optimization fan-out",
+        "step": 0,
+        "expectedSequenceId": null,
+        "values": [
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "id": "Digital Logic DLX-011-020 monitoring fan-out#0",
+        "inputSequence": "Digital Logic DLX-011-020 monitoring fan-out",
+        "step": 0,
+        "expectedSequenceId": null,
+        "values": [
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    ],
+    "roundRobin": [
+      "Digital Logic DLX-011-020 review fan-out#0",
+      "Digital Logic DLX-011-020 optimization fan-out#0",
+      "Digital Logic DLX-011-020 monitoring fan-out#0"
+    ]
+  },
   "diagnostics": {
     "axisBasis": "inputSemantics",
     "warnings": [

@@ -343,6 +343,96 @@
       }
     ]
   },
+  "syntheticBody": {
+    "schemaVersion": "1.0.0",
+    "mode": "off",
+    "strategy": "seeded-random",
+    "strategies": [
+      "seeded-random",
+      "round-robin",
+      "sequence-walk"
+    ],
+    "source": "corpus-inputSequences",
+    "seedBasis": "sha256(agentId|seedKey); seedKey = correlationId, else step",
+    "ordinality": 6,
+    "responses": [
+      {
+        "id": "Winter Flare with Prior Auth Denial#0",
+        "inputSequence": "Winter Flare with Prior Auth Denial",
+        "step": 0,
+        "expectedSequenceId": null,
+        "values": [
+          0.63,
+          0.61,
+          0.66,
+          0.56
+        ]
+      },
+      {
+        "id": "Winter Flare with Prior Auth Denial#1",
+        "inputSequence": "Winter Flare with Prior Auth Denial",
+        "step": 1,
+        "expectedSequenceId": null,
+        "values": [
+          0.61,
+          0.59,
+          0.64,
+          0.54
+        ]
+      },
+      {
+        "id": "Winter Flare with Prior Auth Denial#2",
+        "inputSequence": "Winter Flare with Prior Auth Denial",
+        "step": 2,
+        "expectedSequenceId": null,
+        "values": [
+          0.34,
+          0.37,
+          0.51,
+          0.31
+        ]
+      },
+      {
+        "id": "Winter Flare with Prior Auth Denial#3",
+        "inputSequence": "Winter Flare with Prior Auth Denial",
+        "step": 3,
+        "expectedSequenceId": null,
+        "values": [
+          0.11,
+          0.14,
+          0.44,
+          0.09
+        ]
+      },
+      {
+        "id": "Winter Flare with Prior Auth Denial#4",
+        "inputSequence": "Winter Flare with Prior Auth Denial",
+        "step": 4,
+        "expectedSequenceId": null,
+        "values": [
+          0.37,
+          0.34,
+          0.34,
+          0.29
+        ]
+      },
+      {
+        "id": "Winter Flare with Prior Auth Denial#5",
+        "inputSequence": "Winter Flare with Prior Auth Denial",
+        "step": 5,
+        "expectedSequenceId": null,
+        "values": [
+          0.66,
+          0.63,
+          0.71,
+          0.59
+        ]
+      }
+    ],
+    "roundRobin": [
+      "Winter Flare with Prior Auth Denial#0"
+    ]
+  },
   "diagnostics": {
     "axisBasis": "openClawProjection",
     "warnings": [],

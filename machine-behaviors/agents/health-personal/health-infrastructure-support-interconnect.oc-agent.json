@@ -979,6 +979,123 @@
       }
     ]
   },
+  "syntheticBody": {
+    "schemaVersion": "1.0.0",
+    "mode": "off",
+    "strategy": "seeded-random",
+    "strategies": [
+      "seeded-random",
+      "round-robin",
+      "sequence-walk"
+    ],
+    "source": "corpus-inputSequences",
+    "seedBasis": "sha256(agentId|seedKey); seedKey = correlationId, else step",
+    "ordinality": 4,
+    "responses": [
+      {
+        "id": "INFRASTRUCTURE_HEALTH_EMERGENCY#0",
+        "inputSequence": "INFRASTRUCTURE_HEALTH_EMERGENCY",
+        "step": 0,
+        "expectedSequenceId": null,
+        "values": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          0.0,
+          1.0,
+          0.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          0.0,
+          1.0
+        ]
+      },
+      {
+        "id": "COORDINATED_SUPPORT_REQUIRED#0",
+        "inputSequence": "COORDINATED_SUPPORT_REQUIRED",
+        "step": 0,
+        "expectedSequenceId": null,
+        "values": [
+          1.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      {
+        "id": "SUPPORT_CONTINUITY_MONITORING#0",
+        "inputSequence": "SUPPORT_CONTINUITY_MONITORING",
+        "step": 0,
+        "expectedSequenceId": null,
+        "values": [
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          1.0
+        ]
+      },
+      {
+        "id": "INFRASTRUCTURE_SUPPORT_STABLE#0",
+        "inputSequence": "INFRASTRUCTURE_SUPPORT_STABLE",
+        "step": 0,
+        "expectedSequenceId": null,
+        "values": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    ],
+    "roundRobin": [
+      "INFRASTRUCTURE_HEALTH_EMERGENCY#0",
+      "COORDINATED_SUPPORT_REQUIRED#0",
+      "SUPPORT_CONTINUITY_MONITORING#0",
+      "INFRASTRUCTURE_SUPPORT_STABLE#0"
+    ]
+  },
   "diagnostics": {
     "axisBasis": "openClawProjection",
     "warnings": [],

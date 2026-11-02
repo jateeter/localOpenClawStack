@@ -548,6 +548,120 @@
       }
     ]
   },
+  "syntheticBody": {
+    "schemaVersion": "1.0.0",
+    "mode": "off",
+    "strategy": "seeded-random",
+    "strategies": [
+      "seeded-random",
+      "round-robin",
+      "sequence-walk"
+    ],
+    "source": "corpus-inputSequences",
+    "seedBasis": "sha256(agentId|seedKey); seedKey = correlationId, else step",
+    "ordinality": 6,
+    "responses": [
+      {
+        "id": "Post-Retirement Income Drop \u2014 Dual Barrier Isolation#0",
+        "inputSequence": "Post-Retirement Income Drop \u2014 Dual Barrier Isolation",
+        "step": 0,
+        "expectedSequenceId": null,
+        "values": [
+          0.08,
+          0.09,
+          0.09,
+          0.63,
+          0.09,
+          0.09,
+          0.09,
+          0.63
+        ]
+      },
+      {
+        "id": "Post-Retirement Income Drop \u2014 Dual Barrier Isolation#1",
+        "inputSequence": "Post-Retirement Income Drop \u2014 Dual Barrier Isolation",
+        "step": 1,
+        "expectedSequenceId": null,
+        "values": [
+          0.09,
+          0.09,
+          0.08,
+          0.62,
+          0.09,
+          0.08,
+          0.09,
+          0.62
+        ]
+      },
+      {
+        "id": "Post-Retirement Income Drop \u2014 Dual Barrier Isolation#2",
+        "inputSequence": "Post-Retirement Income Drop \u2014 Dual Barrier Isolation",
+        "step": 2,
+        "expectedSequenceId": null,
+        "values": [
+          0.09,
+          0.63,
+          0.09,
+          0.09,
+          0.09,
+          0.09,
+          0.63,
+          0.09
+        ]
+      },
+      {
+        "id": "Post-Retirement Income Drop \u2014 Dual Barrier Isolation#3",
+        "inputSequence": "Post-Retirement Income Drop \u2014 Dual Barrier Isolation",
+        "step": 3,
+        "expectedSequenceId": null,
+        "values": [
+          0.63,
+          0.09,
+          0.09,
+          0.09,
+          0.09,
+          0.09,
+          0.63,
+          0.09
+        ]
+      },
+      {
+        "id": "Post-Retirement Income Drop \u2014 Dual Barrier Isolation#4",
+        "inputSequence": "Post-Retirement Income Drop \u2014 Dual Barrier Isolation",
+        "step": 4,
+        "expectedSequenceId": null,
+        "values": [
+          0.63,
+          0.09,
+          0.09,
+          0.09,
+          0.63,
+          0.09,
+          0.09,
+          0.09
+        ]
+      },
+      {
+        "id": "Post-Retirement Income Drop \u2014 Dual Barrier Isolation#5",
+        "inputSequence": "Post-Retirement Income Drop \u2014 Dual Barrier Isolation",
+        "step": 5,
+        "expectedSequenceId": null,
+        "values": [
+          0.09,
+          0.09,
+          0.09,
+          0.66,
+          0.09,
+          0.09,
+          0.09,
+          0.66
+        ]
+      }
+    ],
+    "roundRobin": [
+      "Post-Retirement Income Drop \u2014 Dual Barrier Isolation#0"
+    ]
+  },
   "diagnostics": {
     "axisBasis": "openClawProjection",
     "warnings": [],

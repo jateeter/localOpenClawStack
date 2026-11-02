@@ -336,6 +336,84 @@
       }
     ]
   },
+  "syntheticBody": {
+    "schemaVersion": "1.0.0",
+    "mode": "off",
+    "strategy": "seeded-random",
+    "strategies": [
+      "seeded-random",
+      "round-robin",
+      "sequence-walk"
+    ],
+    "source": "corpus-inputSequences",
+    "seedBasis": "sha256(agentId|seedKey); seedKey = correlationId, else step",
+    "ordinality": 5,
+    "responses": [
+      {
+        "id": "Major Partner Agency Closure#0",
+        "inputSequence": "Major Partner Agency Closure",
+        "step": 0,
+        "expectedSequenceId": null,
+        "values": [
+          0.63,
+          0.66,
+          0.61,
+          0.63
+        ]
+      },
+      {
+        "id": "Major Partner Agency Closure#1",
+        "inputSequence": "Major Partner Agency Closure",
+        "step": 1,
+        "expectedSequenceId": null,
+        "values": [
+          0.61,
+          0.64,
+          0.59,
+          0.61
+        ]
+      },
+      {
+        "id": "Major Partner Agency Closure#2",
+        "inputSequence": "Major Partner Agency Closure",
+        "step": 2,
+        "expectedSequenceId": null,
+        "values": [
+          0.34,
+          0.37,
+          0.37,
+          0.34
+        ]
+      },
+      {
+        "id": "Major Partner Agency Closure#3",
+        "inputSequence": "Major Partner Agency Closure",
+        "step": 3,
+        "expectedSequenceId": null,
+        "values": [
+          0.11,
+          0.14,
+          0.11,
+          0.09
+        ]
+      },
+      {
+        "id": "Major Partner Agency Closure#4",
+        "inputSequence": "Major Partner Agency Closure",
+        "step": 4,
+        "expectedSequenceId": null,
+        "values": [
+          0.66,
+          0.69,
+          0.64,
+          0.66
+        ]
+      }
+    ],
+    "roundRobin": [
+      "Major Partner Agency Closure#0"
+    ]
+  },
   "diagnostics": {
     "axisBasis": "openClawProjection",
     "warnings": [],

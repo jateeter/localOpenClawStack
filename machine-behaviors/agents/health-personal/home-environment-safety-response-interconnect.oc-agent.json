@@ -1085,6 +1085,131 @@
       }
     ]
   },
+  "syntheticBody": {
+    "schemaVersion": "1.0.0",
+    "mode": "off",
+    "strategy": "seeded-random",
+    "strategies": [
+      "seeded-random",
+      "round-robin",
+      "sequence-walk"
+    ],
+    "source": "corpus-inputSequences",
+    "seedBasis": "sha256(agentId|seedKey); seedKey = correlationId, else step",
+    "ordinality": 4,
+    "responses": [
+      {
+        "id": "Unsafe housing + behavioral/fall co-risk -> urgent housing safety response#0",
+        "inputSequence": "Unsafe housing + behavioral/fall co-risk -> urgent housing safety response",
+        "step": 0,
+        "expectedSequenceId": null,
+        "values": [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          1.0
+        ]
+      },
+      {
+        "id": "Utility failure + resource barriers -> utility housing resource support#0",
+        "inputSequence": "Utility failure + resource barriers -> utility housing resource support",
+        "step": 0,
+        "expectedSequenceId": null,
+        "values": [
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "id": "Health hazard + adolescent stress -> health hazard behavioral follow-up#0",
+        "inputSequence": "Health hazard + adolescent stress -> health hazard behavioral follow-up",
+        "step": 0,
+        "expectedSequenceId": null,
+        "values": [
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          1.0,
+          0.0
+        ]
+      },
+      {
+        "id": "Safe environment + stable household supports -> environment stable monitoring#0",
+        "inputSequence": "Safe environment + stable household supports -> environment stable monitoring",
+        "step": 0,
+        "expectedSequenceId": null,
+        "values": [
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ]
+      }
+    ],
+    "roundRobin": [
+      "Unsafe housing + behavioral/fall co-risk -> urgent housing safety response#0",
+      "Utility failure + resource barriers -> utility housing resource support#0",
+      "Health hazard + adolescent stress -> health hazard behavioral follow-up#0",
+      "Safe environment + stable household supports -> environment stable monitoring#0"
+    ]
+  },
   "diagnostics": {
     "axisBasis": "inputSemantics",
     "warnings": [

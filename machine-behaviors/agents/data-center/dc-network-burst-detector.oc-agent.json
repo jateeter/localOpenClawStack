@@ -329,6 +329,156 @@
       }
     ]
   },
+  "syntheticBody": {
+    "schemaVersion": "1.0.0",
+    "mode": "off",
+    "strategy": "seeded-random",
+    "strategies": [
+      "seeded-random",
+      "round-robin",
+      "sequence-walk"
+    ],
+    "source": "corpus-inputSequences",
+    "seedBasis": "sha256(agentId|seedKey); seedKey = correlationId, else step",
+    "ordinality": 11,
+    "responses": [
+      {
+        "id": "Network Saturation Escalation#0",
+        "inputSequence": "Network Saturation Escalation",
+        "step": 0,
+        "expectedSequenceId": null,
+        "values": [
+          0.2,
+          0.03,
+          0.5,
+          0.5
+        ]
+      },
+      {
+        "id": "Network Saturation Escalation#1",
+        "inputSequence": "Network Saturation Escalation",
+        "step": 1,
+        "expectedSequenceId": null,
+        "values": [
+          0.22,
+          0.04,
+          0.5,
+          0.5
+        ]
+      },
+      {
+        "id": "Network Saturation Escalation#2",
+        "inputSequence": "Network Saturation Escalation",
+        "step": 2,
+        "expectedSequenceId": null,
+        "values": [
+          0.5,
+          0.12,
+          0.5,
+          0.5
+        ]
+      },
+      {
+        "id": "Network Saturation Escalation#3",
+        "inputSequence": "Network Saturation Escalation",
+        "step": 3,
+        "expectedSequenceId": null,
+        "values": [
+          0.58,
+          0.17,
+          0.5,
+          0.5
+        ]
+      },
+      {
+        "id": "Network Saturation Escalation#4",
+        "inputSequence": "Network Saturation Escalation",
+        "step": 4,
+        "expectedSequenceId": null,
+        "values": [
+          0.63,
+          0.22,
+          0.5,
+          0.5
+        ]
+      },
+      {
+        "id": "Network Saturation Escalation#5",
+        "inputSequence": "Network Saturation Escalation",
+        "step": 5,
+        "expectedSequenceId": null,
+        "values": [
+          0.74,
+          0.3,
+          0.5,
+          0.5
+        ]
+      },
+      {
+        "id": "Network Saturation Escalation#6",
+        "inputSequence": "Network Saturation Escalation",
+        "step": 6,
+        "expectedSequenceId": null,
+        "values": [
+          0.84,
+          0.5,
+          0.5,
+          0.5
+        ]
+      },
+      {
+        "id": "Network Saturation Escalation#7",
+        "inputSequence": "Network Saturation Escalation",
+        "step": 7,
+        "expectedSequenceId": null,
+        "values": [
+          0.9,
+          0.58,
+          0.5,
+          0.5
+        ]
+      },
+      {
+        "id": "Network Saturation Escalation#8",
+        "inputSequence": "Network Saturation Escalation",
+        "step": 8,
+        "expectedSequenceId": null,
+        "values": [
+          0.95,
+          0.82,
+          0.5,
+          0.5
+        ]
+      },
+      {
+        "id": "Network Saturation Escalation#9",
+        "inputSequence": "Network Saturation Escalation",
+        "step": 9,
+        "expectedSequenceId": null,
+        "values": [
+          0.97,
+          0.87,
+          0.5,
+          0.5
+        ]
+      },
+      {
+        "id": "Network Saturation Escalation#10",
+        "inputSequence": "Network Saturation Escalation",
+        "step": 10,
+        "expectedSequenceId": null,
+        "values": [
+          0.58,
+          0.2,
+          0.5,
+          0.5
+        ]
+      }
+    ],
+    "roundRobin": [
+      "Network Saturation Escalation#0"
+    ]
+  },
   "diagnostics": {
     "axisBasis": "openClawProjection",
     "warnings": [],

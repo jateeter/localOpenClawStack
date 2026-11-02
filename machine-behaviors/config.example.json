@@ -37,5 +37,11 @@
       "confidence",
       "actionClass"
     ]
+  },
+  "syntheticBody": {
+    "_comment": "Synthetic agent body (synthetic_body.py). mode: off | fallback (answer synthetically only when the model gives no mappable answer) | always (never call the model). strategy, used when an agent has more than one admissible response: seeded-random | round-robin | sequence-walk. domains.<domain> overrides this block; OC_SYNTHETIC_MODE / OC_SYNTHETIC_STRATEGY override both. Every synthetic completion carries metadata.synthetic=true.",
+    "mode": "off",
+    "strategy": "seeded-random",
+    "domains": {}
   }
 }

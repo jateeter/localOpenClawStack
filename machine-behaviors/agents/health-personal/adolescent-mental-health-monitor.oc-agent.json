@@ -548,6 +548,120 @@
       }
     ]
   },
+  "syntheticBody": {
+    "schemaVersion": "1.0.0",
+    "mode": "off",
+    "strategy": "seeded-random",
+    "strategies": [
+      "seeded-random",
+      "round-robin",
+      "sequence-walk"
+    ],
+    "source": "corpus-inputSequences",
+    "seedBasis": "sha256(agentId|seedKey); seedKey = correlationId, else step",
+    "ordinality": 6,
+    "responses": [
+      {
+        "id": "Eviction and Food Assistance Lapse \u2014 Teen Mental Health Crisis#0",
+        "inputSequence": "Eviction and Food Assistance Lapse \u2014 Teen Mental Health Crisis",
+        "step": 0,
+        "expectedSequenceId": null,
+        "values": [
+          0.08,
+          0.09,
+          0.08,
+          0.63,
+          0.08,
+          0.09,
+          0.09,
+          0.66
+        ]
+      },
+      {
+        "id": "Eviction and Food Assistance Lapse \u2014 Teen Mental Health Crisis#1",
+        "inputSequence": "Eviction and Food Assistance Lapse \u2014 Teen Mental Health Crisis",
+        "step": 1,
+        "expectedSequenceId": null,
+        "values": [
+          0.07,
+          0.08,
+          0.09,
+          0.62,
+          0.08,
+          0.08,
+          0.08,
+          0.65
+        ]
+      },
+      {
+        "id": "Eviction and Food Assistance Lapse \u2014 Teen Mental Health Crisis#2",
+        "inputSequence": "Eviction and Food Assistance Lapse \u2014 Teen Mental Health Crisis",
+        "step": 2,
+        "expectedSequenceId": null,
+        "values": [
+          0.08,
+          0.63,
+          0.08,
+          0.08,
+          0.63,
+          0.09,
+          0.09,
+          0.09
+        ]
+      },
+      {
+        "id": "Eviction and Food Assistance Lapse \u2014 Teen Mental Health Crisis#3",
+        "inputSequence": "Eviction and Food Assistance Lapse \u2014 Teen Mental Health Crisis",
+        "step": 3,
+        "expectedSequenceId": null,
+        "values": [
+          0.08,
+          0.08,
+          0.08,
+          0.08,
+          0.63,
+          0.08,
+          0.09,
+          0.08
+        ]
+      },
+      {
+        "id": "Eviction and Food Assistance Lapse \u2014 Teen Mental Health Crisis#4",
+        "inputSequence": "Eviction and Food Assistance Lapse \u2014 Teen Mental Health Crisis",
+        "step": 4,
+        "expectedSequenceId": null,
+        "values": [
+          0.63,
+          0.08,
+          0.08,
+          0.08,
+          0.08,
+          0.63,
+          0.08,
+          0.08
+        ]
+      },
+      {
+        "id": "Eviction and Food Assistance Lapse \u2014 Teen Mental Health Crisis#5",
+        "inputSequence": "Eviction and Food Assistance Lapse \u2014 Teen Mental Health Crisis",
+        "step": 5,
+        "expectedSequenceId": null,
+        "values": [
+          0.08,
+          0.08,
+          0.08,
+          0.64,
+          0.08,
+          0.08,
+          0.08,
+          0.67
+        ]
+      }
+    ],
+    "roundRobin": [
+      "Eviction and Food Assistance Lapse \u2014 Teen Mental Health Crisis#0"
+    ]
+  },
   "diagnostics": {
     "axisBasis": "openClawProjection",
     "warnings": [],

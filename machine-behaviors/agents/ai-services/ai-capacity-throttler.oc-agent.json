@@ -378,6 +378,122 @@
       }
     ]
   },
+  "syntheticBody": {
+    "schemaVersion": "1.0.0",
+    "mode": "off",
+    "strategy": "seeded-random",
+    "strategies": [
+      "seeded-random",
+      "round-robin",
+      "sequence-walk"
+    ],
+    "source": "corpus-inputSequences",
+    "seedBasis": "sha256(agentId|seedKey); seedKey = correlationId, else step",
+    "ordinality": 8,
+    "responses": [
+      {
+        "id": "Available Capacity#0",
+        "inputSequence": "Available Capacity",
+        "step": 0,
+        "expectedSequenceId": null,
+        "values": [
+          0.18,
+          0.12,
+          0.22,
+          0.15
+        ]
+      },
+      {
+        "id": "Available Capacity#1",
+        "inputSequence": "Available Capacity",
+        "step": 1,
+        "expectedSequenceId": null,
+        "values": [
+          0.2,
+          0.15,
+          0.25,
+          0.18
+        ]
+      },
+      {
+        "id": "Available Capacity#2",
+        "inputSequence": "Available Capacity",
+        "step": 2,
+        "expectedSequenceId": null,
+        "values": [
+          0.22,
+          0.18,
+          0.2,
+          0.16
+        ]
+      },
+      {
+        "id": "Capacity Escalation to Overload#1",
+        "inputSequence": "Capacity Escalation to Overload",
+        "step": 1,
+        "expectedSequenceId": null,
+        "values": [
+          0.72,
+          0.65,
+          0.6,
+          0.55
+        ]
+      },
+      {
+        "id": "Capacity Escalation to Overload#2",
+        "inputSequence": "Capacity Escalation to Overload",
+        "step": 2,
+        "expectedSequenceId": null,
+        "values": [
+          0.88,
+          0.82,
+          0.78,
+          0.75
+        ]
+      },
+      {
+        "id": "Capacity Escalation to Overload#3",
+        "inputSequence": "Capacity Escalation to Overload",
+        "step": 3,
+        "expectedSequenceId": null,
+        "values": [
+          0.96,
+          0.94,
+          0.92,
+          0.9
+        ]
+      },
+      {
+        "id": "Memory Pressure Spike#0",
+        "inputSequence": "Memory Pressure Spike",
+        "step": 0,
+        "expectedSequenceId": null,
+        "values": [
+          0.32,
+          0.28,
+          0.22,
+          0.25
+        ]
+      },
+      {
+        "id": "Memory Pressure Spike#1",
+        "inputSequence": "Memory Pressure Spike",
+        "step": 1,
+        "expectedSequenceId": null,
+        "values": [
+          0.35,
+          0.3,
+          0.9,
+          0.28
+        ]
+      }
+    ],
+    "roundRobin": [
+      "Available Capacity#0",
+      "Available Capacity#1",
+      "Memory Pressure Spike#0"
+    ]
+  },
   "diagnostics": {
     "axisBasis": "openClawProjection",
     "warnings": [],

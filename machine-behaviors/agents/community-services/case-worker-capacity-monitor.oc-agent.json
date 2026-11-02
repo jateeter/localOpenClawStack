@@ -336,6 +336,84 @@
       }
     ]
   },
+  "syntheticBody": {
+    "schemaVersion": "1.0.0",
+    "mode": "off",
+    "strategy": "seeded-random",
+    "strategies": [
+      "seeded-random",
+      "round-robin",
+      "sequence-walk"
+    ],
+    "source": "corpus-inputSequences",
+    "seedBasis": "sha256(agentId|seedKey); seedKey = correlationId, else step",
+    "ordinality": 5,
+    "responses": [
+      {
+        "id": "Staff Attrition Cascade#0",
+        "inputSequence": "Staff Attrition Cascade",
+        "step": 0,
+        "expectedSequenceId": null,
+        "values": [
+          0.63,
+          0.66,
+          0.61,
+          0.59
+        ]
+      },
+      {
+        "id": "Staff Attrition Cascade#1",
+        "inputSequence": "Staff Attrition Cascade",
+        "step": 1,
+        "expectedSequenceId": null,
+        "values": [
+          0.61,
+          0.64,
+          0.59,
+          0.57
+        ]
+      },
+      {
+        "id": "Staff Attrition Cascade#2",
+        "inputSequence": "Staff Attrition Cascade",
+        "step": 2,
+        "expectedSequenceId": null,
+        "values": [
+          0.34,
+          0.37,
+          0.37,
+          0.34
+        ]
+      },
+      {
+        "id": "Staff Attrition Cascade#3",
+        "inputSequence": "Staff Attrition Cascade",
+        "step": 3,
+        "expectedSequenceId": null,
+        "values": [
+          0.27,
+          0.32,
+          0.52,
+          0.29
+        ]
+      },
+      {
+        "id": "Staff Attrition Cascade#4",
+        "inputSequence": "Staff Attrition Cascade",
+        "step": 4,
+        "expectedSequenceId": null,
+        "values": [
+          0.66,
+          0.69,
+          0.63,
+          0.61
+        ]
+      }
+    ],
+    "roundRobin": [
+      "Staff Attrition Cascade#0"
+    ]
+  },
   "diagnostics": {
     "axisBasis": "openClawProjection",
     "warnings": [],

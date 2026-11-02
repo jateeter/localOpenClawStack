@@ -661,6 +661,99 @@
       }
     ]
   },
+  "syntheticBody": {
+    "schemaVersion": "1.0.0",
+    "mode": "off",
+    "strategy": "seeded-random",
+    "strategies": [
+      "seeded-random",
+      "round-robin",
+      "sequence-walk"
+    ],
+    "source": "corpus-inputSequences",
+    "seedBasis": "sha256(agentId|seedKey); seedKey = correlationId, else step",
+    "ordinality": 4,
+    "responses": [
+      {
+        "id": "Community Critical Load Priority Controller: LOAD_SHED_BLOCKED_HUMAN_SAFETY#0",
+        "inputSequence": "Community Critical Load Priority Controller: LOAD_SHED_BLOCKED_HUMAN_SAFETY",
+        "step": 0,
+        "expectedSequenceId": null,
+        "values": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          0.0,
+          1.0
+        ]
+      },
+      {
+        "id": "Community Critical Load Priority Controller: PRIORITIZE_CRITICAL_SERVICES#0",
+        "inputSequence": "Community Critical Load Priority Controller: PRIORITIZE_CRITICAL_SERVICES",
+        "step": 0,
+        "expectedSequenceId": null,
+        "values": [
+          1.0,
+          1.0,
+          0.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "id": "Community Critical Load Priority Controller: FLEXIBLE_LOAD_AVAILABLE#0",
+        "inputSequence": "Community Critical Load Priority Controller: FLEXIBLE_LOAD_AVAILABLE",
+        "step": 0,
+        "expectedSequenceId": null,
+        "values": [
+          0.0,
+          1.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ]
+      },
+      {
+        "id": "Community Critical Load Priority Controller: LOAD_PRIORITY_STABLE#0",
+        "inputSequence": "Community Critical Load Priority Controller: LOAD_PRIORITY_STABLE",
+        "step": 0,
+        "expectedSequenceId": null,
+        "values": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ]
+      }
+    ],
+    "roundRobin": [
+      "Community Critical Load Priority Controller: LOAD_SHED_BLOCKED_HUMAN_SAFETY#0",
+      "Community Critical Load Priority Controller: PRIORITIZE_CRITICAL_SERVICES#0",
+      "Community Critical Load Priority Controller: FLEXIBLE_LOAD_AVAILABLE#0",
+      "Community Critical Load Priority Controller: LOAD_PRIORITY_STABLE#0"
+    ]
+  },
   "diagnostics": {
     "axisBasis": "openClawProjection",
     "warnings": [],

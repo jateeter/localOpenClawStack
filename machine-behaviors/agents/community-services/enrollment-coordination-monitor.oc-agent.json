@@ -548,6 +548,104 @@
       }
     ]
   },
+  "syntheticBody": {
+    "schemaVersion": "1.0.0",
+    "mode": "off",
+    "strategy": "seeded-random",
+    "strategies": [
+      "seeded-random",
+      "round-robin",
+      "sequence-walk"
+    ],
+    "source": "corpus-inputSequences",
+    "seedBasis": "sha256(agentId|seedKey); seedKey = correlationId, else step",
+    "ordinality": 5,
+    "responses": [
+      {
+        "id": "Eligible Client Lost Between Eligibility and Enrollment#0",
+        "inputSequence": "Eligible Client Lost Between Eligibility and Enrollment",
+        "step": 0,
+        "expectedSequenceId": null,
+        "values": [
+          0.09,
+          0.09,
+          0.09,
+          0.63,
+          0.09,
+          0.09,
+          0.09,
+          0.63
+        ]
+      },
+      {
+        "id": "Eligible Client Lost Between Eligibility and Enrollment#1",
+        "inputSequence": "Eligible Client Lost Between Eligibility and Enrollment",
+        "step": 1,
+        "expectedSequenceId": null,
+        "values": [
+          0.08,
+          0.08,
+          0.08,
+          0.62,
+          0.08,
+          0.08,
+          0.08,
+          0.62
+        ]
+      },
+      {
+        "id": "Eligible Client Lost Between Eligibility and Enrollment#2",
+        "inputSequence": "Eligible Client Lost Between Eligibility and Enrollment",
+        "step": 2,
+        "expectedSequenceId": null,
+        "values": [
+          0.09,
+          0.09,
+          0.63,
+          0.09,
+          0.09,
+          0.63,
+          0.09,
+          0.09
+        ]
+      },
+      {
+        "id": "Eligible Client Lost Between Eligibility and Enrollment#3",
+        "inputSequence": "Eligible Client Lost Between Eligibility and Enrollment",
+        "step": 3,
+        "expectedSequenceId": null,
+        "values": [
+          0.63,
+          0.09,
+          0.09,
+          0.09,
+          0.63,
+          0.09,
+          0.09,
+          0.09
+        ]
+      },
+      {
+        "id": "Eligible Client Lost Between Eligibility and Enrollment#4",
+        "inputSequence": "Eligible Client Lost Between Eligibility and Enrollment",
+        "step": 4,
+        "expectedSequenceId": null,
+        "values": [
+          0.09,
+          0.09,
+          0.09,
+          0.66,
+          0.09,
+          0.09,
+          0.09,
+          0.66
+        ]
+      }
+    ],
+    "roundRobin": [
+      "Eligible Client Lost Between Eligibility and Enrollment#0"
+    ]
+  },
   "diagnostics": {
     "axisBasis": "openClawProjection",
     "warnings": [],

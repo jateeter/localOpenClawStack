@@ -276,6 +276,91 @@
       }
     ]
   },
+  "syntheticBody": {
+    "schemaVersion": "1.0.0",
+    "mode": "off",
+    "strategy": "seeded-random",
+    "strategies": [
+      "seeded-random",
+      "round-robin",
+      "sequence-walk"
+    ],
+    "source": "corpus-inputSequences",
+    "seedBasis": "sha256(agentId|seedKey); seedKey = correlationId, else step",
+    "ordinality": 6,
+    "responses": [
+      {
+        "id": "Sequence 1 Complete Path#0",
+        "inputSequence": "Sequence 1 Complete Path",
+        "step": 0,
+        "expectedSequenceId": null,
+        "values": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "id": "Sequence 1 Complete Path#1",
+        "inputSequence": "Sequence 1 Complete Path",
+        "step": 1,
+        "expectedSequenceId": null,
+        "values": [
+          0.0,
+          0.0,
+          1.0
+        ]
+      },
+      {
+        "id": "Sequence 1 Complete Path#2",
+        "inputSequence": "Sequence 1 Complete Path",
+        "step": 2,
+        "expectedSequenceId": null,
+        "values": [
+          0.0,
+          1.0,
+          1.0
+        ]
+      },
+      {
+        "id": "Sequence 2 Complete Path#0",
+        "inputSequence": "Sequence 2 Complete Path",
+        "step": 0,
+        "expectedSequenceId": null,
+        "values": [
+          1.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "id": "Sequence 2 Complete Path#1",
+        "inputSequence": "Sequence 2 Complete Path",
+        "step": 1,
+        "expectedSequenceId": null,
+        "values": [
+          1.0,
+          0.0,
+          1.0
+        ]
+      },
+      {
+        "id": "Sequence 2 Complete Path#2",
+        "inputSequence": "Sequence 2 Complete Path",
+        "step": 2,
+        "expectedSequenceId": null,
+        "values": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    ],
+    "roundRobin": [
+      "Sequence 1 Complete Path#0",
+      "Sequence 2 Complete Path#0"
+    ]
+  },
   "diagnostics": {
     "axisBasis": "openClawProjection",
     "warnings": [],

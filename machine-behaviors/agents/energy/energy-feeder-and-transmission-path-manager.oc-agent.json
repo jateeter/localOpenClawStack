@@ -555,6 +555,91 @@
       }
     ]
   },
+  "syntheticBody": {
+    "schemaVersion": "1.0.0",
+    "mode": "off",
+    "strategy": "seeded-random",
+    "strategies": [
+      "seeded-random",
+      "round-robin",
+      "sequence-walk"
+    ],
+    "source": "corpus-inputSequences",
+    "seedBasis": "sha256(agentId|seedKey); seedKey = correlationId, else step",
+    "ordinality": 4,
+    "responses": [
+      {
+        "id": "Feeder And Transmission Path Manager: ISOLATE_FAULT#0",
+        "inputSequence": "Feeder And Transmission Path Manager: ISOLATE_FAULT",
+        "step": 0,
+        "expectedSequenceId": null,
+        "values": [
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      {
+        "id": "Feeder And Transmission Path Manager: SWITCH_FEEDER_PATH#0",
+        "inputSequence": "Feeder And Transmission Path Manager: SWITCH_FEEDER_PATH",
+        "step": 0,
+        "expectedSequenceId": null,
+        "values": [
+          1.0,
+          1.0,
+          1.0,
+          0.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      {
+        "id": "Feeder And Transmission Path Manager: ROUTE_CAPACITY_LIMITED#0",
+        "inputSequence": "Feeder And Transmission Path Manager: ROUTE_CAPACITY_LIMITED",
+        "step": 0,
+        "expectedSequenceId": null,
+        "values": [
+          1.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      {
+        "id": "Feeder And Transmission Path Manager: PATH_STABLE#0",
+        "inputSequence": "Feeder And Transmission Path Manager: PATH_STABLE",
+        "step": 0,
+        "expectedSequenceId": null,
+        "values": [
+          1.0,
+          1.0,
+          1.0,
+          0.0,
+          0.0,
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    ],
+    "roundRobin": [
+      "Feeder And Transmission Path Manager: ISOLATE_FAULT#0",
+      "Feeder And Transmission Path Manager: SWITCH_FEEDER_PATH#0",
+      "Feeder And Transmission Path Manager: ROUTE_CAPACITY_LIMITED#0",
+      "Feeder And Transmission Path Manager: PATH_STABLE#0"
+    ]
+  },
   "diagnostics": {
     "axisBasis": "openClawProjection",
     "warnings": [],

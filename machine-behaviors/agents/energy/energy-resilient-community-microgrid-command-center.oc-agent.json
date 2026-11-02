@@ -661,6 +661,99 @@
       }
     ]
   },
+  "syntheticBody": {
+    "schemaVersion": "1.0.0",
+    "mode": "off",
+    "strategy": "seeded-random",
+    "strategies": [
+      "seeded-random",
+      "round-robin",
+      "sequence-walk"
+    ],
+    "source": "corpus-inputSequences",
+    "seedBasis": "sha256(agentId|seedKey); seedKey = correlationId, else step",
+    "ordinality": 4,
+    "responses": [
+      {
+        "id": "Resilient Community Microgrid Command Center: MICROGRID_EMERGENCY_RESPONSE#0",
+        "inputSequence": "Resilient Community Microgrid Command Center: MICROGRID_EMERGENCY_RESPONSE",
+        "step": 0,
+        "expectedSequenceId": null,
+        "values": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      {
+        "id": "Resilient Community Microgrid Command Center: MICROGRID_OPTIMIZATION_REQUIRED#0",
+        "inputSequence": "Resilient Community Microgrid Command Center: MICROGRID_OPTIMIZATION_REQUIRED",
+        "step": 0,
+        "expectedSequenceId": null,
+        "values": [
+          0.0,
+          1.0,
+          1.0,
+          1.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "id": "Resilient Community Microgrid Command Center: MICROGRID_MONITORING_REQUIRED#0",
+        "inputSequence": "Resilient Community Microgrid Command Center: MICROGRID_MONITORING_REQUIRED",
+        "step": 0,
+        "expectedSequenceId": null,
+        "values": [
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          1.0,
+          1.0,
+          0.0,
+          1.0,
+          0.0,
+          1.0
+        ]
+      },
+      {
+        "id": "Resilient Community Microgrid Command Center: MICROGRID_STABLE#0",
+        "inputSequence": "Resilient Community Microgrid Command Center: MICROGRID_STABLE",
+        "step": 0,
+        "expectedSequenceId": null,
+        "values": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    ],
+    "roundRobin": [
+      "Resilient Community Microgrid Command Center: MICROGRID_EMERGENCY_RESPONSE#0",
+      "Resilient Community Microgrid Command Center: MICROGRID_OPTIMIZATION_REQUIRED#0",
+      "Resilient Community Microgrid Command Center: MICROGRID_MONITORING_REQUIRED#0",
+      "Resilient Community Microgrid Command Center: MICROGRID_STABLE#0"
+    ]
+  },
   "diagnostics": {
     "axisBasis": "inputSemantics",
     "warnings": [

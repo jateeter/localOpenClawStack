@@ -336,6 +336,60 @@
       }
     ]
   },
+  "syntheticBody": {
+    "schemaVersion": "1.0.0",
+    "mode": "off",
+    "strategy": "seeded-random",
+    "strategies": [
+      "seeded-random",
+      "round-robin",
+      "sequence-walk"
+    ],
+    "source": "corpus-inputSequences",
+    "seedBasis": "sha256(agentId|seedKey); seedKey = correlationId, else step",
+    "ordinality": 3,
+    "responses": [
+      {
+        "id": "Nominal reading#0",
+        "inputSequence": "Nominal reading",
+        "step": 0,
+        "expectedSequenceId": null,
+        "values": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "id": "Nominal reading#1",
+        "inputSequence": "Nominal reading",
+        "step": 1,
+        "expectedSequenceId": null,
+        "values": [
+          0.6,
+          0.65,
+          0.32,
+          1.0
+        ]
+      },
+      {
+        "id": "Hypertensive reading#1",
+        "inputSequence": "Hypertensive reading",
+        "step": 1,
+        "expectedSequenceId": null,
+        "values": [
+          0.75,
+          0.8,
+          0.4,
+          1.0
+        ]
+      }
+    ],
+    "roundRobin": [
+      "Nominal reading#0"
+    ]
+  },
   "diagnostics": {
     "axisBasis": "inputSemantics",
     "warnings": [

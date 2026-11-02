@@ -562,6 +562,298 @@
       }
     ]
   },
+  "syntheticBody": {
+    "schemaVersion": "1.0.0",
+    "mode": "off",
+    "strategy": "seeded-random",
+    "strategies": [
+      "seeded-random",
+      "round-robin",
+      "sequence-walk"
+    ],
+    "source": "corpus-inputSequences",
+    "seedBasis": "sha256(agentId|seedKey); seedKey = correlationId, else step",
+    "ordinality": 17,
+    "responses": [
+      {
+        "id": "TC-01: Scenario 1 \u2014 Acute Cardiac Event (Home \u2192 Hospital, Emergency)#0",
+        "inputSequence": "TC-01: Scenario 1 \u2014 Acute Cardiac Event (Home \u2192 Hospital, Emergency)",
+        "step": 0,
+        "expectedSequenceId": null,
+        "values": [
+          0.9,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.9
+        ]
+      },
+      {
+        "id": "TC-01: Scenario 1 \u2014 Acute Cardiac Event (Home \u2192 Hospital, Emergency)#1",
+        "inputSequence": "TC-01: Scenario 1 \u2014 Acute Cardiac Event (Home \u2192 Hospital, Emergency)",
+        "step": 1,
+        "expectedSequenceId": null,
+        "values": [
+          0.9,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.9,
+          0.1,
+          0.9
+        ]
+      },
+      {
+        "id": "TC-01: Scenario 1 \u2014 Acute Cardiac Event (Home \u2192 Hospital, Emergency)#2",
+        "inputSequence": "TC-01: Scenario 1 \u2014 Acute Cardiac Event (Home \u2192 Hospital, Emergency)",
+        "step": 2,
+        "expectedSequenceId": null,
+        "values": [
+          0.9,
+          0.1,
+          0.1,
+          0.9,
+          0.1,
+          0.9,
+          0.1,
+          0.9
+        ]
+      },
+      {
+        "id": "TC-01: Scenario 1 \u2014 Acute Cardiac Event (Home \u2192 Hospital, Emergency)#3",
+        "inputSequence": "TC-01: Scenario 1 \u2014 Acute Cardiac Event (Home \u2192 Hospital, Emergency)",
+        "step": 3,
+        "expectedSequenceId": null,
+        "values": [
+          0.9,
+          0.1,
+          0.9,
+          0.9,
+          0.1,
+          0.9,
+          0.1,
+          0.9
+        ]
+      },
+      {
+        "id": "TC-03: Scenario 2 \u2014 Hip Surgery Recovery (Hospital \u2192 Rehabilitation SNF)#0",
+        "inputSequence": "TC-03: Scenario 2 \u2014 Hip Surgery Recovery (Hospital \u2192 Rehabilitation SNF)",
+        "step": 0,
+        "expectedSequenceId": null,
+        "values": [
+          0.9,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1
+        ]
+      },
+      {
+        "id": "TC-03: Scenario 2 \u2014 Hip Surgery Recovery (Hospital \u2192 Rehabilitation SNF)#1",
+        "inputSequence": "TC-03: Scenario 2 \u2014 Hip Surgery Recovery (Hospital \u2192 Rehabilitation SNF)",
+        "step": 1,
+        "expectedSequenceId": null,
+        "values": [
+          0.9,
+          0.9,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1
+        ]
+      },
+      {
+        "id": "TC-03: Scenario 2 \u2014 Hip Surgery Recovery (Hospital \u2192 Rehabilitation SNF)#2",
+        "inputSequence": "TC-03: Scenario 2 \u2014 Hip Surgery Recovery (Hospital \u2192 Rehabilitation SNF)",
+        "step": 2,
+        "expectedSequenceId": null,
+        "values": [
+          0.9,
+          0.9,
+          0.9,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1
+        ]
+      },
+      {
+        "id": "TC-03: Scenario 2 \u2014 Hip Surgery Recovery (Hospital \u2192 Rehabilitation SNF)#3",
+        "inputSequence": "TC-03: Scenario 2 \u2014 Hip Surgery Recovery (Hospital \u2192 Rehabilitation SNF)",
+        "step": 3,
+        "expectedSequenceId": null,
+        "values": [
+          0.9,
+          0.9,
+          0.9,
+          0.1,
+          0.9,
+          0.1,
+          0.1,
+          0.1
+        ]
+      },
+      {
+        "id": "TC-03: Scenario 2 \u2014 Hip Surgery Recovery (Hospital \u2192 Rehabilitation SNF)#4",
+        "inputSequence": "TC-03: Scenario 2 \u2014 Hip Surgery Recovery (Hospital \u2192 Rehabilitation SNF)",
+        "step": 4,
+        "expectedSequenceId": null,
+        "values": [
+          0.9,
+          0.9,
+          0.9,
+          0.9,
+          0.9,
+          0.1,
+          0.1,
+          0.1
+        ]
+      },
+      {
+        "id": "TC-03: Scenario 2 \u2014 Hip Surgery Recovery (Hospital \u2192 Rehabilitation SNF)#5",
+        "inputSequence": "TC-03: Scenario 2 \u2014 Hip Surgery Recovery (Hospital \u2192 Rehabilitation SNF)",
+        "step": 5,
+        "expectedSequenceId": null,
+        "values": [
+          0.9,
+          0.9,
+          0.9,
+          0.9,
+          0.9,
+          0.9,
+          0.1,
+          0.1
+        ]
+      },
+      {
+        "id": "TC-04: Scenario 2 Blocked \u2014 Insurance Authorization Denied for SNF (Hospital \u2192 Rehab Blocked)#2",
+        "inputSequence": "TC-04: Scenario 2 Blocked \u2014 Insurance Authorization Denied for SNF (Hospital \u2192 Rehab Blocked)",
+        "step": 2,
+        "expectedSequenceId": null,
+        "values": [
+          0.9,
+          0.9,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.9,
+          0.1
+        ]
+      },
+      {
+        "id": "TC-05: Scenario 3 \u2014 Completed Rehabilitation to Assisted Living#1",
+        "inputSequence": "TC-05: Scenario 3 \u2014 Completed Rehabilitation to Assisted Living",
+        "step": 1,
+        "expectedSequenceId": null,
+        "values": [
+          0.9,
+          0.1,
+          0.1,
+          0.9,
+          0.1,
+          0.1,
+          0.1,
+          0.1
+        ]
+      },
+      {
+        "id": "TC-05: Scenario 3 \u2014 Completed Rehabilitation to Assisted Living#2",
+        "inputSequence": "TC-05: Scenario 3 \u2014 Completed Rehabilitation to Assisted Living",
+        "step": 2,
+        "expectedSequenceId": null,
+        "values": [
+          0.9,
+          0.9,
+          0.1,
+          0.9,
+          0.1,
+          0.1,
+          0.1,
+          0.1
+        ]
+      },
+      {
+        "id": "TC-05: Scenario 3 \u2014 Completed Rehabilitation to Assisted Living#3",
+        "inputSequence": "TC-05: Scenario 3 \u2014 Completed Rehabilitation to Assisted Living",
+        "step": 3,
+        "expectedSequenceId": null,
+        "values": [
+          0.9,
+          0.9,
+          0.1,
+          0.9,
+          0.9,
+          0.1,
+          0.1,
+          0.1
+        ]
+      },
+      {
+        "id": "TC-07: Emergency Escalation \u2014 Sepsis in Rehabilitation Facility (SNF \u2192 Hospital)#0",
+        "inputSequence": "TC-07: Emergency Escalation \u2014 Sepsis in Rehabilitation Facility (SNF \u2192 Hospital)",
+        "step": 0,
+        "expectedSequenceId": null,
+        "values": [
+          0.9,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.9,
+          0.9
+        ]
+      },
+      {
+        "id": "TC-07: Emergency Escalation \u2014 Sepsis in Rehabilitation Facility (SNF \u2192 Hospital)#1",
+        "inputSequence": "TC-07: Emergency Escalation \u2014 Sepsis in Rehabilitation Facility (SNF \u2192 Hospital)",
+        "step": 1,
+        "expectedSequenceId": null,
+        "values": [
+          0.9,
+          0.1,
+          0.1,
+          0.9,
+          0.1,
+          0.1,
+          0.9,
+          0.9
+        ]
+      },
+      {
+        "id": "TC-07: Emergency Escalation \u2014 Sepsis in Rehabilitation Facility (SNF \u2192 Hospital)#2",
+        "inputSequence": "TC-07: Emergency Escalation \u2014 Sepsis in Rehabilitation Facility (SNF \u2192 Hospital)",
+        "step": 2,
+        "expectedSequenceId": null,
+        "values": [
+          0.9,
+          0.1,
+          0.1,
+          0.9,
+          0.1,
+          0.9,
+          0.9,
+          0.9
+        ]
+      }
+    ],
+    "roundRobin": [
+      "TC-01: Scenario 1 \u2014 Acute Cardiac Event (Home \u2192 Hospital, Emergency)#0",
+      "TC-03: Scenario 2 \u2014 Hip Surgery Recovery (Hospital \u2192 Rehabilitation SNF)#0",
+      "TC-07: Emergency Escalation \u2014 Sepsis in Rehabilitation Facility (SNF \u2192 Hospital)#0"
+    ]
+  },
   "diagnostics": {
     "axisBasis": "openClawProjection",
     "warnings": [],

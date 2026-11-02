@@ -322,6 +322,48 @@
       }
     ]
   },
+  "syntheticBody": {
+    "schemaVersion": "1.0.0",
+    "mode": "off",
+    "strategy": "seeded-random",
+    "strategies": [
+      "seeded-random",
+      "round-robin",
+      "sequence-walk"
+    ],
+    "source": "corpus-inputSequences",
+    "seedBasis": "sha256(agentId|seedKey); seedKey = correlationId, else step",
+    "ordinality": 2,
+    "responses": [
+      {
+        "id": "Scan Shift Capture match path#0",
+        "inputSequence": "Scan Shift Capture match path",
+        "step": 0,
+        "expectedSequenceId": null,
+        "values": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "id": "Scan Shift Capture match path#2",
+        "inputSequence": "Scan Shift Capture match path",
+        "step": 2,
+        "expectedSequenceId": null,
+        "values": [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ]
+      }
+    ],
+    "roundRobin": [
+      "Scan Shift Capture match path#0"
+    ]
+  },
   "diagnostics": {
     "axisBasis": "openClawProjection",
     "warnings": [],

@@ -336,6 +336,84 @@
       }
     ]
   },
+  "syntheticBody": {
+    "schemaVersion": "1.0.0",
+    "mode": "off",
+    "strategy": "seeded-random",
+    "strategies": [
+      "seeded-random",
+      "round-robin",
+      "sequence-walk"
+    ],
+    "source": "corpus-inputSequences",
+    "seedBasis": "sha256(agentId|seedKey); seedKey = correlationId, else step",
+    "ordinality": 5,
+    "responses": [
+      {
+        "id": "Job Loss to SNAP Enrollment#0",
+        "inputSequence": "Job Loss to SNAP Enrollment",
+        "step": 0,
+        "expectedSequenceId": null,
+        "values": [
+          0.66,
+          0.63,
+          0.61,
+          0.69
+        ]
+      },
+      {
+        "id": "Job Loss to SNAP Enrollment#1",
+        "inputSequence": "Job Loss to SNAP Enrollment",
+        "step": 1,
+        "expectedSequenceId": null,
+        "values": [
+          0.64,
+          0.61,
+          0.59,
+          0.67
+        ]
+      },
+      {
+        "id": "Job Loss to SNAP Enrollment#2",
+        "inputSequence": "Job Loss to SNAP Enrollment",
+        "step": 2,
+        "expectedSequenceId": null,
+        "values": [
+          0.63,
+          0.24,
+          0.59,
+          0.34
+        ]
+      },
+      {
+        "id": "Job Loss to SNAP Enrollment#3",
+        "inputSequence": "Job Loss to SNAP Enrollment",
+        "step": 3,
+        "expectedSequenceId": null,
+        "values": [
+          0.69,
+          0.66,
+          0.63,
+          0.73
+        ]
+      },
+      {
+        "id": "Job Loss to SNAP Enrollment#4",
+        "inputSequence": "Job Loss to SNAP Enrollment",
+        "step": 4,
+        "expectedSequenceId": null,
+        "values": [
+          0.7,
+          0.67,
+          0.64,
+          0.74
+        ]
+      }
+    ],
+    "roundRobin": [
+      "Job Loss to SNAP Enrollment#0"
+    ]
+  },
   "diagnostics": {
     "axisBasis": "openClawProjection",
     "warnings": [],

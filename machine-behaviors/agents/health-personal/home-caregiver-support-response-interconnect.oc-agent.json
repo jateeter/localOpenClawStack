@@ -1191,6 +1191,139 @@
       }
     ]
   },
+  "syntheticBody": {
+    "schemaVersion": "1.0.0",
+    "mode": "off",
+    "strategy": "seeded-random",
+    "strategies": [
+      "seeded-random",
+      "round-robin",
+      "sequence-walk"
+    ],
+    "source": "corpus-inputSequences",
+    "seedBasis": "sha256(agentId|seedKey); seedKey = correlationId, else step",
+    "ordinality": 4,
+    "responses": [
+      {
+        "id": "Caregiver burnout + child risk + food/social isolation -> respite crisis response#0",
+        "inputSequence": "Caregiver burnout + child risk + food/social isolation -> respite crisis response",
+        "step": 0,
+        "expectedSequenceId": null,
+        "values": [
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "id": "High burden + household resource barriers -> family resource support#0",
+        "inputSequence": "High burden + household resource barriers -> family resource support",
+        "step": 0,
+        "expectedSequenceId": null,
+        "values": [
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "id": "Moderate burden + child nutrition/development concerns -> child follow-up#0",
+        "inputSequence": "Moderate burden + child nutrition/development concerns -> child follow-up",
+        "step": 0,
+        "expectedSequenceId": null,
+        "values": [
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ]
+      },
+      {
+        "id": "Caregiver coping + child and household supports stable -> stable monitoring#0",
+        "inputSequence": "Caregiver coping + child and household supports stable -> stable monitoring",
+        "step": 0,
+        "expectedSequenceId": null,
+        "values": [
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      }
+    ],
+    "roundRobin": [
+      "Caregiver burnout + child risk + food/social isolation -> respite crisis response#0",
+      "High burden + household resource barriers -> family resource support#0",
+      "Moderate burden + child nutrition/development concerns -> child follow-up#0",
+      "Caregiver coping + child and household supports stable -> stable monitoring#0"
+    ]
+  },
   "diagnostics": {
     "axisBasis": "inputSemantics",
     "warnings": [

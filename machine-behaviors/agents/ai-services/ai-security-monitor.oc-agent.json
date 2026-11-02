@@ -378,6 +378,122 @@
       }
     ]
   },
+  "syntheticBody": {
+    "schemaVersion": "1.0.0",
+    "mode": "off",
+    "strategy": "seeded-random",
+    "strategies": [
+      "seeded-random",
+      "round-robin",
+      "sequence-walk"
+    ],
+    "source": "corpus-inputSequences",
+    "seedBasis": "sha256(agentId|seedKey); seedKey = correlationId, else step",
+    "ordinality": 8,
+    "responses": [
+      {
+        "id": "Normal Security Baseline#0",
+        "inputSequence": "Normal Security Baseline",
+        "step": 0,
+        "expectedSequenceId": null,
+        "values": [
+          0.06,
+          0.08,
+          0.04,
+          0.1
+        ]
+      },
+      {
+        "id": "Normal Security Baseline#1",
+        "inputSequence": "Normal Security Baseline",
+        "step": 1,
+        "expectedSequenceId": null,
+        "values": [
+          0.08,
+          0.1,
+          0.05,
+          0.12
+        ]
+      },
+      {
+        "id": "Normal Security Baseline#2",
+        "inputSequence": "Normal Security Baseline",
+        "step": 2,
+        "expectedSequenceId": null,
+        "values": [
+          0.07,
+          0.09,
+          0.06,
+          0.11
+        ]
+      },
+      {
+        "id": "Threat Escalation to Critical#1",
+        "inputSequence": "Threat Escalation to Critical",
+        "step": 1,
+        "expectedSequenceId": null,
+        "values": [
+          0.62,
+          0.58,
+          0.55,
+          0.6
+        ]
+      },
+      {
+        "id": "Threat Escalation to Critical#2",
+        "inputSequence": "Threat Escalation to Critical",
+        "step": 2,
+        "expectedSequenceId": null,
+        "values": [
+          0.78,
+          0.75,
+          0.8,
+          0.72
+        ]
+      },
+      {
+        "id": "Threat Escalation to Critical#3",
+        "inputSequence": "Threat Escalation to Critical",
+        "step": 3,
+        "expectedSequenceId": null,
+        "values": [
+          0.92,
+          0.9,
+          0.95,
+          0.94
+        ]
+      },
+      {
+        "id": "Rapid Privilege Escalation#0",
+        "inputSequence": "Rapid Privilege Escalation",
+        "step": 0,
+        "expectedSequenceId": null,
+        "values": [
+          0.12,
+          0.1,
+          0.08,
+          0.15
+        ]
+      },
+      {
+        "id": "Rapid Privilege Escalation#1",
+        "inputSequence": "Rapid Privilege Escalation",
+        "step": 1,
+        "expectedSequenceId": null,
+        "values": [
+          0.15,
+          0.12,
+          0.9,
+          0.92
+        ]
+      }
+    ],
+    "roundRobin": [
+      "Normal Security Baseline#0",
+      "Normal Security Baseline#1",
+      "Rapid Privilege Escalation#0"
+    ]
+  },
   "diagnostics": {
     "axisBasis": "openClawProjection",
     "warnings": [],

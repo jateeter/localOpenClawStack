@@ -396,6 +396,19 @@ def derive(machine_path: Path, cfg: dict[str, Any] | None = None) -> dict[str, A
     response_mapping = _response_mapping(axes, sensor_id, region,
                                          as_object(metadata.get("sensorNormalization")))
 
+    # The synthetic body: the admissible answers this agent can give when its
+    # model cannot (synthetic_body.py). Drawn from the machine's own corpus
+    # inputSequences, which some files keep on the wrapper rather than the machine.
+    import synthetic_body
+    sequences_source = (machine if as_list(machine.get("inputSequences"))
+                        else {**machine, "inputSequences": as_list(data.get("inputSequences"))})
+    synthetic = synthetic_body.declare(sequences_source, response_mapping, agent_id)
+    if synthetic.get("unavailable"):
+        warnings.append(f"synthetic body unavailable: {synthetic['unavailable']}")
+    elif synthetic.get("excluded"):
+        warnings.append(f"synthetic body excludes {len(synthetic['excluded'])} corpus vector(s); "
+                        "see syntheticBody.excluded")
+
     from document_binding import derive as derive_document_binding
     return {
         **derive_document_binding(machine_path, metadata),
@@ -417,6 +430,7 @@ def derive(machine_path: Path, cfg: dict[str, Any] | None = None) -> dict[str, A
         },
         "agentBinding": agent_binding,
         "responseMapping": response_mapping,
+        "syntheticBody": synthetic,
         "diagnostics": {"axisBasis": axis_basis, "warnings": warnings,
                         "inputLength": length, "sequenceCount": len(catalog)},
     }

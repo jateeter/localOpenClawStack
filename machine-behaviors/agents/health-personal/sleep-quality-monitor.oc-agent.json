@@ -230,6 +230,64 @@
       }
     ]
   },
+  "syntheticBody": {
+    "schemaVersion": "1.0.0",
+    "mode": "off",
+    "strategy": "seeded-random",
+    "strategies": [
+      "seeded-random",
+      "round-robin",
+      "sequence-walk"
+    ],
+    "source": "corpus-inputSequences",
+    "seedBasis": "sha256(agentId|seedKey); seedKey = correlationId, else step",
+    "ordinality": 4,
+    "responses": [
+      {
+        "id": "Restful night#0",
+        "inputSequence": "Restful night",
+        "step": 0,
+        "expectedSequenceId": null,
+        "values": [
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "id": "Restful night#1",
+        "inputSequence": "Restful night",
+        "step": 1,
+        "expectedSequenceId": null,
+        "values": [
+          1.0,
+          0.0
+        ]
+      },
+      {
+        "id": "Disturbed then poor#1",
+        "inputSequence": "Disturbed then poor",
+        "step": 1,
+        "expectedSequenceId": null,
+        "values": [
+          1.0,
+          1.0
+        ]
+      },
+      {
+        "id": "Disturbed then poor#2",
+        "inputSequence": "Disturbed then poor",
+        "step": 2,
+        "expectedSequenceId": null,
+        "values": [
+          0.0,
+          1.0
+        ]
+      }
+    ],
+    "roundRobin": [
+      "Restful night#0"
+    ]
+  },
   "diagnostics": {
     "axisBasis": "openClawProjection",
     "warnings": [],

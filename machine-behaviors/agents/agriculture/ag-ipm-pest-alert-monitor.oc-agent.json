@@ -548,6 +548,88 @@
       }
     ]
   },
+  "syntheticBody": {
+    "schemaVersion": "1.0.0",
+    "mode": "off",
+    "strategy": "seeded-random",
+    "strategies": [
+      "seeded-random",
+      "round-robin",
+      "sequence-walk"
+    ],
+    "source": "corpus-inputSequences",
+    "seedBasis": "sha256(agentId|seedKey); seedKey = correlationId, else step",
+    "ordinality": 4,
+    "responses": [
+      {
+        "id": "Night Humidity Spike Leading to Fungal Alert#0",
+        "inputSequence": "Night Humidity Spike Leading to Fungal Alert",
+        "step": 0,
+        "expectedSequenceId": null,
+        "values": [
+          0.9,
+          0.1,
+          0.1,
+          0.9,
+          0.1,
+          0.1,
+          0.1,
+          0.9
+        ]
+      },
+      {
+        "id": "Night Humidity Spike Leading to Fungal Alert#1",
+        "inputSequence": "Night Humidity Spike Leading to Fungal Alert",
+        "step": 1,
+        "expectedSequenceId": null,
+        "values": [
+          0.1,
+          0.9,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.9
+        ]
+      },
+      {
+        "id": "Night Humidity Spike Leading to Fungal Alert#2",
+        "inputSequence": "Night Humidity Spike Leading to Fungal Alert",
+        "step": 2,
+        "expectedSequenceId": null,
+        "values": [
+          0.1,
+          0.9,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.9,
+          0.1
+        ]
+      },
+      {
+        "id": "Night Humidity Spike Leading to Fungal Alert#3",
+        "inputSequence": "Night Humidity Spike Leading to Fungal Alert",
+        "step": 3,
+        "expectedSequenceId": null,
+        "values": [
+          0.1,
+          0.9,
+          0.1,
+          0.1,
+          0.1,
+          0.9,
+          0.9,
+          0.1
+        ]
+      }
+    ],
+    "roundRobin": [
+      "Night Humidity Spike Leading to Fungal Alert#0"
+    ]
+  },
   "diagnostics": {
     "axisBasis": "openClawProjection",
     "warnings": [],

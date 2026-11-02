@@ -576,6 +576,252 @@
       }
     ]
   },
+  "syntheticBody": {
+    "schemaVersion": "1.0.0",
+    "mode": "off",
+    "strategy": "seeded-random",
+    "strategies": [
+      "seeded-random",
+      "round-robin",
+      "sequence-walk"
+    ],
+    "source": "corpus-inputSequences",
+    "seedBasis": "sha256(agentId|seedKey); seedKey = correlationId, else step",
+    "ordinality": 14,
+    "responses": [
+      {
+        "id": "TC-01: Normal Morning Routine#0",
+        "inputSequence": "TC-01: Normal Morning Routine",
+        "step": 0,
+        "expectedSequenceId": null,
+        "values": [
+          0.9,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1
+        ]
+      },
+      {
+        "id": "TC-01: Normal Morning Routine#1",
+        "inputSequence": "TC-01: Normal Morning Routine",
+        "step": 1,
+        "expectedSequenceId": null,
+        "values": [
+          0.9,
+          0.9,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1
+        ]
+      },
+      {
+        "id": "TC-01: Normal Morning Routine#2",
+        "inputSequence": "TC-01: Normal Morning Routine",
+        "step": 2,
+        "expectedSequenceId": null,
+        "values": [
+          0.9,
+          0.9,
+          0.9,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1
+        ]
+      },
+      {
+        "id": "TC-01: Normal Morning Routine#3",
+        "inputSequence": "TC-01: Normal Morning Routine",
+        "step": 3,
+        "expectedSequenceId": null,
+        "values": [
+          0.9,
+          0.9,
+          0.9,
+          0.9,
+          0.1,
+          0.1,
+          0.1,
+          0.1
+        ]
+      },
+      {
+        "id": "TC-03: Normal Evening Routine#0",
+        "inputSequence": "TC-03: Normal Evening Routine",
+        "step": 0,
+        "expectedSequenceId": null,
+        "values": [
+          0.9,
+          0.1,
+          0.1,
+          0.1,
+          0.9,
+          0.1,
+          0.1,
+          0.1
+        ]
+      },
+      {
+        "id": "TC-03: Normal Evening Routine#1",
+        "inputSequence": "TC-03: Normal Evening Routine",
+        "step": 1,
+        "expectedSequenceId": null,
+        "values": [
+          0.9,
+          0.9,
+          0.1,
+          0.1,
+          0.9,
+          0.1,
+          0.1,
+          0.1
+        ]
+      },
+      {
+        "id": "TC-03: Normal Evening Routine#2",
+        "inputSequence": "TC-03: Normal Evening Routine",
+        "step": 2,
+        "expectedSequenceId": null,
+        "values": [
+          0.9,
+          0.9,
+          0.1,
+          0.9,
+          0.9,
+          0.1,
+          0.1,
+          0.1
+        ]
+      },
+      {
+        "id": "TC-03: Normal Evening Routine#3",
+        "inputSequence": "TC-03: Normal Evening Routine",
+        "step": 3,
+        "expectedSequenceId": null,
+        "values": [
+          0.9,
+          0.9,
+          0.1,
+          0.9,
+          0.9,
+          0.1,
+          0.1,
+          0.9
+        ]
+      },
+      {
+        "id": "TC-04: Fall \u2014 Responsive (Call Button Activated)#1",
+        "inputSequence": "TC-04: Fall \u2014 Responsive (Call Button Activated)",
+        "step": 1,
+        "expectedSequenceId": null,
+        "values": [
+          0.9,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.9,
+          0.1
+        ]
+      },
+      {
+        "id": "TC-04: Fall \u2014 Responsive (Call Button Activated)#2",
+        "inputSequence": "TC-04: Fall \u2014 Responsive (Call Button Activated)",
+        "step": 2,
+        "expectedSequenceId": null,
+        "values": [
+          0.9,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.9,
+          0.9,
+          0.1
+        ]
+      },
+      {
+        "id": "TC-05: Fall \u2014 Unresponsive (No Call, Patient Still)#2",
+        "inputSequence": "TC-05: Fall \u2014 Unresponsive (No Call, Patient Still)",
+        "step": 2,
+        "expectedSequenceId": null,
+        "values": [
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.1,
+          0.9,
+          0.1
+        ]
+      },
+      {
+        "id": "TC-06: Bathroom Non-Use Alert (8+ Hour Lapse)#2",
+        "inputSequence": "TC-06: Bathroom Non-Use Alert (8+ Hour Lapse)",
+        "step": 2,
+        "expectedSequenceId": null,
+        "values": [
+          0.9,
+          0.9,
+          0.1,
+          0.1,
+          0.1,
+          0.9,
+          0.1,
+          0.1
+        ]
+      },
+      {
+        "id": "TC-07: Missed Morning Medication#1",
+        "inputSequence": "TC-07: Missed Morning Medication",
+        "step": 1,
+        "expectedSequenceId": null,
+        "values": [
+          0.9,
+          0.9,
+          0.9,
+          0.1,
+          0.1,
+          0.9,
+          0.1,
+          0.1
+        ]
+      },
+      {
+        "id": "TC-08: Nighttime Wandering (3 Room Exits)#1",
+        "inputSequence": "TC-08: Nighttime Wandering (3 Room Exits)",
+        "step": 1,
+        "expectedSequenceId": null,
+        "values": [
+          0.9,
+          0.9,
+          0.1,
+          0.9,
+          0.9,
+          0.9,
+          0.1,
+          0.9
+        ]
+      }
+    ],
+    "roundRobin": [
+      "TC-01: Normal Morning Routine#0",
+      "TC-03: Normal Evening Routine#0",
+      "TC-01: Normal Morning Routine#1",
+      "TC-01: Normal Morning Routine#2",
+      "TC-03: Normal Evening Routine#3"
+    ]
+  },
   "diagnostics": {
     "axisBasis": "openClawProjection",
     "warnings": [],

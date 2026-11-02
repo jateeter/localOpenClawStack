@@ -336,6 +336,86 @@
       }
     ]
   },
+  "syntheticBody": {
+    "schemaVersion": "1.0.0",
+    "mode": "off",
+    "strategy": "seeded-random",
+    "strategies": [
+      "seeded-random",
+      "round-robin",
+      "sequence-walk"
+    ],
+    "source": "corpus-inputSequences",
+    "seedBasis": "sha256(agentId|seedKey); seedKey = correlationId, else step",
+    "ordinality": 5,
+    "responses": [
+      {
+        "id": "Escalation to urgent agent dispatch#0",
+        "inputSequence": "Escalation to urgent agent dispatch",
+        "step": 0,
+        "expectedSequenceId": null,
+        "values": [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+        ]
+      },
+      {
+        "id": "Escalation to urgent agent dispatch#1",
+        "inputSequence": "Escalation to urgent agent dispatch",
+        "step": 1,
+        "expectedSequenceId": null,
+        "values": [
+          1.0,
+          0.0,
+          1.0,
+          0.0
+        ]
+      },
+      {
+        "id": "Escalation to urgent agent dispatch#2",
+        "inputSequence": "Escalation to urgent agent dispatch",
+        "step": 2,
+        "expectedSequenceId": null,
+        "values": [
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "id": "Optimization opportunity#0",
+        "inputSequence": "Optimization opportunity",
+        "step": 0,
+        "expectedSequenceId": null,
+        "values": [
+          0.0,
+          1.0,
+          0.0,
+          1.0
+        ]
+      },
+      {
+        "id": "Stable ideal-state progress#0",
+        "inputSequence": "Stable ideal-state progress",
+        "step": 0,
+        "expectedSequenceId": null,
+        "values": [
+          1.0,
+          1.0,
+          0.0,
+          1.0
+        ]
+      }
+    ],
+    "roundRobin": [
+      "Escalation to urgent agent dispatch#0",
+      "Optimization opportunity#0",
+      "Stable ideal-state progress#0"
+    ]
+  },
   "diagnostics": {
     "axisBasis": "openClawProjection",
     "warnings": [],

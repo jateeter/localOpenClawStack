@@ -555,6 +555,91 @@
       }
     ]
   },
+  "syntheticBody": {
+    "schemaVersion": "1.0.0",
+    "mode": "off",
+    "strategy": "seeded-random",
+    "strategies": [
+      "seeded-random",
+      "round-robin",
+      "sequence-walk"
+    ],
+    "source": "corpus-inputSequences",
+    "seedBasis": "sha256(agentId|seedKey); seedKey = correlationId, else step",
+    "ordinality": 4,
+    "responses": [
+      {
+        "id": "Microgrid Cyber Safety Gate: BLOCK_ACTUATION#0",
+        "inputSequence": "Microgrid Cyber Safety Gate: BLOCK_ACTUATION",
+        "step": 0,
+        "expectedSequenceId": null,
+        "values": [
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          1.0,
+          0.0
+        ]
+      },
+      {
+        "id": "Microgrid Cyber Safety Gate: REQUIRE_HUMAN_APPROVAL#0",
+        "inputSequence": "Microgrid Cyber Safety Gate: REQUIRE_HUMAN_APPROVAL",
+        "step": 0,
+        "expectedSequenceId": null,
+        "values": [
+          0.0,
+          0.0,
+          1.0,
+          0.0,
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "id": "Microgrid Cyber Safety Gate: ALLOW_LIMITED_COMMANDS#0",
+        "inputSequence": "Microgrid Cyber Safety Gate: ALLOW_LIMITED_COMMANDS",
+        "step": 0,
+        "expectedSequenceId": null,
+        "values": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ]
+      },
+      {
+        "id": "Microgrid Cyber Safety Gate: CYBER_SAFE#0",
+        "inputSequence": "Microgrid Cyber Safety Gate: CYBER_SAFE",
+        "step": 0,
+        "expectedSequenceId": null,
+        "values": [
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    ],
+    "roundRobin": [
+      "Microgrid Cyber Safety Gate: BLOCK_ACTUATION#0",
+      "Microgrid Cyber Safety Gate: REQUIRE_HUMAN_APPROVAL#0",
+      "Microgrid Cyber Safety Gate: ALLOW_LIMITED_COMMANDS#0",
+      "Microgrid Cyber Safety Gate: CYBER_SAFE#0"
+    ]
+  },
   "diagnostics": {
     "axisBasis": "openClawProjection",
     "warnings": [],

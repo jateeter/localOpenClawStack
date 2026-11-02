@@ -336,6 +336,96 @@
       }
     ]
   },
+  "syntheticBody": {
+    "schemaVersion": "1.0.0",
+    "mode": "off",
+    "strategy": "seeded-random",
+    "strategies": [
+      "seeded-random",
+      "round-robin",
+      "sequence-walk"
+    ],
+    "source": "corpus-inputSequences",
+    "seedBasis": "sha256(agentId|seedKey); seedKey = correlationId, else step",
+    "ordinality": 6,
+    "responses": [
+      {
+        "id": "Medicare Part D Donut Hole Gap#0",
+        "inputSequence": "Medicare Part D Donut Hole Gap",
+        "step": 0,
+        "expectedSequenceId": null,
+        "values": [
+          0.71,
+          0.73,
+          0.66,
+          0.61
+        ]
+      },
+      {
+        "id": "Medicare Part D Donut Hole Gap#1",
+        "inputSequence": "Medicare Part D Donut Hole Gap",
+        "step": 1,
+        "expectedSequenceId": null,
+        "values": [
+          0.7,
+          0.71,
+          0.64,
+          0.6
+        ]
+      },
+      {
+        "id": "Medicare Part D Donut Hole Gap#2",
+        "inputSequence": "Medicare Part D Donut Hole Gap",
+        "step": 2,
+        "expectedSequenceId": null,
+        "values": [
+          0.41,
+          0.34,
+          0.27,
+          0.39
+        ]
+      },
+      {
+        "id": "Medicare Part D Donut Hole Gap#3",
+        "inputSequence": "Medicare Part D Donut Hole Gap",
+        "step": 3,
+        "expectedSequenceId": null,
+        "values": [
+          0.14,
+          0.11,
+          0.07,
+          0.19
+        ]
+      },
+      {
+        "id": "Medicare Part D Donut Hole Gap#4",
+        "inputSequence": "Medicare Part D Donut Hole Gap",
+        "step": 4,
+        "expectedSequenceId": null,
+        "values": [
+          0.37,
+          0.41,
+          0.21,
+          0.17
+        ]
+      },
+      {
+        "id": "Medicare Part D Donut Hole Gap#5",
+        "inputSequence": "Medicare Part D Donut Hole Gap",
+        "step": 5,
+        "expectedSequenceId": null,
+        "values": [
+          0.73,
+          0.76,
+          0.69,
+          0.66
+        ]
+      }
+    ],
+    "roundRobin": [
+      "Medicare Part D Donut Hole Gap#0"
+    ]
+  },
   "diagnostics": {
     "axisBasis": "openClawProjection",
     "warnings": [],
