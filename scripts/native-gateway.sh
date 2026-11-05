@@ -230,7 +230,9 @@ wait_ready() {
   token="$(sed -n 's/^OPENCLAW_GATEWAY_TOKEN=//p' .env | tail -1 | tr -d "\"'")"
   code="$(curl -s -m 5 -o /dev/null -w '%{http_code}' "http://127.0.0.1:$PORT/v1/models")"
   [[ "$code" == 401 ]] || die "/v1/models without the token returned $code, expected 401"
-  ids="$(curl -sf -m 10 -H "Authorization: Bearer $token" "http://127.0.0.1:$PORT/v1/models" | jq -r '.data[].id')" || \
+  # The first call builds the model catalog over every agent: 13.5s for the
+  # full profile (1548 agents) on 2026.10.10, later calls under 1s.
+  ids="$(curl -sf -m 60 -H "Authorization: Bearer $token" "http://127.0.0.1:$PORT/v1/models" | jq -r '.data[].id')" || \
     die "/v1/models with the token failed"
   while IFS= read -r id; do
     [[ -n "$id" ]] || continue
