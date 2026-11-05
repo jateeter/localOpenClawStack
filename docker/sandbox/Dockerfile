@@ -1,6 +1,6 @@
 # OpenClaw's sandbox image, openclaw-sandbox:bookworm-slim, which agents with
 # sandbox.mode "all" run in. Vendored unchanged from OpenClaw's source,
-# scripts/docker/sandbox/Dockerfile at dc2523e (the 2026.10.8 release; the file
+# scripts/docker/sandbox/Dockerfile at 7dc3350 (the 2026.10.10 release; the file
 # is unchanged since 157d8c2, 2026.10.7): the npm package names the image but
 # does not ship this file. scripts/native-gateway.sh
 # builds it when it is missing. Re-vendor it when the pinned release changes.
