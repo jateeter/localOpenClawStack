@@ -15,6 +15,8 @@ if [[ -f .env ]]; then
 fi
 # shellcheck source=lib/oc-config.sh
 source "$ROOT_DIR/scripts/lib/oc-config.sh"
+# shellcheck source=lib/lane-tls.sh
+source "$ROOT_DIR/scripts/lib/lane-tls.sh"
 
 # A native gateway names its own state directory (OPENCLAW_STATE_DIR); the
 # container stack's directories live in this repo.
@@ -59,11 +61,22 @@ ollama_num_ctx="${OPENCLAW_OLLAMA_NUM_CTX:-32768}"
 # one). The container image's BROWSER_CDP_URL environment variable is not read by
 # OpenClaw itself, so a native gateway needs it in the config.
 browser_cdp="${OPENCLAW_BROWSER_CDP_URL:-}"
+# Lane TLS (localOpenClawStack#92): with OPENCLAW_TLS_DIR the gateway serves
+# HTTPS/WSS with the lane's certificate, never a self-generated one; without it
+# the block is removed, because the native home outlives a universe and a lane
+# that was on last time must not stay on.
+tls_dir=""
+if oc_lane_on; then
+  oc_lane_check || exit 1
+  tls_dir="$OPENCLAW_TLS_DIR"
+fi
+scheme="$(oc_lane_scheme)"
 model="$(jq -r '.agents.defaults.model.primary // "ollama/nemotron-3-nano:4b-mlx"' "$OC_CONFIG")"
 ollama_base="${OLLAMA_BASE_URL:-http://host.docker.internal:11434}"
 ollama_model="${model#ollama/}"   # provider model id without the "ollama/" prefix
-jq --arg localhost_origin "http://localhost:${port}" \
-   --arg loopback_origin "http://127.0.0.1:${port}" \
+jq --arg localhost_origin "${scheme}://localhost:${port}" \
+   --arg loopback_origin "${scheme}://127.0.0.1:${port}" \
+   --arg tls_dir "$tls_dir" \
    --argjson gwport "$port" \
    --arg bind "$bind" \
    --arg schema "$SCHEMA" \
@@ -77,6 +90,12 @@ jq --arg localhost_origin "http://localhost:${port}" \
     .gateway.bind = $bind |
     .gateway.auth.mode = "token" |
     .gateway.port = $gwport |
+    (if $tls_dir != "" then
+       .gateway.tls = {enabled: true, autoGenerate: false,
+                       certPath: ($tls_dir + "/gateway/chain.pem"),
+                       keyPath: ($tls_dir + "/gateway/key.pem"),
+                       caPath: ($tls_dir + "/ca.crt")}
+     else del(.gateway.tls) end) |
     .gateway.nodes = (.gateway.nodes // {}) |
     (["camera.snap", "screen.record", "sms.send"]) as $denied |
     if $schema == "entries" then

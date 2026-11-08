@@ -99,6 +99,16 @@ never blocks on the external agent.
 | `OPENCLAW_GATEWAY_URL` | Base URL for the OpenClaw gateway (e.g. `http://localhost:18789`) |
 | `ACP_SESSION_KEY` | Shared secret used when dispatching to the gateway |
 
+### Lane TLS
+
+With `OPENCLAW_TLS_DIR` set (RealityEngine_CI `startUniverse.sh` with
+`RE_TLS=on`; localOpenClawStack#92), the native gateway serves HTTPS and WSS
+at `https://127.0.0.1:18789`, TLS 1.3 at the transport profile, and calls the
+Ollama front and the browser sidecar's CDP (TLS 1.3 + mTLS) with its lane
+certificate. It cannot require client certificates itself: every call needs
+the gateway token. Open WebUI is not started on the lane. See CLAUDE.md,
+"Lane TLS", and `scripts/test-lane-tls.sh`.
+
 ### Verify
 
 ```bash

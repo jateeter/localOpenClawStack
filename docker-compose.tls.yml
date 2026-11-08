@@ -1,0 +1,30 @@
+# Lane TLS overlay (localOpenClawStack#92, RealityEngine_CI#668), used on top of
+# docker-compose.yml, never alone, with the native gateway:
+#
+#   COMPOSE_FILE=docker-compose.yml:docker-compose.tls.yml OPENCLAW_TLS_DIR=<dir> \
+#     docker compose up -d --no-deps browser
+#
+# scripts/start.sh --native does this when OPENCLAW_TLS_DIR is set (see
+# scripts/lib/lane-tls.sh for the directory's layout).
+#
+# - browser: its CDP proxy serves TLS 1.3 and requires the lane CA's client
+#   certificate (docker/browser/cdp-proxy-tls.conf).
+# - open-webui: not on the lane yet (owner, 2026-11-08). It serves plain HTTP to
+#   the browser and reaches Ollama without a client certificate, so the overlay
+#   leaves it out.
+# - openclaw-gateway: the container gateway is not on the lane; the lane runs the
+#   native gateway, which serves TLS itself.
+
+services:
+  browser:
+    volumes:
+      - ./docker/browser/cdp-proxy-tls.conf:/etc/nginx/cdp-proxy.conf:ro
+      - ${OPENCLAW_TLS_DIR:?set OPENCLAW_TLS_DIR to the lane TLS directory}/browser:/run/re-tls/browser:ro
+      - ${OPENCLAW_TLS_DIR}/ca.crt:/run/re-tls/ca.crt:ro
+      - ${OPENCLAW_TLS_DIR}/ca.crl:/run/re-tls/ca.crl:ro
+
+  open-webui:
+    profiles: ["plaintext-lane"]
+
+  openclaw-gateway:
+    profiles: ["plaintext-lane"]

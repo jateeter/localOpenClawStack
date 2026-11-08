@@ -7,6 +7,11 @@ cd "$ROOT_DIR"
 set -a; source .env; set +a
 
 fail() { echo "[fail] $*" >&2; exit 1; }
+# shellcheck source=lib/lane-tls.sh
+source "$ROOT_DIR/scripts/lib/lane-tls.sh"
+# On the lane (OPENCLAW_TLS_DIR, #92) the gateway serves TLS and Open WebUI is
+# not started (owner, 2026-11-08).
+GW_BASE="$(oc_lane_scheme)://127.0.0.1:${OPENCLAW_GATEWAY_PORT:-18789}"
 pass() { echo "[ok]   $*"; }
 
 # container: the gateway is the openclaw-gateway service. native: it is the host's
@@ -67,6 +72,7 @@ python3 "$ROOT_DIR/scripts/verify-agents-match-corpus.py" || fail "OpenClaw agen
 services=(openclaw-gateway open-webui browser)
 if [[ "$RUNTIME" == native ]]; then
   services=(open-webui browser)
+  if oc_lane_on; then services=(browser); fi
   launchctl print "gui/$(id -u)/$NATIVE_LABEL" >/dev/null 2>&1 || fail "the native gateway LaunchAgent $NATIVE_LABEL is not loaded"
   pass "native gateway LaunchAgent $NATIVE_LABEL is loaded (home $NATIVE_HOME)"
   [[ -z "$(docker compose ps -q openclaw-gateway 2>/dev/null)" ]] || fail "the openclaw-gateway container is running beside the native gateway"
@@ -91,21 +97,33 @@ pass "OpenClaw runtime is $OPENCLAW_VERSION"
 # non-zero with no message — bare `curl --fail` under `set -e` aborts silently —
 # so a healthy stack reported "OpenClaw startup failed" to startUniverse.
 for attempt in $(seq 1 30); do
-  if curl --fail --silent --max-time 5 "http://127.0.0.1:${OPENCLAW_GATEWAY_PORT:-18789}/healthz" >/dev/null \
-     && curl --fail --silent --max-time 5 "http://127.0.0.1:${OPEN_WEBUI_PORT:-8080}/health" >/dev/null; then
+  if oc_curl --fail --silent --max-time 5 "$GW_BASE/healthz" >/dev/null \
+     && { oc_lane_on || curl --fail --silent --max-time 5 "http://127.0.0.1:${OPEN_WEBUI_PORT:-8080}/health" >/dev/null; }; then
     break
   fi
   [[ "$attempt" -eq 30 ]] && fail "gateway (:${OPENCLAW_GATEWAY_PORT:-18789}/healthz) or WebUI (:${OPEN_WEBUI_PORT:-8080}/health) not reachable on loopback after 150s"
   sleep 5
 done
-pass "Gateway and WebUI health endpoints are reachable on loopback"
+if oc_lane_on; then
+  pass "Gateway health endpoint is reachable on loopback over TLS 1.3 (Open WebUI is not on the lane)"
+else
+  pass "Gateway and WebUI health endpoints are reachable on loopback"
+fi
 
-status="$(curl --silent --max-time 10 --output /dev/null --write-out '%{http_code}' \
+status="$(oc_curl --silent --max-time 10 --output /dev/null --write-out '%{http_code}' \
   -H "Authorization: Bearer $OPENCLAW_GATEWAY_TOKEN" \
-  "http://127.0.0.1:${OPENCLAW_GATEWAY_PORT:-18789}/v1/models")"
+  "$GW_BASE/v1/models")"
 [[ "$status" == "200" ]] || fail "Gateway API authentication returned HTTP $status"
 pass "Gateway API key authentication succeeds"
+if oc_lane_on; then
+  # The gateway cannot require client certificates; its token is the accepted
+  # compensation (owner, 2026-11-08), so a call without it must be refused.
+  status="$(oc_curl --silent --max-time 10 --output /dev/null --write-out '%{http_code}' "$GW_BASE/v1/models")"
+  [[ "$status" == "401" ]] || fail "Gateway API without the token returned HTTP $status, expected 401"
+  pass "Gateway API refuses a call without the token"
+fi
 
+if ! oc_lane_on; then
 login_payload="$(jq -nc \
   --arg email "$WEBUI_ADMIN_EMAIL" \
   --arg password "$WEBUI_ADMIN_PASSWORD" \
@@ -116,6 +134,7 @@ login_status="$(curl --silent --max-time 10 --output /dev/null --write-out '%{ht
   "http://127.0.0.1:${OPEN_WEBUI_PORT:-8080}/api/v1/auths/signin")"
 [[ "$login_status" == "200" ]] || fail "WebUI admin sign-in returned HTTP $login_status"
 pass "WebUI admin credentials authenticate successfully"
+fi
 
 # The audit walks every loaded agent, so its duration follows the agent profile.
 # Under `regression` (18 agents) it finishes well inside 45s; under `full`

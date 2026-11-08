@@ -52,8 +52,27 @@ def fail(msg: str) -> int:
     return 1
 
 
+def lane_context() -> ssl.SSLContext | None:
+    """The lane's mTLS to the engines when OPENCLAW_TLS_DIR is set (#92).
+
+    The engines and the instance registry require a client certificate from the
+    lane CA; the gateway's certificate is one (it serves and calls). TLS 1.3
+    with the profile's suites where this Python can set them. None off the lane,
+    where the old unverified context stays until that lane is deleted.
+    """
+    tls_dir = os.environ.get("OPENCLAW_TLS_DIR")
+    if not tls_dir:
+        return None
+    ctx = ssl.create_default_context(cafile=os.path.join(tls_dir, "ca.crt"))
+    ctx.minimum_version = ctx.maximum_version = ssl.TLSVersion.TLSv1_3
+    if hasattr(ctx, "set_ciphersuites"):
+        ctx.set_ciphersuites("TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256")
+    ctx.load_cert_chain(os.path.join(tls_dir, "gateway", "chain.pem"), os.path.join(tls_dir, "gateway", "key.pem"))
+    return ctx
+
+
 def get_json(url: str, timeout: float = 10.0):
-    with urllib.request.urlopen(url, timeout=timeout, context=INSECURE) as resp:
+    with urllib.request.urlopen(url, timeout=timeout, context=lane_context() or INSECURE) as resp:
         return json.loads(resp.read().decode("utf-8"))
 
 
