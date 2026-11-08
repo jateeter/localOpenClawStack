@@ -1,6 +1,6 @@
 # localOpenClawStack Guidance
 
-Last reviewed: 2026-11-04
+Last reviewed: 2026-11-08
 
 See `/Users/johnt/workspace/GitHub/CLAUDE.md` for the integrated application map. Update both this file and the root map when OpenClaw versioning, gateway wiring, auth/bootstrap, or Manager/PE integration expectations change.
 
@@ -32,6 +32,7 @@ docker compose ps
 ./scripts/start.sh --agent-profile=regression
 ./scripts/generate-regression-profile.py --check
 ./scripts/verify-deployment.sh
+./scripts/test-lane-tls.sh          # lane TLS: config, LaunchAgent, preload, overlay (starts nothing)
 ./scripts/stop.sh
 ```
 
@@ -121,6 +122,29 @@ Use the repo's actual scripts when present; Docker Compose state is time-sensiti
   - The scripts that generate the native home take the caller's environment over
     `.env`: `.env` holds the container's values (`OLLAMA_BASE_URL` on
     host.docker.internal), and sourcing it alone pointed the native gateway there.
+
+- **Lane TLS (localOpenClawStack#92, RealityEngine_CI#668).** `OPENCLAW_TLS_DIR`
+  turns it on (layout in `scripts/lib/lane-tls.sh`); `startUniverse.sh` sets it
+  with `RE_TLS=on`. Only the native gateway is on the lane; `start.sh` refuses
+  the container gateway with it set.
+  - The gateway serves HTTPS/WSS with the lane certificate (`harden-config.sh`
+    writes `gateway.tls`, `autoGenerate: false`, and removes it off the lane:
+    the native home outlives a universe).
+  - `scripts/lib/lane-tls-preload.cjs`, loaded by `native-gateway-run.sh` through
+    `NODE_OPTIONS`, holds every TLS context of the process to the profile
+    (OpenClaw sets no suites or groups) and presents the gateway certificate on
+    outbound TLS to internal peers only (the Ollama front, CDP). MCP servers use
+    OpenClaw's own `mcp.servers.<name>.clientCert`/`clientKey`.
+  - **Accepted deficiency:** the gateway cannot require client certificates
+    (2026.10.8 has no `requestCert`), so its inbound links are TLS 1.3 without
+    mTLS, compensated by the bearer token and the loopback bind
+    (`verify-deployment.sh` checks a call without the token is refused; owner,
+    2026-11-08).
+  - The browser sidecar's CDP proxy serves TLS 1.3 and requires the lane CA's
+    client certificate (`docker/browser/cdp-proxy-tls.conf`, mounted by
+    `docker-compose.tls.yml`); the nginx-to-Chromium hop inside the container is
+    the accepted deficiency. Open WebUI is not on the lane yet.
+  - `scripts/test-lane-tls.sh` holds all of it without starting anything.
 
 ## Which agent corpus matters
 

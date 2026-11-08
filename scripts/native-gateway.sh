@@ -35,6 +35,9 @@ set -euo pipefail
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT_DIR"
 
+# shellcheck source=lib/lane-tls.sh
+source "$ROOT_DIR/scripts/lib/lane-tls.sh"
+
 CYAN='\033[0;36m'; GREEN='\033[0;32m'; YELLOW='\033[1;33m'; RED='\033[0;31m'; NC='\033[0m'
 info() { echo -e "${CYAN}[native-gateway]${NC} $*"; }
 ok()   { echo -e "${GREEN}[ok]${NC}   $*"; }
@@ -130,7 +133,11 @@ preflight() {
   fi
   ok "openclaw $version on Node $node_version ($NODE_BIN)"
   docker info >/dev/null 2>&1 || die "Docker is not answering; the agent sandboxes need it"
-  curl -sf -m 5 "$OLLAMA_URL/api/version" >/dev/null || warn "Ollama does not answer at $OLLAMA_URL"
+  if oc_lane_on; then
+    oc_lane_check || die "the lane is on (OPENCLAW_TLS_DIR) but its certificates are incomplete"
+    ok "lane TLS on: $OPENCLAW_TLS_DIR"
+  fi
+  oc_curl -sf -m 5 "$OLLAMA_URL/api/version" >/dev/null || warn "Ollama does not answer at $OLLAMA_URL"
 }
 
 loaded() { launchctl print "gui/$(id -u)/$LABEL" >/dev/null 2>&1; }
@@ -162,7 +169,7 @@ write_plist() {
     <key>OPENCLAW_BIN</key><string>$OPENCLAW_BIN</string>
     <key>OPENCLAW_STATE_DIR</key><string>$NATIVE_HOME</string>
     <key>OPENCLAW_GATEWAY_PORT</key><string>$PORT</string>
-    <key>OLLAMA_BASE_URL</key><string>$OLLAMA_URL</string>
+    <key>OLLAMA_BASE_URL</key><string>$OLLAMA_URL</string>$(oc_lane_on && printf '\n    <key>OPENCLAW_TLS_DIR</key><string>%s</string>' "$OPENCLAW_TLS_DIR")
   </dict>
   <key>RunAtLoad</key><true/>
   <key>KeepAlive</key><dict><key>SuccessfulExit</key><false/></dict>
@@ -191,9 +198,10 @@ generate() {
   index="$("$ROOT_DIR/scripts/agent-profile.sh" "$AGENT_PROFILE")"
   info "agent profile: $AGENT_PROFILE ($(jq -r '.total' "$index") machine agents)"
   mkdir -p "$NATIVE_HOME"; chmod 700 "$NATIVE_HOME"
-  local cdp=""
-  if curl -sf -m 3 "http://127.0.0.1:$CDP_PORT/json/version" >/dev/null 2>&1; then
-    cdp="http://127.0.0.1:$CDP_PORT"
+  local cdp="" scheme
+  scheme="$(oc_lane_scheme)"
+  if oc_curl -sf -m 3 "$scheme://127.0.0.1:$CDP_PORT/json/version" >/dev/null 2>&1; then
+    cdp="$scheme://127.0.0.1:$CDP_PORT"
   else
     warn "no browser sidecar answers on 127.0.0.1:$CDP_PORT; the gateway gets no browser profile"
   fi
@@ -207,11 +215,12 @@ generate() {
   env "${envs[@]}" "$ROOT_DIR/scripts/verify-openclaw-config.sh"
   # The native values, not the container's: .env sets those for the container, and
   # a generator that read them instead pointed the gateway at host.docker.internal.
-  jq -e --arg ollama "$OLLAMA_URL" --argjson port "$PORT" '
+  jq -e --arg ollama "$OLLAMA_URL" --argjson port "$PORT" --argjson tls "$(oc_lane_on && echo true || echo false)" '
     .gateway.bind == "loopback" and .gateway.port == $port and
-    .models.providers.ollama.baseUrl == $ollama' "$NATIVE_HOME/openclaw.json" >/dev/null || \
-    die "the generated config does not bind loopback:$PORT with Ollama at $OLLAMA_URL: $(jq -c '{bind: .gateway.bind, port: .gateway.port, ollama: .models.providers.ollama.baseUrl}' "$NATIVE_HOME/openclaw.json")"
-  ok "config binds 127.0.0.1:$PORT and uses Ollama at $OLLAMA_URL"
+    .models.providers.ollama.baseUrl == $ollama and
+    ((.gateway.tls.enabled // false) == $tls)' "$NATIVE_HOME/openclaw.json" >/dev/null || \
+    die "the generated config does not bind loopback:$PORT with Ollama at $OLLAMA_URL and TLS $(oc_lane_on && echo on || echo off): $(jq -c '{bind: .gateway.bind, port: .gateway.port, ollama: .models.providers.ollama.baseUrl, tls: .gateway.tls.enabled}' "$NATIVE_HOME/openclaw.json")"
+  ok "config binds 127.0.0.1:$PORT ($(oc_lane_scheme)) and uses Ollama at $OLLAMA_URL"
   # What this deployment loaded, for verify-deployment.sh and the corpus check.
   mkdir -p "$ROOT_DIR/machine-behaviors/agents/.generated"
   cp "$index" "$ROOT_DIR/machine-behaviors/agents/.generated/INDEX.deployed.json"
@@ -219,18 +228,19 @@ generate() {
 }
 
 wait_ready() {
-  local token code ids missing=""
+  local token code ids missing="" base
+  base="$(oc_lane_scheme)://127.0.0.1:$PORT"
   for _ in $(seq 1 60); do
-    curl -sf -m 3 "http://127.0.0.1:$PORT/healthz" >/dev/null 2>&1 && break
+    oc_curl -sf -m 3 "$base/healthz" >/dev/null 2>&1 && break
     sleep 2
   done
-  curl -sf -m 3 "http://127.0.0.1:$PORT/healthz" >/dev/null 2>&1 || \
-    die "the gateway did not answer /healthz on 127.0.0.1:$PORT; see $LOG_DIR/gateway.log"
-  ok "gateway answers on 127.0.0.1:$PORT"
+  oc_curl -sf -m 3 "$base/healthz" >/dev/null 2>&1 || \
+    die "the gateway did not answer /healthz on $base; see $LOG_DIR/gateway.log"
+  ok "gateway answers on $base"
   token="$(sed -n 's/^OPENCLAW_GATEWAY_TOKEN=//p' .env | tail -1 | tr -d "\"'")"
-  code="$(curl -s -m 5 -o /dev/null -w '%{http_code}' "http://127.0.0.1:$PORT/v1/models")"
+  code="$(oc_curl -s -m 5 -o /dev/null -w '%{http_code}' "$base/v1/models")"
   [[ "$code" == 401 ]] || die "/v1/models without the token returned $code, expected 401"
-  ids="$(curl -sf -m 10 -H "Authorization: Bearer $token" "http://127.0.0.1:$PORT/v1/models" | jq -r '.data[].id')" || \
+  ids="$(oc_curl -sf -m 10 -H "Authorization: Bearer $token" "$base/v1/models" | jq -r '.data[].id')" || \
     die "/v1/models with the token failed"
   while IFS= read -r id; do
     [[ -n "$id" ]] || continue
@@ -281,7 +291,7 @@ case "$CMD" in
     echo "label:   $LABEL ($(loaded && echo loaded || echo 'not loaded'))"
     echo "home:    $NATIVE_HOME"
     echo "binary:  $OPENCLAW_BIN ($(env PATH="$BIN_PATH" "$OPENCLAW_BIN" --version 2>/dev/null)), node $("$NODE_BIN" --version)"
-    echo "healthz: $(curl -s -m 3 -o /dev/null -w '%{http_code}' "http://127.0.0.1:$PORT/healthz")"
+    echo "healthz: $(oc_curl -s -m 3 -o /dev/null -w '%{http_code}' "$(oc_lane_scheme)://127.0.0.1:$PORT/healthz") ($(oc_lane_scheme))"
     echo "log:     $LOG_DIR/gateway.log" ;;
   *)
     sed -n '2,9p' "$0" | sed 's/^# \{0,1\}//'; exit 2 ;;

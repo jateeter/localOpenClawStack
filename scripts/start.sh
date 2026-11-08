@@ -125,25 +125,54 @@ info "Agent profile: $AGENT_PROFILE ($(jq -r '.total' "$OPENCLAW_AGENT_INDEX_PAT
 # browser sidecar (CDP published on loopback) and Open WebUI, which reaches the
 # gateway through host.docker.internal. The container gateway is stopped: it
 # would hold the same port.
+# Lane TLS (localOpenClawStack#92): OPENCLAW_TLS_DIR turns it on. Only the
+# native gateway serves TLS; the container gateway is not on the lane.
+# shellcheck source=lib/lane-tls.sh
+source "$ROOT_DIR/scripts/lib/lane-tls.sh"
+if oc_lane_on; then
+  [[ "$NATIVE" == true ]] || die "OPENCLAW_TLS_DIR is set: the lane runs the native gateway only (--native)"
+  oc_lane_check || die "the lane's certificates in OPENCLAW_TLS_DIR are incomplete"
+fi
+
 if [[ "$NATIVE" == true ]]; then
   GW_PORT="${OPENCLAW_GATEWAY_PORT:-18789}"
   UI_PORT="${OPEN_WEBUI_PORT:-8080}"
   CDP_PORT="${RE_PORT_BROWSER_CDP:-9222}"
+  SCHEME="$(oc_lane_scheme)"
   docker compose stop openclaw-gateway >/dev/null 2>&1 || true
   docker compose rm -f openclaw-gateway >/dev/null 2>&1 || true
-  info "Starting the browser sidecar and Open WebUI (Docker) for the native gateway..."
-  OPENWEBUI_OPENAI_BASE_URL="http://host.docker.internal:${GW_PORT}/v1" \
-    docker compose up -d --no-deps browser open-webui
+  if oc_lane_on; then
+    # The browser sidecar's CDP behind TLS 1.3 + mTLS; Open WebUI is not on the
+    # lane yet (owner, 2026-11-08), and one left from a plaintext run is stopped.
+    docker compose stop open-webui >/dev/null 2>&1 || true
+    info "Starting the browser sidecar (Docker, CDP on TLS 1.3 + mTLS) for the native gateway..."
+    COMPOSE_FILE=docker-compose.yml:docker-compose.tls.yml \
+      docker compose up -d --no-deps --force-recreate browser
+  else
+    info "Starting the browser sidecar and Open WebUI (Docker) for the native gateway..."
+    OPENWEBUI_OPENAI_BASE_URL="http://host.docker.internal:${GW_PORT}/v1" \
+      docker compose up -d --no-deps browser open-webui
+  fi
   for i in $(seq 1 30); do
-    curl -sf -m 3 "http://127.0.0.1:${CDP_PORT}/json/version" >/dev/null 2>&1 && break
+    oc_curl -sf -m 3 "${SCHEME}://127.0.0.1:${CDP_PORT}/json/version" >/dev/null 2>&1 && break
     sleep 2
   done
-  if curl -sf -m 3 "http://127.0.0.1:${CDP_PORT}/json/version" >/dev/null 2>&1; then
-    ok "browser sidecar CDP on 127.0.0.1:${CDP_PORT}"
+  if oc_curl -sf -m 3 "${SCHEME}://127.0.0.1:${CDP_PORT}/json/version" >/dev/null 2>&1; then
+    ok "browser sidecar CDP on ${SCHEME}://127.0.0.1:${CDP_PORT}"
   else
-    warn "browser sidecar CDP did not answer on 127.0.0.1:${CDP_PORT}; the gateway starts without a browser profile"
+    warn "browser sidecar CDP did not answer on ${SCHEME}://127.0.0.1:${CDP_PORT}; the gateway starts without a browser profile"
   fi
   "$ROOT_DIR/scripts/native-gateway.sh" up --agent-profile="$AGENT_PROFILE"
+  if oc_lane_on; then
+    echo ""
+    echo -e "${GREEN}localOpenClawStack running (native gateway, lane TLS).${NC}"
+    echo "  OpenClaw gateway  →  https://127.0.0.1:${GW_PORT}   (TLS 1.3; LaunchAgent; scripts/native-gateway.sh status)"
+    echo "  Open WebUI        →  not on the TLS lane"
+    echo "  Stop:  ./scripts/stop.sh --native"
+    echo ""
+    OPENCLAW_RUNTIME=native "$ROOT_DIR/scripts/verify-deployment.sh"
+    exit 0
+  fi
   OPENWEBUI_READY_TIMEOUT="${OPENWEBUI_READY_TIMEOUT:-600}"
   for i in $(seq 1 $(( OPENWEBUI_READY_TIMEOUT / 3 ))); do
     [[ "$(curl -so /dev/null -w "%{http_code}" "http://localhost:${UI_PORT}/health" 2>/dev/null || true)" == 200 ]] && break
