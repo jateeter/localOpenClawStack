@@ -42,6 +42,34 @@ full corpus, full agents. Never a profile chosen by corpus *name*.
   deployed agents are not exactly that corpus's. No universe, or none of its
   engines answering, is reported, not failed. Test: `test-agents-follow-corpus.sh`.
 
+## Per-clone agents (#91)
+
+- `clone-agents.mjs load|unload|purge|list` loads and unloads the agent of one
+  workflow step's clone: a copy of the template machine's agent (its workspace
+  files and model settings), with the id `clone-<sha256(cloneId)[:16]>`.
+  - RealityEngine_Manager's instantiation component calls it through a FIFO
+    queue. Each change is one temporary file renamed over `openclaw.json`, under
+    an exclusive lock, and re-adopted as the baseline.
+  - Clone agents live under `workspaces/clones/`, so `sync-machine-agents.sh`
+    keeps them.
+- An unload removes the agent's entry, workspace and state directory, as the
+  owner ruled on 2026-11-04. Manager unloads with `--entry-only`, waits until
+  the gateway stops listing the agent, then runs `purge`, so the gateway's
+  skills watcher never sees its directory vanish.
+- A clone agent's only tool is `session_status`. OpenClaw refuses a sandboxed
+  turn with no tool, so the agent can't have none. The dangerous groups are also
+  denied, but never `group:openclaw` or `group:sessions`, which hold that one
+  tool.
+- OpenClaw gives every session a sandbox copy of the agent's bootstrap files
+  under `sandboxes/workspace-<hash>/`, and protects its `skills` folder with a
+  macOS `deny delete` ACL.
+  - `load` writes a marker into the clone's `AGENTS.md`.
+  - `purge` removes every sandbox carrying it, clearing ACLs first
+    (`chmod -N`).
+- Test: `test-clone-agents.sh` covers concurrent loads and unloads in both
+  config schemas, the tool policy, and sandbox purging under that ACL. It needs
+  no gateway.
+
 ## Config clobber guard
 
 - OpenClaw's gateway auto-restores `openclaw.json` from `openclaw.json.bak` when a
