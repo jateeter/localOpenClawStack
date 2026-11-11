@@ -156,6 +156,10 @@ function load(template, cloneId) {
     fs.mkdirSync(workspace, { recursive: true });
     const from = local(t.workspace);
     if (from && fs.existsSync(from)) fs.cpSync(from, workspace, { recursive: true });
+    // The marker follows the agent into each sandbox OpenClaw makes for its
+    // sessions (sandboxes/workspace-<hash>/ copies the workspace's bootstrap
+    // files, under a name nothing here can compute), so purge can find them.
+    fs.appendFileSync(path.join(workspace, 'AGENTS.md'), `\n${markerOf(id)}\n`);
     fs.writeFileSync(path.join(workspace, 'CLONE.md'),
       `# Clone ${cloneId}\n\nThis agent runs one workflow step on clone \`${cloneId}\` of \`${template}\`. It is unloaded when the clone is recycled.\n`);
     fs.mkdirSync(agentDir, { recursive: true });
@@ -170,12 +174,42 @@ function load(template, cloneId) {
   });
 }
 
-// The agent's files: its workspace and its whole state directory.
+const markerOf = (id) => `<!-- openclaw clone agent ${id}: removed with it (localOpenClawStack scripts/clone-agents.mjs) -->`;
+
+// Removes a directory OpenClaw may have protected inside: read-only modes, and
+// on macOS an ACL ("deny delete") on each sandbox's skills directory, which
+// permission bits do not override, so the ACLs are cleared first (chmod -N).
+function removeTree(dir) {
+  if (!fs.existsSync(dir)) return;
+  if (process.platform === 'darwin') {
+    try { execFileSync('chmod', ['-RN', dir], { stdio: 'ignore' }); } catch { /* no ACL to clear */ }
+  }
+  const walk = (d) => {
+    try { fs.chmodSync(d, 0o700); } catch { /* gone */ }
+    for (const e of fs.readdirSync(d, { withFileTypes: true })) if (e.isDirectory()) walk(path.join(d, e.name));
+  };
+  walk(dir);
+  fs.rmSync(dir, { recursive: true, force: true });
+}
+
+// The agent's files: its workspace, its whole state directory, and every
+// sandbox workspace its sessions got (found by the marker in their AGENTS.md).
 function purge(cloneId) {
   const id = agentIdOf(cloneId);
-  fs.rmSync(path.join(STATE, CLONES, id), { recursive: true, force: true });
-  fs.rmSync(path.join(STATE, 'agents', id), { recursive: true, force: true });
-  return { agentId: id, purged: true };
+  removeTree(path.join(STATE, CLONES, id));
+  removeTree(path.join(STATE, 'agents', id));
+  const sandboxes = path.join(STATE, 'sandboxes');
+  let removed = 0;
+  if (fs.existsSync(sandboxes)) {
+    for (const name of fs.readdirSync(sandboxes)) {
+      const agentsMd = path.join(sandboxes, name, 'AGENTS.md');
+      if (fs.existsSync(agentsMd) && fs.readFileSync(agentsMd, 'utf8').includes(markerOf(id))) {
+        removeTree(path.join(sandboxes, name));
+        removed += 1;
+      }
+    }
+  }
+  return { agentId: id, purged: true, sandboxes: removed };
 }
 
 function unload(cloneId, { entryOnly = false } = {}) {
