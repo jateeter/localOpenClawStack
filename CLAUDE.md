@@ -54,13 +54,17 @@ Use the repo's actual scripts when present; Docker Compose state is time-sensiti
 
 - **The default model is `ollama/nemotron-3-nano:4b-mlx`**, the RealityEngine universe model (RC3): the MLX build of Nemotron 3 Nano 4B (Ollama 0.40.5+). The plain `:4b` tag is the GGUF build on llama.cpp. `OPENCLAW_DEFAULT_MODEL` only seeds a *fresh* `openclaw.json`; an existing config keeps its model. Switch on command with `scripts/set-model.sh <ollama-tag>`, which rewrites `agents.defaults.model.primary` and every agent whose own model was the old default (main included, since `sync-machine-agents.sh` keeps main's model; an agent pinned elsewhere keeps it and is reported; `test-set-model.sh`), re-runs `harden-config.sh` so the Ollama provider lists the model, and adopts the result as the config baseline. It does not restart the gateway. The model calls tools; Ollama refuses `format` for it, which matters to the PEs' dispatch and not to the gateway (`RealityEngine_CI/docs/OLLAMA_INTEGRATION.md`).
 
-- **One OpenClaw release, one config format (RealityEngine_CI#592).** The container
-  image and the native host gateway both run the pinned release, 2026.10.8, npm
-  `latest` (`update-versions.sh` reads that dist-tag; it read `extended-stable`
-  until 2026-10-24, when the stack sat on 2026.6.10). A local `.env`
-  `OPENCLAW_VERSION` overrides the compose default, so a stale `.env` pins an old
-  gateway. The release needs Node `>=26.12.1`; the `.env` `NODE_IMAGE` digest must
-  resolve to it.
+- **OpenClaw is kept current, never pinned (RealityEngine_CI#663, #592).** The
+  target is npm's `openclaw@latest` (`scripts/lib/openclaw-version.sh`), with a
+  floor, `OPENCLAW_MIN` (2026.10.5, RealityEngine_CI `release/host-requirements.json`).
+  `native-gateway.sh up` updates the host's openclaw when it is behind, and
+  refuses it below the floor if that fails; `start.sh` builds the container at
+  the current release. When npm can't be read, the installed version (native) or
+  `.env`'s `OPENCLAW_VERSION` (container) is kept, and that is said.
+  `migrate-state.sh` migrates to the version that will run, and
+  `verify-deployment.sh` checks the runtime against what is installed. The
+  release needs Node `>=26.12.1`; the `.env` `NODE_IMAGE` digest must resolve to
+  it. Running 2026.11.3 since 2026-11-11.
   - Its format is `agents.entries` keyed by id, `gateway.nodes.commands.deny`,
     `agents.defaults.modelPolicy.allow`, `agents.ownership: "explicit"`, and an
     agent id of at most 64 characters. 548 of the 1,322 machine-name slugs are

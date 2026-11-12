@@ -88,9 +88,18 @@ for service in "${services[@]}"; do
   pass "$service image identity matches ($running_id)"
 done
 
+# Checked against what was installed, never a pin (RealityEngine_CI#663): the
+# host's openclaw for the native gateway, the version start.sh built the
+# container at otherwise.
+if [[ "$RUNTIME" == native ]]; then
+  expected_version="$(env PATH="$(dirname "$OC_BIN"):$PATH" "$OC_BIN" --version 2>/dev/null | awk '{print $2}')"
+else
+  expected_version="${OPENCLAW_VERSION:-}"
+fi
+[[ -n "$expected_version" ]] || fail "no installed OpenClaw version to check the runtime against"
 actual_version="$(oc_run 30 --version | tr -d '\r')"
-[[ "$actual_version" == *"$OPENCLAW_VERSION"* ]] || fail "OpenClaw version mismatch: $actual_version"
-pass "OpenClaw runtime is $OPENCLAW_VERSION"
+[[ "$actual_version" == *"$expected_version"* ]] || fail "OpenClaw version mismatch: runtime $actual_version, installed $expected_version"
+pass "OpenClaw runtime is $expected_version (the installed release)"
 
 # Retry: this runs immediately after container (re)creation, and open-webui in
 # particular can still be binding.  A single attempt made the whole script exit
