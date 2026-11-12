@@ -54,7 +54,9 @@ pin_image() {
 openclaw_version="$(latest_npm_version openclaw)"
 openwebui_tag="$(latest_release open-webui/open-webui)"
 
-upsert_env OPENCLAW_VERSION "$openclaw_version"
+# OpenClaw is not pinned (RealityEngine_CI#663): start.sh resolves npm's
+# current release at every start, and a stale OPENCLAW_VERSION left in .env is
+# only its fallback when npm can't be read.
 # The Node base is the one-minor tag the Dockerfile names (RealityEngine_CI
 # scripts/advance-node.sh moves it); this resolves it to a digest.
 pin_image NODE_IMAGE "$(sed -n 's/^ARG NODE_IMAGE=//p' Dockerfile.openclaw-gateway)"
@@ -65,4 +67,4 @@ mv "$next_env" .env
 chmod 600 .env
 trap - EXIT
 
-echo "Pinned OpenClaw ${openclaw_version}, Node base, Open WebUI ${openwebui_tag}, and browser image digests."
+echo "Pinned the Node base, Open WebUI ${openwebui_tag} and browser image digests; OpenClaw ${openclaw_version} is current (start.sh resolves it each start)."

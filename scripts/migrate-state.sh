@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
-# Bring openclaw/ (config, agent databases, sessions) up to the pinned
-# OPENCLAW_VERSION before the gateway starts.
+# Bring openclaw/ (config, agent databases, sessions) up to the OpenClaw the
+# gateway will run before it starts. That is OPENCLAW_VERSION when the caller
+# names it (native-gateway.sh exports the installed version, start.sh the one
+# the container is built at); otherwise the host's installed openclaw (native)
+# or npm's current release (container). Nothing is pinned (RealityEngine_CI#663).
 #
 # A newer gateway refuses state an older one wrote until `openclaw doctor --fix`
 # migrates it, offline. Moving 2026.6.10 → 2026.10.7 on 2026-10-24:
@@ -12,14 +15,14 @@
 #     gateway.nodes.denyCommands → gateway.nodes.commands.deny, and a
 #     modelPolicy allowlist.
 #
-# So: when the config was last written by a version other than the pin, or is
+# So: when the config was last written by a version other than the target, or is
 # still in the agents.list format, this backs up openclaw/, stops the gateway,
-# runs the doctor at 2026.9.7 first if the state predates it, then at the pin.
+# runs the doctor at 2026.9.7 first if the state predates it, then at the target.
 # A fresh install (no openclaw.json yet) has nothing to migrate.
 #
-# Container stack by default (openclaw/, the doctor run in the pinned image). With
+# Container stack by default (openclaw/, the doctor run in the target's image). With
 # OPENCLAW_STATE_DIR set it migrates a native gateway's state directory with the
-# host's own `openclaw`, which must already be the pin; the caller stops that
+# host's own `openclaw`, which must already be the target; the caller stops that
 # gateway first (scripts/native-gateway.sh does).
 #
 #   scripts/migrate-state.sh            # migrate if needed
@@ -43,12 +46,19 @@ if [[ -f .env ]]; then
 fi
 # shellcheck source=lib/oc-config.sh
 source "$ROOT_DIR/scripts/lib/oc-config.sh"
-TARGET="${OPENCLAW_VERSION:-$(sed -n 's/^ARG OPENCLAW_VERSION=//p' Dockerfile.openclaw-gateway 2>/dev/null || true)}"
-[[ -n "$TARGET" ]] || { echo "[migrate-state] no OpenClaw version to migrate to: set OPENCLAW_VERSION" >&2; exit 1; }
+# shellcheck source=lib/openclaw-version.sh
+source "$ROOT_DIR/scripts/lib/openclaw-version.sh"
 # The last release whose doctor accepts state from before July 2026.
 STEP_VERSION="2026.9.7"
 NATIVE=false
 [[ -n "${OPENCLAW_STATE_DIR:-}" ]] && NATIVE=true
+TARGET="${OPENCLAW_VERSION:-}"
+if [[ -z "$TARGET" && "$NATIVE" == true ]]; then
+  TARGET="$(openclaw_installed "$(command -v openclaw || true)")"
+elif [[ -z "$TARGET" ]]; then
+  TARGET="$(openclaw_current npm)"
+fi
+[[ -n "$TARGET" ]] || { echo "[migrate-state] no OpenClaw version to migrate to: none installed, npm unreadable, and OPENCLAW_VERSION unset" >&2; exit 1; }
 
 note() { echo "[migrate-state] $*"; }
 die() { echo "[migrate-state] $*" >&2; exit 1; }
@@ -65,24 +75,32 @@ if [[ "$touched" == "$TARGET" && "$legacy" == false ]]; then
   note "state is current ($TARGET)"
   exit 0
 fi
-# No stamp, entries format: this stack's scripts wrote it for the pin, and no
-# gateway has rewritten it yet. There is nothing older to migrate.
+# No stamp, entries format: this stack's scripts wrote it for the target, and no
+# gateway has rewritten it yet. There is nothing older to migrate, unless a
+# gateway has already run on it: its agent databases are then at that gateway's
+# schema, which a newer one refuses until the doctor runs. Seen 2026-11-11, an
+# unstamped native home moved 2026.10.8 -> 2026.11.3: "agent database ... uses
+# schema version 25 ... run openclaw doctor --fix", exit 78.
 if [[ "$touched" == 0 && "$legacy" == false ]]; then
-  note "state was generated for $TARGET and not yet stamped by a gateway; nothing to migrate"
-  exit 0
+  if ! find "$OC_DIR/agents" -name '*.sqlite' -print -quit 2>/dev/null | grep -q .; then
+    note "state was generated for $TARGET and not yet stamped by a gateway; nothing to migrate"
+    exit 0
+  fi
+  note "state is unstamped but a gateway has run on it (agent databases exist): migrating to $TARGET"
+  touched="unknown"
 fi
 if [[ "$CHECK" == true ]]; then
-  note "migration needed: state written by $touched$([[ "$legacy" == true ]] && echo ', agents.list format'), pin is $TARGET"
+  note "migration needed: state written by $touched$([[ "$legacy" == true ]] && echo ', agents.list format'), target is $TARGET"
   exit 1
 fi
-version_lt "$TARGET" "$touched" && \
-  die "state was written by $touched, newer than the pin $TARGET; refusing to downgrade it"
+[[ "$touched" != unknown ]] && version_lt "$TARGET" "$touched" && \
+  die "state was written by $touched, newer than the target $TARGET; refusing to downgrade it"
 
 if [[ "$NATIVE" == true ]]; then
   command -v openclaw >/dev/null || die "openclaw is not on PATH"
   host="$(openclaw --version 2>/dev/null | awk '{print $2}')"
   [[ "$host" == "$TARGET" ]] || \
-    die "the host openclaw is ${host:-unknown}, not the pin $TARGET: npm install -g openclaw@$TARGET"
+    die "the host openclaw is ${host:-unknown}, not the target $TARGET: npm install -g openclaw@$TARGET"
   if version_lt "$touched" "$STEP_VERSION" && version_lt "$STEP_VERSION" "$TARGET"; then
     die "state was written by $touched, before $STEP_VERSION, whose doctor must run first; the host has $host only. Move $OC_DIR aside and let the next start generate a fresh one"
   fi
@@ -122,7 +140,7 @@ doctor() { # <version>
 if [[ "$NATIVE" == false ]] && version_lt "$touched" "$STEP_VERSION" && version_lt "$STEP_VERSION" "$TARGET"; then
   doctor "$STEP_VERSION"
 fi
-# Twice at the pin: the first pass upgrades the agent databases, and on
+# Twice at the target: the first pass upgrades the agent databases, and on
 # 2026-10-24 asked for a second to migrate session identities.
 doctor "$TARGET"
 doctor "$TARGET"

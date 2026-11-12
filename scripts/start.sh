@@ -193,7 +193,26 @@ if [[ "$NATIVE" == true ]]; then
   exit 0
 fi
 
-# State an older gateway wrote must be migrated, offline, before the pinned one
+# OpenClaw is kept current (RealityEngine_CI#663): build at npm's current
+# release. If npm can't be read, keep the version .env names, and say so.
+# shellcheck source=lib/openclaw-version.sh
+source "$ROOT_DIR/scripts/lib/openclaw-version.sh"
+OC_CURRENT="$(openclaw_current npm)"
+if [[ -n "$OC_CURRENT" ]]; then
+  [[ -n "${OPENCLAW_VERSION:-}" && "$OPENCLAW_VERSION" != "$OC_CURRENT" ]] && \
+    info "OpenClaw: .env names ${OPENCLAW_VERSION}; building the current $OC_CURRENT"
+  export OPENCLAW_VERSION="$OC_CURRENT"
+elif [[ -n "${OPENCLAW_VERSION:-}" ]]; then
+  warn "could not read npm's current openclaw; building the .env version $OPENCLAW_VERSION"
+else
+  die "could not read npm's current openclaw, and .env names no OPENCLAW_VERSION to fall back on"
+fi
+if oc_version_lt "$OPENCLAW_VERSION" "$(openclaw_min)"; then
+  die "OpenClaw $OPENCLAW_VERSION is below the floor $(openclaw_min)"
+fi
+info "OpenClaw gateway image at $OPENCLAW_VERSION"
+
+# State an older gateway wrote must be migrated, offline, before the new one
 # will boot on it (scripts/migrate-state.sh).
 docker compose build openclaw-gateway
 "$ROOT_DIR/scripts/migrate-state.sh"

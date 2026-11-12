@@ -8,9 +8,12 @@
 #   scripts/native-gateway.sh check                       preflight only, changes nothing
 #   scripts/native-gateway.sh render                      write the LaunchAgent plist, load nothing
 #
-# It runs the host's own `openclaw` (npm -g), which must be the release this stack
-# pins (OPENCLAW_VERSION), on a Node that release accepts, as a user LaunchAgent on
-# 127.0.0.1. Containers reach it through host.docker.internal.
+# It runs the host's own `openclaw` (npm -g), kept current rather than pinned
+# (RealityEngine_CI#663): `up` updates it to npm's `openclaw@latest` when it is
+# behind, refuses it below the floor (OPENCLAW_MIN) if that update fails, and
+# keeps the installed version, saying so, when npm can't be read. It runs on a
+# Node that release accepts, as a user LaunchAgent on 127.0.0.1. Containers
+# reach it through host.docker.internal.
 #
 # Its home is OPENCLAW_NATIVE_HOME (default ~/.realityengine/openclaw), handed to
 # OpenClaw as OPENCLAW_STATE_DIR. The user's own ~/.openclaw is never read or
@@ -37,6 +40,8 @@ cd "$ROOT_DIR"
 
 # shellcheck source=lib/lane-tls.sh
 source "$ROOT_DIR/scripts/lib/lane-tls.sh"
+# shellcheck source=lib/openclaw-version.sh
+source "$ROOT_DIR/scripts/lib/openclaw-version.sh"
 
 CYAN='\033[0;36m'; GREEN='\033[0;32m'; YELLOW='\033[1;33m'; RED='\033[0;31m'; NC='\033[0m'
 info() { echo -e "${CYAN}[native-gateway]${NC} $*"; }
@@ -64,9 +69,7 @@ if [[ -f .env ]]; then
   set -a; source .env; set +a
   eval "$_caller_env"
 fi
-# The release's copy of these scripts has no Dockerfile; its caller passes the pin.
-PIN="${OPENCLAW_VERSION:-$(sed -n 's/^ARG OPENCLAW_VERSION=//p' Dockerfile.openclaw-gateway 2>/dev/null || true)}"
-[[ -n "$PIN" ]] || die "no OpenClaw version to check against: set OPENCLAW_VERSION"
+MIN="$(openclaw_min)"
 NATIVE_HOME="${OPENCLAW_NATIVE_HOME:-$HOME/.realityengine/openclaw}"
 PORT="${OPENCLAW_GATEWAY_PORT:-18789}"
 LABEL="${OPENCLAW_NATIVE_LABEL:-org.realityengine.openclaw-gateway}"
@@ -86,7 +89,7 @@ resolve_bins() {
     else OPENCLAW_BIN="$(command -v openclaw || true)"; fi
   fi
   [[ -n "$OPENCLAW_BIN" && -x "$OPENCLAW_BIN" ]] || \
-    die "openclaw is not installed: npm install -g openclaw@$PIN, on the Node it requires (${OPENCLAW_NODE_EXACT:-see its engines field})"
+    die "openclaw is not installed: npm install -g openclaw@latest, on the Node it requires (${OPENCLAW_NODE_EXACT:-see its engines field})"
   NODE_BIN="${OPENCLAW_NODE:-}"
   if [[ -z "$NODE_BIN" ]]; then
     if [[ -x "$(dirname "$OPENCLAW_BIN")/node" ]]; then NODE_BIN="$(dirname "$OPENCLAW_BIN")/node"
@@ -106,9 +109,18 @@ resolve_bins() {
 preflight() {
   resolve_bins
   local version node_version engines
-  version="$(env PATH="$BIN_PATH" "$OPENCLAW_BIN" --version 2>/dev/null | awk '{print $2}')"
-  [[ "$version" == "$PIN" ]] || \
-    die "the host openclaw is ${version:-unknown}, this stack pins $PIN: PATH=$(dirname "$NODE_BIN"):\$PATH npm install -g openclaw@$PIN"
+  version="$(openclaw_installed "$OPENCLAW_BIN" "$BIN_PATH")"
+  [[ -n "$version" ]] || die "$OPENCLAW_BIN does not report a version"
+  OC_INSTALLED="$version"
+  OC_CURRENT="$(openclaw_current "$(dirname "$NODE_BIN")/npm")"
+  if [[ -z "$OC_CURRENT" ]]; then
+    warn "could not read npm's current openclaw; keeping the installed $version"
+  elif oc_version_lt "$version" "$OC_CURRENT"; then
+    warn "the host openclaw $version is behind the current $OC_CURRENT; 'up' updates it"
+  fi
+  if oc_version_lt "$version" "$MIN"; then
+    warn "the host openclaw $version is below the floor $MIN; 'up' updates it, and refuses it if that fails"
+  fi
   node_version="$("$NODE_BIN" --version | sed 's/^v//')"
   # The package's own engines field: the bin is a symlink to <package>/openclaw.mjs.
   engines="$("$NODE_BIN" -e '
@@ -138,6 +150,30 @@ preflight() {
     ok "lane TLS on: $OPENCLAW_TLS_DIR"
   fi
   oc_curl -sf -m 5 "$OLLAMA_URL/api/version" >/dev/null || warn "Ollama does not answer at $OLLAMA_URL"
+}
+
+# Bring the host openclaw to npm's current release (RealityEngine_CI#663). Run
+# with the gateway unloaded: npm replaces the package under a running gateway.
+ensure_current() {
+  local npm_bin before="$OC_INSTALLED"
+  npm_bin="$(dirname "$NODE_BIN")/npm"
+  if [[ -n "$OC_CURRENT" ]] && oc_version_lt "$OC_INSTALLED" "$OC_CURRENT"; then
+    info "updating the host openclaw $before → $OC_CURRENT ($npm_bin install -g openclaw@$OC_CURRENT)"
+    env PATH="$BIN_PATH:$PATH" "$npm_bin" install -g "openclaw@$OC_CURRENT" >/dev/null 2>&1 || \
+      warn "npm could not install openclaw@$OC_CURRENT"
+    OC_INSTALLED="$(openclaw_installed "$OPENCLAW_BIN" "$BIN_PATH")"
+    if [[ "$OC_INSTALLED" == "$OC_CURRENT" ]]; then
+      ok "openclaw updated: $before → $OC_INSTALLED"
+    else
+      warn "openclaw is still ${OC_INSTALLED:-unknown}, not $OC_CURRENT"
+    fi
+  fi
+  if oc_version_lt "${OC_INSTALLED:-0}" "$MIN"; then
+    die "the host openclaw ${OC_INSTALLED:-unknown} is below the floor $MIN and could not be updated"
+  fi
+  # The version the gateway runs is the one migrate-state.sh migrates to and
+  # verify-deployment.sh checks: what is installed, not a pin.
+  export OPENCLAW_VERSION="$OC_INSTALLED"
 }
 
 loaded() { launchctl print "gui/$(id -u)/$LABEL" >/dev/null 2>&1; }
@@ -263,6 +299,7 @@ case "$CMD" in
       die "port $PORT is held by another process ($(lsof -nP -iTCP:"$PORT" -sTCP:LISTEN | awk 'NR==2{print $1" pid "$2}')); stop it first (the container gateway: docker compose stop openclaw-gateway)"
     fi
     unload
+    ensure_current
     if [[ "$GENERATE" == true ]]; then
       generate
     else

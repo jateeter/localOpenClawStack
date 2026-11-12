@@ -1,10 +1,13 @@
 ARG NODE_IMAGE=node:26.12-bookworm-slim
 FROM ${NODE_IMAGE}
 
-ARG OPENCLAW_VERSION=2026.10.8
+# Not pinned (RealityEngine_CI#663): scripts/start.sh resolves npm's current
+# release and passes it, so the image is tagged and labelled with the version
+# it got. `latest` is only the fallback for a bare docker build.
+ARG OPENCLAW_VERSION=latest
 
 LABEL org.opencontainers.image.title="OpenClaw Gateway"
-LABEL org.opencontainers.image.description="Pinned OpenClaw gateway runtime"
+LABEL org.opencontainers.image.description="OpenClaw gateway runtime, kept current"
 LABEL org.opencontainers.image.source="https://github.com/openclaw/openclaw"
 LABEL org.opencontainers.image.version="${OPENCLAW_VERSION}"
 
