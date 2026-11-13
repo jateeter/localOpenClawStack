@@ -1,4 +1,4 @@
-ARG NODE_IMAGE=node:26.12-bookworm-slim
+ARG NODE_IMAGE=node:26.13-bookworm-slim
 FROM ${NODE_IMAGE}
 
 # Not pinned (RealityEngine_CI#663): scripts/start.sh resolves npm's current
