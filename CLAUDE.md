@@ -27,7 +27,7 @@ This repo provides the local OpenClaw ACP/xACP gateway and Open WebUI stack used
 ```bash
 docker compose config
 docker compose ps
-./scripts/init-secrets.sh
+./scripts/init-secrets.sh   # secrets into the suite's secrets home (below)
 ./scripts/update-versions.sh
 ./scripts/start.sh
 ./scripts/start.sh --agent-profile=regression
@@ -38,6 +38,11 @@ docker compose ps
 ```
 
 Use the repo's actual scripts when present; Docker Compose state is time-sensitive and should be verified live.
+
+
+## Secrets
+
+`OPENCLAW_GATEWAY_TOKEN`, `WEBUI_SECRET_KEY` and `WEBUI_ADMIN_PASSWORD` live in the suite's one secrets home, `$RE_SECRETS_DIR/localOpenClawStack/secrets.env` (default `~/.reality-engine/secrets/localOpenClawStack/secrets.env`; `scripts/lib/secrets-home.sh`; owner, 2026-11-14): one place per machine, outside every repository, shared by every checkout and by RealityEngine_CI's regression worktrees, which export `RE_SECRETS_DIR`. `init-secrets.sh` creates them there, and `start.sh` copies a real value still in `.env` into an empty home, verified, before it starts. `.env` keeps operator settings and is never edited to remove a secret; the home wins over it.
 
 ## Runtime Contract
 
@@ -108,7 +113,8 @@ Use the repo's actual scripts when present; Docker Compose state is time-sensiti
     LaunchAgent, and checks `/v1/models` lists every agent of the profile and
     refuses a call without the token.
   - The LaunchAgent runs `scripts/native-gateway-run.sh`, which reads only
-    `OPENCLAW_GATEWAY_TOKEN` from `.env` at start: no secret is in the plist.
+    `OPENCLAW_GATEWAY_TOKEN` at start, from the secrets home (below), else `.env`:
+    no secret is in the plist.
   - Agents run sandboxed in Docker. `openclaw-sandbox:bookworm-slim` is built from
     `docker/sandbox/Dockerfile`, vendored from OpenClaw's source at the pinned
     release (the npm package names the image but does not ship it).

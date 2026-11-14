@@ -24,22 +24,43 @@ current_value() {
   sed -n "s/^$1=//p" .env | tail -n 1
 }
 
-ensure_secret() {
-  local key="$1" value
-  value="$(current_value "$key")"
-  if [[ -z "$value" || "$value" == change-me-* ]]; then
-    upsert_env "$key" "$(openssl rand -hex 32)"
-  fi
+# The secrets live in the suite's one secrets home, not in .env
+# (scripts/lib/secrets-home.sh; owner, 2026-11-14): one place per machine,
+# outside every repository, shared by every checkout. A real value still in .env
+# is copied there once and verified; .env is never edited to remove it.
+# shellcheck source=lib/secrets-home.sh
+source "$ROOT_DIR/scripts/lib/secrets-home.sh"
+SECRETS_FILE="$(oc_secrets_file)"
+( umask 077; mkdir -p "$(dirname "$SECRETS_FILE")"; touch "$SECRETS_FILE" )
+chmod 700 "$(dirname "$SECRETS_FILE")"; chmod 600 "$SECRETS_FILE"
+
+set_home_secret() {
+  local key="$1" value="$2" tmp
+  tmp="$(mktemp "$(dirname "$SECRETS_FILE")/.secrets.env.XXXXXX")"
+  awk -v key="$key" -v value="$value" '
+    BEGIN { found = 0 }
+    $0 ~ "^" key "=" { print key "=" value; found = 1; next }
+    { print }
+    END { if (!found) print key "=" value }
+  ' "$SECRETS_FILE" > "$tmp"
+  chmod 600 "$tmp"; mv "$tmp" "$SECRETS_FILE"
+  [[ "$(_oc_env_value "$SECRETS_FILE" "$key")" == "$value" ]] || {
+    echo "init-secrets: writing $key to $SECRETS_FILE did not verify" >&2; exit 1; }
 }
 
-ensure_password() {
-  local key="$1" value
+ensure_home() { # <KEY> <generator>
+  local key="$1" generate="$2" value
+  [[ -n "$(_oc_env_value "$SECRETS_FILE" "$key")" ]] && return 0
   value="$(current_value "$key")"
-  if [[ -z "$value" || "$value" == change-me-* ]]; then
-    # Meets Open WebUI's default uppercase/lowercase/digit/symbol policy.
-    upsert_env "$key" "Aa1!$(openssl rand -hex 28)"
-  fi
+  if [[ -z "$value" || "$value" == change-me-* ]]; then value="$("$generate")"; fi
+  set_home_secret "$key" "$value"
 }
+
+new_secret() { openssl rand -hex 32; }
+# Meets Open WebUI's default uppercase/lowercase/digit/symbol policy.
+new_password() { printf 'Aa1!%s' "$(openssl rand -hex 28)"; }
+ensure_secret() { ensure_home "$1" new_secret; }
+ensure_password() { ensure_home "$1" new_password; }
 
 ensure_secret OPENCLAW_GATEWAY_TOKEN
 ensure_secret WEBUI_SECRET_KEY
