@@ -20,11 +20,11 @@ run_schema() {
   mkdir -p "$tpl_ws" "$dir/agents/ifrs-sec01-generalpurposefs-verifier/agent" "$dir/logs"
   echo '{"agentId":"ifrs-sec01-generalpurposefs-verifier"}' > "$tpl_ws/oc-agent.json"
   echo '# IFRS_Sec01_GeneralPurposeFS_Verifier' > "$tpl_ws/AGENTS.md"
-  echo '{"providers":{},"selected":{"model":"ollama/nemotron-3-nano:4b-mlx"}}' > "$dir/agents/ifrs-sec01-generalpurposefs-verifier/agent/models.json"
+  echo '{"providers":{},"selected":{"model":"ollama/nemotron-3-nano:4b"}}' > "$dir/agents/ifrs-sec01-generalpurposefs-verifier/agent/models.json"
   echo '{"agents":[{"agentId":"ifrs-sec01-generalpurposefs-verifier","machineId":"IFRS_Sec01_GeneralPurposeFS_Verifier"}]}' \
     > "$dir/workspaces/machine-behaviors/INDEX.json"
   local tpl main
-  tpl="{\"name\":\"IFRS Sec01\",\"workspace\":\"/home/node/.openclaw/workspaces/machine-behaviors/ifrs-sec01-generalpurposefs-verifier\",\"agentDir\":\"/home/node/.openclaw/agents/ifrs-sec01-generalpurposefs-verifier/agent\",\"model\":{\"primary\":\"ollama/nemotron-3-nano:4b-mlx\"},\"sandbox\":{\"mode\":\"all\"}}"
+  tpl="{\"name\":\"IFRS Sec01\",\"workspace\":\"/home/node/.openclaw/workspaces/machine-behaviors/ifrs-sec01-generalpurposefs-verifier\",\"agentDir\":\"/home/node/.openclaw/agents/ifrs-sec01-generalpurposefs-verifier/agent\",\"model\":{\"primary\":\"ollama/nemotron-3-nano:4b\"},\"sandbox\":{\"mode\":\"all\"}}"
   main='{"name":"Main","workspace":"/home/node/.openclaw/workspace","agentDir":"/home/node/.openclaw/agents/main/agent"}'
   if [[ "$schema" == entries ]]; then
     echo "{\"gateway\":{\"mode\":\"local\"},\"agents\":{\"entries\":{\"main\":$main,\"ifrs-sec01-generalpurposefs-verifier\":$tpl}}}" | jq . > "$dir/openclaw.json"
