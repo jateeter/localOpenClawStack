@@ -42,6 +42,8 @@ cd "$ROOT_DIR"
 source "$ROOT_DIR/scripts/lib/lane-tls.sh"
 # shellcheck source=lib/openclaw-version.sh
 source "$ROOT_DIR/scripts/lib/openclaw-version.sh"
+# shellcheck source=lib/secrets-home.sh
+source "$ROOT_DIR/scripts/lib/secrets-home.sh"
 
 CYAN='\033[0;36m'; GREEN='\033[0;32m'; YELLOW='\033[1;33m'; RED='\033[0;31m'; NC='\033[0m'
 info() { echo -e "${CYAN}[native-gateway]${NC} $*"; }
@@ -273,7 +275,7 @@ wait_ready() {
   oc_curl -sf -m 3 "$base/healthz" >/dev/null 2>&1 || \
     die "the gateway did not answer /healthz on $base; see $LOG_DIR/gateway.log"
   ok "gateway answers on $base"
-  token="$(sed -n 's/^OPENCLAW_GATEWAY_TOKEN=//p' .env | tail -1 | tr -d "\"'")"
+  token="$(oc_secret OPENCLAW_GATEWAY_TOKEN .env)"
   code="$(oc_curl -s -m 5 -o /dev/null -w '%{http_code}' "$base/v1/models")"
   [[ "$code" == 401 ]] || die "/v1/models without the token returned $code, expected 401"
   ids="$(oc_curl -sf -m 10 -H "Authorization: Bearer $token" "$base/v1/models" | jq -r '.data[].id')" || \

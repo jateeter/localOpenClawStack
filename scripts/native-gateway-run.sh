@@ -8,9 +8,14 @@
 set -eu
 
 ROOT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
-token="$(sed -n 's/^OPENCLAW_GATEWAY_TOKEN=//p' "$ROOT_DIR/.env" | tail -1 | tr -d "\"'")"
+# The token, from the suite's secrets home (scripts/lib/secrets-home.sh,
+# inlined: the LaunchAgent runs this script on its own), else .env.
+secrets="${RE_SECRETS_DIR:-${RE_INSTANCE_STATE_DIR:-$HOME/.reality-engine}/secrets}/localOpenClawStack/secrets.env"
+token=""
+[ -f "$secrets" ] && token="$(sed -n 's/^OPENCLAW_GATEWAY_TOKEN=//p' "$secrets" | tail -1 | tr -d "\"'")"
+[ -n "$token" ] || token="$(sed -n 's/^OPENCLAW_GATEWAY_TOKEN=//p' "$ROOT_DIR/.env" | tail -1 | tr -d "\"'")"
 if [ -z "$token" ]; then
-  echo "native-gateway-run: OPENCLAW_GATEWAY_TOKEN is not set in $ROOT_DIR/.env" >&2
+  echo "native-gateway-run: OPENCLAW_GATEWAY_TOKEN is not set in $secrets or $ROOT_DIR/.env" >&2
   exit 1
 fi
 

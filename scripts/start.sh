@@ -49,9 +49,15 @@ if [[ ! -f .env ]]; then
 fi
 # shellcheck source=/dev/null
 set -a; source .env; set +a
+# The secrets come from the suite's secrets home, which wins over .env
+# (scripts/lib/secrets-home.sh; owner, 2026-11-14).
+# shellcheck source=lib/secrets-home.sh
+source "$ROOT_DIR/scripts/lib/secrets-home.sh"
+oc_secrets_migrate .env
+oc_secrets_export .env
 
 if [[ -z "${OPENCLAW_GATEWAY_TOKEN:-}" || "${OPENCLAW_GATEWAY_TOKEN}" == "change-me-to-a-random-secret" ]]; then
-  die "OPENCLAW_GATEWAY_TOKEN is not set in .env — edit .env before starting."
+  die "OPENCLAW_GATEWAY_TOKEN is not set in $(oc_secrets_file) or .env — run ./scripts/init-secrets.sh."
 fi
 
 for REQUIRED_VAR in WEBUI_ADMIN_EMAIL WEBUI_ADMIN_PASSWORD WEBUI_SECRET_KEY; do

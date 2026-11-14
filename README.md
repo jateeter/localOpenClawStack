@@ -13,7 +13,7 @@ A local Docker-based deployment stack for OpenClaw (OpenClay) development.
    ```bash
    cp .env.example .env
    ```
-2. Generate secure local credentials:
+2. Generate secure local credentials (written to the suite's secrets home, `~/.reality-engine/secrets/localOpenClawStack/secrets.env`, not to `.env`):
    ```bash
    ./scripts/init-secrets.sh
    ```

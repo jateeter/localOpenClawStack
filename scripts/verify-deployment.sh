@@ -5,6 +5,9 @@ ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT_DIR"
 # shellcheck source=/dev/null
 set -a; source .env; set +a
+# shellcheck source=lib/secrets-home.sh
+source "$ROOT_DIR/scripts/lib/secrets-home.sh"
+oc_secrets_export .env
 
 fail() { echo "[fail] $*" >&2; exit 1; }
 # shellcheck source=lib/lane-tls.sh
