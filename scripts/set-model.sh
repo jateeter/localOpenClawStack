@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Switch OpenClaw's default model on command.
 #
-#   scripts/set-model.sh nemotron-3-nano:4b     # an Ollama tag (an "ollama/" prefix is accepted)
+#   scripts/set-model.sh nemotron-3-nano:4b-mlx     # an Ollama tag (an "ollama/" prefix is accepted)
 #
 # OPENCLAW_DEFAULT_MODEL only seeds a *fresh* openclaw.json; an existing config
 # keeps the model it was generated with. This rewrites agents.defaults.model.primary
@@ -20,7 +20,7 @@ source "$ROOT_DIR/scripts/lib/oc-config.sh"
 
 tag="${1:-}"
 tag="${tag#ollama/}"
-[[ -n "$tag" ]] || { echo "usage: scripts/set-model.sh <ollama-tag>   e.g. nemotron-3-nano:4b" >&2; exit 2; }
+[[ -n "$tag" ]] || { echo "usage: scripts/set-model.sh <ollama-tag>   e.g. nemotron-3-nano:4b-mlx" >&2; exit 2; }
 [[ -f "$OC_CONFIG" ]] || { echo "$OC_CONFIG not found — run scripts/start.sh first" >&2; exit 1; }
 SCHEMA="$(oc_schema "$OC_CONFIG")"
 
