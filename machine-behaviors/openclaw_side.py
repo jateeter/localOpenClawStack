@@ -259,7 +259,9 @@ def _simulate_textual_response(envelope: dict[str, Any], agent_rec: dict[str, An
 
 
 def _build_completion(envelope: dict[str, Any], agent_rec: dict[str, Any],
-                      target: dict[str, Any]) -> dict[str, Any]:
+                      target: dict[str, Any],
+                      provenance: dict[str, Any] | None = None) -> dict[str, Any]:
+    from synthetic_body import completion_metadata
     wb = agent_rec["agentBinding"]["writeBack"]
     return {  # localai-completion-writeback.schema.json
         "provider": "acp",
@@ -279,14 +281,64 @@ def _build_completion(envelope: dict[str, Any], agent_rec: dict[str, Any],
             "autonomyMode": envelope["dispatch"]["autonomyMode"],
             "semantics": target["semantics"],
             "normalizations": target.get("normalizations", []),
+            **completion_metadata(provenance or {}),
         },
         "triggerPush": wb["ingest"]["triggerPush"],
         "compactPush": wb["ingest"]["compactPush"],
     }
 
 
+def _turn(envelope: dict[str, Any], agent_rec: dict[str, Any], cfg: dict[str, Any],
+          model_turn, step: int) -> tuple[Any, dict[str, Any]]:
+    """The action's answer and its provenance: the model's, or the synthetic body's.
+
+    With no model turn supplied this module has no model to ask, so the answer
+    is the synthetic body's (synthetic_body.py), labelled as such. With one,
+    the synthetic body answers per its mode: off never, fallback when the model
+    fails or does not resolve, always in place of the model.
+    """
+    import synthetic_body
+    mapping = agent_rec["responseMapping"]
+    mode = envelope["dispatch"]["autonomyMode"]
+    effective = synthetic_body.resolve(cfg, _as_object(envelope.get("ces")).get("domain", ""))
+    failure = None
+    if model_turn is not None and effective["mode"] != "always":
+        try:
+            response = model_turn(envelope, agent_rec)
+            targets, extracted, unresolved = apply_response_mapping(response, mapping)
+            # A failed or blocked outcome has no action class by contract
+            # (verdict "blocked" maps to none), so that one gap is not a failure
+            # of the answer; any other unresolved field is.
+            failed = next((f["value"] for f in extracted if f["semantic"] == "failed"), None) == 1.0
+            missing = [u["semantic"] for u in unresolved
+                       if not (failed and u["semantic"] == "actionClass")]
+            if (targets or mode == "observe") and not missing:
+                return response, {"synthetic": False}
+            failure = f"model answer did not resolve: {', '.join(missing) or 'no write-back'}"
+            if effective["mode"] == "off":
+                return response, {"synthetic": False}
+        except Exception as exc:  # unreachable, timeout, refused
+            if effective["mode"] == "off":
+                raise
+            failure = f"model turn failed: {exc}"
+    if not synthetic_body.admissible(mode, envelope["governance"]["ragStatusCode"],
+                                     agent_rec["agentBinding"].get("riskControls")):
+        # observe writes no vector, so there is nothing to synthesize; its
+        # acknowledgement is unchanged.
+        return _simulate_textual_response(envelope, agent_rec), {"synthetic": False}
+    synthesized = synthetic_body.synthesize(
+        agent=agent_rec["agent"], mode=mode, rag=envelope["governance"]["ragStatusCode"],
+        risk_controls=agent_rec["agentBinding"].get("riskControls"),
+        strategy=effective["strategy"], seed_key=envelope.get("correlationId"), step=step)
+    provenance = {**synthesized["provenance"], "mode": effective["mode"],
+                  **({"replaced": failure} if failure else {})}
+    return (synthetic_body.answer_text(synthesized["answer"], agent_rec["agent"], semantic_label(envelope)),
+            provenance)
+
+
 def run(envelope: dict[str, Any], agent_rec: dict[str, Any], cfg: dict[str, Any],
-        logger: BehaviorLogger, live: bool = False) -> dict[str, Any]:
+        logger: BehaviorLogger, live: bool = False, model_turn=None,
+        step: int = 0) -> dict[str, Any]:
     oc = _as_object(cfg.get("openclaw"))
     mapping = agent_rec["responseMapping"]
     binding = agent_rec["agentBinding"]
@@ -297,11 +349,12 @@ def run(envelope: dict[str, Any], agent_rec: dict[str, Any], cfg: dict[str, Any]
                targetAgent=agent_rec["agent"], command=oc.get("command"),
                envelopeId=envelope["envelopeId"], trigger=binding["trigger"])
 
-    response_text = _simulate_textual_response(envelope, agent_rec)
+    response_text, provenance = _turn(envelope, agent_rec, cfg, model_turn, step)
     targets, extracted, unresolved = apply_response_mapping(response_text, mapping)
     logger.log("openclaw.agent-response", acpRunId=acp_run_id, agent=agent_rec["agent"],
                autonomyMode=envelope["dispatch"]["autonomyMode"],
-               responseFormat=mapping["responseContract"], responseText=response_text)
+               responseFormat=mapping["responseContract"], responseText=response_text,
+               synthetic=bool(provenance.get("synthetic")))
     logger.log("openclaw.response-mapped", acpRunId=acp_run_id,
                extracted={f["semantic"]: f["value"] for f in extracted},
                targetRegions=len(targets))
@@ -310,11 +363,11 @@ def run(envelope: dict[str, Any], agent_rec: dict[str, Any], cfg: dict[str, Any]
         logger.log("openclaw.completion-skipped", acpRunId=acp_run_id,
                    reason="observe-mode-no-writeback", agent=agent_rec["agent"])
         return {"acpRunId": acp_run_id, "responseText": response_text,
-                "extracted": extracted, "completions": []}
+                "extracted": extracted, "completions": [], "provenance": provenance}
 
     completions = []
     for target in targets:
-        completion = _build_completion(envelope, agent_rec, target)
+        completion = _build_completion(envelope, agent_rec, target, provenance)
         logger.log("openclaw.completion-built", acpRunId=acp_run_id, agent=agent_rec["agent"],
                    sensorId=completion["sensorId"], region=completion["region"],
                    semantics=target["semantics"], values=completion["values"])
@@ -326,7 +379,7 @@ def run(envelope: dict[str, Any], agent_rec: dict[str, Any], cfg: dict[str, Any]
                    region=completion["region"])
         completions.append(completion)
     return {"acpRunId": acp_run_id, "responseText": response_text,
-            "extracted": extracted, "completions": completions}
+            "extracted": extracted, "completions": completions, "provenance": provenance}
 
 
 def _post(cfg: dict[str, Any], completion: dict[str, Any], logger: BehaviorLogger) -> str:
