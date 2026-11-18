@@ -44,7 +44,7 @@ jq -e --arg home "$OC_HOME" "$OC_JQ_DEFS"'
   (.agents.defaults.model.primary | length > 0) and
   (.agents.defaults.sandbox.mode == "all") and
   (if ((.agents // {}) | has("entries"))
-   then (.agents.ownership == "explicit" and .agents.defaults.heartbeat.agentId == "main" and
+   then (.agents.ownership == "explicit" and ((.agents.defaults.heartbeat.agentId // "main") == "main") and
          (.agents.entries | has("main")))
    else (oc_agents | map(select(.id == "main" and .default == true)) | length == 1) end)
 ' "$CONFIG_PATH" >/dev/null || fail "OpenClaw defaults/main agent contract is invalid"

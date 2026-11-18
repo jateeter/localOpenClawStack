@@ -74,6 +74,21 @@ scheme="$(oc_lane_scheme)"
 model="$(jq -r '.agents.defaults.model.primary // "ollama/nemotron-3-nano:4b-mlx"' "$OC_CONFIG")"
 ollama_base="${OLLAMA_BASE_URL:-http://host.docker.internal:11434}"
 ollama_model="${model#ollama/}"   # provider model id without the "ollama/" prefix
+# OpenClaw 2026.11.5 retired agents.defaults.heartbeat: a config carrying it is
+# invalid and the gateway refuses to start ("Unrecognized key"). doctor --fix
+# moves it into an automation, and this script used to write it back after.
+# Below 2026.11.5 the fleet still names its heartbeat owner. The version is the
+# one the gateway runs (native-gateway.sh exports OPENCLAW_VERSION), else the
+# host's; unknown means current, since OpenClaw is kept current (#663).
+# shellcheck source=lib/openclaw-version.sh
+source "$ROOT_DIR/scripts/lib/openclaw-version.sh"
+HEARTBEAT_RETIRED_IN="2026.11.5"
+oc_version="${OPENCLAW_VERSION:-$(openclaw_installed "$(command -v openclaw 2>/dev/null || true)")}"
+heartbeat_retired=true
+if [[ -n "$oc_version" ]] && oc_version_lt "$oc_version" "$HEARTBEAT_RETIRED_IN"; then
+  heartbeat_retired=false
+fi
+
 jq --arg localhost_origin "${scheme}://localhost:${port}" \
    --arg loopback_origin "${scheme}://127.0.0.1:${port}" \
    --arg tls_dir "$tls_dir" \
@@ -85,7 +100,8 @@ jq --arg localhost_origin "${scheme}://localhost:${port}" \
    --arg ollama_base "$ollama_base" \
    --argjson ollama_num_ctx "$ollama_num_ctx" \
    --arg ollama_model "$ollama_model" \
-   --arg model "$model" '
+   --arg model "$model" \
+   --argjson heartbeat_retired "$heartbeat_retired" '
     .gateway.mode = "local" |
     .gateway.bind = $bind |
     .gateway.auth.mode = "token" |
@@ -125,7 +141,8 @@ jq --arg localhost_origin "${scheme}://localhost:${port}" \
        .agents.defaults.modelPolicy.allow =
          (((.agents.defaults.modelPolicy.allow // []) + [$model]) | unique) |
        .agents.ownership = "explicit" |
-       .agents.defaults.heartbeat.agentId = "main" |
+       (if $heartbeat_retired then del(.agents.defaults.heartbeat)
+        else .agents.defaults.heartbeat.agentId = "main" end) |
        .agents.defaults.systemAgent.agentId = "main" |
        .talk.agentId = "main"
      else . end) |
