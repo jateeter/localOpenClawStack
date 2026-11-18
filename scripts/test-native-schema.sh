@@ -45,7 +45,7 @@ run_schema() { # schema state-dir
   env OPENCLAW_SCHEMA="$schema" OPENCLAW_STATE_DIR="$dir" OPENCLAW_HOME_DIR="$home" \
       OPENCLAW_GATEWAY_BIND=loopback OPENCLAW_HTTP_ENDPOINTS=true \
       OLLAMA_BASE_URL=http://127.0.0.1:11434 OPENCLAW_AGENT_INDEX_PATH="${INDEX_OVERRIDE:-$INDEX}" \
-      OPENCLAW_DEFAULT_MODEL=ollama/nemotron-3-nano:4b "$@"
+      OPENCLAW_DEFAULT_MODEL=ollama/nemotron-3-nano:4b OPENCLAW_VERSION="${OC_VERSION_OVERRIDE:-2026.11.5}" "$@"
 }
 
 echo "native-schema generators"
@@ -62,7 +62,15 @@ check "entries: agents.entries holds main + 3 agents, no agents.list" \
 check "entries: gateway is on loopback, /v1 enabled, denyCommands moved" \
   jq -e '.gateway.bind == "loopback" and .gateway.http.endpoints.chatCompletions.enabled == true and (.gateway.nodes.commands.deny | index("sms.send")) and (.gateway.nodes | has("denyCommands") | not)' "$CFG"
 check "entries: model allow-list and explicit owner" \
-  jq -e '(.agents.defaults.modelPolicy.allow | index("ollama/nemotron-3-nano:4b")) and .agents.ownership == "explicit" and .agents.defaults.heartbeat.agentId == "main"' "$CFG"
+  jq -e '(.agents.defaults.modelPolicy.allow | index("ollama/nemotron-3-nano:4b")) and .agents.ownership == "explicit" and .agents.defaults.systemAgent.agentId == "main"' "$CFG"
+# OpenClaw 2026.11.5 retired agents.defaults.heartbeat: a config carrying it is
+# refused at gateway start. Below that version the fleet still names its owner.
+check "entries: no heartbeat key from 2026.11.5" jq -e '.agents.defaults | has("heartbeat") | not' "$CFG"
+HB="$T/entries-hb-old"
+OC_VERSION_OVERRIDE=2026.11.4 run_schema entries "$HB" "$HB" "$ROOT_DIR/scripts/harden-config.sh" >/dev/null
+check "entries: heartbeat owner below 2026.11.5" jq -e '.agents.defaults.heartbeat.agentId == "main"' "$HB/openclaw.json"
+OC_VERSION_OVERRIDE=2026.11.5 run_schema entries "$HB" "$HB" "$ROOT_DIR/scripts/harden-config.sh" >/dev/null
+check "entries: an existing heartbeat key is removed on 2026.11.5" jq -e '.agents.defaults | has("heartbeat") | not' "$HB/openclaw.json"
 check "entries: every workspace and agentDir is under the state directory" \
   jq -e --arg d "$E" '[.agents.entries[] | (.workspace, .agentDir)] | all(startswith($d))' "$CFG"
 ! grep -q '/home/node' "$CFG" && ok "entries: no container path in the config" || bad "entries: /home/node leaked into the config"
