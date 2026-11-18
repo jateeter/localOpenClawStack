@@ -115,9 +115,11 @@ Use the repo's actual scripts when present; Docker Compose state is time-sensiti
   - The LaunchAgent runs `scripts/native-gateway-run.sh`, which reads only
     `OPENCLAW_GATEWAY_TOKEN` at start, from the secrets home (below), else `.env`:
     no secret is in the plist.
-  - Agents run sandboxed in Docker. `openclaw-sandbox:bookworm-slim` is built from
-    `docker/sandbox/Dockerfile`, vendored from OpenClaw's source at the pinned
-    release (the npm package names the image but does not ship it).
+  - Agents run sandboxed in Docker. `openclaw-sandbox:trixie-slim` (Debian 13,
+    OpenClaw's default from 2026.11.5) is built from `docker/sandbox/Dockerfile`,
+    vendored from OpenClaw's source (the npm package names the image but does
+    not ship it), and `harden-config.sh` names it in the config
+    (`agents.defaults.sandbox.docker.image`).
   - The browser sidecar publishes CDP on `127.0.0.1:${RE_PORT_BROWSER_CDP:-9222}`
     only. The image starts Chromium as `wrapped-chromium ${CHROME_CLI}` and proxies
     its debugging port through nginx on 9223; compose sets

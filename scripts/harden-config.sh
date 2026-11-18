@@ -101,7 +101,8 @@ jq --arg localhost_origin "${scheme}://localhost:${port}" \
    --argjson ollama_num_ctx "$ollama_num_ctx" \
    --arg ollama_model "$ollama_model" \
    --arg model "$model" \
-   --argjson heartbeat_retired "$heartbeat_retired" '
+   --argjson heartbeat_retired "$heartbeat_retired" \
+   --arg sandbox_image "${OPENCLAW_SANDBOX_IMAGE:-openclaw-sandbox:trixie-slim}" '
     .gateway.mode = "local" |
     .gateway.bind = $bind |
     .gateway.auth.mode = "token" |
@@ -141,6 +142,9 @@ jq --arg localhost_origin "${scheme}://localhost:${port}" \
        .agents.defaults.modelPolicy.allow =
          (((.agents.defaults.modelPolicy.allow // []) + [$model]) | unique) |
        .agents.ownership = "explicit" |
+       # The image native-gateway.sh builds from docker/sandbox/Dockerfile, named
+       # so the gateway never falls back to a default it has no image for.
+       .agents.defaults.sandbox.docker.image = $sandbox_image |
        (if $heartbeat_retired then del(.agents.defaults.heartbeat)
         else .agents.defaults.heartbeat.agentId = "main" end) |
        .agents.defaults.systemAgent.agentId = "main" |

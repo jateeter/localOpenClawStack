@@ -66,6 +66,10 @@ check "entries: model allow-list and explicit owner" \
 # OpenClaw 2026.11.5 retired agents.defaults.heartbeat: a config carrying it is
 # refused at gateway start. Below that version the fleet still names its owner.
 check "entries: no heartbeat key from 2026.11.5" jq -e '.agents.defaults | has("heartbeat") | not' "$CFG"
+# The sandbox image is the one native-gateway.sh builds, named in the config:
+# under 2026.11.5 the default moved to trixie, and an image the host had not
+# built failed every sandboxed turn.
+check "entries: the sandbox image is named" jq -e '.agents.defaults.sandbox.docker.image == "openclaw-sandbox:trixie-slim" and .agents.defaults.sandbox.mode == "all"' "$CFG"
 HB="$T/entries-hb-old"
 OC_VERSION_OVERRIDE=2026.11.4 run_schema entries "$HB" "$HB" "$ROOT_DIR/scripts/harden-config.sh" >/dev/null
 check "entries: heartbeat owner below 2026.11.5" jq -e '.agents.defaults.heartbeat.agentId == "main"' "$HB/openclaw.json"
