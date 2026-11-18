@@ -27,9 +27,13 @@
 # install's machine catalog, a Docker volume (RealityEngine_CI#592). The
 # expected agents are then the config's own entries.
 #
-# Agents run sandboxed in Docker (sandbox.mode "all"). The sandbox image OpenClaw
-# expects, openclaw-sandbox:bookworm-slim, is not in the npm package; it is built
-# from docker/sandbox/Dockerfile, vendored from OpenClaw's source.
+# Agents run sandboxed in Docker (sandbox.mode "all"). The sandbox image,
+# openclaw-sandbox:trixie-slim (OpenClaw's default from 2026.11.5, Debian 13),
+# is not in the npm package; it is built from docker/sandbox/Dockerfile, vendored
+# from OpenClaw's source, and harden-config.sh names it in the config
+# (agents.defaults.sandbox.docker.image), so every OpenClaw version runs the
+# image built here. Under 2026.11.5 the old bookworm image no longer matched the
+# default, and every sandboxed turn failed with SandboxProvisioningError.
 #
 # The gateway token comes from .env when the gateway starts
 # (scripts/native-gateway-run.sh); it is never written into the LaunchAgent.
@@ -77,7 +81,8 @@ PORT="${OPENCLAW_GATEWAY_PORT:-18789}"
 LABEL="${OPENCLAW_NATIVE_LABEL:-org.realityengine.openclaw-gateway}"
 PLIST="${OPENCLAW_NATIVE_PLIST:-$HOME/Library/LaunchAgents/$LABEL.plist}"
 LOG_DIR="$NATIVE_HOME/logs"
-SANDBOX_IMAGE="openclaw-sandbox:bookworm-slim"
+SANDBOX_IMAGE="${OPENCLAW_SANDBOX_IMAGE:-openclaw-sandbox:trixie-slim}"
+export OPENCLAW_SANDBOX_IMAGE="$SANDBOX_IMAGE"
 CDP_PORT="${RE_PORT_BROWSER_CDP:-9222}"
 OLLAMA_URL="${OPENCLAW_NATIVE_OLLAMA_URL:-http://127.0.0.1:11434}"
 
