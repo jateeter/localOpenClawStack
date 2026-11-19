@@ -1,7 +1,7 @@
 # Machine-behavior agents for the RealityEngine regression corpus.
 #
 # GENERATED — do not edit by hand.
-#   source:     RealityEngine_CI/config/regression-corpus.txt (26 entries: 18 agents, 8 excluded by rule)
+#   source:     RealityEngine_CI/config/regression-corpus.txt (28 entries: 20 agents, 8 excluded by rule)
 #   regenerate: ./scripts/generate-regression-profile.py
 #   verify:     ./scripts/generate-regression-profile.py --check
 #
@@ -36,3 +36,5 @@ fall-detection                                                    # domains/heal
 built-space-well-community-and-hr-emergency-preparednes-93ab427c  # domains/built-space/BSX118_community-and-hr-emergency-preparedness-wellness.json
 community-services-behavioral-health-and-crisis-mobile-be7694f0   # domains/community-services/CSX022_behavioral-health-and-crisis-mobile-crisis-co-response.json
 transportation-fleet-security-and-safety-emergency-detour-safety  # domains/transportation/TFX047_security-and-safety-emergency-detour-safety.json
+ifrs-sec01-generalpurposefs-verifier                              # domains/ifrs-accounting/IFRS_Sec01_GeneralPurposeFS_Verifier.json
+ifrs-sec03-compliance-assertion-arbiter                           # domains/ifrs-accounting/IFRS_Sec03_Compliance_Assertion_Arbiter.json
