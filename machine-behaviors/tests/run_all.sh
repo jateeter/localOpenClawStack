@@ -16,3 +16,7 @@ MB_DEBUG=0 python3.13 tests/run_synthetic_body_tests.py
 echo ""
 echo "── materialize --check suite ──"
 MB_DEBUG=0 python3.13 tests/run_materialize_check_tests.py
+
+echo ""
+echo "── runtime adapters suite ──"
+MB_DEBUG=0 python3.13 tests/run_runtime_tests.py

@@ -15,6 +15,8 @@ item 2. It therefore deliberately:
 > Prototype target: Personal Health → **Home Chronic Pain Monitor**
 > (`RealityEngine_Machines/machines/HomeChronicPainMonitor.json`).
 
+> **Runtimes.** Agents are generated as runtime-neutral behaviors and rendered per runtime (OpenClaw today, ACP for the v0.0.3 transition): see [`RUNTIMES.md`](RUNTIMES.md).
+
 ---
 
 ## 1. Workflow analysis (what the prototype automates)

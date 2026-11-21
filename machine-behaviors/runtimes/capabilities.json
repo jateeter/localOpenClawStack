@@ -1,0 +1,55 @@
+{
+  "schemaVersion": "1.0.0",
+  "purpose": "How each runtime provides each abstract capability of a runtime-neutral agent behavior (RealityEngine_Machines schemas/agent-behavior.schema.json). A behavior grants capabilities; a renderer maps them here and fails on any capability its runtime cannot provide. 'endpoint' is the existing interface the tool wraps; 'implemented' says whether the tool wrapper exists today.",
+  "scopes": {
+    "frame": "Bound to one asset frame: the server holds only that frame's step capability (assetID frame isolation, CONTINUATIONS_APPROVAL_CHAIN.md).",
+    "instance": "Bound to the universe the agent runs beside (instance registry, PE, engines).",
+    "external": "Reaches a service outside the universe."
+  },
+  "capabilities": {
+    "frame.read": {"scope": "frame", "endpoint": "lifecycle GET /frames/:id (capability)", "implemented": false,
+                   "server": "re-lifecycle-frame", "tools": ["frame_read"]},
+    "frame.return.write": {"scope": "frame", "endpoint": "lifecycle PUT /frames/:id/return (capability)", "implemented": false,
+                           "server": "re-lifecycle-frame", "tools": ["frame_return_write"]},
+    "pod.read": {"scope": "frame", "endpoint": "lifecycle /pod proxy, read (capability, pinned revision)", "implemented": false,
+                 "server": "re-lifecycle-frame", "tools": ["pod_read"]},
+    "pod.write": {"scope": "frame", "endpoint": "lifecycle /pod proxy, write under the pinned ETag (pod:write scope)", "implemented": false,
+                  "server": "re-lifecycle-frame", "tools": ["pod_write"]},
+    "lifecycle.frame.open": {"scope": "instance", "endpoint": "lifecycle POST /frames", "implemented": false,
+                             "server": "re-lifecycle-admin", "tools": ["frame_open"]},
+    "lifecycle.continuation.invalidate": {"scope": "instance", "endpoint": "lifecycle continuation invalidation (new)", "implemented": false,
+                                          "server": "re-lifecycle-admin", "tools": ["continuation_invalidate"]},
+    "pe.completion.write": {"scope": "instance", "endpoint": "PE POST /api/integrations/completions (agentBinding.writeBack)", "implemented": true,
+                            "server": "dispatcher", "tools": []},
+    "pe.observations.read": {"scope": "instance", "endpoint": "PE GET /api/state, /api/sources", "implemented": false,
+                             "server": "re-mcp", "tools": ["pe_state", "pe_sources"]},
+    "kline.read": {"scope": "instance", "endpoint": "RE K-line histories (SURFACE_SPEC.md K-lines)", "implemented": false,
+                   "server": "re-mcp", "tools": ["kline_read"]},
+    "registry.read": {"scope": "instance", "endpoint": "instance registry (RE_REGISTRY_URL)", "implemented": false,
+                      "server": "re-mcp", "tools": ["registry_read"]},
+    "regression.report.read": {"scope": "instance", "endpoint": "RealityEngine_CI .regression-tests/runs/<id>/reports", "implemented": false,
+                               "server": "re-ci-reports", "tools": ["regression_report_read"]},
+    "rag.query": {"scope": "instance", "endpoint": "localAIStack /rag/query", "implemented": false,
+                  "server": "localai", "tools": ["rag_query"]},
+    "pki.crl.read": {"scope": "instance", "endpoint": "RealityEngine_CI scripts/lib/re_pki.py CRL", "implemented": false,
+                     "server": "re-pki", "tools": ["crl_read"]},
+    "egress.message.annotate": {"scope": "frame", "endpoint": "ACP/MCP boundary (new)", "implemented": false,
+                                "server": "re-egress", "tools": ["egress_annotate"]},
+    "egress.message.hold": {"scope": "frame", "endpoint": "ACP/MCP boundary (new)", "implemented": false,
+                            "server": "re-egress", "tools": ["egress_hold"]},
+    "delegation.clamp": {"scope": "instance", "endpoint": "A2A delegation control (new)", "implemented": false,
+                         "server": "re-delegation", "tools": ["delegation_clamp"]},
+    "human.notify": {"scope": "instance", "endpoint": "lifecycle reviewer routing / dokieli inbox", "implemented": false,
+                     "server": "re-lifecycle-admin", "tools": ["notify_roles"]}
+  },
+  "runtimes": {
+    "openclaw": {
+      "mcp": "gateway-wide: OpenClaw's mcp.servers bind to the gateway, not to one agent, so a frame-scoped server is shared by every agent (accepted deficiency, RealityEngine_CI#714). Frame-scoped capabilities render with that deficiency recorded.",
+      "toolPolicy": "a clone agent is allowed session_status only today (scripts/clone-agents.mjs); granted capabilities are recorded beside it for the gateway policy"
+    },
+    "acp": {
+      "mcp": "per session: ACP session/new takes the MCP servers for that session, so each frame-scoped server is started for one clone's session with that frame's capability only. Isolation by construction, which closes RealityEngine_CI#714.",
+      "protocol": "Agent Client Protocol (JSON-RPC over stdio): initialize, session/new {cwd, mcpServers}, session/prompt {sessionId, prompt}. Pin the protocol version when the runtime is chosen (v0.0.3)."
+    }
+  }
+}
