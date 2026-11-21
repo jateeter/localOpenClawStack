@@ -63,7 +63,8 @@ def main() -> int:
 
         rc, out = run("--check", "--manifest", str(MANIFEST))
         check("committed regression agents are current", rc == 0, out[-400:])
-        check("the manifest yields 18 agents", "checked 18 agent(s)" in out, out[:200])
+        # 20 since RealityEngine_CI#756 added the two IFRS chain templates (agents: #103).
+        check("the manifest yields 20 agents", "checked 20 agent(s)" in out, out[:200])
         check("fixtures are reported as excluded by rule", "conformance fixtures" in out)
         check("localAIStack machines are reported as excluded by rule", "not in the machine corpus" in out)
 
