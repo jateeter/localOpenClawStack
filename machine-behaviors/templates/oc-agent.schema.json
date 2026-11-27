@@ -25,8 +25,13 @@
     },
     "role": {
       "enum": [
-        "input-analyst"
-      ]
+        "input-analyst",
+        "output-actor",
+        "step-agent",
+        "watchdog-agent",
+        "deterministic-tool"
+      ],
+      "description": "The behavior's role (RealityEngine_Machines agent-behavior.schema.json). The corpus derives input-analysts; factory domains author the others."
     },
     "agentId": {
       "type": "string",
@@ -165,7 +170,6 @@
         },
         "inputAxes": {
           "type": "array",
-          "minItems": 1,
           "items": {
             "type": "object",
             "additionalProperties": false,
@@ -462,5 +466,28 @@
         }
       }
     }
-  }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "role": {
+            "const": "input-analyst"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "reasoning": {
+            "properties": {
+              "inputAxes": {
+                "type": "array",
+                "minItems": 1
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
 }

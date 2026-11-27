@@ -221,7 +221,7 @@ def _sequence_catalog(machine: dict[str, Any], metadata: dict[str, Any]) -> list
 def _system_prompt(name: str, description: str, axes: list[dict[str, Any]],
                    catalog: list[dict[str, Any]], population: str) -> str:
     lines = [
-        f"You are the OpenClaw input-analyst agent for the RealityEngine machine "
+        f"You are the input-analyst agent for the RealityEngine machine "
         f"\"{name}\".",
         "",
         "OBJECTIVE",
@@ -316,19 +316,8 @@ def _response_mapping(axes: list[dict[str, Any]], sensor_id: str,
             "mode": _ANALYST_MODE, "fields": fields}
 
 
-def _openclaw_template(cfg: dict[str, Any], agent_id: str) -> dict[str, Any]:
-    oc = as_object(cfg.get("openclaw"))
-    return {
-        "id": oc.get("id"), "kind": oc.get("kind"), "platform": oc.get("platform"),
-        "surface": oc.get("surface"), "command": oc.get("command"),
-        "gatewayUrl": oc.get("gatewayUrl"), "sessionKey": oc.get("sessionKey"),
-        "targetAgent": agent_id, "dispatchMode": oc.get("dispatchMode"),
-        "completionMode": oc.get("completionMode"),
-        "completionSourceMappingId": f"acp-{agent_id}-input-assessment",
-    }
-
-
-def derive(machine_path: Path, cfg: dict[str, Any] | None = None) -> dict[str, Any]:
+def derive_behavior(machine_path: Path, cfg: dict[str, Any] | None = None) -> dict[str, Any]:
+    """The runtime-neutral behavior (RealityEngine_Machines schemas/agent-behavior.schema.json)."""
     cfg = cfg or load_config()
     data = json.loads(Path(machine_path).read_text())
     machine = as_object(data.get("machine"))
@@ -400,26 +389,36 @@ def derive(machine_path: Path, cfg: dict[str, Any] | None = None) -> dict[str, A
     return {
         **derive_document_binding(machine_path, metadata),
         "schemaVersion": "1.0.0",
-        "templateId": "oc-agent-template",
+        "behaviorId": agent_id,
         "role": "input-analyst",
         "agentId": agent_id,
         "displayName": name,
+        "domain": domain,
         "machine": {
-            "id": machine_id,
-            "name": name, "code": code, "machineClass": machine_class,
-            "domain": domain, "inputRegion": in_region, "outputRegion": out_region,
+            "id": machine_id, "name": name, "file": Path(machine_path).name,
+            "machineClass": machine_class, "inputRegion": in_region, "outputRegion": out_region,
         },
-        "openclaw": _openclaw_template(cfg, agent_id),
+        "dispatch": {"mode": "observation-request", "trigger": agent_binding["trigger"]},
+        "capabilities": ["pe.completion.write", "pe.observations.read"],
         "reasoning": {
-            "objective": objective, "systemPrompt": system_prompt,
+            "objective": objective, "instructions": system_prompt,
             "outputContract": output_contract, "inputAxes": axes,
             "sequenceCatalog": catalog,
         },
         "agentBinding": agent_binding,
         "responseMapping": response_mapping,
-        "diagnostics": {"axisBasis": axis_basis, "warnings": warnings,
-                        "inputLength": length, "sequenceCount": len(catalog)},
+        "runtimeBindings": {"openclaw": {"templateId": "oc-agent-template", "machineCode": code}},
+        "provenance": {"deriver": "localOpenClawStack/machine-behaviors/oc_agent_template.py",
+                       "diagnostics": {"axisBasis": axis_basis, "warnings": warnings,
+                                       "inputLength": length, "sequenceCount": len(catalog)}},
     }
+
+
+def derive(machine_path: Path, cfg: dict[str, Any] | None = None) -> dict[str, Any]:
+    """The OpenClaw agent spec for a machine: the neutral behavior, rendered for OpenClaw."""
+    from runtimes import openclaw
+    cfg = cfg or load_config()
+    return openclaw.render(derive_behavior(machine_path, cfg), cfg)
 
 
 # --- simulated analysis turn (offline demo) ----------------------------------
