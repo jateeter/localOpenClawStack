@@ -20,7 +20,11 @@ profile header rather than failing or being dropped silently:
     `generated` contributor, the non-determinism they exist to disprove
     (RealityEngine_Machines/docs/CORPUS_EXIT_CRITERIA.md §3.3);
   * localAIStack machines (localAIStack/data/machines/): contracted in that repo,
-    not in the machine corpus, and OpenClaw derives no agent for them.
+    not in the machine corpus, and OpenClaw derives no agent for them;
+  * machine-factory candidates (RealityEngine_Machines/machine_factory/domains/
+    <package>/machines/): not admitted, so not in the corpus OpenClaw generates
+    agents from. A test-environment corpus may still boot them (RealityEngine_CI
+    config/extension-corpus.txt). Their agents, if any, come with admission.
 
 Any other entry that resolves to no agent is still an error.
 
@@ -116,6 +120,21 @@ def is_conformance_fixture(path: Path) -> bool:
             or FIXTURE_TAG in [str(t) for t in tagging.get("workflowTags") or []])
 
 
+def factory_candidate(machines_root: Path, entry: str) -> Path | None:
+    """The machine-factory candidate a manifest entry names, if any.
+
+    The factory sits beside machines/ in the corpus repo, so a run worktree's
+    corpus finds its own factory. Only each package's machines/ directory holds
+    candidates.
+    """
+    factory = machines_root.parent / "machine_factory" / "domains"
+    if not factory.is_dir():
+        return None
+    name = Path(entry).name
+    hits = sorted(p for p in factory.glob(f"*/machines/{name}") if p.is_file())
+    return hits[0] if len(hits) == 1 else None
+
+
 def build(manifest: Path, machines_root: Path, index: Path,
           local_ai_machines: Path = DEFAULT_LOCAL_AI_MACHINES, allow_empty: bool = False) -> str:
     agents = json.loads(index.read_text(encoding="utf-8"))["agents"]
@@ -138,6 +157,8 @@ def build(manifest: Path, machines_root: Path, index: Path,
             # be absent here and carries no agent; anything else is an error.
             if (local_ai_machines / Path(entry).name).is_file():
                 excluded.append((entry, "localAIStack machine: no OpenClaw agent"))
+            elif factory_candidate(machines_root, entry) is not None:
+                excluded.append((entry, "machine-factory candidate, not admitted: no OpenClaw agent"))
             else:
                 problems.append(str(exc))
             continue
